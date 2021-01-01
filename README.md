@@ -1,4 +1,5 @@
-# A game about vegtables
+# Vegetable Dash
+## A game about vegtables
 ## Because why not?
 - Use JavaScript
 - Browser game
