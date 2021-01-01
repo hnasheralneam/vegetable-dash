@@ -1,0 +1,16 @@
+body {
+   background-image: url("Images/start.png");
+   background-size: cover;
+}
+
+button {
+   margin: 15% 42%;
+   height: 50px;
+   width: 80px;
+   border: none;
+   border-right: solid 2px #606060;
+   border-bottom: solid 2px #606060;
+   border-radius: 5%;
+   background-image: url("Images/tilled.png");
+   background-size: cover;
+}
