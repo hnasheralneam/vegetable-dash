@@ -1,9 +1,36 @@
 body {
    background-image: url("../Images/tilled.png");
    background-size: contain;
-   height: 100vh;
 }
 
-.vegetable {
-   height: 75px;
+#land {
+   width: 500px;
+   height: 500px;
+   margin: 5px auto;
+   border: solid 5px #000;
+   border-radius: 5px;
+   display: grid;
+   grid-template-areas:
+   "auto auto auto"
+   "auto auto auto"
+   "auto auto auto";
+}
+
+.plot {
+   background-image: url("../Images/plot.png");
+   background-size: cover;
+   width: 150px;
+   height: 150px;
+   margin: 5px;
+   border: solid 2px black;
+   /* Grid for locked plots */
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   /* For smooth background transition */
+   transition: 2s;
+}
+
+.locked {
+   height: 130px;
 }
