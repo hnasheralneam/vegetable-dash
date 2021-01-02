@@ -1,6 +1,6 @@
 # Vegetable Dash
 
-## A game about vegtables
+## A game about vegetables
 
 ## Because why not?
 
@@ -10,7 +10,7 @@
 - Word game with plants
 - Use CSS grid
 - Hybridize and breed vegetables to get new kinds
-- Illustrations done in MS Paint (If I can't get Justin to help with Adobe)
+- Illustrations done in MS Paint (If I can't get Justin to  help with Adobe)
 
 Code Snippet 1
 
