@@ -1,6 +1,7 @@
 body {
-   background-image: url("../Images/tilled.png");
+   background-image: url("../Images/Homepage/tilled.png");
    background-size: contain;
+   overflow-x: hidden;
 }
 
 #land {
@@ -17,12 +18,13 @@ body {
 }
 
 .plot {
-   background-image: url("../Images/plot.png");
+   background-image: url("../Images/Plots/plot.png");
    background-size: cover;
    width: 150px;
    height: 150px;
    margin: 5px;
    border: solid 2px black;
+   border-radius: 2px;
    /* Grid for locked plots */
    display: flex;
    justify-content: center;
@@ -33,4 +35,81 @@ body {
 
 .locked {
    height: 130px;
+}
+
+#harvest1, #harvest2 {
+   display: none;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.lock-tooltip {
+   position: relative;
+   display: inline-block;
+}
+
+.lock-tooltip .tooltiptext::after {
+   content: " ";
+   position: absolute;
+   top: 50%;
+   right: 100%;
+   margin-top: -5px;
+   border-width: 5px;
+   border-style: solid;
+   border-color: transparent #606060 transparent transparent;
+}
+
+.lock-tooltip .tooltiptext {
+   background-color: #606060;
+   color: #fff;
+   border-radius: 6px;
+   padding: 5px 0;
+   opacity: 0;
+   transition: all .5s;
+   position: absolute;
+   height: 130px;
+   width: 125px;
+   text-align: center;
+   z-index: -1;
+}
+
+
+.lock-tooltip:hover .tooltiptext {
+   opacity: 1;
+   z-index: 1;
+}
+
+/* Left Tooltip */
+.lock-tooltip-left {
+   position: relative;
+   display: inline-block;
+}
+
+.lock-tooltip-left .tooltiptext-left::after {
+   content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent black;
+}
+
+.lock-tooltip-left .tooltiptext-left {
+   visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  right: 110%;
+}
+
+.lock-tooltip-left:hover .tooltiptext-left {
+  visibility: visible;
 }

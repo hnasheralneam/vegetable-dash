@@ -7,15 +7,18 @@
    </head>
    <body>
       <div id="land">
-         <div class="plot" id="plot1"><button onclick="plantPeas()">Grow Peas!</button></div>
-         <div class="plot" id="plot2"><img title="Locked!" class="locked" src="../Images/lock.png" alt="Locked"></div>
-         <div class="plot" id="plot3"><img title="Locked!" class="locked" src="../Images/lock.png" alt="Locked"></div>
-         <div class="plot" id="plot4"><img title="Locked!" class="locked" src="../Images/lock.png" alt="Locked"></div>
-         <div class="plot" id="plot5"><img title="Locked!" class="locked" src="../Images/lock.png" alt="Locked"></div>
-         <div class="plot" id="plot6"><img title="Locked!" class="locked" src="../Images/lock.png" alt="Locked"></div>
-         <div class="plot" id="plot7"><img title="Locked!" class="locked" src="../Images/lock.png" alt="Locked"></div>
-         <div class="plot" id="plot8"><img title="Locked!" class="locked" src="../Images/lock.png" alt="Locked"></div>
-         <div class="plot" id="plot9"><img title="Locked!" class="locked" src="../Images/lock.png" alt="Locked"></div>
+         <div class="plot" id="plot1"><button id="grow1" onclick="plantPeas()">Grow Peas!</button><button id="harvest1" onclick="harvest()">Harvest Peas!</button></div>
+         <div class="plot" id="plot2"><div class="lock-tooltip"><img id="lock2" title="Locked!" class="locked" src="../Images/lock.png" alt="Locked"><span class="tooltiptext"><br><br>This plot is locked <br> Pay 10 peas to unlock</span></div></div>
+         <div class="plot" id="plot3"><div class="lock-tooltip-left"><img id="lock3" title="Locked!" class="locked" src="../Images/lock.png" alt="Locked"><span class="tooltiptext-left"><br><br>This plot is locked <br> Purchase the previous plot to unlock</span></div></div>
+         <div class="plot" id="plot4"><div class="lock-tooltip"><img id="lock4" title="Locked!" class="locked" src="../Images/lock.png" alt="Locked"><span class="tooltiptext"><br><br>This plot is locked <br> Purchase the previous plot to unlock</span></div></div>
+         <div class="plot" id="plot5"><div class="lock-tooltip"><img id="lock5" title="Locked!" class="locked" src="../Images/lock.png" alt="Locked"><span class="tooltiptext"><br><br>This plot is locked <br> Purchase the previous plot to unlock</span></div></div>
+         <div class="plot" id="plot6"><div class="lock-tooltip-left"><img id="lock6" title="Locked!" class="locked" src="../Images/lock.png" alt="Locked"><span class="tooltiptext-left"><br><br>This plot is locked <br> Purchase the previous plot to unlock</span></div></div>
+         <div class="plot" id="plot7"><div class="lock-tooltip"><img id="lock7" title="Locked!" class="locked" src="../Images/lock.png" alt="Locked"><span class="tooltiptext"><br><br>This plot is locked <br> Purchase the previous plot to unlock</span></div></div>
+         <div class="plot" id="plot8"><div class="lock-tooltip"><img id="lock8" title="Locked!" class="locked" src="../Images/lock.png" alt="Locked"><span class="tooltiptext"><br><br>This plot is locked <br> Purchase the previous plot to unlock</span></div></div>
+         <div class="plot" id="plot9"><div class="lock-tooltip-left"><img id="lock9" title="Locked!" class="locked" src="../Images/lock.png" alt="Locked"><span class="tooltiptext-left"><br><br>This plot is locked <br> Purchase the previous plot to unlock</span></div></div>
+      </div>
+      <div class="information">
+
       </div>
    </body>
    <script src="main.js" charset="utf-8"></script>

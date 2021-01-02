@@ -1,5 +1,5 @@
 body {
-   background-image: url("Images/start.png");
+   background-image: url("Images/Homepage/start.png");
    background-size: cover;
 }
 
@@ -11,7 +11,7 @@ body {
    border-right: solid 2px #606060;
    border-bottom: solid 2px #606060;
    border-radius: 5%;
-   background-image: url("Images/tilled.png");
+   background-image: url("Images/Homepage/tilled.png");
    background-size: cover;
    color: #fff;
    text-shadow: 2px 2px 2px #606060;
