@@ -1,0 +1,9 @@
+body {
+   background-image: url("../Images/tilled.png");
+   background-size: contain;
+   height: 100vh;
+}
+
+.vegetable {
+   height: 250px;
+}
