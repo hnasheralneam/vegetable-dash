@@ -186,4 +186,47 @@ body {
    }
 }
 
-/* Nice gray #8D918D */
+@media (max-width: 740px) {
+   body {
+      padding-top: 80px;
+      grid-template-areas:
+      "a"
+      "b";
+   }
+   #land {
+      width: 85%;
+      height: auto;
+      grid-template-areas:
+      "auto auto"
+      "auto auto"
+      "auto auto"
+      "auto auto"
+      "auto auto";
+   }
+   #information {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: auto;
+      z-index: 2;
+      overflow-y: scroll;
+   }
+   #information div {
+      display: flex;
+   }
+   #information p {
+      margin: 5px;
+   }
+   #information h1 {
+      margin: 5px;
+   }
+   .plot {
+      width: auto;
+      height: auto;
+   }
+}
+
+/* Nice gray #8D918D
+I'll organize the CSS later*/
