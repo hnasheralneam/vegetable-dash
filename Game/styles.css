@@ -2,6 +2,26 @@ body {
    background-image: url("../Images/Homepage/tilled.png");
    background-size: contain;
    overflow-x: hidden;
+   display: grid;
+   grid-template-areas:
+   "auto auto"
+   "auto auto"
+   "auto auto";
+}
+
+#information {
+   background: #606060;
+   margin: 0 -5px;
+   height: 110%;
+   padding: 12px;
+   border-radius: 12px;
+   position: fixed;
+   right: 0;
+   top: 0;
+   width: 25%;
+   color: #fff;
+   text-shadow: .5px .5px .5px gold;
+   font-family: Helvetica, san-serif;
 }
 
 #land {
@@ -31,10 +51,20 @@ body {
    align-items: center;
    /* For smooth background transition */
    transition: 2s;
+   position: relative;
 }
 
 .locked {
    height: 130px;
+}
+
+.remaining-crop-time {
+   border: solid 2px #fff;
+   border-radius: 5px;
+   padding: 5px;
+   position: absolute;
+   bottom: 5px;
+   right: 5px;
 }
 
 #harvest1, #harvest2 {
@@ -65,7 +95,7 @@ body {
    border-radius: 6px;
    padding: 5px 0;
    opacity: 0;
-   transition: all .5s;
+   transition: opacity .5s;
    position: absolute;
    height: 130px;
    width: 125px;
@@ -73,43 +103,47 @@ body {
    z-index: -1;
 }
 
-
 .lock-tooltip:hover .tooltiptext {
    opacity: 1;
    z-index: 1;
 }
 
 /* Left Tooltip */
-.lock-tooltip-left {
+.lock-tooltip {
    position: relative;
    display: inline-block;
 }
 
-.lock-tooltip-left .tooltiptext-left::after {
+.lock-tooltip .tooltiptext-left::after {
    content: "";
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  margin-top: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent transparent black;
+   position: absolute;
+   top: 50%;
+   left: 100%;
+   margin-top: -5px;
+   border-width: 5px;
+   border-style: solid;
+   border-color: transparent transparent transparent #606060;
 }
 
-.lock-tooltip-left .tooltiptext-left {
-   visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  top: -5px;
-  right: 110%;
+.lock-tooltip .tooltiptext-left {
+   width: 120px;
+   background-color: #606060;
+   color: #fff;
+   text-align: center;
+   border-radius: 6px;
+   padding: 5px 0;
+   position: absolute;
+   height: 130px;
+   width: 125px;
+   z-index: 1;
+   top: -5px;
+   right: 110%;
+   transition: opacity .5s;
+   opacity: 0;
+   z-index: -1;
 }
 
-.lock-tooltip-left:hover .tooltiptext-left {
-  visibility: visible;
+.lock-tooltip:hover .tooltiptext-left {
+   opacity: 1;
+   z-index: 1;
 }
