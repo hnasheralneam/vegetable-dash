@@ -55,7 +55,7 @@ body {
 }
 
 #grow1, #grow2 {
-   transition: .5s;
+   transition: .2s;
    border-radius: 1px;
    position: absolute;
    z-index: 1;
@@ -79,7 +79,7 @@ body {
 }
 
 #harvest1, #harvest2 {
-   transition: .5s;
+   transition: .2s;
    border-radius: 1px;
    opacity: 0;
    z-index: -1;
