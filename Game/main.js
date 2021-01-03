@@ -230,15 +230,16 @@ var savegame = {
    plots: JSON.parse(localStorage.getItem("produce")),
 }
 
-// Set varibles as the saved items
-plotStatus = savegame.plotStatus;
-produce = savegame.produce;
-plots = savegame.plots;
-
-// If savegame is empty
 if (savegame !== null) {
    // Set defaults
    savegame.plotStatus = plotStatus;
    savegame.produce = produce;
    savegame.plots = plots;
 }
+
+// Set varibles as the saved items
+plotStatus = savegame.plotStatus;
+produce = savegame.produce;
+plots = savegame.plots;
+
+// If savegame is empty
