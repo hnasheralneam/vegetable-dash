@@ -1,28 +1,36 @@
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Copyright Janurary 1st 2021
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Copyright Janurary 1st 2021 by Squirrel
+~~~~~~~~~~~~~~~~~
+TABLE OF CONTENTS
+~~~~~~~~~~~~~~~~~
+Game Data          | All game information stored in object variables
+Peas               | All about the first plot
+Store              | Update the store
+Purchase Plots     | Functiona that unlock plots
+Setup              | Prepare game for returning player
+Save               | Save the game data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+// Initate JavaScript strict mode
+"use strict";
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Game Data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+// Set plot status of each plot (Empty, growing, done)
 let plotStatus = {
    peas: "empty",
    corn: "empty",
 }
 
+// Set the amount of player produce
 let produce = {
    peas: 0,
    corn: 0,
 }
 
+// Set the prices of each plot
 let plots = {
-   // P;lot status: open, opening, or locked
-   polt1: "open",
-   plot2: "locked",
-   plot3: "locked",
-   plot4: "locked",
-   plot5: "locked",
-   plot6: "locked",
-   plot7: "locked",
-   plot8: "locked",
-   plot9: "locked",
    // Plot Prices
    plot1Price: 0,
    plot2Price: 25,
@@ -35,162 +43,138 @@ let plots = {
    plot9Price: "undeterimed",
 }
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Communal Functions
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-function growing() {
-   plotStatus.peas = "growing";
-}
-
-function harvest() {
-   plotStatus.peas = "empty";
-   document.getElementById("grow1").style.opacity = "1";
-   document.getElementById("harvest1").style.display = "none";
-   produce.peas++;
-}
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Purchase Plots
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-// Plot 1 starts unlocked
-function purchasePlot2() {
-   if (produce.peas >= plots.plot2Price) {
-      produce.peas -= plots.plot2Price;
-      openLock();
-   }
-}
-
-function openLock() {
-   document.getElementById("lock2").classList.add("removing-lock");
-   setTimeout(removeLock, 2500);
-}
-
-function removeLock() {
-   let lock = document.getElementById("lockedDiv2");
-   lock.remove();
-   document.getElementById("openPlot2").style.display = "block";
-}
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Crop Time Remaining
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
-function getTimeRemaining(endtime) {
-  const total = Date.parse(endtime) - Date.parse(new Date());
-  const seconds = Math.floor((total / 1000) % 60);
-  const minutes = Math.floor((total / 1000 / 60) % 60);
-  const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
-
-  return {
-    total,
-    hours,
-    minutes,
-    seconds
-  };
-}
-
-function initializeClock(id, endtime) {
-   const clock = document.getElementById(id);
-   const hoursSpan = clock.querySelector('.hours');
-   const minutesSpan = clock.querySelector('.minutes');
-   const secondsSpan = clock.querySelector('.seconds');
-
-   function updateClock() {
-      const t = getTimeRemaining(endtime);
-      hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
-      minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
-      secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
-      if (t.total <= 0) {
-         clearInterval(timeinterval);
-      }
-   }
-   updateClock();
-   const timeinterval = setInterval(updateClock, 1000);
-}
-
-const deadline = new Date(Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000);
-initializeClock('clockdiv', deadline);
-*/
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Peas
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+// Triggred by onclick of grow peas
 function plantPeas() {
-   setTimeout(growing, 2000);
-   setTimeout(harvestReadyPeas, 5000);
+   // Set timeout for growingPeas and harvestReadyPeas
+   setTimeout(plotStatus.peas = "growing", 2000); // Change the status if peas to growing in 2 seconds
+   setTimeout(plotStatus.peas = "ready", 5000); // Change the status of peas to ready in 5 seconds
+   // Remove the grow peas button
    document.getElementById("grow1").style.opacity = "0";
 }
 
-function plantCorn() {
-   setTimeout(growing, 2000);
-   setTimeout(harvestReadyCorn, 5000);
-   document.getElementById("grow2").style.opacity = "0";
+function harvest() {
+   // Reset pea status to empty
+   plotStatus.peas = "empty";
+   // SHow the grow button
+   document.getElementById("grow1").style.opacity = "1";
+   // Remove the harvest button
+   document.getElementById("harvest1").style.opacity = "0";
+   // Put the harvets button on top
+   document.getElementById("harvest1").style.zIndex = "-1";
+   // Add one to peas
+   produce.peas++;
 }
-
-function harvestReadyPeas() {
-   plotStatus.peas = "ready";
-}
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Status
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function peaStatus() {
+   // If pea status is equal to the string "ready"
    if (plotStatus.peas === "ready") {
+      // Change background images to grow peas images
       document.getElementById("plot1").style.background = "url(../Images/Plots/grown-pea.png)";
       document.getElementById("plot1").style.backgroundSize = "cover";
-      document.getElementById("harvest1").style.display = "block";
+      // Show th eharvest button and put it on top
+      document.getElementById("harvest1").style.opacity = "1";
+      document.getElementById("harvest1").style.zIndex = "1";
    }
+   // If pea status is equal to the string "ready"
    else if (plotStatus.peas === "growing") {
+      // Change background images to sprouting plant image
       document.getElementById("plot1").style.background = "url(../Images/Plots/growing.png)";
       document.getElementById("plot1").style.backgroundSize = "cover";
    }
+   // Otherwise
    else {
+      // Change background images to empty plot image
       document.getElementById("plot1").style.background = "url(../Images/Plots/plot.png)";
       document.getElementById("plot1").style.backgroundSize = "cover";
    }
 }
 
-// Check Plant Status
-var plantStatus = window.setInterval(function() {
-   peaStatus();
-   produceDisplay();
-}, 200)
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Fresh Produce | Store
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 function produceDisplay() {
+   // Updates the amount of produce in store
    document.getElementById("peaBushels").innerHTML = `${produce.peas} Bushels of Peas`
 }
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var plantStatus = window.setInterval(function() {
+   // Check plant status
+   peaStatus();
+   // Update store
+   produceDisplay();
+}, 200)
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Purchase Plots
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+// Plot 1 starts unlocked
+function purchasePlot2() {
+   // If there are enough peas
+   if (produce.peas >= plots.plot2Price) {
+      // Substract that amount
+      produce.peas -= plots.plot2Price;
+      // And run unlocking plot animation
+      openLock();
+   }
+}
+
+function openLock() {
+   // Add the lock image an extra class for the opening lock animation
+   document.getElementById("lock2").classList.add("removing-lock");
+   // Remove the lock in 2.5 seconds, the amount of time it takes for the animaiton
+   setTimeout(removeLock, 2500);
+}
+
+function removeLock() {
+   // Sets the lock as the variable lock2
+   let lock2 = document.getElementById("lockedDiv2");
+   // Remove the element
+   lock2.remove();
+   // And reveal the div beneath
+   document.getElementById("openPlot2").style.display = "block";
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Setup
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 function setup() {
+   // Run product display
    produceDisplay();
 }
 
+// Run function setup when page loads
 window.onload = setup();
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Save
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+// Set game data variables to local storage
 var saveLoop = window.setInterval(function() {
+   localStorage.setItem("plotStatus", JSON.stringify(plotStatus));
    localStorage.setItem("produce", JSON.stringify(produce));
+   localStorage.setItem("plots", JSON.stringify(plots));
 }, 1000)
 
+// Find the items from loacl storage and assign to key
 var savegame = {
+   plotStatus: JSON.parse(localStorage.getItem("produce")),
    produce: JSON.parse(localStorage.getItem("produce")),
+   plots: JSON.parse(localStorage.getItem("produce")),
 }
 
+// Set varibles as the saved items
 produce = savegame.produce;
 
+// If savegame is empty
 if (savegame !== null) {
+   // Set defaults
    savegame.produce = produce;
 }
