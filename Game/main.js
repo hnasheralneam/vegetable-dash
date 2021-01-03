@@ -230,6 +230,7 @@ var savegame = {
    plots: JSON.parse(localStorage.getItem("produce")),
 }
 
+// If savegame is empty
 if (savegame !== null) {
    // Set defaults
    savegame.plotStatus = plotStatus;
@@ -241,5 +242,3 @@ if (savegame !== null) {
 plotStatus = savegame.plotStatus;
 produce = savegame.produce;
 plots = savegame.plots;
-
-// If savegame is empty
