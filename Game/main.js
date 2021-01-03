@@ -49,7 +49,7 @@ let plots = {
 
 // Triggred by onclick of grow peas
 function plantPeas() {
-   // Set timeout for growingPeas and harvestReadyPeas
+   // Set timeout for growingPeas and  readyPeas
    setTimeout(growingPeas, 2000); // Change the status if peas to growing in 2 seconds
    setTimeout(readyPeas, 5000); // Change the status of peas to ready in 5 seconds
    // Remove the grow peas button
@@ -59,18 +59,31 @@ function plantPeas() {
 function growingPeas() {plotStatus.peas = "growing";}
 function readyPeas() {plotStatus.peas = "ready";}
 
-function harvest() {
+function harvestPeas() {
    // Reset pea status to empty
    plotStatus.peas = "empty";
-   // SHow the grow button
+   // Show the grow button
    document.getElementById("grow1").style.opacity = "1";
    // Remove the harvest button
    document.getElementById("harvest1").style.opacity = "0";
    // Put the harvets button on top
    document.getElementById("harvest1").style.zIndex = "-1";
+   // Put grow peas button on top
+   document.getElementById("grow1").style.zIndex = "1";
    // Add one to peas
    produce.peas++;
 }
+
+/*
+// Attempt at reducing to one harvest function
+function harvest(veg, num) {
+   plotStatus.veg = "empty";
+   document.getElementById("grow" + num).style.opacity = "1";
+   document.getElementById("harvest1" + num).style.opacity = "0";
+   document.getElementById("harvest1" + num).style.zIndex = "-1";
+   produce.veg++;
+}
+*/
 
 function peaStatus() {
    // If pea status is equal to the string "ready"
@@ -81,6 +94,8 @@ function peaStatus() {
       // Show the harvest button and put it on top
       document.getElementById("harvest1").style.opacity = "1";
       document.getElementById("harvest1").style.zIndex = "1";
+      // Put the grow peas button under
+      document.getElementById("grow1").style.zIndex = "-1";
    }
    // If pea status is equal to the string "ready"
    else if (plotStatus.peas === "growing") {
@@ -97,20 +112,44 @@ function peaStatus() {
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Fresh Produce | Store
+// Corn
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-function produceDisplay() {
-   // Updates the amount of produce in store
-   document.getElementById("peaBushels").innerHTML = `${produce.peas} Bushels of Peas`
+function plantCorn() {
+   setTimeout(growingCorn, 8000);
+   setTimeout(readyCorn, 12000);
+   document.getElementById("grow2").style.opacity = "0";
 }
 
-var plantStatus = window.setInterval(function() {
-   // Check plant status
-   peaStatus();
-   // Update store
-   produceDisplay();
-}, 200)
+function growingCorn() {plotStatus.corn = "growing";}
+function readyCorn() {plotStatus.corn = "ready";}
+
+function harvestCorn() {
+   plotStatus.corn = "empty";
+   document.getElementById("grow2").style.opacity = "1";
+   document.getElementById("harvest2").style.opacity = "0";
+   document.getElementById("harvest2").style.zIndex = "-1";
+   document.getElementById("grow2").style.zIndex = "1";
+   produce.corn++;
+}
+
+function cornStatus() {
+   if (plotStatus.corn === "ready") {
+      document.getElementById("plot2").style.background = "url(../Images/Plots/grown-corn.png)";
+      document.getElementById("plot2").style.backgroundSize = "cover";
+      document.getElementById("harvest2").style.opacity = "1";
+      document.getElementById("harvest2").style.zIndex = "1";
+      document.getElementById("grow2").style.zIndex = "-1";
+   }
+   else if (plotStatus.corn === "growing") {
+      document.getElementById("plot2").style.background = "url(../Images/Plots/growing.png)";
+      document.getElementById("plot2").style.backgroundSize = "cover";
+   }
+   else {
+      document.getElementById("plot2").style.background = "url(../Images/Plots/plot.png)";
+      document.getElementById("plot2").style.backgroundSize = "cover";
+   }
+}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Purchase Plots
@@ -144,6 +183,24 @@ function removeLock() {
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Fresh Produce | Store
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+function produceDisplay() {
+   // Updates the amount of produce in store
+   document.getElementById("peaBushels").innerHTML = `${produce.peas} Bushels of Peas`
+   document.getElementById("cornBushels").innerHTML = `${produce.corn} Bushels of Corn`
+}
+
+var plantStatus = window.setInterval(function() {
+   // Check plant status
+   peaStatus();
+   cornStatus();
+   // Update store
+   produceDisplay();
+}, 200)
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Setup
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -174,10 +231,14 @@ var savegame = {
 }
 
 // Set varibles as the saved items
+plotStatus = savegame.plotStatus;
 produce = savegame.produce;
+plots = savegame.plots;
 
 // If savegame is empty
 if (savegame !== null) {
    // Set defaults
+   savegame.plotStatus = plotStatus;
    savegame.produce = produce;
+   savegame.plots = plots;
 }
