@@ -186,7 +186,7 @@ body {
    }
 }
 
-@media (max-width: 740px) {
+@media (max-width: 739px) {
    body {
       padding-top: 80px;
       grid-template-areas:
