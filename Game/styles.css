@@ -58,6 +58,7 @@ body {
    transition: .5s;
    border-radius: 1px;
    position: absolute;
+   z-index: 1;
 }
 
 .locked {
