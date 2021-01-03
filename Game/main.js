@@ -50,11 +50,14 @@ let plots = {
 // Triggred by onclick of grow peas
 function plantPeas() {
    // Set timeout for growingPeas and harvestReadyPeas
-   setTimeout(plotStatus.peas = "growing", 2000); // Change the status if peas to growing in 2 seconds
-   setTimeout(plotStatus.peas = "ready", 5000); // Change the status of peas to ready in 5 seconds
+   setTimeout(growingPeas, 2000); // Change the status if peas to growing in 2 seconds
+   setTimeout(readyPeas, 5000); // Change the status of peas to ready in 5 seconds
    // Remove the grow peas button
    document.getElementById("grow1").style.opacity = "0";
 }
+
+function growingPeas() {plotStatus.peas = "growing";}
+function readyPeas() {plotStatus.peas = "ready";}
 
 function harvest() {
    // Reset pea status to empty
@@ -75,7 +78,7 @@ function peaStatus() {
       // Change background images to grow peas images
       document.getElementById("plot1").style.background = "url(../Images/Plots/grown-pea.png)";
       document.getElementById("plot1").style.backgroundSize = "cover";
-      // Show th eharvest button and put it on top
+      // Show the harvest button and put it on top
       document.getElementById("harvest1").style.opacity = "1";
       document.getElementById("harvest1").style.zIndex = "1";
    }
