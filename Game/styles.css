@@ -78,7 +78,10 @@ body {
 }
 
 #harvest1, #harvest2 {
-   display: none;
+   transition: .5s;
+   border-radius: 1px;
+   opacity: 0;
+   z-index: -1;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~*/
