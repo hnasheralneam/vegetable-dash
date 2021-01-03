@@ -12,6 +12,29 @@ let produce = {
    corn: 0,
 }
 
+let plots = {
+   // P;lot status: open, opening, or locked
+   polt1: "open",
+   plot2: "locked",
+   plot3: "locked",
+   plot4: "locked",
+   plot5: "locked",
+   plot6: "locked",
+   plot7: "locked",
+   plot8: "locked",
+   plot9: "locked",
+   // Plot Prices
+   plot1Price: 0,
+   plot2Price: 25,
+   plot3Price: "undeterimed",
+   plot4Price: "undeterimed",
+   plot5Price: "undeterimed",
+   plot6Price: "undeterimed",
+   plot7Price: "undeterimed",
+   plot8Price: "undeterimed",
+   plot9Price: "undeterimed",
+}
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Communal Functions
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -22,52 +45,46 @@ function growing() {
 
 function harvest() {
    plotStatus.peas = "empty";
-   document.getElementById("grow1").style.display = "block";
+   document.getElementById("grow1").style.opacity = "1";
    document.getElementById("harvest1").style.display = "none";
    produce.peas++;
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Purchase Plots
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// Plot 1 starts unlocked
+function purchasePlot2() {
+   if (produce.peas >= plots.plot2Price) {
+      produce.peas -= plots.plot2Price;
+      openLock();
+   }
+}
+
+function openLock() {
+   document.getElementById("lock2").classList.add("removing-lock");
+   setTimeout(removeLock, 2500);
+}
+
+function removeLock() {
+   let lock = document.getElementById("lockedDiv2");
+   lock.remove();
+   document.getElementById("openPlot2").style.display = "block";
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Crop Time Remaining
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /*
-let hour, min, sec;
-
-function peaTime() {
-   hour = 0;
-   min = 0;
-   sec = 5;
-   setInterval(function() {
-      document.getElementById("peaTimeRemaining").innerHTML = `${hour} hours ${min} minutes ${sec} seconds`;
-      sec--;
-      if (sec === 00 && hour > 0) {
-         min --;
-         sec = 60;
-      }
-      if (min === 00 && hour > 0) {
-         hour --;
-         min = 60;
-      }
-      if (sec <= 0 && min === 0 && hour === 0 && plotStatus.peas === "empty") {
-         document.getElementById("peaTimeRemaining").innerHTML = "...";
-      }
-      else if (sec <= 0 && min === 0 && hour === 0) {
-         document.getElementById("peaTimeRemaining").innerHTML = "Done!";
-      }
-   }, 1000);
-}
-*/
-
 function getTimeRemaining(endtime) {
   const total = Date.parse(endtime) - Date.parse(new Date());
   const seconds = Math.floor((total / 1000) % 60);
   const minutes = Math.floor((total / 1000 / 60) % 60);
   const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
-  const days = Math.floor(total / (1000 * 60 * 60 * 24));
 
   return {
     total,
-    days,
     hours,
     minutes,
     seconds
@@ -75,32 +92,27 @@ function getTimeRemaining(endtime) {
 }
 
 function initializeClock(id, endtime) {
-  const clock = document.getElementById(id);
-  const daysSpan = clock.querySelector('.days');
-  const hoursSpan = clock.querySelector('.hours');
-  const minutesSpan = clock.querySelector('.minutes');
-  const secondsSpan = clock.querySelector('.seconds');
+   const clock = document.getElementById(id);
+   const hoursSpan = clock.querySelector('.hours');
+   const minutesSpan = clock.querySelector('.minutes');
+   const secondsSpan = clock.querySelector('.seconds');
 
-  function updateClock() {
-    const t = getTimeRemaining(endtime);
-
-    daysSpan.innerHTML = t.days;
-    hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
-    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
-    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
-
-    if (t.total <= 0) {
-      clearInterval(timeinterval);
-    }
-  }
-
-  updateClock();
-  const timeinterval = setInterval(updateClock, 1000);
+   function updateClock() {
+      const t = getTimeRemaining(endtime);
+      hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+      minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+      secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+      if (t.total <= 0) {
+         clearInterval(timeinterval);
+      }
+   }
+   updateClock();
+   const timeinterval = setInterval(updateClock, 1000);
 }
 
 const deadline = new Date(Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000);
 initializeClock('clockdiv', deadline);
-
+*/
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Peas
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -108,11 +120,13 @@ initializeClock('clockdiv', deadline);
 function plantPeas() {
    setTimeout(growing, 2000);
    setTimeout(harvestReadyPeas, 5000);
-   document.getElementById("grow1").style.display = "none";
-   // peaTime();
-   // hour = 0;
-   // min = 0;
-   // sec = 5;
+   document.getElementById("grow1").style.opacity = "0";
+}
+
+function plantCorn() {
+   setTimeout(growing, 2000);
+   setTimeout(harvestReadyCorn, 5000);
+   document.getElementById("grow2").style.opacity = "0";
 }
 
 function harvestReadyPeas() {
@@ -154,9 +168,29 @@ function produceDisplay() {
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Just Because
+// Setup
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function openLock() {
-   // Opening lock animation
+function setup() {
+   produceDisplay();
+}
+
+window.onload = setup();
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Save
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+var saveLoop = window.setInterval(function() {
+   localStorage.setItem("produce", JSON.stringify(produce));
+}, 1000)
+
+var savegame = {
+   produce: JSON.parse(localStorage.getItem("produce")),
+}
+
+produce = savegame.produce;
+
+if (savegame !== null) {
+   savegame.produce = produce;
 }
