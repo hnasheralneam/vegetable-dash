@@ -12,6 +12,7 @@
 - Hybridize and breed vegetables to get new kinds
 - Illustrations done in MS Paint (If I can't get Justin to  help with Adobe)
 
+// My notes
 Code Snippet 1
 
 ```
