@@ -3,10 +3,11 @@
 ~~~~~~~~~~~~~~~~~
 TABLE OF CONTENTS
 ~~~~~~~~~~~~~~~~~
+Idea               | Thoughts, plots, the lot
 Game Data          | All game information stored in object variables
 Peas               | All about the first plot
 Store              | Update the store
-Purchase Plots     | Functiona that unlock plots
+Purchase Plots     | Functions that unlock plots
 Setup              | Prepare game for returning player
 Settings           | So far, just restart
 Save               | Save the game data
@@ -14,6 +15,15 @@ Save               | Save the game data
 // Initate JavaScript strict mode
 "use strict";
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Ideas
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*
+//Automate harvesting while active
+if (poltStatus.peas = "ready") {
+   document.getElementById("harvest1").click();
+}
+*/
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Game Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -189,7 +199,7 @@ function harvestStrawberries() {
 
 function strawberriesStatus() {
    if (plotStatus.strawberries === "fruiting") {
-      document.getElementById("plot3").style.background = "url(../Images/fruiting-strawberry-plant.png)";
+      document.getElementById("plot3").style.background = "url(../Images/Plots/grown-strawberries.png)";
       document.getElementById("plot3").style.backgroundSize = "cover";
       document.getElementById("harvest3").style.opacity = "1";
       document.getElementById("harvest3").style.zIndex = "1";
@@ -271,8 +281,21 @@ function removeStrawberryLock() {
 
 function produceDisplay() {
    // Updates the amount of produce in store
-   document.getElementById("peaBushels").innerHTML = `${produce.peas} Bushels of Peas`
-   document.getElementById("cornBushels").innerHTML = `${produce.corn} Bushels of Corn`
+   // If the plot is unlocked
+   if (plots.peaplot === "unlocked") {
+      // Show the element
+      document.getElementById("peaBushels").style.visibility = "visible";
+      // Display the amount of that product
+      document.getElementById("peaBushels").innerHTML = `${produce.peas} Bushels of Peas`;
+   }
+   if (plots.cornplot === "unlocked") {
+      document.getElementById("cornBushels").style.visibility = "visible";
+      document.getElementById("cornBushels").innerHTML = `${produce.corn} Bushels of Corn`;
+   }
+   if (plots.strawberryplot === "unlocked") {
+      document.getElementById("strawberryBushels").style.visibility = "visible"; 
+      document.getElementById("strawberryBushels").innerHTML = `${produce.strawberries} Bushels of Strawberries`;
+   }
 }
 
 var plantStatus = window.setInterval(function() {

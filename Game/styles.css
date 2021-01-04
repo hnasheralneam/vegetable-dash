@@ -56,13 +56,18 @@ body {
 
 #grow1, #grow2, #grow3 {
    transition: .2s;
-   border-radius: 1px;
+   border-radius: 2px;
    position: absolute;
    z-index: 1;
+   border: solid 2px black;
 }
 
 .locked {
    height: 130px;
+}
+
+.produce p {
+   visibility: hidden;
 }
 
 .remaining-crop-time {
@@ -80,7 +85,7 @@ body {
 
 #harvest1, #harvest2, #harvest3 {
    transition: .2s;
-   border-radius: 1px;
+   border-radius: 2px;
    opacity: 0;
    z-index: -1;
 }
