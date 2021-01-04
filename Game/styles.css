@@ -54,7 +54,7 @@ body {
    position: relative;
 }
 
-#grow1, #grow2 {
+#grow1, #grow2, #grow3 {
    transition: .2s;
    border-radius: 1px;
    position: absolute;
@@ -74,11 +74,11 @@ body {
    right: 5px;
 }
 
-#openPlot2 {
+#openPlot2, #openPlot3 {
    display: none;
 }
 
-#harvest1, #harvest2 {
+#harvest1, #harvest2, #harvest3 {
    transition: .2s;
    border-radius: 1px;
    opacity: 0;

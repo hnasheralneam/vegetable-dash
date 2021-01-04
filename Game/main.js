@@ -22,12 +22,14 @@ Game Data
 let initalPlotStatus = {
    peas: "empty",
    corn: "empty",
+   strawberries: "empty",
 }
 
 // Set the amount of player produce
 let initalProduce = {
    peas: 0,
    corn: 0,
+   strawberries: 0,
 }
 
 // Set the prices of each plot
@@ -35,7 +37,8 @@ let initalPlots = {
    // Plot Prices
    plot1Price: 0,
    plot2Price: 25,
-   plot3Price: "undeterimed",
+   plot3PeaPrice: 75,
+   plot3CornPrice: 25,
    plot4Price: "undeterimed",
    plot5Price: "undeterimed",
    plot6Price: "undeterimed",
@@ -45,6 +48,7 @@ let initalPlots = {
    // Unlocked/locked
    peaplot: "unlocked",
    cornplot: "locked",
+   strawberryplot: "locked",
 }
 
 let plotStatus = initalPlotStatus;
@@ -171,11 +175,11 @@ function plantStrawberries() {
 }
 
 function sproutingStrawberries() {plotStatus.strawberries = "sprouting";}
-function floweringStrawberries() {plotStatus.strawberries = "growing";}
-function fruitingStrawberries() {plotStatus.strawberries = "growing";}
+function floweringStrawberries() {plotStatus.strawberries = "flowering";}
+function fruitingStrawberries() {plotStatus.strawberries = "fruiting";}
 
 function harvestStrawberries() {
-   plotStatus.corn = "empty";
+   plotStatus.strawberries = "empty";
    document.getElementById("grow3").style.opacity = "1";
    document.getElementById("harvest3").style.opacity = "0";
    document.getElementById("harvest3").style.zIndex = "-1";
@@ -184,19 +188,19 @@ function harvestStrawberries() {
 }
 
 function strawberriesStatus() {
-   if (plotStatus.strawberries === "ready") {
-      document.getElementById("plot3").style.background = "url(../Images/Plots/grown-corn.png)";
+   if (plotStatus.strawberries === "fruiting") {
+      document.getElementById("plot3").style.background = "url(../Images/fruiting-strawberry-plant.png)";
       document.getElementById("plot3").style.backgroundSize = "cover";
       document.getElementById("harvest3").style.opacity = "1";
       document.getElementById("harvest3").style.zIndex = "1";
       document.getElementById("grow3").style.zIndex = "-1";
    }
-   else if (plotStatus.strawberries === "sprouting") {
-      document.getElementById("plot3").style.background = "url(../Images/Plots/growing.png)";
+   else if (plotStatus.strawberries === "flowering") {
+      document.getElementById("plot3").style.background = "url(../Images/flowering-strawberry-plant.png)";
       document.getElementById("plot3").style.backgroundSize = "cover";
    }
    else if (plotStatus.strawberries === "sprouting") {
-      document.getElementById("plot3").style.background = "url(../Images/Plots/growing.png)";
+      document.getElementById("plot3").style.background = "url(../Images/strawberry-plant.png)";
       document.getElementById("plot3").style.backgroundSize = "cover";
    }
    else {
@@ -216,16 +220,30 @@ function purchasePlot2() {
       // Substract that amount
       produce.peas -= plots.plot2Price;
       // And run unlocking plot animation
-      openLock();
+      openCornLock();
    }
 }
 
-function openLock() {
+function purchasePlot3() {
+   if (produce.peas >= plots.plot3PeaPrice && produce.corn >= plots.plot3CornPrice) {
+      produce.peas -= plots.plot3PeaPrice;
+      produce.corn -= plots.plot3CornPrice;
+      openStrawberryLock();
+   }
+}
+
+function openCornLock() {
    // Add the lock image an extra class for the opening lock animation
    document.getElementById("lock2").classList.add("removing-lock");
    // Remove the lock in 2.5 seconds, the amount of time it takes for the animaiton
    setTimeout(removeLock, 2500);
    // Unlock third plot purchase
+   document.getElementById("lock3Text").innerHTML = 'This plot is locked <br> Pay 75 bushels of peas and 25 bushels of corn to unlock <br> <button class="purchase-plot" onclick="purchasePlot3()">Purchase Plot</button>';
+}
+
+function openStrawberryLock() {
+   document.getElementById("lock3").classList.add("removing-lock");
+   setTimeout(removeStrawberryLock, 2500);
    document.getElementById("lock3Text").innerHTML = 'This plot is locked <br> Pay 50 bushels of peas and 25 bushels of corn to unlock <br> <button class="purchase-plot" onclick="purchasePlot3()">Purchase Plot</button>';
 }
 
@@ -238,6 +256,13 @@ function removeLock() {
    document.getElementById("openPlot2").style.display = "block";
    // Add item to plots
    plots.cornplot = "unlocked";
+}
+
+function removeStrawberryLock() {
+   let lock3 = document.getElementById("lockedDiv3");
+   lock3.remove();
+   document.getElementById("openPlot3").style.display = "block";
+   plots.strawberryplot = "unlocked";
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -254,6 +279,7 @@ var plantStatus = window.setInterval(function() {
    // Check plant status
    peaStatus();
    cornStatus();
+   strawberriesStatus();
    // Update store
    produceDisplay();
 }, 200)
@@ -267,7 +293,10 @@ function setup() {
    produceDisplay();
 
    if (plots.cornplot === "unlocked") {
-      setTimeout(openLock, 500);
+      setTimeout(openCornLock, 500);
+   }
+   if (plots.strawberryplot === "unlocked") {
+      setTimeout(openStrawberryLock, 500);
    }
 }
 
@@ -303,6 +332,8 @@ function restart() {
          localStorage.setItem("plotStatus", JSON.stringify(plotStatus));
          localStorage.setItem("produce", JSON.stringify(produce));
          localStorage.setItem("plots", JSON.stringify(plots));
+         // Reload the page
+         window.location.href = "#";
       }
    }
 }
