@@ -111,7 +111,7 @@ function peaStatus() {
    // If pea status is equal to the string "ready"
    if (plotStatus.peas === "ready") {
       // Change background images to grow peas images
-      document.getElementById("plot1").style.background = "url(../Images/Plots/grown-pea.png)";
+      document.getElementById("plot1").style.background = "url(../Images/Vegetables/Peas/grown-pea.png)";
       document.getElementById("plot1").style.backgroundSize = "cover";
       // Show the harvest button and put it on top
       document.getElementById("harvest1").style.opacity = "1";
@@ -157,7 +157,7 @@ function harvestCorn() {
 
 function cornStatus() {
    if (plotStatus.corn === "ready") {
-      document.getElementById("plot2").style.background = "url(../Images/Plots/grown-corn.png)";
+      document.getElementById("plot2").style.background = "url(../Images/Vegetables/Corn/grown-corn.png)";
       document.getElementById("plot2").style.backgroundSize = "cover";
       document.getElementById("harvest2").style.opacity = "1";
       document.getElementById("harvest2").style.zIndex = "1";
@@ -199,18 +199,18 @@ function harvestStrawberries() {
 
 function strawberriesStatus() {
    if (plotStatus.strawberries === "fruiting") {
-      document.getElementById("plot3").style.background = "url(../Images/Plots/grown-strawberries.png)";
+      document.getElementById("plot3").style.background = "url(../Images/Fruits/Strawberries/grown-strawberries.png)";
       document.getElementById("plot3").style.backgroundSize = "cover";
       document.getElementById("harvest3").style.opacity = "1";
       document.getElementById("harvest3").style.zIndex = "1";
       document.getElementById("grow3").style.zIndex = "-1";
    }
    else if (plotStatus.strawberries === "flowering") {
-      document.getElementById("plot3").style.background = "url(../Images/flowering-strawberry-plant.png)";
+      document.getElementById("plot3").style.background = "url(../Images/Fruits/Strawberries/flowering-strawberries.png)";
       document.getElementById("plot3").style.backgroundSize = "cover";
    }
    else if (plotStatus.strawberries === "sprouting") {
-      document.getElementById("plot3").style.background = "url(../Images/strawberry-plant.png)";
+      document.getElementById("plot3").style.background = "url(../Images/Fruits/Strawberries/growing-strawberries.png)";
       document.getElementById("plot3").style.backgroundSize = "cover";
    }
    else {
@@ -293,7 +293,7 @@ function produceDisplay() {
       document.getElementById("cornBushels").innerHTML = `${produce.corn} Bushels of Corn`;
    }
    if (plots.strawberryplot === "unlocked") {
-      document.getElementById("strawberryBushels").style.visibility = "visible"; 
+      document.getElementById("strawberryBushels").style.visibility = "visible";
       document.getElementById("strawberryBushels").innerHTML = `${produce.strawberries} Bushels of Strawberries`;
    }
 }

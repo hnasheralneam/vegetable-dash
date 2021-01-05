@@ -181,13 +181,13 @@ body {
 /* Opening lock animation */
 @keyframes open-lock {
    0% {
-      content: url("../Images/lock.png");
+      content: url("../Images/Lock/lock.png");
    }
    20% {
-      content: url("../Images/open-lock.png");
+      content: url("../Images/Lock/open-lock.png");
    }
    100% {
-      content: url("../Images/open-lock.png");
+      content: url("../Images/Lock/open-lock.png");
    }
 }
 
