@@ -3,8 +3,9 @@
 ~~~~~~~~~~~~~~~~~
 TABLE OF CONTENTS
 ~~~~~~~~~~~~~~~~~
-Idea               | Thoughts, plots, the lot
+Ideas              | Thoughts, plots, the lot
 Game Data          | All game information stored in object variables
+Harvest & Plant    | Harvest function
 Peas               | All about the first plot
 Store              | Update the store
 Purchase Plots     | Functions that unlock plots
@@ -21,9 +22,10 @@ Ideas
 /*
 //Automate harvesting while active
 if (poltStatus.peas = "ready") {
-   document.getElementById("harvest1").click();
+   setTimeout(document.getElementById("harvestPeas").click());
 }
 */
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Game Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -66,8 +68,47 @@ let produce = initalProduce;
 let plots = initalPlots;
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Harvest & Plant
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+function harvest(veg) {
+   // Create proper IDs
+   let plntID = "grow" + veg;
+   let hrvstID = "harvest" + veg;
+
+   // If veg is equal to peas
+   if (veg === 'Peas') {
+      // Set plot status to empty
+      plotStatus.peas = "empty";
+      // Add one to peas
+      produce.peas++;
+   }
+   if (veg === "Corn") {
+      plotStatus.corn = "empty";
+      produce.corn++;
+   }
+   if (veg === "Strawberries") {
+      plotStatus.strawberries = "empty";
+      produce.strawberries++;
+   }
+   // Hide harvest button
+   document.getElementById(hrvstID).style.opacity = "0";
+   document.getElementById(hrvstID).style.zIndex = "-1";
+   // Display grow button
+   document.getElementById(plntID).style.opacity = "1";
+   document.getElementById(plntID).style.zIndex = "1";
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Peas
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+// Set peaPlot to pea plot div in HTML
+let peaPlot = document.getElementById("plot1");
+// Set pea plant button
+let peaPlntBtn = document.getElementById("growPeas");
+// Set pea harvets button
+let peaHvstBtn = document.getElementById("harvestPeas");
 
 // Triggred by onclick of grow peas
 function plantPeas() {
@@ -75,61 +116,35 @@ function plantPeas() {
    setTimeout(growingPeas, 2000); // Change the status if peas to growing in 2 seconds
    setTimeout(readyPeas, 5000); // Change the status of peas to ready in 5 seconds
    // Remove the grow peas button
-   document.getElementById("grow1").style.opacity = "0";
+   peaPlntBtn.style.opacity = "0";
 }
 
 function growingPeas() {plotStatus.peas = "growing";}
 function readyPeas() {plotStatus.peas = "ready";}
 
-function harvestPeas() {
-   // Reset pea status to empty
-   plotStatus.peas = "empty";
-   // Show the grow button
-   document.getElementById("grow1").style.opacity = "1";
-   // Remove the harvest button
-   document.getElementById("harvest1").style.opacity = "0";
-   // Put the harvets button on top
-   document.getElementById("harvest1").style.zIndex = "-1";
-   // Put grow peas button on top
-   document.getElementById("grow1").style.zIndex = "1";
-   // Add one to peas
-   produce.peas++;
-}
-
-/*
-// Attempt at reducing to one harvest function
-function harvest(veg, num) {
-   plotStatus.veg = "empty";
-   document.getElementById("grow" + num).style.opacity = "1";
-   document.getElementById("harvest1" + num).style.opacity = "0";
-   document.getElementById("harvest1" + num).style.zIndex = "-1";
-   produce.veg++;
-}
-*/
-
 function peaStatus() {
    // If pea status is equal to the string "ready"
    if (plotStatus.peas === "ready") {
       // Change background images to grow peas images
-      document.getElementById("plot1").style.background = "url(../Images/Vegetables/Peas/grown-pea.png)";
-      document.getElementById("plot1").style.backgroundSize = "cover";
+      peaPlot.style.background = "url(../Images/Vegetables/Peas/grown-pea.png)";
+      peaPlot.style.backgroundSize = "cover";
       // Show the harvest button and put it on top
-      document.getElementById("harvest1").style.opacity = "1";
-      document.getElementById("harvest1").style.zIndex = "1";
+      peaHvstBtn.style.opacity = "1";
+      peaHvstBtn.style.zIndex = "1";
       // Put the grow peas button under
-      document.getElementById("grow1").style.zIndex = "-1";
+      peaPlntBtn.style.zIndex = "-1";
    }
    // If pea status is equal to the string "ready"
    else if (plotStatus.peas === "growing") {
       // Change background images to sprouting plant image
-      document.getElementById("plot1").style.background = "url(../Images/Plots/growing.png)";
-      document.getElementById("plot1").style.backgroundSize = "cover";
+      peaPlot.style.background = "url(../Images/Plots/growing.png)";
+      peaPlot.style.backgroundSize = "cover";
    }
    // Otherwise
    else {
       // Change background images to empty plot image
-      document.getElementById("plot1").style.background = "url(../Images/Plots/plot.png)";
-      document.getElementById("plot1").style.backgroundSize = "cover";
+      peaPlot.style.background = "url(../Images/Plots/plot.png)";
+      peaPlot.style.backgroundSize = "cover";
    }
 }
 
@@ -137,39 +152,34 @@ function peaStatus() {
 // Corn
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+let cornPlot = document.getElementById("plot2");
+let cornPlntBtn = document.getElementById("growCorn");
+let cornHvstBtn = document.getElementById("harvestCorn");
+
 function plantCorn() {
    setTimeout(growingCorn, 8000);
    setTimeout(readyCorn, 12000);
-   document.getElementById("grow2").style.opacity = "0";
+   cornPlntBtn.style.opacity = "0";
 }
 
 function growingCorn() {plotStatus.corn = "growing";}
 function readyCorn() {plotStatus.corn = "ready";}
 
-function harvestCorn() {
-   plotStatus.corn = "empty";
-   document.getElementById("grow2").style.opacity = "1";
-   document.getElementById("harvest2").style.opacity = "0";
-   document.getElementById("harvest2").style.zIndex = "-1";
-   document.getElementById("grow2").style.zIndex = "1";
-   produce.corn++;
-}
-
 function cornStatus() {
    if (plotStatus.corn === "ready") {
-      document.getElementById("plot2").style.background = "url(../Images/Vegetables/Corn/grown-corn.png)";
-      document.getElementById("plot2").style.backgroundSize = "cover";
-      document.getElementById("harvest2").style.opacity = "1";
-      document.getElementById("harvest2").style.zIndex = "1";
-      document.getElementById("grow2").style.zIndex = "-1";
+      cornPlot.style.background = "url(../Images/Vegetables/Corn/grown-corn.png)";
+      cornPlot.style.backgroundSize = "cover";
+      cornHvstBtn.style.opacity = "1";
+      cornHvstBtn.style.zIndex = "1";
+      cornPlntBtn.style.zIndex = "-1";
    }
    else if (plotStatus.corn === "growing") {
-      document.getElementById("plot2").style.background = "url(../Images/Plots/growing.png)";
-      document.getElementById("plot2").style.backgroundSize = "cover";
+      cornPlot.style.background = "url(../Images/Plots/growing.png)";
+      cornPlot.style.backgroundSize = "cover";
    }
    else {
-      document.getElementById("plot2").style.background = "url(../Images/Plots/plot.png)";
-      document.getElementById("plot2").style.backgroundSize = "cover";
+      cornPlot.style.background = "url(../Images/Plots/plot.png)";
+      cornPlot.style.backgroundSize = "cover";
    }
 }
 
@@ -177,45 +187,40 @@ function cornStatus() {
 // Strawberries
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+let strawberriesPlot = document.getElementById("plot3");
+let strawberriesPlntBtn = document.getElementById("growStrawberries");
+let strawberriesHvstBtn = document.getElementById("harvestStrawberries");
+
 function plantStrawberries() {
    setTimeout(sproutingStrawberries, 20000);
    setTimeout(floweringStrawberries, 60000);
    setTimeout(fruitingStrawberries, 120000);
-   document.getElementById("grow3").style.opacity = "0";
+   strawberriesPlntBtn.style.opacity = "0";
 }
 
 function sproutingStrawberries() {plotStatus.strawberries = "sprouting";}
 function floweringStrawberries() {plotStatus.strawberries = "flowering";}
 function fruitingStrawberries() {plotStatus.strawberries = "fruiting";}
 
-function harvestStrawberries() {
-   plotStatus.strawberries = "empty";
-   document.getElementById("grow3").style.opacity = "1";
-   document.getElementById("harvest3").style.opacity = "0";
-   document.getElementById("harvest3").style.zIndex = "-1";
-   document.getElementById("grow3").style.zIndex = "1";
-   produce.strawberries++;
-}
-
 function strawberriesStatus() {
    if (plotStatus.strawberries === "fruiting") {
-      document.getElementById("plot3").style.background = "url(../Images/Fruits/Strawberries/grown-strawberries.png)";
-      document.getElementById("plot3").style.backgroundSize = "cover";
-      document.getElementById("harvest3").style.opacity = "1";
-      document.getElementById("harvest3").style.zIndex = "1";
-      document.getElementById("grow3").style.zIndex = "-1";
+      strawberriesPlot.style.background = "url(../Images/Fruits/Strawberries/grown-strawberries.png)";
+      strawberriesPlot.style.backgroundSize = "cover";
+      strawberriesHvstBtn.style.opacity = "1";
+      strawberriesHvstBtn.style.zIndex = "1";
+      strawberriesPlntBtn.style.zIndex = "-1";
    }
    else if (plotStatus.strawberries === "flowering") {
-      document.getElementById("plot3").style.background = "url(../Images/Fruits/Strawberries/flowering-strawberries.png)";
-      document.getElementById("plot3").style.backgroundSize = "cover";
+      strawberriesPlot.style.background = "url(../Images/Fruits/Strawberries/flowering-strawberries.png)";
+      strawberriesPlot.style.backgroundSize = "cover";
    }
    else if (plotStatus.strawberries === "sprouting") {
-      document.getElementById("plot3").style.background = "url(../Images/Fruits/Strawberries/growing-strawberries.png)";
-      document.getElementById("plot3").style.backgroundSize = "cover";
+      strawberriesPlot.style.background = "url(../Images/Fruits/Strawberries/growing-strawberries.png)";
+      strawberriesPlot.style.backgroundSize = "cover";
    }
    else {
-      document.getElementById("plot3").style.background = "url(../Images/Plots/plot.png)";
-      document.getElementById("plot3").style.backgroundSize = "cover";
+      strawberriesPlot.style.background = "url(../Images/Plots/plot.png)";
+      strawberriesPlot.style.backgroundSize = "cover";
    }
 }
 
@@ -316,10 +321,10 @@ function setup() {
    produceDisplay();
 
    if (plots.cornplot === "unlocked") {
-      setTimeout(openCornLock, 500);
+      openCornLock();
    }
    if (plots.strawberryplot === "unlocked") {
-      setTimeout(openStrawberryLock, 500);
+      openStrawberryLock();
    }
 }
 

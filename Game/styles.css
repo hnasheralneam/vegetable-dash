@@ -54,12 +54,13 @@ body {
    position: relative;
 }
 
-#grow1, #grow2, #grow3 {
+#growPeas, #growCorn, #growStrawberries {
    transition: .2s;
    border-radius: 2px;
    position: absolute;
    z-index: 1;
    border: solid 2px black;
+   opacity: 1;
 }
 
 .locked {
@@ -83,7 +84,7 @@ body {
    display: none;
 }
 
-#harvest1, #harvest2, #harvest3 {
+#harvestPeas, #harvestCorn, #harvestStrawberries {
    transition: .2s;
    border-radius: 2px;
    opacity: 0;
