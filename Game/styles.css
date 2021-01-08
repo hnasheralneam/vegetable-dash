@@ -74,14 +74,23 @@ Plots
    margin: 5px;
    border: solid 2px black;
    border-radius: 2px;
-   /* Grid for locked plots */
    display: flex;
    justify-content: center;
    align-items: center;
    /* For smooth background transition */
    transition: 2s;
    position: relative;
+}
+
+.ahh-perspective {
    perspective: 100px;
+   width: 150px;
+   height: 150px;
+   padding: 0;
+   margin: 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -127,11 +136,13 @@ Locks
 
 .lock-tooltip {
    position: relative;
-   display: inline-block;
+   display: block;
+   letter-spacing: -.5px;
+   font-family: "Nunito", sans-serif;
 }
 
 .lock-tooltip .tooltiptext::after {
-   content: " ";
+   content: "";
    position: absolute;
    top: 50%;
    right: 100%;
@@ -149,7 +160,7 @@ Locks
    opacity: 0;
    transition: opacity .5s;
    position: absolute;
-   height: 130px;
+   height: auto;
    width: 125px;
    text-align: center;
    z-index: -1;
@@ -160,45 +171,7 @@ Locks
    z-index: 1;
 }
 
-/* Left Tooltip */
-.lock-tooltip {
-   position: relative;
-   display: inline-block;
-}
-
-.lock-tooltip .tooltiptext-left::after {
-   content: "";
-   position: absolute;
-   top: 50%;
-   left: 100%;
-   margin-top: -5px;
-   border-width: 5px;
-   border-style: solid;
-   border-color: transparent transparent transparent #606060;
-}
-
-.lock-tooltip .tooltiptext-left {
-   width: 120px;
-   background-color: #606060;
-   color: #fff;
-   text-align: center;
-   border-radius: 6px;
-   padding: 5px 0;
-   position: absolute;
-   height: 130px;
-   width: 125px;
-   z-index: 1;
-   top: -5px;
-   right: 110%;
-   transition: opacity .5s;
-   opacity: 0;
-   z-index: -1;
-}
-
-.lock-tooltip:hover .tooltiptext-left {
-   opacity: 1;
-   z-index: 1;
-}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .purchase-plot {
    background-color: #272727;
@@ -228,6 +201,15 @@ Locks
 Other
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+.veg-icon {
+   height: 35px;
+   position: absolute;
+   top: 2px;
+   left: 2px;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 .produce p {
    visibility: hidden;
 }
@@ -241,7 +223,7 @@ Other
    right: 5px;
 }
 
-#openPlot2, #openPlot3 {
+#openPlot2, #openPlot3, #openPlot4 {
    display: none;
 }
 

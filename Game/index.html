@@ -2,53 +2,74 @@
 <html lang="en" dir="ltr">
    <head>
       <meta charset="utf-8">
+      <!-- Google Fonts -->
+      <!-- Nunito -->
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+      <!-- Roboto Condensed -->
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+      <!-- Favicon (Thanks, Justin) -->
       <link rel="shortcut icon" href="../Images/Global Assets/favicon.png" type="image/x-icon">
+      <!-- CSS Link -->
       <link rel="stylesheet" href="styles.css">
+      <!-- Page Title -->
       <title>Vegetable Dash!</title>
    </head>
    <body>
       <div id="land">
          <div class="plot" id="plot1">
-            <button class="grow-button" id="growPeas" onclick="plantPeas()">Grow Peas!<img class="seed-packet" src="../Images/Global Assets/seed-packet.png" alt=""></button>
-            <button class="harvest-button" id="harvestPeas" onclick="harvest('Peas')">Harvest Peas!<img class="sickle" src="../Images/Global Assets/sickle.png" alt=""></button>
+            <img class="veg-icon" src="../Images/Vegetables/Peas/pea.png" alt="">
+            <span class="ahh-perspective"><button class="grow-button" id="growPeas" onclick="plantPeas()">Grow Peas!<img class="seed-packet" src="../Images/Global Assets/seed-packet.png" alt=""></button>
+            <button class="harvest-button" id="harvestPeas" onclick="harvest('Peas')">Harvest Peas!<img class="sickle" src="../Images/Global Assets/sickle.png" alt=""></button></span>
          </div>
          <div class="plot" id="plot2">
             <div class="lock-tooltip" id="lockedDiv2">
                <img id="lock2" class="locked" src="../Images/Lock/lock.png" alt="Locked">
-               <span class="tooltiptext"><br><br>This plot is locked <br> Pay 25 bushels of peas to unlock <br> <button class="purchase-plot" onclick="purchasePlot2()">Purchase Plot</button></span>
+               <span class="tooltiptext">This plot is locked <br> Pay 25 bushels of peas to unlock <br> <button class="purchase-plot" onclick="purchasePlot2()">Purchase Plot</button></span>
             </div>
             <div id="openPlot2">
-               <button class="grow-button" id="growCorn" onclick="plantCorn()">Grow Corn!<img class="seed-packet" src="../Images/Global Assets/seed-packet.png" alt=""></button>
-               <button class="harvest-button" id="harvestCorn" onclick="harvest('Corn')">Harvest Corn!<img class="sickle" src="../Images/Global Assets/sickle.png" alt=""></button>
+               <img class="veg-icon" src="../Images/Vegetables/Corn/corn.png" alt="">
+               <span class="ahh-perspective"><button class="grow-button" id="growCorn" onclick="plantCorn()">Grow Corn!<img class="seed-packet" src="../Images/Global Assets/seed-packet.png" alt=""></button>
+               <button class="harvest-button" id="harvestCorn" onclick="harvest('Corn')">Harvest Corn!<img class="sickle" src="../Images/Global Assets/sickle.png" alt=""></button></span>
             </div>
          </div>
          <div class="plot" id="plot3">
             <div class="lock-tooltip" id="lockedDiv3">
                <img id="lock3" class="locked" src="../Images/Lock/lock.png" alt="Locked">
-               <span class="tooltiptext-left" id="lock3Text"><br><br>This plot is locked <br> Purchase the previous plot to unlock</span>
+               <span class="tooltiptext" id="lock3Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div id="openPlot3">
-               <button class="grow-button" id="growStrawberries" onclick="plantStrawberries()">Grow Strawberries!<img class="seed-packet" src="../Images/Global Assets/seed-packet.png" alt=""></button>
-               <button class="harvest-button" id="harvestStrawberries" onclick="harvest('Strawberries')">Harvest Strawberries!<img class="sickle" src="../Images/Global Assets/sickle.png" alt=""></button>
+               <img class="veg-icon" src="../Images/Fruits/Strawberries/strawberry.png" alt="">
+               <span class="ahh-perspective"><button class="grow-button" id="growStrawberries" onclick="plantStrawberries()">Grow Strawberries!<img class="seed-packet" src="../Images/Global Assets/seed-packet.png" alt=""></button>
+               <button class="harvest-button" id="harvestStrawberries" onclick="harvest('Strawberries')">Harvest Strawberries!<img class="sickle" src="../Images/Global Assets/sickle.png" alt=""></button></span>
             </div>
          </div>
          <div class="plot" id="plot4">
-            <div class="lock-tooltip" id="lockedDiv4"><img id="lock4" class="locked" src="../Images/Lock/lock.png" alt="Locked"><span class="tooltiptext"><br><br>This plot is locked <br> Purchase the previous plot to unlock</span></div>
+            <div class="lock-tooltip" id="lockedDiv4">
+               <img id="lock4" class="locked" src="../Images/Lock/lock.png" alt="Locked">
+               <span class="tooltiptext" id="lock4Text">This plot is locked <br> Purchase the previous plot to unlock</span>
+            </div>
+            <div id="openPlot4">
+               <img class="veg-icon" src="../Images/Vegetables/Eggplant/dark.png" alt="">
+               <span class="ahh-perspective"><button class="grow-button" id="growEggplants" onclick="plantEggplants()">Grow Eggplants!<img class="seed-packet" src="../Images/Global Assets/seed-packet.png" alt=""></button>
+               <button class="harvest-button" id="harvestEggplants" onclick="harvest('Eggplants')">Harvest Eggplants!<img class="sickle" src="../Images/Global Assets/sickle.png" alt=""></button></span>
+            </div>
          </div>
          <div class="plot" id="plot5">
-            <div class="lock-tooltip" id="lockedDiv5"><img id="lock5" class="locked" src="../Images/Lock/lock.png" alt="Locked"><span class="tooltiptext"><br><br>This plot is locked <br> Purchase the previous plot to unlock</span></div>
+            <div class="lock-tooltip" id="lockedDiv5"><img id="lock5" class="locked" src="../Images/Lock/lock.png" alt="Locked"><span class="tooltiptext"><br>This plot is locked <br> Purchase the previous plot to unlock<br><br></span></div>
          </div>
          <div class="plot" id="plot6">
-            <div class="lock-tooltip" id="lockedDiv6"><img id="lock6" class="locked" src="../Images/Lock/lock.png" alt="Locked"><span class="tooltiptext-left"><br><br>This plot is locked <br> Purchase the previous plot to unlock</span></div>
+            <div class="lock-tooltip" id="lockedDiv6"><img id="lock6" class="locked" src="../Images/Lock/lock.png" alt="Locked"><span class="tooltiptext"><br>This plot is locked <br> Purchase the previous plot to unlock<br><br></span></div>
          </div>
          <div class="plot" id="plot7">
-            <div class="lock-tooltip" id="lockedDiv7"><img id="lock7" class="locked" src="../Images/Lock/lock.png" alt="Locked"><span class="tooltiptext"><br><br>This plot is locked <br> Purchase the previous plot to unlock</span></div>
+            <div class="lock-tooltip" id="lockedDiv7"><img id="lock7" class="locked" src="../Images/Lock/lock.png" alt="Locked"><span class="tooltiptext"><br>This plot is locked <br> Purchase the previous plot to unlock<br><br></span></div>
          </div>
          <div class="plot" id="plot8">
-            <div class="lock-tooltip" id="lockedDiv8"><img id="lock8" class="locked" src="../Images/Lock/lock.png" alt="Locked"><span class="tooltiptext"><br><br>This plot is locked <br> Purchase the previous plot to unlock</span></div>
+            <div class="lock-tooltip" id="lockedDiv8"><img id="lock8" class="locked" src="../Images/Lock/lock.png" alt="Locked"><span class="tooltiptext"><br>This plot is locked <br> Purchase the previous plot to unlock<br><br></span></div>
          </div>
          <div class="plot" id="plot9">
-            <div class="lock-tooltip" id="lockedDiv9"><img id="lock9" class="locked" src="../Images/Lock/lock.png" alt="Locked"><span class="tooltiptext-left"><br><br>This plot is locked <br> Purchase the previous plot to unlock</span></div>
+            <div class="lock-tooltip" id="lockedDiv9"><img id="lock9" class="locked" src="../Images/Lock/lock.png" alt="Locked"><span class="tooltiptext"><br>This plot is locked <br> Purchase the previous plot to unlock<br><br></span></div>
          </div>
       </div>
       </div>
@@ -58,6 +79,7 @@
             <p id="peaBushels">0 Bushels of Peas</p>
             <p id="cornBushels">0 Bushels of Corn</p>
             <p id="strawberryBushels">0 Bushels of Strawberries</p>
+            <p id="eggplantBushels">0 Bushels of Eggplants</p>
          </div>
          <button onclick="restart()">Restart</button>
       </div>
