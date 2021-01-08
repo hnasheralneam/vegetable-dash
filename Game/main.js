@@ -35,6 +35,7 @@ let initalPlotStatus = {
    peas: "empty",
    corn: "empty",
    strawberries: "empty",
+   eggplants: "empty",
 }
 
 // Set the amount of player produce
@@ -42,6 +43,7 @@ let initalProduce = {
    peas: 0,
    corn: 0,
    strawberries: 0,
+   eggplants: 0,
 }
 
 // Set the prices of each plot
@@ -51,7 +53,9 @@ let initalPlots = {
    plot2Price: 25,
    plot3PeaPrice: 75,
    plot3CornPrice: 25,
-   plot4Price: "undeterimed",
+   plot4PeaPrice: 125,
+   plot4CornPrice: 75,
+   plot4StrawberryPrice: 25,
    plot5Price: "undeterimed",
    plot6Price: "undeterimed",
    plot7Price: "undeterimed",
@@ -61,6 +65,7 @@ let initalPlots = {
    peaplot: "unlocked",
    cornplot: "locked",
    strawberryplot: "locked",
+   eggplantplot: "locked",
 }
 
 let plotStatus = initalPlotStatus;
@@ -96,6 +101,10 @@ function harvest(veg) {
    if (veg === "Strawberries") {
       plotStatus.strawberries = "empty";
       produce.strawberries++;
+   }
+   if (veg === "Eggplants") {
+      plotStatus.eggplants = "empty";
+      produce.eggplants++;
    }
    // Hide harvest button
    document.getElementById(hrvstID).style.opacity = "0";
@@ -204,9 +213,9 @@ function plantStrawberries() {
    strawberriesPlntBtn.style.opacity = "0";
 }
 
-function sproutingStrawberries() {plotStatus.strawberries = "sprouting";}
-function floweringStrawberries() {plotStatus.strawberries = "flowering";}
-function fruitingStrawberries() {plotStatus.strawberries = "fruiting";}
+function sproutingStrawberries() {plotStatus.eggplant = "sprouting";}
+function floweringStrawberries() {plotStatus.eggplant = "flowering";}
+function fruitingStrawberries() {plotStatus.eggplant = "fruiting";}
 
 function strawberriesStatus() {
    if (plotStatus.strawberries === "fruiting") {
@@ -227,6 +236,41 @@ function strawberriesStatus() {
    else {
       strawberriesPlot.style.background = "url(../Images/Plots/plot.png)";
       strawberriesPlot.style.backgroundSize = "cover";
+   }
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Eggplant
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+let eggplantPlot = document.getElementById("plot4");
+let eggplantPlntBtn = document.getElementById("growEggplants");
+let eggplantHvstBtn = document.getElementById("harvestEggplants");
+
+function plantEggplants() {
+   setTimeout(growingEggplant, 120000);
+   setTimeout(readyEggplant, 480000);
+   eggplantPlntBtn.style.opacity = "0";
+}
+
+function growingEggplant() {plotStatus.eggplant = "growing";}
+function readyEggplant() {plotStatus.eggplant = "ready";}
+
+function eggplantStatus() {
+   if (plotStatus.eggplant === "ready") {
+      eggplantPlot.style.background = "url(../Images/Vegetables/Eggplant/grown-eggplant.png)";
+      eggplantPlot.style.backgroundSize = "cover";
+      eggplantHvstBtn.style.opacity = "1";
+      eggplantHvstBtn.style.zIndex = "1";
+      eggplantPlntBtn.style.zIndex = "-1";
+   }
+   else if (plotStatus.eggplant === "growing") {
+      eggplantPlot.style.background = "url(../Images/Plots/growing.png)";
+      eggplantPlot.style.backgroundSize = "cover";
+   }
+   else {
+      eggplantPlot.style.background = "url(../Images/Plots/plot.png)";
+      eggplantPlot.style.backgroundSize = "cover";
    }
 }
 
@@ -253,6 +297,15 @@ function purchasePlot3() {
    }
 }
 
+function purchasePlot4() {
+   if (produce.peas >= plots.plot4PeaPrice && produce.corn >= plots.plot4CornPrice  && produce.strawberries >= plots.plot4StrawberryPrice) {
+      produce.peas -= plots.plot4PeaPrice;
+      produce.corn -= plots.plot4CornPrice;
+      produce.strawberries >= plots.plot4StrawberryPrice;
+      openEggplantLock();
+   }
+}
+
 function openCornLock() {
    // Add the lock image an extra class for the opening lock animation
    document.getElementById("lock2").classList.add("removing-lock");
@@ -265,7 +318,12 @@ function openCornLock() {
 function openStrawberryLock() {
    document.getElementById("lock3").classList.add("removing-lock");
    setTimeout(removeStrawberryLock, 2500);
-   document.getElementById("lock3Text").innerHTML = 'This plot is locked <br> Pay 50 bushels of peas and 25 bushels of corn to unlock <br> <button class="purchase-plot" onclick="purchasePlot3()">Purchase Plot</button>';
+   document.getElementById("lock4Text").innerHTML = 'This plot is locked <br> Pay 125 bushels of peas, 75 bushels of corn, and 25 bushels of strawberries to unlock <br> <button class="purchase-plot" onclick="purchasePlot4()">Purchase Plot</button>';
+}
+
+function openEggplantLock() {
+   document.getElementById("lock4").classList.add("removing-lock");
+   setTimeout(removeEggplantLock, 2500);
 }
 
 function removeLock() {
@@ -284,6 +342,13 @@ function removeStrawberryLock() {
    lock3.remove();
    document.getElementById("openPlot3").style.display = "block";
    plots.strawberryplot = "unlocked";
+}
+
+function removeEggplantLock() {
+   let lock4 = document.getElementById("lockedDiv4");
+   lock4.remove();
+   document.getElementById("openPlot4").style.display = "block";
+   plots.eggplantplot = "unlocked";
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -307,6 +372,10 @@ function produceDisplay() {
       document.getElementById("strawberryBushels").style.visibility = "visible";
       document.getElementById("strawberryBushels").innerHTML = `${produce.strawberries} Bushels of Strawberries`;
    }
+   if (plots.eggplantplot === "unlocked") {
+      document.getElementById("eggplantBushels").style.visibility = "visible";
+      document.getElementById("eggplantBushels").innerHTML = `${produce.eggplants} Bushels of Eggplants`;
+   }
 }
 
 var plantStatus = window.setInterval(function() {
@@ -314,6 +383,7 @@ var plantStatus = window.setInterval(function() {
    peaStatus();
    cornStatus();
    strawberriesStatus();
+   eggplantStatus();
    // Update store
    produceDisplay();
 }, 200)
@@ -331,6 +401,9 @@ function setup() {
    }
    if (plots.strawberryplot === "unlocked") {
       openStrawberryLock();
+   }
+   if (plots.eggplantplot === "unlocked") {
+      openEggplantLock();
    }
 }
 
