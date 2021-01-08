@@ -1,3 +1,16 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Copyright Janurary 1st 2021 by Squirrel
+~~~~~~~~~~~~~~~~~
+TABLE OF CONTENTS
+~~~~~~~~~~~~~~~~~
+Side Bar           | The bar on the side
+Farmland           | The plot parent
+Plots              | Where plants are grown
+Buttons            | Mostly harvest and grow button
+Locks              | I spent too much time on this
+Other              | Gulp
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 body {
    background-image: url("../Images/Homepage/tilled.png");
    background-size: contain;
@@ -8,6 +21,14 @@ body {
    "auto auto"
    "auto auto";
 }
+
+::selection {
+   background-color: transparent;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Side Bar
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 #information {
    background: #606060;
@@ -24,6 +45,10 @@ body {
    font-family: Helvetica, san-serif;
 }
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Farmland
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 #land {
    width: 500px;
    height: 500px;
@@ -36,6 +61,10 @@ body {
    "auto auto auto"
    "auto auto auto";
 }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Plots
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .plot {
    background-image: url("../Images/Plots/plot.png");
@@ -52,46 +81,49 @@ body {
    /* For smooth background transition */
    transition: 2s;
    position: relative;
+   perspective: 100px;
 }
 
-#growPeas, #growCorn, #growStrawberries {
-   transition: .2s;
-   border-radius: 2px;
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Buttons
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.grow-button {
    position: absolute;
    z-index: 1;
-   border: solid 2px black;
    opacity: 1;
 }
 
-.locked {
-   height: 130px;
-}
-
-.produce p {
-   visibility: hidden;
-}
-
-.remaining-crop-time {
-   border: solid 2px #fff;
-   border-radius: 5px;
-   padding: 5px;
-   position: absolute;
-   bottom: 5px;
-   right: 5px;
-}
-
-#openPlot2, #openPlot3 {
-   display: none;
-}
-
-#harvestPeas, #harvestCorn, #harvestStrawberries {
-   transition: .2s;
-   border-radius: 2px;
+.harvest-button {
    opacity: 0;
    z-index: -1;
 }
 
-/*~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#land button {
+   transition: .2s;
+   border-radius: 2px;
+   border: solid 2px rgb(0, 0, 0, .2);
+   background-color: #FFD700;
+   padding: 5px;
+   color: #800080;
+   text-shadow: 0 0 1.2px #800080,
+                0 6px 8px #fff;
+}
+
+#land button:hover {
+   transform: rotateX(25deg) scale(1.05);
+   box-shadow: 0 2px .5px rgb(0, 0, 0, .6);
+   text-shadow: 0 0 #800080,
+                0 1px .2px rgb(0, 0, 0, .6);
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Locks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.locked {
+   height: 130px;
+}
 
 .lock-tooltip {
    position: relative;
@@ -192,47 +224,32 @@ body {
    }
 }
 
-@media only screen and (max-width: 600px) {
-   body {
-      padding-top: 80px;
-      grid-template-areas:
-      "a"
-      "b";
-   }
-   #land {
-      width: 85%;
-      height: auto;
-      grid-template-areas:
-      "auto auto"
-      "auto auto"
-      "auto auto"
-      "auto auto"
-      "auto auto";
-   }
-   #information {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-      height: auto;
-      z-index: 2;
-      overflow-y: scroll;
-   }
-   #information div {
-      display: flex;
-   }
-   #information p {
-      margin: 5px;
-   }
-   #information h1 {
-      margin: 5px;
-   }
-   .plot {
-      width: auto;
-      height: auto;
-   }
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Other
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.produce p {
+   visibility: hidden;
 }
 
-/* Nice gray #8D918D
-I'll organize the CSS later*/
+.remaining-crop-time {
+   border: solid 2px #fff;
+   border-radius: 5px;
+   padding: 5px;
+   position: absolute;
+   bottom: 5px;
+   right: 5px;
+}
+
+#openPlot2, #openPlot3 {
+   display: none;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.sickle, .seed-packet {
+   height: 15px;
+   margin: 0 -3.5px -3.5px 2px;
+}
+
+/* Nice gray #8D918D */
