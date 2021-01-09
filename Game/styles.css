@@ -3,12 +3,13 @@ Copyright Janurary 1st 2021 by Squirrel
 ~~~~~~~~~~~~~~~~~
 TABLE OF CONTENTS
 ~~~~~~~~~~~~~~~~~
-Side Bar           | The bar on the side
-Farmland           | The plot parent
-Plots              | Where plants are grown
-Buttons            | Mostly harvest and grow button
-Locks              | I spent too much time on this
-Other              | Gulp
+Side Bar             | The bar on the side
+Farmland             | The plot parent
+Plots                | Where plants are grown
+Buttons              | Mostly harvest and grow button
+Locks                | I spent too much time on this
+Vegetable Info Modal | Inforamtion about vegetables
+Other                | Gulp
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 body {
@@ -195,6 +196,55 @@ Locks
    100% {
       content: url("../Images/Lock/open-lock.png");
    }
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Vegetable Info Modal
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.veg-info {
+   visibility: collapse;
+   position: fixed;
+   z-index: 1;
+   padding-top: 100px;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content h4 {
+   font-size: 50px;
+   margin: 2px;
+}
+
+.info-icon {
+   height: 50px;
+   margin: 0 0 -2px 0;
+}
+
+.modal-content {
+   width: 80%;
+   margin: auto;
+   padding: 20px;
+   font-size: 20px;
+   border: 1px solid #888;
+   border-radius: 8px;
+   background-color: #fefefe;
+   text-align: center;
+   font-family: "Roboto Condensed";
+}
+
+.close {
+   color: #aaaaaa;
+   float: right;
+   font-size: 28px;
+   font-weight: bold;
+}
+
+.close:hover {
+   color: #000;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
