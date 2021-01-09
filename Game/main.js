@@ -5,6 +5,8 @@ TABLE OF CONTENTS
 ~~~~~~~~~~~~~~~~~
 Ideas              | Thoughts, plots, the lot
 Game Data          | All game information stored in object variables
+Time               | Still working on it
+Veg Info Modals    | Info about vegetables
 Harvest & Plant    | Harvest function
 Peas               | All about the first plot
 Store              | Update the store
@@ -79,6 +81,33 @@ let plots = initalPlots;
 
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Vegetable Info Modals
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+function infoModal(veg) {
+   // Set modal block ID
+   let modalID = "info" + veg;
+   let modalVisibility = document.getElementById(modalID).style.visibility;
+   // If modal is open, close it
+   if (modalVisibility === "visible") {
+      // Close Modal
+      document.getElementById(modalID).style.visibility = "collapse";
+   }
+   // Otherwise, open it
+   else {
+      // Make visible
+      document.getElementById(modalID).style.visibility = "visible";
+   }
+   // If user clicks away from info block
+   window.onclick = function(event) {
+      if (event.target == modalID) {
+         // Close the modal
+         document.getElementById(modalID).style.visibility = "collapse";
+      }
+   }
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Harvest & Plant
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -103,7 +132,7 @@ function harvest(veg) {
       produce.strawberries++;
    }
    if (veg === "Eggplants") {
-      plotStatus.eggplants = "empty";
+      plotStatus.eggplant = "empty";
       produce.eggplants++;
    }
    // Hide harvest button
@@ -213,9 +242,9 @@ function plantStrawberries() {
    strawberriesPlntBtn.style.opacity = "0";
 }
 
-function sproutingStrawberries() {plotStatus.eggplant = "sprouting";}
-function floweringStrawberries() {plotStatus.eggplant = "flowering";}
-function fruitingStrawberries() {plotStatus.eggplant = "fruiting";}
+function sproutingStrawberries() {plotStatus.strawberries = "sprouting";}
+function floweringStrawberries() {plotStatus.strawberries = "flowering";}
+function fruitingStrawberries() {plotStatus.strawberries = "fruiting";}
 
 function strawberriesStatus() {
    if (plotStatus.strawberries === "fruiting") {
