@@ -27,6 +27,10 @@ body {
    background-color: transparent;
 }
 
+::-webkit-scrollbar {
+   display: none;
+}
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Side Bar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -256,6 +260,27 @@ Other
    position: absolute;
    top: 2px;
    left: 2px;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.shop-window {
+   position: absolute;
+   top: -16px;
+   right: 0;
+   bottom: 0;
+   height: 100%;
+   background-color: rgb(0, 0, 0, .8);
+   list-style-type: none;
+   overflow-y: scroll;
+}
+
+.shop-window li {
+   margin: 8px 8px 8px -24px;
+}
+
+.store-icon {
+   height: 35px;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~*/
