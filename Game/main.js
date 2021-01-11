@@ -98,7 +98,7 @@ function infoModal(veg) {
       // Make visible
       document.getElementById(modalID).style.visibility = "visible";
    }
-   // If user clicks away from info block
+   // If user clicks away from info block ()Does not work
    window.onclick = function(event) {
       if (event.target == modalID) {
          // Close the modal
