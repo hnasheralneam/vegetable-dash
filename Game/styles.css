@@ -274,6 +274,11 @@ Shop
 
 .store-icon {
    height: 35px;
+   transition: .5s;
+}
+
+.store-icon:hover {
+   transform: scale(1.2);
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -6,6 +6,7 @@ TABLE OF CONTENTS
 Ideas              | Thoughts, plots, the lot
 Game Data          | All game information stored in object variables
 Time               | Still working on it
+Tend               | EXPERIMENTAL
 Veg Info Modals    | Info about vegetables
 Harvest & Plant    | Harvest function
 Peas               | All about the first plot
@@ -38,6 +39,7 @@ let initalPlotStatus = {
    corn: "empty",
    strawberries: "empty",
    eggplants: "empty",
+   multiplot1: "empty",
 }
 
 // Set the amount of player produce
@@ -78,7 +80,80 @@ let plots = initalPlots;
 // Time
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+// Actually random test
+let rand = Math.random();
+let amount = 30;
 
+// Function snow
+if (rand <= 0.15) {  // 15% percent
+   console.log(`It snowed! You lost ${amount}% of your vegetables!`);
+}
+
+// Funciton rain
+// Thsi function is run every time somthing is harvested
+if (rand <= 0.02) {  // 2% percent
+   console.log(`It rained! Your harvest had 2x as much profit!`);
+}
+
+// Every 5 seconds run random
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Tend
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+function tend(plotID, veg, plotStatVal) {
+   if (veg === "Peas") {
+      // If the plant is not ready or growing
+      if (plotStatVal != "ready" || "growing") {
+         setTimeout(grwnPeas, 2000);
+         setTimeout(rdyPeas, 5000);
+         function grwnPeas() {plotStatVal = "growing";}
+         function rdyPeas() {plotStatVal = "ready";}
+      }
+      // If the plant is ready
+      else if (plotStatVal == "ready") {
+         console.log("Other Error");
+         plotStatVal = "empty";
+         let thing = "produce." + veg;
+         console.log(thing);
+         produce.veg++;
+      }
+      // Otherwise
+      else {
+         console.log("Error");
+      }
+
+
+      function peaStus() {
+         if (plotStatVal === "ready") {
+            plotID.style.background = "url(../Images/Vegetables/Peas/grown-pea.png)";
+            plotID.style.backgroundSize = "cover";
+         }
+         else if (plotStatVal === "growing") {
+            plotID.style.background = "url(../Images/Plots/growing.png)";
+            plotID.style.backgroundSize = "cover";
+         }
+         else {
+            plotID.style.background = "url(../Images/Plots/plot.png)";
+            plotID.style.backgroundSize = "cover";
+         }
+      }
+      var plantStus = window.setInterval(function() {
+         peaStus();
+      }, 200)
+   }
+   if (veg === "Corn") {
+
+   }
+   if (veg === "Strawberries") {
+
+   }
+   if (veg === "Eggplant") {
+      // if (plotStatus.eggplant = "ready") {
+      //    harvest // otherwise plant
+      // }
+   }
+}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Vegetable Info Modals
