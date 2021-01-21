@@ -297,7 +297,7 @@ Quests
 /* Quest in General */
 .quest-block {
    border-radius: 5%;
-   background-color: #d7da99;
+   background-color: #f9fcb7;
    width: 100%;
    height: 150px;
    margin: 25px auto;
@@ -309,7 +309,7 @@ Quests
 }
 
 .quest-block:hover {
-   box-shadow: 0 0 12px #262626;
+   box-shadow: 0 0 18px #262626;
 }
 
 .quest-text {
@@ -324,8 +324,8 @@ Quests
 }
 
 #grandpa-image {
-   margin: -50px 0 0 -50px;
-   height: 250px;
+   margin: -56px 0 0 -50px;
+   height: 240px;
 }
 
 #grandma-image {
