@@ -431,6 +431,11 @@ function removeEggplantLock() {
 // Quests
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+let questStatus =  {
+   // Started ect.
+   meetJeb: ""
+}
+
 // Toggle quest bar
 document.addEventListener("keyup", function(event) {
    if (event.ctrlKey && event.keyCode === 81) {
@@ -447,7 +452,7 @@ function questbar() {
    document.querySelector("#questContent").style.width = "500px";
    document.getElementById("innerQuestContent").style.display = "block";
    document.getElementById("questContent").style.zIndex = "1";
-   document.getElementById("questRibbon").style.left = "-100px";
+   document.getElementById("questRibbon").style.left = "500px";
    document.getElementById("darkShadow").style.visibility = "visible";
 }
 
@@ -455,7 +460,7 @@ function closequestbar() {
    document.getElementById("questContent").style.width = "0";
    document.getElementById("innerQuestContent").style.display = "none";
    document.getElementById("questContent").style.zIndex = "-1";
-   document.getElementById("questRibbon").style.left = "-600px";
+   document.getElementById("questRibbon").style.left = "0";
    document.getElementById("darkShadow").style.visibility = "collapse";
 }
 

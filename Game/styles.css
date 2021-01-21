@@ -276,8 +276,8 @@ Quests
 .quest-ribbon {
    position: fixed;
    top: 12%;
-   left: -600px;
-   height: 95px;
+   left: 0;
+   height: 90px;
    z-index: 1;
    transition: 0.8s;
 }
@@ -294,6 +294,12 @@ Quests
    background-color: rgba(0, 0, 0, 0.7);
 }
 
+.quest-gold-separator {
+   height: 150px;
+   width: 25px;
+   margin: 0 10px 0 -10px;
+}
+
 /* Quest in General */
 .quest-block {
    border-radius: 10px;
@@ -303,9 +309,10 @@ Quests
    margin: 25px auto;
    overflow: hidden;
    display: grid;
-   grid-template-columns: auto auto;
+   grid-template-columns: auto auto auto;
    box-shadow: 0 0 2px #262626;
    transition: 0.5s;
+   position: relative;
 }
 
 .quest-block:hover {
