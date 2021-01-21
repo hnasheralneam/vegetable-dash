@@ -431,8 +431,20 @@ function removeEggplantLock() {
 // Quests
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+// Toggle quest bar
+document.addEventListener("keyup", function(event) {
+   if (event.ctrlKey && event.keyCode === 81) {
+    if (document.querySelector("#questContent").style.width === "500px") {
+      closequestbar();
+   }
+   else {
+      questbar();
+  }
+  }
+});
+
 function questbar() {
-   document.getElementById("questContent").style.width = "500px";
+   document.querySelector("#questContent").style.width = "500px";
    document.getElementById("innerQuestContent").style.display = "block";
    document.getElementById("questContent").style.zIndex = "1";
    document.getElementById("questRibbon").style.left = "-100px";
