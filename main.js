@@ -217,7 +217,7 @@ function peaStatus() {
    // If pea status is equal to the string "ready"
    if (plotStatus.peas === "ready") {
       // Change background images to grow peas images
-      peaPlot.style.background = "url(../Images/Vegetables/Peas/grown-pea.png)";
+      peaPlot.style.background = "url(Images/Vegetables/Peas/grown-pea.png)";
       peaPlot.style.backgroundSize = "cover";
       // Show the harvest button and put it on top
       peaHvstBtn.style.opacity = "1";
@@ -228,13 +228,13 @@ function peaStatus() {
    // If pea status is equal to the string "ready"
    else if (plotStatus.peas === "growing") {
       // Change background images to sprouting plant image
-      peaPlot.style.background = "url(../Images/Plots/growing.png)";
+      peaPlot.style.background = "url(Images/Plots/growing.png)";
       peaPlot.style.backgroundSize = "cover";
    }
    // Otherwise
    else {
       // Change background images to empty plot image
-      peaPlot.style.background = "url(../Images/Plots/plot.png)";
+      peaPlot.style.background = "url(Images/Plots/plot.png)";
       peaPlot.style.backgroundSize = "cover";
    }
 }
@@ -258,18 +258,18 @@ function readyCorn() {plotStatus.corn = "ready";}
 
 function cornStatus() {
    if (plotStatus.corn === "ready") {
-      cornPlot.style.background = "url(../Images/Vegetables/Corn/grown-corn.png)";
+      cornPlot.style.background = "url(Images/Vegetables/Corn/grown-corn.png)";
       cornPlot.style.backgroundSize = "cover";
       cornHvstBtn.style.opacity = "1";
       cornHvstBtn.style.zIndex = "1";
       cornPlntBtn.style.zIndex = "-1";
    }
    else if (plotStatus.corn === "growing") {
-      cornPlot.style.background = "url(../Images/Plots/growing.png)";
+      cornPlot.style.background = "url(Images/Plots/growing.png)";
       cornPlot.style.backgroundSize = "cover";
    }
    else {
-      cornPlot.style.background = "url(../Images/Plots/plot.png)";
+      cornPlot.style.background = "url(Images/Plots/plot.png)";
       cornPlot.style.backgroundSize = "cover";
    }
 }
@@ -295,22 +295,22 @@ function fruitingStrawberries() {plotStatus.strawberries = "fruiting";}
 
 function strawberriesStatus() {
    if (plotStatus.strawberries === "fruiting") {
-      strawberriesPlot.style.background = "url(../Images/Fruits/Strawberries/grown-strawberries.png)";
+      strawberriesPlot.style.background = "url(Images/Fruits/Strawberries/grown-strawberries.png)";
       strawberriesPlot.style.backgroundSize = "cover";
       strawberriesHvstBtn.style.opacity = "1";
       strawberriesHvstBtn.style.zIndex = "1";
       strawberriesPlntBtn.style.zIndex = "-1";
    }
    else if (plotStatus.strawberries === "flowering") {
-      strawberriesPlot.style.background = "url(../Images/Fruits/Strawberries/flowering-strawberries.png)";
+      strawberriesPlot.style.background = "url(Images/Fruits/Strawberries/flowering-strawberries.png)";
       strawberriesPlot.style.backgroundSize = "cover";
    }
    else if (plotStatus.strawberries === "sprouting") {
-      strawberriesPlot.style.background = "url(../Images/Fruits/Strawberries/growing-strawberries.png)";
+      strawberriesPlot.style.background = "url(Images/Fruits/Strawberries/growing-strawberries.png)";
       strawberriesPlot.style.backgroundSize = "cover";
    }
    else {
-      strawberriesPlot.style.background = "url(../Images/Plots/plot.png)";
+      strawberriesPlot.style.background = "url(Images/Plots/plot.png)";
       strawberriesPlot.style.backgroundSize = "cover";
    }
 }
@@ -334,18 +334,18 @@ function readyEggplant() {plotStatus.eggplant = "ready";}
 
 function eggplantStatus() {
    if (plotStatus.eggplant === "ready") {
-      eggplantPlot.style.background = "url(../Images/Vegetables/Eggplant/grown-eggplant.png)";
+      eggplantPlot.style.background = "url(Images/Vegetables/Eggplant/grown-eggplant.png)";
       eggplantPlot.style.backgroundSize = "cover";
       eggplantHvstBtn.style.opacity = "1";
       eggplantHvstBtn.style.zIndex = "1";
       eggplantPlntBtn.style.zIndex = "-1";
    }
    else if (plotStatus.eggplant === "growing") {
-      eggplantPlot.style.background = "url(../Images/Plots/growing.png)";
+      eggplantPlot.style.background = "url(Images/Plots/growing.png)";
       eggplantPlot.style.backgroundSize = "cover";
    }
    else {
-      eggplantPlot.style.background = "url(../Images/Plots/plot.png)";
+      eggplantPlot.style.background = "url(Images/Plots/plot.png)";
       eggplantPlot.style.backgroundSize = "cover";
    }
 }
@@ -436,7 +436,6 @@ let introPartsDone = {
    hello: "no",
    meetGramps: "no",
    planting: "no",
-   harvesting: "no",
    sidebar: "no",
    meetGran: "no",
    bushes: "no",
@@ -456,6 +455,14 @@ function intro() {
    // Set important DOM objects
    let introShadow = document.querySelector(".introDarkShadow");
    let qstRibbon = document.getElementById("questRibbon");
+   // Set people
+   let jeb = document.querySelector(".meet-jeb");
+   let gramps = document.querySelector(".meet-gramps");
+   let gran = document.querySelector(".meet-gran");
+   // Set text of people
+   let jebText = document.querySelector(".jeb-intro-text");
+   let grampsText = document.querySelector(".gramps-intro-text");
+   let granText = document.querySelector(".gran-intro-text");
    // Dark background for focus, hidden ribbon
    introShadow.style.visibility = "visible";
    qstRibbon.style.zIndex = "0.2";
@@ -463,45 +470,50 @@ function intro() {
    // Running intro
    function ifHello() {
       if (introPartsDone.hello === "no") {
-         document.querySelector(".meet-jeb").style.display = "grid";
-         document.querySelector(".meet-jeb").style.gridTemplateColumns = "auto auto auto";
+         // jeb.style.display = "grid";
+         // jeb.style.visibility = "visible";
+         jeb.style.transform = "scale(1)";
          introPartsDone.hello = "yes";
       }
       else {
-         document.querySelector(".meet-jeb").style.display = "none";
+         // jeb.style.display = "none";
+         // jeb.style.visibility = "collapse";
+         jeb.style.transform = "scale(0)";
          meetGrapms();
       }
    }
    function meetGrapms() {
       if (introPartsDone.meetGramps === "no") {
-         document.querySelector(".meet-gramps").style.display = "grid";
+         // gramps.style.display = "grid";
+         gramps.style.visibility = "visible";
+         // gramps.style.transform = "scale(1)";
          introPartsDone.meetGramps = "yes";
       }
       else {
-         document.querySelector(".meet-gramps").style.display = "none";
          planting();
       }
    }
    function planting() {
       if (introPartsDone.planting === "no") {
-         introPartsDone.planting = "yes";
+         grampsText.innerHTML = "Farmin' is as easy as anything nowadays, with all this modern technology. Just press Grow Peas, and when it's done, press Harvest Peas!";
+         document.querySelector(".plant-quest-arrow").style.display = "block";
          document.getElementById("plot1").style.zIndex = "1";
+         introPartsDone.planting = "yes";
       }
       else {
-         harvesting();
+         // gramps.style.display = "none";
+         gramps.style.visibility = "hidden";
+         //gramps.style.transform = "scale(0)";
+         document.querySelector(".plant-quest-arrow").style.display = "none";
          document.getElementById("plot1").style.zIndex = "0";
-      }
-   }
-   function harvesting() {
-      if (introPartsDone.harvesting === "no") {
-         introPartsDone.harvesting = "yes";
-      }
-      else {
          sidebar();
       }
    }
    function sidebar() {
       if (introPartsDone.sidebar === "no") {
+         jeb.style.display = "grid";
+         jebText.innerHTML = "This sidebar is were you keep control of the farm. You can control many things, but Grandma Josephine will talk about that."
+         document.querySelector("#information").style.zIndex = "1";
          introPartsDone.sidebar = "yes";
       }
       else {

@@ -1,34 +1,499 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Copyright Janurary 1st 2021 by Squirrel
+~~~~~~~~~~~~~~~~~
+TABLE OF CONTENTS
+~~~~~~~~~~~~~~~~~
+Side Bar             | The bar on the side
+Farmland             | The plot parent
+Plots                | Where plants are grown
+Buttons              | Mostly harvest and grow button
+Locks                | I spent too much time on this
+Vegetable Info Modal | Inforamtion about vegetables
+Other                | Gulp
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 body {
-   background-image: url("Images/Homepage/start.png");
-   background-size: cover;
+   background-image: url("Images/Homepage/tilled.png");
+   background-size: contain;
+   overflow-x: hidden;
+   display: grid;
+   grid-template-areas:
+   "auto auto"
+   "auto auto"
+   "auto auto";
 }
 
-.play {
-   margin: 25% auto;
-   height: 80px;
-   width: 120px;
-   border: none;
-   border-right: solid 2px #606060;
-   border-bottom: solid 2px #606060;
-   border-radius: 5%;
-   background-image: url("Images/Homepage/tilled.png");
-   background-size: cover;
+::selection {
+   background-color: transparent;
+}
+
+::-webkit-scrollbar {
+   display: none;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Side Bar
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+#information {
+   background: #606060;
+   margin: 0 -5px;
+   height: 110%;
+   padding: 12px;
+   border-radius: 12px;
+   position: fixed;
+   right: 0;
+   top: 0;
+   width: 25%;
    color: #fff;
-   text-shadow: 2px 2px 2px #606060;
+   text-shadow: .5px .5px .5px gold;
+   font-family: Helvetica, san-serif;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Farmland
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+#land {
+   width: 500px;
+   height: 500px;
+   margin: 5px auto;
+   border: solid 5px #000;
+   border-radius: 5px;
+   display: grid;
+   grid-template-areas:
+   "auto auto auto"
+   "auto auto auto"
+   "auto auto auto";
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Plots
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.plot {
+   background-image: url("Images/Plots/plot.png");
+   background-size: cover;
+   width: 150px;
+   height: 150px;
+   margin: 5px;
+   border: solid 2px black;
+   border-radius: 2px;
    display: flex;
    justify-content: center;
    align-items: center;
+   /* For smooth background transition */
+   transition: 2s;
    position: relative;
 }
 
-a {
-   text-decoration: none;
+.ahh-perspective {
+   perspective: 100px;
+   width: 150px;
+   height: 150px;
+   padding: 0;
+   margin: 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }
 
-#bird {
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Buttons
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.grow-button {
    position: absolute;
-   top: -50px;
-   right: -100px;
-   height: 100px;
-   width: auto;
+   z-index: 1;
+   opacity: 1;
 }
+
+.harvest-button {
+   opacity: 0;
+   z-index: -1;
+}
+
+#land button {
+   transition: .2s;
+   border-radius: 2px;
+   border: solid 2px rgb(0, 0, 0, .2);
+   background-color: #FFD700;
+   padding: 5px;
+   color: #800080;
+   text-shadow: 0 0 1.2px #800080,
+                0 6px 8px #fff;
+}
+
+#land button:hover {
+   transform: rotateX(25deg) scale(1.05);
+   box-shadow: 0 2px .5px rgb(0, 0, 0, .6);
+   text-shadow: 0 0 #800080,
+                0 1px .2px rgb(0, 0, 0, .6);
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Locks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.locked {
+   height: 130px;
+}
+
+.lock-tooltip {
+   position: relative;
+   display: block;
+   letter-spacing: -.5px;
+   font-family: "Nunito", sans-serif;
+}
+
+.lock-tooltip .tooltiptext::after {
+   content: "";
+   position: absolute;
+   top: 50%;
+   right: 100%;
+   margin-top: -5px;
+   border-width: 5px;
+   border-style: solid;
+   border-color: transparent #606060 transparent transparent;
+}
+
+.lock-tooltip .tooltiptext {
+   background-color: #606060;
+   color: #fff;
+   border-radius: 6px;
+   padding: 5px 0;
+   opacity: 0;
+   transition: opacity .5s;
+   position: absolute;
+   height: auto;
+   width: 125px;
+   text-align: center;
+   z-index: -1;
+}
+
+.lock-tooltip:hover .tooltiptext {
+   opacity: 1;
+   z-index: 1;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.purchase-plot {
+   background-color: #272727;
+   border: solid 2px #808080;
+   border-radius: 5px;
+   color: #fff;
+}
+
+.removing-lock {
+   animation: open-lock 2.5s forwards;
+}
+
+/* Opening lock animation */
+@keyframes open-lock {
+   0% {
+      content: url("Images/Lock/lock.png");
+   }
+   20% {
+      content: url("Images/Lock/open-lock.png");
+   }
+   100% {
+      content: url("Images/Lock/open-lock.png");
+   }
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Vegetable Info Modal
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.veg-info {
+   visibility: collapse;
+   position: fixed;
+   z-index: 1;
+   padding-top: 100px;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content h4 {
+   font-size: 50px;
+   margin: 2px;
+}
+
+.info-icon {
+   height: 50px;
+   margin: 0 0 -2px 0;
+}
+
+.modal-content {
+   width: 80%;
+   margin: auto;
+   padding: 20px;
+   font-size: 20px;
+   border: 1px solid #888;
+   border-radius: 8px;
+   background-color: #fefefe;
+   text-align: center;
+   font-family: "Roboto Condensed";
+}
+
+.close {
+   color: #aaaaaa;
+   float: right;
+   font-size: 28px;
+   font-weight: bold;
+}
+
+.close:hover {
+   color: #000;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Introduction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.intro-container {
+   position: fixed;
+   bottom: 15px;
+   left: 50px;
+   right: 50px;
+   height: 20%;
+   background-color: #f5f5f5;
+   border-radius: 25px;
+   font-family: Nunito;
+   letter-spacing: -0.2px;
+   overflow: hidden;
+}
+
+.intro-nxt-btn {
+   position: absolute;
+   right: 25px;
+   bottom: 25px;
+   background-color: #7962b6;
+   height: 50px;
+   width: 80px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   color: #fff;
+   font-size: 50px;
+   border-radius: 25px;
+   transition: 0.2s;
+}
+
+.intro-nxt-btn:hover {
+   font-size: 55px;
+   box-shadow: 0 0 12px #262626,
+               inset 5px 0 16px 3px rgba(255, 255, 255, 0.5);
+}
+
+.meet-jeb, .meet-gramps, .meet-gran {
+   height: 100%;
+   display: grid;
+   grid-template-columns: auto auto auto;
+   position: relative;
+   z-index: 1;
+}
+
+.jeb-intro-img {
+   height: 75%;
+   padding: 10px;
+   margin: 5px 15px;
+}
+
+.gramps-intro-img {
+   height: 125%;
+   padding: 10px;
+   margin: -30px -5px 0 -25px;
+}
+
+.gran-intro-img {
+   height: 80%;
+   margin: auto 5px auto 30px;
+}
+
+.intro-divide {
+   height: 100%;
+}
+
+.intro-text {
+   font-size: 2.5vw;
+   margin: 15px 100px 15px 15px;
+}
+
+.introDarkShadow {
+   visibility: collapse;
+   position: fixed;
+   padding-top: 100px;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(25, 0, 0, 0.8);
+   z-index: 0.9;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Quests
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.quest-content {
+   position: fixed;
+   top: 8%;
+   left: 0;
+   height: 80%;
+   width: 0;
+   background-color: #f9f9f9;
+   border-radius: 10px;
+   transition: 0.8s;
+   overflow: scroll;
+}
+
+.inner-quest-content {
+   display: none;
+   font-family: Nunito;
+   margin: 50px;
+}
+
+.quest-ribbon {
+   position: fixed;
+   top: 12%;
+   left: 0;
+   height: 90px;
+   z-index: 0.95;
+   transition: 0.8s;
+}
+
+.dark-shadow {
+   visibility: collapse;
+   position: fixed;
+   z-index: 0;
+   padding-top: 100px;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.7);
+}
+
+.quest-gold-separator {
+   height: 150px;
+   width: 25px;
+   margin: 0 10px 0 -10px;
+}
+
+.quest-arrow {
+   height: 175px;
+   z-index: 1;
+   animation: quest-arrow-nudge 3s infinite;
+   display: none;
+}
+
+.plant-quest-arrow {
+   position: absolute;
+   right: -115%;
+}
+
+@keyframes quest-arrow-nudge {
+   0% {
+      margin-right: 0px;
+   }
+   20% {
+      margin-right: -8px;
+   }
+   40% {
+      margin-right: -2px;
+   }
+   55% {
+      margin-right: -8px;
+   }
+   70% {
+      margin-right: 0px;
+   }
+   100% {
+      margin-right: 0px;
+   }
+}
+
+/* Quest in General */
+.quest-block {
+   border-radius: 10px;
+   background-color: #fbf4d5;
+   width: 100%;
+   height: 150px;
+   margin: 25px auto;
+   overflow: hidden;
+   display: grid;
+   grid-template-columns: auto auto auto;
+   box-shadow: 0 0 2px #262626;
+   transition: 0.5s;
+   position: relative;
+}
+
+.quest-block:hover {
+   box-shadow: 0 0 18px #262626;
+}
+
+.quest-text {
+   margin: 15px 25px 0 0;
+   font-size: 115%;
+}
+
+/*  Images */
+#jeb-image {
+   margin: 0 0 0 0;
+   height: 160px;
+}
+
+#grandpa-image {
+   margin: -56px 0 0 -50px;
+   height: 240px;
+}
+
+#grandma-image {
+   margin: -5px 0 0 8px;
+   height: 150px;
+}
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Other
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.veg-icon {
+   height: 35px;
+   position: absolute;
+   top: 2px;
+   left: 2px;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.produce p {
+   visibility: hidden;
+}
+
+.remaining-crop-time {
+   border: solid 2px #fff;
+   border-radius: 5px;
+   padding: 5px;
+   position: absolute;
+   bottom: 5px;
+   right: 5px;
+}
+
+#openPlot2, #openPlot3, #openPlot4 {
+   display: none;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.sickle, .seed-packet {
+   height: 15px;
+   margin: 0 -3.5px -3.5px 2px;
+}
+
+/* Nice gray #8D918D */
