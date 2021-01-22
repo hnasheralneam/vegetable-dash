@@ -428,6 +428,136 @@ function removeEggplantLock() {
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Intoduction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+let introIsDone = false;
+let introPartsDone = {
+   hello: "no",
+   meetGramps: "no",
+   planting: "no",
+   harvesting: "no",
+   sidebar: "no",
+   meetGran: "no",
+   bushes: "no",
+   restarting: "no",
+   nearlyDone: "no",
+   quests: "no",
+   thatsIt: "no",
+}
+
+function runIntro() {
+   if (introIsDone === false) {
+      intro();
+   }
+}
+
+function intro() {
+   // Set important DOM objects
+   let introShadow = document.querySelector(".introDarkShadow");
+   let qstRibbon = document.getElementById("questRibbon");
+   // Dark background for focus, hidden ribbon
+   introShadow.style.visibility = "visible";
+   qstRibbon.style.zIndex = "0.2";
+   ifHello();
+   // Running intro
+   function ifHello() {
+      if (introPartsDone.hello === "no") {
+         document.querySelector(".meet-jeb").style.display = "grid";
+         document.querySelector(".meet-jeb").style.gridTemplateColumns = "auto auto auto";
+         introPartsDone.hello = "yes";
+      }
+      else {
+         document.querySelector(".meet-jeb").style.display = "none";
+         meetGrapms();
+      }
+   }
+   function meetGrapms() {
+      if (introPartsDone.meetGramps === "no") {
+         document.querySelector(".meet-gramps").style.display = "grid";
+         introPartsDone.meetGramps = "yes";
+      }
+      else {
+         document.querySelector(".meet-gramps").style.display = "none";
+         planting();
+      }
+   }
+   function planting() {
+      if (introPartsDone.planting === "no") {
+         introPartsDone.planting = "yes";
+         document.getElementById("plot1").style.zIndex = "1";
+      }
+      else {
+         harvesting();
+         document.getElementById("plot1").style.zIndex = "0";
+      }
+   }
+   function harvesting() {
+      if (introPartsDone.harvesting === "no") {
+         introPartsDone.harvesting = "yes";
+      }
+      else {
+         sidebar();
+      }
+   }
+   function sidebar() {
+      if (introPartsDone.sidebar === "no") {
+         introPartsDone.sidebar = "yes";
+      }
+      else {
+         meetGran();
+      }
+   }
+   function meetGran() {
+      if (introPartsDone.meetGran === "no") {
+         introPartsDone.meetGran = "yes";
+      }
+      else {
+         bushels();
+      }
+   }
+   function bushels() {
+      if (introPartsDone.bushels === "no") {
+         introPartsDone.bushels = "yes";
+      }
+      else {
+         restarting();
+      }
+   }
+   function restarting() {
+      if (introPartsDone.restarting === "no") {
+         introPartsDone.restarting = "yes";
+      }
+      else {
+         nearlyDone();
+      }
+   }
+   function nearlyDone() {
+      if (introPartsDone.nearlyDone === "no") {
+         introPartsDone.nearlyDone = "yes";
+      }
+      else {
+         quests();
+      }
+   }
+   function quests() {
+      if (introPartsDone.quests === "no") {
+         introPartsDone.quests = "yes";
+      }
+      else {
+         thatsIt();
+      }
+   }
+   function thatsIt() {
+      if (introPartsDone.thatsIt === "no") {
+         introShadow.style.visibility = "collapse";
+         qstRibbon.style.zIndex = "1";
+         introPartsDone.thatsIt = "yes";
+      }
+   }
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Quests
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -451,7 +581,6 @@ document.addEventListener("keyup", function(event) {
 function questbar() {
    document.querySelector("#questContent").style.width = "500px";
    document.getElementById("innerQuestContent").style.display = "block";
-   document.getElementById("questContent").style.zIndex = "1";
    document.getElementById("questRibbon").style.left = "500px";
    document.getElementById("darkShadow").style.visibility = "visible";
 }
@@ -459,7 +588,6 @@ function questbar() {
 function closequestbar() {
    document.getElementById("questContent").style.width = "0";
    document.getElementById("innerQuestContent").style.display = "none";
-   document.getElementById("questContent").style.zIndex = "-1";
    document.getElementById("questRibbon").style.left = "0";
    document.getElementById("darkShadow").style.visibility = "collapse";
 }
@@ -508,6 +636,8 @@ var plantStatus = window.setInterval(function() {
 function setup() {
    // Run product display
    produceDisplay();
+   // Check if intro is needed
+   runIntro();
 
    if (plots.cornplot === "unlocked") {
       openCornLock();
