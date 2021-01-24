@@ -470,23 +470,20 @@ function intro() {
    // Running intro
    function ifHello() {
       if (introPartsDone.hello === "no") {
-         // jeb.style.display = "grid";
-         // jeb.style.visibility = "visible";
-         jeb.style.transform = "scale(1)";
+         jeb.style.position = "relative";
+         jeb.style.width = "auto";
          introPartsDone.hello = "yes";
       }
       else {
-         // jeb.style.display = "none";
-         // jeb.style.visibility = "collapse";
-         jeb.style.transform = "scale(0)";
+         jeb.style.position = "absolute";
+         jeb.style.width = "0";
          meetGrapms();
       }
    }
    function meetGrapms() {
       if (introPartsDone.meetGramps === "no") {
-         // gramps.style.display = "grid";
-         gramps.style.visibility = "visible";
-         // gramps.style.transform = "scale(1)";
+         gramps.style.position = "relative";
+         gramps.style.width = "auto";
          introPartsDone.meetGramps = "yes";
       }
       else {
@@ -501,9 +498,8 @@ function intro() {
          introPartsDone.planting = "yes";
       }
       else {
-         // gramps.style.display = "none";
-         gramps.style.visibility = "hidden";
-         //gramps.style.transform = "scale(0)";
+         gramps.style.position = "absolute";
+         gramps.style.width = "0";
          document.querySelector(".plant-quest-arrow").style.display = "none";
          document.getElementById("plot1").style.zIndex = "0";
          sidebar();
@@ -511,7 +507,8 @@ function intro() {
    }
    function sidebar() {
       if (introPartsDone.sidebar === "no") {
-         jeb.style.display = "grid";
+         jeb.style.position = "relative";
+         jeb.style.width = "auto";
          jebText.innerHTML = "This sidebar is were you keep control of the farm. You can control many things, but Grandma Josephine will talk about that."
          document.querySelector("#information").style.zIndex = "1";
          introPartsDone.sidebar = "yes";
