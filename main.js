@@ -447,6 +447,7 @@ let introPartsDone = {
 
 function runIntro() {
    if (introIsDone === false) {
+      document.querySelector(".intro-container").style.display = "grid";
       intro();
    }
 }
@@ -455,14 +456,9 @@ function intro() {
    // Set important DOM objects
    let introShadow = document.querySelector(".introDarkShadow");
    let qstRibbon = document.getElementById("questRibbon");
-   // Set people
-   let jeb = document.querySelector(".meet-jeb");
-   let gramps = document.querySelector(".meet-gramps");
-   let gran = document.querySelector(".meet-gran");
-   // Set text of people
-   let jebText = document.querySelector(".jeb-intro-text");
-   let grampsText = document.querySelector(".gramps-intro-text");
-   let granText = document.querySelector(".gran-intro-text");
+   let introBlock = document.querySelector(".intro-character");
+   let introImg = document.querySelector(".intro-img");
+   let introText = document.querySelector(".intro-text");
    // Dark background for focus, hidden ribbon
    introShadow.style.visibility = "visible";
    qstRibbon.style.zIndex = "0.2";
@@ -470,20 +466,16 @@ function intro() {
    // Running intro
    function ifHello() {
       if (introPartsDone.hello === "no") {
-         jeb.style.position = "relative";
-         jeb.style.width = "auto";
          introPartsDone.hello = "yes";
       }
       else {
-         jeb.style.position = "absolute";
-         jeb.style.width = "0";
          meetGrapms();
       }
    }
    function meetGrapms() {
       if (introPartsDone.meetGramps === "no") {
-         gramps.style.position = "relative";
-         gramps.style.width = "auto";
+         $(".intro-img").attr("src", "Images/Intro/gramps.png");
+         introText.innerHTML = "Hi! I'm gramps. That's Grandpa Jenkins to you. I'm here ta teach you farmin', the good ol' way!";
          introPartsDone.meetGramps = "yes";
       }
       else {
@@ -492,14 +484,12 @@ function intro() {
    }
    function planting() {
       if (introPartsDone.planting === "no") {
-         grampsText.innerHTML = "Farmin' is as easy as anything nowadays, with all this modern technology. Just press Grow Peas, and when it's done, press Harvest Peas!";
+         introText.innerHTML = "Farmin' is as easy as anything nowadays, with all this modern technology. Just press Grow Peas, and when it's done, press Harvest Peas!";
          document.querySelector(".plant-quest-arrow").style.display = "block";
          document.getElementById("plot1").style.zIndex = "1";
          introPartsDone.planting = "yes";
       }
       else {
-         gramps.style.position = "absolute";
-         gramps.style.width = "0";
          document.querySelector(".plant-quest-arrow").style.display = "none";
          document.getElementById("plot1").style.zIndex = "0";
          sidebar();
@@ -507,18 +497,20 @@ function intro() {
    }
    function sidebar() {
       if (introPartsDone.sidebar === "no") {
-         jeb.style.position = "relative";
-         jeb.style.width = "auto";
-         jebText.innerHTML = "This sidebar is were you keep control of the farm. You can control many things, but Grandma Josephine will talk about that."
+         $(".intro-img").attr("src", "Images/Intro/farmer.png");
+         introText.innerHTML = "This sidebar is were you keep control of the farm. You can control many things, but Grandma Josephine will talk about that.";
          document.querySelector("#information").style.zIndex = "1";
          introPartsDone.sidebar = "yes";
       }
       else {
+         document.querySelector("#information").style.zIndex = "0";
          meetGran();
       }
    }
    function meetGran() {
       if (introPartsDone.meetGran === "no") {
+         $(".intro-img").attr("src", "Images/Intro/granny.png");
+         introText.innerHTML = "Nice to meet you. I'm Grandma Josephine, and I'm here to teach you economics.";
          introPartsDone.meetGran = "yes";
       }
       else {
@@ -527,6 +519,7 @@ function intro() {
    }
    function bushels() {
       if (introPartsDone.bushels === "no") {
+         introText.innerHTML = "Here you find the amount of resouces you have. Watch it wisely, and make sure you don't spend them all!";
          introPartsDone.bushels = "yes";
       }
       else {
@@ -559,6 +552,7 @@ function intro() {
    }
    function thatsIt() {
       if (introPartsDone.thatsIt === "no") {
+         document.querySelector(".intro-container").style.display = "none";
          introShadow.style.visibility = "collapse";
          qstRibbon.style.zIndex = "1";
          introPartsDone.thatsIt = "yes";

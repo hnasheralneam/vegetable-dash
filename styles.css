@@ -267,6 +267,8 @@ Introduction
    letter-spacing: -0.2px;
    overflow: hidden;
    z-index: 1;
+   padding-left: 15px;
+   display: none;
 }
 
 .intro-nxt-btn {
@@ -291,7 +293,7 @@ Introduction
                inset 5px 0 16px 3px rgba(255, 255, 255, 0.5);
 }
 
-.meet-jeb, .meet-gramps, .meet-gran {
+.intro-character {
    height: 100%;
    display: grid;
    grid-template-columns: auto auto auto;
@@ -301,25 +303,14 @@ Introduction
    overflow: hidden;
 }
 
-.jeb-intro-img {
+.intro-img {
    height: 75%;
-   padding: 10px;
-   margin: 5px 15px;
-}
-
-.gramps-intro-img {
-   height: 115%;
-   padding: 10px;
-   margin: -40px -5px 0 -30px;
-}
-
-.gran-intro-img {
-   height: 80%;
-   margin: auto 5px auto 30px;
+   margin: auto;
 }
 
 .intro-divide {
    height: 100%;
+   margin: 0 50px;
 }
 
 .intro-text {
