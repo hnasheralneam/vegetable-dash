@@ -252,6 +252,39 @@ Vegetable Info Modal
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Right Click Menu
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+#menu {
+   width: 250px;
+   position: fixed;
+   z-index: 9999;
+   display: none;
+   font-family: Nunito;
+   font-size: 15px;
+   background: #fff;
+   color: #555;
+   border-radius: 5px;
+   box-shadow: 0 0 5px #f5f5f5;
+   padding: 0 25px;
+}
+
+#menu li {
+   list-style-type: none;
+   margin: 10px 0;
+   transition: .2s;
+}
+
+#menu li:hover {
+   text-shadow: 0 .2px .2px #262626;
+}
+
+#menu hr {
+   border: 1px solid #ebebeb;
+   border-bottom: 0;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Introduction
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 

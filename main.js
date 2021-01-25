@@ -475,7 +475,7 @@ function intro() {
    function meetGrapms() {
       if (introPartsDone.meetGramps === "no") {
          $(".intro-img").attr("src", "Images/Intro/gramps.png");
-         introText.innerHTML = "Hi! I'm gramps. That's Grandpa Jenkins to you. I'm here ta teach you farmin', the good ol' way!";
+         introText.textContent = "Hi! I'm gramps. That's Grandpa Jenkins to you. I'm here ta teach you farmin', the good ol' way!";
          introPartsDone.meetGramps = "yes";
       }
       else {
@@ -484,7 +484,7 @@ function intro() {
    }
    function planting() {
       if (introPartsDone.planting === "no") {
-         introText.innerHTML = "Farmin' is as easy as anything nowadays, with all this modern technology. Just press Grow Peas, and when it's done, press Harvest Peas!";
+         introText.textContent = "Farmin' is as easy as anything nowadays, with all this modern technology. Just press Grow Peas, and when it's done, press Harvest Peas!";
          document.querySelector(".plant-quest-arrow").style.display = "block";
          document.getElementById("plot1").style.zIndex = "1";
          introPartsDone.planting = "yes";
@@ -498,7 +498,7 @@ function intro() {
    function sidebar() {
       if (introPartsDone.sidebar === "no") {
          $(".intro-img").attr("src", "Images/Intro/farmer.png");
-         introText.innerHTML = "This sidebar is were you keep control of the farm. You can control many things, but Grandma Josephine will talk about that.";
+         introText.textContent = "This sidebar is were you keep control of the farm. You can control many things, but Grandma Josephine will talk about that.";
          document.querySelector("#information").style.zIndex = "1";
          introPartsDone.sidebar = "yes";
       }
@@ -510,7 +510,7 @@ function intro() {
    function meetGran() {
       if (introPartsDone.meetGran === "no") {
          $(".intro-img").attr("src", "Images/Intro/granny.png");
-         introText.innerHTML = "Nice to meet you. I'm Grandma Josephine, and I'm here to teach you economics.";
+         introText.textContent = "Nice to meet you. I'm Grandma Josephine, and I'm here to teach you economics.";
          introPartsDone.meetGran = "yes";
       }
       else {
@@ -519,7 +519,8 @@ function intro() {
    }
    function bushels() {
       if (introPartsDone.bushels === "no") {
-         introText.innerHTML = "Here you find the amount of resouces you have. Watch it wisely, and make sure you don't spend them all!";
+         introText.textContent = "Here you find the amount of resouces you have. Watch it wisely, and make sure you don't spend them all!";
+         document.querySelector("#peaBushels").style.zIndex = "1";
          introPartsDone.bushels = "yes";
       }
       else {
@@ -593,6 +594,42 @@ function closequestbar() {
    document.getElementById("innerQuestContent").style.display = "none";
    document.getElementById("questRibbon").style.left = "0";
    document.getElementById("darkShadow").style.visibility = "collapse";
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Right Click Menu
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+let rightClickMenu = document.getElementById("menu").style;
+if (document.addEventListener) {
+   document.addEventListener('contextmenu', function(e) {
+      var posX = e.clientX;
+      var posY = e.clientY;
+      menu(posX, posY);
+      e.preventDefault();
+   }, false);
+   document.addEventListener('click', function(e) {
+      rightClickMenu.display = "none";
+   }, false);
+}
+else {
+   document.attachEvent('oncontextmenu', function(e) {
+      var posX = e.clientX;
+      var posY = e.clientY;
+      menu(posX, posY);
+      e.preventDefault();
+   });
+   document.attachEvent('onclick', function(e) {
+      setTimeout(function() {
+         rightClickMenu.display = "none";
+      }, 501);
+   });
+}
+
+function menu(x, y) {
+   rightClickMenu.top = y + "px";
+   rightClickMenu.left = x + "px";
+   rightClickMenu.display = "block";
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
