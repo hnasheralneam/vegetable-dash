@@ -37,6 +37,7 @@ Side Bar
 
 .sidebar {
    position: fixed;
+   overflow-y: scroll;
    top: 0;
    right: 0;
    bottom: 0;
