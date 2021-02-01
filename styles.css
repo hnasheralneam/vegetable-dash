@@ -36,11 +36,11 @@ Side Bar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .sidebar {
-   position: absolute;
+   position: fixed;
    top: 0;
    right: 0;
    bottom: 0;
-   background-color: #333333;
+   background-color: #111;
    border-left: ridge 3px gold;
    padding: 12px;
    width: 25%;
@@ -50,10 +50,11 @@ Side Bar
 }
 
 .sidebar-content {
-   position: relative;
+   position: sticky;
    height: 100%;
    width: 100%;
    font-family: Helvetica, san-serif;
+   text-align: center;
 }
 
 .sidebar-content button {
@@ -85,7 +86,7 @@ Side Bar
 Farmland
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#land {
+.land {
    width: auto;
    height: auto;
    margin: 5px auto;
@@ -96,6 +97,29 @@ Farmland
    "auto auto auto"
    "auto auto auto"
    "auto auto auto";
+}
+
+.land-for-small {
+   grid-template-areas:
+   "auto auto"
+   "auto auto"
+   "auto auto"
+   "auto auto"
+   "auto auto";
+}
+
+.land-for-tiny {
+   grid-template-areas:
+   "auto"
+   "auto"
+   "auto"
+   "auto"
+   "auto"
+   "auto"
+   "auto"
+   "auto"
+   "auto"
+   "auto";
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

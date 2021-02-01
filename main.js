@@ -39,7 +39,7 @@ Ideas
    - Check in beta (CSS fufilled, JavaScript in progress)
 
 💡 | 🏅 | ✖ | Scyths?
-   - Use them somehow
+   - Use them somehow (harvest x3?)
 
 💡 | ✖ | Autoharvest
    - Allow automatic harvesting (Purchased, of course)
@@ -431,7 +431,7 @@ function removeEggplantLock() {
 // Intoduction
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-let introIsDone = false;
+let introIsDone = true;
 let introPartsDone = {
    hello: "no",
    meetGramps: "no",
