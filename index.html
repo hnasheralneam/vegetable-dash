@@ -17,7 +17,7 @@
       <title>Vegetable Dash!</title>
    </head>
    <body>
-      <div id="land">
+      <div class="land">
          <!-- Pea Plot -->
          <div class="plot" id="plot1">
             <img class="quest-arrow plant-quest-arrow" src="Images/Quests/arrow.png" alt="Arrow">
@@ -131,15 +131,28 @@
          </div>
       </div>
       </div>
-      <div id="information">
-         <h1>Produce</h1>
-         <div class="produce">
-            <p id="peaBushels">0 Bushels of Peas</p>
-            <p id="cornBushels">0 Bushels of Corn</p>
-            <p id="strawberryBushels">0 Bushels of Strawberries</p>
-            <p id="eggplantBushels">0 Bushels of Eggplants</p>
+      <div class="sidebar">
+         <span class="open-sidebar">&#8249; &#8250;</span>
+         ￼￼<div class="sidebar-content">
+            <h1>Produce</h1>
+            <div class="produce">
+               <p id="peaBushels">0 Bushels of Peas</p>
+               <p id="cornBushels">0 Bushels of Corn</p>
+               <p id="strawberryBushels">0 Bushels of Strawberries</p>
+               <p id="eggplantBushels">0 Bushels of Eggplants</p>
+            </div>
+            <details open>
+               <summary>Settings</summary>
+               <button onclick="restart()">Restart</button>
+               <button onclick="document.querySelector('.sidebar').style.backgroundColor = '#f5f5f5'; document.querySelector('.sidebar').style.color = '#333';">Light</button>
+               <button onclick="document.querySelector('.sidebar').style.backgroundColor = '#111'; document.querySelector('.sidebar').style.color = '#f5f5f5';">Dark</button>
+               <button onclick="document.querySelector('.land').classList.remove('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Normal Device</button>
+               <button onclick="document.querySelector('.land').classList.add('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Small Device</button>
+               <button onclick="document.querySelector('.land').classList.add('land-for-tiny');">Tiny Device</button>
+               <button onclick="togglePlay()">Music</button>
+               <audio class="mozart" src="Audio/mozart.mp3"></audio>
+            </details>
          </div>
-         <button onclick="restart()">Restart</button>
       </div>
       <div class="quests">
          <img class="quest-ribbon" id="questRibbon" src="Images/Quests/short-ribbon.png" alt="Ribbon!" onclick="questbar()">
@@ -175,7 +188,7 @@
          <span>Get straight into the game</span>
       </div>
    </div>
-   <div class="introDarkShadow" onclick="closequestbar()"></div>
+   <div class="introDarkShadow" style="display: none;" onclick="closequestbar()"></div>
    <div class="intro-container">
       <div class="intro-character">
          <img class="intro-img" src="Images/Intro/farmer.png" alt="Guide Character Image">

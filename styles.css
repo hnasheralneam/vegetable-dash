@@ -35,28 +35,61 @@ body {
 Side Bar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#information {
-   background: #606060;
-   margin: 0 -5px;
-   height: 110%;
-   padding: 12px;
-   border-radius: 12px;
+.sidebar {
    position: fixed;
-   right: 0;
+   overflow-y: scroll;
    top: 0;
+   right: 0;
+   bottom: 0;
+   background-color: #111;
+   border-left: ridge 3px gold;
+   padding: 12px;
    width: 25%;
    color: #fff;
-   text-shadow: .5px .5px .5px gold;
+   transition: 0.5s;
+   box-shadow: 0 0 10px #262626;
+}
+
+.sidebar-content {
+   position: sticky;
+   height: 100%;
+   width: 100%;
    font-family: Helvetica, san-serif;
+   text-align: center;
+}
+
+.sidebar-content button {
+   border-radius: 3px;
+   padding:  5px;
+   display: block;
+   margin: 5px auto;
+   width: 80%;
+   box-shadow: 0 0 5px #222;
+}
+
+.sidebar-content button:active {
+   transform: scale(1.08);
+}
+
+.open-sidebar {
+   background-color: inherit;
+   position: absolute;
+   top: 25px;
+   left: -25px;
+   padding: 15px;
+   border-radius: 50%;
+   font-size: 25px;
+   border-left: ridge 3px gold;
+   display: none;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Farmland
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#land {
-   width: 500px;
-   height: 500px;
+.land {
+   width: auto;
+   height: auto;
    margin: 5px auto;
    border: solid 5px #000;
    border-radius: 5px;
@@ -65,6 +98,29 @@ Farmland
    "auto auto auto"
    "auto auto auto"
    "auto auto auto";
+}
+
+.land-for-small {
+   grid-template-areas:
+   "auto auto"
+   "auto auto"
+   "auto auto"
+   "auto auto"
+   "auto auto";
+}
+
+.land-for-tiny {
+   grid-template-areas:
+   "auto"
+   "auto"
+   "auto"
+   "auto"
+   "auto"
+   "auto"
+   "auto"
+   "auto"
+   "auto"
+   "auto";
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
