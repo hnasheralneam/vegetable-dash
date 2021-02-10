@@ -1,5 +1,5 @@
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Copyright Janurary 1st 2021 by Squirrel
+Copyright January 1st 2021 by Squirrel
 ~~~~~~~~~~~~~~~~~
 TABLE OF CONTENTS
 ~~~~~~~~~~~~~~~~~
@@ -8,79 +8,46 @@ Farmland             | The plot parent
 Plots                | Where plants are grown
 Buttons              | Mostly harvest and grow button
 Locks                | I spent too much time on this
-Vegetable Info Modal | Inforamtion about vegetables
+Vegetable Info Modal | Information about vegetables
 Other                | Gulp
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+* {
+   margin: 0;
+   padding: 0;
+}
+
 body {
    background-image: url("Images/Homepage/tilled.png");
-   background-size: contain;
-   overflow-x: hidden;
+   background-size: cover;
+   overflow: hidden;
    display: grid;
-   grid-template-areas:
-   "auto auto"
-   "auto auto"
-   "auto auto";
+   grid-template-areas: "a b";
 }
 
 ::selection {
-   background-color: transparent;
+   display: none;
 }
 
 ::-webkit-scrollbar {
    display: none;
 }
 
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Side Bar
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-.sidebar {
-   position: fixed;
-   overflow-y: scroll;
-   top: 0;
-   right: 0;
-   bottom: 0;
-   background-color: #111;
-   border-left: ridge 3px gold;
-   padding: 12px;
-   width: 25%;
-   color: #fff;
-   transition: 0.5s;
-   box-shadow: 0 0 10px #262626;
+/* Remove default button styles */
+button {
+   padding: 8px;
+   margin: 2px;
+   font-family: sans-serif;
+   cursor: pointer;
+   transition: transform 150ms ease;
 }
 
-.sidebar-content {
-   position: sticky;
-   height: 100%;
-   width: 100%;
-   font-family: Helvetica, san-serif;
-   text-align: center;
+button:focus {
+   outline: none;
 }
 
-.sidebar-content button {
-   border-radius: 3px;
-   padding:  5px;
-   display: block;
-   margin: 5px auto;
-   width: 80%;
-   box-shadow: 0 0 5px #222;
-}
-
-.sidebar-content button:active {
-   transform: scale(1.08);
-}
-
-.open-sidebar {
-   background-color: inherit;
-   position: absolute;
-   top: 25px;
-   left: -25px;
-   padding: 15px;
-   border-radius: 50%;
-   font-size: 25px;
-   border-left: ridge 3px gold;
-   display: none;
+button:active {
+   transform: scale(0.99);
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -88,11 +55,13 @@ Farmland
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .land {
-   width: auto;
-   height: auto;
-   margin: 5px auto;
+   position: relative;
+   height: 95vh;
+   width: 95vh;
+   margin: 2vh auto;
    border: solid 5px #000;
    border-radius: 5px;
+   transition: 0.5s;
    display: grid;
    grid-template-areas:
    "auto auto auto"
@@ -101,6 +70,7 @@ Farmland
 }
 
 .land-for-small {
+   overflow-y: scroll;
    grid-template-areas:
    "auto auto"
    "auto auto"
@@ -110,6 +80,7 @@ Farmland
 }
 
 .land-for-tiny {
+   overflow-y: scroll;
    grid-template-areas:
    "auto"
    "auto"
@@ -123,85 +94,42 @@ Farmland
    "auto";
 }
 
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Plots
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
+/* Plots */
 .plot {
    background-image: url("Images/Plots/plot.png");
    background-size: cover;
-   width: 150px;
-   height: 150px;
-   margin: 5px;
-   border: solid 2px black;
+   margin: 2px;
+   border: solid 1.5px #000;
    border-radius: 2px;
    display: flex;
    justify-content: center;
    align-items: center;
-   /* For smooth background transition */
    transition: 2s;
    position: relative;
+   min-height: 12vw;
+   min-width: 12vw;
+}
+
+.open-plot {
+   display: none;
 }
 
 .ahh-perspective {
    perspective: 100px;
-   width: 150px;
-   height: 150px;
-   padding: 0;
-   margin: 0;
+   width: 100%;
+   height: 100%;
    display: flex;
    justify-content: center;
    align-items: center;
-   cursor: url("Images/Global Assets/pitchfork.png"), auto;
 }
 
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Buttons
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-.grow-button {
-   position: absolute;
-   z-index: 1;
-   opacity: 1;
-   cursor: url("Images/Global Assets/pitchfork.png"), auto;
-}
-
-.harvest-button {
-   opacity: 0;
-   z-index: -1;
-   cursor: url("Images/Global Assets/pitchfork.png"), auto;
-}
-
-#land button {
-   transition: .2s;
-   border-radius: 2px;
-   border: solid 2px rgb(0, 0, 0, .2);
-   background-color: #FFD700;
-   padding: 5px;
-   color: #800080;
-   text-shadow: 0 0 1.2px #800080,
-                0 6px 8px #fff;
-}
-
-#land button:hover {
-   transform: rotateX(25deg) scale(1.05);
-   box-shadow: 0 2px .5px rgb(0, 0, 0, .6);
-   text-shadow: 0 0 #800080,
-                0 1px .2px rgb(0, 0, 0, .6);
-}
-
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Locks
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
+/* Locks */
 .locked {
-   height: 130px;
+   height: 150px;
 }
 
 .lock-tooltip {
    position: relative;
-   display: block;
-   letter-spacing: -.5px;
    font-family: "Nunito", sans-serif;
 }
 
@@ -210,45 +138,40 @@ Locks
    position: absolute;
    top: 50%;
    right: 100%;
-   margin-top: -5px;
-   border-width: 5px;
-   border-style: solid;
-   border-color: transparent #606060 transparent transparent;
+   margin-top: -8px;
+   border-width: 8px;
+   border-style: outset;
+   border-color: transparent lightblue transparent transparent;
 }
 
 .lock-tooltip .tooltiptext {
+   padding: 20px 5px;
    background-color: #606060;
    color: #fff;
    border-radius: 6px;
-   padding: 5px 0;
-   opacity: 0;
-   transition: opacity .5s;
    position: absolute;
-   height: auto;
+   padding: 20px 5px;
    width: 125px;
+   height: 75%;
+   left: 102%;
    text-align: center;
-   z-index: -1;
+   border: outset 2px lightblue;
+   z-index: 1;
+   opacity: 0;
+   pointer-events: none;
+   transition: .5s;
+   transition-delay: 0.4s;
 }
 
 .lock-tooltip:hover .tooltiptext {
    opacity: 1;
-   z-index: 1;
-}
-
-/*~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-.purchase-plot {
-   background-color: #272727;
-   border: solid 2px #808080;
-   border-radius: 5px;
-   color: #fff;
+   pointer-events: auto;
 }
 
 .removing-lock {
    animation: open-lock 2.5s forwards;
 }
 
-/* Opening lock animation */
 @keyframes open-lock {
    0% {
       content: url("Images/Lock/lock.png");
@@ -259,6 +182,60 @@ Locks
    100% {
       content: url("Images/Lock/open-lock.png");
    }
+}
+
+/* Buttons */
+.grow-button {
+   position: absolute;
+   z-index: 1;
+   opacity: 1;
+}
+
+.harvest-button {
+   opacity: 0;
+   z-index: -1;
+}
+
+.ahh-perspective button {
+   transition: .2s;
+   border-radius: 2px;
+   border: solid 2px rgb(0, 0, 0, .2);
+   background-color: #ffd700;
+   padding: 5px;
+   color: #800080;
+   text-shadow: 0 0 1.2px #800080,
+                0 6px 8px #fff;
+}
+
+.ahh-perspective button:hover {
+   transform: rotateX(25deg) scale(1.05);
+   box-shadow: 0 2px .5px rgb(0, 0, 0, .6);
+   text-shadow: 0 0 #800080,
+                0 1px .2px rgb(0, 0, 0, .6);
+}
+
+.purchase-plot {
+   background-color: #272727;
+   border: solid 2px #808080;
+   border-radius: 5px;
+   color: #fff;
+   transition: 0.5s;
+}
+
+.purchase-plot:hover {
+   box-shadow: 0 0 10px #f5f5f5;
+}
+
+/* Button Images */
+.sickle, .seed-packet {
+   height: 15px;
+   margin: 0 -3.5px -3.5px 2px;
+}
+.veg-icon {
+   height: 35px;
+   position: absolute;
+   top: 2px;
+   left: 2px;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -343,153 +320,66 @@ Right Click Menu
    border-bottom: 0;
 }
 
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Market
+Side Bar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-.market {
-   // visibility: collapse;
+.sidebar {
    position: absolute;
-   top: 25px;
-   left: 25px;
-   bottom: 25px;
-   right: 25px;
-   padding: 20px;
-   font-size: 20px;
-   border: 1px solid #888;
-   border-radius: 25px;
-   background-image: url("Images/Market/bustling.png");
-   background-size: cover;
-   background-color: #262626;
-   text-align: center;
-   font-family: "Roboto Condensed";
-   z-index: 1;
-   display: grid;
-   grid-template-areas:
-   "a b c"
-   "d e f";
-   cursor: url("Images/Global Assets/big-money.png"), auto;
-}
-
-
-.open-market {
-   position: absolute;
-   bottom: 25px;
-   left: 25px;
-   height: 50px;
-   width: 50px;
-   background-color: #f9f9f9;
-   border-radius: 25px;
-   transition: 0.2s;
-}
-
-.open-market:hover {
-   box-shadow: 0 0 15px #262626;
-}
-
-.market-item {
-   height: 95%;
-   width: 95%;
-   margin: auto;
-   border-radius: 25px;
+   right: 0;
+   background-color: #111;
+   border-left: ridge 3px gold;
+   padding: 12px;
+   height: 100%;
+   width: auto;
+   color: #fff;
    transition: 0.5s;
-   font-size: 25px;
+   box-shadow: 0 0 10px #262626;
+   font-family: "Nunito";
+   text-align: center;
    position: relative;
 }
 
-.market-item-content {
-   height: 100%;
+.sidebar button {
+   border-radius: 3px;
+   padding:  5px;
+   display: block;
+   margin: 8px auto;
+   width: 60%;
+   box-shadow: 0 0 5px #222;
+}
+
+.sidebar button:active {
+   transform: scale(1.03);
+}
+
+.open-sidebar {
+   position: absolute;
+   top: 25px;
+   left: -40px;
+   height: 80px;
+   width: 80px;
+   padding: 15px;
+   box-sizing: border-box;
+   background-color: inherit;
    display: flex;
    justify-content: center;
    align-items: center;
-   white-space: pre-line;
+   font-size: 50px;
+   border-radius: 50%;
+   border: ridge 3px gold;
+   transition: 0.5s;
 }
 
-.buy-sell {
-   position: absolute;
-   left: 35%;
-   bottom: 15px;
-   height: 50px;
-   width: 30%;
-   border-radius: 25px;
-   overflow: hidden;
-   transition: 0.1s;
+.open-sidebar:hover {
+   box-shadow: 0 0 8px #f5f5f5;
 }
 
-.buy-sell:hover {
-   box-shadow: 0 0 5px #262626;
-}
-
-.market-item-buy {
-   position: absolute;
-   left: 0;
-   bottom: 0;
-   background-color: #ff94ec;
-   height: 25px;
-   width: 100%;
-   transition: 0.2s;
-   font-size: 20px;
-}
-
-.market-item-sell {
-   float: left;
-   position: absolute;
-   left: 0;
-   background-color: #77aeff;
-   height: 25px;
-   width: 100%;
-   transition: 0.2s;
-   font-size: 20px;
-}
-
-.market-item-buy:hover {
-   background-color: #f96bdf;
-}
-
-.market-item-sell:hover {
-   background-color: #4f94fa;
-}
-
-.market-item:hover {
-   box-shadow: 0 0 25px #262626,
-               inset 0 0 5px #262626;
-}
-
-.market-item:nth-child(1) {
-   background-color: #ddddb9;
-}
-
-.market-item:nth-child(2) {
-   background-color: #ffcc00;
-}
-
-.market-item:nth-child(3) {
-   background-color: #1f7880;
-}
-
-.market-item:nth-child(4) {
-   background-color: #f0e0e0;
-}
-
-.market-item:nth-child(5) {
-   background-color: #84f09e;
-}
-
-.market-item:nth-child(6) {
-   background-color: #b388c6;
-}
-
-.marketShadow {
-   // visibility: collapse;
-   position: fixed;
-   padding-top: 100px;
-   left: 0;
-   top: 0;
-   width: 100%;
-   height: 100%;
-   background-color: rgba(25, 0, 0, 0.8);
-   backdrop-filter: blur(5px);
-   z-index: 0;
+.produce p {
+   visibility: hidden;
+   margin: 5px;
+   font-size: 120%;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -657,7 +547,6 @@ Quests
    }
 }
 
-/* Quest in General */
 .quest-block {
    border-radius: 10px;
    background-color: #fbf4d5;
@@ -681,7 +570,6 @@ Quests
    font-size: 115%;
 }
 
-/*  Images */
 #jeb-image {
    margin: 0 0 0 0;
    height: 160px;
@@ -699,40 +587,151 @@ Quests
 
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Other
+Market
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-.veg-icon {
-   height: 35px;
+.market {
+   visibility: collapse;
    position: absolute;
-   top: 2px;
-   left: 2px;
+   top: 25px;
+   left: 25px;
+   bottom: 25px;
+   right: 25px;
+   padding: 20px;
+   font-size: 20px;
+   border: 1px solid #888;
+   border-radius: 25px;
+   background-image: url("Images/Market/bustling.png");
+   background-size: cover;
+   background-color: #262626;
+   text-align: center;
+   font-family: "Roboto Condensed";
+   z-index: 1;
+   display: grid;
+   grid-template-areas:
+   "a b c"
+   "d e f";
+   cursor: url("Images/Global Assets/big-money.png"), auto;
 }
 
-/*~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-.produce p {
-   visibility: hidden;
-}
-
-.remaining-crop-time {
-   border: solid 2px #fff;
-   border-radius: 5px;
-   padding: 5px;
-   position: absolute;
-   bottom: 5px;
-   right: 5px;
-}
-
-#openPlot2, #openPlot3, #openPlot4 {
+.open-market {
    display: none;
+   position: absolute;
+   bottom: 25px;
+   left: 25px;
+   height: 50px;
+   width: 50px;
+   background-color: #f9f9f9;
+   border-radius: 25px;
+   transition: 0.2s;
 }
 
-/*~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-.sickle, .seed-packet {
-   height: 15px;
-   margin: 0 -3.5px -3.5px 2px;
+.open-market:hover {
+   box-shadow: 0 0 15px #262626;
 }
 
-/* Nice gray #8D918D */
+.market-item {
+   height: 95%;
+   width: 95%;
+   margin: auto;
+   border-radius: 25px;
+   transition: 0.5s;
+   font-size: 25px;
+   position: relative;
+}
+
+.market-item-content {
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   white-space: pre-line;
+}
+
+.buy-sell {
+   position: absolute;
+   left: 35%;
+   bottom: 15px;
+   height: 50px;
+   width: 30%;
+   border-radius: 25px;
+   overflow: hidden;
+   transition: 0.1s;
+}
+
+.buy-sell:hover {
+   box-shadow: 0 0 5px #262626;
+}
+
+.market-item-buy {
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   background-color: #ff94ec;
+   height: 25px;
+   width: 100%;
+   transition: 0.2s;
+   font-size: 20px;
+}
+
+.market-item-sell {
+   float: left;
+   position: absolute;
+   left: 0;
+   background-color: #77aeff;
+   height: 25px;
+   width: 100%;
+   transition: 0.2s;
+   font-size: 20px;
+}
+
+.market-item-buy:hover {
+   background-color: #f96bdf;
+}
+
+.market-item-sell:hover {
+   background-color: #4f94fa;
+}
+
+.market-item:hover {
+   box-shadow: 0 0 25px #262626,
+               inset 0 0 5px #262626;
+}
+
+.market-item:nth-child(1) {
+   background-color: #ddddb9;
+}
+
+.market-item:nth-child(2) {
+   background-color: #ffcc00;
+}
+
+.market-item:nth-child(3) {
+   background-color: #1f7880;
+}
+
+.market-item:nth-child(4) {
+   background-color: #f0e0e0;
+}
+
+.market-item:nth-child(5) {
+   background-color: #84f09e;
+}
+
+.market-item:nth-child(6) {
+   background-color: #b388c6;
+}
+
+.marketShadow {
+   visibility: collapse;
+   position: fixed;
+   padding-top: 100px;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(25, 0, 0, 0.8);
+   backdrop-filter: blur(5px);
+   z-index: 0;
+}
