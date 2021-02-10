@@ -5,7 +5,6 @@ TABLE OF CONTENTS
 ~~~~~~~~~~~~~~~~~
 Ideas              | Thoughts, plots, the lot
 Game Data          | All game information stored in object variables
-Time               | Still working on it
 Veg Info Modals    | Info about vegetables
 Harvest & Plant    | Harvest function
 Peas               | All about the first plot
@@ -18,63 +17,6 @@ Save               | Save the game data
 // Initate JavaScript strict mode
 "use strict";
 
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Ideas
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/*
-// Key
-
-✖ Idea
-✂ Progress
-✔ Finished
-
-// Idea Progress
-
-💡 Second currency seeds
-💡 Quests by farmer
-
-💡 | ✂ | Multi-plant plot
-   - If multiple plants in one plot, plant choices in row
-   - Background slightly transparent
-   - Check in beta (CSS fufilled, JavaScript in progress)
-
-💡 | 🏅 | ✖ | Scyths?
-   - Use them somehow (harvest x3?)
-
-💡 | ✖ | Autoharvest
-   - Allow automatic harvesting (Purchased, of course)
-
-💡 | 🥇 | ✖ | Intro
-   - Tutorial when first playing, like FoE
-
-💡 | ✖ | Unlock time
-   - Take time for plots to unlock
-
-💡 | 🥉 | ✖ | Pages
-   - Multiple pages, transparent white arrow to move
-   - First page vegtables
-   - Second page fruit
-   - Third page grains
-   - Animals | Sorry, if this ever happends it will be years in the future
-
-💡 | 🥈 | ✖ | Trading
-   - Eventuall there is market, with trading
-   - Each time you buy an item, % increase in price
-   - Selling and buying prices in informational modal
-
-💡 | ✂ | Center plot
-   - Center plot is multiple vegtable plot
-   - Unlock all other plots first
-   - More information on beta branch
-
-// Psudo code
-
-//Automate harvesting while active
-if (poltStatus.peas = "ready") {
-   setTimeout(document.getElementById("harvestPeas").click());
-}
-
-*/
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Game Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -120,13 +62,7 @@ let initalPlots = {
 let plotStatus = initalPlotStatus;
 let produce = initalProduce;
 let plots = initalPlots;
-
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Time
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-
-
+//
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Vegetable Info Modals
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -134,23 +70,32 @@ let plots = initalPlots;
 function infoModal(veg) {
    // Set modal block ID
    let modalID = "info" + veg;
-   let modalVisibility = document.getElementById(modalID).style.visibility;
+   let modalElement = document.getElementById(modalID);
    // If modal is open, close it
-   if (modalVisibility === "visible") {
-      // Close Modal
-      document.getElementById(modalID).style.visibility = "collapse";
+   if (modalElement.style.visibility === "visible") {
+      modalElement.style.visibility = "collapse";
    }
    // Otherwise, open it
    else {
-      // Make visible
-      document.getElementById(modalID).style.visibility = "visible";
+      modalElement.style.visibility = "visible";
    }
-   // If user clicks away from info block
-   window.onclick = function(event) {
-      if (event.target == modalID) {
-         // Close the modal
-         document.getElementById(modalID).style.visibility = "collapse";
-      }
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Toggle Sidebar
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+let sidebarIsOpen = true;
+function toggleSidebar() {
+   if (sidebarIsOpen === true) {
+      document.querySelector(".sidebar").style.right = "-100%";
+      document.querySelector(".land").style.right = "-30%";
+      sidebarIsOpen = false;
+   }
+   else if (sidebarIsOpen === false) {
+      document.querySelector(".sidebar").style.right = "0";
+      document.querySelector(".land").style.right = "0";
+      sidebarIsOpen = true;
    }
 }
 
@@ -659,8 +604,6 @@ let blackMarketItem = document.createElement("DIV");
 blackMarketItem.textContent = `hi`;
 document.querySelector(".market-item").appendChild(blackMarketItem);
 
-
-
 let sellerName = ["Clearly Badd", "Hereto Steale", "Stolin Joye", "Heinous Krime", "Elig L. Felonie"][Math.floor(Math.random() * 5)];
 let sellItem = ["Cheese", "Currency", "Watering Cans", "Fertilizer"][Math.floor(Math.random() * 4)];
 let sellItemQuantity = Math.floor(Math.random() * (25 - 5)) + 5;
@@ -699,26 +642,6 @@ let generateColor = function () {
 };
 
 document.getElementsByClassName("market-item")[2].style.backgroundColor = generateColor();
-
-// Disable Console = "For Security Reasons"
-(function() {
-   try {
-      var $_console$$ = console;
-      Object.defineProperty(window, "console", {
-         get: function() {
-            if ($_console$$._commandLineAPI)
-            throw "Sorry, for security reasons, the script console is deactivated";
-            return $_console$$
-         },
-         set: function($val$$) {
-            $_console$$ = $val$$
-         }
-      })
-   } catch ($ignore$$) {
-   }
-})();
-
-
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Right Click Menu
