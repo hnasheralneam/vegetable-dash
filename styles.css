@@ -35,8 +35,8 @@ body {
 
 /* Remove default button styles */
 button {
-   padding: 8px;
-   margin: 2px;
+   padding: 4vh;
+   margin: 1vh;
    font-family: sans-serif;
    cursor: pointer;
    transition: transform 150ms ease;
@@ -50,6 +50,10 @@ button:active {
    transform: scale(0.99);
 }
 
+summary:focus {
+   outline: none;
+}
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Farmland
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -59,8 +63,8 @@ Farmland
    height: 95vh;
    width: 95vh;
    margin: 2vh auto;
-   border: solid 5px #000;
-   border-radius: 5px;
+   border: solid 1vh #000;
+   border-radius: 1vh;
    transition: 0.5s;
    display: grid;
    grid-template-areas:
@@ -98,16 +102,16 @@ Farmland
 .plot {
    background-image: url("Images/Plots/plot.png");
    background-size: cover;
-   margin: 2px;
-   border: solid 1.5px #000;
-   border-radius: 2px;
+   margin: .2vh;
+   border: solid .3vh #000;
+   border-radius: .3vh;
    display: flex;
    justify-content: center;
    align-items: center;
    transition: 2s;
    position: relative;
-   min-height: 12vw;
-   min-width: 12vw;
+   min-height: 14vw;
+   min-width: 14vw;
 }
 
 .open-plot {
@@ -115,7 +119,7 @@ Farmland
 }
 
 .ahh-perspective {
-   perspective: 100px;
+   perspective: 100vh;
    width: 100%;
    height: 100%;
    display: flex;
@@ -125,7 +129,7 @@ Farmland
 
 /* Locks */
 .locked {
-   height: 150px;
+   height: 25vh;
 }
 
 .lock-tooltip {
@@ -138,24 +142,25 @@ Farmland
    position: absolute;
    top: 50%;
    right: 100%;
-   margin-top: -8px;
-   border-width: 8px;
+   margin-top: -1.5vh;
+   border-width: 1.5vh;
    border-style: outset;
    border-color: transparent lightblue transparent transparent;
 }
 
 .lock-tooltip .tooltiptext {
-   padding: 20px 5px;
+   padding: 20vh 5vh;
    background-color: #606060;
    color: #fff;
-   border-radius: 6px;
+   border-radius: .6vh;
    position: absolute;
-   padding: 20px 5px;
-   width: 125px;
-   height: 75%;
+   padding: 2vh 2vh;
+   width: 25vh;
+   min-height: 75%;
    left: 102%;
+   font-size: 3vh;
    text-align: center;
-   border: outset 2px lightblue;
+   border: outset .5vh lightblue;
    z-index: 1;
    opacity: 0;
    pointer-events: none;
@@ -186,56 +191,62 @@ Farmland
 
 /* Buttons */
 .grow-button {
+   height: 10vh;
+   width: 25vh;
+   font-size: 3vh;
    position: absolute;
    z-index: 1;
    opacity: 1;
 }
 
 .harvest-button {
+   height: 10vh;
+   width: 25vh;
+   font-size: 3vh;
    opacity: 0;
    z-index: -1;
 }
 
 .ahh-perspective button {
    transition: .2s;
-   border-radius: 2px;
-   border: solid 2px rgb(0, 0, 0, .2);
+   border-radius: 1vh;
+   border: solid .4vh rgb(0, 0, 0, .2);
    background-color: #ffd700;
-   padding: 5px;
+   padding: 0;
    color: #800080;
-   text-shadow: 0 0 1.2px #800080,
-                0 6px 8px #fff;
+   text-shadow: 0 0 .1vh #800080,
+                0 2vh 2vh #fff;
 }
 
 .ahh-perspective button:hover {
    transform: rotateX(25deg) scale(1.05);
-   box-shadow: 0 2px .5px rgb(0, 0, 0, .6);
+   box-shadow: 0 .5vh .05vh rgb(0, 0, 0, .6);
    text-shadow: 0 0 #800080,
-                0 1px .2px rgb(0, 0, 0, .6);
+                0 .2vh .02vh rgb(0, 0, 0, .6);
 }
 
 .purchase-plot {
    background-color: #272727;
-   border: solid 2px #808080;
-   border-radius: 5px;
+   border: solid .4vh #808080;
+   border-radius: .4vh;
    color: #fff;
    transition: 0.5s;
 }
 
 .purchase-plot:hover {
-   box-shadow: 0 0 10px #f5f5f5;
+   box-shadow: 0 0 10vh #f5f5f5;
 }
 
 /* Button Images */
 .sickle, .seed-packet {
-   height: 15px;
-   margin: 0 -3.5px -3.5px 2px;
+   height: 3vh;
+   margin: 0vh .8vh;
 }
 .veg-icon {
-   height: 35px;
+   height: 8vh;
    position: absolute;
-   top: 2px;
-   left: 2px;
+   top: .5vh;
+   left: .5vh;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -246,7 +257,7 @@ Vegetable Info Modal
    visibility: collapse;
    position: fixed;
    z-index: 1;
-   padding-top: 100px;
+   padding-top: 10vh;
    left: 0;
    top: 0;
    width: 100%;
@@ -255,22 +266,21 @@ Vegetable Info Modal
 }
 
 .modal-content h4 {
-   font-size: 50px;
-   margin: 2px;
+   font-size: 12vh;
+   margin: 1vh;
 }
 
 .info-icon {
-   height: 50px;
-   margin: 0 0 -2px 0;
+   height: 12vh;
+   margin: 0 0 -2vh 0;
 }
 
 .modal-content {
    width: 80%;
    margin: auto;
-   padding: 20px;
-   font-size: 20px;
-   border: 1px solid #888;
-   border-radius: 8px;
+   padding: 4vh;
+   font-size: 6vh;
+   border-radius: .8vh;
    background-color: #fefefe;
    text-align: center;
    font-family: "Roboto Condensed";
@@ -279,8 +289,10 @@ Vegetable Info Modal
 .close {
    color: #aaaaaa;
    float: right;
-   font-size: 28px;
+   margin-right: 5vh;
+   font-size: 8vh;
    font-weight: bold;
+   transition: 0.2s;
 }
 
 .close:hover {
@@ -292,34 +304,33 @@ Right Click Menu
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 #menu {
-   width: 250px;
+   width: 45vh;
    position: fixed;
    z-index: 9999;
    display: none;
    font-family: Nunito;
-   font-size: 15px;
+   font-size: 3vh;
    background: #fff;
    color: #555;
-   border-radius: 5px;
-   box-shadow: 0 0 5px #f5f5f5;
+   border-radius: 1vh;
+   box-shadow: 0 0 1vh #f5f5f5;
 }
 #menu li {
    list-style-type: none;
-   padding: 10px 25px;
+   padding: 2vh 5vh;
    transition: .2s;
 }
 
 #menu li:hover {
-   text-shadow: 0 .2px .2px #262626;
+   text-shadow: 0 .04vh .04vh #262626;
    background-color: #fafafa;
-   border-radius: 5px;
+   border-radius: .5vh;
 }
 
 #menu hr {
-   border: 1px solid #ebebeb;
+   border: .25vh solid #ebebeb;
    border-bottom: 0;
 }
-
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Side Bar
@@ -329,56 +340,89 @@ Side Bar
    position: absolute;
    right: 0;
    background-color: #111;
-   border-left: ridge 3px gold;
-   padding: 12px;
+   border-left: ridge 1vh gold;
+   padding: 3vh;
    height: 100%;
    width: auto;
    color: #fff;
+   font-size: 4vh;
    transition: 0.5s;
-   box-shadow: 0 0 10px #262626;
+   box-shadow: 0 0 2vh #262626;
    font-family: "Nunito";
    text-align: center;
    position: relative;
 }
 
-.sidebar button {
-   border-radius: 3px;
-   padding:  5px;
+.sidebar details {
+   width: 25vw;
+   margin: 3vh auto;
+}
+
+.sidebar-button {
+   border-radius: .5vh;
+   padding: 1vh;
    display: block;
-   margin: 8px auto;
-   width: 60%;
-   box-shadow: 0 0 5px #222;
+   margin: .5vh auto;
+   width: 100%;
+   box-shadow: 0 0 1vh #222;
+   background-color: #808080;
+   border: none;
+   font-size: 3.5vh;
+   color: lightblue;
+   text-shadow: 0 0 4vh #000;
+   font-family: inherit;
+}
+
+.theme-color {
+   width: 49%;
+   padding: 1vh;
+   margin: .5vh auto;
+   display: inline;
+   background-color: #aaaaaa;
+}
+
+.device-size-button {
+   width: 32%;
+   padding: 1vh;
+   margin: .5vh auto;
+   display: inline;
+   background-color: #d9d9d9;
+}
+
+.sidebar button:hover {
+   transform: scale(0.95);
+   margin: .5vh auto;
 }
 
 .sidebar button:active {
    transform: scale(1.03);
+   padding: 1.5vh;
+   margin: .5vh auto;
 }
 
 .open-sidebar {
    position: absolute;
-   top: 25px;
-   left: -40px;
-   height: 80px;
-   width: 80px;
-   padding: 15px;
+   top: 8%;
+   left: -9.5vh;
+   height: 18vh;
+   width: 18vh;
    box-sizing: border-box;
    background-color: inherit;
    display: flex;
    justify-content: center;
    align-items: center;
-   font-size: 50px;
+   font-size: 9vh;
    border-radius: 50%;
-   border: ridge 3px gold;
+   border: ridge .6vh gold;
    transition: 0.5s;
 }
 
 .open-sidebar:hover {
-   box-shadow: 0 0 8px #f5f5f5;
+   box-shadow: 0 0 2vh #f5f5f5;
 }
 
 .produce p {
    visibility: hidden;
-   margin: 5px;
    font-size: 120%;
 }
 
@@ -388,40 +432,40 @@ Introduction
 
 .intro-container {
    position: fixed;
-   bottom: 15px;
-   left: 50px;
-   right: 50px;
+   bottom: 2vh;
+   left: 12vh;
+   right: 12vh;
    height: 20%;
    background-color: #f5f5f5;
-   border-radius: 25px;
+   border-radius: 5vh;
    font-family: Nunito;
-   letter-spacing: -0.2px;
+   letter-spacing: -0.04vh;
    overflow: hidden;
    z-index: 1;
-   padding-left: 15px;
+   padding-left: 6vh;
    display: none;
 }
 
 .intro-nxt-btn {
    position: absolute;
-   right: 25px;
-   bottom: 25px;
+   right: 5vh;
+   bottom: 5vh;
    background-color: #7962b6;
-   height: 50px;
-   width: 80px;
+   height: 10vh;
+   width: 15vh;
    display: flex;
    justify-content: center;
    align-items: center;
    color: #fff;
-   font-size: 50px;
-   border-radius: 25px;
+   font-size: 10vh;
+   border-radius: 25vh;
    transition: 0.2s;
 }
 
 .intro-nxt-btn:hover {
-   font-size: 55px;
-   box-shadow: 0 0 12px #262626,
-               inset 5px 0 16px 3px rgba(255, 255, 255, 0.5);
+   font-size: 11vh;
+   box-shadow: 0 0 3vh #262626,
+               inset 1vh 0 4vh .8vh rgba(255, 255, 255, 0.5);
 }
 
 .intro-character {
@@ -441,12 +485,12 @@ Introduction
 
 .intro-divide {
    height: 100%;
-   margin: 0 50px;
+   margin: 0 5vh;
 }
 
 .intro-text {
    font-size: 2.5vw;
-   margin: 15px 100px 15px 15px;
+   margin: 3.5vh 20vh 3.5vh 3.5vh;
 }
 
 .space-holder {
@@ -456,7 +500,7 @@ Introduction
 .introDarkShadow {
    visibility: collapse;
    position: fixed;
-   padding-top: 100px;
+   padding-top: 100vh;
    left: 0;
    top: 0;
    width: 100%;
@@ -476,7 +520,8 @@ Quests
    height: 80%;
    width: 0;
    background-color: #f9f9f9;
-   border-radius: 10px;
+   border-top-right-radius: 2vh;
+   border-bottom-right-radius: 2vh;
    transition: 0.8s;
    overflow: scroll;
 }
@@ -484,14 +529,14 @@ Quests
 .inner-quest-content {
    display: none;
    font-family: Nunito;
-   margin: 50px;
+   margin: 10vh;
 }
 
 .quest-ribbon {
    position: fixed;
    top: 12%;
    left: 0;
-   height: 90px;
+   height: 18vh;
    z-index: 0.95;
    transition: 0.8s;
 }
@@ -500,7 +545,6 @@ Quests
    visibility: collapse;
    position: fixed;
    z-index: 0;
-   padding-top: 100px;
    left: 0;
    top: 0;
    width: 100%;
@@ -509,9 +553,9 @@ Quests
 }
 
 .quest-gold-separator {
-   height: 150px;
-   width: 25px;
-   margin: 0 10px 0 -10px;
+   height: 35vh;
+   width: 5vh;
+   margin: 0 2vh;
 }
 
 .quest-arrow {
@@ -528,7 +572,7 @@ Quests
 
 @keyframes quest-arrow-nudge {
    0% {
-      margin-right: 0px;
+      margin-right: 0;
    }
    20% {
       margin-right: -8px;
@@ -540,43 +584,44 @@ Quests
       margin-right: -8px;
    }
    70% {
-      margin-right: 0px;
+      margin-right: 0;
    }
    100% {
-      margin-right: 0px;
+      margin-right: 0;
    }
 }
 
 .quest-block {
-   border-radius: 10px;
+   border-radius: 4vh;
    background-color: #fbf4d5;
    width: 100%;
-   height: 150px;
-   margin: 25px auto;
+   height: 35vh;
+   margin: 5vh auto;
    overflow: hidden;
    display: grid;
-   grid-template-columns: auto auto auto;
-   box-shadow: 0 0 2px #262626;
+   grid-template-columns: 46% 4% 46%;
+   box-shadow: 0 0 .3vh #262626;
    transition: 0.5s;
    position: relative;
 }
 
 .quest-block:hover {
-   box-shadow: 0 0 18px #262626;
+   box-shadow: 0 0 5vh #262626;
 }
 
 .quest-text {
-   margin: 15px 25px 0 0;
+   margin: 2vh;
    font-size: 115%;
+   width: 50%;
 }
 
 #jeb-image {
-   margin: 0 0 0 0;
-   height: 160px;
+   margin: auto;
+   height: 28vh;
 }
 
 #grandpa-image {
-   margin: -56px 0 0 -50px;
+   margin: -50px auto;
    height: 240px;
 }
 
@@ -591,16 +636,17 @@ Market
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .market {
-   visibility: collapse;
+   opacity: 0;
+   pointer-events: none;
    position: absolute;
-   top: 25px;
-   left: 25px;
-   bottom: 25px;
-   right: 25px;
-   padding: 20px;
+   top: 5vh;
+   left: 5vh;
+   bottom: 5vh;
+   right: 5vh;
+   padding: 5vh;
    font-size: 20px;
-   border: 1px solid #888;
-   border-radius: 25px;
+   border: .2vh solid #888;
+   border-radius: 5vh;
    background-image: url("Images/Market/bustling.png");
    background-size: cover;
    background-color: #262626;
@@ -618,12 +664,12 @@ Market
 .open-market {
    display: none;
    position: absolute;
-   bottom: 25px;
-   left: 25px;
-   height: 50px;
-   width: 50px;
+   bottom: 5vh;
+   left: 5vh;
+   height: 8vh;
+   width: 8vh;
    background-color: #f9f9f9;
-   border-radius: 25px;
+   border-radius: 50%;
    transition: 0.2s;
 }
 
@@ -724,7 +770,8 @@ Market
 }
 
 .marketShadow {
-   visibility: collapse;
+   opacity: 0;
+   pointer-events: none;
    position: fixed;
    padding-top: 100px;
    left: 0;
@@ -733,5 +780,4 @@ Market
    height: 100%;
    background-color: rgba(25, 0, 0, 0.8);
    backdrop-filter: blur(5px);
-   z-index: 0;
 }

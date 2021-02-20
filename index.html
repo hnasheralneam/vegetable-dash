@@ -3,8 +3,11 @@
    <head>
       <meta charset="utf-8">
       <!-- Google Fonts -->
+      <!-- Nunito -->
       <link rel="preconnect" href="https://fonts.gstatic.com">
-      <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+      <!-- Roboto Condensed -->
+      <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
       <!-- Favicon (Thanks, Justin) -->
       <link rel="shortcut icon" href="Images/Global Assets/favicon.png" type="image/x-icon">
       <!-- CSS Link -->
@@ -101,8 +104,21 @@
          <!-- Plot 6 -->
          <div class="plot" id="plot6">
             <div class="lock-tooltip" id="lockedDiv6">
-               <img id="lock6" class="locked" src="Images/Lock/lock.png" alt="Locked">
-               <span class="tooltiptext">This plot is locked <br> Purchase the previous plot to unlock<br></span>
+               <img id="lock5" class="locked" src="Images/Lock/lock.png" alt="Locked">
+               <span class="tooltiptext" id="lock4Text">This plot is locked <br> Purchase the previous plot to unlock</span>
+            </div>
+            <div class="open-plot" id="openPlot6">
+               <span class="ahh-perspective"><button class="grow-button" id="growPumpkin" onclick="plantPumpkins()">Grow Pumpkins!<img class="seed-packet" src="Images/Global Assets/seed-packet.png" alt=""></button>
+               <button class="harvest-button" id="harvestEggplants" onclick="harvest('Eggplants')">Harvest Pupmkins!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button></span>
+               <!-- Pupmkins Info -->
+               <img onclick="infoModal('Pupmkins')" class="veg-icon" src="Images/Vegetables/Pumpkins/pumpkin.png" alt="Pumpkin">
+               <div id="infoPumpkin" class="veg-info">
+                  <div class="modal-content">
+                     <span onclick="infoModal('Pumpkin')" class="close">×</span>
+                     <h4>Pupmkins <img class="info-icon" src="Images/Vegetables/Pumpkins/pumpkin.png" alt="Pumpkin"></h4>
+                     <p>Pupmkins.</p>
+                  </div>
+               </div>
             </div>
          </div>
          <!-- Plot 7 -->
@@ -139,18 +155,19 @@
          </div>
          <details open>
             <summary>Settings</summary>
-            <button onclick="restart()">Restart</button>
-            <button onclick="document.querySelector('.sidebar').style.backgroundColor = '#f5f5f5'; document.querySelector('.sidebar').style.color = '#333';">Light</button>
-            <button onclick="document.querySelector('.sidebar').style.backgroundColor = '#111'; document.querySelector('.sidebar').style.color = '#f5f5f5';">Dark</button>
-            <button onclick="document.querySelector('.land').classList.remove('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Normal Device</button>
-            <button onclick="document.querySelector('.land').classList.add('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Small Device</button>
-            <button onclick="document.querySelector('.land').classList.add('land-for-tiny');">Tiny Device</button>
-            <button onclick="togglePlay()">Music</button>
+            <button class="sidebar-button" onclick="restart()">Restart</button>
+            <button class="sidebar-button theme-color" onclick="document.querySelector('.sidebar').style.backgroundColor = '#f5f5f5'; document.querySelector('.sidebar').style.color = '#333';">Light</button>
+            <button class="sidebar-button theme-color" onclick="document.querySelector('.sidebar').style.backgroundColor = '#111'; document.querySelector('.sidebar').style.color = '#f5f5f5';">Dark</button>
+            <br>
+            <button class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.remove('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Normal Device</button>
+            <button class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.add('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Small Device</button>
+            <button  class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.add('land-for-tiny');">Tiny <br> Device</button>
+            <button class="sidebar-button" onclick="togglePlay()">Music</button>
             <audio class="mozart" src="Audio/mozart.mp3"></audio>
          </details>
       </div>
       <!-- Quests -->
-      <div class="quests">
+      <!-- <div class="quests">
          <img class="quest-ribbon" id="questRibbon" src="Images/Quests/short-ribbon.png" alt="Ribbon!" onclick="questbar()">
          <div class="dark-shadow" id="darkShadow" onclick="closequestbar()"></div>
          <div class="quest-content" id="questContent">
@@ -171,10 +188,11 @@
                   <img class="quest-gold-separator" src="Images/Quests/gold-separator.png" alt="Separator">
                   <p class="quest-text">Nice to meet you. I'm Grandma Josephine, and I'm here to teach you economics.</p>
                </div>
-               <p style="margin-left: 35%">(Crtl + Q to toggle)</p>
+               <p style="margin-left: 35%">(Crtl + Q to toggle quest bar)</p>
+               <p style="margin-left: 35%">(Shift + W to toggle settigs)</p>
             </div>
          </div>
-      </div>
+      </div> -->
       <!-- Welcome -->
       <div class="veg-info">
          <div class="modal-content">

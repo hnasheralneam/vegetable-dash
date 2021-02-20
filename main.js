@@ -82,24 +82,6 @@ function infoModal(veg) {
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Toggle Sidebar
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-let sidebarIsOpen = true;
-function toggleSidebar() {
-   if (sidebarIsOpen === true) {
-      document.querySelector(".sidebar").style.right = "-100%";
-      document.querySelector(".land").style.right = "-30%";
-      sidebarIsOpen = false;
-   }
-   else if (sidebarIsOpen === false) {
-      document.querySelector(".sidebar").style.right = "0";
-      document.querySelector(".land").style.right = "0";
-      sidebarIsOpen = true;
-   }
-}
-
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Harvest & Plant
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -187,6 +169,59 @@ function peaStatus() {
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Corn
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+function plant(veg, upCase, timeOne, timeTwo, pltNumber, url) {
+   let vegPlot = "plot" + pltNumber;
+   let vegPlntBtn = "grow" + upCase;
+   let vegHvstBtn = "harvest" + upCase;
+
+   // // If veg is equal to peas
+   // if (veg === 'Peas') {
+   //    // Set plot status to empty
+   //    plotStatus.peas = "empty";
+   //    // Add one to peas
+   //    produce.peas++;
+   // }
+   // if (veg === "Corn") {
+   //    plotStatus.corn = "empty";
+   //    produce.corn++;
+   // }
+   // if (veg === "Strawberries") {
+   //    plotStatus.strawberries = "empty";
+   //    produce.strawberries++;
+   // }
+   // if (veg === "Eggplants") {
+   //    plotStatus.eggplant = "empty";
+   //    produce.eggplants++;
+   // }
+
+   function plantVeg() {
+      setTimeout(growingVeg, timeOne);
+      setTimeout(readyVeg, timeTwo);
+      vegPlntBtn.style.opacity = "0";
+   }
+
+   function growingVeg() {plotStatus[veg] = "growing";}
+   function readyVeg() {plotStatus[veg] = "ready";}
+
+   function vegStatus() {
+      if (plotStatus[veg] === "ready") {
+         (veg + "Plot").style.background = "url(Images/Vegetables/" + url + ")";
+         (veg + "Plot").style.backgroundSize = "cover";
+         (veg + "HvstBtn").style.opacity = "1";
+         (veg + "HvstBtn").style.zIndex = "1";
+         (veg + "PlntBtn").style.zIndex = "-1";
+      }
+      else if (plotStatus[veg] === "growing") {
+         (veg + "Plot").style.background = "url(Images/Plots/growing.png)";
+         (veg + "Plot").style.backgroundSize = "cover";
+      }
+      else {
+         (veg + "Plot").style.background = "url(Images/Plots/plot.png)";
+         (veg + "Plot").style.backgroundSize = "cover";
+      }
+   }
+}
 
 let cornPlot = document.getElementById("plot2");
 let cornPlntBtn = document.getElementById("growCorn");
@@ -518,7 +553,7 @@ let questStatus =  {
 // Toggle quest bar
 document.addEventListener("keyup", function(event) {
    if (event.ctrlKey && event.keyCode === 81) {
-      if (document.querySelector("#questContent").style.width === "500px") {
+      if (document.querySelector("#questContent").style.width === "125vh") {
          closequestbar();
       }
       else {
@@ -528,9 +563,9 @@ document.addEventListener("keyup", function(event) {
 });
 
 function questbar() {
-   document.querySelector("#questContent").style.width = "500px";
+   document.querySelector("#questContent").style.width = "125vh";
    document.getElementById("innerQuestContent").style.display = "block";
-   document.getElementById("questRibbon").style.left = "500px";
+   document.getElementById("questRibbon").style.left = "125vh";
    document.getElementById("darkShadow").style.visibility = "visible";
 }
 
@@ -545,6 +580,7 @@ function closequestbar() {
 // Market
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+// Crtl/Shift + M opens market
 let seeds = 500;
 let producePrices = {
    buyPeas: 25,
@@ -558,13 +594,18 @@ let producePrices = {
 }
 
 function openMarket() {
-   document.querySelector(".marketShadow").style.visibility = "visibility";
-   document.querySelector(".market").style.visibility = "visibility";
+   console.log("hi");
+   document.querySelector(".marketShadow").style.opacity = "1";
+   document.querySelector(".marketShadow").style.pointerEvents = "auto";
+   document.querySelector(".market").style.opacity = "1";
+   document.querySelector(".market").style.pointerEvents = "auto";
 }
 
 function closeMarket() {
-   document.querySelector(".marketShadow").style.visibility = "collapse";
-   document.querySelector(".market").style.visibility = "collapse";
+   document.querySelector(".marketShadow").style.opacity = "0";
+   document.querySelector(".marketShadow").style.pointerEvents = "none";
+   document.querySelector(".market").style.opacity = "0";
+   document.querySelector(".market").style.pointerEvents = "none";
 }
 
 function buyPeas() {
@@ -678,6 +719,32 @@ function menu(x, y) {
    rightClickMenu.left = x + "px";
    rightClickMenu.display = "block";
 }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Toggle Sidebar
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+let sidebarIsOpen = true;
+function toggleSidebar() {
+   if (sidebarIsOpen === true) {
+      document.querySelector(".sidebar").style.right = "-100%";
+      document.querySelector(".land").style.right = "-30%";
+      sidebarIsOpen = false;
+   }
+   else if (sidebarIsOpen === false) {
+      document.querySelector(".sidebar").style.right = "0";
+      document.querySelector(".land").style.right = "0";
+      sidebarIsOpen = true;
+   }
+}
+
+// Toggle sidebar
+document.addEventListener("keyup", function(event) {
+   event.preventDefault();
+   if (event.shiftKey && event.keyCode === 87) {
+      toggleSidebar();
+   }
+});
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Fresh Produce | Store
