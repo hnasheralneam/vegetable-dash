@@ -581,7 +581,7 @@ function closequestbar() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 // Crtl/Shift + M opens market
-let seeds = 500;
+let seeds = 0;
 let producePrices = {
    buyPeas: 25,
    sellPeas: 25,
