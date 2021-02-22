@@ -152,6 +152,8 @@
             <p id="cornBushels">0 Bushels of Corn</p>
             <p id="strawberryBushels">0 Bushels of Strawberries</p>
             <p id="eggplantBushels">0 Bushels of Eggplants</p>
+            <br>
+            <p style="visibility: visible;"><strong>Shift + E</strong> to toggle <i>Commands</i></p>
          </div>
          <details open>
             <summary>Settings</summary>
@@ -213,49 +215,58 @@
          </div>
       </div>
       <!-- Market -->
-      <div class="open-market" onclick="openMarket()"></div>
-      <div class="marketShadow" onclick="closeMarket()"></div>
-      <div class="market">
-         <div class="market-item">
-            <div class="market-item-content">
-               Seeds: 0
-               Cheese: 0
-               Watering Cans: 0
-               Fertilizer: 0
+      <div class="marketShadow">
+         <div class="market">
+            <div class="market-item">
+               <div class="market-item-content">
+                  Seeds: 0
+                  Cheese: 0
+                  Watering Cans: 0
+                  Fertilizer: 0
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('peas', 'Peas')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('peas', 'Peas')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('corn', 'Corn')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('corn', 'Corn')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('strawberries', 'Strawberries')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('strawberries', 'Strawberries')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('eggplants', 'Eggplants')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('eggplants', 'Eggplants')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content">
+                  Black Market <br> Coming Soon!
+               </div>
             </div>
          </div>
-         <div class="market-item">
-            <div class="market-item-content">
-               Peas <br> Cost: 25 Seeds <br> Sell: 25 Seeds
-            </div>
-            <div class="buy-sell">
-               <span class="market-item-buy" onclick="buyPeas()">Buy</span>
-               <span class="market-item-sell"  onclick="sellPeas()">Sell</span>
-            </div>
-         </div>
-         <div class="market-item">
-            <div class="market-item-content">
-               Buy Corn <br> Cost: 75 Seeds <br> Sell: 75 Seeds
-            </div>
-            <div class="buy-sell">
-               <span class="market-item-buy" onclick="accpet()">Accept</span>
-               <span class="market-item-sell"  onclick="deny()">Deny</span>
-            </div>
-         </div>
-         <div class="market-item">
-            <div class="market-item-content">
-               Buy Strawberries <br> Cost: 250 Seeds <br> Sell: 250 Seeds
-            </div>
-         </div>
-         <div class="market-item">
-            <div class="market-item-content">
-               Buy Eggplant <br> Cost: 500 Seeds <br> Sell: 500 Seeds
-            </div>
-         </div>
-         <div class="market-item">
-            <div class="market-item-content">
-               Black Market <br> Coming Soon!
-            </div>
+      </div>
+      <!-- Commands -->
+      <div class="commandsShadow">
+         <div class="commands">
+            <p><strong>Shift + Q</strong> to toggle <i>Quests</i></p>
+            <p><strong>Shift + W</strong> to toggle <i>Sidebar</i></p>
+            <p><strong>Shift + E</strong> to toggle <i>Commands</i></p>
+            <p><strong>Shift + M</strong> to toggle <i>Market</i></p>
          </div>
       </div>
       <!-- Right Click Menu -->

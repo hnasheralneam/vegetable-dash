@@ -552,7 +552,7 @@ let questStatus =  {
 
 // Toggle quest bar
 document.addEventListener("keyup", function(event) {
-   if (event.ctrlKey && event.keyCode === 81) {
+   if (event.shiftKey && event.keyCode === 81) {
       if (document.querySelector("#questContent").style.width === "125vh") {
          closequestbar();
       }
@@ -589,100 +589,120 @@ let producePrices = {
    sellCorn: 75,
    buyStrawberries: 250,
    sellStrawberries: 250,
-   buyEggplants: 500,
-   sellEggplants: 500,
+   buyEggplants: 750,
+   sellEggplants: 750,
 }
 
-function openMarket() {
-   console.log("hi");
-   document.querySelector(".marketShadow").style.opacity = "1";
-   document.querySelector(".marketShadow").style.pointerEvents = "auto";
-   document.querySelector(".market").style.opacity = "1";
-   document.querySelector(".market").style.pointerEvents = "auto";
-}
+document.addEventListener("keyup", function(event) {
+   if (event.shiftKey && event.keyCode === 77) {
+      if (document.querySelector(".marketShadow").style.opacity === "0") {
+         document.querySelector(".marketShadow").style.opacity = "1";
+         document.querySelector(".marketShadow").style.pointerEvents = "auto";
+      }
+      else {
+         document.querySelector(".marketShadow").style.opacity = "0";
+         document.querySelector(".marketShadow").style.pointerEvents = "none";
+      }
+   }
+});
 
-function closeMarket() {
-   document.querySelector(".marketShadow").style.opacity = "0";
-   document.querySelector(".marketShadow").style.pointerEvents = "none";
-   document.querySelector(".market").style.opacity = "0";
-   document.querySelector(".market").style.pointerEvents = "none";
-}
-
-function buyPeas() {
-   if (seeds >= producePrices.buyPeas) {
-      produce.peas += 5;
-      seeds -= producePrices.buyPeas;
-      producePrices.buyPeas *= 1.08;
-      producePrices.sellPeas *= 1.08;
+function checkMarket() {
+   let marketItem = document.getElementsByClassName("market-item");
+   if (produce.corn < 5) {
+      marketItem[2].style.opacity = "0";
+   }
+   if (produce.strawberries < 5) {
+      marketItem[3].style.opacity = "0";
+   }
+   if (produce.eggplants < 5) {
+      marketItem[4].style.opacity = "0";
    }
 }
 
-function sellPeas() {
-   if (produce.peas >= 5) {
-      produce.peas -= 5;
-      seeds += producePrices.sellPeas;
-      producePrices.buyPeas *= 0.92;
-      producePrices.sellPeas *= 0.92;
+function buyProduce(produceRequested, produceCase) {
+   if (seeds >= producePrices["buy" + produceCase]) {
+      produce[produceRequested] += 5;
+      seeds -= producePrices["buy" + produceCase];
+      producePrices["buy" + produceCase] *= 1.08;
+      producePrices["sell" + produceCase] *= 1.02;
+      updateMarket();
+      checkMarket();
    }
 }
 
-var updateMarket = window.setInterval(function() {
-   document.getElementsByClassName("market-item-content")[0].textContent = `Seeds: ${Math.floor(seeds)}`;
-   document.getElementsByClassName("market-item-content")[1].textContent = `Peas: ${produce.peas}
+function sellProduce(produceRequested, produceCase) {
+   if (produce[produceRequested] >= 5) {
+      produce[produceRequested] -= 5;
+      seeds += producePrices["sell" + produceCase];
+      producePrices["buy" + produceCase] *= 0.98;
+      producePrices["sell" + produceCase] *= 0.92;
+      updateMarket();
+      checkMarket();
+   }
+}
+
+function updateMarket() {
+   let marketItem = document.getElementsByClassName("market-item-content");
+   marketItem[0].textContent = `Seeds: ${Math.floor(seeds)}`;
+   marketItem[1].textContent = `Peas: ${produce.peas}
    Cost: ${Math.floor(producePrices.buyPeas)} Seeds
-   Sell: ${Math.floor(producePrices.sellPeas)} Seeds`;
-   // document.getElementsByClassName("market-item-content")[2].textContent = `Buy Corn
-   // Cost: 75 Seeds
-   // Sell: 75 Seeds`;
-   document.getElementsByClassName("market-item-content")[3].textContent = `Buy Strawberries
-   Cost: 250 Seeds
-   Sell: 250 Seeds`;
-   document.getElementsByClassName("market-item-content")[4].textContent = `Buy Eggplant \r\n Cost: 500 Seeds \r\n Sell: 500 Seeds`;
-}, 250)
-
-
-let blackMarketItem = document.createElement("DIV");
-blackMarketItem.textContent = `hi`;
-document.querySelector(".market-item").appendChild(blackMarketItem);
-
-let sellerName = ["Clearly Badd", "Hereto Steale", "Stolin Joye", "Heinous Krime", "Elig L. Felonie"][Math.floor(Math.random() * 5)];
-let sellItem = ["Cheese", "Currency", "Watering Cans", "Fertilizer"][Math.floor(Math.random() * 4)];
-let sellItemQuantity = Math.floor(Math.random() * (25 - 5)) + 5;
-let seedCost = Math.floor(Math.random() * (8000 - 2000)) + 2000;
-
-document.getElementsByClassName("market-item-content")[2].textContent = `Offer by ${sellerName}
-Selling ${sellItemQuantity} ${sellItem}
-for ${seedCost} Seeds`;
-
-function deny() {
-   sellerName = ["Clearly Badd", "Hereto Steale", "Stolin Joye", "Heinous Krime", "Elig L. Felonie"][Math.floor(Math.random() * 5)];
-   sellItem = ["Cheese", "Currency", "Watering Cans", "Fertilizer"][Math.floor(Math.random() * 4)];
-   sellItemQuantity = Math.floor(Math.random() * (25 - 5)) + 5;
-   seedCost = Math.floor(Math.random() * (8000 - 2000)) + 2000;
-   document.getElementsByClassName("market-item-content")[2].textContent = `Offer by ${sellerName}
-   Selling ${sellItemQuantity} ${sellItem}
-   for ${seedCost} Seeds`;
-   document.getElementsByClassName("market-item")[2].style.backgroundColor = generateColor();
+   Sell: ${Math.floor(producePrices.sellPeas)} Seeds \r\n \r\n`;
+   marketItem[2].textContent = `Corn: ${produce.corn}
+   Cost: ${Math.floor(producePrices.buyCorn)} Seeds
+   Sell: ${Math.floor(producePrices.sellCorn)} Seeds \r\n \r\n`;
+   marketItem[3].textContent = `Strawberries: ${produce.strawberries}
+   Cost: ${Math.floor(producePrices.buyStrawberries)}
+   Sell: ${Math.floor(producePrices.sellStrawberries)} \r\n \r\n`;
+   marketItem[4].textContent = `Eggplant ${produce.eggplants}
+   Cost: ${Math.floor(producePrices.buyEggplants)}
+   Sell: ${Math.floor(producePrices.sellEggplants)} \r\n \r\n`;
 }
 
+// Later at cost of black market items allow reset of market values
 
-// Random Color
-function rand(min, max) {
-    let randomNum = Math.random() * (max - min) + min;
-    return Math.round(randomNum);
-}
 
-let generateColor = function () {
-   let hex = ['a', 'b', 'c', 'd', 'e', 'f', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-   let color = '#';
-   for (let i = 0; i < 6; i++) {
-      let index = rand(0, 15);
-      color += hex[index];
-   }
-   return color;
-};
-
-document.getElementsByClassName("market-item")[2].style.backgroundColor = generateColor();
+// let blackMarketItem = document.createElement("DIV");
+// blackMarketItem.textContent = `hi`;
+// document.querySelector(".market-item").appendChild(blackMarketItem);
+//
+// let sellerName = ["Clearly Badd", "Hereto Steale", "Stolin Joye", "Heinous Krime", "Elig L. Felonie"][Math.floor(Math.random() * 5)];
+// let sellItem = ["Cheese", "Currency", "Watering Cans", "Fertilizer"][Math.floor(Math.random() * 4)];
+// let sellItemQuantity = Math.floor(Math.random() * (25 - 5)) + 5;
+// let seedCost = Math.floor(Math.random() * (8000 - 2000)) + 2000;
+//
+// document.getElementsByClassName("market-item-content")[2].textContent = `Offer by ${sellerName}
+// Selling ${sellItemQuantity} ${sellItem}
+// for ${seedCost} Seeds`;
+//
+// function deny() {
+//    sellerName = ["Clearly Badd", "Hereto Steale", "Stolin Joye", "Heinous Krime", "Elig L. Felonie"][Math.floor(Math.random() * 5)];
+//    sellItem = ["Cheese", "Currency", "Watering Cans", "Fertilizer"][Math.floor(Math.random() * 4)];
+//    sellItemQuantity = Math.floor(Math.random() * (25 - 5)) + 5;
+//    seedCost = Math.floor(Math.random() * (8000 - 2000)) + 2000;
+//    document.getElementsByClassName("market-item-content")[2].textContent = `Offer by ${sellerName}
+//    Selling ${sellItemQuantity} ${sellItem}
+//    for ${seedCost} Seeds`;
+//    document.getElementsByClassName("market-item")[2].style.backgroundColor = generateColor();
+// }
+//
+//
+// // Random Color
+// function rand(min, max) {
+//     let randomNum = Math.random() * (max - min) + min;
+//     return Math.round(randomNum);
+// }
+//
+// let generateColor = function () {
+//    let hex = ['a', 'b', 'c', 'd', 'e', 'f', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+//    let color = '#';
+//    for (let i = 0; i < 6; i++) {
+//       let index = rand(0, 15);
+//       color += hex[index];
+//    }
+//    return color;
+// };
+//
+// document.getElementsByClassName("market-item")[2].style.backgroundColor = generateColor();
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Right Click Menu
@@ -719,6 +739,23 @@ function menu(x, y) {
    rightClickMenu.left = x + "px";
    rightClickMenu.display = "block";
 }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Commands
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+document.addEventListener("keyup", function(event) {
+   if (event.shiftKey && event.keyCode === 69) {
+      if (document.querySelector(".commandsShadow").style.opacity === "0") {
+         document.querySelector(".commandsShadow").style.opacity = "1";
+         document.querySelector(".commandsShadow").style.pointerEvents = "auto";
+      }
+      else {
+         document.querySelector(".commandsShadow").style.opacity = "0";
+         document.querySelector(".commandsShadow").style.pointerEvents = "none";
+      }
+   }
+});
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Toggle Sidebar
@@ -781,6 +818,8 @@ var plantStatus = window.setInterval(function() {
    eggplantStatus();
    // Update store
    produceDisplay();
+   updateMarket();
+   checkMarket()
 }, 200)
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -843,7 +882,7 @@ function restart() {
 }
 
 // Music
-let myAudio =document.querySelector(".mozart");
+let myAudio = document.querySelector(".mozart");
 
 function togglePlay() {
   return myAudio.paused ? myAudio.play() : myAudio.pause();

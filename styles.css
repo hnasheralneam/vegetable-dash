@@ -635,56 +635,49 @@ Quests
 Market
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-.market {
+.marketShadow {
    opacity: 0;
    pointer-events: none;
+   position: fixed;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   z-index: 1;
+   background-color: rgba(25, 0, 0, 0.8);
+   backdrop-filter: blur(5px);
+   transition: 0.8s;
+}
+
+.market {
    position: absolute;
-   top: 5vh;
-   left: 5vh;
-   bottom: 5vh;
-   right: 5vh;
-   padding: 5vh;
-   font-size: 20px;
-   border: .2vh solid #888;
+   top: 2.5vh;
+   right: 2.5vh;
+   bottom: 2.5vh;
+   left: 2.5vh;
    border-radius: 5vh;
    background-image: url("Images/Market/bustling.png");
    background-size: cover;
    background-color: #262626;
    text-align: center;
    font-family: "Roboto Condensed";
-   z-index: 1;
    display: grid;
    grid-template-areas:
    "a b c"
    "d e f";
    cursor: url("Images/Global Assets/big-money.png"), auto;
-}
-
-
-.open-market {
-   display: none;
-   position: absolute;
-   bottom: 5vh;
-   left: 5vh;
-   height: 8vh;
-   width: 8vh;
-   background-color: #f9f9f9;
-   border-radius: 50%;
-   transition: 0.2s;
-}
-
-.open-market:hover {
-   box-shadow: 0 0 15px #262626;
+   transition: 0.8s;
 }
 
 .market-item {
    height: 95%;
    width: 95%;
    margin: auto;
-   border-radius: 25px;
+   border-radius: 5vh;
    transition: 0.5s;
-   font-size: 25px;
+   font-size: 5vh;
    position: relative;
+   opacity: 0.95;
 }
 
 .market-item-content {
@@ -693,17 +686,18 @@ Market
    justify-content: center;
    align-items: center;
    white-space: pre-line;
+   transition: 0.2s;
 }
 
 .buy-sell {
    position: absolute;
    left: 35%;
-   bottom: 15px;
-   height: 50px;
+   bottom: 3vh;
+   height: 10vh;
    width: 30%;
    border-radius: 25px;
    overflow: hidden;
-   transition: 0.1s;
+   transition: 0.2s;
 }
 
 .buy-sell:hover {
@@ -722,7 +716,7 @@ Market
 }
 
 .market-item-sell {
-   float: left;
+   float: bottom;
    position: absolute;
    left: 0;
    background-color: #77aeff;
@@ -732,52 +726,48 @@ Market
    font-size: 20px;
 }
 
-.market-item-buy:hover {
-   background-color: #f96bdf;
-}
-
-.market-item-sell:hover {
-   background-color: #4f94fa;
-}
+.market-item-buy:hover { background-color: #f96bdf; }
+.market-item-sell:hover { background-color: #4f94fa; }
 
 .market-item:hover {
+   opacity: 0.98;
    box-shadow: 0 0 25px #262626,
                inset 0 0 5px #262626;
 }
 
-.market-item:nth-child(1) {
-   background-color: #ddddb9;
-}
+.market-item:nth-child(1) { background-color: #ddddb9; }
+.market-item:nth-child(2) { background-color: #ffcc00; }
+.market-item:nth-child(3) { background-color: #1f7880; }
+.market-item:nth-child(4) { background-color: #f0e0e0; }
+.market-item:nth-child(5) { background-color: #84f09e; }
+.market-item:nth-child(6) { background-color: #b388c6; }
 
-.market-item:nth-child(2) {
-   background-color: #ffcc00;
-}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Commands
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-.market-item:nth-child(3) {
-   background-color: #1f7880;
-}
-
-.market-item:nth-child(4) {
-   background-color: #f0e0e0;
-}
-
-.market-item:nth-child(5) {
-   background-color: #84f09e;
-}
-
-.market-item:nth-child(6) {
-   background-color: #b388c6;
-}
-
-.marketShadow {
+.commandsShadow {
    opacity: 0;
    pointer-events: none;
    position: fixed;
-   padding-top: 100px;
    left: 0;
    top: 0;
    width: 100%;
    height: 100%;
    background-color: rgba(25, 0, 0, 0.8);
    backdrop-filter: blur(5px);
+   overflow: scroll;
+   transition: 0.8s;
+}
+
+.commands {
+   min-height: 75%;
+   border-radius: 2vh;
+   margin: 5vh;
+   padding: 8vh 0;
+   background-color: #f5f5f5;
+   text-align: center;
+   font-size: 8vh;
+   font-family: "Nunito";
+   transition: 0.8s;
 }
