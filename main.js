@@ -653,7 +653,7 @@ function updateMarket() {
    marketItem[3].textContent = `Strawberries: ${produce.strawberries}
    Cost: ${Math.floor(producePrices.buyStrawberries)}
    Sell: ${Math.floor(producePrices.sellStrawberries)} \r\n \r\n`;
-   marketItem[4].textContent = `Eggplant ${produce.eggplants}
+   marketItem[4].textContent = `Eggplants: ${produce.eggplants}
    Cost: ${Math.floor(producePrices.buyEggplants)}
    Sell: ${Math.floor(producePrices.sellEggplants)} \r\n \r\n`;
 }
@@ -897,6 +897,7 @@ var saveLoop = window.setInterval(function() {
    localStorage.setItem("plotStatus", JSON.stringify(plotStatus));
    localStorage.setItem("produce", JSON.stringify(produce));
    localStorage.setItem("plots", JSON.stringify(plots));
+   localStorage.setItem("seeds", JSON.stringify(seeds));
 }, 1000)
 
 // Find the items from loacl storage and assign to key
@@ -904,12 +905,14 @@ var savegame = {
    plotStatus: JSON.parse(localStorage.getItem("plotStatus")),
    produce: JSON.parse(localStorage.getItem("produce")),
    plots: JSON.parse(localStorage.getItem("plots")),
+   seeds: JSON.parse(localStorage.getItem("seeds")),
 }
 
 // Set varibles as the saved items
 plotStatus = savegame.plotStatus;
 produce = savegame.produce;
 plots = savegame.plots;
+seeds = savegame.seeds;
 
 // If savegame is empty
 if (savegame !== null) {
@@ -917,8 +920,10 @@ if (savegame !== null) {
    savegame.plotStatus = plotStatus;
    savegame.produce = produce;
    savegame.plots = plots;
+   savegame.seeds = seeds;
    // Then set varibles to saved items
    plotStatus = savegame.plotStatus;
    produce = savegame.produce;
    plots = savegame.plots;
+   seeds = savegame.seeds;
 }
