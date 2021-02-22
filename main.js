@@ -898,6 +898,7 @@ var saveLoop = window.setInterval(function() {
    localStorage.setItem("produce", JSON.stringify(produce));
    localStorage.setItem("plots", JSON.stringify(plots));
    localStorage.setItem("seeds", JSON.stringify(seeds));
+   localStorage.setItem("producePrices", JSON.stringify(producePrices));
 }, 1000)
 
 // Find the items from loacl storage and assign to key
@@ -906,6 +907,7 @@ var savegame = {
    produce: JSON.parse(localStorage.getItem("produce")),
    plots: JSON.parse(localStorage.getItem("plots")),
    seeds: JSON.parse(localStorage.getItem("seeds")),
+   producePrices: JSON.parse(localStorage.getItem("producePrices")),
 }
 
 // Set varibles as the saved items
@@ -913,6 +915,7 @@ plotStatus = savegame.plotStatus;
 produce = savegame.produce;
 plots = savegame.plots;
 seeds = savegame.seeds;
+producePrices = savegame.producePrices;
 
 // If savegame is empty
 if (savegame !== null) {
@@ -921,9 +924,11 @@ if (savegame !== null) {
    savegame.produce = produce;
    savegame.plots = plots;
    savegame.seeds = seeds;
+   savegame.producePrices = producePrices;
    // Then set varibles to saved items
    plotStatus = savegame.plotStatus;
    produce = savegame.produce;
    plots = savegame.plots;
    seeds = savegame.seeds;
+   producePrices = savegame.producePrices;
 }
