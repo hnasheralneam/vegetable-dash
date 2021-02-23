@@ -4,13 +4,8 @@
 TABLE OF CONTENTS
 ~~~~~~~~~~~~~~~~~
 Game Data          | All game information stored in object variables
-Veg Info Modals    | Info about vegetables
 Harvest & Plant    | Harvest function
 Vegetables         | All plots and modal
-Peas               | Plot 1
-Corn               | Plot 2
-Strawberries       | Plot 3
-Eggplants          | Plot 4
 Purchase Plots     | Functions that unlock plots
 Intoroduction      | Welcome
 Quests             | Earn things
@@ -81,27 +76,9 @@ let plots = initalPlots;
 let marketData = initalMarketData;
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Vegetable Info Modals $$$
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/*
-function infoModal(veg) {
-   // Set modal block ID
-   let modalID = "info" + veg;
-   let modalElement = document.getElementById(modalID);
-   // If modal is open, close it
-   if (modalElement.style.visibility === "visible") {
-      modalElement.style.visibility = "collapse";
-   }
-   // Otherwise, open it
-   else {
-      modalElement.style.visibility = "visible";
-   }
-}
-*/
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Harvest & Plant $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/*
+
 function harvest(veg) {
    // Create proper IDs
    let plntID = "grow" + veg;
@@ -126,10 +103,9 @@ function harvest(veg) {
       plotStatus.eggplant = "empty";
       produce.eggplants++;
    }
-   // Hide harvest button
+   // Hide harvest button, display grow button
    document.getElementById(hrvstID).style.opacity = "0";
    document.getElementById(hrvstID).style.zIndex = "-1";
-   // Display grow button
    document.getElementById(plntID).style.opacity = "1";
    document.getElementById(plntID).style.zIndex = "1";
 }
@@ -137,68 +113,7 @@ function harvest(veg) {
 function plant(veg) {
 
 }
-*/
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Vegetables $$$
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-
-
-
-
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Peas $$$
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/*
-// Set peaPlot to pea plot div in HTML
-let peaPlot = document.getElementById("plot1");
-// Set pea plant button
-let peaPlntBtn = document.getElementById("growPeas");
-// Set pea harvets button
-let peaHvstBtn = document.getElementById("harvestPeas");
-
-// Triggred by onclick of grow peas
-function plantPeas() {
-   // Set timeout for growingPeas and  readyPeas
-   setTimeout(growingPeas, 2000); // Change the status if peas to growing in 2 seconds
-   setTimeout(readyPeas, 5000); // Change the status of peas to ready in 5 seconds
-   // Remove the grow peas button
-   peaPlntBtn.style.opacity = "0";
-}
-
-function growingPeas() {plotStatus.peas = "growing";}
-function readyPeas() {plotStatus.peas = "ready";}
-
-function peaStatus() {
-   // If pea status is equal to the string "ready"
-   if (plotStatus.peas === "ready") {
-      // Change background images to grow peas images
-      peaPlot.style.background = "url(Images/Vegetables/Peas/grown-pea.png)";
-      peaPlot.style.backgroundSize = "cover";
-      // Show the harvest button and put it on top
-      peaHvstBtn.style.opacity = "1";
-      peaHvstBtn.style.zIndex = "1";
-      // Put the grow peas button under
-      peaPlntBtn.style.zIndex = "-1";
-   }
-   // If pea status is equal to the string "ready"
-   else if (plotStatus.peas === "growing") {
-      // Change background images to sprouting plant image
-      peaPlot.style.background = "url(Images/Plots/growing.png)";
-      peaPlot.style.backgroundSize = "cover";
-   }
-   // Otherwise
-   else {
-      // Change background images to empty plot image
-      peaPlot.style.background = "url(Images/Plots/plot.png)";
-      peaPlot.style.backgroundSize = "cover";
-   }
-}
-*/
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Corn $$$
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/*
 // function plant(veg, upCase, timeOne, timeTwo, pltNumber, url) {
 //    let vegPlot = "plot" + pltNumber;
 //    let vegPlntBtn = "grow" + upCase;
@@ -252,6 +167,72 @@ function peaStatus() {
 //    }
 // }
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Vegetables $$$
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+// Vegetable Modals
+function infoModal(veg) {
+   // Set modal block ID
+   let modalID = "info" + veg;
+   let modalElement = document.getElementById(modalID);
+   // If modal is open, close it
+   if (modalElement.style.visibility === "visible") {
+      modalElement.style.visibility = "collapse";
+   }
+   // Otherwise, open it
+   else {
+      modalElement.style.visibility = "visible";
+   }
+}
+
+// Peas
+// Set peaPlot to pea plot div in HTML
+let peaPlot = document.getElementById("plot1");
+// Set pea plant button
+let peaPlntBtn = document.getElementById("growPeas");
+// Set pea harvets button
+let peaHvstBtn = document.getElementById("harvestPeas");
+
+// Triggred by onclick of grow peas
+function plantPeas() {
+   // Set timeout for growingPeas and  readyPeas
+   setTimeout(growingPeas, 2000); // Change the status if peas to growing in 2 seconds
+   setTimeout(readyPeas, 5000); // Change the status of peas to ready in 5 seconds
+   // Remove the grow peas button
+   peaPlntBtn.style.opacity = "0";
+}
+
+function growingPeas() {plotStatus.peas = "growing";}
+function readyPeas() {plotStatus.peas = "ready";}
+
+function peaStatus() {
+   // If pea status is equal to the string "ready"
+   if (plotStatus.peas === "ready") {
+      // Change background images to grow peas images
+      peaPlot.style.background = "url(Images/Vegetables/Peas/grown-pea.png)";
+      peaPlot.style.backgroundSize = "cover";
+      // Show the harvest button and put it on top
+      peaHvstBtn.style.opacity = "1";
+      peaHvstBtn.style.zIndex = "1";
+      // Put the grow peas button under
+      peaPlntBtn.style.zIndex = "-1";
+   }
+   // If pea status is equal to the string "ready"
+   else if (plotStatus.peas === "growing") {
+      // Change background images to sprouting plant image
+      peaPlot.style.background = "url(Images/Plots/growing.png)";
+      peaPlot.style.backgroundSize = "cover";
+   }
+   // Otherwise
+   else {
+      // Change background images to empty plot image
+      peaPlot.style.background = "url(Images/Plots/plot.png)";
+      peaPlot.style.backgroundSize = "cover";
+   }
+}
+
+// Corn
 let cornPlot = document.getElementById("plot2");
 let cornPlntBtn = document.getElementById("growCorn");
 let cornHvstBtn = document.getElementById("harvestCorn");
@@ -282,11 +263,8 @@ function cornStatus() {
       cornPlot.style.backgroundSize = "cover";
    }
 }
-*/
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Strawberries $$$
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/*
+
+// Strawberries
 let strawberriesPlot = document.getElementById("plot3");
 let strawberriesPlntBtn = document.getElementById("growStrawberries");
 let strawberriesHvstBtn = document.getElementById("harvestStrawberries");
@@ -323,11 +301,8 @@ function strawberriesStatus() {
       strawberriesPlot.style.backgroundSize = "cover";
    }
 }
-*/
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Eggplant $$$
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/*
+
+// Eggplants
 let eggplantPlot = document.getElementById("plot4");
 let eggplantPlntBtn = document.getElementById("growEggplants");
 let eggplantHvstBtn = document.getElementById("harvestEggplants");
@@ -358,11 +333,11 @@ function eggplantStatus() {
       eggplantPlot.style.backgroundSize = "cover";
    }
 }
-*/
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Purchase Plots $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/*
+
 // Plot 1 starts unlocked
 function purchasePlot2() {
    // If there are enough peas
@@ -435,180 +410,166 @@ function removeEggplantLock() {
    document.getElementById("openPlot4").style.display = "block";
    plots.eggplantplot = "unlocked";
 }
-*/
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Intoduction $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/*
-let introIsDone = true;
-let introPartsDone = {
-   hello: "no",
-   meetGramps: "no",
-   planting: "no",
-   sidebar: "no",
-   meetGran: "no",
-   bushes: "no",
-   restarting: "no",
-   nearlyDone: "no",
-   quests: "no",
-   thatsIt: "no",
-}
 
-function runIntro() {
-   if (introIsDone === false) {
-      document.querySelector(".intro-container").style.display = "grid";
-      intro();
-   }
-}
+// let introIsDone = true;
+// let introPartsDone = {
+//    hello: "no",
+//    meetGramps: "no",
+//    planting: "no",
+//    sidebar: "no",
+//    meetGran: "no",
+//    bushes: "no",
+//    restarting: "no",
+//    nearlyDone: "no",
+//    quests: "no",
+//    thatsIt: "no",
+// }
+//
+// function runIntro() {
+//    if (introIsDone === false) {
+//       document.querySelector(".intro-container").style.display = "grid";
+//       intro();
+//    }
+// }
+//
+// function intro() {
+//    // Set important DOM objects
+//    let introShadow = document.querySelector(".introDarkShadow");
+//    let qstRibbon = document.getElementById("questRibbon");
+//    let introBlock = document.querySelector(".intro-character");
+//    let introImg = document.querySelector(".intro-img");
+//    let introText = document.querySelector(".intro-text");
+//    // Dark background for focus, hidden ribbon
+//    introShadow.style.visibility = "visible";
+//    qstRibbon.style.zIndex = "0.2";
+//    ifHello();
+//    // Running intro
+//    function ifHello() {
+//       if (introPartsDone.hello === "no") {
+//          introPartsDone.hello = "yes";
+//       }
+//       else { meetGrapms(); }
+//    }
+//    function meetGrapms() {
+//       if (introPartsDone.meetGramps === "no") {
+//          $(".intro-img").attr("src", "Images/Intro/gramps.png");
+//          introText.textContent = "Hi! I'm gramps. That's Grandpa Jenkins to you. I'm here ta teach you farmin', the good ol' way!";
+//          introPartsDone.meetGramps = "yes";
+//       }
+//       else { planting(); }
+//    }
+//    function planting() {
+//       if (introPartsDone.planting === "no") {
+//          introText.textContent = "Farmin' is as easy as anything nowadays, with all this modern technology. Just press Grow Peas, and when it's done, press Harvest Peas!";
+//          document.querySelector(".plant-quest-arrow").style.display = "block";
+//          document.getElementById("plot1").style.zIndex = "1";
+//          introPartsDone.planting = "yes";
+//       }
+//       else {
+//          document.querySelector(".plant-quest-arrow").style.display = "none";
+//          document.getElementById("plot1").style.zIndex = "0";
+//          sidebar();
+//       }
+//    }
+//    function sidebar() {
+//       if (introPartsDone.sidebar === "no") {
+//          $(".intro-img").attr("src", "Images/Intro/farmer.png");
+//          introText.textContent = "This sidebar is were you keep control of the farm. You can control many things, but Grandma Josephine will talk about that.";
+//          document.querySelector("#information").style.zIndex = "1";
+//          introPartsDone.sidebar = "yes";
+//       }
+//       else {
+//          document.querySelector("#information").style.zIndex = "0";
+//          meetGran();
+//       }
+//    }
+//    function meetGran() {
+//       if (introPartsDone.meetGran === "no") {
+//          $(".intro-img").attr("src", "Images/Intro/granny.png");
+//          introText.textContent = "Nice to meet you. I'm Grandma Josephine, and I'm here to teach you economics.";
+//          introPartsDone.meetGran = "yes";
+//       }
+//       else { bushels(); }
+//    }
+//    function bushels() {
+//       if (introPartsDone.bushels === "no") {
+//          introText.textContent = "Here you find the amount of resouces you have. Watch it wisely, and make sure you don't spend them all!";
+//          document.querySelector("#peaBushels").style.zIndex = "1";
+//          introPartsDone.bushels = "yes";
+//       }
+//       else { restarting(); }
+//    }
+//    function restarting() {
+//       if (introPartsDone.restarting === "no") {
+//          introPartsDone.restarting = "yes";
+//       }
+//       else { nearlyDone(); }
+//    }
+//    function nearlyDone() {
+//       if (introPartsDone.nearlyDone === "no") {
+//          introPartsDone.nearlyDone = "yes";
+//       }
+//       else { quests(); }
+//    }
+//    function quests() {
+//       if (introPartsDone.quests === "no") {
+//          introPartsDone.quests = "yes";
+//       }
+//       else { thatsIt(); }
+//    }
+//    function thatsIt() {
+//       if (introPartsDone.thatsIt === "no") {
+//          document.querySelector(".intro-container").style.display = "none";
+//          introShadow.style.visibility = "collapse";
+//          qstRibbon.style.zIndex = "1";
+//          introPartsDone.thatsIt = "yes";
+//       }
+//    }
+// }
 
-function intro() {
-   // Set important DOM objects
-   let introShadow = document.querySelector(".introDarkShadow");
-   let qstRibbon = document.getElementById("questRibbon");
-   let introBlock = document.querySelector(".intro-character");
-   let introImg = document.querySelector(".intro-img");
-   let introText = document.querySelector(".intro-text");
-   // Dark background for focus, hidden ribbon
-   introShadow.style.visibility = "visible";
-   qstRibbon.style.zIndex = "0.2";
-   ifHello();
-   // Running intro
-   function ifHello() {
-      if (introPartsDone.hello === "no") {
-         introPartsDone.hello = "yes";
-      }
-      else {
-         meetGrapms();
-      }
-   }
-   function meetGrapms() {
-      if (introPartsDone.meetGramps === "no") {
-         $(".intro-img").attr("src", "Images/Intro/gramps.png");
-         introText.textContent = "Hi! I'm gramps. That's Grandpa Jenkins to you. I'm here ta teach you farmin', the good ol' way!";
-         introPartsDone.meetGramps = "yes";
-      }
-      else {
-         planting();
-      }
-   }
-   function planting() {
-      if (introPartsDone.planting === "no") {
-         introText.textContent = "Farmin' is as easy as anything nowadays, with all this modern technology. Just press Grow Peas, and when it's done, press Harvest Peas!";
-         document.querySelector(".plant-quest-arrow").style.display = "block";
-         document.getElementById("plot1").style.zIndex = "1";
-         introPartsDone.planting = "yes";
-      }
-      else {
-         document.querySelector(".plant-quest-arrow").style.display = "none";
-         document.getElementById("plot1").style.zIndex = "0";
-         sidebar();
-      }
-   }
-   function sidebar() {
-      if (introPartsDone.sidebar === "no") {
-         $(".intro-img").attr("src", "Images/Intro/farmer.png");
-         introText.textContent = "This sidebar is were you keep control of the farm. You can control many things, but Grandma Josephine will talk about that.";
-         document.querySelector("#information").style.zIndex = "1";
-         introPartsDone.sidebar = "yes";
-      }
-      else {
-         document.querySelector("#information").style.zIndex = "0";
-         meetGran();
-      }
-   }
-   function meetGran() {
-      if (introPartsDone.meetGran === "no") {
-         $(".intro-img").attr("src", "Images/Intro/granny.png");
-         introText.textContent = "Nice to meet you. I'm Grandma Josephine, and I'm here to teach you economics.";
-         introPartsDone.meetGran = "yes";
-      }
-      else {
-         bushels();
-      }
-   }
-   function bushels() {
-      if (introPartsDone.bushels === "no") {
-         introText.textContent = "Here you find the amount of resouces you have. Watch it wisely, and make sure you don't spend them all!";
-         document.querySelector("#peaBushels").style.zIndex = "1";
-         introPartsDone.bushels = "yes";
-      }
-      else {
-         restarting();
-      }
-   }
-   function restarting() {
-      if (introPartsDone.restarting === "no") {
-         introPartsDone.restarting = "yes";
-      }
-      else {
-         nearlyDone();
-      }
-   }
-   function nearlyDone() {
-      if (introPartsDone.nearlyDone === "no") {
-         introPartsDone.nearlyDone = "yes";
-      }
-      else {
-         quests();
-      }
-   }
-   function quests() {
-      if (introPartsDone.quests === "no") {
-         introPartsDone.quests = "yes";
-      }
-      else {
-         thatsIt();
-      }
-   }
-   function thatsIt() {
-      if (introPartsDone.thatsIt === "no") {
-         document.querySelector(".intro-container").style.display = "none";
-         introShadow.style.visibility = "collapse";
-         qstRibbon.style.zIndex = "1";
-         introPartsDone.thatsIt = "yes";
-      }
-   }
-}
-*/
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Quests $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/*
-let questStatus =  {
-   // Started ect.
-   meetJeb: "",
-}
 
-// Toggle quest bar
-document.addEventListener("keyup", function(event) {
-   if (event.shiftKey && event.keyCode === 81) {
-      if (document.querySelector("#questContent").style.width === "125vh") {
-         closequestbar();
-      }
-      else {
-         questbar();
-      }
-   }
-});
+// let questStatus =  {
+//    // Started ect.
+//    meetJeb: "",
+// }
+//
+// // Toggle quest bar
+// document.addEventListener("keyup", function(event) {
+//    if (event.shiftKey && event.keyCode === 81) {
+//       if (document.querySelector("#questContent").style.width === "125vh") {
+//          closequestbar();
+//       }
+//       else {
+//          questbar();
+//       }
+//    }
+// });
+//
+// function questbar() {
+//    document.querySelector("#questContent").style.width = "125vh";
+//    document.getElementById("innerQuestContent").style.display = "block";
+//    document.getElementById("questRibbon").style.left = "125vh";
+//    document.getElementById("darkShadow").style.visibility = "visible";
+// }
+//
+// function closequestbar() {
+//    document.getElementById("questContent").style.width = "0";
+//    document.getElementById("innerQuestContent").style.display = "none";
+//    document.getElementById("questRibbon").style.left = "0";
+//    document.getElementById("darkShadow").style.visibility = "collapse";
+// }
 
-function questbar() {
-   document.querySelector("#questContent").style.width = "125vh";
-   document.getElementById("innerQuestContent").style.display = "block";
-   document.getElementById("questRibbon").style.left = "125vh";
-   document.getElementById("darkShadow").style.visibility = "visible";
-}
-
-function closequestbar() {
-   document.getElementById("questContent").style.width = "0";
-   document.getElementById("innerQuestContent").style.display = "none";
-   document.getElementById("questRibbon").style.left = "0";
-   document.getElementById("darkShadow").style.visibility = "collapse";
-}
-*/
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Market $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/*
+
 document.addEventListener("keyup", function(event) {
    if (event.shiftKey && event.keyCode === 77) {
       if (document.querySelector(".marketShadow").style.opacity === "0") {
@@ -675,8 +636,6 @@ function updateMarket() {
 }
 
 // Later at cost of black market items allow reset of market values
-
-
 // let blackMarketItem = document.createElement("DIV");
 // blackMarketItem.textContent = `hi`;
 // document.querySelector(".market-item").appendChild(blackMarketItem);
@@ -719,7 +678,7 @@ function updateMarket() {
 // };
 //
 // document.getElementsByClassName("market-item")[2].style.backgroundColor = generateColor();
-*/
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Main Loop & Setup $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -740,7 +699,7 @@ function setup() {
    // Run product display
    produceDisplay();
    // Check if intro is needed
-   runIntro();
+   // runIntro();
    // Check whether to open plots
    if (plots.cornplot === "unlocked") { openCornLock(); }
    if (plots.strawberryplot === "unlocked") { openStrawberryLock(); }
