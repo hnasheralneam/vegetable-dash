@@ -3,22 +3,25 @@
 ~~~~~~~~~~~~~~~~~
 TABLE OF CONTENTS
 ~~~~~~~~~~~~~~~~~
-Ideas              | Thoughts, plots, the lot
 Game Data          | All game information stored in object variables
 Veg Info Modals    | Info about vegetables
 Harvest & Plant    | Harvest function
-Peas               | All about the first plot
-Store              | Update the store
+Vegetables         | All plots and modal
+Peas               | Plot 1
+Corn               | Plot 2
+Strawberries       | Plot 3
+Eggplants          | Plot 4
 Purchase Plots     | Functions that unlock plots
-Setup              | Prepare game for returning player
-Settings           | So far, just restart
-Save               | Save the game data
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-// Initate JavaScript strict mode
-"use strict";
-
+Intoroduction      | Welcome
+Quests             | Earn things
+Market             | Trade things
+Main Loop & Setup  | Main loop and setup
+Commands           | Command Panel, right click menu
+Settings & Produce | Update Sidebar
+Save               | Save the game data, restart
+Search query + $$$
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Game Data
+Game Data $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 // Set plot status of each plot (Empty, growing, done)
@@ -59,14 +62,28 @@ let initalPlots = {
    eggplantplot: "locked",
 }
 
+// Market Information
+let initalMarketData = {
+   seeds: 0,
+   buyPeas: 25,
+   sellPeas: 25,
+   buyCorn: 75,
+   sellCorn: 75,
+   buyStrawberries: 250,
+   sellStrawberries: 250,
+   buyEggplants: 750,
+   sellEggplants: 750,
+}
+
 let plotStatus = initalPlotStatus;
 let produce = initalProduce;
 let plots = initalPlots;
-//
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Vegetable Info Modals
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+let marketData = initalMarketData;
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Vegetable Info Modals $$$
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*
 function infoModal(veg) {
    // Set modal block ID
    let modalID = "info" + veg;
@@ -80,11 +97,11 @@ function infoModal(veg) {
       modalElement.style.visibility = "visible";
    }
 }
-
+*/
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Harvest & Plant
+// Harvest & Plant $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
+/*
 function harvest(veg) {
    // Create proper IDs
    let plntID = "grow" + veg;
@@ -117,10 +134,22 @@ function harvest(veg) {
    document.getElementById(plntID).style.zIndex = "1";
 }
 
+function plant(veg) {
+
+}
+*/
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Peas
+// Vegetables $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+
+
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Peas $$$
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*
 // Set peaPlot to pea plot div in HTML
 let peaPlot = document.getElementById("plot1");
 // Set pea plant button
@@ -165,63 +194,63 @@ function peaStatus() {
       peaPlot.style.backgroundSize = "cover";
    }
 }
-
+*/
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Corn
+// Corn $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-function plant(veg, upCase, timeOne, timeTwo, pltNumber, url) {
-   let vegPlot = "plot" + pltNumber;
-   let vegPlntBtn = "grow" + upCase;
-   let vegHvstBtn = "harvest" + upCase;
-
-   // // If veg is equal to peas
-   // if (veg === 'Peas') {
-   //    // Set plot status to empty
-   //    plotStatus.peas = "empty";
-   //    // Add one to peas
-   //    produce.peas++;
-   // }
-   // if (veg === "Corn") {
-   //    plotStatus.corn = "empty";
-   //    produce.corn++;
-   // }
-   // if (veg === "Strawberries") {
-   //    plotStatus.strawberries = "empty";
-   //    produce.strawberries++;
-   // }
-   // if (veg === "Eggplants") {
-   //    plotStatus.eggplant = "empty";
-   //    produce.eggplants++;
-   // }
-
-   function plantVeg() {
-      setTimeout(growingVeg, timeOne);
-      setTimeout(readyVeg, timeTwo);
-      vegPlntBtn.style.opacity = "0";
-   }
-
-   function growingVeg() {plotStatus[veg] = "growing";}
-   function readyVeg() {plotStatus[veg] = "ready";}
-
-   function vegStatus() {
-      if (plotStatus[veg] === "ready") {
-         (veg + "Plot").style.background = "url(Images/Vegetables/" + url + ")";
-         (veg + "Plot").style.backgroundSize = "cover";
-         (veg + "HvstBtn").style.opacity = "1";
-         (veg + "HvstBtn").style.zIndex = "1";
-         (veg + "PlntBtn").style.zIndex = "-1";
-      }
-      else if (plotStatus[veg] === "growing") {
-         (veg + "Plot").style.background = "url(Images/Plots/growing.png)";
-         (veg + "Plot").style.backgroundSize = "cover";
-      }
-      else {
-         (veg + "Plot").style.background = "url(Images/Plots/plot.png)";
-         (veg + "Plot").style.backgroundSize = "cover";
-      }
-   }
-}
+/*
+// function plant(veg, upCase, timeOne, timeTwo, pltNumber, url) {
+//    let vegPlot = "plot" + pltNumber;
+//    let vegPlntBtn = "grow" + upCase;
+//    let vegHvstBtn = "harvest" + upCase;
+//
+//    // // If veg is equal to peas
+//    // if (veg === 'Peas') {
+//    //    // Set plot status to empty
+//    //    plotStatus.peas = "empty";
+//    //    // Add one to peas
+//    //    produce.peas++;
+//    // }
+//    // if (veg === "Corn") {
+//    //    plotStatus.corn = "empty";
+//    //    produce.corn++;
+//    // }
+//    // if (veg === "Strawberries") {
+//    //    plotStatus.strawberries = "empty";
+//    //    produce.strawberries++;
+//    // }
+//    // if (veg === "Eggplants") {
+//    //    plotStatus.eggplant = "empty";
+//    //    produce.eggplants++;
+//    // }
+//
+//    function plantVeg() {
+//       setTimeout(growingVeg, timeOne);
+//       setTimeout(readyVeg, timeTwo);
+//       vegPlntBtn.style.opacity = "0";
+//    }
+//
+//    function growingVeg() {plotStatus[veg] = "growing";}
+//    function readyVeg() {plotStatus[veg] = "ready";}
+//
+//    function vegStatus() {
+//       if (plotStatus[veg] === "ready") {
+//          (veg + "Plot").style.background = "url(Images/Vegetables/" + url + ")";
+//          (veg + "Plot").style.backgroundSize = "cover";
+//          (veg + "HvstBtn").style.opacity = "1";
+//          (veg + "HvstBtn").style.zIndex = "1";
+//          (veg + "PlntBtn").style.zIndex = "-1";
+//       }
+//       else if (plotStatus[veg] === "growing") {
+//          (veg + "Plot").style.background = "url(Images/Plots/growing.png)";
+//          (veg + "Plot").style.backgroundSize = "cover";
+//       }
+//       else {
+//          (veg + "Plot").style.background = "url(Images/Plots/plot.png)";
+//          (veg + "Plot").style.backgroundSize = "cover";
+//       }
+//    }
+// }
 
 let cornPlot = document.getElementById("plot2");
 let cornPlntBtn = document.getElementById("growCorn");
@@ -253,11 +282,11 @@ function cornStatus() {
       cornPlot.style.backgroundSize = "cover";
    }
 }
-
+*/
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Strawberries
+// Strawberries $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
+/*
 let strawberriesPlot = document.getElementById("plot3");
 let strawberriesPlntBtn = document.getElementById("growStrawberries");
 let strawberriesHvstBtn = document.getElementById("harvestStrawberries");
@@ -294,11 +323,11 @@ function strawberriesStatus() {
       strawberriesPlot.style.backgroundSize = "cover";
    }
 }
-
+*/
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Eggplant
+// Eggplant $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
+/*
 let eggplantPlot = document.getElementById("plot4");
 let eggplantPlntBtn = document.getElementById("growEggplants");
 let eggplantHvstBtn = document.getElementById("harvestEggplants");
@@ -329,11 +358,11 @@ function eggplantStatus() {
       eggplantPlot.style.backgroundSize = "cover";
    }
 }
-
+*/
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Purchase Plots
+// Purchase Plots $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
+/*
 // Plot 1 starts unlocked
 function purchasePlot2() {
    // If there are enough peas
@@ -406,11 +435,11 @@ function removeEggplantLock() {
    document.getElementById("openPlot4").style.display = "block";
    plots.eggplantplot = "unlocked";
 }
-
+*/
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Intoduction
+// Intoduction $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
+/*
 let introIsDone = true;
 let introPartsDone = {
    hello: "no",
@@ -540,11 +569,11 @@ function intro() {
       }
    }
 }
-
+*/
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Quests
+// Quests $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
+/*
 let questStatus =  {
    // Started ect.
    meetJeb: "",
@@ -575,24 +604,11 @@ function closequestbar() {
    document.getElementById("questRibbon").style.left = "0";
    document.getElementById("darkShadow").style.visibility = "collapse";
 }
-
+*/
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Market
+// Market $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-// Crtl/Shift + M opens market
-let seeds = 0;
-let producePrices = {
-   buyPeas: 25,
-   sellPeas: 25,
-   buyCorn: 75,
-   sellCorn: 75,
-   buyStrawberries: 250,
-   sellStrawberries: 250,
-   buyEggplants: 750,
-   sellEggplants: 750,
-}
-
+/*
 document.addEventListener("keyup", function(event) {
    if (event.shiftKey && event.keyCode === 77) {
       if (document.querySelector(".marketShadow").style.opacity === "0") {
@@ -608,7 +624,7 @@ document.addEventListener("keyup", function(event) {
 
 function checkMarket() {
    let marketItem = document.getElementsByClassName("market-item");
-   if (produce.corn < 5) {
+   if (plots.cornplot === "locked") {
       marketItem[2].style.opacity = "0";
    }
    if (produce.strawberries < 5) {
@@ -620,11 +636,11 @@ function checkMarket() {
 }
 
 function buyProduce(produceRequested, produceCase) {
-   if (seeds >= producePrices["buy" + produceCase]) {
+   if (marketData.seeds >= marketData["buy" + produceCase]) {
       produce[produceRequested] += 5;
-      seeds -= producePrices["buy" + produceCase];
-      producePrices["buy" + produceCase] *= 1.08;
-      producePrices["sell" + produceCase] *= 1.02;
+      marketData.seeds -= marketData["buy" + produceCase];
+      marketData["buy" + produceCase] *= 1.08;
+      marketData["sell" + produceCase] *= 1.02;
       updateMarket();
       checkMarket();
    }
@@ -633,9 +649,9 @@ function buyProduce(produceRequested, produceCase) {
 function sellProduce(produceRequested, produceCase) {
    if (produce[produceRequested] >= 5) {
       produce[produceRequested] -= 5;
-      seeds += producePrices["sell" + produceCase];
-      producePrices["buy" + produceCase] *= 0.98;
-      producePrices["sell" + produceCase] *= 0.92;
+      marketData.seeds += marketData["sell" + produceCase];
+      marketData["buy" + produceCase] *= 0.98;
+      marketData["sell" + produceCase] *= 0.92;
       updateMarket();
       checkMarket();
    }
@@ -643,19 +659,19 @@ function sellProduce(produceRequested, produceCase) {
 
 function updateMarket() {
    let marketItem = document.getElementsByClassName("market-item-content");
-   marketItem[0].textContent = `Seeds: ${Math.floor(seeds)}`;
+   marketItem[0].textContent = `Seeds: ${Math.floor(marketData.seeds)}`;
    marketItem[1].textContent = `Peas: ${produce.peas}
-   Cost: ${Math.floor(producePrices.buyPeas)} Seeds
-   Sell: ${Math.floor(producePrices.sellPeas)} Seeds \r\n \r\n`;
+   Cost: ${Math.floor(marketData.buyPeas)} Seeds
+   Sell: ${Math.floor(marketData.sellPeas)} Seeds \r\n \r\n`;
    marketItem[2].textContent = `Corn: ${produce.corn}
-   Cost: ${Math.floor(producePrices.buyCorn)} Seeds
-   Sell: ${Math.floor(producePrices.sellCorn)} Seeds \r\n \r\n`;
+   Cost: ${Math.floor(marketData.buyCorn)} Seeds
+   Sell: ${Math.floor(marketData.sellCorn)} Seeds \r\n \r\n`;
    marketItem[3].textContent = `Strawberries: ${produce.strawberries}
-   Cost: ${Math.floor(producePrices.buyStrawberries)}
-   Sell: ${Math.floor(producePrices.sellStrawberries)} \r\n \r\n`;
+   Cost: ${Math.floor(marketData.buyStrawberries)}
+   Sell: ${Math.floor(marketData.sellStrawberries)} \r\n \r\n`;
    marketItem[4].textContent = `Eggplants: ${produce.eggplants}
-   Cost: ${Math.floor(producePrices.buyEggplants)}
-   Sell: ${Math.floor(producePrices.sellEggplants)} \r\n \r\n`;
+   Cost: ${Math.floor(marketData.buyEggplants)}
+   Sell: ${Math.floor(marketData.sellEggplants)} \r\n \r\n`;
 }
 
 // Later at cost of black market items allow reset of market values
@@ -703,11 +719,77 @@ function updateMarket() {
 // };
 //
 // document.getElementsByClassName("market-item")[2].style.backgroundColor = generateColor();
-
+*/
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Right Click Menu
+// Main Loop & Setup $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+var mainLoop = window.setInterval(function() {
+   // Check plant status
+   peaStatus();
+   cornStatus();
+   strawberriesStatus();
+   eggplantStatus();
+   // Update store, market
+   produceDisplay();
+   updateMarket();
+   checkMarket()
+}, 200)
+
+function setup() {
+   // Run product display
+   produceDisplay();
+   // Check if intro is needed
+   runIntro();
+   // Check whether to open plots
+   if (plots.cornplot === "unlocked") { openCornLock(); }
+   if (plots.strawberryplot === "unlocked") { openStrawberryLock(); }
+   if (plots.eggplantplot === "unlocked") { openEggplantLock(); }
+}
+
+// Run function setup when page loads
+window.addEventListener('load', (event) => { setup(); });
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Commands $$$
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+// Command Panel
+document.addEventListener("keyup", function(event) {
+   if (event.shiftKey && event.keyCode === 69) {
+      if (document.querySelector(".commandsShadow").style.opacity === "0") {
+         document.querySelector(".commandsShadow").style.opacity = "1";
+         document.querySelector(".commandsShadow").style.pointerEvents = "auto";
+      }
+      else {
+         document.querySelector(".commandsShadow").style.opacity = "0";
+         document.querySelector(".commandsShadow").style.pointerEvents = "none";
+      }
+   }
+});
+
+// Toggle Sidebar Command
+let sidebarIsOpen = true;
+function toggleSidebar() {
+   if (sidebarIsOpen === true) {
+      document.querySelector(".sidebar").style.right = "-100%";
+      document.querySelector(".land").style.right = "-30%";
+      sidebarIsOpen = false;
+   }
+   else if (sidebarIsOpen === false) {
+      document.querySelector(".sidebar").style.right = "0";
+      document.querySelector(".land").style.right = "0";
+      sidebarIsOpen = true;
+   }
+}
+document.addEventListener("keyup", function(event) {
+   event.preventDefault();
+   if (event.shiftKey && event.keyCode === 87) {
+      toggleSidebar();
+   }
+});
+
+// Right Click Menu
 let rightClickMenu = document.getElementById("menu").style;
 if (document.addEventListener) {
    document.addEventListener('contextmenu', function(e) {
@@ -739,61 +821,23 @@ function menu(x, y) {
    rightClickMenu.left = x + "px";
    rightClickMenu.display = "block";
 }
-
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Commands
+// Settings & Produce $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-document.addEventListener("keyup", function(event) {
-   if (event.shiftKey && event.keyCode === 69) {
-      if (document.querySelector(".commandsShadow").style.opacity === "0") {
-         document.querySelector(".commandsShadow").style.opacity = "1";
-         document.querySelector(".commandsShadow").style.pointerEvents = "auto";
-      }
-      else {
-         document.querySelector(".commandsShadow").style.opacity = "0";
-         document.querySelector(".commandsShadow").style.pointerEvents = "none";
-      }
-   }
-});
+// Music
+let myAudio = document.querySelector(".mozart");
+function togglePlay() {
+  return myAudio.paused ? myAudio.play() : myAudio.pause();
+};
 
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Toggle Sidebar
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-let sidebarIsOpen = true;
-function toggleSidebar() {
-   if (sidebarIsOpen === true) {
-      document.querySelector(".sidebar").style.right = "-100%";
-      document.querySelector(".land").style.right = "-30%";
-      sidebarIsOpen = false;
-   }
-   else if (sidebarIsOpen === false) {
-      document.querySelector(".sidebar").style.right = "0";
-      document.querySelector(".land").style.right = "0";
-      sidebarIsOpen = true;
-   }
-}
-
-// Toggle sidebar
-document.addEventListener("keyup", function(event) {
-   event.preventDefault();
-   if (event.shiftKey && event.keyCode === 87) {
-      toggleSidebar();
-   }
-});
-
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Fresh Produce | Store
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
+//  Update Produce
 function produceDisplay() {
    // Updates the amount of produce in store
    // If the plot is unlocked
    if (plots.peaplot === "unlocked") {
       // Show the element
       document.getElementById("peaBushels").style.visibility = "visible";
-      // Display the amount of that product
       document.getElementById("peaBushels").innerHTML = `${produce.peas} Bushels of Peas`;
    }
    if (plots.cornplot === "unlocked") {
@@ -810,125 +854,55 @@ function produceDisplay() {
    }
 }
 
-var plantStatus = window.setInterval(function() {
-   // Check plant status
-   peaStatus();
-   cornStatus();
-   strawberriesStatus();
-   eggplantStatus();
-   // Update store
-   produceDisplay();
-   updateMarket();
-   checkMarket()
-}, 200)
-
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Setup
+// Save $$$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-function setup() {
-   // Run product display
-   produceDisplay();
-   // Check if intro is needed
-   runIntro();
-
-   if (plots.cornplot === "unlocked") {
-      openCornLock();
-   }
-   if (plots.strawberryplot === "unlocked") {
-      openStrawberryLock();
-   }
-   if (plots.eggplantplot === "unlocked") {
-      openEggplantLock();
-   }
-}
-
-// Run function setup when page loads
-window.addEventListener('load', (event) => {
-   setup();
-});
-
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Settings
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-function restart() {
-   plotStatus = initalPlotStatus;
-   produce = initalProduce;
-   plots = initalPlots;
-}
-
-function restart() {
-   // Confirm Restart
-   var areYouSure = confirm("Are you SURE you want to restart? This will wipe all your progress!");
-   // If restart is confirmed
-   if (areYouSure == true) {
-      // Ask again
-      var areYouReallySure = confirm("Are you REALLY SURE you want to restart? There is no going back!");
-      // If restart is still confirmed
-      if (areYouReallySure == true) {
-         // Set game data to inital values
-         plotStatus = initalPlotStatus;
-         produce = initalProduce;
-         plots = initalPlots;
-         // Set save as blank
-         localStorage.setItem("plotStatus", JSON.stringify(plotStatus));
-         localStorage.setItem("produce", JSON.stringify(produce));
-         localStorage.setItem("plots", JSON.stringify(plots));
-         // Reload the page
-         window.location.href = "#";
-      }
-   }
-}
-
-// Music
-let myAudio = document.querySelector(".mozart");
-
-function togglePlay() {
-  return myAudio.paused ? myAudio.play() : myAudio.pause();
-};
-
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Save
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-// Set game data variables to local storage
-var saveLoop = window.setInterval(function() {
-   localStorage.setItem("plotStatus", JSON.stringify(plotStatus));
-   localStorage.setItem("produce", JSON.stringify(produce));
-   localStorage.setItem("plots", JSON.stringify(plots));
-   localStorage.setItem("seeds", JSON.stringify(seeds));
-   localStorage.setItem("producePrices", JSON.stringify(producePrices));
-}, 1000)
 
 // Find the items from loacl storage and assign to key
 var savegame = {
    plotStatus: JSON.parse(localStorage.getItem("plotStatus")),
    produce: JSON.parse(localStorage.getItem("produce")),
    plots: JSON.parse(localStorage.getItem("plots")),
-   seeds: JSON.parse(localStorage.getItem("seeds")),
-   producePrices: JSON.parse(localStorage.getItem("producePrices")),
+   marketData: JSON.parse(localStorage.getItem("marketData")),
+}
+
+// If savegame is empty, set current data
+if (savegame !== null) {
+   savegame.plotStatus = plotStatus;
+   savegame.produce = produce;
+   savegame.plots = plots;
+   savegame.marketData = marketData;
 }
 
 // Set varibles as the saved items
 plotStatus = savegame.plotStatus;
 produce = savegame.produce;
 plots = savegame.plots;
-seeds = savegame.seeds;
-producePrices = savegame.producePrices;
+marketData = savegame.marketData;
 
-// If savegame is empty
-if (savegame !== null) {
-   // Set defaults
-   savegame.plotStatus = plotStatus;
-   savegame.produce = produce;
-   savegame.plots = plots;
-   savegame.seeds = seeds;
-   savegame.producePrices = producePrices;
-   // Then set varibles to saved items
-   plotStatus = savegame.plotStatus;
-   produce = savegame.produce;
-   plots = savegame.plots;
-   seeds = savegame.seeds;
-   producePrices = savegame.producePrices;
+function save() {
+   localStorage.setItem("plotStatus", JSON.stringify(plotStatus));
+   localStorage.setItem("produce", JSON.stringify(produce));
+   localStorage.setItem("plots", JSON.stringify(plots));
+   localStorage.setItem("marketData", JSON.stringify(marketData));
+}
+
+// Save every 250 milliseconds
+var saveLoop = window.setInterval(function() { save() }, 250)
+
+function restart() {
+   var areYouSure = confirm("Are you SURE you want to restart? This will wipe all your progress!");
+   if (areYouSure == true) {
+      var areYouReallySure = confirm("Are you REALLY SURE you want to restart? There is no going back!");
+      if (areYouReallySure == true) {
+         // Set game data to inital values
+         plotStatus = initalPlotStatus;
+         produce = initalProduce;
+         plots = initalPlots;
+         marketData = initalMarketData;
+         save();
+         // Reload the page
+         location.reload();
+      }
+   }
 }
