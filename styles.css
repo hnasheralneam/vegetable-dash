@@ -357,7 +357,7 @@ Right Click Menu
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 #menu {
-   width: 45vh;
+   width: 52vh;
    position: fixed;
    z-index: 9999;
    display: none;
