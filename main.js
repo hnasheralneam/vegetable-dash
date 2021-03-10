@@ -71,6 +71,8 @@ let produce = initalProduce;
 let plots = initalPlots;
 let marketData = initalMarketData;
 
+runIntro();
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Vegetables | 61 LINES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -198,7 +200,20 @@ let introPartsDone = {
    settings: "no",
    thatsIt: "no",
 }
-function runIntro() { if (settings.intro === "unfinished") { showObj(".welcome"); settings.intro = "finished"; } }
+function runIntro() { if (settings.intro != "finished") {
+   plotStatus = initalPlotStatus;
+   produce = initalProduce;
+   plots = initalPlots;
+   marketData = initalMarketData;
+   settings = initalSettings;
+   localStorage.setItem("plotStatus", JSON.stringify(plotStatus));
+   localStorage.setItem("produce", JSON.stringify(produce));
+   localStorage.setItem("plots", JSON.stringify(plots));
+   localStorage.setItem("marketData", JSON.stringify(marketData));
+   localStorage.setItem("settingszzz", JSON.stringify(settings));
+   showObj(".welcome");
+   setTimeout(() => { settings.intro = "finished"; }, 1)
+}}
 function goIntro() {
    hideObj(".welcome");
    showObj(".introDarkShadow");
@@ -366,7 +381,6 @@ var mainLoop = window.setInterval(function() {
 }, 200)
 function setup() {
    whatTheme();
-   runIntro();
    checkLocks();
 }
 
