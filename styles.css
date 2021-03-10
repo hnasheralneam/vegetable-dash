@@ -55,6 +55,59 @@ summary:focus {
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Welcome!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.welcome {
+   pointer-events: none;
+   opacity: 0;
+   position: fixed;
+   width: 100%;
+   height: 100%;
+   background-color: rgb(0, 0, 0, .5);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   transition: 2s;
+}
+
+.welcome-content {
+   background-color: #f5f5f5;
+   width: 80%;
+   height: 75%;
+   padding: 5vh;
+   border-radius: 5vh;
+   font-family: "Roboto Condensed";
+   text-align: center;
+}
+
+.welcome-content h1 {
+   font-size: 10vh;
+   margin: 2vh;
+}
+
+.welcome-content h2 {
+   font-size: 6vh;
+   font-weight: 200;
+   margin: 0 20vh;
+}
+
+.welcome-content button {
+   text-transform: uppercase;
+   margin: 5vh;
+   width: 50vh;
+   transition: .5s;
+}
+
+.welcome-content button:hover {
+   box-shadow: 0 0 2vh #262626;
+   border-radius: 2vh;
+   border: none;
+}
+
+.welcome-content p { font-size: 3vh }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Farmland
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -195,7 +248,7 @@ Farmland
    width: 25vh;
    font-size: 3vh;
    position: absolute;
-   z-index: 1;
+   pointer-events: auto;
    opacity: 1;
 }
 
@@ -203,8 +256,8 @@ Farmland
    height: 10vh;
    width: 25vh;
    font-size: 3vh;
+   pointer-events: none;
    opacity: 0;
-   z-index: -1;
 }
 
 .ahh-perspective button {
@@ -234,7 +287,7 @@ Farmland
 }
 
 .purchase-plot:hover {
-   box-shadow: 0 0 10vh #f5f5f5;
+   box-shadow: 0 0 2vh #f5f5f5;
 }
 
 /* Button Images */
@@ -354,8 +407,11 @@ Side Bar
 }
 
 .sidebar details {
+   height: 35vh;
    width: 25vw;
    margin: 3vh auto;
+   border-radius: 2.5vh;
+   overflow: scroll;
 }
 
 .sidebar-button {
@@ -430,26 +486,55 @@ Side Bar
 Introduction
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+.introDarkShadow {
+   opacity: 0;
+   pointer-events: none;
+   position: fixed;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   background-color: rgba(25, 0, 0, 0.8);
+   transition: 2.5s;
+}
+
 .intro-container {
    position: fixed;
    bottom: 2vh;
-   left: 12vh;
-   right: 12vh;
-   height: 20%;
+   left: 2.5vh;
+   right: 2.5vh;
+   height: 30vh;
    background-color: #f5f5f5;
    border-radius: 5vh;
-   font-family: Nunito;
+   font-family: "Nunito";
    letter-spacing: -0.04vh;
-   overflow: hidden;
-   z-index: 1;
-   padding-left: 6vh;
-   display: none;
+   display: grid;
+   grid-template-columns: auto auto auto auto;
+   transition: 2.5s;
+}
+
+.intro-img {
+   height: 25vh;
+   margin: 1.5vh;
+   transition: .5s;
+}
+
+.intro-divide {
+   height: 25vh;
+   width: 5vh;
+   margin: 1.5vh;
+   transition: .5s;
+}
+
+.intro-text {
+   font-size: 2.5vw;
+   margin: 1.5vh;
+   transition: .5s;
 }
 
 .intro-nxt-btn {
-   position: absolute;
-   right: 5vh;
-   bottom: 5vh;
+   margin-top: 16vh;
+   margin-right: 5vh;
    background-color: #7962b6;
    height: 10vh;
    width: 15vh;
@@ -459,107 +544,16 @@ Introduction
    color: #fff;
    font-size: 10vh;
    border-radius: 25vh;
-   transition: 0.2s;
+   transition: .5s;
 }
 
 .intro-nxt-btn:hover {
-   font-size: 11vh;
    box-shadow: 0 0 3vh #262626,
                inset 1vh 0 4vh .8vh rgba(255, 255, 255, 0.5);
 }
 
-.intro-character {
-   height: 100%;
-   display: grid;
-   grid-template-columns: auto auto auto;
-   position: relative;
-   z-index: 1;
-   transition: .8s;
-   overflow: hidden;
-}
-
-.intro-img {
-   height: 75%;
-   margin: auto;
-}
-
-.intro-divide {
-   height: 100%;
-   margin: 0 5vh;
-}
-
-.intro-text {
-   font-size: 2.5vw;
-   margin: 3.5vh 20vh 3.5vh 3.5vh;
-}
-
-.space-holder {
-   opacity: 0;
-}
-
-.introDarkShadow {
-   visibility: collapse;
-   position: fixed;
-   padding-top: 100vh;
-   left: 0;
-   top: 0;
-   width: 100%;
-   height: 100%;
-   background-color: rgba(25, 0, 0, 0.8);
-   z-index: 0;
-}
-
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Quests
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-.quest-content {
-   position: fixed;
-   top: 8%;
-   left: 0;
-   height: 80%;
-   width: 0;
-   background-color: #f9f9f9;
-   border-top-right-radius: 2vh;
-   border-bottom-right-radius: 2vh;
-   transition: 0.8s;
-   overflow: scroll;
-}
-
-.inner-quest-content {
-   display: none;
-   font-family: Nunito;
-   margin: 10vh;
-}
-
-.quest-ribbon {
-   position: fixed;
-   top: 12%;
-   left: 0;
-   height: 18vh;
-   z-index: 0.95;
-   transition: 0.8s;
-}
-
-.dark-shadow {
-   visibility: collapse;
-   position: fixed;
-   z-index: 0;
-   left: 0;
-   top: 0;
-   width: 100%;
-   height: 100%;
-   background-color: rgba(0, 0, 0, 0.7);
-}
-
-.quest-gold-separator {
-   height: 35vh;
-   width: 5vh;
-   margin: 0 2vh;
-}
-
 .quest-arrow {
-   height: 175px;
+   height: 40vh;
    z-index: 1;
    animation: quest-arrow-nudge 3s infinite;
    display: none;
@@ -571,65 +565,13 @@ Quests
 }
 
 @keyframes quest-arrow-nudge {
-   0% {
-      margin-right: 0;
-   }
-   20% {
-      margin-right: -8px;
-   }
-   40% {
-      margin-right: -2px;
-   }
-   55% {
-      margin-right: -8px;
-   }
-   70% {
-      margin-right: 0;
-   }
-   100% {
-      margin-right: 0;
-   }
+   0% { margin-right: 0; }
+   20% { margin-right: -8px; }
+   40% { margin-right: -2px; }
+   55% { margin-right: -8px; }
+   70% { margin-right: 0; }
+   100% { margin-right: 0; }
 }
-
-.quest-block {
-   border-radius: 4vh;
-   background-color: #fbf4d5;
-   width: 100%;
-   height: 35vh;
-   margin: 5vh auto;
-   overflow: hidden;
-   display: grid;
-   grid-template-columns: 46% 4% 46%;
-   box-shadow: 0 0 .3vh #262626;
-   transition: 0.5s;
-   position: relative;
-}
-
-.quest-block:hover {
-   box-shadow: 0 0 5vh #262626;
-}
-
-.quest-text {
-   margin: 2vh;
-   font-size: 115%;
-   width: 50%;
-}
-
-#jeb-image {
-   margin: auto;
-   height: 28vh;
-}
-
-#grandpa-image {
-   margin: -50px auto;
-   height: 240px;
-}
-
-#grandma-image {
-   margin: -5px 0 0 8px;
-   height: 150px;
-}
-
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Market
@@ -664,7 +606,7 @@ Market
    display: grid;
    grid-template-areas:
    "a b c"
-   "d e f";
+   "e f g";
    cursor: url("Images/Global Assets/big-money.png"), auto;
    transition: 0.8s;
 }
@@ -771,3 +713,72 @@ Commands
    font-family: "Nunito";
    transition: 0.8s;
 }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Command Panel
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.command-panel {
+   position: fixed;
+   bottom: 0;
+   border-radius: 0 5vh 0 0;
+   height: 15vh;
+   padding: 2vh 10vh 2vh 2vh;
+   text-align: center;
+   background-color: #ebbc17;
+}
+
+.command-panel img {
+   display: none;
+   height: 15vh;
+   border: solid #cb9e00 .2vh;
+   border-radius: 2.5vh 5vh;
+   transition: 0.2s;
+}
+
+.command-panel img:hover, .slider:hover {
+   transform: scale(1.05);
+   box-shadow: 0 0 .5vh #cb9e00;
+}
+
+.switch {
+   position: absolute;
+   top: 2.5vh;
+   right: 2vh;
+   display: inline-block;
+   width: 7vh;
+   height: 15vh;
+}
+
+.switch input {
+   opacity: 0;
+   width: 0;
+   height: 0;
+}
+
+.slider {
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   border: solid #cb9e00 .2vh;
+   background-color: #ffca18;
+   transition: .3s;
+   border-radius: 5vh;
+}
+
+.slider:before {
+   content: "";
+   position: absolute;
+   height: 5vh;
+   width: 5vh;
+   left: .8vh;
+   top: .8vh;
+   background-color: #f5f5f5;
+   transition: .3s;
+   border-radius: 50%;
+}
+
+input:checked + .slider { background-color: #cb9e00; }
+input:checked + .slider:before { transform: translateY(8vh); }

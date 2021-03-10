@@ -1,64 +1,52 @@
 # Ideas
-## Here are the solved ideas of this project
-
-#### 💡 | ✔ | Multi-plant plot opening
+## In progress
+- **Multi-plant plot opening**
    - On click of almanac, open multiplot choice
+   - If multiple plants in one plot, plant choices in row
+   - Background slightly transparent
+   - Check in beta (CSS fulfilled, JavaScript in progress)
+- **Quests**
 
-#### 💡 | ✔ | Info Modal
-   - Click on vegetable image for informational modal
+## Thinking
+- **Pay seeds to plant vegetables**
+- **Scythes?**
+   - Use them somehow (harvest x3?)
+- **Auto harvest**
+   - Allow automatic harvesting (Purchased, of course)
+   - [Code](#Auto Harvest)
+- **Unlock time**
+   - Take time for plots to unlock
+- **Pages**
+   - Multiple pages, transparent white arrow/center plot to move
+   - First page vegetables
+   - Second page fruit
+   - Third page grains
+   - Animals | Sorry, if this ever happens it will be years in the future
+- **Center plot**
+   - Center plot is multiple vegetable plot
+   - Unlock all other plots first
+   - More information on beta branch
 
-   /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   Ideas
-   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-   /*
-   // Key
-
-   ✖ Idea
-   ✂ Progress
-   ✔ Finished
-
-   // Idea Progress
-
-   💡 Second currency seeds
-   💡 Quests by farmer
-
-   💡 | ✂ | Multi-plant plot
-      - If multiple plants in one plot, plant choices in row
-      - Background slightly transparent
-      - Check in beta (CSS fufilled, JavaScript in progress)
-
-   💡 | 🏅 | ✖ | Scyths?
-      - Use them somehow (harvest x3?)
-
-   💡 | ✖ | Autoharvest
-      - Allow automatic harvesting (Purchased, of course)
-
-   💡 | 🥇 | ✖ | Intro
-      - Tutorial when first playing, like FoE
-
-   💡 | ✖ | Unlock time
-      - Take time for plots to unlock
-
-   💡 | 🥉 | ✖ | Pages
-      - Multiple pages, transparent white arrow to move
-      - First page vegtables
-      - Second page fruit
-      - Third page grains
-      - Animals | Sorry, if this ever happends it will be years in the future
-
-   💡 | 🥈 | ✖ | Trading
-      - Eventuall there is market, with trading
-      - Each time you buy an item, % increase in price
-      - Selling and buying prices in informational modal
-
-   💡 | ✂ | Center plot
-      - Center plot is multiple vegtable plot
-      - Unlock all other plots first
-      - More information on beta branch
-
-   // Psudo code
-
-   //Automate harvesting while active
+# Code
+### Auto harvest
+```
+   // Automate harvesting while inactive
    if (poltStatus.peas = "ready") {
       setTimeout(document.getElementById("harvestPeas").click());
    }
+```
+
+
+
+
+## Completed
+- **Second currency seeds**
+
+- **Info Modal**
+   - Click on vegetable image for informational modal
+- **Intro**
+   - Introduction to first timers
+- **Trading**
+   - Eventually there is market, with trading
+   - Each time you buy an item, % increase in price
+   - Selling and buying prices in informational

@@ -21,8 +21,10 @@
          <!-- Pea Plot -->
          <div class="plot" id="plot1">
             <img class="quest-arrow plant-quest-arrow" src="Images/Quests/arrow.png" alt="Arrow">
-            <span class="ahh-perspective"><button class="grow-button" id="growPeas" onclick="plantPeas()">Grow Peas!<img class="seed-packet" src="Images/Global Assets/seed-packet.png" alt=""></button>
-            <button class="harvest-button" id="harvestPeas" onclick="harvest('Peas')">Harvest Peas!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button></span>
+            <span class="ahh-perspective">
+               <button class="grow-button" id="growPeas" onclick="plant('peas', 2000, 5000, 1, 'Peas/grown-pea.png')">Grow Peas!<img class="seed-packet" src="Images/Global Assets/seed-packet.png" alt=""></button>
+               <button class="harvest-button" id="harvestPeas" onclick="harvest('Peas')">Harvest Peas!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button>
+            </span>
             <!-- Pea Info -->
             <img onclick="infoModal('Peas')" class="veg-icon" src="Images/Vegetables/Peas/pea.png" alt="">
             <div id="infoPeas" class="veg-info">
@@ -37,12 +39,14 @@
          <div class="plot" id="plot2">
             <div class="lock-tooltip" id="lockedDiv2">
                <img id="lock2" class="locked" src="Images/Lock/lock.png" alt="Locked">
-               <span class="tooltiptext">This plot is locked <br> Pay 25 bushels of peas to unlock <br> <button class="purchase-plot" onclick="purchasePlot2()">Purchase Plot</button></span>
+               <span class="tooltiptext">This plot is locked <br> Pay 150 Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(2)">Purchase Plot</button></span>
             </div>
             <div class="open-plot" id="openPlot2">
                <img class="veg-icon" src="Images/Vegetables/Corn/corn.png" alt="">
-               <span class="ahh-perspective"><button class="grow-button" id="growCorn" onclick="plantCorn()">Grow Corn!<img class="seed-packet" src="Images/Global Assets/seed-packet.png" alt=""></button>
-               <button class="harvest-button" id="harvestCorn" onclick="harvest('Corn')">Harvest Corn!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button></span>
+               <span class="ahh-perspective">
+                  <button class="grow-button" id="growCorn" onclick="plant('corn', 8000, 12000, 2, 'Corn/grown-corn.png')">Grow Corn!<img class="seed-packet" src="Images/Global Assets/seed-packet.png" alt=""></button>
+                  <button class="harvest-button" id="harvestCorn" onclick="harvest('Corn')">Harvest Corn!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button>
+               </span>
                <!-- Corn Info -->
                <img onclick="infoModal('Corn')" class="veg-icon" src="Images/Vegetables/Corn/corn.png" alt="">
                <div id="infoCorn" class="veg-info">
@@ -81,8 +85,10 @@
                <span class="tooltiptext" id="lock4Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot4">
-               <span class="ahh-perspective"><button class="grow-button" id="growEggplants" onclick="plantEggplants()">Grow Eggplants!<img class="seed-packet" src="Images/Global Assets/seed-packet.png" alt=""></button>
-               <button class="harvest-button" id="harvestEggplants" onclick="harvest('Eggplants')">Harvest Eggplants!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button></span>
+               <span class="ahh-perspective">
+                  <button class="grow-button" id="growEggplants" onclick="plant('eggplants', 120000, 480000, 4, 'Eggplant/grown-eggplant.png')">Grow Eggplants!<img class="seed-packet" src="Images/Global Assets/seed-packet.png" alt=""></button>
+                  <button class="harvest-button" id="harvestEggplants" onclick="harvest('Eggplants')">Harvest Eggplants!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button>
+               </span>
                <!-- Eggplant Info -->
                <img onclick="infoModal('Eggplant')" class="veg-icon" src="Images/Vegetables/Eggplant/dark.png" alt="">
                <div id="infoEggplant" class="veg-info">
@@ -101,22 +107,24 @@
                <span class="tooltiptext">This plot is locked <br> Purchase all other plots to unlock<br></span>
             </div>
          </div>
-         <!-- Plot 6 -->
+         <!-- Pumpkin Plot -->
          <div class="plot" id="plot6">
             <div class="lock-tooltip" id="lockedDiv6">
                <img id="lock6" class="locked" src="Images/Lock/lock.png" alt="Locked">
-               <span class="tooltiptext" id="lock4Text">This plot is locked <br> Purchase the previous plot to unlock</span>
+               <span class="tooltiptext" id="lock6Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot6">
-               <span class="ahh-perspective"><button class="grow-button" id="growPumpkin" onclick="plantPumpkins()">Grow Pumpkins!<img class="seed-packet" src="Images/Global Assets/seed-packet.png" alt=""></button>
-               <button class="harvest-button" id="harvestPumpkins" onclick="harvest('Pumpkins')">Harvest Pupmkins!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button></span>
+               <span class="ahh-perspective">
+                  <button class="grow-button" id="growPumpkins" onclick="plant('pumpkins', 300000, 600000, 6, 'Pumpkins/grown-pumpkin.png')">Grow Pumpkins!<img class="seed-packet" src="Images/Global Assets/seed-packet.png" alt=""></button>
+                  <button class="harvest-button" id="harvestPumpkins" onclick="harvest('Pumpkins')">Harvest Pupmkins!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button>
+               </span>
                <!-- Pupmkins Info -->
                <img onclick="infoModal('Pumpkins')" class="veg-icon" src="Images/Vegetables/Pumpkins/pumpkin.png" alt="Pumpkin">
                <div id="infoPumpkins" class="veg-info">
                   <div class="modal-content">
                      <span onclick="infoModal('Pumpkins')" class="close">×</span>
                      <h4>Pupmkins <img class="info-icon" src="Images/Vegetables/Pumpkins/pumpkin.png" alt="Pumpkin"></h4>
-                     <p>Pupmkins, a round winter squash with yellow to orange smooth skin, are belived to originate in Mexico.</p>
+                     <p>Pupmkins, a round winter squash with yellow to orange smooth skin, are belived to originate in Mexico. <br> These Pumpkins take 10 minutes to grow.</p>
                   </div>
                </div>
             </div>
@@ -125,7 +133,7 @@
          <div class="plot" id="plot7">
             <div class="lock-tooltip" id="lockedDiv7">
                <img id="lock7" class="locked" src="Images/Lock/lock.png" alt="Locked">
-               <span class="tooltiptext">This plot is locked <br> Purchase the previous plot to unlock<br></span>
+               <span class="tooltiptext" id="lock7Text">This plot is locked <br> Purchase the previous plot to unlock<br></span>
             </div>
          </div>
          <!-- Plot 8 -->
@@ -152,14 +160,15 @@
             <p id="cornBushels">0 Bushels of Corn</p>
             <p id="strawberryBushels">0 Bushels of Strawberries</p>
             <p id="eggplantBushels">0 Bushels of Eggplants</p>
+            <p id="pumpkinBushels">0 Bushels of Pumpkins</p>
             <br>
             <p style="visibility: visible;"><strong>Shift + E</strong> to toggle <i>Commands</i></p>
          </div>
-         <details open>
+         <details class="settings" open>
             <summary>Settings</summary>
             <button class="sidebar-button" onclick="restart()">Restart</button>
-            <button class="sidebar-button theme-color" onclick="document.querySelector('.sidebar').style.backgroundColor = '#f5f5f5'; document.querySelector('.sidebar').style.color = '#333';">Light</button>
-            <button class="sidebar-button theme-color" onclick="document.querySelector('.sidebar').style.backgroundColor = '#111'; document.querySelector('.sidebar').style.color = '#f5f5f5';">Dark</button>
+            <button class="sidebar-button theme-color" onclick="light()">Light</button>
+            <button class="sidebar-button theme-color" onclick="darkTheme()">Dark</button>
             <br>
             <button class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.remove('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Normal Device</button>
             <button class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.add('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Small Device</button>
@@ -168,51 +177,36 @@
             <audio class="mozart" src="Audio/mozart.mp3"></audio>
          </details>
       </div>
-      <!-- Quests -->
-      <!-- <div class="quests">
-         <img class="quest-ribbon" id="questRibbon" src="Images/Quests/short-ribbon.png" alt="Ribbon!" onclick="questbar()">
-         <div class="dark-shadow" id="darkShadow" onclick="closequestbar()"></div>
-         <div class="quest-content" id="questContent">
-            <div class="inner-quest-content" id="innerQuestContent">
-               <h1 class="quest-coming">Quests - Coming Soon!</h1>
-               <div class="quest-block" id="jeb-quest">
-                  <img id="jeb-image" src="Images/Quests/farmer.png" alt="Farmer Jebediah">
-                  <img class="quest-gold-separator" src="Images/Quests/gold-separator.png" alt="Separator">
-                  <p class="quest-text">Greetings. I am Farmer Jebediah, and I will be showing you around the farm.</p>
-               </div>
-               <div class="quest-block" id="gramps-quest">
-                  <img id="grandpa-image" src="Images/Quests/gramps.png" alt="Grandpa Jenkins">
-                  <img class="quest-gold-separator" src="Images/Quests/gold-separator.png" alt="Separator">
-                  <p class="quest-text">Hi! I'm gramps. That's Grandpa Jenkins to you. I'm here ta teach you farmin'!</p>
-               </div>
-               <div class="quest-block" id="grandma-quest">
-                  <img id="grandma-image" src="Images/Quests/granny.png" alt="Grandma Josephine">
-                  <img class="quest-gold-separator" src="Images/Quests/gold-separator.png" alt="Separator">
-                  <p class="quest-text">Nice to meet you. I'm Grandma Josephine, and I'm here to teach you economics.</p>
-               </div>
-               <p style="margin-left: 35%">(Crtl + Q to toggle quest bar)</p>
-               <p style="margin-left: 35%">(Shift + W to toggle settigs)</p>
-            </div>
-         </div>
-      </div> -->
       <!-- Welcome -->
-      <div class="veg-info">
-         <div class="modal-content">
+      <div class="welcome">
+         <div class="welcome-content">
             <h1>Welcome to Vegetable Dash!</h1>
             <h2>An intense game experiance, with everything a totally awesome games needs, from farmers and crop faluires, to soil and vegetables!</h2>
-            <span>Go through our quick tutorial</span>
-            <span>Get straight into the game</span>
+            <button onclick="goIntro()"; type="button" name="button">Go through our quick <br> tutorial</button>
+            <button onclick="hideObj('.welcome')" type="button" name="button">Get straight into <br> the game</button>
+
+            <p>Quick Note:  Any old players may have to restart. If you are having trouble, please contanct <a href="mailto: thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a></p>
          </div>
       </div>
       <!-- Introduction -->
-      <div class="introDarkShadow" style="display: none;" onclick="closequestbar()"></div>
-      <div class="intro-container">
-         <div class="intro-character">
+      <div class="introDarkShadow">
+         <div class="intro-container">
             <img class="intro-img" src="Images/Intro/farmer.png" alt="Guide Character Image">
             <img class="intro-divide" src="Images/Quests/gold-separator.png" alt="Separator">
             <p class="intro-text">Greetings. I am Farmer Jebediah, and I will be showing you around the farm.</p>
             <span onclick="intro()" class="intro-nxt-btn">&#10230;</span>
          </div>
+      </div>
+      <!-- Command Panel -->
+      <div class="command-panel">
+         <img src="Images/Control Bar/settings.png" alt="Settings">
+         <img src="Images/Control Bar/produce.png" alt="Produce">
+         <img onclick="showObj('.marketShadow');" class="commandBarImg" src="Images/Control Bar/market.png" alt="Market">
+         <img onclick="openCommands()" class="commandBarImg" src="Images/Control Bar/commands.png" alt="Commands">
+         <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider" onclick="commandBar()"></span>
+         </label>
       </div>
       <!-- Market -->
       <div class="marketShadow">
@@ -255,7 +249,7 @@
             </div>
             <div class="market-item">
                <div class="market-item-content">
-                  Black Market <br> Coming Soon!
+                  Black Market + <br> Selling Pumpkins <br> Coming Soon!
                </div>
             </div>
          </div>
@@ -263,10 +257,11 @@
       <!-- Commands -->
       <div class="commandsShadow">
          <div class="commands">
-            <p><strong>Shift + Q</strong> to toggle <i>Quests</i></p>
+            <!-- <p><strong>Shift + Q</strong> to toggle <i>Quests</i></p> -->
             <p><strong>Shift + W</strong> to toggle <i>Sidebar</i></p>
             <p><strong>Shift + E</strong> to toggle <i>Commands</i></p>
             <p><strong>Shift + M</strong> to toggle <i>Market</i></p>
+            <p onclick="openCommands()">Close</p>
          </div>
       </div>
       <!-- Right Click Menu -->
