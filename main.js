@@ -71,8 +71,6 @@ let produce = initalProduce;
 let plots = initalPlots;
 let marketData = initalMarketData;
 
-runIntro();
-
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Vegetables | 61 LINES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -210,9 +208,9 @@ function runIntro() { if (settings.intro != "finished") {
    localStorage.setItem("produce", JSON.stringify(produce));
    localStorage.setItem("plots", JSON.stringify(plots));
    localStorage.setItem("marketData", JSON.stringify(marketData));
-   localStorage.setItem("settingszzz", JSON.stringify(settings));
+   localStorage.setItem("settingData", JSON.stringify(settings));
    showObj(".welcome");
-   setTimeout(() => { settings.intro = "finished"; }, 1)
+   setTimeout(() => { settings.intro = "finished"; console.log("complete");}, 1)
 }}
 function goIntro() {
    hideObj(".welcome");
@@ -517,7 +515,7 @@ var saveLoop = window.setInterval(function() {
    localStorage.setItem("produce", JSON.stringify(produce));
    localStorage.setItem("plots", JSON.stringify(plots));
    localStorage.setItem("marketData", JSON.stringify(marketData));
-   localStorage.setItem("settingszzz", JSON.stringify(settings));
+   localStorage.setItem("settingData", JSON.stringify(settings));
 }, 1000)
 
 let savegame = {
@@ -525,7 +523,7 @@ let savegame = {
    produce: JSON.parse(localStorage.getItem("produce")),
    plots: JSON.parse(localStorage.getItem("plots")),
    marketData: JSON.parse(localStorage.getItem("marketData")),
-   settings: JSON.parse(localStorage.getItem("settingszzz")),
+   settings: JSON.parse(localStorage.getItem("settingData")),
 }
 plotStatus = savegame.plotStatus;
 produce = savegame.produce;
@@ -556,12 +554,14 @@ function restart() {
          localStorage.setItem("produce", JSON.stringify(produce));
          localStorage.setItem("plots", JSON.stringify(plots));
          localStorage.setItem("marketData", JSON.stringify(marketData));
-         localStorage.setItem("settingszzz", JSON.stringify(settings));
+         localStorage.setItem("settingData", JSON.stringify(settings));
          // Reload
          location.reload();
       }
    }
 }
+
+runIntro();
 
 // For export
 // let save = [];
