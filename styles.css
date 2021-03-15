@@ -21,8 +21,6 @@ body {
    background-image: url("Images/Homepage/tilled.png");
    background-size: cover;
    overflow: hidden;
-   display: grid;
-   grid-template-areas: "a b";
 }
 
 ::selection {
@@ -62,6 +60,7 @@ Welcome!
    pointer-events: none;
    opacity: 0;
    position: fixed;
+   top: 0;
    width: 100%;
    height: 100%;
    background-color: rgb(0, 0, 0, .5);
@@ -226,20 +225,11 @@ Farmland
    pointer-events: auto;
 }
 
-.removing-lock {
-   animation: open-lock 2.5s forwards;
-}
-
+.removing-lock { animation: open-lock 2.5s forwards; }
 @keyframes open-lock {
-   0% {
-      content: url("Images/Lock/lock.png");
-   }
-   20% {
-      content: url("Images/Lock/open-lock.png");
-   }
-   100% {
-      content: url("Images/Lock/open-lock.png");
-   }
+   0% { content: url("Images/Lock/lock.png"); }
+   20% { content: url("Images/Lock/open-lock.png"); }
+   100% { content: url("Images/Lock/open-lock.png"); }
 }
 
 /* Buttons */
@@ -265,6 +255,41 @@ Farmland
    border-radius: 1vh;
    border: solid .4vh rgb(0, 0, 0, .2);
    background-color: #ffd700;
+   font-family: "Roboto Condensed";
+   padding: 0;
+   color: #343cb9;
+   font-weight: 600;
+   /* text-shadow: 0 0 .1vh #800080,
+                0 2vh 2vh #fff; */
+}
+
+.ahh-perspective button:hover {
+   transform: translateY(-1vh) scale(1.05);
+   box-shadow: 0 1.5vh 2vh #262626;
+   animation: bob 1.8s infinite;
+   animation-delay: .5s;
+}
+
+@keyframes bob {
+   0% {
+      transform: translateY(-1vh) scale(1.05);
+      box-shadow: 0 1.5vh 2vh #262626;
+   }
+   50% {
+      transform: translateY(.4px) scale(1.05);
+      box-shadow: 0 .8vh 2vh #262626;
+   }
+   100% {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 1.5vh 2vh #262626;
+   }
+}
+
+/* .ahh-perspective button {
+   transition: .2s;
+   border-radius: 1vh;
+   border: solid .4vh rgb(0, 0, 0, .2);
+   background-color: #ffd700;
    padding: 0;
    color: #800080;
    text-shadow: 0 0 .1vh #800080,
@@ -276,7 +301,7 @@ Farmland
    box-shadow: 0 .5vh .05vh rgb(0, 0, 0, .6);
    text-shadow: 0 0 #800080,
                 0 .2vh .02vh rgb(0, 0, 0, .6);
-}
+} */
 
 .purchase-plot {
    background-color: #272727;
@@ -292,8 +317,8 @@ Farmland
 
 /* Button Images */
 .sickle, .seed-packet {
-   height: 3vh;
-   margin: 0vh .8vh;
+   height: 4vh;
+   margin: 0 0 -.8vh .8vh;
 }
 .veg-icon {
    height: 8vh;
@@ -307,7 +332,8 @@ Vegetable Info Modal
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .veg-info {
-   visibility: collapse;
+   pointer-events: none;
+   opacity: 0;
    position: fixed;
    z-index: 1;
    padding-top: 10vh;
@@ -316,6 +342,7 @@ Vegetable Info Modal
    width: 100%;
    height: 100%;
    background-color: rgba(0, 0, 0, 0.7);
+   transition: .6s;
 }
 
 .modal-content h4 {
@@ -383,103 +410,6 @@ Right Click Menu
 #menu hr {
    border: .25vh solid #ebebeb;
    border-bottom: 0;
-}
-
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Side Bar
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-.sidebar {
-   position: absolute;
-   right: 0;
-   background-color: #111;
-   border-left: ridge 1vh gold;
-   padding: 3vh;
-   height: 100%;
-   width: auto;
-   color: #fff;
-   font-size: 4vh;
-   transition: 0.5s;
-   box-shadow: 0 0 2vh #262626;
-   font-family: "Nunito";
-   text-align: center;
-   position: relative;
-}
-
-.sidebar details {
-   height: 35vh;
-   width: 25vw;
-   margin: 3vh auto;
-   border-radius: 2.5vh;
-   overflow: scroll;
-}
-
-.sidebar-button {
-   border-radius: .5vh;
-   padding: 1vh;
-   display: block;
-   margin: .5vh auto;
-   width: 100%;
-   box-shadow: 0 0 1vh #222;
-   background-color: #808080;
-   border: none;
-   font-size: 3.5vh;
-   color: lightblue;
-   text-shadow: 0 0 4vh #000;
-   font-family: inherit;
-}
-
-.theme-color {
-   width: 49%;
-   padding: 1vh;
-   margin: .5vh auto;
-   display: inline;
-   background-color: #aaaaaa;
-}
-
-.device-size-button {
-   width: 32%;
-   padding: 1vh;
-   margin: .5vh auto;
-   display: inline;
-   background-color: #d9d9d9;
-}
-
-.sidebar button:hover {
-   transform: scale(0.95);
-   margin: .5vh auto;
-}
-
-.sidebar button:active {
-   transform: scale(1.03);
-   padding: 1.5vh;
-   margin: .5vh auto;
-}
-
-.open-sidebar {
-   position: absolute;
-   top: 8%;
-   left: -9.5vh;
-   height: 18vh;
-   width: 18vh;
-   box-sizing: border-box;
-   background-color: inherit;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   font-size: 9vh;
-   border-radius: 50%;
-   border: ridge .6vh gold;
-   transition: 0.5s;
-}
-
-.open-sidebar:hover {
-   box-shadow: 0 0 2vh #f5f5f5;
-}
-
-.produce p {
-   visibility: hidden;
-   font-size: 120%;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -637,7 +567,7 @@ Market
    bottom: 3vh;
    height: 10vh;
    width: 30%;
-   border-radius: 25px;
+   border-radius: 5vh;
    overflow: hidden;
    transition: 0.2s;
 }
@@ -651,10 +581,10 @@ Market
    left: 0;
    bottom: 0;
    background-color: #ff94ec;
-   height: 25px;
+   height: 5vh;
    width: 100%;
    transition: 0.2s;
-   font-size: 20px;
+   font-size: 4vh;
 }
 
 .market-item-sell {
@@ -662,10 +592,10 @@ Market
    position: absolute;
    left: 0;
    background-color: #77aeff;
-   height: 25px;
+   height: 5vh;
    width: 100%;
    transition: 0.2s;
-   font-size: 20px;
+   font-size: 4vh;
 }
 
 .market-item-buy:hover { background-color: #f96bdf; }
@@ -685,10 +615,10 @@ Market
 .market-item:nth-child(6) { background-color: #b388c6; }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Commands
+Basic Modal
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-.commandsShadow {
+.shadow {
    opacity: 0;
    pointer-events: none;
    position: fixed;
@@ -702,7 +632,7 @@ Commands
    transition: 0.8s;
 }
 
-.commands {
+.modalContent {
    min-height: 75%;
    border-radius: 2vh;
    margin: 5vh;
@@ -712,7 +642,17 @@ Commands
    font-size: 8vh;
    font-family: "Nunito";
    transition: 0.8s;
+   position: relative;
 }
+
+.closeModal {
+   position: absolute;
+   top: 3vh;
+   right: 5vh;
+   transition: .5s;
+   cursor: pointer;
+}
+.closeModal:hover { text-shadow: 0 0 .5vh #444; }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Command Panel
@@ -782,3 +722,152 @@ Command Panel
 
 input:checked + .slider { background-color: #cb9e00; }
 input:checked + .slider:before { transform: translateY(8vh); }
+
+/* Alert */
+.alert {
+   opacity: 0;
+   pointer-events: none;
+   position: fixed;
+   bottom: 2vh;
+   right: 2vh;
+   height: 40vh;
+   width: 50vh;
+   font-size: 2vh;
+   color: #f5f5f5;
+   padding: 10vh 10vh;
+   text-transform: uppercase;
+   transition: .5s;
+   box-sizing: border-box;
+   font-family: "Nunito";
+   text-align: center;
+   background-image: url("Images/Global Assets/frame.png");
+   background-size: contain;
+}
+
+.alertAnimation {
+   opacity: 1;
+   transform: scale(1) rotate(0);
+   pointer-events: none;
+   animation: alert-animation 3s forwards;
+}
+
+@keyframes alert-animation {
+   0% {
+      transform: scale(1) rotate(0);
+      opacity: 1;
+   }
+   100% {
+      transform: scale(0) rotate(720deg);
+      opacity: 0;
+   }
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Produce
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.produce {
+   position: absolute;
+   top: 0;
+   right: 0;
+   background-color: #111;
+   border-left: ridge 1vh gold;
+   padding: 3vh;
+   height: 100%;
+   width: 6vh;
+   color: #fff;
+   transition: 0.5s;
+   box-shadow: 0 0 2vh #262626;
+   font-family: "Nunito";
+}
+
+.produce-tooltip {
+   position: relative;
+   width: 10vh;
+   height: 10vh;
+   display: none;
+   margin: .5vh 0;
+}
+
+.produce-tooltip img { height: 8vh; }
+
+.produce-tooltip .tooltip-text {
+   position: absolute;
+   opacity: 0;
+   pointer-events: none;
+   height: 100%;
+   min-width: 200%;
+   background-color: #eee;
+   text-align: center;
+   border-radius: 2vh;
+   padding: .5vh 0;
+   box-shadow: 0 0 2vh #ddd;
+   font-size: 3vh;
+   color: #262626;
+   top: -.5vh;
+   right: 115%;
+   transition: .8s;
+   transition-delay: 1s;
+}
+
+.produce-tooltip .tooltip-text::after {
+   content: "";
+   position: absolute;
+   top: 50%;
+   left: 100%;
+   margin-top: -1vh;
+   border-width: 1vh;
+   border-style: solid;
+   border-color: transparent transparent transparent #eee;
+}
+
+.produce-tooltip:hover .tooltip-text {
+   opacity: 1;
+   pointer-events: auto;
+}
+
+/* Settings */
+
+.settings h1 { font-weight: 200; }
+.sidebar-button {
+   border-radius: .5vh;
+   display: block;
+   padding: 1vh;
+   margin: .5vh auto;
+   width: 81vw;
+   box-shadow: 0 0 1vh #222;
+   background-color: #808080;
+   border: none;
+   font-size: 3.5vh;
+   color: lightblue;
+   display: inline;
+   text-shadow: 0 0 4vh #000;
+   font-family: inherit;
+}
+
+.theme-color {
+   width: 40vw;
+   padding: 1vh;
+   margin: .5vh auto;
+   display: inline;
+   background-color: #aaaaaa;
+}
+
+.device-size-button {
+   width: 26.3vw;
+   padding: 1vh;
+   margin: .5vh auto;
+   display: inline;
+   background-color: #d9d9d9;
+}
+
+.sidebar button:hover {
+   transform: scale(0.95);
+   margin: .5vh auto;
+}
+
+.sidebar button:active {
+   transform: scale(1.03);
+   padding: 1.5vh;
+   margin: .5vh auto;
+}

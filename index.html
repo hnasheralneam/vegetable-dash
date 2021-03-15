@@ -22,7 +22,7 @@
          <div class="plot" id="plot1">
             <img class="quest-arrow plant-quest-arrow" src="Images/Quests/arrow.png" alt="Arrow">
             <span class="ahh-perspective">
-               <button class="grow-button" id="growPeas" onclick="plant('peas', 2000, 5000, 1, 'Peas/grown-pea.png')">Grow Peas!<img class="seed-packet" src="Images/Global Assets/seed-packet.png" alt=""></button>
+               <button class="grow-button" id="growPeas" onclick="plant('peas', 2000, 5000, 1, 'Peas/grown-pea.png')">Grow Peas!</button>
                <button class="harvest-button" id="harvestPeas" onclick="harvest('Peas')">Harvest Peas!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button>
             </span>
             <!-- Pea Info -->
@@ -44,7 +44,7 @@
             <div class="open-plot" id="openPlot2">
                <img class="veg-icon" src="Images/Vegetables/Corn/corn.png" alt="">
                <span class="ahh-perspective">
-                  <button class="grow-button" id="growCorn" onclick="plant('corn', 8000, 12000, 2, 'Corn/grown-corn.png')">Grow Corn!<img class="seed-packet" src="Images/Global Assets/seed-packet.png" alt=""></button>
+                  <button class="grow-button" id="growCorn" onclick="plant('corn', 8000, 12000, 2, 'Corn/grown-corn.png')">Grow Corn!</button>
                   <button class="harvest-button" id="harvestCorn" onclick="harvest('Corn')">Harvest Corn!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button>
                </span>
                <!-- Corn Info -->
@@ -65,7 +65,7 @@
                <span class="tooltiptext" id="lock3Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot3">
-               <span class="ahh-perspective"><button class="grow-button" id="growStrawberries" onclick="plantStrawberries()">Grow Strawberries!<img class="seed-packet" src="Images/Global Assets/seed-packet.png" alt=""></button>
+               <span class="ahh-perspective"><button class="grow-button" id="growStrawberries" onclick="plantStrawberries()">Grow Strawberries!</button>
                <button class="harvest-button" id="harvestStrawberries" onclick="harvest('Strawberries')">Harvest Strawberries!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button></span>
                <!-- Strawberry Info -->
                <img onclick="infoModal('Strawberry')" class="veg-icon" src="Images/Fruits/Strawberries/strawberry.png" alt="">
@@ -86,7 +86,7 @@
             </div>
             <div class="open-plot" id="openPlot4">
                <span class="ahh-perspective">
-                  <button class="grow-button" id="growEggplants" onclick="plant('eggplants', 120000, 480000, 4, 'Eggplant/grown-eggplant.png')">Grow Eggplants!<img class="seed-packet" src="Images/Global Assets/seed-packet.png" alt=""></button>
+                  <button class="grow-button" id="growEggplants" onclick="plant('eggplants', 120000, 480000, 4, 'Eggplant/grown-eggplant.png')">Grow Eggplants!</button>
                   <button class="harvest-button" id="harvestEggplants" onclick="harvest('Eggplants')">Harvest Eggplants!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button>
                </span>
                <!-- Eggplant Info -->
@@ -115,7 +115,7 @@
             </div>
             <div class="open-plot" id="openPlot6">
                <span class="ahh-perspective">
-                  <button class="grow-button" id="growPumpkins" onclick="plant('pumpkins', 300000, 600000, 6, 'Pumpkins/grown-pumpkin.png')">Grow Pumpkins!<img class="seed-packet" src="Images/Global Assets/seed-packet.png" alt=""></button>
+                  <button class="grow-button" id="growPumpkins" onclick="plant('pumpkins', 300000, 600000, 6, 'Pumpkins/grown-pumpkin.png')">Grow Pumpkins!</button>
                   <button class="harvest-button" id="harvestPumpkins" onclick="harvest('Pumpkins')">Harvest Pupmkins!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button>
                </span>
                <!-- Pupmkins Info -->
@@ -151,41 +151,48 @@
             </div>
          </div>
       </div>
-      <!-- Informational Sidebar -->
+      <!-- Paddock -->
+      <!-- <div class="">
+         for animals
+      </div> -->
+      <!-- Side Panel -->
       <div class="sidebar">
-         <span onclick="toggleSidebar()" class="open-sidebar">&#8249; &#8250;</span>
-         <h1>Produce</h1>
          <div class="produce">
-            <p id="peaBushels">0 Bushels of Peas</p>
-            <p id="cornBushels">0 Bushels of Corn</p>
-            <p id="strawberryBushels">0 Bushels of Strawberries</p>
-            <p id="eggplantBushels">0 Bushels of Eggplants</p>
-            <p id="pumpkinBushels">0 Bushels of Pumpkins</p>
-            <br>
-            <p style="visibility: visible;"><strong>Shift + E</strong> to toggle <i>Commands</i></p>
+            <div style="display: inline-block;" class="produce-tooltip produce-tooltip-barrel">
+               <img src="Images/Global Assets/barrel.png" alt="">
+               <span id="seeds" class="tooltip-text">Tooltip text</span>
+            </div>
+            <div class="produce-tooltip produce-tooltip-peas">
+               <img src="Images/Vegetables/Peas/pea.png" alt="">
+               <span id="peaBushels" class="tooltip-text">Tooltip text</span>
+            </div>
+            <div class="produce-tooltip produce-tooltip-corn">
+               <img src="Images/Vegetables/Corn/corn.png" alt="">
+               <span id="cornBushels" class="tooltip-text">Tooltip text</span>
+            </div>
+            <div class="produce-tooltip produce-tooltip-strawberries">
+               <img src="Images/Fruits/Strawberries/strawberry.png" alt="">
+               <span id="strawberryBushels" class="tooltip-text">Tooltip text</span>
+            </div>
+            <div class="produce-tooltip produce-tooltip-eggplants">
+               <img src="Images/Vegetables/Eggplant/dark.png" alt="">
+               <span id="eggplantBushels" class="tooltip-text">Tooltip text</span>
+            </div>
+            <div class="produce-tooltip produce-tooltip-pumpkins">
+               <img src="Images/Vegetables/Pumpkins/pumpkin.png" alt="">
+               <span id="pumpkinBushels" class="tooltip-text">Tooltip text</span>
+            </div>
          </div>
-         <details class="settings" open>
-            <summary>Settings</summary>
-            <button class="sidebar-button" onclick="restart()">Restart</button>
-            <button class="sidebar-button theme-color" onclick="light()">Light</button>
-            <button class="sidebar-button theme-color" onclick="darkTheme()">Dark</button>
-            <br>
-            <button class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.remove('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Normal Device</button>
-            <button class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.add('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Small Device</button>
-            <button  class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.add('land-for-tiny');">Tiny <br> Device</button>
-            <button class="sidebar-button" onclick="togglePlay()">Music</button>
-            <audio class="mozart" src="Audio/mozart.mp3"></audio>
-         </details>
       </div>
       <!-- Welcome -->
       <div class="welcome">
          <div class="welcome-content">
             <h1>Welcome to Vegetable Dash!</h1>
             <h2>An intense game experiance, with everything a totally awesome games needs, from farmers and crop faluires, to soil and vegetables!</h2>
-            <button onclick="goIntro()"; type="button" name="button">Go through our quick <br> tutorial</button>
+            <button onclick="goIntro()" type="button" name="button">Go through our quick <br> tutorial</button>
             <button onclick="hideObj('.welcome')" type="button" name="button">Get straight into <br> the game</button>
 
-            <p>Quick Note:  Any old players may have to restart. If you are having trouble, please contanct <a href="mailto: thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a></p>
+            <p>Quick Note:  Any old players may have to restart. Questions? Comments? Suggestions? Having trouble? Please contanct <a href="mailto: thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a></p>
          </div>
       </div>
       <!-- Introduction -->
@@ -197,12 +204,13 @@
             <span onclick="intro()" class="intro-nxt-btn">&#10230;</span>
          </div>
       </div>
-      <!-- Command Panel -->
+      <!-- Command Panel/Bar -->
       <div class="command-panel">
          <img src="Images/Control Bar/settings.png" alt="Settings">
          <img src="Images/Control Bar/produce.png" alt="Produce">
          <img onclick="showObj('.marketShadow');" class="commandBarImg" src="Images/Control Bar/market.png" alt="Market">
          <img onclick="openCommands()" class="commandBarImg" src="Images/Control Bar/commands.png" alt="Commands">
+         <img onclick="showObj('.settingShadow')" class="commandBarImg" src="Images/Control Bar/settings.png" alt="Settings">
          <label class="switch">
             <input type="checkbox" checked>
             <span class="slider" onclick="commandBar()"></span>
@@ -212,6 +220,7 @@
       <div class="marketShadow">
          <div class="market">
             <div class="market-item">
+               <span onclick="hideObj('.marketShadow')" class="closeModal">X</span>
                <div class="market-item-content">
                   Seeds: 0
                   Cheese: 0
@@ -254,14 +263,31 @@
             </div>
          </div>
       </div>
+      <!-- Alert -->
+      <div class="alert">Game Saved!</div>
       <!-- Commands -->
-      <div class="commandsShadow">
-         <div class="commands">
+      <div class="shadow commandsShadow">
+         <div class="modalContent commands">
+            <span onclick="openCommands()" class="closeModal">X</span>
             <!-- <p><strong>Shift + Q</strong> to toggle <i>Quests</i></p> -->
-            <p><strong>Shift + W</strong> to toggle <i>Sidebar</i></p>
+            <p><strong>Shift + W</strong> to toggle <i>Settings</i></p>
             <p><strong>Shift + E</strong> to toggle <i>Commands</i></p>
             <p><strong>Shift + M</strong> to toggle <i>Market</i></p>
-            <p onclick="openCommands()">Close</p>
+         </div>
+      </div>
+      <!-- Settings -->
+      <div class="shadow settingShadow">
+         <div class="modalContent settings">
+            <span onclick="hideObj('.settingShadow')" class="closeModal">X</span>
+            <h1>Settings</h1>
+            <button class="sidebar-button" onclick="restart()">Restart</button>
+            <button class="sidebar-button theme-color" onclick="light()">Light</button>
+            <button class="sidebar-button theme-color" onclick="darkTheme()">Dark</button>
+            <button class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.remove('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Normal Device</button>
+            <button class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.add('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Small Device</button>
+            <button  class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.add('land-for-tiny');">Tiny Device</button>
+            <button class="sidebar-button" onclick="togglePlay()">Music</button>
+            <audio class="mozart" src="Audio/mozart.mp3"></audio>
          </div>
       </div>
       <!-- Right Click Menu -->
@@ -270,6 +296,7 @@
          <li class="menu-links"><a href="https://squirrel-314.github.io">And this!</a></li>
          <li>You won't regret it!</li>
          <li>Probably.</li>
+         <p onclick="callAlert('working')">hihiegf</p>
          <hr>
          <li class="menu-links"><a href="https://github.com/Squirrel-314/vegetable-dash">GitHub</a></li>
          <li>Support: <a href="mailto: thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a></li>
