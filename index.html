@@ -221,36 +221,37 @@
          <div class="market">
             <div class="market-item">
                <span onclick="hideObj('.marketShadow')" class="closeModal">X</span>
-               <div class="market-item-content">
+               <div class="market-item-content special-market-item">
                   Seeds: 0
+                  Market Resets: 0
                   Cheese: 0
                   Watering Cans: 0
                   Fertilizer: 0
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content"></div>
+               <div class="market-item-content pea-market-item"></div>
                <div class="buy-sell">
                   <span class="market-item-buy" onclick="buyProduce('peas', 'Peas')">Buy</span>
                   <span class="market-item-sell"  onclick="sellProduce('peas', 'Peas')">Sell</span>
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content"></div>
+               <div class="market-item-content corn-market-item"></div>
                <div class="buy-sell">
                   <span class="market-item-buy" onclick="buyProduce('corn', 'Corn')">Buy</span>
                   <span class="market-item-sell"  onclick="sellProduce('corn', 'Corn')">Sell</span>
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content"></div>
+               <div class="market-item-content strawberry-market-item"></div>
                <div class="buy-sell">
                   <span class="market-item-buy" onclick="buyProduce('strawberries', 'Strawberries')">Buy</span>
                   <span class="market-item-sell"  onclick="sellProduce('strawberries', 'Strawberries')">Sell</span>
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content"></div>
+               <div class="market-item-content eggplant-market-item"></div>
                <div class="buy-sell">
                   <span class="market-item-buy" onclick="buyProduce('eggplants', 'Eggplants')">Buy</span>
                   <span class="market-item-sell"  onclick="sellProduce('eggplants', 'Eggplants')">Sell</span>
@@ -258,9 +259,25 @@
             </div>
             <div class="market-item">
                <div class="market-item-content">
-                  Black Market + <br> Selling Pumpkins <br> Coming Soon!
+                  Selling Pumpkins <br> Coming Soon!
                </div>
             </div>
+            <div class="market-item">
+               <div class="market-item-content">
+                  Black Market <br> Coming Soon!
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content reset-market-item">
+                  You have 0 Market Resets
+               </div>
+               <div class="market-hover">
+                  <h1>Market Resets</h1>
+                  <p>Reset market buy and sell values. There is a 1% chance of collecting one after each trade, and a 5% chance after each harvest.</p>
+                  <button onclick="resetMarketValues()" class="use-market-reset-button">Use</button>
+               </div>
+            </div>
+            <br>
          </div>
       </div>
       <!-- Alert -->

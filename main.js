@@ -37,7 +37,7 @@ let initalPlots = {
    price3: 750,
    price4: 3750,
    price5: "your soul (or $$$ - we don't accept credit)",
-   price6: 120000,
+   price6: 50000,
    price7: "undeterimed",
    price8: "undeterimed",
    price9: "undeterimed",
@@ -50,6 +50,8 @@ let initalPlots = {
 }
 let initalMarketData = {
    seeds: 0,
+   marketResets: 0,
+   // Vegetable prices
    buyPeas: 25,
    sellPeas: 25,
    buyCorn: 75,
@@ -96,6 +98,7 @@ function harvest(veg) {
    hideObj(`#${hrvstID}`);
    showObj(`#${plntID}`);
    marketData.seeds++;
+   harvestLuck(veg);
 }
 function plant(veg, timeOne, timeTwo, pltNumber, url) {
    let vegPlot = document.querySelector("#plot" + pltNumber);
@@ -135,20 +138,31 @@ function strawberriesStatus() {
 // Incidents | 0 LINES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-// Run function every time you harvest/trade
-function harvestLuck() {
+let rand = Math.random();
 
+// Run function every time you harvest/trade
+function harvestLuck(veg) {
+   if (rand < 0.20) {
+      callAlert(`You collected extra seeds!`);
+      marketData.seeds += 5;
+   }
+   if (rand < 0.10) {
+      callAlert(`You collected extra produce!`);
+      produce[veg.toLowerCase()]++
+      produce[veg.toLowerCase()]++
+   }
+   if (rand < 0.05) {
+      marketData.marketResets++;
+      callAlert(`You collected a market reset! You now have ${marketData.marketResets}`);
+   }
+   // if (rand < 0.15) { callAlert(`It snowed! You lost ${30}% of your vegetables!`); } // 15% percent
+   // if (rand < 0.02) { callAlert(`It rained! Your harvest had 2x as much profit!`); } // 2% percent
 }
 
 function marketLuck() {
-
+   if (rand < 0.1) { callAlert(`You collected a market reset!`); }
 }
 
-// let rand = Math.random();
-// let amount = 30;
-// if (rand < 0.15) { callAlert(`It snowed! You lost ${amount}% of your vegetables!`); } // 15% percent
-// if (rand < 0.02) { callAlert(`It rained! Your harvest had 2x as much profit!`); } // 2% percent
-//
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 // let luckyRoll = window.setInterval(function() {
@@ -344,9 +358,9 @@ document.addEventListener("keyup", function(event) { if (event.shiftKey && event
 }})
 function checkMarket() {
    let marketItem = document.getElementsByClassName("market-item");
-   if (plots.cornplot === "locked") { marketItem[2].style.opacity = "0"; }
-   if (plots.strawberryplot === "locked") { marketItem[3].style.opacity = "0"; }
-   if (plots.eggplantplot === "locked") { marketItem[4].style.opacity = "0"; }
+   if (plots.cornplot === "locked") { marketItem[2].style.display = "none"; }
+   if (plots.strawberryplot === "locked") { marketItem[3].style.display = "none"; }
+   if (plots.eggplantplot === "locked") { marketItem[4].style.display = "none"; }
 }
 function buyProduce(produceRequested, produceCase) {
    if (marketData.seeds >= marketData["buy" + produceCase]) {
@@ -356,6 +370,7 @@ function buyProduce(produceRequested, produceCase) {
       marketData["sell" + produceCase] *= 1.02;
       updateMarket();
       checkMarket();
+      marketLuck();
    }
 }
 function sellProduce(produceRequested, produceCase) {
@@ -366,23 +381,39 @@ function sellProduce(produceRequested, produceCase) {
       marketData["sell" + produceCase] *= 0.92;
       updateMarket();
       checkMarket();
+      marketLuck();
    }
 }
+
 function updateMarket() {
-   let marketItem = document.getElementsByClassName("market-item-content");
-   marketItem[0].textContent = `Seeds: ${Math.floor(marketData.seeds)}`;
-   marketItem[1].textContent = `Peas: ${produce.peas}
+   document.querySelector(".special-market-item").textContent = `Seeds: ${Math.floor(marketData.seeds)}`;
+   document.querySelector(".pea-market-item").textContent = `Peas: ${produce.peas}
    Cost: ${Math.floor(marketData.buyPeas)} Seeds
    Sell: ${Math.floor(marketData.sellPeas)} Seeds \r\n \r\n`;
-   marketItem[2].textContent = `Corn: ${produce.corn}
+   document.querySelector(".corn-market-item").textContent = `Corn: ${produce.corn}
    Cost: ${Math.floor(marketData.buyCorn)} Seeds
    Sell: ${Math.floor(marketData.sellCorn)} Seeds \r\n \r\n`;
-   marketItem[3].textContent = `Strawberries: ${produce.strawberries}
+   document.querySelector(".strawberry-market-item").textContent = `Strawberries: ${produce.strawberries}
    Cost: ${Math.floor(marketData.buyStrawberries)}
    Sell: ${Math.floor(marketData.sellStrawberries)} \r\n \r\n`;
-   marketItem[4].textContent = `Eggplants: ${produce.eggplants}
+   document.querySelector(".eggplant-market-item").textContent = `Eggplants: ${produce.eggplants}
    Cost: ${Math.floor(marketData.buyEggplants)}
    Sell: ${Math.floor(marketData.sellEggplants)} \r\n \r\n`;
+   document.querySelector(".reset-market-item").textContent = `You have ${marketData.marketResets} Market Resets`;
+}
+
+function resetMarketValues() {
+   if (marketData.marketResets > 0) {
+      marketData.marketResets--
+      marketData.buyPeas = 25;
+      marketData.sellPeas = 25;
+      marketData.buyCorn = 75;
+      marketData.sellCorn = 75;
+      marketData.buyStrawberries = 250;
+      marketData.sellStrawberries = 250;
+      marketData.buyEggplants = 750;
+      marketData.sellEggplants = 750;
+   }
 }
 
 // At cost of black market items allow reset of market values
