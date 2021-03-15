@@ -4,6 +4,7 @@ TABLE OF CONTENTS
 ~~~~~~~~~~~~~~~~~
 Game Data          | Game information
 Vegetables         | Harvest and plant functions, as well as modals
+Incidents          | Whoops, did I spell that wrong? - IN PROGRESS
 Unlock Plots       | Functions that unlock plots
 Introduction       | Welcome new players
 Quests             | Earn things - IN PROGRESS
@@ -77,10 +78,9 @@ let marketData = initalMarketData;
 
 // Vegetable Modals
 function infoModal(veg) {
-   let modalID = "info" + veg;
-   let modalElement = document.getElementById(modalID);
-   if (modalElement.style.visibility === "visible") { modalElement.style.visibility = "collapse"; }
-   else { modalElement.style.visibility = "visible"; }
+   let modalID = "#info" + veg;
+   if (document.querySelector(modalID).style.opacity === "1") { hideObj(modalID); }
+   else { showObj(modalID); }
 }
 
 // Harvest and plant
@@ -94,7 +94,8 @@ function harvest(veg) {
    produce[veg.toLowerCase()]++;
    // Hide harvest button, display grow button
    hideObj(`#${hrvstID}`);
-   showObj(`#${plntID}`)
+   showObj(`#${plntID}`);
+   marketData.seeds++;
 }
 function plant(veg, timeOne, timeTwo, pltNumber, url) {
    let vegPlot = document.querySelector("#plot" + pltNumber);
@@ -106,12 +107,11 @@ function plant(veg, timeOne, timeTwo, pltNumber, url) {
    setInterval(vegStatus, 1500);
    function vegStatus() {
       if (plotStatus[veg] === "ready") {
-         vegPlot.style.background = String(imgUrl);
+         vegPlot.style.backgroundImage = String(imgUrl);
          showObj("#harvest" + capitalize(veg));
       }
-      else if (plotStatus[veg] === "growing") { vegPlot.style.background = "url(Images/Plots/growing.png)"; }
-      else { vegPlot.style.background = "url(Images/Plots/plot.png)"; }
-      vegPlot.style.backgroundSize = "cover";
+      else if (plotStatus[veg] === "growing") { vegPlot.style.backgroundImage = "url(Images/Plots/growing.png)"; }
+      else { vegPlot.style.backgroundImage = "url(Images/Plots/plot.png)"; }
    }
 }
 function plantStrawberries() {
@@ -123,14 +123,54 @@ function plantStrawberries() {
 function strawberriesStatus() {
    let plotId = document.getElementById("plot3");
    if (plotStatus.strawberries === "fruiting") {
-      plotId.style.background = "url(Images/Fruits/Strawberries/grown-strawberries.png)";
+      plotId.style.backgroundImage = "url(Images/Fruits/Strawberries/grown-strawberries.png)";
       showObj("#harvestStrawberries");
    }
-   else if (plotStatus.strawberries === "flowering") { plotId.style.background = "url(Images/Fruits/Strawberries/flowering-strawberries.png)"; }
-   else if (plotStatus.strawberries === "sprouting") { plotId.style.background = "url(Images/Fruits/Strawberries/growing-strawberries.png)"; }
-   else { plotId.style.background = "url(Images/Plots/plot.png)"; }
-   plotId.style.backgroundSize = "cover";
+   else if (plotStatus.strawberries === "flowering") { plotId.style.backgroundImage = "url(Images/Fruits/Strawberries/flowering-strawberries.png)"; }
+   else if (plotStatus.strawberries === "sprouting") { plotId.style.backgroundImage = "url(Images/Fruits/Strawberries/growing-strawberries.png)"; }
+   else { plotId.style.backgroundImage = "url(Images/Plots/plot.png)"; }
 }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Incidents | 0 LINES
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+// Run function every time you harvest/trade
+function harvestLuck() {
+
+}
+
+function marketLuck() {
+
+}
+
+// let rand = Math.random();
+// let amount = 30;
+// if (rand < 0.15) { callAlert(`It snowed! You lost ${amount}% of your vegetables!`); } // 15% percent
+// if (rand < 0.02) { callAlert(`It rained! Your harvest had 2x as much profit!`); } // 2% percent
+//
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+// let luckyRoll = window.setInterval(function() {
+//    let rand = Math.random();
+//    let bonusAmount = [1.5, 2, 2.5][Math.floor(Math.random() * 3)];
+//    let dwarvesLost = Math.floor(gameData.dwarfNumber / 8);
+//    if (rand > .92) {
+//       callAlert(`A mine shaft collapsed! ${dwarvesLost} dwarfs perished.`);
+//       // Must add this to main
+//       for dwarvesLost {
+//          gameData.dwarfGold -= gameData.dwarfProfit;
+//          gameData.dwarfNumber--;
+//       }
+//    }
+//    if (rand > .85) {
+//       callAlert(`${["Large underground gold reserve found!", "Old Ican temple with vast stores of gold found!"][Math.floor(Math.random() * 2)]} Gold earnings x${bonusAmount} for 30 seconds!`);
+//       bonusNumber = bonusAmount;
+//       setTimeout(resetBonus, 30000);
+//       function resetBonus() { bonusNumber = 1; }
+//    }
+//    console.log("End");
+// }, 300000)
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Unlock Plots | 52 LINES
@@ -178,7 +218,7 @@ function openLock(pltVeg, num) {
       if (vegetable === "pumpkin") {
          document.getElementById("lockedDiv6").remove();
          document.getElementById("openPlot6").style.display = "block";
-         document.getElementById("lock7Text").innerHTML = `This plot is locked <br> Pay your soul to unlock <br> <button class="purchase-plot" onclick="unlockPlot(7)">Requires SoulPay+</button>`;
+         document.getElementById("lock7Text").innerHTML = `This plot is locked <br> Pay your soul to unlock <br> <button class="purchase-plot" onclick="callAlert('Error: Not signed into SoulPay+')">Requires SoulPay+</button>`;
          plots.pumpkinplot = "unlocked";
       }
    }
@@ -198,25 +238,23 @@ let introPartsDone = {
    settings: "no",
    thatsIt: "no",
 }
-function runIntro() { if (settings.intro != "finished") {
+function runIntro() {
    plotStatus = initalPlotStatus;
    produce = initalProduce;
    plots = initalPlots;
    marketData = initalMarketData;
    settings = initalSettings;
+   // Save
    localStorage.setItem("plotStatus", JSON.stringify(plotStatus));
    localStorage.setItem("produce", JSON.stringify(produce));
    localStorage.setItem("plots", JSON.stringify(plots));
    localStorage.setItem("marketData", JSON.stringify(marketData));
    localStorage.setItem("settingData", JSON.stringify(settings));
+
+   settings.intro = "finished";
    showObj(".welcome");
-   setTimeout(() => { settings.intro = "finished"; console.log("complete");}, 1)
-}}
-function goIntro() {
-   hideObj(".welcome");
-   showObj(".introDarkShadow");
-   intro();
 }
+function goIntro() { hideObj(".welcome"); showObj(".introDarkShadow"); intro(); }
 function intro() {
    let introShadow = document.querySelector(".introDarkShadow");
    let qstRibbon = document.getElementById("questRibbon");
@@ -367,13 +405,14 @@ var mainLoop = window.setInterval(function() {
    updateMarket();
    checkMarket()
    // Update produce display
+   document.querySelector("#seeds").textContent = `${Math.round(marketData.seeds)} Seeds`;
    if (plots.peaplot === "unlocked") { revealProduce("#peaBushels", "peas"); }
    if (plots.cornplot === "unlocked") { revealProduce("#cornBushels", "corn"); }
    if (plots.strawberryplot === "unlocked") { revealProduce("#strawberryBushels", "strawberries"); }
    if (plots.eggplantplot === "unlocked") { revealProduce("#eggplantBushels", "eggplants"); }
    if (plots.pumpkinplot === "unlocked") { revealProduce("#pumpkinBushels", "pumpkins"); }
    function revealProduce(id, veg) {
-      document.querySelector(id).style.visibility = "visible";
+      document.querySelector(".produce-tooltip-" + veg).style.display = "inline-block";
       document.querySelector(id).textContent = `${produce[veg]} Bushels of ${capitalize(veg)}`;
    }
 }, 200)
@@ -381,8 +420,6 @@ function setup() {
    whatTheme();
    checkLocks();
 }
-
-// Run function setup when page loads
 window.addEventListener('load', (event) => { setup(); });
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -407,6 +444,16 @@ function genColor() {
    for (let i = 0; i < 6; i++) { let index = rand(0, 15); color += hex[index]; }
    return color;
 }
+function callAlert(text) {
+   // Isn't it just great copying the code from other projects?
+   let alert = document.querySelector(".alert");
+   alert.style.opacity = "1";
+   alert.style.pointerEvents = "auto";
+   alert.textContent = text;
+   setTimeout(alertAnimation => { document.querySelector('.alert').classList.add('alertAnimation'); }, 6000);
+   setTimeout(removeAnimation => { document.querySelector('.alert').classList.remove('alertAnimation'); }, 9000);
+   setTimeout(hideAlerts => { alert.style.opacity = "0"; alert.style.pointerEvents = "none"; }, 9000);
+}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Commands | 73 LINES
@@ -422,33 +469,19 @@ function commandBar() {
    if (document.querySelectorAll(".commandBarImg")[0].style.display === "inline-block") {
       document.querySelectorAll(".commandBarImg")[0].style.display = "none";
       document.querySelectorAll(".commandBarImg")[1].style.display = "none";
+      document.querySelectorAll(".commandBarImg")[2].style.display = "none";
    }
    else {
       document.querySelectorAll(".commandBarImg")[0].style.display = "inline-block";
       document.querySelectorAll(".commandBarImg")[1].style.display = "inline-block";
+      document.querySelectorAll(".commandBarImg")[2].style.display = "inline-block";
    }
 }
 
-// Toggle Sidebar
-let sidebarIsOpen = true;
-function toggleSidebar() {
-   if (sidebarIsOpen === true) {
-      document.querySelector(".sidebar").style.right = "-100%";
-      document.querySelector(".land").style.right = "-30%";
-      sidebarIsOpen = false;
-   }
-   else if (sidebarIsOpen === false) {
-      document.querySelector(".sidebar").style.right = "0";
-      document.querySelector(".land").style.right = "0";
-      sidebarIsOpen = true;
-   }
-}
-document.addEventListener("keyup", function(event) {
-   event.preventDefault();
-   if (event.shiftKey && event.keyCode === 87) {
-      toggleSidebar();
-   }
-});
+document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 87) {
+   if (document.querySelector(".settingShadow").style.opacity === "0") { showObj(".settingShadow"); }
+   else { hideObj(".settingShadow"); }
+} });
 
 // Right Click Menu
 let rightClickMenu = document.getElementById("menu").style;
@@ -539,6 +572,9 @@ if (savegame !== null) {
    savegame.settings = settings;
 }
 
+if (settings) { } else { runIntro() }
+if (settings.intro != "finished") { runIntro() }
+
 function restart() {
    var areYouSure = confirm("Are you SURE you want to restart? This will wipe all your progress!");
    if (areYouSure == true) {
@@ -560,8 +596,6 @@ function restart() {
       }
    }
 }
-
-runIntro();
 
 // For export
 // let save = [];
