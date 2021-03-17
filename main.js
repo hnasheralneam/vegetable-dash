@@ -358,6 +358,9 @@ document.addEventListener("keyup", function(event) { if (event.shiftKey && event
    if (document.querySelector(".marketShadow").style.opacity === "0") { showObj(".marketShadow"); }
    else { hideObj(".marketShadow"); }
 }})
+if (marketData.marketResets === NaN || null || undefined) {
+   marketData.marketResets = 1;
+}
 function checkMarket() {
    let marketItem = document.getElementsByClassName("market-item");
    if (plots.cornplot === "locked") { marketItem[2].style.display = "none"; }
