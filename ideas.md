@@ -36,6 +36,21 @@
    }
 ```
 
+```
+// set check plant loop for each on load
+
+// harvest() {
+//    timePlanted[veg] = date now;
+//    time [veg] should be harvested = timePlanted[veg] + time growing;
+// }
+//
+//
+// check time() {
+//    if (time now - time [veg] should be harvested >= 0) {
+//       veg is ready
+//    }
+// }
+```
 
 
 

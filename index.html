@@ -3,16 +3,12 @@
    <head>
       <meta charset="utf-8">
       <!-- Google Fonts -->
-      <!-- Nunito -->
       <link rel="preconnect" href="https://fonts.gstatic.com">
       <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-      <!-- Roboto Condensed -->
       <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
       <!-- Favicon (Thanks, Justin) -->
       <link rel="shortcut icon" href="Images/Global Assets/favicon.png" type="image/x-icon">
-      <!-- CSS Link -->
       <link rel="stylesheet" href="styles.css">
-      <!-- Page Title -->
       <title>Vegetable Dash!</title>
    </head>
    <body>
@@ -151,10 +147,6 @@
             </div>
          </div>
       </div>
-      <!-- Paddock -->
-      <!-- <div class="">
-         for animals
-      </div> -->
       <!-- Side Panel -->
       <div class="sidebar">
          <div class="produce">
@@ -213,7 +205,7 @@
          <img onclick="showObj('.settingShadow')" class="commandBarImg" src="Images/Control Bar/settings.png" alt="Settings">
          <label class="switch">
             <input type="checkbox" checked>
-            <span class="slider" onclick="commandBar()"></span>
+            <span class="slider" onmouseover="commandBar()"></span>
          </label>
       </div>
       <!-- Market -->
@@ -221,46 +213,69 @@
          <div class="market">
             <div class="market-item">
                <span onclick="hideObj('.marketShadow')" class="closeModal">X</span>
-               <div class="market-item-content">
+               <div class="market-item-content special-market-item">
                   Seeds: 0
+                  Market Resets: 0
                   Cheese: 0
                   Watering Cans: 0
                   Fertilizer: 0
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content"></div>
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/Peas/pea.png" alt="Pea"><span class="pea-market-item"></span> </div>
                <div class="buy-sell">
                   <span class="market-item-buy" onclick="buyProduce('peas', 'Peas')">Buy</span>
                   <span class="market-item-sell"  onclick="sellProduce('peas', 'Peas')">Sell</span>
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content"></div>
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/Corn/corn.png" alt="Corn"><span class="corn-market-item"></span></div>
                <div class="buy-sell">
                   <span class="market-item-buy" onclick="buyProduce('corn', 'Corn')">Buy</span>
                   <span class="market-item-sell"  onclick="sellProduce('corn', 'Corn')">Sell</span>
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content"></div>
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Fruits/Strawberries/strawberry.png" alt="Strawberry"><span class="strawberry-market-item"></span></div>
                <div class="buy-sell">
                   <span class="market-item-buy" onclick="buyProduce('strawberries', 'Strawberries')">Buy</span>
                   <span class="market-item-sell"  onclick="sellProduce('strawberries', 'Strawberries')">Sell</span>
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content"></div>
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/Eggplant/dark.png" alt="Eggplant"><span class="eggplant-market-item"></span></div>
                <div class="buy-sell">
                   <span class="market-item-buy" onclick="buyProduce('eggplants', 'Eggplants')">Buy</span>
                   <span class="market-item-sell"  onclick="sellProduce('eggplants', 'Eggplants')">Sell</span>
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content">
-                  Black Market + <br> Selling Pumpkins <br> Coming Soon!
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/Pumpkins/pumpkin.png" alt="Pumpkin"><span class="pumpkin-market-item"></span></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('pumpkins', 'Pumpkins')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('pumpkins', 'Pumpkins')">Sell</span>
                </div>
             </div>
+            <div class="market-item">
+               <div class="market-item-content">
+                  Black Market <br> Coming Soon!
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content reset-market-item">
+                  You have 0 Market Resets
+               </div>
+               <div class="market-hover">
+                  <h1>Market Resets</h1>
+                  <p>Reset all market buy and sell values.</p>
+                  <button onclick="resetMarketValues()" class="use-market-reset-button">Use</button>
+                  <div class="more-info-tooltip">
+                     <img src="Images/Global Assets/more-info.png" alt="More Information" id="market-reset-more-info">
+                     <span class="tooltip-text">There is a 1% chance of collecting one after each trade, and a 5% chance after each harvest.</span>
+                  </div>
+               </div>
+            </div>
+            <br>
          </div>
       </div>
       <!-- Alert -->

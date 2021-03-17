@@ -534,22 +534,24 @@ Market
    text-align: center;
    font-family: "Roboto Condensed";
    display: grid;
-   grid-template-areas:
-   "a b c"
-   "e f g";
+   grid-template-columns: 33.33333% 33.33333% 33.33333%;
    cursor: url("Images/Global Assets/big-money.png"), auto;
+   overflow: scroll;
    transition: 0.8s;
 }
 
 .market-item {
-   height: 95%;
+   height: 45vh;
    width: 95%;
-   margin: auto;
+   margin: 2vh auto;
    border-radius: 5vh;
    transition: 0.5s;
    font-size: 5vh;
+   background-color: #13baf0;
    position: relative;
    opacity: 0.95;
+   position: relative;
+   overflow: hidden;
 }
 
 .market-item-content {
@@ -613,6 +615,61 @@ Market
 .market-item:nth-child(4) { background-color: #f0e0e0; }
 .market-item:nth-child(5) { background-color: #84f09e; }
 .market-item:nth-child(6) { background-color: #b388c6; }
+
+/* Hover */
+
+.market-hover {
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 100%;
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   text-align: center;
+   color: #fff;
+   transition: all 0.5s;
+   transform: translateY(100%);
+}
+
+.market-hover h1 {
+   text-transform: uppercase;
+   font-size: 8vh;
+}
+
+.market-hover p {
+   font-size: 4vh;
+   padding: 0 6vh;
+   display: inline;
+}
+
+.market-item:hover .market-hover {
+   background-color: rgba(0, 0, 0, 0.6);
+   transform: translateY(0);
+}
+
+.use-market-reset-button {
+   padding: 2vh;
+   font-size: 3vh;
+   border-radius: 1vh;
+   border: solid .4vh rgb(0, 0, 0, .2);
+   background-color: #ffd700;
+   font-family: "Roboto Condensed";
+   color: #343cb9;
+   font-weight: 600;
+   position: absolute;
+   bottom: 4vh;
+   right: 4vh;
+}
+
+.market-veg-img {
+   height: 10vh;
+   position: absolute;
+   top: 4vh;
+   left: 4vh;
+}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Basic Modal
@@ -795,7 +852,7 @@ Produce
    position: absolute;
    opacity: 0;
    pointer-events: none;
-   height: 100%;
+   height: 120%;
    min-width: 200%;
    background-color: #eee;
    text-align: center;
@@ -804,7 +861,7 @@ Produce
    box-shadow: 0 0 2vh #ddd;
    font-size: 3vh;
    color: #262626;
-   top: -.5vh;
+   top: -3vh;
    right: 115%;
    transition: .8s;
    transition-delay: 1s;
@@ -870,4 +927,53 @@ Produce
    transform: scale(1.03);
    padding: 1.5vh;
    margin: .5vh auto;
+}
+
+#market-reset-more-info { filter: invert(); }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+More Information Hover
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.more-info-tooltip {
+   position: absolute;
+   right: 15vh;
+   bottom: 2.5vh;
+}
+.more-info-tooltip img { height: 11vh; }
+
+.more-info-tooltip .tooltip-text {
+   position: absolute;
+   opacity: 0;
+   pointer-events: none;
+   min-height: 10vh;
+   width: 300%;
+   background-color: #eee;
+   text-align: center;
+   border-radius: 2vh;
+   box-sizing: border-box;
+   padding: 1vh;
+   box-shadow: 0 0 2vh #ddd;
+   font-size: 3vh;
+   color: #262626;
+   left: -100%;
+   bottom: 110%;
+   transition: .8s;
+   transition-delay: .2s;
+}
+
+.more-info-tooltip .tooltip-text::after {
+   content: "";
+   position: absolute;
+   left: 44%;
+   top: 105%;
+   margin-top: -2vh;
+   border-width: 2vh;
+   border-style: solid;
+   border-color: #eee transparent transparent transparent;
+}
+
+.more-info-tooltip:hover .tooltip-text {
+   opacity: 1;
+   pointer-events: auto;
 }
