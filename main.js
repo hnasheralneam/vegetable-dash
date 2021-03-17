@@ -60,8 +60,8 @@ let initalMarketData = {
    sellStrawberries: 250,
    buyEggplants: 750,
    sellEggplants: 750,
-   buyPumpkins: null,
-   sellPumpkins: null,
+   buyPumpkins: 5000,
+   sellPumpkins: 5000,
 }
 let initalSettings = {
    theme: "dark",
@@ -140,14 +140,14 @@ function strawberriesStatus() {
 
 let rand = Math.random();
 
-// Run function every time you harvest/trade
 function harvestLuck(veg) {
+   rand = Math.random();
    if (rand < 0.20) {
       callAlert(`You collected extra seeds!`);
       marketData.seeds += 5;
    }
    if (rand < 0.10) {
-      callAlert(`You collected extra produce!`);
+      callAlert(`It rained! You collected extra produce!`);
       produce[veg.toLowerCase()]++
       produce[veg.toLowerCase()]++
    }
@@ -155,36 +155,37 @@ function harvestLuck(veg) {
       marketData.marketResets++;
       callAlert(`You collected a market reset! You now have ${marketData.marketResets}`);
    }
-   // if (rand < 0.15) { callAlert(`It snowed! You lost ${30}% of your vegetables!`); } // 15% percent
-   // if (rand < 0.02) { callAlert(`It rained! Your harvest had 2x as much profit!`); } // 2% percent
 }
 
 function marketLuck() {
-   if (rand < 0.1) { callAlert(`You collected a market reset!`); }
+   rand = Math.random();
+   if (rand < 0.01) {
+      marketData.marketResets++;
+      callAlert(`You collected a market reset! You now have ${marketData.marketResets}`);
+   }
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-// let luckyRoll = window.setInterval(function() {
-//    let rand = Math.random();
-//    let bonusAmount = [1.5, 2, 2.5][Math.floor(Math.random() * 3)];
-//    let dwarvesLost = Math.floor(gameData.dwarfNumber / 8);
-//    if (rand > .92) {
-//       callAlert(`A mine shaft collapsed! ${dwarvesLost} dwarfs perished.`);
-//       // Must add this to main
-//       for dwarvesLost {
-//          gameData.dwarfGold -= gameData.dwarfProfit;
-//          gameData.dwarfNumber--;
-//       }
-//    }
-//    if (rand > .85) {
-//       callAlert(`${["Large underground gold reserve found!", "Old Ican temple with vast stores of gold found!"][Math.floor(Math.random() * 2)]} Gold earnings x${bonusAmount} for 30 seconds!`);
-//       bonusNumber = bonusAmount;
-//       setTimeout(resetBonus, 30000);
-//       function resetBonus() { bonusNumber = 1; }
-//    }
-//    console.log("End");
-// }, 300000)
+let vegetablesOwned = [];
+vegetablesOwned.push("peas")
+function vegetablesOwnedLoop() {
+   if (produce.peas >= "1" && !vegetablesOwned.includes("peas")) { vegetablesOwned.push("peas") }
+   if (produce.corn >= "1" && !vegetablesOwned.includes("corn")) { vegetablesOwned.push("corn") }
+   if (produce.strawberries >= "1" && !vegetablesOwned.includes("strawberries")) { vegetablesOwned.push("strawberries") }
+   if (produce.eggplants >= "1" && !vegetablesOwned.includes("eggplants")) { vegetablesOwned.push("eggplants") }
+   if (produce.pumpkins >= "1" && !vegetablesOwned.includes("pumpkins")) { vegetablesOwned.push("pumpkins") }
+}
+
+let luckyRoll = window.setInterval(function() {
+   rand = Math.random();
+   let vegLost = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
+   let amountLost = Math.floor(produce[vegLost] / 3);
+   if (rand < .08) {
+      produce[vegLost] -= amountLost;
+      callAlert(`It snowed! You lost ${amountLost} of your ${vegLost}!`);
+    }
+}, 300000)
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Unlock Plots | 52 LINES
@@ -200,6 +201,7 @@ function unlockPlot(plotNum) {
    let number = plotNum;
    if (marketData.seeds >= plots["price" + plotNum]) {
       marketData.seeds -= plots["price" + plotNum];
+      marketData.marketResets++;
       if (number == "2") { openLock("corn", 2) }
       if (number == "3") { openLock("strawberry", 3) }
       if (number == "4") { openLock("eggplant", 4) }
@@ -361,6 +363,7 @@ function checkMarket() {
    if (plots.cornplot === "locked") { marketItem[2].style.display = "none"; }
    if (plots.strawberryplot === "locked") { marketItem[3].style.display = "none"; }
    if (plots.eggplantplot === "locked") { marketItem[4].style.display = "none"; }
+   if (plots.pumpkinplot === "locked") { marketItem[5].style.display = "none"; }
 }
 function buyProduce(produceRequested, produceCase) {
    if (marketData.seeds >= marketData["buy" + produceCase]) {
@@ -399,9 +402,11 @@ function updateMarket() {
    document.querySelector(".eggplant-market-item").textContent = `Eggplants: ${produce.eggplants}
    Cost: ${Math.floor(marketData.buyEggplants)}
    Sell: ${Math.floor(marketData.sellEggplants)} \r\n \r\n`;
+   document.querySelector(".pumpkin-market-item").textContent = `Pumpkins: ${produce.pumpkins}
+   Cost: ${Math.floor(marketData.buyPumpkins)}
+   Sell: ${Math.floor(marketData.sellPumpkins)} \r\n \r\n`;
    document.querySelector(".reset-market-item").textContent = `You have ${marketData.marketResets} Market Resets`;
 }
-
 function resetMarketValues() {
    if (marketData.marketResets > 0) {
       marketData.marketResets--
@@ -413,13 +418,14 @@ function resetMarketValues() {
       marketData.sellStrawberries = 250;
       marketData.buyEggplants = 750;
       marketData.sellEggplants = 750;
+      marketData.buyPumpkins = 5000;
+      marketData.sellPumpkins = 5000;
    }
 }
 
-// At cost of black market items allow reset of market values
 function blackMarketValues() {
    sellerName = ["Clearly Badd", "Hereto Steale", "Stolin Joye", "Heinous Krime", "Elig L. Felonie"][Math.floor(Math.random() * 5)];
-   sellItem = ["Cheese", "Currency", "Watering Cans", "Fertilizer"][Math.floor(Math.random() * 4)];
+   sellItem = ["Cheese", "Currency", "Watering Cans", "Fertilizer", "Market Reset"][Math.floor(Math.random() * 5)];
    sellItemQuantity = Math.floor(Math.random() * (25 - 5)) + 5;
    seedCost = Math.floor(Math.random() * (8000 - 2000)) + 2000;
 
@@ -434,7 +440,7 @@ function deny() { blackMarketValues(); newBlackOffer(); document.getElementsByCl
 var mainLoop = window.setInterval(function() {
    strawberriesStatus();
    updateMarket();
-   checkMarket()
+   vegetablesOwnedLoop();
    // Update produce display
    document.querySelector("#seeds").textContent = `${Math.round(marketData.seeds)} Seeds`;
    if (plots.peaplot === "unlocked") { revealProduce("#peaBushels", "peas"); }
@@ -450,6 +456,7 @@ var mainLoop = window.setInterval(function() {
 function setup() {
    whatTheme();
    checkLocks();
+   checkMarket();
 }
 window.addEventListener('load', (event) => { setup(); });
 
@@ -501,11 +508,15 @@ function commandBar() {
       document.querySelectorAll(".commandBarImg")[0].style.display = "none";
       document.querySelectorAll(".commandBarImg")[1].style.display = "none";
       document.querySelectorAll(".commandBarImg")[2].style.display = "none";
+      document.querySelector(".slider").style.backgroundColor = "#cb9e00";
+      document.querySelector(".slider").style.transform = "rotate(0)";
    }
    else {
       document.querySelectorAll(".commandBarImg")[0].style.display = "inline-block";
       document.querySelectorAll(".commandBarImg")[1].style.display = "inline-block";
       document.querySelectorAll(".commandBarImg")[2].style.display = "inline-block";
+      document.querySelector(".slider").style.backgroundColor = "#ffca18";
+      document.querySelector(".slider").style.transform = "rotate(180deg)";
    }
 }
 

@@ -642,6 +642,7 @@ Market
 .market-hover p {
    font-size: 4vh;
    padding: 0 6vh;
+   display: inline;
 }
 
 .market-item:hover .market-hover {
@@ -650,10 +651,24 @@ Market
 }
 
 .use-market-reset-button {
-   padding: 0;
-   height: 4vh;
-   width: 8vh;
-   font-size: 2vh;
+   padding: 2vh;
+   font-size: 3vh;
+   border-radius: 1vh;
+   border: solid .4vh rgb(0, 0, 0, .2);
+   background-color: #ffd700;
+   font-family: "Roboto Condensed";
+   color: #343cb9;
+   font-weight: 600;
+   position: absolute;
+   bottom: 4vh;
+   right: 4vh;
+}
+
+.market-veg-img {
+   height: 10vh;
+   position: absolute;
+   top: 4vh;
+   left: 4vh;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -912,4 +927,53 @@ Produce
    transform: scale(1.03);
    padding: 1.5vh;
    margin: .5vh auto;
+}
+
+#market-reset-more-info { filter: invert(); }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+More Information Hover
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.more-info-tooltip {
+   position: absolute;
+   right: 15vh;
+   bottom: 2.5vh;
+}
+.more-info-tooltip img { height: 11vh; }
+
+.more-info-tooltip .tooltip-text {
+   position: absolute;
+   opacity: 0;
+   pointer-events: none;
+   min-height: 10vh;
+   width: 300%;
+   background-color: #eee;
+   text-align: center;
+   border-radius: 2vh;
+   box-sizing: border-box;
+   padding: 1vh;
+   box-shadow: 0 0 2vh #ddd;
+   font-size: 3vh;
+   color: #262626;
+   left: -100%;
+   bottom: 110%;
+   transition: .8s;
+   transition-delay: .2s;
+}
+
+.more-info-tooltip .tooltip-text::after {
+   content: "";
+   position: absolute;
+   left: 44%;
+   top: 105%;
+   margin-top: -2vh;
+   border-width: 2vh;
+   border-style: solid;
+   border-color: #eee transparent transparent transparent;
+}
+
+.more-info-tooltip:hover .tooltip-text {
+   opacity: 1;
+   pointer-events: auto;
 }
