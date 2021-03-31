@@ -6,7 +6,7 @@ Game Data          | Game information
 Vegetables         | Harvest and plant functions, as well as modals
 Incidents          | Whoops, did I spell that wrong? - IN PROGRESS
 Unlock Plots       | Functions that unlock plots
-Introduction       | Welcome new players
+Introduction       | Welcome new players, should redo
 Quests             | Earn things - IN PROGRESS
 Market             | Trade things
 Main Loop & Setup  | Main loop and setup
@@ -62,6 +62,10 @@ let initalMarketData = {
    sellEggplants: 750,
    buyPumpkins: 5000,
    sellPumpkins: 5000,
+   sellerName: ["Clearly Badd", "Hereto Steale", "Stolin Joye", "Heinous Krime", "Elig L. Felonie"][Math.floor(Math.random() * 5)],
+   sellItem: ["Market Resets"][Math.floor(Math.random() * 1)],
+   sellItemQuantity: Math.floor(Math.random() * (5 - 1)) + 1,
+   seedCost: Math.floor(Math.random() * (10000 - 2000)) + 2000,
 }
 let initalSettings = {
    theme: "dark",
@@ -100,13 +104,42 @@ function harvest(veg) {
    marketData.seeds++;
    harvestLuck(veg);
 }
-function plant(veg, timeOne, timeTwo, pltNumber, url) {
-   let vegPlot = document.querySelector("#plot" + pltNumber);
-   let imgUrl = "url(Images/Vegetables/" + url + ")";
+function plant(veg, timeOne, timeTwo) {
    setTimeout(() => { plotStatus[veg] = "growing"; }, timeOne);
    setTimeout(() => { plotStatus[veg] = "ready"; }, timeTwo);
    hideObj("#grow" + capitalize(veg));
-
+}
+function fertilize(veg) {
+   if (marketData.fertilizers >= 1) {
+      marketData.fertilizers -= 1;
+      plotStatus[veg] = "ready";
+      produce[veg]++;
+   }
+}
+function plantStrawberries() {
+   setTimeout(() => { plotStatus.strawberries = "sprouting"; }, 20000);
+   setTimeout(() => { plotStatus.strawberries = "flowering"; }, 60000);
+   setTimeout(() => { plotStatus.strawberries = "fruiting"; }, 120000);
+   hideObj("#growStrawberries");
+}
+strawberriesStatus();
+function strawberriesStatus() {
+   let plotId = document.getElementById("plot3");
+   if (plotStatus.strawberries === "fruiting") {
+      plotId.style.backgroundImage = "url(Images/Fruits/Strawberries/grown-strawberries.png)";
+      showObj("#harvestStrawberries");
+   }
+   else if (plotStatus.strawberries === "flowering") { plotId.style.backgroundImage = "url(Images/Fruits/Strawberries/flowering-strawberries.png)"; }
+   else if (plotStatus.strawberries === "sprouting") { plotId.style.backgroundImage = "url(Images/Fruits/Strawberries/growing-strawberries.png)"; }
+   else { plotId.style.backgroundImage = "url(Images/Plots/plot.png)"; }
+}
+plantLoop("peas", 1, 'Peas/grown-pea.png');
+plantLoop("corn", 2, 'Corn/grown-corn.png');
+plantLoop("eggplants", 4, 'Eggplant/grown-eggplant.png');
+plantLoop("pumpkins", 6, 'Pumpkins/grown-pumpkin.png');
+function plantLoop(veg, pltNumber, url) {
+   let vegPlot = document.querySelector("#plot" + pltNumber);
+   let imgUrl = "url(Images/Vegetables/" + url + ")";
    setInterval(vegStatus, 1500);
    function vegStatus() {
       if (plotStatus[veg] === "ready") {
@@ -117,21 +150,82 @@ function plant(veg, timeOne, timeTwo, pltNumber, url) {
       else { vegPlot.style.backgroundImage = "url(Images/Plots/plot.png)"; }
    }
 }
-function plantStrawberries() {
-   setTimeout(() => { plotStatus.strawberries = "sprouting"; }, 20000);
-   setTimeout(() => { plotStatus.strawberries = "flowering"; }, 60000);
-   setTimeout(() => { plotStatus.strawberries = "fruiting"; }, 120000);
-   hideObj("#growStrawberries");
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Tasks | 0 LINES
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+let taskList = {
+   taskBox1: "unoccupied",
+   taskBox2: "unoccupied",
+   taskBox3: "unoccupied",
+   taskBox4: "unoccupied",
+   jebsPeaSalad: "unreached",
+   jebsPeaSaladNum: 0,
+   useMarketResets: "active",
+   useMarketResetsNum: 0,
+   tryFertilizer: "unreached",
+   tryFertilizerNum: 0,
 }
-function strawberriesStatus() {
-   let plotId = document.getElementById("plot3");
-   if (plotStatus.strawberries === "fruiting") {
-      plotId.style.backgroundImage = "url(Images/Fruits/Strawberries/grown-strawberries.png)";
-      showObj("#harvestStrawberries");
+
+clearTask(1);
+clearTask(2);
+clearTask(3);
+clearTask(4);
+// Move all tasks from html to JavaScript
+// You are having trouble with the num in checkTasks, emptyTaskCheck is showing the number as 1, what it is, but everywhere else it is showing up as the default 0
+function checkTasks(origin, num) {
+   if (taskList.jebsPeaSalad === "active" && origin === "producePaid") {
+      document.querySelector(`.task-info-button-${num}`).textContent = "Collect [Reward]";
+      document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", "javascript: collectTaskReward('useMarketResets'), useMarketResetsNum;" );
+      document.querySelector(`.task-info-${num}`).textContent = "Thank you for completing that small task for me! Here, take 500 seeds!";
    }
-   else if (plotStatus.strawberries === "flowering") { plotId.style.backgroundImage = "url(Images/Fruits/Strawberries/flowering-strawberries.png)"; }
-   else if (plotStatus.strawberries === "sprouting") { plotId.style.backgroundImage = "url(Images/Fruits/Strawberries/growing-strawberries.png)"; }
-   else { plotId.style.backgroundImage = "url(Images/Plots/plot.png)"; }
+   if (taskList.useMarketResets === "active" && origin === "resetMarketValues") {
+      document.querySelector(`.task-info-button-${num}`).textContent = "Collect 500 Seeds";
+      document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", "javascript: collectTaskReward('useMarketResets'), useMarketResetsNum;" );
+      document.querySelector(`.task-info-${num}`).textContent = "Thank you for completing that small task for me! Here, take 500 seeds!";
+   }
+}
+
+function collectTaskReward(task, num) {
+   if (task === "useMarketResets") {
+      taskList[task] = "complete";
+      marketData.seeds += 500;
+      clearTask();
+   }
+}
+
+startTask(emptyTaskCheck(), "Use 1 Market Reset", " ", "Have I told you about market resets yet? They can reset all of the prices in the market! Why don't you use one now?", "Grandma Josephine", "Images/Tasks/granny.png", taskList.useMarketResets)
+function startTask(num, buttonTxt, buttonOnClick, infoTxt, taskGiver, taskGiverImg, task) {
+   if (num === "Full") { task = "waiting"; return; }
+   else { task = "active" }
+   showObj(`.task-info-button-${num}`);
+   document.querySelector(`.task-info-button-${num}`).style.zIndex = "0";
+   document.querySelector(`.task-info-button-${num}`).textContent = buttonTxt;
+   document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", `javascript: ${buttonOnClick}` );
+   document.querySelector(`.task-info-${num}`).textContent = infoTxt;
+   document.querySelector(`.task-info-giver-${num}`).textContent = taskGiver;
+   $(`.task-info-img-${num}`).attr("src", taskGiverImg);
+   taskList["taskBox" + num] = "occupied";
+}
+
+function clearTask(num) {
+   hideObj(`.task-info-button-${num}`);
+   document.querySelector(`.task-info-button-${num}`).textContent = "";
+   document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", "javascript: " );
+   document.querySelector(`.task-info-${num}`).textContent = "";
+   document.querySelector(`.task-info-giver-${num}`).textContent = "";
+   $(`.task-info-img-${num}`).attr("src", "Images/Global Assets/nothing.png");
+   taskList["taskBox" + num] = "unoccupied";
+}
+
+function emptyTaskCheck(task) {
+   if (taskList.taskBox1 === "unoccupied") { taskList[task + "Num"] = 1; }
+   else if (taskList.taskBox2 === "unoccupied") { taskList[task + "Num"] = 2; }
+   else if (taskList.taskBox3 === "unoccupied") { taskList[task + "Num"] = 3; }
+   else if (taskList.taskBox4 === "unoccupied") { taskList[task + "Num"] = 4; }
+   else { taskSpot = "Full"; }
+   return taskList[task + "Num"];
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -156,12 +250,18 @@ function harvestLuck(veg) {
       callAlert(`You collected a market reset! You now have ${marketData.marketResets}`);
    }
 }
-
 function marketLuck() {
    rand = Math.random();
    if (rand < 0.01) {
       marketData.marketResets++;
       callAlert(`You collected a market reset! You now have ${marketData.marketResets}`);
+   }
+}
+function blackMarketLuck() {
+   rand = Math.random();
+   if (rand < 0.02) {
+      callAlert("The police caught you! They fined you 6000 Seeds");
+      marketData.seeds -= 6000;
    }
 }
 
@@ -420,18 +520,37 @@ function resetMarketValues() {
       marketData.sellEggplants = 750;
       marketData.buyPumpkins = 5000;
       marketData.sellPumpkins = 5000;
+      checkTasks("resetMarketValues", taskList.useMarketResetsNum);
    }
 }
 
+newBlackOffer();
 function blackMarketValues() {
-   sellerName = ["Clearly Badd", "Hereto Steale", "Stolin Joye", "Heinous Krime", "Elig L. Felonie"][Math.floor(Math.random() * 5)];
-   sellItem = ["Cheese", "Currency", "Watering Cans", "Fertilizer", "Market Reset"][Math.floor(Math.random() * 5)];
-   sellItemQuantity = Math.floor(Math.random() * (25 - 5)) + 5;
-   seedCost = Math.floor(Math.random() * (8000 - 2000)) + 2000;
-
+   marketData.sellerName = ["Clearly Badd", "Hereto Steale", "Heinous Krime", "Elig L. Felonie", "Sheeft E. Karacter", "Abad Deel"][Math.floor(Math.random() * 6)];
+   marketData.sellItem = ["Market Resets"][Math.floor(Math.random() * 1)];
+   // sellItem = ["Watering Cans", "Compost", "Fertilizer", "Market Reset"][Math.floor(Math.random() * 4)];
+   marketData.sellItemQuantity = Math.floor(Math.random() * (5 - 1)) + 1;
+   marketData.seedCost = Math.floor(Math.random() * (10000 - 2000)) + 2000;
 }
-function newBlackOffer() { document.getElementsByClassName("market-item-content")[2].textContent = `Offer by ${sellerName} \n Selling ${sellItemQuantity} ${sellItem} \n for ${seedCost} Seeds`; }
-function deny() { blackMarketValues(); newBlackOffer(); document.getElementsByClassName("market-item")[2].style.backgroundColor = genColor(); }
+
+function newBlackOffer() { document.querySelector(".blackMarketOffer").textContent = `Offer by ${marketData.sellerName} \n Selling ${marketData.sellItemQuantity} ${marketData.sellItem} \n for ${marketData.seedCost} Seeds`; }
+
+function accept() {
+   if (marketData.seeds >= marketData.seedCost) {
+      marketData.seeds -= marketData.seedCost;
+      blackMarketLuck();
+      blackMarketValues();
+      newBlackOffer();
+      if (marketData.sellItem === "Market Resets") { marketData.marketResets += marketData.sellItemQuantity; }
+   }
+}
+
+function deny() {
+   blackMarketLuck();
+   blackMarketValues();
+   newBlackOffer();
+   document.querySelector(".blackMarketOffer").style.backgroundColor = genColor();
+}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Main Loop & Setup | 27 LINES
@@ -492,6 +611,7 @@ function callAlert(text) {
    setTimeout(removeAnimation => { document.querySelector('.alert').classList.remove('alertAnimation'); }, 9000);
    setTimeout(hideAlerts => { alert.style.opacity = "0"; alert.style.pointerEvents = "none"; }, 9000);
 }
+function scrollToSection(id) { document.getElementById(id).scrollIntoView(); }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Commands | 73 LINES
@@ -556,6 +676,23 @@ function menu(x, y) {
    rightClickMenu.left = x + "px";
    rightClickMenu.display = "block";
 }
+
+// Quests
+questbarIsOpen = false;
+document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 81) { questbar(); } });
+function questbar() {
+   if (questbarIsOpen === true) {
+      document.querySelector(".quests").style.left = "0";
+      document.querySelector(".questShadow").style.display = "block";
+      questbarIsOpen = false;
+   }
+   else {
+      document.querySelector(".quests").style.left = "-80vh";
+      document.querySelector(".questShadow").style.display = "none";
+      questbarIsOpen = true;
+   }
+}
+
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Settings & Produce | 23 LINES=
