@@ -228,11 +228,11 @@
             <div class="task-block-parent">
                <div class="task-block task-block-1">
                   <div class="task-info">
-                     <div class="task-info-a task-info-demand task-info-1">I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?</div>
-                     <img class="task-info-c task-info-img task-info-img-1" src="Images/Tasks/farmer.png" alt="Farmer Jebediah">
-                     <h4 class="task-info-b task-info-giver-1">Farmer Jebediah</h4>
+                     <div class="task-info-a task-info-demand task-info-1"></div>
+                     <img class="task-info-c task-info-img task-info-img-1" src="Images/Global Assets/nothing.png" alt="Task Giver">
+                     <h4 class="task-info-b task-info-giver-1"></h4>
                   </div>
-                  <button class="depth-button red task-submit-depth-button task-info-button-1">Submit 25 Peas</button>
+                  <button class="depth-button red task-submit-depth-button task-info-button-1"></button>
                </div>
             </div>
             <div class="task-block-parent">
@@ -248,11 +248,11 @@
             <div class="task-block-parent">
                <div class="task-block task-block-3">
                   <div class="task-info">
-                     <div class="task-info-a task-info-demand task-info-3">Your plants look like they could do with some help. Why don't you use some fertilizer? It'll double the crop yeild and finish the growing instantly!</div>
-                     <img class="task-info-c task-info-img task-info-img-3" src="Images/Tasks/jenkins.png" alt="Farmer Jebediah">
-                     <h4 class="task-info-b task-info-giver-3">Grandpa Jenkins</h4>
+                     <div class="task-info-a task-info-demand task-info-3"></div>
+                     <img class="task-info-c task-info-img task-info-img-3" src="Images/Global Assets/nothing.png" alt="Task Giver">
+                     <h4 class="task-info-b task-info-giver-3"></h4>
                   </div>
-                  <button class="depth-button green task-submit-depth-button task-info-button-3">Use 1 Fertilizer</button>
+                  <button class="depth-button green task-submit-depth-button task-info-button-3"></button>
                </div>
             </div>
             <div class="task-block-parent">
@@ -262,7 +262,7 @@
                      <img class="task-info-c task-info-img task-info-img-4" src="Images/Global Assets/nothing.png" alt="Task Giver">
                      <h4 class="task-info-b task-info-giver-4"></h4>
                   </div>
-                  <button class="depth-button purple task-submit-depth-button task-info-button-4"></button>
+                  <button class="depth-button blue task-submit-depth-button task-info-button-4"></button>
                </div>
             </div>
          </div>
@@ -392,6 +392,11 @@
                <div class="help-subjects-item" onclick="scrollToSection('help-black-market')">Black Market</div>
                <div class="help-subjects-item" onclick="scrollToSection('help-market-resets')">Market Resets</div>
                <div class="help-subjects-item" onclick="scrollToSection('help-fertilizer')">Fertilizer</div>
+               <div class="help-subjects-item" onclick="scrollToSection('help-tasks')">Tasks</div>
+               <div class="help-subjects-item" onclick="scrollToSection('help-farmer-jebediah')">Farmer Jebediah</div>
+               <div class="help-subjects-item" onclick="scrollToSection('help-grandpa-jenkins')">Grandpa Jenkins</div>
+               <div class="help-subjects-item" onclick="scrollToSection('help-grandma-josephine')">Grandma Josephine</div>
+               <div class="help-subjects-item" onclick="scrollToSection('help-bunny-slippers')">Bunny Slippers</div>
                <div class="help-subjects-item" onclick="scrollToSection('help-about-copyright')">About & Copyright</div>
             </div>
             <div class="help-information">
@@ -421,7 +426,7 @@
                </div>
                <div id="help-black-market">
                   <h1>Black Market</h1>
-                  <p>The black market is a wonderful and bustling place filled with plenty of illegal items. It located at an undisclosed location. For an amount of <span onclick="scrollToSection('help-seeds')">seeds</span> you can purchase illegal items such as <span onclick="scrollToSection('help-market-resets')">Market Resets</span>. But watch out! There is a 2% chance that the police will catch you and make you shall pay a terrible fine.</p>
+                  <p>The black market is a wonderful and bustling place filled with plenty of illegal items. It located at an undisclosed location. For an amount of <span onclick="scrollToSection('help-seeds')">seeds</span> you can purchase illegal items such as <span onclick="scrollToSection('help-market-resets')">Market Resets</span>. But watch out! There is a 2% chance that the police will catch you and make you pay a terrible fine!</p>
                </div>
                <div id="help-market-resets">
                   <h1>Market Resets</h1>
@@ -429,7 +434,27 @@
                </div>
                <div id="help-fertilizer">
                   <h1>Fertilizer</h1>
-                  <p>Fertilizer is a useful item that when used on a vegetable plot instantly completes the growing and adds an extra vegetable of that type. Fertilizer can be bought in the <span onclick="scrollToSection('help-black-market')">Black Market</span>, or very soon earned from tasks.</p>
+                  <p>Fertilizer is a useful item that when used on a vegetable plot instantly completes the growing and adds an extra vegetable of that type. Fertilizer can be bought in the <span onclick="scrollToSection('help-black-market')">Black Market</span>, or earned from <span onclick="scrollToSection('help-tasks')">Tasks</span>.</p>
+               </div>
+               <div id="help-tasks">
+                  <h1>Tasks</h1>
+                  <p>Tasks are small chores that <span onclick="scrollToSection('help-farmer-jebediah')">Farmer Jebediah</span>, <span onclick="scrollToSection('help-grandpa-jenkins')">Grandpa Jenkins</span>, <span onclick="scrollToSection('help-grandma-josephine')">Grandma Josephine</span>, or special guests request that require you to do a task for them or pay some items. They give helpful rewards like <span onclick="scrollToSection('help-fertilizer')">Fertilizer</span> and <span onclick="scrollToSection('help-market-resets')">Market Resets</span>.</p>
+               </div>
+               <div id="help-farmer-jebediah">
+                  <h1>Farmer Jebediah</h1>
+                  <p>Previous owner of the farm, you closest advisor. He gives many important <span onclick="scrollToSection('help-tasks')">Tasks</span>.</p>
+               </div>
+               <div id="help-grandpa-jenkins">
+                  <h1>Grandpa Jenkins</h1>
+                  <p>Guide on everything farming, bearer of the Bunny Slippers, and giver of <span onclick="scrollToSection('help-tasks')">Tasks</span>.</p>
+               </div>
+               <div id="help-grandma-josephine">
+                  <h1>Grandma Josephine</h1>
+                  <p>Your personal economic advisor, and giver of <span onclick="scrollToSection('help-tasks')">Tasks</span>.</p>
+               </div>
+               <div id="help-bunny-slippers">
+                  <h1>Bunny Slippers</h1>
+                  <p>Currently borne by <span onclick="scrollToSection('help-grandpa-jenkins')">Grandpa Jenkins</span>, the Bunny Slippers are the main object of the Bunny Slippers Task List, a Task List being a collection of related tasks. It begins with <span onclick="scrollToSection('help-grandma-josephine')">Grandma Josephine</span> telling you to sell the slippers, then <span onclick="scrollToSection('help-grandpa-jenkins')">Grandpa Jenkins</span> reveals their true value, and you must go on a long task list meeting many people who all want you to do something for them, finally ending with the retrival of the Bunny Slippers.</p>
                </div>
                <div id="help-about-copyright">
                   <h1 id="help-about-copyright">About & Copyright</h1>

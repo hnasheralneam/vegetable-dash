@@ -114,6 +114,7 @@ function fertilize(veg) {
       marketData.fertilizers -= 1;
       plotStatus[veg] = "ready";
       produce[veg]++;
+      checkTasks('fertilize', taskList.tryFertilizerNum);
    }
 }
 function plantStrawberries() {
@@ -152,7 +153,7 @@ function plantLoop(veg, pltNumber, url) {
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Tasks | 0 LINES
+// Tasks | 100 LINES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 let taskList = {
@@ -160,9 +161,9 @@ let taskList = {
    taskBox2: "unoccupied",
    taskBox3: "unoccupied",
    taskBox4: "unoccupied",
-   jebsPeaSalad: "unreached",
+   jebsPeaSalad: "active",
    jebsPeaSaladNum: 0,
-   useMarketResets: "active",
+   useMarketResets: "unreached",
    useMarketResetsNum: 0,
    tryFertilizer: "unreached",
    tryFertilizerNum: 0,
@@ -172,33 +173,12 @@ clearTask(1);
 clearTask(2);
 clearTask(3);
 clearTask(4);
-// Move all tasks from html to JavaScript
-// You are having trouble with the num in checkTasks, emptyTaskCheck is showing the number as 1, what it is, but everywhere else it is showing up as the default 0
-function checkTasks(origin, num) {
-   if (taskList.jebsPeaSalad === "active" && origin === "producePaid") {
-      document.querySelector(`.task-info-button-${num}`).textContent = "Collect [Reward]";
-      document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", "javascript: collectTaskReward('useMarketResets'), useMarketResetsNum;" );
-      document.querySelector(`.task-info-${num}`).textContent = "Thank you for completing that small task for me! Here, take 500 seeds!";
-   }
-   if (taskList.useMarketResets === "active" && origin === "resetMarketValues") {
-      document.querySelector(`.task-info-button-${num}`).textContent = "Collect 500 Seeds";
-      document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", "javascript: collectTaskReward('useMarketResets'), useMarketResetsNum;" );
-      document.querySelector(`.task-info-${num}`).textContent = "Thank you for completing that small task for me! Here, take 500 seeds!";
-   }
-}
+showTasks();
 
-function collectTaskReward(task, num) {
-   if (task === "useMarketResets") {
-      taskList[task] = "complete";
-      marketData.seeds += 500;
-      clearTask();
-   }
-}
-
-startTask(emptyTaskCheck(), "Use 1 Market Reset", " ", "Have I told you about market resets yet? They can reset all of the prices in the market! Why don't you use one now?", "Grandma Josephine", "Images/Tasks/granny.png", taskList.useMarketResets)
+// Task Insensitive
 function startTask(num, buttonTxt, buttonOnClick, infoTxt, taskGiver, taskGiverImg, task) {
+   taskList[task + "Num"] = num;
    if (num === "Full") { task = "waiting"; return; }
-   else { task = "active" }
    showObj(`.task-info-button-${num}`);
    document.querySelector(`.task-info-button-${num}`).style.zIndex = "0";
    document.querySelector(`.task-info-button-${num}`).textContent = buttonTxt;
@@ -206,9 +186,8 @@ function startTask(num, buttonTxt, buttonOnClick, infoTxt, taskGiver, taskGiverI
    document.querySelector(`.task-info-${num}`).textContent = infoTxt;
    document.querySelector(`.task-info-giver-${num}`).textContent = taskGiver;
    $(`.task-info-img-${num}`).attr("src", taskGiverImg);
-   taskList["taskBox" + num] = "occupied";
+   taskList["taskBox" + num] = "occupied " + task;
 }
-
 function clearTask(num) {
    hideObj(`.task-info-button-${num}`);
    document.querySelector(`.task-info-button-${num}`).textContent = "";
@@ -218,14 +197,60 @@ function clearTask(num) {
    $(`.task-info-img-${num}`).attr("src", "Images/Global Assets/nothing.png");
    taskList["taskBox" + num] = "unoccupied";
 }
-
 function emptyTaskCheck(task) {
-   if (taskList.taskBox1 === "unoccupied") { taskList[task + "Num"] = 1; }
-   else if (taskList.taskBox2 === "unoccupied") { taskList[task + "Num"] = 2; }
-   else if (taskList.taskBox3 === "unoccupied") { taskList[task + "Num"] = 3; }
-   else if (taskList.taskBox4 === "unoccupied") { taskList[task + "Num"] = 4; }
-   else { taskSpot = "Full"; }
-   return taskList[task + "Num"];
+   if (taskList.taskBox1 === "unoccupied") { taskList[task] = 1; }
+   else if (taskList.taskBox2 === "unoccupied") { taskList[task] = 2; }
+   else if (taskList.taskBox3 === "unoccupied") { taskList[task] = 3; }
+   else if (taskList.taskBox4 === "unoccupied") { taskList[task] = 4; }
+   else { taskList[task] = "Full"; }
+   return taskList[task];
+}
+function taskAlreadyUp(task) {
+   let value = {};
+   for (i = 1; i < 5; i++) {
+      if (taskList["taskBox" + i] === task) { value[i] = true; }
+      else { value[i] = false; }
+   }
+   if (value[1] === false && value[2] === false && value[3] === false && value[4] === false) { return false }
+   else { return true }
+}
+
+// Task Sensitive
+function giveTasks() {
+   if (true && taskList.jebsPeaSalad != "complete") { taskList.jebsPeaSalad = "active" }
+   if (taskList.jebsPeaSalad === "complete" && marketData.marketResets >= 1 && taskList.useMarketResets != "complete") { taskList.useMarketResets = "active" }
+   if (taskList.jebsPeaSalad === "complete" && taskList.tryFertilizer != "complete") { taskList.tryFertilizer = "active" }
+}
+function showTasks() {
+   if (taskAlreadyUp("occupied jebsPeaSalad") === false && taskList.jebsPeaSalad === "active" || taskList.useMarketResets === "waiting") { startTask(emptyTaskCheck("jebsPeaSaladNum"), "Submit 25 Peas", "if (produce.peas >= 25) { produce.peas -= 25; checkTasks('producePaid', taskList.jebsPeaSaladNum); }", "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsPeaSalad"); }
+   if (taskAlreadyUp("occupied useMarketResets") === false && taskList.useMarketResets === "active" || taskList.useMarketResets === "waiting") { startTask(emptyTaskCheck("useMarketResetsNum"), "Use 1 Market Reset", " ", "Have I told you about market resets yet? They can reset all of the prices in the market! Why don't you use one now?", "Grandma Josephine", "Images/Tasks/granny.png", "useMarketResets"); }
+   if (taskAlreadyUp("occupied tryFertilizer") === false && taskList.tryFertilizer === "active" || taskList.tryFertilizer === "waiting") { startTask(emptyTaskCheck("tryFertilizerNum"), "Use 1 Fertilizer", " ", "Your plants look like they could do with some help. Why don't you use some fertilizer? It'll double the crop yeild and finish the growing instantly!", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "tryFertilizer"); }
+}
+function checkTasks(origin, num) {
+   if (taskList.jebsPeaSalad === "active" && origin === "producePaid") {
+      document.querySelector(`.task-info-button-${num}`).textContent = "Collect 5 Fertilizer";
+      document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", "javascript: collectTaskReward('jebsPeaSalad', taskList.jebsPeaSaladNum)" );
+      document.querySelector(`.task-info-${num}`).textContent = "That salad sure was delicious! To pay back the favor, I'll give you some fertilizer! Use it wisely!";
+   }
+   if (taskList.useMarketResets === "active" && origin === "resetMarketValues") {
+      document.querySelector(`.task-info-button-${num}`).textContent = "Collect 500 Seeds";
+      document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", "javascript: collectTaskReward('useMarketResets', taskList.useMarketResetsNum)" );
+      document.querySelector(`.task-info-${num}`).textContent = "Thank you for completing that small task for me! Here, take 500 seeds!";
+   }
+   if (taskList.tryFertilizer === "active" && origin === "fertilize") {
+      document.querySelector(`.task-info-button-${num}`).textContent = "Collect 2 Market Resets";
+      document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", "javascript: collectTaskReward('tryFertilizer', taskList.tryFertilizerNum)" );
+      document.querySelector(`.task-info-${num}`).textContent = "Wow, just look at those plants grow! Here, take these, I've had them lying about for years.";
+   }
+}
+function collectTaskReward(task, num) {
+   if (task === "jebsPeaSalad") { marketData.fertilizers += 5; }
+   if (task === "useMarketResets") { marketData.seeds += 500; }
+   if (task === "tryFertilizer") { marketData.marketResets += 2; }
+   taskList[task] = "complete";
+   clearTask(num);
+   giveTasks();
+   showTasks();
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -560,6 +585,8 @@ var mainLoop = window.setInterval(function() {
    strawberriesStatus();
    updateMarket();
    vegetablesOwnedLoop();
+   giveTasks();
+   // showTasks();
    // Update produce display
    document.querySelector("#seeds").textContent = `${Math.round(marketData.seeds)} Seeds`;
    if (plots.peaplot === "unlocked") { revealProduce("#peaBushels", "peas"); }
