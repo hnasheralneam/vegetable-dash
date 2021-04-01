@@ -23,7 +23,7 @@
             </span>
             <!-- Pea Info -->
             <img onclick="infoModal('Peas')" class="veg-icon" src="Images/Vegetables/Peas/pea.png" alt="">
-            <div id="infoPeas" class="veg-info">
+            <div id="infoPeas" class="veg-info" onclick="infoModal('Peas')">
                <div class="modal-content">
                   <button onclick="infoModal('Peas')" class="close depth-button green">×</button>
                   <h4>Peas <img class="info-icon" src="Images/Vegetables/Peas/pea.png" alt=""></h4>
@@ -46,7 +46,7 @@
                </span>
                <!-- Corn Info -->
                <img onclick="infoModal('Corn')" class="veg-icon" src="Images/Vegetables/Corn/corn.png" alt="">
-               <div id="infoCorn" class="veg-info">
+               <div id="infoCorn" class="veg-info" onclick="infoModal('Corn')">
                   <div class="modal-content">
                      <button onclick="infoModal('Corn')" class="close depth-button yellow">×</button>
                      <h4>Corn <img class="info-icon" src="Images/Vegetables/Corn/corn.png" alt=""></h4>
@@ -67,7 +67,7 @@
                <button class="harvest-button" id="harvestStrawberries" onclick="harvest('Strawberries')">Harvest Strawberries!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button></span>
                <!-- Strawberry Info -->
                <img onclick="infoModal('Strawberry')" class="veg-icon" src="Images/Fruits/Strawberries/strawberry.png" alt="">
-               <div id="infoStrawberry" class="veg-info">
+               <div id="infoStrawberry" class="veg-info" onclick="infoModal('Strawberry')">
                   <div class="modal-content">
                      <button onclick="infoModal('Strawberry')" class="close depth-button red">×</button>
                      <h4>Strawberries! <img class="info-icon" src="Images/Fruits/Strawberries/strawberry.png" alt=""></h4>
@@ -90,7 +90,7 @@
                </span>
                <!-- Eggplant Info -->
                <img onclick="infoModal('Eggplant')" class="veg-icon" src="Images/Vegetables/Eggplant/dark.png" alt="">
-               <div id="infoEggplant" class="veg-info">
+               <div id="infoEggplant" class="veg-info" onclick="infoModal('Eggplant')">
                   <div class="modal-content">
                      <button onclick="infoModal('Eggplant')" class="close depth-button purple">×</button>
                      <h4>Eggplant <img class="info-icon" src="Images/Vegetables/Eggplant/dark.png" alt=""></h4>
@@ -139,7 +139,7 @@
                </span>
                <!-- Pupmkins Info -->
                <img onclick="infoModal('Pumpkins')" class="veg-icon" src="Images/Vegetables/Pumpkins/pumpkin.png" alt="Pumpkin">
-               <div id="infoPumpkins" class="veg-info">
+               <div id="infoPumpkins" class="veg-info" onclick="infoModal('Pumpkins')">
                   <div class="modal-content">
                      <button onclick="infoModal('Pumpkins')" class="close depth-button orange">×</button>
                      <h4>Pupmkins <img class="info-icon" src="Images/Vegetables/Pumpkins/pumpkin.png" alt="Pumpkin"></h4>
@@ -149,11 +149,28 @@
                </div>
             </div>
          </div>
-         <!-- Plot 7 -->
+         <!-- Cabbage Plot -->
          <div class="plot" id="plot7">
             <div class="lock-tooltip" id="lockedDiv7">
                <img id="lock7" class="locked" src="Images/Lock/lock.png" alt="Locked">
                <span class="tooltiptext" id="lock7Text">This plot is locked <br> Purchase the previous plot to unlock<br></span>
+            </div>
+            <!-- Open Plot -->
+            <div class="open-plot" id="openPlot6">
+               <span class="ahh-perspective">
+                  <button class="grow-button" id="growCabbage" onclick="plant('cabbage', 900000, 1800000)">Grow Cabbage!</button>
+                  <button class="harvest-button" id="harvestCabbage" onclick="harvest('Cabbage')">Harvest Cabbage!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button>
+               </span>
+               <!-- Information -->
+               <img onclick="infoModal('Cabbage')" class="veg-icon" src="Images/Vegetables/Cabbage/cabbage.png" alt="Cabbage">
+               <div id="infoCabbage" class="veg-info" onclick="infoModal('Cabbage')">
+                  <div class="modal-content">
+                     <button onclick="infoModal('Cabbage')" class="close depth-button green">×</button>
+                     <h4>Cabbage <img class="info-icon" src="Images/Vegetables/Cabbage/cabbage.png" alt="Cabbage"></h4>
+                     <p>A leafy vegetable <br> These Cabbage plants take 30 minutes to grow.</p>
+                     <button onclick="fertilize('cabbage')" class="depth-button green">Use Fertilizer</button>
+                  </div>
+               </div>
             </div>
          </div>
          <!-- Plot 8 -->
@@ -169,6 +186,15 @@
                <img id="lock9" class="locked" src="Images/Lock/lock.png" alt="Locked">
                <span class="tooltiptext">This plot is locked <br> Purchase the previous plot to unlock<br></span>
             </div>
+         </div>
+      </div>
+      <!-- Introduction -->
+      <div class="introDarkShadow">
+         <div class="intro-container">
+            <img class="intro-img" src="Images/Intro/farmer.png" alt="Guide Character Image">
+            <img class="intro-divide" src="Images/Tasks/gold-separator.png" alt="Separator">
+            <p class="intro-text">Greetings. I am Farmer Jebediah, and I will be showing you around the farm.</p>
+            <span onclick="intro()" class="intro-nxt-btn">&#10230;</span>
          </div>
       </div>
       <!-- Side Panel -->
@@ -209,15 +235,6 @@
             <button onclick="hideObj('.welcome')" type="button" name="button">Get straight into <br> the game</button>
 
             <p>Questions? Comments? Suggestions? Having trouble? Please contanct <a href="mailto:thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a></p>
-         </div>
-      </div>
-      <!-- Introduction -->
-      <div class="introDarkShadow">
-         <div class="intro-container">
-            <img class="intro-img" src="Images/Intro/farmer.png" alt="Guide Character Image">
-            <img class="intro-divide" src="Images/Tasks/gold-separator.png" alt="Separator">
-            <p class="intro-text">Greetings. I am Farmer Jebediah, and I will be showing you around the farm.</p>
-            <span onclick="intro()" class="intro-nxt-btn">&#10230;</span>
          </div>
       </div>
       <!-- Quests -->
@@ -369,6 +386,7 @@
             <h1>Settings</h1>
             <button class="sidebar-button" onclick="restart()">Restart</button>
             <button class="sidebar-button theme-color" onclick="light()">Light</button>
+            <button class="sidebar-button theme-color" onclick="randTheme()">Random</button>
             <button class="sidebar-button theme-color" onclick="darkTheme()">Dark</button>
             <button class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.remove('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Normal Device</button>
             <button class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.add('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Small Device</button>

@@ -581,6 +581,7 @@ Market
 }
 
 .market-item {
+   display: none;
    height: 45vh;
    width: 95%;
    margin: 2vh auto;
@@ -954,7 +955,7 @@ Produce
 }
 
 .theme-color {
-   width: 40vw;
+   width: 26.3vw;
    padding: 1vh;
    margin: .5vh auto;
    display: inline;
