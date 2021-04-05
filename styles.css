@@ -222,7 +222,7 @@ Farmland
 
 /* Locks */
 .locked {
-   height: 25vh;
+   height: 18vh;
 }
 
 .lock-tooltip {
@@ -383,6 +383,7 @@ Vegetable Info Modal
    width: 100%;
    height: 100%;
    background-color: rgba(0, 0, 0, 0.7);
+   overflow: scroll;
    transition: .6s;
 }
 
@@ -435,6 +436,7 @@ Right Click Menu
    border-radius: 1vh;
    box-shadow: 0 0 1vh #f5f5f5;
 }
+
 #menu li {
    list-style-type: none;
    padding: 2vh 5vh;
@@ -557,7 +559,7 @@ Market
    height: 100%;
    z-index: 1;
    background-color: rgba(25, 0, 0, 0.8);
-   backdrop-filter: blur(5px);
+   backdrop-filter: blur(.5vh);
    transition: 0.8s;
 }
 
@@ -625,9 +627,7 @@ Market
    transition: 0.2s;
 }
 
-.buy-sell:hover {
-   box-shadow: 0 0 5px #262626;
-}
+.buy-sell:hover { box-shadow: 0 0 .5vh #262626; }
 
 .market-item-buy {
    position: absolute;
@@ -1276,4 +1276,63 @@ Quests
    padding: 1vh 2vh;
    border-radius: 1vh;
    font-size: 2vh;
+}
+
+/*  Fade text */
+.fade-text {
+   max-width: 40vh;
+   position: fixed;
+   top: -100%;
+   right: -100%;
+   z-index: 9999;
+   pointer-events: none;
+   font-family: "Nunito";
+   text-align: center;
+   white-space: pre-wrap;
+   font-size: 3vh;
+   color: #fff;
+   border-radius: 1vh;
+   text-shadow: 0 0 1vh #f5f5f5;
+   opacity: 0;
+   transform: translateY(10vh) scale(.85);
+   animation: fade-text 6s forwards;
+}
+
+.vegLuck:nth-last-child(2) { margin-top: 10vh; }
+.vegLuck:nth-last-child(1) { margin-top: 20vh; }
+
+@keyframes fade-text {
+   0% {
+      opacity: 0;
+      transform: translateY(10vh) scale(.85);
+   }
+   30%, 40% {
+      opacity: 1;
+      transform: translateY(0) scale(1.05);
+   }
+   90%, 100% {
+      opacity: 0;
+      transform: translateY(-10vh) scale(1);
+   }
+}
+
+.hidden {
+   display: none;
+}
+
+.modal-market-prices {
+   height: 20vh;
+   width: 80%;
+   margin: 2vh auto;
+   border: solid 2vh #eee;
+   border-radius: 5vh;
+   display: grid;
+   grid-template-columns: 50% 50%;
+}
+
+.modal-market-prices div:first-child { border-right: solid .5vh #8f8f8f; }
+
+.modal-market-prices div {
+   font-size: 8vh;
+   color: #9f9f9f;
 }

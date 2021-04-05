@@ -23,11 +23,15 @@
             </span>
             <!-- Pea Info -->
             <img onclick="infoModal('Peas')" class="veg-icon" src="Images/Vegetables/Peas/pea.png" alt="">
-            <div id="infoPeas" class="veg-info" onclick="infoModal('Peas')">
+            <div id="infoPeas" class="veg-info">
                <div class="modal-content">
                   <button onclick="infoModal('Peas')" class="close depth-button green">×</button>
                   <h4>Peas <img class="info-icon" src="Images/Vegetables/Peas/pea.png" alt=""></h4>
                   <p>Peas are a climing vine in the legume family. <br> These peas take 5 seconds to grow.</p>
+                  <div class="modal-market-prices">
+                     <div class="modalPeaPrices">Buy For</div>
+                     <div class="modalPeaPrices">Sell For</div>
+                  </div>
                   <button onclick="fertilize('peas')" class="depth-button green">Use Fertilizer</button>
                </div>
             </div>
@@ -46,7 +50,7 @@
                </span>
                <!-- Corn Info -->
                <img onclick="infoModal('Corn')" class="veg-icon" src="Images/Vegetables/Corn/corn.png" alt="">
-               <div id="infoCorn" class="veg-info" onclick="infoModal('Corn')">
+               <div id="infoCorn" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Corn')" class="close depth-button yellow">×</button>
                      <h4>Corn <img class="info-icon" src="Images/Vegetables/Corn/corn.png" alt=""></h4>
@@ -67,7 +71,7 @@
                <button class="harvest-button" id="harvestStrawberries" onclick="harvest('Strawberries')">Harvest Strawberries!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button></span>
                <!-- Strawberry Info -->
                <img onclick="infoModal('Strawberry')" class="veg-icon" src="Images/Fruits/Strawberries/strawberry.png" alt="">
-               <div id="infoStrawberry" class="veg-info" onclick="infoModal('Strawberry')">
+               <div id="infoStrawberry" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Strawberry')" class="close depth-button red">×</button>
                      <h4>Strawberries! <img class="info-icon" src="Images/Fruits/Strawberries/strawberry.png" alt=""></h4>
@@ -90,7 +94,7 @@
                </span>
                <!-- Eggplant Info -->
                <img onclick="infoModal('Eggplant')" class="veg-icon" src="Images/Vegetables/Eggplant/dark.png" alt="">
-               <div id="infoEggplant" class="veg-info" onclick="infoModal('Eggplant')">
+               <div id="infoEggplant" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Eggplant')" class="close depth-button purple">×</button>
                      <h4>Eggplant <img class="info-icon" src="Images/Vegetables/Eggplant/dark.png" alt=""></h4>
@@ -139,7 +143,7 @@
                </span>
                <!-- Pupmkins Info -->
                <img onclick="infoModal('Pumpkins')" class="veg-icon" src="Images/Vegetables/Pumpkins/pumpkin.png" alt="Pumpkin">
-               <div id="infoPumpkins" class="veg-info" onclick="infoModal('Pumpkins')">
+               <div id="infoPumpkins" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Pumpkins')" class="close depth-button orange">×</button>
                      <h4>Pupmkins <img class="info-icon" src="Images/Vegetables/Pumpkins/pumpkin.png" alt="Pumpkin"></h4>
@@ -163,7 +167,7 @@
                </span>
                <!-- Information -->
                <img onclick="infoModal('Cabbage')" class="veg-icon" src="Images/Vegetables/Cabbage/cabbage.png" alt="Cabbage">
-               <div id="infoCabbage" class="veg-info" onclick="infoModal('Cabbage')">
+               <div id="infoCabbage" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Cabbage')" class="close depth-button green">×</button>
                      <h4>Cabbage <img class="info-icon" src="Images/Vegetables/Cabbage/cabbage.png" alt="Cabbage"></h4>
@@ -204,6 +208,10 @@
                <img src="Images/Global Assets/barrel.png" alt="">
                <span id="seeds" class="tooltip-text">Tooltip text</span>
             </div>
+            <div style="display: inline-block;" class="produce-tooltip produce-tooltip-barrel">
+               <img src="Images/Global Assets/fertilizer.png" alt="">
+               <span id="fertilizer" class="tooltip-text">Tooltip text</span>
+            </div>
             <div class="produce-tooltip produce-tooltip-peas">
                <img src="Images/Vegetables/Peas/pea.png" alt="">
                <span id="peaBushels" class="tooltip-text">Tooltip text</span>
@@ -230,9 +238,9 @@
       <div class="welcome">
          <div class="welcome-content">
             <h1>Welcome to Vegetable Dash!</h1>
-            <h2>An intense game experiance, with everything a totally awesome games needs, from farmers and crop faluires, to soil and vegetables!</h2>
-            <button onclick="goIntro()" type="button" name="button">Go through our quick <br> tutorial</button>
-            <button onclick="hideObj('.welcome')" type="button" name="button">Get straight into <br> the game</button>
+            <h2>An intense experience, with everything a totally awesome game needs, from farmers and crop faluires, to soil and vegetables!</h2>
+            <button onclick="goIntro()" type="button" name="button">Go through a quick tour</button>
+            <button onclick="hideObj('.welcome')" type="button" name="button">Get straight into the game</button>
 
             <p>Questions? Comments? Suggestions? Having trouble? Please contanct <a href="mailto:thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a></p>
          </div>
@@ -347,10 +355,10 @@
                <div class="market-item-content blackMarketOffer">
                   Black Market <br> Coming Soon!
                </div>
-               <div class="accept-deny">
+               <!-- <div class="accept-deny">
                   <span class="market-item-buy" onclick="accept()">Accept</span>
                   <span class="market-item-sell"  onclick="deny()">Deny</span>
-               </div>
+               </div> -->
             </div>
             <div class="market-item">
                <div class="market-item-content reset-market-item">
@@ -407,7 +415,7 @@
                <div class="help-subjects-item" onclick="scrollToSection('help-plots')">Plots</div>
                <div class="help-subjects-item" onclick="scrollToSection('help-seeds')">Seeds</div>
                <div class="help-subjects-item" onclick="scrollToSection('help-market')">Market</div>
-               <div class="help-subjects-item" onclick="scrollToSection('help-black-market')">Black Market</div>
+               <!-- <div class="help-subjects-item" onclick="scrollToSection('help-black-market')">Black Market</div> -->
                <div class="help-subjects-item" onclick="scrollToSection('help-market-resets')">Market Resets</div>
                <div class="help-subjects-item" onclick="scrollToSection('help-fertilizer')">Fertilizer</div>
                <div class="help-subjects-item" onclick="scrollToSection('help-tasks')">Tasks</div>
@@ -428,7 +436,7 @@
                </div>
                <div id="help-harvesting">
                   <h1>Harvesting</h1>
-                  <p>A button shall apear out of thin air, and written on it shall be that wonderful word: Harvest [Vegetabele Name]. You want to press that button. By doing this, you shall gain 1 vegetable of that type and 1 seed. By harvesting there is a 5% chance of collecting a <span onclick="scrollToSection('help-market-resets')">Market Reset</span>, a 10% chance of collection 2 extra vegeatbles, and a 20% chance of collecting 5 extra <span onclick="scrollToSection('help-seeds')">seeds</span>.</p>
+                  <p>A button shall apear out of thin air, and written on it shall be that wonderful word: Harvest [Vegetable Name]. You want to press that button. By doing this, you shall gain 1 vegetable of that type and 1 seed. By harvesting there is a 5% chance of collecting a <span onclick="scrollToSection('help-market-resets')">Market Reset</span>, a 10% chance of collection 2 extra vegetables, and a 20% chance of collecting 5 extra <span onclick="scrollToSection('help-seeds')">seeds</span>.</p>
                </div>
                <div id="help-plots">
                   <h1 >Plots</h1>
@@ -442,17 +450,17 @@
                   <h1>Market</h1>
                   <p>The market is a wonderful and bustling place filled with plenty of vegetables. It can be accessed by hovering over the bar in the bottom left corner then clicking the button with a shop icon. It show how much <span onclick="scrollToSection('help-seeds')">seeds</span> you have in the first box. The next box has a the amount of a certiant type of vegetable you have, and you can sell 5 of them for an amount of <span onclick="scrollToSection('help-seeds')">seeds</span> or buy 5 for some <span onclick="scrollToSection('help-seeds')">seeds</span>. You can reset the price values with <span onclick="scrollToSection('help-market-resets')">Market Resets</span></p>
                </div>
-               <div id="help-black-market">
+               <!-- <div id="help-black-market">
                   <h1>Black Market</h1>
                   <p>The black market is a wonderful and bustling place filled with plenty of illegal items. It located at an undisclosed location. For an amount of <span onclick="scrollToSection('help-seeds')">seeds</span> you can purchase illegal items such as <span onclick="scrollToSection('help-market-resets')">Market Resets</span>. But watch out! There is a 2% chance that the police will catch you and make you pay a terrible fine!</p>
-               </div>
+               </div> -->
                <div id="help-market-resets">
                   <h1>Market Resets</h1>
                   <p>Market resets can be found as the last item in the <span onclick="scrollToSection('help-market')">Market</span>. By using one all of the values in the market are reset to what they began as, not the outrageous price they have become. There is a 1% chance of collecting one after each trade, and a 5% chance after each harvest. One is gained every time you unlock a plot.</p>
                </div>
                <div id="help-fertilizer">
                   <h1>Fertilizer</h1>
-                  <p>Fertilizer is a useful item that when used on a vegetable plot instantly completes the growing and adds an extra vegetable of that type. Fertilizer can be bought in the <span onclick="scrollToSection('help-black-market')">Black Market</span>, or earned from <span onclick="scrollToSection('help-tasks')">Tasks</span>.</p>
+                  <p>Fertilizer is a useful item that when used on a vegetable plot instantly completes the growing and adds an extra vegetable of that type. Fertilizer can be bought in the Black Market (coming soon), or earned from <span onclick="scrollToSection('help-tasks')">Tasks</span>.</p>
                </div>
                <div id="help-tasks">
                   <h1>Tasks</h1>
@@ -475,8 +483,15 @@
                   <p>Currently borne by <span onclick="scrollToSection('help-grandpa-jenkins')">Grandpa Jenkins</span>, the Bunny Slippers are the main object of the Bunny Slippers Task List, a Task List being a collection of related tasks. It begins with <span onclick="scrollToSection('help-grandma-josephine')">Grandma Josephine</span> telling you to sell the slippers, then <span onclick="scrollToSection('help-grandpa-jenkins')">Grandpa Jenkins</span> reveals their true value, and you must go on a long task list meeting many people who all want you to do something for them, finally ending with the retrival of the Bunny Slippers.</p>
                </div>
                <div id="help-about-copyright">
-                  <h1 id="help-about-copyright">About & Copyright</h1>
-                  <p>This game is &copy copyrighted by Squirrel. If you want to help with the game, email me at <a href="mailto:thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a>
+                  <h1>About & Copyright</h1>
+                  <div>This game is &copy copyrighted by Squirrel. If you want to help with the game, email me at <a href="mailto:thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a>
+                     <br><br>
+                        Current Version: 0.0.9 <br>
+                        v0.1.0 expected release date: unknown <br>
+                        v0.1.0 features: <br>
+                        ~ Final 3 vegetables <br>
+                        ~ Weather <br>
+                        ~ More tasks <br>
                      <br><br>
                      <a  href="https://meetsquirrel.github.io">More about Squirrel</a>
                      <br>
@@ -485,7 +500,8 @@
                      <a href="https://github.com/Squirrel-314/vegetable-dash">Vegetable Dash on GitHub</a>
                      <br>
                      <a href="https://github.com/Squirrel-314?tab=repositories">Squirrel on GitHub</a>
-                  </p>
+                  </div>
+                  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                </div>
             </div>
          </div>
@@ -499,9 +515,12 @@
          <hr>
          <li class="menu-links"><a href="https://github.com/Squirrel-314/vegetable-dash">GitHub</a></li>
          <li>Support: <a href="mailto: thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a></li>
+         <li>Version: 0.0.9</li>
       </div>
       <!-- Alert -->
       <div class="alert">Game Saved!</div>
+      <!-- Fade text -->
+      <span class="hidden"><div class="fade-text">This text is fading</div></span>
       <script src="https://www.w3counter.com/tracker.js?id=134512"></script>
    </body>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
