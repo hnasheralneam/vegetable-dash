@@ -1,15 +1,5 @@
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Copyright January 1st 2021 by Squirrel
-~~~~~~~~~~~~~~~~~
-TABLE OF CONTENTS
-~~~~~~~~~~~~~~~~~
-Side Bar             | The bar on the side
-Farmland             | The plot parent
-Plots                | Where plants are grown
-Buttons              | Mostly harvest and grow button
-Locks                | I spent too much time on this
-Vegetable Info Modal | Information about vegetables
-Other                | Gulp
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 * {
@@ -135,7 +125,7 @@ Welcome!
 .welcome-content button {
    text-transform: uppercase;
    margin: 5vh;
-   width: 50vh;
+   padding: 5vh 8vh;
    transition: .5s;
 }
 
@@ -383,7 +373,6 @@ Vegetable Info Modal
    width: 100%;
    height: 100%;
    background-color: rgba(0, 0, 0, 0.7);
-   overflow: scroll;
    transition: .6s;
 }
 
@@ -399,6 +388,7 @@ Vegetable Info Modal
 
 .modal-content {
    width: 80%;
+   height: 75%;
    margin: auto;
    padding: 4vh;
    font-size: 6vh;
@@ -406,6 +396,7 @@ Vegetable Info Modal
    background-color: #fefefe;
    text-align: center;
    font-family: "Roboto Condensed";
+   overflow: scroll;
 }
 
 .close {
@@ -416,6 +407,19 @@ Vegetable Info Modal
    border-radius: 2vh;
    width: 8vh;
    transition: 0.2s;
+}
+
+.fertilize {
+   float: right;
+   height: 8vh;
+   width: 8vh;
+   padding: .2vh;
+   border-radius: 2vh;
+   transition: 0.2s;
+}
+
+.fertilize img {
+   height: 6vh;
 }
 
 .close:hover { color: #aaa; }
@@ -1316,13 +1320,10 @@ Quests
    }
 }
 
-.hidden {
-   display: none;
-}
+.hidden { display: none; }
 
 .modal-market-prices {
    height: 20vh;
-   width: 80%;
    margin: 2vh auto;
    border: solid 2vh #eee;
    border-radius: 5vh;
@@ -1333,6 +1334,9 @@ Quests
 .modal-market-prices div:first-child { border-right: solid .5vh #8f8f8f; }
 
 .modal-market-prices div {
+   display: flex;
+   justify-content: center;
+   align-items: center;
    font-size: 8vh;
    color: #9f9f9f;
 }

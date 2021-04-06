@@ -16,11 +16,11 @@ Settings & Produce | Update Sidebar
 Save               | Save the game data, restart
 
 // To do
-v0.0.9
-~ fix tasks
-~ redo tour
-~ market prices in veg info
-~ show fertilizer
+v0.1.0
+~ color change for where you are in help
+~ add pictures to help
+~ more about jebidiah, jenkins, and josephine
+~ fix spelling
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Game Data | 57 LINES
@@ -119,14 +119,11 @@ let taskList = initalTaskList;
 // Vegetables | 61 LINES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-// Vegetable Modals
 function infoModal(veg) {
    let modalID = "#info" + veg;
    if (document.querySelector(modalID).style.opacity === "1") { hideObj(modalID); }
    else { showObj(modalID); }
 }
-
-// Harvest and plant
 function harvest(veg) {
    plotStatus[veg.toLowerCase() + "Ready"] = Infinity;
    let plntID = "grow" + veg;
@@ -151,7 +148,7 @@ function fertilize(veg) {
       plotStatus[veg + "Ready"] = 0;
       if (veg === "strawberries") { plotStatus[veg + "Ready"] = 0; }
       produce[veg]++;
-      checkTasks('fertilize', taskList.tryFertilizerNum, "tryFertilizer");
+      checkTasks("fertilize", taskList.tryFertilizerNum, "tryFertilizer");
    }
 }
 function plantLoop(veg, pltNumber, url) {
@@ -255,42 +252,32 @@ function taskAlreadyUp(task) {
 
 // Task Sensitive
 function giveTasks() {
-   if (taskList.jebsPeaSalad != "complete" || taskList.jebsPeaSalad != "ready") { taskList.jebsPeaSalad = "active" }
-   if (taskList.jebsPeaSalad === "complete" && marketData.marketResets >= 1 && taskList.useMarketResets != "complete") { taskList.useMarketResets = "active" }
-   if (taskList.jebsPeaSalad === "complete" && taskList.tryFertilizer != "complete") { taskList.tryFertilizer = "active" }
+   if (taskList.jebsPeaSalad != "complete" && taskList.jebsPeaSalad != "ready") { taskList.jebsPeaSalad = "active" }
+   if (taskList.jebsPeaSalad === "complete" && marketData.marketResets >= 1 && taskList.useMarketResets != "complete" && taskList.useMarketResets != "ready") { taskList.useMarketResets = "active" }
+   if (taskList.jebsPeaSalad === "complete" && taskList.tryFertilizer != "complete" && taskList.tryFertilizer != "ready") { taskList.tryFertilizer = "active" }
 }
 function showTasks() {
-   if (taskAlreadyUp("occupied jebsPeaSalad") === false && taskList.jebsPeaSalad === "active" || taskList.jebsPeaSalad === "waiting") { startTask(emptyTaskCheck("jebsPeaSaladNum"), "Submit 25 Peas", "if (produce.peas >= 25) { produce.peas -= 25; checkTasks('producePaid', taskList.jebsPeaSaladNum, 'jebsPeaSalad'); }", "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsPeaSalad"); }
-   if (taskAlreadyUp("occupied useMarketResets") === false && taskList.useMarketResets === "active" || taskList.useMarketResets === "waiting") { startTask(emptyTaskCheck("useMarketResetsNum"), "Use 1 Market Reset", " ", "Have I told you about market resets yet? They can reset all of the prices in the market! Why don't you use one now?", "Grandma Josephine", "Images/Tasks/granny.png", "useMarketResets"); }
-   if (taskAlreadyUp("occupied tryFertilizer") === false && taskList.tryFertilizer === "active" || taskList.tryFertilizer === "waiting") { startTask(emptyTaskCheck("tryFertilizerNum"), "Use 1 Fertilizer", " ", "Your plants look like they could do with some help. Why don't you use some fertilizer? It'll double the crop yeild and finish the growing instantly!", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "tryFertilizer"); }
+   if (taskAlreadyUp("occupied jebsPeaSalad") === false && taskList.jebsPeaSalad === "active" || taskList.jebsPeaSalad === "waiting" && taskList.jebsPeaSalad != "ready") { startTask(emptyTaskCheck("jebsPeaSaladNum"), "Submit 25 Peas", "if (produce.peas >= 25) { produce.peas -= 25; checkTasks('producePaid', taskList.jebsPeaSaladNum, 'jebsPeaSalad'); }", "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsPeaSalad"); }
+   if (taskAlreadyUp("occupied useMarketResets") === false && taskList.useMarketResets === "active" || taskList.useMarketResets === "waiting" && taskList.useMarketResets != "ready") { startTask(emptyTaskCheck("useMarketResetsNum"), "Use 1 Market Reset", " ", "Have I told you about market resets yet? They can reset all of the prices in the market! Why don't you use one now?", "Grandma Josephine", "Images/Tasks/granny.png", "useMarketResets"); }
+   if (taskAlreadyUp("occupied tryFertilizer") === false && taskList.tryFertilizer === "active" || taskList.tryFertilizer === "waiting" && taskList.tryFertilizer != "ready") { startTask(emptyTaskCheck("tryFertilizerNum"), "Use 1 Fertilizer", " ", "Your plants look like they could do with some help. Why don't you use some fertilizer? It'll double the crop yeild and finish the growing instantly!", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "tryFertilizer"); }
    // Old open tasks
    if (oldTaskCheck("jebsPeaSalad") != false) {
-      startTask(`${oldTaskCheck("jebsPeaSalad")}`, "Submit 25 Peas", "if (produce.peas >= 25) { produce.peas -= 25; checkTasks('producePaid', taskList.jebsPeaSaladNum, 'jebsPeaSalad'); }", "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsPeaSalad");
+      if (taskList.jebsPeaSalad === "ready") { startTask(`${oldTaskCheck("jebsPeaSalad")}`, "Collect 5 Fertilizer", "collectTaskReward('jebsPeaSalad', taskList.jebsPeaSaladNum)", "That salad sure was delicious! To pay back the favor, I'll give you some fertilizer! Use it wisely!", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsPeaSalad"); }
+      else { startTask(`${oldTaskCheck("jebsPeaSalad")}`, "Submit 25 Peas", "if (produce.peas >= 25) { produce.peas -= 25; checkTasks('producePaid', taskList.jebsPeaSaladNum, 'jebsPeaSalad'); }", "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsPeaSalad"); }
    }
    if (oldTaskCheck("useMarketResets") != false) {
-      startTask(`${oldTaskCheck("useMarketResets")}`, "Use 1 Market Reset", " ", "Have I told you about market resets yet? They can reset all of the prices in the market! Why don't you use one now?", "Grandma Josephine", "Images/Tasks/granny.png", "useMarketResets");
+      if (taskList.useMarketResets === "ready") { startTask(`${oldTaskCheck("useMarketResets")}`, "Collect 500 Seeds", "collectTaskReward('useMarketResets', taskList.useMarketResetsNum)", "Thank you for completing that small task for me! Here, take 500 seeds!", "Grandma Josephine", "Images/Tasks/granny.png", "useMarketResets"); }
+      else { startTask(`${oldTaskCheck("useMarketResets")}`, "Use 1 Market Reset", " ", "Have I told you about market resets yet? They can reset all of the prices in the market! Why don't you use one now?", "Grandma Josephine", "Images/Tasks/granny.png", "useMarketResets"); }
    }
    if (oldTaskCheck("tryFertilizer") != false) {
-      startTask(`${oldTaskCheck("tryFertilizer")}`, "Use 1 Fertilizer", " ", "Your plants look like they could do with some help. Why don't you use some fertilizer? It'll double the crop yeild and finish the growing instantly!", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "tryFertilizer");
+      if (taskList.tryFertilizer === "ready") { startTask(`${oldTaskCheck("tryFertilizer")}`, "Use 1 Fertilizer", "collectTaskReward('tryFertilizer', taskList.tryFertilizerNum)", "Wow, just look at those plants grow! Here, take these, I've had them lying about for years.", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "tryFertilizer"); }
+      else { startTask(`${oldTaskCheck("tryFertilizer")}`, "Use 1 Fertilizer", " ", "Your plants look like they could do with some help. Why don't you use some fertilizer? It'll double the crop yeild and finish the growing instantly!", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "tryFertilizer"); }
    }
-
 }
 function checkTasks(origin, num, task) {
-   if (taskList.jebsPeaSalad === "active" && origin === "producePaid") {
-      document.querySelector(`.task-info-button-${num}`).textContent = "Collect 5 Fertilizer";
-      document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", "javascript: collectTaskReward('jebsPeaSalad', taskList.jebsPeaSaladNum)" );
-      document.querySelector(`.task-info-${num}`).textContent = "That salad sure was delicious! To pay back the favor, I'll give you some fertilizer! Use it wisely!";
-   }
-   if (taskList.useMarketResets === "active" && origin === "resetMarketValues") {
-      document.querySelector(`.task-info-button-${num}`).textContent = "Collect 500 Seeds";
-      document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", "javascript: collectTaskReward('useMarketResets', taskList.useMarketResetsNum)" );
-      document.querySelector(`.task-info-${num}`).textContent = "Thank you for completing that small task for me! Here, take 500 seeds!";
-   }
-   if (taskList.tryFertilizer === "active" && origin === "fertilize") {
-      document.querySelector(`.task-info-button-${num}`).textContent = "Collect 2 Market Resets";
-      document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", "javascript: collectTaskReward('tryFertilizer', taskList.tryFertilizerNum)" );
-      document.querySelector(`.task-info-${num}`).textContent = "Wow, just look at those plants grow! Here, take these, I've had them lying about for years.";
-   }
+   if ((taskList[task] === "active") === true && origin === "producePaid") { taskList.jebsPeaSalad = "ready"; }
+   if ((taskList[task] === "active") === true && origin === "resetMarketValues") { taskList.useMarketResets = "ready"; }
+   if ((taskList[task] === "active") === true && origin === "fertilize") { taskList.tryFertilizer = "ready"; }
 }
 function collectTaskReward(task, num) {
    if (task === "jebsPeaSalad") { marketData.fertilizers += 5; }
@@ -410,17 +397,7 @@ function openLock(vegetable, num) {
 // Tour | 98 LINES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-let introPartsDone = {
-   hello: "no",
-   meetGramps: "no",
-   planting: "no",
-   produceBar: "no",
-   meetGran: "no",
-   // Need fixing from here
-   bushels: "no",
-   settings: "no",
-   thatsIt: "no",
-}
+let introData = { hello: false, meetGramps: false, planting: false, produceBar: false, meetGran: false, market: false, tasks: false, help: false, }
 function runIntro() {
    plotStatus = initalPlotStatus;
    produce = initalProduce;
@@ -444,22 +421,22 @@ function intro() {
    let introBlock = document.querySelector(".intro-container");
    let introImg = document.querySelector(".intro-img");
    let introText = document.querySelector(".intro-text");
-   if (introPartsDone.hello === "no") { introPartsDone.hello = "yes"; }
+   if (introData.hello === false) { introData.hello = true; }
    else { meetGrapms(); }
    function meetGrapms() {
-      if (introPartsDone.meetGramps === "no") {
+      if (introData.meetGramps === false) {
          $(".intro-img").attr("src", "Images/Intro/gramps.png");
          introText.textContent = "Hi! I'm gramps. That's Grandpa Jenkins to you. I'm here ta teach you farmin', the good ol' way!";
-         introPartsDone.meetGramps = "yes";
+         introData.meetGramps = true;
       }
       else { planting(); }
    }
    function planting() {
-      if (introPartsDone.planting === "no") {
+      if (introData.planting === false) {
          introText.textContent = "Farmin' is as easy as anything nowadays, with all this modern technology. Just press Grow Peas, and when it's done, press Harvest Peas!";
          document.querySelector(".plant-quest-arrow").style.display = "block";
          document.getElementById("plot1").style.zIndex = "100";
-         introPartsDone.planting = "yes";
+         introData.planting = true;
       }
       else {
          document.querySelector(".plant-quest-arrow").style.display = "none";
@@ -468,52 +445,53 @@ function intro() {
       }
    }
    function sidebar() {
-      if (introPartsDone.produceBar === "no") {
+      if (introData.produceBar === false) {
          $(".intro-img").attr("src", "Images/Intro/farmer.png");
          introText.textContent = "This bar shows the amount of seeds and produce you have, so you can keep track of how your farm is going.";
          document.querySelector(".produce").style.zIndex = "1";
          introBlock.style.width = "90%";
-         introPartsDone.produceBar = "yes";
+         introData.produceBar = true;
       }
       else { meetGran(); }
    }
    function meetGran() {
-      if (introPartsDone.meetGran === "no") {
+      if (introData.meetGran === false) {
          $(".intro-img").attr("src", "Images/Intro/granny.png");
          introText.textContent = "Nice to meet you. I'm Grandma Josephine, and I'm here to teach you economics.";
          document.querySelector(".produce").style.zIndex = "0";
-         introBlock.style.width = "100%";
-         introPartsDone.meetGran = "yes";
-      }
-      else { bushels(); }
-   }
-   // Need fixing from here
-   function bushels() {
-      if (introPartsDone.bushels === "no") {
-         introText.textContent = "Here you find the amount of resouces you have. Spend it well!";
-         introPartsDone.bushels = "yes";
-      }
-      else { settings(); }
-   }
-   function settings() {
-      if (introPartsDone.settings === "no") {
-         introText.textContent = "These are the settings, where you can restart, change the theme, and play classical music!";
-         document.querySelector(".settings").style.boxShadow = "0 0 50px #f5f5f5";
-         introPartsDone.settings = "yes";
-      }
-      else {
-         document.querySelector(".settings").style.boxShadow = "none";
-         document.querySelector(".sidebar").style.zIndex = "0";
-         introBlock.style.height = "30vh";
          introBlock.style.width = "auto";
-         thatsIt();
+         introData.meetGran = true;
       }
+      else { market(); }
    }
-   function thatsIt() {
-      if (introPartsDone.thatsIt === "no") {
+   function market() {
+      if (introData.market === false) {
+         introText.textContent = "This is the market, were you can gain seeds by selling produce, which are useful for many things, like opening more plots.";
+         introBlock.style.left = "60vh";
+         document.querySelector(".command-panel").style.zIndex = "9999";
+         commandBar();
+         introData.market = true;
+      }
+      else { tasks(); }
+   }
+   function tasks() {
+      if (introData.tasks === false) {
          $(".intro-img").attr("src", "Images/Intro/farmer.png");
-         introText.textContent = "That's it! Now you can start working.";
-         introPartsDone.thatsIt = "yes";
+         introText.textContent = "This little ribbon opens to show Tasks, where you can get rewards for doing chores around the farm.";
+         introBlock.style.left = "2.5vh";
+         document.querySelector(".command-panel").style.zIndex = "0";
+         document.querySelector(".quests").style.zIndex = "9999";
+         introData.tasks = true;
+      }
+      else { help(); }
+   }
+   function help() {
+      if (introData.help === false) {
+         $(".intro-img").attr("src", "Images/Intro/farmer.png");
+         introText.textContent = "That's it! If you need more help, just check the small help icon in the top left corner.";
+         document.querySelector(".quests").style.zIndex = "0";
+         document.querySelector(".help-center-img").style.zIndex = "9999";
+         introData.help = true;
       }
       else { location.reload(); }
    }
@@ -599,52 +577,31 @@ function resetMarketValues() {
    }
 }
 
-// newBlackOffer();
-// function blackMarketValues() {
-//    marketData.sellerName = ["Clearly Badd", "Hereto Steale", "Heinous Krime", "Elig L. Felonie", "Sheeft E. Karacter", "Abad Deel"][Math.floor(Math.random() * 6)];
-//    marketData.sellItem = ["Market Resets"][Math.floor(Math.random() * 1)];
-//    // sellItem = ["Watering Cans", "Compost", "Fertilizer"] compost = extra, watering can = instant
-//    marketData.sellItemQuantity = Math.floor(Math.random() * (5 - 1)) + 1;
-//    marketData.seedCost = Math.floor(Math.random() * (10000 - 2000)) + 2000;
-// }
-// function newBlackOffer() { document.querySelector(".blackMarketOffer").textContent = `Offer by ${marketData.sellerName} \n Selling ${marketData.sellItemQuantity} ${marketData.sellItem} \n for ${marketData.seedCost} Seeds`; }
-// function accept() {
-//    if (marketData.seeds >= marketData.seedCost) {
-//       marketData.seeds -= marketData.seedCost;
-//       blackMarketLuck();
-//       blackMarketValues();
-//       newBlackOffer();
-//       if (marketData.sellItem === "Market Resets") { marketData.marketResets += marketData.sellItemQuantity; }
-//    }
-//    else { fadeTextAppear(event, `Not enough seeds`, false); }
-// }
-// function deny() {
-//    blackMarketLuck();
-//    blackMarketValues();
-//    newBlackOffer();
-//    document.querySelector(".blackMarketOffer").style.backgroundColor = genColor();
-// }
-updateModalMarketPrices();
-function updateModalMarketPrices() {
-   for (i = 0; i < 6; i++)
-   document.querySelector(".special-market-item").textContent = `Seeds: ${Math.floor(marketData.seeds)}`;
-   document.querySelector(".pea-market-item").textContent = `Peas: ${produce.peas}
-   Buy for ${Math.floor(marketData.buyPeas)} Seeds
-   Sell for ${Math.floor(marketData.sellPeas)} Seeds \r\n \r\n`;
-   document.querySelector(".corn-market-item").textContent = `Corn: ${produce.corn}
-   Buy for ${Math.floor(marketData.buyCorn)} Seeds
-   Sell for ${Math.floor(marketData.sellCorn)} Seeds \r\n \r\n`;
-   document.querySelector(".strawberry-market-item").textContent = `Strawberries: ${produce.strawberries}
-   Buy for ${Math.floor(marketData.buyStrawberries)}
-   Sell for ${Math.floor(marketData.sellStrawberries)} \r\n \r\n`;
-   document.querySelector(".eggplant-market-item").textContent = `Eggplants: ${produce.eggplants}
-   Buy for ${Math.floor(marketData.buyEggplants)}
-   Sell for ${Math.floor(marketData.sellEggplants)} \r\n \r\n`;
-   document.querySelector(".pumpkin-market-item").textContent = `Pumpkins: ${produce.pumpkins}
-   Buy for ${Math.floor(marketData.buyPumpkins)}
-   Sell for ${Math.floor(marketData.sellPumpkins)} \r\n \r\n`;
-   document.querySelector(".reset-market-item").textContent = `You have ${marketData.marketResets} Market Resets`;
+/* newBlackOffer();
+function blackMarketValues() {
+   marketData.sellerName = ["Clearly Badd", "Hereto Steale", "Heinous Krime", "Elig L. Felonie", "Sheeft E. Karacter", "Abad Deel"][Math.floor(Math.random() * 6)];
+   marketData.sellItem = ["Market Resets"][Math.floor(Math.random() * 1)];
+   // sellItem = ["Watering Cans", "Compost", "Fertilizer"] compost = extra, watering can = instant
+   marketData.sellItemQuantity = Math.floor(Math.random() * (5 - 1)) + 1;
+   marketData.seedCost = Math.floor(Math.random() * (10000 - 2000)) + 2000;
 }
+function newBlackOffer() { document.querySelector(".blackMarketOffer").textContent = `Offer by ${marketData.sellerName} \n Selling ${marketData.sellItemQuantity} ${marketData.sellItem} \n for ${marketData.seedCost} Seeds`; }
+function accept() {
+   if (marketData.seeds >= marketData.seedCost) {
+      marketData.seeds -= marketData.seedCost;
+      blackMarketLuck();
+      blackMarketValues();
+      newBlackOffer();
+      if (marketData.sellItem === "Market Resets") { marketData.marketResets += marketData.sellItemQuantity; }
+   }
+   else { fadeTextAppear(event, `Not enough seeds`, false); }
+}
+function deny() {
+   blackMarketLuck();
+   blackMarketValues();
+   newBlackOffer();
+   document.querySelector(".blackMarketOffer").style.backgroundColor = genColor();
+} */
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Main Loop & Setup | 27 LINES
@@ -657,6 +614,15 @@ var mainLoop = window.setInterval(function() {
    giveTasks();
    showTasks();
    checkMarket();
+   updateModalMarketPrices("Corn");
+   updateModalMarketPrices("Peas");
+   updateModalMarketPrices("Strawberries");
+   updateModalMarketPrices("Eggplants");
+   updateModalMarketPrices("Pumpkins");
+   function updateModalMarketPrices(veg) {
+      document.querySelector(`.modal${veg}PriceBuy`).textContent = `Buy For ${marketData[`buy${veg}`]}`;
+      document.querySelector(`.modal${veg}PriceSell`).textContent = `Sell For ${marketData[`sell${veg}`]}`;
+   }
    // Update produce display
    document.querySelector("#seeds").textContent = `${Math.round(marketData.seeds)} Seeds`;
    document.querySelector("#fertilizer").textContent = `${Math.round(marketData.fertilizers)} Fertilizers`;
@@ -883,7 +849,6 @@ const replacer = (key, value) => {
    else if (typeof value === 'undefined') { return 'undefined'; }
    else { return value; }
 }
-
 
 // For export
 // let save = [];
