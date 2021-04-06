@@ -1,15 +1,5 @@
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Copyright January 1st 2021 by Squirrel
-~~~~~~~~~~~~~~~~~
-TABLE OF CONTENTS
-~~~~~~~~~~~~~~~~~
-Side Bar             | The bar on the side
-Farmland             | The plot parent
-Plots                | Where plants are grown
-Buttons              | Mostly harvest and grow button
-Locks                | I spent too much time on this
-Vegetable Info Modal | Information about vegetables
-Other                | Gulp
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 * {
@@ -23,13 +13,8 @@ body {
    overflow: hidden;
 }
 
-::selection {
-   display: none;
-}
-
-::-webkit-scrollbar {
-   display: none;
-}
+::selection { display: none;}
+::-webkit-scrollbar { display: none; }
 
 /* Remove default button styles */
 button {
@@ -40,17 +25,63 @@ button {
    transition: transform 150ms ease;
 }
 
-button:focus {
-   outline: none;
+button:focus { outline: none; }
+button:active { transform: scale(0.99); }
+summary:focus { outline: none; }
+
+
+.depth-button {
+  outline: none;
+  margin: 2vh;
+  padding: 8vh;
+  border: none;
+  border-radius: 5vh;
+  color: #fff;
+  font-size: 5vh;
+  transition: .15s;
 }
 
-button:active {
-   transform: scale(0.99);
+.depth-button:active {
+  outline: none;
+  transform: translateY(1vh);
 }
 
-summary:focus {
-   outline: none;
+.red {
+  background-color: #f74040;
+  box-shadow: 0 2vh #d61818;
 }
+
+.orange {
+  background-color: #F9A748;
+  box-shadow: 0 2vh #DA7D12;
+}
+
+.yellow {
+  background-color: #F8F948;
+  box-shadow: 0 2vh #EAEB12;
+}
+
+.green {
+  background-color: #3FE863;
+  box-shadow: 0 2vh #03B428;
+}
+
+.blue {
+  background-color: #63E1FF;
+  box-shadow: 0 2vh #16CCF8;
+}
+
+.purple {
+  background-color: #6B3FE8;
+  box-shadow: 0 2vh #4B20C8;
+}
+
+.red:active { box-shadow: 0 1vh #d61818; }
+.orange:active { box-shadow: 0 1vh #DA7D12; }
+.yellow:active { box-shadow: 0 1vh #EAEB12; }
+.green:active { box-shadow: 0 1vh #03B428; }
+.blue:active { box-shadow: 0 1vh #16CCF8; }
+.purple:active { box-shadow: 0 1vh #4B20C8; }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Welcome!
@@ -94,7 +125,7 @@ Welcome!
 .welcome-content button {
    text-transform: uppercase;
    margin: 5vh;
-   width: 50vh;
+   padding: 5vh 8vh;
    transition: .5s;
 }
 
@@ -181,7 +212,7 @@ Farmland
 
 /* Locks */
 .locked {
-   height: 25vh;
+   height: 18vh;
 }
 
 .lock-tooltip {
@@ -357,6 +388,7 @@ Vegetable Info Modal
 
 .modal-content {
    width: 80%;
+   height: 75%;
    margin: auto;
    padding: 4vh;
    font-size: 6vh;
@@ -364,20 +396,33 @@ Vegetable Info Modal
    background-color: #fefefe;
    text-align: center;
    font-family: "Roboto Condensed";
+   overflow: scroll;
 }
 
 .close {
-   color: #aaaaaa;
    float: right;
-   margin-right: 5vh;
-   font-size: 8vh;
-   font-weight: bold;
+   height: 8vh;
+   width: 8vh;
+   padding: .2vh;
+   border-radius: 2vh;
+   width: 8vh;
    transition: 0.2s;
 }
 
-.close:hover {
-   color: #000;
+.fertilize {
+   float: right;
+   height: 8vh;
+   width: 8vh;
+   padding: .2vh;
+   border-radius: 2vh;
+   transition: 0.2s;
 }
+
+.fertilize img {
+   height: 6vh;
+}
+
+.close:hover { color: #aaa; }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Right Click Menu
@@ -395,6 +440,7 @@ Right Click Menu
    border-radius: 1vh;
    box-shadow: 0 0 1vh #f5f5f5;
 }
+
 #menu li {
    list-style-type: none;
    padding: 2vh 5vh;
@@ -517,7 +563,7 @@ Market
    height: 100%;
    z-index: 1;
    background-color: rgba(25, 0, 0, 0.8);
-   backdrop-filter: blur(5px);
+   backdrop-filter: blur(.5vh);
    transition: 0.8s;
 }
 
@@ -541,6 +587,7 @@ Market
 }
 
 .market-item {
+   display: none;
    height: 45vh;
    width: 95%;
    margin: 2vh auto;
@@ -573,10 +620,18 @@ Market
    overflow: hidden;
    transition: 0.2s;
 }
-
-.buy-sell:hover {
-   box-shadow: 0 0 5px #262626;
+.accept-deny {
+   position: absolute;
+   left: 25%;
+   bottom: 3vh;
+   height: 10vh;
+   width: 50%;
+   border-radius: 5vh;
+   overflow: hidden;
+   transition: 0.2s;
 }
+
+.buy-sell:hover { box-shadow: 0 0 .5vh #262626; }
 
 .market-item-buy {
    position: absolute;
@@ -784,6 +839,7 @@ input:checked + .slider:before { transform: translateY(8vh); }
 .alert {
    opacity: 0;
    pointer-events: none;
+   z-index: 100;
    position: fixed;
    bottom: 2vh;
    right: 2vh;
@@ -903,7 +959,7 @@ Produce
 }
 
 .theme-color {
-   width: 40vw;
+   width: 26.3vw;
    padding: 1vh;
    margin: .5vh auto;
    display: inline;
@@ -976,4 +1032,311 @@ More Information Hover
 .more-info-tooltip:hover .tooltip-text {
    opacity: 1;
    pointer-events: auto;
+}
+
+.hide-market {
+   top: 0;
+   right: 0;
+   height: 10vh;
+   width: 10vh;
+   font-size: 3vh;
+   padding: 1vh;
+   transition: .05s;
+}
+
+.help-shadow {
+   position: fixed;
+   height: 100vh;
+   width: 100vw;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   backdrop-filter: blur(.5vh);
+   background-color: rgb(0, 0, 0, .5)
+}
+
+.help {
+   height: 95vh;
+   width: 95vw;
+   background-color: #f5f5f5;
+   border-radius: 5vh;
+   display: grid;
+   grid-template-columns: 30% 70%;
+   overflow: hidden;
+}
+
+.help-subjects { overflow: scroll; }
+
+.help-subjects-item {
+   background-color: #f97590;
+   font-family: sans-serif;
+   width: 60%;
+   font-size: 4vh;
+   padding: 4vh 2vh;
+   margin-bottom: .2vh;
+   color: #fff;
+   transition: .2s;
+}
+
+.help-subjects-item:first-child { background-color: #03fca5; }
+.help-subjects-item:last-child {
+   background-color: #6ee8ff;
+   margin: 0;
+}
+
+.help-subjects-item:hover {
+   transform: scale(1.2) translateX(5vh);
+   box-shadow: 0 0 2vh #000;
+   border-radius: .5vh;
+}
+
+.help-information {
+   padding: 2vh 20vh 0 5vh;
+   overflow: hidden;
+   scroll-behavior: smooth;
+}
+
+.help-information h1 {
+   font-family: "Nunito";
+   text-align: center;
+   font-size: 8vh;
+}
+
+.help-information p {
+   font-size: 3.5vh;
+   margin-bottom: 100vh;
+}
+
+.help-information span {
+   color: #ccc;
+   font-family: "Nunito";
+   text-decoration: underline;
+}
+
+.help-center-img {
+   height: 8vh;
+   position: fixed;
+   top: 2vh;
+   left: 2vh;
+   filter: invert();
+}
+
+.closeModalHelp {
+   position: absolute;
+   top: 6vh;
+   right: 10vh;
+   transition: .5s;
+   cursor: pointer;
+}
+
+/* Help links */
+.help a {
+   color: lightblue;
+   text-decoration: none;
+   position: relative;
+}
+
+.help .no-link:after { display: none; }
+
+.help a:after {
+   content: "";
+   display: block;
+   height: .2vh;
+   left: 50%;
+   position: absolute;
+   background: lightblue;
+   transition: all .2s;
+   width: 0;
+}
+
+.help a:hover:after {
+   width: 100%;
+   left: 0;
+}
+
+/* Plot 5 */
+.almanac {
+   height: 8vh;
+   position: absolute;
+   bottom: .5vh;
+   left: .5vh;
+}
+
+.shop-window {
+   position: absolute;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   height: 0;
+   width: 8vh;
+   text-align: center;
+   background-color: rgb(0, 0, 0, .8);
+   list-style-type: none;
+   overflow-y: scroll;
+   transition: all 1.2s ease;
+}
+
+.shop-window li { margin: 1.2vh }
+
+.store-icon {
+   height: 5vh;
+   transition: .5s;
+}
+
+.store-icon:hover { transform: scale(1.2); }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Quests
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.quest-ribbon {
+   position: relative;
+   top: 6vh;
+   right: -100%;
+   height: 16vh;
+}
+
+.quests {
+   position: fixed;
+   top: 8vh;
+   left: -80vh;
+   height: 85vh;
+   width: 80vh;
+   background-color: #f9f9f9;
+   border-top-right-radius: 2vh;
+   border-bottom-right-radius: 2vh;
+   z-index: .9;
+   transition: .8s;
+}
+
+.quests:hover { z-index: 1; }
+
+.questShadow {
+   display: none;
+   z-index: .9;
+   position: fixed;
+   top: 0;
+   left: 0;
+   height: 100%;
+   width: 100%;
+}
+
+.questContent {
+   margin-top: -15vh;
+   overflow: scroll;
+   display: grid;
+   position: relative;
+   grid-template-columns: 50% 50%;
+   font-family: "Nunito";
+}
+
+.task-block {
+   width: 92%;
+   height: 37vh;
+   margin: 2vh auto;
+   text-align: center;
+   box-sizing: border-box;
+   position: relative;
+   padding: 6vh 2vh;
+   font-size: 2.2vh;
+   background-image: url("Images/Tasks/sticky-note.png");
+   background-size: cover;
+   overflow: scroll;
+   transition: 0.5s;
+}
+
+.task-block-parent:hover .task-block {
+   transform: scale(2);
+   position: absolute;
+   top: 18vh;
+   right: 0;
+   left: 0;
+   height: 40vh;
+   width: 40vh;
+   z-index: 1;
+}
+
+.task-info-a { grid-area: a; }
+.task-info-a { grid-area: b; }
+.task-info-a { grid-area: c; }
+
+.task-info {
+   display: grid;
+   grid-template-areas:
+               "a b"
+               "c c";
+}
+
+.task-info-img {
+   height: 10vh;
+   margin: auto;
+}
+
+.task-submit-depth-button {
+   position: absolute;
+   bottom: 4vh;
+   left: 2vh;
+   margin: .2vh;
+   padding: 1vh 2vh;
+   border-radius: 1vh;
+   font-size: 2vh;
+}
+
+/*  Fade text */
+.fade-text {
+   max-width: 40vh;
+   position: fixed;
+   top: -100%;
+   right: -100%;
+   z-index: 9999;
+   pointer-events: none;
+   font-family: "Nunito";
+   text-align: center;
+   white-space: pre-wrap;
+   font-size: 3vh;
+   color: #fff;
+   border-radius: 1vh;
+   text-shadow: 0 0 1vh #f5f5f5;
+   opacity: 0;
+   transform: translateY(10vh) scale(.85);
+   animation: fade-text 6s forwards;
+}
+
+.vegLuck:nth-last-child(2) { margin-top: 10vh; }
+.vegLuck:nth-last-child(1) { margin-top: 20vh; }
+
+@keyframes fade-text {
+   0% {
+      opacity: 0;
+      transform: translateY(10vh) scale(.85);
+   }
+   30%, 40% {
+      opacity: 1;
+      transform: translateY(0) scale(1.05);
+   }
+   90%, 100% {
+      opacity: 0;
+      transform: translateY(-10vh) scale(1);
+   }
+}
+
+.hidden { display: none; }
+
+.modal-market-prices {
+   height: 20vh;
+   margin: 2vh auto;
+   border: solid 2vh #eee;
+   border-radius: 5vh;
+   display: grid;
+   grid-template-columns: 50% 50%;
+}
+
+.modal-market-prices div:first-child { border-right: solid .5vh #8f8f8f; }
+
+.modal-market-prices div {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-size: 8vh;
+   color: #9f9f9f;
 }

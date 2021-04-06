@@ -4,16 +4,24 @@ TABLE OF CONTENTS
 ~~~~~~~~~~~~~~~~~
 Game Data          | Game information
 Vegetables         | Harvest and plant functions, as well as modals
-Incidents          | Whoops, did I spell that wrong? - IN PROGRESS
+Tasks              | Small chores given by main charecters
+Incidents          | Luck run when harvesting or using the Market
 Unlock Plots       | Functions that unlock plots
-Introduction       | Welcome new players
-Quests             | Earn things - IN PROGRESS
-Market             | Trade things
+Tour               | Welcome new players, should redo for market
+Market             | Sell items for seeds
 Main Loop & Setup  | Main loop and setup
 Helpful Functions  | Some helpful functions
-Commands           | Command Panel, right click menu
+Commands           | Commands to open panels, right click menu
 Settings & Produce | Update Sidebar
 Save               | Save the game data, restart
+
+// To do
+v0.1.0
+~ color change for where you are in help
+~ add pictures to help
+~ more about jebidiah, jenkins, and josephine
+~ fix spelling
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Game Data | 57 LINES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -24,6 +32,19 @@ let initalPlotStatus = {
    strawberries: "empty",
    eggplants: "empty",
    pumpkins: "empty",
+   cabbages: "empty",
+   // Grow Times
+   peasGrowing: Infinity,
+   peasReady: Infinity,
+   cornGrowing: Infinity,
+   cornReady: Infinity,
+   strawberriesGrowing: Infinity,
+   strawberriesFlowering: Infinity,
+   strawberriesReady: Infinity,
+   eggplantsGrowing: Infinity,
+   eggplantsReady: Infinity,
+   pumpkinsGrowing: Infinity,
+   pumpkinsReady: Infinity,
 }
 let initalProduce = {
    peas: 0,
@@ -31,6 +52,7 @@ let initalProduce = {
    strawberries: 0,
    eggplants: 0,
    pumpkins: 0,
+   cabbage: 0,
 }
 let initalPlots = {
    price2: 150,
@@ -38,7 +60,7 @@ let initalPlots = {
    price4: 3750,
    price5: "your soul (or $$$ - we don't accept credit)",
    price6: 50000,
-   price7: "undeterimed",
+   price7: 5,
    price8: "undeterimed",
    price9: "undeterimed",
    // Unlocked/locked
@@ -51,6 +73,7 @@ let initalPlots = {
 let initalMarketData = {
    seeds: 0,
    marketResets: 0,
+   fertilizers: 0,
    // Vegetable prices
    buyPeas: 25,
    sellPeas: 25,
@@ -62,10 +85,27 @@ let initalMarketData = {
    sellEggplants: 750,
    buyPumpkins: 5000,
    sellPumpkins: 5000,
+   sellerName: ["Clearly Badd", "Hereto Steale", "Stolin Joye", "Heinous Krime", "Elig L. Felonie"][Math.floor(Math.random() * 5)],
+   sellItem: ["Market Resets"][Math.floor(Math.random() * 1)],
+   sellItemQuantity: Math.floor(Math.random() * (5 - 1)) + 1,
+   seedCost: Math.floor(Math.random() * (10000 - 2000)) + 2000,
 }
 let initalSettings = {
    theme: "dark",
    intro: "unfinished",
+}
+let initalTaskList = {
+   isInSave: true,
+   taskBox1: "unoccupied",
+   taskBox2: "unoccupied",
+   taskBox3: "unoccupied",
+   taskBox4: "unoccupied",
+   jebsPeaSalad: "active",
+   jebsPeaSaladNum: 0,
+   useMarketResets: "unreached",
+   useMarketResetsNum: 0,
+   tryFertilizer: "unreached",
+   tryFertilizerNum: 0,
 }
 
 let settings = initalSettings;
@@ -73,65 +113,178 @@ let plotStatus = initalPlotStatus;
 let produce = initalProduce;
 let plots = initalPlots;
 let marketData = initalMarketData;
+let taskList = initalTaskList;
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Vegetables | 61 LINES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-// Vegetable Modals
 function infoModal(veg) {
    let modalID = "#info" + veg;
    if (document.querySelector(modalID).style.opacity === "1") { hideObj(modalID); }
    else { showObj(modalID); }
 }
-
-// Harvest and plant
 function harvest(veg) {
-   // Create proper IDs
+   plotStatus[veg.toLowerCase() + "Ready"] = Infinity;
    let plntID = "grow" + veg;
    let hrvstID = "harvest" + veg;
-   // Set plot status to empty
    plotStatus[veg.toLowerCase()] = "empty";
-   // Add one to peas
    produce[veg.toLowerCase()]++;
-   // Hide harvest button, display grow button
    hideObj(`#${hrvstID}`);
    showObj(`#${plntID}`);
    marketData.seeds++;
    harvestLuck(veg);
 }
-function plant(veg, timeOne, timeTwo, pltNumber, url) {
+function plant(veg, timeOne, timeTwo) {
+   currentTime = Date.now();
+   plotStatus[veg + "Growing"] = currentTime + timeOne;
+   plotStatus[veg + "Ready"] = currentTime + timeTwo;
+   plotStatus[veg] = "working";
+   hideObj("#grow" + capitalize(veg));
+}
+function fertilize(veg) {
+   if (marketData.fertilizers >= 1) {
+      marketData.fertilizers -= 1;
+      plotStatus[veg + "Ready"] = 0;
+      if (veg === "strawberries") { plotStatus[veg + "Ready"] = 0; }
+      produce[veg]++;
+      checkTasks("fertilize", taskList.tryFertilizerNum, "tryFertilizer");
+   }
+}
+function plantLoop(veg, pltNumber, url) {
    let vegPlot = document.querySelector("#plot" + pltNumber);
    let imgUrl = "url(Images/Vegetables/" + url + ")";
-   setTimeout(() => { plotStatus[veg] = "growing"; }, timeOne);
-   setTimeout(() => { plotStatus[veg] = "ready"; }, timeTwo);
-   hideObj("#grow" + capitalize(veg));
-
-   setInterval(vegStatus, 1500);
+   setInterval(vegStatus, 1000);
    function vegStatus() {
-      if (plotStatus[veg] === "ready") {
+      if (plotStatus[veg] === "working") { hideObj("#harvest" + capitalize(veg)); hideObj("#grow" + capitalize(veg)); }
+      if (Date.now() >= plotStatus[veg + "Ready"]) {
          vegPlot.style.backgroundImage = String(imgUrl);
          showObj("#harvest" + capitalize(veg));
+         plotStatus[veg + "Growing"] = Infinity;
       }
-      else if (plotStatus[veg] === "growing") { vegPlot.style.backgroundImage = "url(Images/Plots/growing.png)"; }
+      else if (Date.now() >= plotStatus[veg + "Growing"]) { vegPlot.style.backgroundImage = "url(Images/Plots/growing.png)"; }
       else { vegPlot.style.backgroundImage = "url(Images/Plots/plot.png)"; }
    }
 }
+
+plantLoop("peas", 1, 'Peas/grown-pea.png');
+plantLoop("corn", 2, 'Corn/grown-corn.png');
+plantLoop("eggplants", 4, 'Eggplant/grown-eggplant.png');
+plantLoop("pumpkins", 6, 'Pumpkins/grown-pumpkin.png');
+
 function plantStrawberries() {
-   setTimeout(() => { plotStatus.strawberries = "sprouting"; }, 20000);
-   setTimeout(() => { plotStatus.strawberries = "flowering"; }, 60000);
-   setTimeout(() => { plotStatus.strawberries = "fruiting"; }, 120000);
+   currentTime = Date.now();
+   plotStatus.strawberriesGrowing = currentTime + 20000;
+   plotStatus.strawberriesFlowering = currentTime + 60000;
+   plotStatus.strawberriesReady = currentTime + 120000;
+   plotStatus.strawberries = "working";
    hideObj("#growStrawberries");
 }
 function strawberriesStatus() {
    let plotId = document.getElementById("plot3");
-   if (plotStatus.strawberries === "fruiting") {
+   if (plotStatus.strawberries === "working") { hideObj("#harvestStrawberries"); hideObj("#growStrawberries"); }
+   if (Date.now() >= plotStatus.strawberriesReady) {
       plotId.style.backgroundImage = "url(Images/Fruits/Strawberries/grown-strawberries.png)";
       showObj("#harvestStrawberries");
+      plotStatus.strawberriesFlowering = Infinity;
    }
-   else if (plotStatus.strawberries === "flowering") { plotId.style.backgroundImage = "url(Images/Fruits/Strawberries/flowering-strawberries.png)"; }
-   else if (plotStatus.strawberries === "sprouting") { plotId.style.backgroundImage = "url(Images/Fruits/Strawberries/growing-strawberries.png)"; }
+   else if (Date.now() >= plotStatus.strawberriesFlowering) { plotId.style.backgroundImage = "url(Images/Fruits/Strawberries/flowering-strawberries.png)"; plotStatus.strawberriesGrowing = Infinity; }
+   else if (Date.now() >= plotStatus.strawberriesGrowing) { plotId.style.backgroundImage = "url(Images/Fruits/Strawberries/growing-strawberries.png)"; }
    else { plotId.style.backgroundImage = "url(Images/Plots/plot.png)"; }
+}
+strawberriesStatus();
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Tasks | 100 LINES
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+hideObj(`.task-info-button-${1}`);
+hideObj(`.task-info-button-${2}`);
+hideObj(`.task-info-button-${3}`);
+hideObj(`.task-info-button-${4}`);
+
+// Task Insensitive
+function startTask(num, buttonTxt, buttonOnClick, infoTxt, taskGiver, taskGiverImg, task) {
+   taskList[task + "Num"] = num;
+   if (num === "Full") { task = "waiting"; return; }
+   showObj(`.task-info-button-${num}`);
+   document.querySelector(`.task-info-button-${num}`).style.zIndex = "0";
+   document.querySelector(`.task-info-button-${num}`).textContent = buttonTxt;
+   document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", `javascript: ${buttonOnClick}` );
+   document.querySelector(`.task-info-${num}`).textContent = infoTxt;
+   document.querySelector(`.task-info-giver-${num}`).textContent = taskGiver;
+   $(`.task-info-img-${num}`).attr("src", taskGiverImg);
+   taskList["taskBox" + num] = "occupied " + task;
+}
+function clearTask(num) {
+   hideObj(`.task-info-button-${num}`);
+   document.querySelector(`.task-info-button-${num}`).textContent = "";
+   document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", "javascript: " );
+   document.querySelector(`.task-info-${num}`).textContent = "";
+   document.querySelector(`.task-info-giver-${num}`).textContent = "";
+   $(`.task-info-img-${num}`).attr("src", "Images/Global Assets/nothing.png");
+   taskList["taskBox" + num] = "unoccupied";
+}
+function emptyTaskCheck(task) {
+   if (taskList.taskBox1 === "unoccupied") { taskList[task] = 1; }
+   else if (taskList.taskBox2 === "unoccupied") { taskList[task] = 2; }
+   else if (taskList.taskBox3 === "unoccupied") { taskList[task] = 3; }
+   else if (taskList.taskBox4 === "unoccupied") { taskList[task] = 4; }
+   else { taskList[task] = "Full"; }
+   return taskList[task];
+}
+function oldTaskCheck(task) {
+   if (taskList.taskBox1 === `occupied ${task}`) { return 1; }
+   else if (taskList.taskBox2 === `occupied ${task}`) { return 2; }
+   else if (taskList.taskBox3 === `occupied ${task}`) { return 3; }
+   else if (taskList.taskBox4 === `occupied ${task}`) { return 4; }
+   else { return false; }
+}
+function taskAlreadyUp(task) {
+   let value = {};
+   for (i = 1; i < 5; i++) {
+      if (taskList["taskBox" + i] === task) { value[i] = true; }
+      else { value[i] = false; }
+   }
+   if (value[1] === false && value[2] === false && value[3] === false && value[4] === false) { return false }
+   else { return true }
+}
+
+// Task Sensitive
+function giveTasks() {
+   if (taskList.jebsPeaSalad != "complete" && taskList.jebsPeaSalad != "ready") { taskList.jebsPeaSalad = "active" }
+   if (taskList.jebsPeaSalad === "complete" && marketData.marketResets >= 1 && taskList.useMarketResets != "complete" && taskList.useMarketResets != "ready") { taskList.useMarketResets = "active" }
+   if (taskList.jebsPeaSalad === "complete" && taskList.tryFertilizer != "complete" && taskList.tryFertilizer != "ready") { taskList.tryFertilizer = "active" }
+}
+function showTasks() {
+   if (taskAlreadyUp("occupied jebsPeaSalad") === false && taskList.jebsPeaSalad === "active" || taskList.jebsPeaSalad === "waiting" && taskList.jebsPeaSalad != "ready") { startTask(emptyTaskCheck("jebsPeaSaladNum"), "Submit 25 Peas", "if (produce.peas >= 25) { produce.peas -= 25; checkTasks('producePaid', taskList.jebsPeaSaladNum, 'jebsPeaSalad'); }", "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsPeaSalad"); }
+   if (taskAlreadyUp("occupied useMarketResets") === false && taskList.useMarketResets === "active" || taskList.useMarketResets === "waiting" && taskList.useMarketResets != "ready") { startTask(emptyTaskCheck("useMarketResetsNum"), "Use 1 Market Reset", " ", "Have I told you about market resets yet? They can reset all of the prices in the market! Why don't you use one now?", "Grandma Josephine", "Images/Tasks/granny.png", "useMarketResets"); }
+   if (taskAlreadyUp("occupied tryFertilizer") === false && taskList.tryFertilizer === "active" || taskList.tryFertilizer === "waiting" && taskList.tryFertilizer != "ready") { startTask(emptyTaskCheck("tryFertilizerNum"), "Use 1 Fertilizer", " ", "Your plants look like they could do with some help. Why don't you use some fertilizer? It'll double the crop yeild and finish the growing instantly!", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "tryFertilizer"); }
+   // Old open tasks
+   if (oldTaskCheck("jebsPeaSalad") != false) {
+      if (taskList.jebsPeaSalad === "ready") { startTask(`${oldTaskCheck("jebsPeaSalad")}`, "Collect 5 Fertilizer", "collectTaskReward('jebsPeaSalad', taskList.jebsPeaSaladNum)", "That salad sure was delicious! To pay back the favor, I'll give you some fertilizer! Use it wisely!", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsPeaSalad"); }
+      else { startTask(`${oldTaskCheck("jebsPeaSalad")}`, "Submit 25 Peas", "if (produce.peas >= 25) { produce.peas -= 25; checkTasks('producePaid', taskList.jebsPeaSaladNum, 'jebsPeaSalad'); }", "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsPeaSalad"); }
+   }
+   if (oldTaskCheck("useMarketResets") != false) {
+      if (taskList.useMarketResets === "ready") { startTask(`${oldTaskCheck("useMarketResets")}`, "Collect 500 Seeds", "collectTaskReward('useMarketResets', taskList.useMarketResetsNum)", "Thank you for completing that small task for me! Here, take 500 seeds!", "Grandma Josephine", "Images/Tasks/granny.png", "useMarketResets"); }
+      else { startTask(`${oldTaskCheck("useMarketResets")}`, "Use 1 Market Reset", " ", "Have I told you about market resets yet? They can reset all of the prices in the market! Why don't you use one now?", "Grandma Josephine", "Images/Tasks/granny.png", "useMarketResets"); }
+   }
+   if (oldTaskCheck("tryFertilizer") != false) {
+      if (taskList.tryFertilizer === "ready") { startTask(`${oldTaskCheck("tryFertilizer")}`, "Use 1 Fertilizer", "collectTaskReward('tryFertilizer', taskList.tryFertilizerNum)", "Wow, just look at those plants grow! Here, take these, I've had them lying about for years.", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "tryFertilizer"); }
+      else { startTask(`${oldTaskCheck("tryFertilizer")}`, "Use 1 Fertilizer", " ", "Your plants look like they could do with some help. Why don't you use some fertilizer? It'll double the crop yeild and finish the growing instantly!", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "tryFertilizer"); }
+   }
+}
+function checkTasks(origin, num, task) {
+   if ((taskList[task] === "active") === true && origin === "producePaid") { taskList.jebsPeaSalad = "ready"; }
+   if ((taskList[task] === "active") === true && origin === "resetMarketValues") { taskList.useMarketResets = "ready"; }
+   if ((taskList[task] === "active") === true && origin === "fertilize") { taskList.tryFertilizer = "ready"; }
+}
+function collectTaskReward(task, num) {
+   if (task === "jebsPeaSalad") { marketData.fertilizers += 5; }
+   if (task === "useMarketResets") { marketData.seeds += 500; }
+   if (task === "tryFertilizer") { marketData.marketResets += 2; }
+   taskList[task] = "complete";
+   clearTask(num);
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -139,29 +292,33 @@ function strawberriesStatus() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 let rand = Math.random();
-
 function harvestLuck(veg) {
    rand = Math.random();
    if (rand < 0.20) {
-      callAlert(`You collected extra seeds!`);
+      fadeTextAppear(event, `You collected 5 \n extra seeds!`, "vegLuck");
       marketData.seeds += 5;
    }
    if (rand < 0.10) {
-      callAlert(`It rained! You collected extra produce!`);
-      produce[veg.toLowerCase()]++
-      produce[veg.toLowerCase()]++
+      fadeTextAppear(event, `It rained! You collected \n 2 extra ${veg}!`, "vegLuck");
+      produce[veg.toLowerCase()] += 2;
    }
    if (rand < 0.05) {
+      fadeTextAppear(event, `You collected a market \n reset! You now have ${marketData.marketResets}`, "vegLuck");
       marketData.marketResets++;
-      callAlert(`You collected a market reset! You now have ${marketData.marketResets}`);
    }
 }
-
 function marketLuck() {
    rand = Math.random();
    if (rand < 0.01) {
       marketData.marketResets++;
       callAlert(`You collected a market reset! You now have ${marketData.marketResets}`);
+   }
+}
+function blackMarketLuck() {
+   rand = Math.random();
+   if (rand < 0.02) {
+      callAlert("The police caught you! They fined you 6000 Seeds");
+      marketData.seeds -= 6000;
    }
 }
 
@@ -170,11 +327,11 @@ function marketLuck() {
 let vegetablesOwned = [];
 vegetablesOwned.push("peas")
 function vegetablesOwnedLoop() {
-   if (produce.peas >= "1" && !vegetablesOwned.includes("peas")) { vegetablesOwned.push("peas") }
-   if (produce.corn >= "1" && !vegetablesOwned.includes("corn")) { vegetablesOwned.push("corn") }
-   if (produce.strawberries >= "1" && !vegetablesOwned.includes("strawberries")) { vegetablesOwned.push("strawberries") }
-   if (produce.eggplants >= "1" && !vegetablesOwned.includes("eggplants")) { vegetablesOwned.push("eggplants") }
-   if (produce.pumpkins >= "1" && !vegetablesOwned.includes("pumpkins")) { vegetablesOwned.push("pumpkins") }
+   if (produce.peas >= "3" && !vegetablesOwned.includes("peas")) { vegetablesOwned.push("peas") }
+   if (produce.corn >= "3" && !vegetablesOwned.includes("corn")) { vegetablesOwned.push("corn") }
+   if (produce.strawberries >= "3" && !vegetablesOwned.includes("strawberries")) { vegetablesOwned.push("strawberries") }
+   if (produce.eggplants >= "3" && !vegetablesOwned.includes("eggplants")) { vegetablesOwned.push("eggplants") }
+   if (produce.pumpkins >= "3" && !vegetablesOwned.includes("pumpkins")) { vegetablesOwned.push("pumpkins") }
 }
 
 let luckyRoll = window.setInterval(function() {
@@ -202,58 +359,45 @@ function unlockPlot(plotNum) {
    if (marketData.seeds >= plots["price" + plotNum]) {
       marketData.seeds -= plots["price" + plotNum];
       marketData.marketResets++;
-      if (number == "2") { openLock("corn", 2) }
-      if (number == "3") { openLock("strawberry", 3) }
-      if (number == "4") { openLock("eggplant", 4) }
-      if (number == "6") { openLock("pumpkin", 6) }
+      if (number == "2") { setTimeout(() => openLock("corn", 2), 2500); document.getElementById("lock2").classList.add("removing-lock"); }
+      if (number == "3") { setTimeout(() => openLock("strawberry", 3), 2500); document.getElementById("lock3").classList.add("removing-lock"); }
+      if (number == "4") { setTimeout(() => openLock("eggplant", 4), 2500); document.getElementById("lock4").classList.add("removing-lock"); }
+      if (number == "6") { setTimeout(() => openLock("pumpkin", 6), 2500); document.getElementById("lock6").classList.add("removing-lock"); }
    }
+   else { fadeTextAppear(event, `Not enough seeds`, false); }
 }
-function openLock(pltVeg, num) {
-   let vegetable = pltVeg;
-   document.getElementById("lock" + num).classList.add("removing-lock");
-   setTimeout(fndLock, 2500);
-   function fndLock() {
-      if (vegetable === "corn") {
-         document.getElementById("lockedDiv2").remove();
-         document.getElementById("openPlot2").style.display = "block";
-         document.getElementById("lock3Text").innerHTML = `This plot is locked <br> Pay 750 Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(3)">Purchase Plot</button>`;
-         plots.cornplot = "unlocked";
-      }
-      if (vegetable === "strawberry") {
-         document.getElementById("lockedDiv3").remove();
-         document.getElementById("openPlot3").style.display = "block";
-         document.getElementById("lock4Text").innerHTML = `This plot is locked <br> Pay 3750 Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(4)">Purchase Plot</button>`;
-         plots.strawberryplot = "unlocked";
-      }
-      if (vegetable === "eggplant") {
-         document.getElementById("lockedDiv4").remove();
-         document.getElementById("openPlot4").style.display = "block";
-         document.getElementById("lock6Text").innerHTML = `This plot is locked <br> Pay ${plots.price6} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(6)">Purchase Plot</button>`;
-         plots.eggplantplot = "unlocked";
-      }
-      if (vegetable === "pumpkin") {
-         document.getElementById("lockedDiv6").remove();
-         document.getElementById("openPlot6").style.display = "block";
-         document.getElementById("lock7Text").innerHTML = `This plot is locked <br> Pay your soul to unlock <br> <button class="purchase-plot" onclick="callAlert('Error: Not signed into SoulPay+')">Requires SoulPay+</button>`;
-         plots.pumpkinplot = "unlocked";
-      }
+function openLock(vegetable, num) {
+   if (vegetable === "corn") {
+      document.getElementById("lockedDiv2").remove();
+      document.getElementById("openPlot2").style.display = "block";
+      document.getElementById("lock3Text").innerHTML = `This plot is locked <br> Pay 750 Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(3)">Purchase Plot</button>`;
+      plots.cornplot = "unlocked";
+   }
+   if (vegetable === "strawberry") {
+      document.getElementById("lockedDiv3").remove();
+      document.getElementById("openPlot3").style.display = "block";
+      document.getElementById("lock4Text").innerHTML = `This plot is locked <br> Pay 3750 Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(4)">Purchase Plot</button>`;
+      plots.strawberryplot = "unlocked";
+   }
+   if (vegetable === "eggplant") {
+      document.getElementById("lockedDiv4").remove();
+      document.getElementById("openPlot4").style.display = "block";
+      document.getElementById("lock6Text").innerHTML = `This plot is locked <br> Pay ${plots.price6} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(6)">Purchase Plot</button>`;
+      plots.eggplantplot = "unlocked";
+   }
+   if (vegetable === "pumpkin") {
+      document.getElementById("lockedDiv6").remove();
+      document.getElementById("openPlot6").style.display = "block";
+      document.getElementById("lock7Text").innerHTML = `This plot is locked <br> Pay your soul to unlock <br> <button class="purchase-plot" onclick="callAlert('Error: Not signed into SoulPay+')">Requires SoulPay+</button>`;
+      plots.pumpkinplot = "unlocked";
    }
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Intoduction | 98 LINES
+// Tour | 98 LINES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-let introPartsDone = {
-   hello: "no",
-   meetGramps: "no",
-   planting: "no",
-   sidebar: "no",
-   meetGran: "no",
-   bushels: "no",
-   settings: "no",
-   thatsIt: "no",
-}
+let introData = { hello: false, meetGramps: false, planting: false, produceBar: false, meetGran: false, market: false, tasks: false, help: false, }
 function runIntro() {
    plotStatus = initalPlotStatus;
    produce = initalProduce;
@@ -277,22 +421,22 @@ function intro() {
    let introBlock = document.querySelector(".intro-container");
    let introImg = document.querySelector(".intro-img");
    let introText = document.querySelector(".intro-text");
-   if (introPartsDone.hello === "no") { introPartsDone.hello = "yes"; }
+   if (introData.hello === false) { introData.hello = true; }
    else { meetGrapms(); }
    function meetGrapms() {
-      if (introPartsDone.meetGramps === "no") {
+      if (introData.meetGramps === false) {
          $(".intro-img").attr("src", "Images/Intro/gramps.png");
          introText.textContent = "Hi! I'm gramps. That's Grandpa Jenkins to you. I'm here ta teach you farmin', the good ol' way!";
-         introPartsDone.meetGramps = "yes";
+         introData.meetGramps = true;
       }
       else { planting(); }
    }
    function planting() {
-      if (introPartsDone.planting === "no") {
+      if (introData.planting === false) {
          introText.textContent = "Farmin' is as easy as anything nowadays, with all this modern technology. Just press Grow Peas, and when it's done, press Harvest Peas!";
          document.querySelector(".plant-quest-arrow").style.display = "block";
          document.getElementById("plot1").style.zIndex = "100";
-         introPartsDone.planting = "yes";
+         introData.planting = true;
       }
       else {
          document.querySelector(".plant-quest-arrow").style.display = "none";
@@ -301,52 +445,55 @@ function intro() {
       }
    }
    function sidebar() {
-      if (introPartsDone.sidebar === "no") {
+      if (introData.produceBar === false) {
          $(".intro-img").attr("src", "Images/Intro/farmer.png");
-         introText.textContent = "This sidebar is were you keep control of the farm. Grandma Josephine will talk about that.";
-         document.querySelector(".sidebar").style.zIndex = "10";
-         introBlock.style.height = "40vh";
-         introBlock.style.width = "52%";
-         introPartsDone.sidebar = "yes";
+         introText.textContent = "This bar shows the amount of seeds and produce you have, so you can keep track of how your farm is going.";
+         document.querySelector(".produce").style.zIndex = "1";
+         introBlock.style.width = "90%";
+         introData.produceBar = true;
       }
       else { meetGran(); }
    }
    function meetGran() {
-      if (introPartsDone.meetGran === "no") {
+      if (introData.meetGran === false) {
          $(".intro-img").attr("src", "Images/Intro/granny.png");
          introText.textContent = "Nice to meet you. I'm Grandma Josephine, and I'm here to teach you economics.";
-         introPartsDone.meetGran = "yes";
-      }
-      else { bushels(); }
-   }
-   function bushels() {
-      if (introPartsDone.bushels === "no") {
-         introText.textContent = "Here you find the amount of resouces you have. Spend it well!";
-         introPartsDone.bushels = "yes";
-      }
-      else { settings(); }
-   }
-   function settings() {
-      if (introPartsDone.settings === "no") {
-         introText.textContent = "These are the settings, where you can restart, change the theme, and play classical music!";
-         document.querySelector(".settings").style.boxShadow = "0 0 50px #f5f5f5";
-         introPartsDone.settings = "yes";
-      }
-      else {
-         document.querySelector(".settings").style.boxShadow = "none";
-         document.querySelector(".sidebar").style.zIndex = "0";
-         introBlock.style.height = "30vh";
+         document.querySelector(".produce").style.zIndex = "0";
          introBlock.style.width = "auto";
-         thatsIt();
+         introData.meetGran = true;
       }
+      else { market(); }
    }
-   function thatsIt() {
-      if (introPartsDone.thatsIt === "no") {
-         $(".intro-img").attr("src", "Images/Intro/farmer.png");
-         introText.textContent = "That's it! Now you can start working.";
-         introPartsDone.thatsIt = "yes";
+   function market() {
+      if (introData.market === false) {
+         introText.textContent = "This is the market, were you can gain seeds by selling produce, which are useful for many things, like opening more plots.";
+         introBlock.style.left = "60vh";
+         document.querySelector(".command-panel").style.zIndex = "9999";
+         commandBar();
+         introData.market = true;
       }
-      else { hideObj(".introDarkShadow"); }
+      else { tasks(); }
+   }
+   function tasks() {
+      if (introData.tasks === false) {
+         $(".intro-img").attr("src", "Images/Intro/farmer.png");
+         introText.textContent = "This little ribbon opens to show Tasks, where you can get rewards for doing chores around the farm.";
+         introBlock.style.left = "2.5vh";
+         document.querySelector(".command-panel").style.zIndex = "0";
+         document.querySelector(".quests").style.zIndex = "9999";
+         introData.tasks = true;
+      }
+      else { help(); }
+   }
+   function help() {
+      if (introData.help === false) {
+         $(".intro-img").attr("src", "Images/Intro/farmer.png");
+         introText.textContent = "That's it! If you need more help, just check the small help icon in the top left corner.";
+         document.querySelector(".quests").style.zIndex = "0";
+         document.querySelector(".help-center-img").style.zIndex = "9999";
+         introData.help = true;
+      }
+      else { location.reload(); }
    }
 }
 
@@ -363,10 +510,14 @@ if (marketData.marketResets === NaN || null || undefined) {
 }
 function checkMarket() {
    let marketItem = document.getElementsByClassName("market-item");
-   if (plots.cornplot === "locked") { marketItem[2].style.display = "none"; }
-   if (plots.strawberryplot === "locked") { marketItem[3].style.display = "none"; }
-   if (plots.eggplantplot === "locked") { marketItem[4].style.display = "none"; }
-   if (plots.pumpkinplot === "locked") { marketItem[5].style.display = "none"; }
+   marketItem[0].style.display = "block";
+   marketItem[6].style.display = "block";
+   marketItem[7].style.display = "block";
+   if (plots.peaplot != "locked") { marketItem[1].style.display = "block"; }
+   if (plots.cornplot != "locked") { marketItem[2].style.display = "block"; }
+   if (plots.strawberryplot != "locked") { marketItem[3].style.display = "block"; }
+   if (plots.eggplantplot != "locked") { marketItem[4].style.display = "block"; }
+   if (plots.pumpkinplot != "locked") { marketItem[5].style.display = "block"; }
 }
 function buyProduce(produceRequested, produceCase) {
    if (marketData.seeds >= marketData["buy" + produceCase]) {
@@ -378,6 +529,7 @@ function buyProduce(produceRequested, produceCase) {
       checkMarket();
       marketLuck();
    }
+   else { fadeTextAppear(event, `Not enough seeds`, false); }
 }
 function sellProduce(produceRequested, produceCase) {
    if (produce[produceRequested] >= 5) {
@@ -389,25 +541,26 @@ function sellProduce(produceRequested, produceCase) {
       checkMarket();
       marketLuck();
    }
+   else { fadeTextAppear(event, `Not enough seeds`, false); }
 }
 
 function updateMarket() {
    document.querySelector(".special-market-item").textContent = `Seeds: ${Math.floor(marketData.seeds)}`;
    document.querySelector(".pea-market-item").textContent = `Peas: ${produce.peas}
-   Cost: ${Math.floor(marketData.buyPeas)} Seeds
-   Sell: ${Math.floor(marketData.sellPeas)} Seeds \r\n \r\n`;
+   Buy for ${Math.floor(marketData.buyPeas)} Seeds
+   Sell for ${Math.floor(marketData.sellPeas)} Seeds \r\n \r\n`;
    document.querySelector(".corn-market-item").textContent = `Corn: ${produce.corn}
-   Cost: ${Math.floor(marketData.buyCorn)} Seeds
-   Sell: ${Math.floor(marketData.sellCorn)} Seeds \r\n \r\n`;
+   Buy for ${Math.floor(marketData.buyCorn)} Seeds
+   Sell for ${Math.floor(marketData.sellCorn)} Seeds \r\n \r\n`;
    document.querySelector(".strawberry-market-item").textContent = `Strawberries: ${produce.strawberries}
-   Cost: ${Math.floor(marketData.buyStrawberries)}
-   Sell: ${Math.floor(marketData.sellStrawberries)} \r\n \r\n`;
+   Buy for ${Math.floor(marketData.buyStrawberries)}
+   Sell for ${Math.floor(marketData.sellStrawberries)} \r\n \r\n`;
    document.querySelector(".eggplant-market-item").textContent = `Eggplants: ${produce.eggplants}
-   Cost: ${Math.floor(marketData.buyEggplants)}
-   Sell: ${Math.floor(marketData.sellEggplants)} \r\n \r\n`;
+   Buy for ${Math.floor(marketData.buyEggplants)}
+   Sell for ${Math.floor(marketData.sellEggplants)} \r\n \r\n`;
    document.querySelector(".pumpkin-market-item").textContent = `Pumpkins: ${produce.pumpkins}
-   Cost: ${Math.floor(marketData.buyPumpkins)}
-   Sell: ${Math.floor(marketData.sellPumpkins)} \r\n \r\n`;
+   Buy for ${Math.floor(marketData.buyPumpkins)}
+   Sell for ${Math.floor(marketData.sellPumpkins)} \r\n \r\n`;
    document.querySelector(".reset-market-item").textContent = `You have ${marketData.marketResets} Market Resets`;
 }
 function resetMarketValues() {
@@ -423,18 +576,35 @@ function resetMarketValues() {
       marketData.sellEggplants = 750;
       marketData.buyPumpkins = 5000;
       marketData.sellPumpkins = 5000;
+      checkTasks("resetMarketValues", taskList.useMarketResetsNum, "useMarketResets");
    }
 }
 
+/* newBlackOffer();
 function blackMarketValues() {
-   sellerName = ["Clearly Badd", "Hereto Steale", "Stolin Joye", "Heinous Krime", "Elig L. Felonie"][Math.floor(Math.random() * 5)];
-   sellItem = ["Cheese", "Currency", "Watering Cans", "Fertilizer", "Market Reset"][Math.floor(Math.random() * 5)];
-   sellItemQuantity = Math.floor(Math.random() * (25 - 5)) + 5;
-   seedCost = Math.floor(Math.random() * (8000 - 2000)) + 2000;
-
+   marketData.sellerName = ["Clearly Badd", "Hereto Steale", "Heinous Krime", "Elig L. Felonie", "Sheeft E. Karacter", "Abad Deel"][Math.floor(Math.random() * 6)];
+   marketData.sellItem = ["Market Resets"][Math.floor(Math.random() * 1)];
+   // sellItem = ["Watering Cans", "Compost", "Fertilizer"] compost = extra, watering can = instant
+   marketData.sellItemQuantity = Math.floor(Math.random() * (5 - 1)) + 1;
+   marketData.seedCost = Math.floor(Math.random() * (10000 - 2000)) + 2000;
 }
-function newBlackOffer() { document.getElementsByClassName("market-item-content")[2].textContent = `Offer by ${sellerName} \n Selling ${sellItemQuantity} ${sellItem} \n for ${seedCost} Seeds`; }
-function deny() { blackMarketValues(); newBlackOffer(); document.getElementsByClassName("market-item")[2].style.backgroundColor = genColor(); }
+function newBlackOffer() { document.querySelector(".blackMarketOffer").textContent = `Offer by ${marketData.sellerName} \n Selling ${marketData.sellItemQuantity} ${marketData.sellItem} \n for ${marketData.seedCost} Seeds`; }
+function accept() {
+   if (marketData.seeds >= marketData.seedCost) {
+      marketData.seeds -= marketData.seedCost;
+      blackMarketLuck();
+      blackMarketValues();
+      newBlackOffer();
+      if (marketData.sellItem === "Market Resets") { marketData.marketResets += marketData.sellItemQuantity; }
+   }
+   else { fadeTextAppear(event, `Not enough seeds`, false); }
+}
+function deny() {
+   blackMarketLuck();
+   blackMarketValues();
+   newBlackOffer();
+   document.querySelector(".blackMarketOffer").style.backgroundColor = genColor();
+} */
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Main Loop & Setup | 27 LINES
@@ -444,8 +614,21 @@ var mainLoop = window.setInterval(function() {
    strawberriesStatus();
    updateMarket();
    vegetablesOwnedLoop();
+   giveTasks();
+   showTasks();
+   checkMarket();
+   updateModalMarketPrices("Corn");
+   updateModalMarketPrices("Peas");
+   updateModalMarketPrices("Strawberries");
+   updateModalMarketPrices("Eggplants");
+   updateModalMarketPrices("Pumpkins");
+   function updateModalMarketPrices(veg) {
+      document.querySelector(`.modal${veg}PriceBuy`).textContent = `Buy For ${marketData[`buy${veg}`]}`;
+      document.querySelector(`.modal${veg}PriceSell`).textContent = `Sell For ${marketData[`sell${veg}`]}`;
+   }
    // Update produce display
    document.querySelector("#seeds").textContent = `${Math.round(marketData.seeds)} Seeds`;
+   document.querySelector("#fertilizer").textContent = `${Math.round(marketData.fertilizers)} Fertilizers`;
    if (plots.peaplot === "unlocked") { revealProduce("#peaBushels", "peas"); }
    if (plots.cornplot === "unlocked") { revealProduce("#cornBushels", "corn"); }
    if (plots.strawberryplot === "unlocked") { revealProduce("#strawberryBushels", "strawberries"); }
@@ -457,6 +640,7 @@ var mainLoop = window.setInterval(function() {
    }
 }, 200)
 function setup() {
+   if (!taskList) { taskList = initalTaskList; }
    whatTheme();
    checkLocks();
    checkMarket();
@@ -495,6 +679,7 @@ function callAlert(text) {
    setTimeout(removeAnimation => { document.querySelector('.alert').classList.remove('alertAnimation'); }, 9000);
    setTimeout(hideAlerts => { alert.style.opacity = "0"; alert.style.pointerEvents = "none"; }, 9000);
 }
+function scrollToSection(id) { document.getElementById(id).scrollIntoView(); }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Commands | 73 LINES
@@ -502,6 +687,25 @@ function callAlert(text) {
 
 // Command Panel
 document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 69) { openCommands(); } });
+document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 81) { questbar(); } });
+document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 87) {
+   if (document.querySelector(".settingShadow").style.opacity === "0") { showObj(".settingShadow"); }
+   else { hideObj(".settingShadow"); }
+} });
+
+questbarIsOpen = false;
+function questbar() {
+   if (questbarIsOpen === true) {
+      document.querySelector(".quests").style.left = "0";
+      document.querySelector(".questShadow").style.display = "block";
+      questbarIsOpen = false;
+   }
+   else {
+      document.querySelector(".quests").style.left = "-80vh";
+      document.querySelector(".questShadow").style.display = "none";
+      questbarIsOpen = true;
+   }
+}
 function openCommands() {
    if (document.querySelector(".commandsShadow").style.opacity === "0") { showObj(".commandsShadow"); }
    else { hideObj(".commandsShadow"); }
@@ -523,13 +727,8 @@ function commandBar() {
    }
 }
 
-document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 87) {
-   if (document.querySelector(".settingShadow").style.opacity === "0") { showObj(".settingShadow"); }
-   else { hideObj(".settingShadow"); }
-} });
-
 // Right Click Menu
-let rightClickMenu = document.getElementById("menu").style;
+let rightClickMenu = document.querySelector("#menu").style;
 if (document.addEventListener) {
    document.addEventListener('contextmenu', function(e) {
       let posX = e.clientX;
@@ -560,6 +759,16 @@ function menu(x, y) {
    rightClickMenu.display = "block";
 }
 
+function fadeTextAppear(e, txt, extraClass) {
+   let fadeText = document.querySelector(".fade-text").cloneNode();
+   fadeText.id = "fadeTextNew";
+   fadeText.textContent = txt;
+   document.querySelector("body").appendChild(fadeText);
+   if (extraClass != false) { fadeText.classList.add(extraClass); }
+   fadeText.style.left = `${(window.Event) ? e.pageX : event.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft)}px`;
+   fadeText.style.top = `${(window.Event) ? e.pageY : event.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop)}px`;
+}
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Settings & Produce | 23 LINES=
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -570,17 +779,21 @@ function togglePlay() { return myAudio.paused ? myAudio.play() : myAudio.pause()
 
 // Theme
 function whatTheme() {
+   if (settings.theme === "dark") { darkTheme(); }
    if (settings.theme === "light") { light(); }
+   if (settings.theme === "random") { randTheme(); }
    else { darkTheme(); }
 }
 function darkTheme() {
-   document.querySelector('.sidebar').style.backgroundColor = '#111';
-   document.querySelector('.sidebar').style.color = '#f5f5f5';
+   document.querySelector('.produce').style.backgroundColor = '#111';
    settings.theme = "dark";
 }
+function randTheme() {
+   document.querySelector('.produce').style.backgroundColor = genColor();
+   settings.theme = "random";
+}
 function light() {
-   document.querySelector('.sidebar').style.backgroundColor = '#f5f5f5';
-   document.querySelector('.sidebar').style.color = '#333';
+   document.querySelector('.produce').style.backgroundColor = '#f5f5f5';
    settings.theme = "light";
 }
 
@@ -589,57 +802,55 @@ function light() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 var saveLoop = window.setInterval(function() {
-   localStorage.setItem("plotStatus", JSON.stringify(plotStatus));
-   localStorage.setItem("produce", JSON.stringify(produce));
-   localStorage.setItem("plots", JSON.stringify(plots));
-   localStorage.setItem("marketData", JSON.stringify(marketData));
-   localStorage.setItem("settingData", JSON.stringify(settings));
+   localStorage.setItem("plotStatus", JSON.stringify(plotStatus, replacer));
+   localStorage.setItem("produce", JSON.stringify(produce, replacer));
+   localStorage.setItem("plots", JSON.stringify(plots, replacer));
+   localStorage.setItem("marketData", JSON.stringify(marketData, replacer));
+   localStorage.setItem("settingData", JSON.stringify(settings, replacer));
+   localStorage.setItem("taskList", JSON.stringify(taskList, replacer));
 }, 1000)
 
-let savegame = {
-   plotStatus: JSON.parse(localStorage.getItem("plotStatus")),
-   produce: JSON.parse(localStorage.getItem("produce")),
-   plots: JSON.parse(localStorage.getItem("plots")),
-   marketData: JSON.parse(localStorage.getItem("marketData")),
-   settings: JSON.parse(localStorage.getItem("settingData")),
-}
-plotStatus = savegame.plotStatus;
-produce = savegame.produce;
-plots = savegame.plots;
-marketData = savegame.marketData;
-settings = savegame.settings;
-
-if (savegame !== null) {
-   savegame.plotStatus = plotStatus;
-   savegame.produce = produce;
-   savegame.plots = plots;
-   savegame.marketData = marketData;
-   savegame.settings = settings;
-}
+plotStatus = JSON.parse(localStorage.getItem("plotStatus"));
+produce = JSON.parse(localStorage.getItem("produce"));
+plots = JSON.parse(localStorage.getItem("plots"));
+marketData = JSON.parse(localStorage.getItem("marketData"));
+settings = JSON.parse(localStorage.getItem("settingData"));
+taskList = JSON.parse(localStorage.getItem("taskList"));
 
 if (settings) { } else { runIntro() }
 if (settings.intro != "finished") { runIntro() }
 
 function restart() {
-   var areYouSure = confirm("Are you SURE you want to restart? This will wipe all your progress!");
-   if (areYouSure == true) {
-      var areYouReallySure = confirm("Are you REALLY SURE you want to restart? There is no going back!");
-      if (areYouReallySure == true) {
-         plotStatus = initalPlotStatus;
-         produce = initalProduce;
-         plots = initalPlots;
-         marketData = initalMarketData;
-         settings = initalSettings;
+   let areYouSure = confirm("Are you SURE you want to restart? This will wipe all your progress!");
+   if (areYouSure === true) {
+      let areYouReallySure = confirm("Are you REALLY SURE you want to restart? There is no going back!");
+      if (areYouReallySure === true) {
          // Save
-         localStorage.setItem("plotStatus", JSON.stringify(plotStatus));
-         localStorage.setItem("produce", JSON.stringify(produce));
-         localStorage.setItem("plots", JSON.stringify(plots));
-         localStorage.setItem("marketData", JSON.stringify(marketData));
-         localStorage.setItem("settingData", JSON.stringify(settings));
+         localStorage.setItem("plotStatus", JSON.stringify(initalPlotStatus, replacer));
+         localStorage.setItem("produce", JSON.stringify(initalProduce, replacer));
+         localStorage.setItem("plots", JSON.stringify(initalPlots, replacer));
+         localStorage.setItem("marketData", JSON.stringify(initalMarketData, replacer));
+         localStorage.setItem("settingData", JSON.stringify(initalSettings, replacer));
+         localStorage.setItem("taskList", JSON.stringify(initalTaskList, replacer));
+         plotStatus = JSON.parse(localStorage.getItem("plotStatus"));
+         produce = JSON.parse(localStorage.getItem("produce"));
+         plots = JSON.parse(localStorage.getItem("plots"));
+         marketData = JSON.parse(localStorage.getItem("marketData"));
+         settings = JSON.parse(localStorage.getItem("settingData"));
+         taskList = JSON.parse(localStorage.getItem("taskList"));
          // Reload
          location.reload();
       }
    }
+}
+
+// For keeping Infinity the same after saving
+const replacer = (key, value) => {
+   if (value instanceof Function) { return value.toString(); }
+   else if (value === NaN) { return 'NaN'; }
+   else if (value === Infinity) { return 'Infinity'; }
+   else if (typeof value === 'undefined') { return 'undefined'; }
+   else { return value; }
 }
 
 // For export
