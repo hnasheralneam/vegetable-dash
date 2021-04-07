@@ -641,6 +641,7 @@ var mainLoop = window.setInterval(function() {
 }, 200)
 function setup() {
    if (!taskList) { taskList = initalTaskList; }
+   if (marketData.fertilizers == NaN) { marketData.fertilizers = 0; }
    whatTheme();
    checkLocks();
    checkMarket();
