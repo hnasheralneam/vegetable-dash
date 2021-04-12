@@ -2,11 +2,7 @@
 Copyright January 1st 2021 by Squirrel
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-* {
-   margin: 0;
-   padding: 0;
-}
-
+* { margin: 0; padding: 0; }
 body {
    background-image: url("Images/Homepage/tilled.png");
    background-size: cover;
@@ -46,35 +42,12 @@ summary:focus { outline: none; }
   transform: translateY(1vh);
 }
 
-.red {
-  background-color: #f74040;
-  box-shadow: 0 2vh #d61818;
-}
-
-.orange {
-  background-color: #F9A748;
-  box-shadow: 0 2vh #DA7D12;
-}
-
-.yellow {
-  background-color: #F8F948;
-  box-shadow: 0 2vh #EAEB12;
-}
-
-.green {
-  background-color: #3FE863;
-  box-shadow: 0 2vh #03B428;
-}
-
-.blue {
-  background-color: #63E1FF;
-  box-shadow: 0 2vh #16CCF8;
-}
-
-.purple {
-  background-color: #6B3FE8;
-  box-shadow: 0 2vh #4B20C8;
-}
+.red { background-color: #f74040; box-shadow: 0 2vh #d61818; }
+.orange { background-color: #F9A748; box-shadow: 0 2vh #DA7D12; }
+.yellow { background-color: #F8F948; box-shadow: 0 2vh #EAEB12; }
+.green { background-color: #3FE863; box-shadow: 0 2vh #03B428; }
+.blue { background-color: #63E1FF; box-shadow: 0 2vh #16CCF8; }
+.purple { background-color: #6B3FE8; box-shadow: 0 2vh #4B20C8; }
 
 .red:active { box-shadow: 0 1vh #d61818; }
 .orange:active { box-shadow: 0 1vh #DA7D12; }
@@ -155,7 +128,6 @@ Farmland
    "auto auto auto"
    "auto auto auto";
 }
-
 .land-for-small {
    overflow-y: scroll;
    grid-template-areas:
@@ -165,7 +137,6 @@ Farmland
    "auto auto"
    "auto auto";
 }
-
 .land-for-tiny {
    overflow-y: scroll;
    grid-template-areas:
@@ -197,9 +168,7 @@ Farmland
    min-width: 14vw;
 }
 
-.open-plot {
-   display: none;
-}
+.open-plot { display: none; }
 
 .ahh-perspective {
    perspective: 100vh;
@@ -211,9 +180,7 @@ Farmland
 }
 
 /* Locks */
-.locked {
-   height: 18vh;
-}
+.locked { height: 18vh; }
 
 .lock-tooltip {
    position: relative;
@@ -335,6 +302,8 @@ Farmland
 } */
 
 .purchase-plot {
+   padding: 2vh;
+   margin: 0;
    background-color: #272727;
    border: solid .4vh #808080;
    border-radius: .4vh;
@@ -342,9 +311,7 @@ Farmland
    transition: 0.5s;
 }
 
-.purchase-plot:hover {
-   box-shadow: 0 0 2vh #f5f5f5;
-}
+.purchase-plot:hover { box-shadow: 0 0 2vh #f5f5f5; }
 
 /* Button Images */
 .sickle, .seed-packet {
@@ -418,9 +385,7 @@ Vegetable Info Modal
    transition: 0.2s;
 }
 
-.fertilize img {
-   height: 6vh;
-}
+.fertilize img { height: 6vh; }
 
 .close:hover { color: #aaa; }
 
@@ -919,6 +884,7 @@ Produce
    color: #262626;
    top: -3vh;
    right: 115%;
+   z-index: 1;
    transition: .8s;
    transition-delay: 1s;
 }
@@ -1079,6 +1045,7 @@ More Information Hover
 }
 
 .help-subjects-item:first-child { background-color: #03fca5; }
+.help-subjects-item-active { filter: hue-rotate(180deg); }
 .help-subjects-item:last-child {
    background-color: #6ee8ff;
    margin: 0;
@@ -1339,4 +1306,75 @@ Quests
    align-items: center;
    font-size: 8vh;
    color: #9f9f9f;
+}
+
+.weather-short {
+   position: fixed;
+   height: 15vh;
+   width: 15vh;
+   right: 18vh;
+   top: 2vh;
+   background-color: rgb(59, 74, 167, .9);
+   border: solid .5vh rgb(42, 50, 102, .9);
+   border-radius: 2vh;
+   overflow: hidden;
+   overflow: scroll;
+   display: grid;
+   grid-template-areas:
+   "a b"
+   "c c";
+   transition: 1s;
+   transition-delay: .2s;
+}
+
+.weather-short:hover {
+   height: 40vh;
+   width: 35vh;
+}
+
+.weather-short .weather-img {
+   grid-area: a;
+   height: 15vh;
+   width: 15vh;
+   background: url('https://api.iconify.design/wi:day-rain-wind.svg') no-repeat center center / contain;
+   transition: all .1s, margin .8s;
+   filter: invert(95%);
+}
+.weather-short:hover .weather-img { margin: 1vh 2vh; }
+
+.weather-name {
+   grid-area: b;
+   font-size: 4.5vh;
+   font-family: "Nunito";
+   font-weight: 700;
+   color: #f5f5f5;
+   text-align: center;
+   padding-top: 3vh;
+}
+
+.weather-description {
+   grid-area: c;
+   font-size: 4vh;
+   font-family: "Nunito";
+   color: #f5f5f5;
+   text-align: center;
+}
+
+.modal-plot-unlocked p {
+   text-align: left;
+   margin: 2vh 0 2vh 15%;
+   font-size: 10vh;
+   color: #555;
+   transform: translate(0, 25vh) scale(0);
+}
+
+.veg-info:hover .unlocked-text { animation: unlocked-text 1.5s forwards; }
+.veg-info:hover .unlocked-text:nth-last-child(1)  { animation-delay: 4.5s; }
+.veg-info:hover .unlocked-text:nth-last-child(2)  { animation-delay: 3s; }
+.veg-info:hover .unlocked-text:nth-last-child(3)  { animation-delay: 1.5s; }
+.veg-info:hover .unlocked-text:nth-last-child(4)  { animation-delay: 0; }
+
+@keyframes unlocked-text {
+   0% { transform: translate(0, 25vh) scale(0); }
+   100% { transform: translate(0, 0) scale(1); }
 }
