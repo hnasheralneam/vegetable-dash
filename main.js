@@ -20,8 +20,8 @@ v0.1.0 (May 25 2021)
 ~ cabbage (market, how much)
 ~ dandelion, rhubarb remaining vegetables
 ~ weather
-~ time until plant ready
 ~ add pictures to help
+~ growing time length saved as var?
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Game Data | 57 LINES
@@ -61,6 +61,7 @@ let initalProduce = {
    pumpkins: 0,
    cabbage: 0,
    dandelion: 0,
+   bakeSale_potatoes: "hi",
 }
 let initalPlots = {
    price2: 150,
@@ -119,15 +120,16 @@ let initalTaskList = {
    useMarketResetsNum: 0,
    tryFertilizer: "unreached",
    tryFertilizerNum: 0,
-
-   bakeSale: { // Grandma Josephine
-      cornBread: "unreached", // needs 20
-      cornBreadNum: 0,
-      strawberryJam: "unreached", // needs 15
-      strawberryJamNum: 0,
-      pumpkinPie: "unreached", // needs 5
-      pumpkinPieNum: 0,
-   }
+   // Bake Sale: Grandma Josephine
+   bakeSale: "awaiting",
+   bakeSale_peaSnacks: "unreached",
+   bakeSale_peaSnacksNum: 0,
+   bakeSale_cornBread: "unreached",
+   bakeSale_cornBreadNum: 0,
+   bakeSale_strawberryJam: "unreached",
+   bakeSale_strawberryJamNum: 0,
+   bakeSale_pumpkinPie: "unreached",
+   bakeSale_pumpkinPieNum: 0,
 }
 
 let settings = initalSettings;
@@ -162,6 +164,7 @@ function plant(veg, timeOne, timeTwo) {
    plotStatus[veg + "Growing"] = currentTime + timeOne;
    plotStatus[veg + "Ready"] = currentTime + timeTwo;
    plotStatus[veg] = "working";
+   timeLeft(timeTwo, veg.toLowerCase());
    hideObj("#grow" + capitalize(veg));
 }
 function fertilize(veg) {
@@ -170,14 +173,15 @@ function fertilize(veg) {
       plotStatus[veg + "Ready"] = 0;
       if (veg === "strawberries") { plotStatus[veg + "Ready"] = 0; }
       produce[veg]++;
-      checkTasks("fertilize", taskList["tryFertilizer"]);
+      checkTasks("fertilize", "tryFertilizer");
    }
 }
-function plantLoop(veg, pltNumber, url) {
+function plantLoop(veg, pltNumber, url, readyTime) {
    let vegPlot = document.querySelector("#plot" + pltNumber);
    let imgUrl = "url(Images/Vegetables/" + url + ")";
    setInterval(vegStatus, 1000);
    function vegStatus() {
+      timeLeft(readyTime, veg);
       if (plotStatus[veg] === "working") { hideObj("#harvest" + capitalize(veg)); hideObj("#grow" + capitalize(veg)); }
       if (Date.now() >= plotStatus[veg + "Ready"]) {
          vegPlot.style.backgroundImage = String(imgUrl);
@@ -189,11 +193,11 @@ function plantLoop(veg, pltNumber, url) {
    }
 }
 
-plantLoop("peas", 1, 'Peas/grown-pea.png');
-plantLoop("corn", 2, 'Corn/grown-corn.png');
-plantLoop("eggplants", 4, 'Eggplant/grown-eggplant.png');
-plantLoop("pumpkins", 6, 'Pumpkins/grown-pumpkin.png');
-plantLoop("cabbage", 7, 'Cabbage/grown-cabbage.png');
+plantLoop("peas", 1, 'Peas/grown-pea.png', 5000);
+plantLoop("corn", 2, 'Corn/grown-corn.png', 12000);
+plantLoop("eggplants", 4, 'Eggplant/grown-eggplant.png', 480000);
+plantLoop("pumpkins", 6, 'Pumpkins/grown-pumpkin.png', 600000);
+plantLoop("cabbage", 7, 'Cabbage/grown-cabbage.png', 3600000);
 
 function detailedPlant(veg, timeOne, timeTwo, timeThree) {
    currentTime = Date.now();
@@ -201,13 +205,15 @@ function detailedPlant(veg, timeOne, timeTwo, timeThree) {
    plotStatus[veg + "Flowering"] = currentTime + timeTwo;
    plotStatus[veg + "Ready"] = currentTime + timeThree;
    plotStatus[veg] = "working";
+   timeLeft(timeThree, veg.toLowerCase());
    hideObj(`#grow${capitalize(veg)}`);
 }
-function detailedPlantLoop(veg, pltNumber, urlOne, urlTwo, urlThree) {
+function detailedPlantLoop(veg, pltNumber, urlOne, urlTwo, urlThree, readyTime) {
    let vegetable = veg;
    let plotImg = document.querySelector("#plot" + pltNumber);
    setInterval(detailedPlantStatus, 1000);
    function detailedPlantStatus() {
+      timeLeft(readyTime, veg);
       if (plotStatus[veg]  === "working") { hideObj(`#harvest${capitalize(veg)}`); hideObj(`#grow${capitalize(veg)}`); }
       if (Date.now() >= plotStatus[veg + "Ready"]) {
          plotImg.style.backgroundImage = `url(Images/${urlThree})`;
@@ -220,8 +226,8 @@ function detailedPlantLoop(veg, pltNumber, urlOne, urlTwo, urlThree) {
    }
 }
 
-detailedPlantLoop("strawberries", 3, "Fruits/Strawberries/growing-strawberries.png", "Fruits/Strawberries/flowering-strawberries.png", "Fruits/Strawberries/grown-strawberries.png")
-detailedPlantLoop("dandelion", 8, "Vegetables/Dandelion/flowering.png", "Vegetables/Dandelion/flowering.png", "Vegetables/Dandelion/fruiting.png")
+detailedPlantLoop("strawberries", 3, "Fruits/Strawberries/growing-strawberries.png", "Fruits/Strawberries/flowering-strawberries.png", "Fruits/Strawberries/grown-strawberries.png", 120000)
+detailedPlantLoop("dandelion", 8, "Vegetables/Dandelion/flowering.png", "Vegetables/Dandelion/flowering.png", "Vegetables/Dandelion/fruiting.png", 10800000)
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Weather | 21 LINES
@@ -295,16 +301,21 @@ hideObj(`.task-info-button-${3}`);
 hideObj(`.task-info-button-${4}`);
 
 // Task Insensitive
-function startTask(num, buttonTxt, buttonOnClick, infoTxt, taskInfo, task) {
+function setTask(num, task) {
    taskList[task + "Num"] = num;
-   if (num === "Full") { taskList[task] = "waiting"; return; }
+   if (num === "Full") { task = "waiting"; return; }
+   taskList["taskBox" + num] = "occupied " + task;
+}
+function startTask(num, buttonTxt, buttonOnClick, infoTxt, taskGiver, taskGiverImg, task) {
+   taskList[task + "Num"] = num;
+   if (num === "Full") { task = "waiting"; return; }
    showObj(`.task-info-button-${num}`);
    document.querySelector(`.task-info-button-${num}`).style.zIndex = "0";
    document.querySelector(`.task-info-button-${num}`).textContent = buttonTxt;
    document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", `javascript: ${buttonOnClick}` );
    document.querySelector(`.task-info-${num}`).textContent = infoTxt;
-   document.querySelector(`.task-info-giver-${num}`).textContent = taskInfo[0];
-   $(`.task-info-img-${num}`).attr("src", taskInfo[1]);
+   document.querySelector(`.task-info-giver-${num}`).textContent = taskGiver;
+   $(`.task-info-img-${num}`).attr("src", taskGiverImg);
    taskList["taskBox" + num] = "occupied " + task;
 }
 function clearTask(num) {
@@ -317,12 +328,12 @@ function clearTask(num) {
    taskList["taskBox" + num] = "unoccupied";
 }
 function emptyTaskCheck(task) {
-   if (taskList.taskBox1 === "unoccupied") { task = 1; }
-   else if (taskList.taskBox2 === "unoccupied") { task = 2; }
-   else if (taskList.taskBox3 === "unoccupied") { task = 3; }
-   else if (taskList.taskBox4 === "unoccupied") { task = 4; }
-   else { task = "Full"; }
-   return task;
+   if (taskList.taskBox1 === "unoccupied") { taskList[task] = 1; }
+   else if (taskList.taskBox2 === "unoccupied") { taskList[task] = 2; }
+   else if (taskList.taskBox3 === "unoccupied") { taskList[task] = 3; }
+   else if (taskList.taskBox4 === "unoccupied") { taskList[task] = 4; }
+   else { taskList[task] = "Full"; }
+   return taskList[task];
 }
 function oldTaskCheck(task) {
    if (taskList.taskBox1 === `occupied ${task}`) { return 1; }
@@ -346,152 +357,70 @@ function giveTasks() {
    if (taskList.jebsPeaSalad != "complete" && taskList.jebsPeaSalad != "ready") { taskList.jebsPeaSalad = "active" }
    if (taskList.jebsPeaSalad === "complete" && marketData.marketResets >= 1 && taskList.useMarketResets != "complete" && taskList.useMarketResets != "ready") { taskList.useMarketResets = "active" }
    if (taskList.jebsPeaSalad === "complete" && taskList.tryFertilizer != "complete" && taskList.tryFertilizer != "ready") { taskList.tryFertilizer = "active" }
-   if (plots.pumpkinplot === "unlocked" && taskList.bakeSale.cornBread != "complete" && taskList.bakeSale.cornBread != "ready") { taskList.bakeSale.cornBread = "active" }
+   if (plots.pumpkinplot === "unlocked") { taskList.bakeSale = "progressing"; }
+   if (taskList.bakeSale_cornBread != "complete" && taskList.bakeSale === "progressing" && taskList.bakeSale_cornBread != "ready") { taskList.bakeSale_cornBread = "active" }
+   if (taskList.bakeSale_peaSnacks != "complete" && taskList.bakeSale === "progressing" && taskList.bakeSale_peaSnacks != "ready" && taskList.bakeSale_cornBread === "complete") { taskList.bakeSale_peaSnacks = "active" }
+   if (taskList.bakeSale_strawberryJam != "complete" && taskList.bakeSale === "progressing" && taskList.bakeSale_strawberryJam != "ready" && taskList.bakeSale_peaSnacks === "complete") { taskList.bakeSale_strawberryJam = "active" }
+   if (taskList.bakeSale_pumpkinPie != "complete" && taskList.bakeSale === "progressing" && taskList.bakeSale_pumpkinPie != "ready" && taskList.bakeSale_strawberryJam === "complete") { taskList.bakeSale_pumpkinPie = "active" }
 }
 function showTasks() {
-   if (taskAlreadyUp("occupied jebsPeaSalad") === false && taskList.jebsPeaSalad === "active" || taskList.jebsPeaSalad === "waiting" && taskList.jebsPeaSalad != "ready") {
-
-      startTask(emptyTaskCheck(taskList['jebsPeaSaladNum']),
-      "Submit 25 Peas",
-      "if (produce.peas >= 25) { produce.peas -= 25; checkTasks('peaSaladPaid', taskList['jebsPeaSalad']); } else { fadeTextAppear(event, 'Not enough produce', false); }",
-      "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?",
-      ["Farmer Jebediah", "Images/Tasks/farmer.png"],
-      "jebsPeaSalad");
-
-   }
-   if (taskAlreadyUp("occupied useMarketResets") === false && taskList.useMarketResets === "active" || taskList.useMarketResets === "waiting" && taskList.useMarketResets != "ready") {
-
-       startTask(emptyTaskCheck(taskList['useMarketResetsNum']),
-       "Use 1 Market Reset",
-       " ",
-       "Have I told you about market resets yet? They can reset all of the prices in the market! Why don't you use one now?",
-       ["Grandma Josephine", "Images/Tasks/granny.png"],
-       "useMarketResets");
-
-    }
-   if (taskAlreadyUp("occupied tryFertilizer") === false && taskList.tryFertilizer === "active" || taskList.tryFertilizer === "waiting" && taskList.tryFertilizer != "ready") {
-
-      startTask(emptyTaskCheck(taskList['tryFertilizerNum']),
-      "Use 1 Fertilizer",
-      " ",
-      "Your plants look like they could do with some help. Why don't you use some fertilizer? It'll double the crop yeild and finish the growing instantly!",
-      ["Grandpa Jenkins", "Images/Tasks/jenkins.png"],
-      "tryFertilizer");
-
-   }
-   if (taskAlreadyUp("occupied bakeSale.cornBread") === false && taskList.bakeSale.cornBread === "active" || taskList.bakeSale.cornBread === "waiting" && taskList.bakeSale.cornBread != "ready") {
-
-       startTask(emptyTaskCheck(taskList['bakeSale']['cornBreadNum']),
-       "Submit 20 Corn",
-       "if (produce.corn >= 20) { produce.corn -= 20; checkTasks('cornBreadPaid', taskList['bakeSale']['cornBread']); } else { fadeTextAppear(event, 'Not enough produce', false); }",
-       "I have a wonderful lucrative idea! We can hold a bake sale with plenty of delicious foods! Let's start with cornbread, my personal faviorite!",
-       ["Grandma Josephine", "Images/Tasks/granny.png"],
-       "bakeSale.cornBread");
-
-    }
+   if (!taskAlreadyUp("occupied jebsPeaSalad") && taskList.jebsPeaSalad === "active" || taskList.jebsPeaSalad === "waiting" && taskList.jebsPeaSalad != "ready") { setTask(emptyTaskCheck("jebsPeaSaladNum"), "jebsPeaSalad"); }
+   if (!taskAlreadyUp("occupied useMarketResets") && taskList.useMarketResets === "active" || taskList.useMarketResets === "waiting" && taskList.useMarketResets != "ready") { setTask(emptyTaskCheck("useMarketResetsNum"), "useMarketResets"); }
+   if (!taskAlreadyUp("occupied tryFertilizer") && taskList.tryFertilizer === "active" || taskList.tryFertilizer === "waiting" && taskList.tryFertilizer != "ready") { setTask(emptyTaskCheck("tryFertilizerNum"), "tryFertilizer"); }
+   if (!taskAlreadyUp("occupied bakeSale_pumpkinPie") && taskList.bakeSale_pumpkinPie === "active" || taskList.bakeSale_pumpkinPie === "waiting" && taskList.bakeSale_pumpkinPie != "ready") { setTask(emptyTaskCheck("bakeSale_pumpkinPieNum"), "bakeSale_pumpkinPie"); }
+   // Bake Sale
+   if (!taskAlreadyUp("occupied bakeSale_cornBread") && taskList.bakeSale_cornBread === "active" || taskList.bakeSale_cornBread === "waiting" && taskList.bakeSale_cornBread != "ready") { setTask(emptyTaskCheck("bakeSale_cornBreadNum"), "bakeSale_cornBread"); }
+   if (!taskAlreadyUp("occupied bakeSale_peaSnacks") && taskList.bakeSale_peaSnacks === "active" || taskList.bakeSale_peaSnacks === "waiting" && taskList.bakeSale_peaSnacks != "ready") { setTask(emptyTaskCheck("bakeSale_peaSnacksNum"), "bakeSale_peaSnacks"); }
+   if (!taskAlreadyUp("occupied bakeSale_strawberryJam") && taskList.bakeSale_strawberryJam === "active" || taskList.bakeSale_strawberryJam === "waiting" && taskList.bakeSale_strawberryJam != "ready") { setTask(emptyTaskCheck("bakeSale_strawberryJamNum"), "bakeSale_strawberryJam"); }
    // Old open tasks
    if (oldTaskCheck("jebsPeaSalad") != false) {
-      if (taskList.jebsPeaSalad === "ready") {
-
-         startTask(oldTaskCheck("jebsPeaSalad"),
-         "Collect 2 Fertilizer",
-         "collectTaskReward(`jebsPeaSalad`, taskList.jebsPeaSaladNum)",
-         "That salad sure was delicious! To pay back the favor, I'll give you some fertilizer! Use it wisely!",
-         ["Farmer Jebediah", "Images/Tasks/farmer.png"],
-         "jebsPeaSalad");
-
-      }
-      else {
-
-         startTask(oldTaskCheck("jebsPeaSalad"),
-         "Submit 25 Peas",
-         "if (produce.peas >= 25) { produce.peas -= 25; checkTasks('peaSaladPaid', taskList['jebsPeaSalad']); } else { fadeTextAppear(event, 'Not enough produce', false); }",
-         "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?",
-         ["Farmer Jebediah", "Images/Tasks/farmer.png"],
-         "jebsPeaSalad");
-
-      }
+      if (taskList.jebsPeaSalad === "ready") { startTask(`${oldTaskCheck("jebsPeaSalad")}`, "Collect 2 Fertilizer", "collectTaskReward('jebsPeaSalad', taskList.jebsPeaSaladNum)", "That salad sure was delicious! To pay back the favor, I'll give you some fertilizer! Use it wisely!", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsPeaSalad"); }
+      else { startTask(`${oldTaskCheck("jebsPeaSalad")}`, "Submit 25 Peas", "if (produce.peas >= 25) { produce.peas -= 25; checkTasks('producePaid', 'jebsPeaSalad'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsPeaSalad"); }
    }
    if (oldTaskCheck("useMarketResets") != false) {
-      if (taskList.useMarketResets === "ready") {
-
-         startTask(oldTaskCheck("useMarketResets"),
-         "Collect 250 Seeds",
-         "collectTaskReward(`useMarketResets`, taskList.useMarketResetsNum)",
-         "Thank you for completing that small task for me! Here, take 500 seeds!",
-         ["Grandma Josephine", "Images/Tasks/granny.png"],
-         "useMarketResets");
-
-      }
-      else {
-
-         startTask(oldTaskCheck("useMarketResets"),
-         "Use 1 Market Reset",
-         " ",
-         "Have I told you about market resets yet? They can reset all of the prices in the market! Why don't you use one now?",
-         ["Grandma Josephine", "Images/Tasks/granny.png"],
-         "useMarketResets");
-
-      }
+      if (taskList.useMarketResets === "ready") { startTask(`${oldTaskCheck("useMarketResets")}`, "Collect 250 Seeds", "collectTaskReward('useMarketResets', taskList.useMarketResetsNum)", "Thank you for completing that small task for me! Here, take 250 seeds!", "Grandma Josephine", "Images/Tasks/granny.png", "useMarketResets"); }
+      else { startTask(`${oldTaskCheck("useMarketResets")}`, "Use 1 Market Reset", " ", "Have I told you about market resets yet? They can reset all of the prices in the market! Why don't you use one now?", "Grandma Josephine", "Images/Tasks/granny.png", "useMarketResets"); }
    }
    if (oldTaskCheck("tryFertilizer") != false) {
-      if (taskList.tryFertilizer === "ready") {
-
-         startTask(oldTaskCheck("tryFertilizer"),
-         "Collect 2 Market Resets",
-         "collectTaskReward(`tryFertilizer`, taskList.tryFertilizerNum)",
-         "Wow, just look at those plants grow! Here, take these, I've had them lying about for years.",
-         ["Grandpa Jenkins", "Images/Tasks/jenkins.png"],
-         "tryFertilizer");
-
-      }
-      else {
-
-         startTask(oldTaskCheck("tryFertilizer"),
-         "Use 1 Fertilizer",
-         " ",
-         "Your plants look like they could do with some help. Why don't you use some fertilizer? It'll double the crop yeild and finish the growing instantly!",
-         ["Grandpa Jenkins", "Images/Tasks/jenkins.png"],
-         "tryFertilizer");
-
-      }
+      if (taskList.tryFertilizer === "ready") { startTask(`${oldTaskCheck("tryFertilizer")}`, "Collect 2 Market Resets", "collectTaskReward('tryFertilizer', taskList.tryFertilizerNum)", "Wow, just look at those plants grow! Here, take these, I've had them lying about for years.", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "tryFertilizer"); }
+      else { startTask(`${oldTaskCheck("tryFertilizer")}`, "Use 1 Fertilizer", " ", "Your plants look like they could do with some help. Why don't you use some fertilizer? It'll double the crop yeild and finish the growing instantly!", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "tryFertilizer"); }
    }
-   if (oldTaskCheck("bakeSale.cornBread") != false) {
-      if (taskList.bakeSale.cornBread === "ready") {
-
-         startTask(oldTaskCheck("bakeSale.cornBread"),
-         "Collect 5 Seeds",
-         "collectTaskReward(`['bakeSale']['cornBread']`, taskList.bakeSale.cornBreadNum)",
-         "Just you wait! This bake sale is just beginning!",
-         ["Grandma Josephine", "Images/Tasks/granny.png"],
-         "bakeSale.cornBread");
-
-      }
-      else {
-
-         startTask(oldTaskCheck("bakeSale.cornBread"),
-         "Submit 20 Corn",
-         "if (produce.corn >= 20) { produce.corn -= 20; checkTasks('cornBreadPaid', taskList['bakeSale']['cornBread']); } else { fadeTextAppear(event, 'Not enough produce', false); }",
-         "I have a wonderful lucrative idea! We can hold a bake sale with plenty of delicious foods! Let's start with cornbread, my personal faviorite!",
-         ["Grandma Josephine", "Images/Tasks/granny.png"],
-         "bakeSale.cornBread");
-
-      }
+   if (oldTaskCheck("bakeSale_cornBread") != false) {
+      if (taskList.bakeSale_cornBread === "ready") { startTask(oldTaskCheck("bakeSale_cornBread"), "Collect 5 Seeds", "collectTaskReward('bakeSale_cornBread', taskList.bakeSale_cornBreadNum)", "Just you wait! This bake sale is just beginning!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale.cornBread"); }
+      else { startTask(oldTaskCheck("bakeSale_cornBread"), "Submit 20 Corn", "if (produce.corn >= 20) { produce.corn -= 20; checkTasks('cornBreadPaid', 'bakeSale_cornBread'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "I have a wonderful lucrative idea! We can hold a bake sale with plenty of delicious foods! Let's start with cornbread, my personal faviorite!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_cornBread"); }
    }
+   if (oldTaskCheck("bakeSale_peaSnacks") != false) {
+      if (taskList.bakeSale_peaSnacks === "ready") { startTask(oldTaskCheck("bakeSale_peaSnacks"), "Collect 10 Seeds", "collectTaskReward('bakeSale_peaSnacks', taskList.bakeSale_peaSnacksNum)", "We may not have sold much yet, but we've barely started!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale.peaSnacks"); }
+      else { startTask(oldTaskCheck("bakeSale_peaSnacks"), "Submit 60 Peas", "if (produce.peas >= 60) { produce.peas -= 60; checkTasks('peaSnacksPaid', 'bakeSale_peaSnacks'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "Next, let's make some crunchy pea snacks!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_peaSnacks"); }
+   }
+   if (oldTaskCheck("bakeSale_strawberryJam") != false) {
+      if (taskList.bakeSale_strawberryJam === "ready") { startTask(oldTaskCheck("bakeSale_strawberryJam"), "Collect 15 Seeds", "collectTaskReward('bakeSale_strawberryJam', taskList.bakeSale_strawberryJamNum)", "Be patient, for great rewards come to those who wait!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale.strawberryJam"); }
+      else { startTask(oldTaskCheck("bakeSale_strawberryJam"), "Submit 15 Strawberries", "if (produce.strawberries >= 15) { produce.strawberries -= 15; checkTasks('strawberryJamPaid', 'bakeSale_strawberryJam'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "Do you like spreading nice, sweet, jam on toast? I sure do, and so will our customers!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_strawberryJam"); }
+   }
+   if (oldTaskCheck("bakeSale_pumpkinPie") != false) {
+      if (taskList.bakeSale_pumpkinPie === "ready") { startTask(oldTaskCheck("bakeSale_pumpkinPie"), "Collect 75,000 Seeds", "collectTaskReward('bakeSale_pumpkinPie', taskList.bakeSale_pumpkinPieNum)", "Ha ha! Look at that, this bake sale sure was a success! Look at these profit margins!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale.pumpkinPie"); }
+      else { startTask(oldTaskCheck("bakeSale_pumpkinPie"), "Submit 10 Pumpkins", "if (produce.pumpkins >= 10) { produce.pumpkins -= 10; checkTasks('pumpkinPiePaid', 'bakeSale_pumpkinPie'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "Not all pumpkin pies are great, but my recipe is! Let's make a few!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_pumpkinPie"); }
+   }
+
 }
 function checkTasks(origin, task) {
-   if (task === "active" && origin === "peaSaladPaid") { taskList.jebsPeaSalad = "ready"; }
-   if (task === "active" && origin === "resetMarketValues") { taskList.useMarketResets = "ready"; }
-   if (task === "active" && origin === "fertilize") { taskList.tryFertilizer = "ready"; }
-   if (task === "active" && origin === "cornBreadPaid") { taskList.bakeSale.cornBread = "ready"; }
+   if (taskList[task] === "active" && origin === "producePaid") { taskList.jebsPeaSalad = "ready"; }
+   if (taskList[task] === "active" && origin === "resetMarketValues") { taskList.useMarketResets = "ready"; }
+   if (taskList[task] === "active" && origin === "fertilize") { taskList.tryFertilizer = "ready"; }
+   if (taskList[task] === "active" && origin === "cornBreadPaid") { taskList.bakeSale_cornBread = "ready"; }
+   if (taskList[task] === "active" && origin === "peaSnacksPaid") { taskList.bakeSale_peaSnacks = "ready"; }
+   if (taskList[task] === "active" && origin === "strawberryJamPaid") { taskList.bakeSale_strawberryJam = "ready"; }
+   if (taskList[task] === "active" && origin === "pumpkinPiePaid") { taskList.bakeSale_pumpkinPie = "ready"; }
 }
 function collectTaskReward(task, num) {
-   let trueTask = taskList + task;
    if (task === "jebsPeaSalad") { marketData.fertilizers += 2; }
    if (task === "useMarketResets") { marketData.seeds += 250; }
    if (task === "tryFertilizer") { marketData.marketResets += 2; }
-   if (task === "['bakeSale']['cornBread']") { marketData.seeds += 5; }
-   trueTask = "complete";
+   if (task === "bakeSale_cornBread") { marketData.seeds += 5; }
+   if (task === "bakeSale_peaSnacks") { marketData.seeds += 10; }
+   if (task === "bakeSale_strawberryJam") { marketData.seeds += 15; }
+   if (task === "bakeSale_pumpkinPie") { marketData.seeds += 75000; }
+   taskList[task] = "complete";
    clearTask(num);
 }
 
@@ -770,7 +699,7 @@ function resetMarketValues() {
       marketData.sellEggplants = 750;
       marketData.buyPumpkins = 5000;
       marketData.sellPumpkins = 5000;
-      checkTasks("resetMarketValues", taskList["useMarketResets"]);
+      checkTasks("resetMarketValues", "useMarketResets");
    }
 }
 
@@ -876,9 +805,36 @@ function callAlert(text) {
    setTimeout(removeAnimation => { document.querySelector('.alert').classList.remove('alertAnimation'); }, 9000);
    setTimeout(hideAlerts => { alert.style.opacity = "0"; alert.style.pointerEvents = "none"; }, 9000);
 }
+function timeLeft(time, veg) {
+   if (!Number.isFinite(plotStatus[veg + "Ready"])) { return; }
+   var countDown = document.querySelector(`.${veg}-time-left`);
+   var endTime = plotStatus[veg + "Ready"];
+   var countDownInterval;
+   var secondsLeftms;
+   var setCountDown = (endTime) => {
+      secondsLeftms = endTime - Date.now();
+      var secondsLeft = Math.round(secondsLeftms / 1000);
+      var hours = Math.floor(secondsLeft / 3600);
+      var minutes = Math.floor(secondsLeft / 60) - (hours * 60);
+      var seconds = secondsLeft % 60;
+      if (secondsLeft < 0) { resetCountDown(); return; }
+      if (hours < 10) { hours = `0${hours}`; }
+      if (minutes < 10) { minutes = `0${minutes}`; }
+      if (seconds < 10) { seconds = `0${seconds}`; }
+      countDown.textContent = `${hours}:${minutes}:${seconds}`;
+   };
+   if (time > 0) {
+      var now = Date.now();
+      setCountDown(endTime);
+      countDownInterval = setInterval(() => { setCountDown(endTime); }, 1000);
+   }
+   function resetCountDown() {
+      clearInterval(countDownInterval);
+      countDown.textContent = '00:00:00';
+   }
+}
 function scrollToSection(id) { document.getElementById(id).scrollIntoView(); }
 $(document).ready(function(){ $('.help-subjects-item').click(function () { $('.help-subjects-item-active').removeClass("help-subjects-item-active"); $(this).addClass("help-subjects-item-active"); }) });
-
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Commands | 73 LINES
@@ -1059,3 +1015,26 @@ const replacer = (key, value) => {
 // save.push(plots);
 // save.push(marketData);
 // save.push(settings);
+
+for (i = 0; i != Object.keys(initalProduce).length; i++) {
+   // console.log(Object.keys(taskList).length);
+   // console.log(`${i}th iteration`);
+   // console.log(Object.keys(!taskList)[i]);
+   // console.log(Object.values(taskList)[i] == undefined);
+   if (Object.values(produce)[i] == undefined) {
+      console.log(Object.values(produce)[i]);
+      Object.values(produce)[i] = Object.values(initalProduce)[i];
+      console.log(Object.values(produce)[i]);
+   }
+   // console.log(Object.values(produce)[7]);
+   // console.log(Object.values(initalProduce)[7]);
+   // console.log(Object.keys(taskList)[i]);
+   // if (Object.keys(taskList)[i] != Object.keys(initalTaskList)[i]) {
+   //    console.log(Object.keys(taskList)[i]);
+   //    console.log(Object.keys(initalTaskList)[i]);
+   // }
+   // Object.keys(initalTaskList)[2]
+   // if (Object.keys(taskList) !== Object.keys(initalTaskList)) {
+   //    console.log(Object.keys(taskList));
+   // }
+}

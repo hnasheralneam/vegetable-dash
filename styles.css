@@ -1378,3 +1378,87 @@ Quests
    0% { transform: translate(0, 25vh) scale(0); }
    100% { transform: translate(0, 0) scale(1); }
 }
+
+/* Festival */
+.festival-land {
+   position: relative;
+   height: 60vh;
+   width: 120vh;
+   margin: 2vh auto;
+   border: solid 1vh #000;
+   border-radius: 1vh;
+   transition: 0.5s;
+   display: grid;
+   grid-template-areas:
+   "auto auto auto auto"
+   "auto auto auto auto";
+}
+
+.festival-land button {
+   background-image: url("Images/Festival/shiny-metal.jpg");
+   background-size: contain;
+}
+
+.festival-plot-image {
+   position: absolute;
+   width: 25vh;
+}
+
+.festival-plot {
+   background-image: url("Images/Festival/metal-sheet.jpg");
+   background-size: cover;
+   margin: .2vh;
+   border: solid .3vh #000;
+   border-radius: .3vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   transition: 2s;
+   position: relative;
+   min-height: 14vw;
+   min-width: 14vw;
+}
+
+.festival-locked { height: 20vh; }
+
+.festival-ahh-perspective {
+   perspective: 100vh;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.festival-ahh-perspective button { width: 90%; margin-top: 20vh; }
+.festival-gears { height: 4vh; margin: -1vh 1vh; }
+
+.time-left img {
+   height: 5vh;
+   margin: .5vh;
+   position: sticky;
+}
+
+.time-left {
+   position: absolute;
+   right: .5vh;
+   bottom: .5vh;
+   border: outset .8vh #f5f5f5;
+   border-radius: 1.5vh;
+   height: 5vh;
+   width: 5vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: rgba(255, 255, 255, 0.75);
+   color: #333;
+   font-family: "Nunito";
+   font-size: 0;
+   transition: width .5s;
+   overflow: scroll;
+}
+
+.time-left:hover {
+   width: 18vh;
+   font-size: 2.5vh;
+}
