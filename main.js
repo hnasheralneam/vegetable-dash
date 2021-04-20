@@ -12,7 +12,7 @@ Market             | Sell items for seeds
 Main Loop & Setup  | Main loop and setup
 Helpful Functions  | Some helpful functions
 Commands           | Commands to open panels, right click menu
-Settings & Produce | Update Sidebar
+Settings           | Update Sidebar
 Save               | Save the game data, restart
 
 // To do
@@ -61,7 +61,6 @@ let initalProduce = {
    pumpkins: 0,
    cabbage: 0,
    dandelion: 0,
-   bakeSale_potatoes: "hi",
 }
 let initalPlots = {
    price2: 150,
@@ -511,11 +510,11 @@ function openLock(vegetable, num) {
    document.getElementById(`lockedDiv${num}`).remove();
    document.getElementById(`openPlot${num}`).style.display = "block";
    plots[vegetable + "plot"] = "unlocked";
-   if (vegetable === "corn") { document.getElementById("lock3Text").innerHTML = `This plot is locked <br> Pay ${plots.price3} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(3)">Purchase Plot</button>`; }
-   if (vegetable === "strawberry") { document.getElementById("lock4Text").innerHTML = `This plot is locked <br> Pay ${plots.price4} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(4)">Purchase Plot</button>`; }
-   if (vegetable === "eggplant") { document.getElementById("lock6Text").innerHTML = `This plot is locked <br> Pay ${plots.price6} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(6)">Purchase Plot</button>`; }
-   if (vegetable === "pumpkin") { document.getElementById("lock7Text").innerHTML = `This plot is locked <br> Pay ${plots.price7} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(7)">Purchase Plot</button>`; }
-   if (vegetable === "cabbage") { document.getElementById("lock8Text").innerHTML = `This plot is locked <br> Pay ${plots.price8} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(8)">Purchase Plot</button>`; }
+   if (vegetable === "corn") { document.getElementById("lock3Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price3, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(3)">Purchase Plot</button>`; }
+   if (vegetable === "strawberry") { document.getElementById("lock4Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price4, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(4)">Purchase Plot</button>`; }
+   if (vegetable === "eggplant") { document.getElementById("lock6Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price6, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(6)">Purchase Plot</button>`; }
+   if (vegetable === "pumpkin") { document.getElementById("lock7Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price7, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(7)">Purchase Plot</button>`; }
+   if (vegetable === "cabbage") { document.getElementById("lock8Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price8, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(8)">Purchase Plot</button>`; }
    if (vegetable === "dandelion") { document.getElementById("lock9Text").innerHTML = `This plot is locked <br> Pay your soul to unlock <br> <button class="purchase-plot" onclick="callAlert('Error: Not signed into SoulPay+')">Requires SoulPay+</button>`; }
 }
 
@@ -634,13 +633,15 @@ document.addEventListener("keyup", function(event) { if (event.shiftKey && event
 function checkMarket() {
    let marketItem = document.getElementsByClassName("market-item");
    marketItem[0].style.display = "block";
-   marketItem[6].style.display = "block";
-   marketItem[7].style.display = "block";
+   marketItem[8].style.display = "block";
+   marketItem[9].style.display = "block";
    if (plots.peaplot != "locked") { marketItem[1].style.display = "block"; }
    if (plots.cornplot != "locked") { marketItem[2].style.display = "block"; }
    if (plots.strawberryplot != "locked") { marketItem[3].style.display = "block"; }
    if (plots.eggplantplot != "locked") { marketItem[4].style.display = "block"; }
    if (plots.pumpkinplot != "locked") { marketItem[5].style.display = "block"; }
+   if (plots.cabbageplot != "locked") { marketItem[6].style.display = "block"; }
+   if (plots.dandelionplot != "locked") { marketItem[7].style.display = "block"; }
 }
 function buyProduce(produceRequested, produceCase) {
    if (marketData.seeds >= marketData["buy" + produceCase]) {
@@ -668,22 +669,19 @@ function sellProduce(produceRequested, produceCase) {
 }
 
 function updateMarket() {
-   document.querySelector(".special-market-item").textContent = `Seeds: ${Math.floor(marketData.seeds)}`;
-   document.querySelector(".pea-market-item").textContent = `Peas: ${produce.peas}
-   Buy for ${Math.floor(marketData.buyPeas)} Seeds
-   Sell for ${Math.floor(marketData.sellPeas)} Seeds \r\n \r\n`;
-   document.querySelector(".corn-market-item").textContent = `Corn: ${produce.corn}
-   Buy for ${Math.floor(marketData.buyCorn)} Seeds
-   Sell for ${Math.floor(marketData.sellCorn)} Seeds \r\n \r\n`;
-   document.querySelector(".strawberry-market-item").textContent = `Strawberries: ${produce.strawberries}
-   Buy for ${Math.floor(marketData.buyStrawberries)}
-   Sell for ${Math.floor(marketData.sellStrawberries)} \r\n \r\n`;
-   document.querySelector(".eggplant-market-item").textContent = `Eggplants: ${produce.eggplants}
-   Buy for ${Math.floor(marketData.buyEggplants)}
-   Sell for ${Math.floor(marketData.sellEggplants)} \r\n \r\n`;
-   document.querySelector(".pumpkin-market-item").textContent = `Pumpkins: ${produce.pumpkins}
-   Buy for ${Math.floor(marketData.buyPumpkins)}
-   Sell for ${Math.floor(marketData.sellPumpkins)} \r\n \r\n`;
+   display("Peas");
+   display("Corn");
+   display("Strawberries");
+   display("Eggplants");
+   display("Pumpkins");
+   display("Cabbage");
+   display("Dandelion");
+   function display(veg) {
+      document.querySelector(`.${veg.toLowerCase()}-market-item`).textContent = `${veg}: ${produce.dandelion}
+      Buy for ${toWord(marketData["buy" + veg], "short")}
+      Sell for ${toWord(marketData["sell" + veg], "short")} \r\n \r\n`;
+   }
+   document.querySelector(".special-market-item").textContent = `Seeds: ${toWord(marketData.seeds, "long")}`;
    document.querySelector(".reset-market-item").textContent = `You have ${marketData.marketResets} Market Resets`;
 }
 function resetMarketValues() {
@@ -699,6 +697,10 @@ function resetMarketValues() {
       marketData.sellEggplants = 750;
       marketData.buyPumpkins = 5000;
       marketData.sellPumpkins = 5000;
+      marketData.buyCabbage = 25000;
+      marketData.sellCabbage = 25000;
+      marketData.buyDandelion = 100000;
+      marketData.sellDandelion = 100000;
       checkTasks("resetMarketValues", "useMarketResets");
    }
 }
@@ -747,11 +749,11 @@ var mainLoop = window.setInterval(function() {
    updateModalMarketPrices("Cabbage");
    updateModalMarketPrices("Dandelion");
    function updateModalMarketPrices(veg) {
-      document.querySelector(`.modal${veg}PriceBuy`).textContent = `Buy For ${marketData[`buy${veg}`]}`;
-      document.querySelector(`.modal${veg}PriceSell`).textContent = `Sell For ${marketData[`sell${veg}`]}`;
+      document.querySelector(`.modal${veg}PriceBuy`).textContent = `Buy For ${toWord(marketData[`buy${veg}`], "short")}`;
+      document.querySelector(`.modal${veg}PriceSell`).textContent = `Sell For ${toWord(marketData[`sell${veg}`], "short")}`;
    }
    // Update produce display
-   document.querySelector("#seeds").textContent = `${Math.round(marketData.seeds)} Seeds`;
+   document.querySelector("#seeds").textContent = `${toWord(marketData.seeds, "short")} Seeds`;
    document.querySelector("#fertilizer").textContent = `${Math.round(marketData.fertilizers)} Fertilizers`;
    if (plots.peaplot === "unlocked") { revealProduce("#peaBushels", "peas"); }
    if (plots.cornplot === "unlocked") { revealProduce("#cornBushels", "corn"); }
@@ -762,7 +764,7 @@ var mainLoop = window.setInterval(function() {
    if (plots.dandelionplot === "unlocked") { revealProduce("#dandelionBushels", "dandelion"); }
    function revealProduce(id, veg) {
       document.querySelector(".produce-tooltip-" + veg).style.display = "inline-block";
-      document.querySelector(id).textContent = `${produce[veg]} Bushels of ${capitalize(veg)}`;
+      document.querySelector(id).textContent = `${toWord(produce[veg], "short")} Bushels of ${capitalize(veg)}`;
    }
 }, 200)
 function setup() {
@@ -778,6 +780,8 @@ window.addEventListener('load', (event) => { setup(); });
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 function capitalize(string) { return string.charAt(0).toUpperCase() + string.slice(1); }
+function commas(num) { return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+function scrollToSection(id) { document.getElementById(id).scrollIntoView(); }
 function hideObj(objId) {
    document.querySelector(objId).style.opacity = "0";
    document.querySelector(objId).style.pointerEvents = "none";
@@ -833,7 +837,58 @@ function timeLeft(time, veg) {
       countDown.textContent = '00:00:00';
    }
 }
-function scrollToSection(id) { document.getElementById(id).scrollIntoView(); }
+function toWord(inputNum, type) {
+   let num = inputNum;
+   if (num.toFixed().toString().length < 7) { if (num != num.toFixed()) { num = num.toFixed(2); } return commas(num); }
+   else {
+      num = eToO(num.toFixed());
+      if (check(num.length, 7, 8, 9)) { return returnNumber(7, (type === "short" ? "M" : " Million")); }
+      if (check(num.length, 10, 11, 12)) { return returnNumber(10, (type === "short" ? "B" : " Billion")); }
+      if (check(num.length, 13, 14, 15)) { return returnNumber(13, (type === "short" ? "t" : " Trillion")); }
+      if (check(num.length, 16, 17, 18)) { return returnNumber(16, (type === "short" ? "q" : " Quadrillion")); }
+      if (check(num.length, 19, 20, 21)) { return returnNumber(19, (type === "short" ? "Q" : " Quintillion")); }
+      if (check(num.length, 22, 23, 24)) { return returnNumber(22, (type === "short" ? "s" : " Sextillion")); }
+      if (check(num.length, 25, 26, 27)) { return returnNumber(25, (type === "short" ? "S" : " Septillion")); }
+      if (check(num.length, 28, 29, 30)) { return returnNumber(28, (type === "short" ? "o" : " Octillion")); }
+      if (check(num.length, 31, 32, 33)) { return returnNumber(31, (type === "short" ? "n" : " Nonillion")); }
+      if (check(num.length, 34, 35, 36)) { return returnNumber(34, (type === "short" ? "d" : " Decillion")); }
+      if (check(num.length, 37, 38, 39)) { return returnNumber(37, (type === "short" ? "U" : " Undecillion")); }
+      if (check(num.length, 40, 41, 42)) { return returnNumber(40, (type === "short" ? "D" : " Duodecillion")); }
+      if (check(num.length, 43, 44, 45)) { return returnNumber(43, (type === "short" ? "T" : " Tredecillion")); }
+      if (check(num.length, 46, 47, 48)) { return returnNumber(46, (type === "short" ? "qu" : " Quattuordecillion")); }
+      if (check(num.length, 49, 50, 51)) { return returnNumber(49, (type === "short" ? "Qu" : " Quindecillion")); }
+      if (check(num.length, 52, 53, 54)) { return returnNumber(52, (type === "short" ? "se" : " Sedecillion")); }
+      if (check(num.length, 55, 56, 57)) { return returnNumber(55, (type === "short" ? "Se" : " Septendecillion")); }
+      if (check(num.length, 58, 59, 60)) { return returnNumber(58, (type === "short" ? "O" : " Octodecillion")); }
+      if (check(num.length, 61, 62, 63)) { return returnNumber(61, (type === "short" ? "N" : " Novendecillion")); }
+      if (check(num.length, 64, 65, 66)) { return returnNumber(64, (type === "short" ? "V" : " Vigintillion")); }
+      if (check(num.length, 67, 68, 69)) { return returnNumber(67, (type === "short" ? "Uv" : " Unvigintillion")); }
+      if (check(num.length, 70, 71, 72)) { return returnNumber(70, (type === "short" ? "Du" : " Duovigintillion")); }
+      if (check(num.length, 73, 74, 75)) { return returnNumber(73, (type === "short" ? "Tr" : " Tresvigintillion")); }
+      if (check(num.length, 76, 77, 78)) { return returnNumber(76, (type === "short" ? "Qua" : " Quattuorvigintillion")); }
+      else { return ":( Too large, try a number below at or below 999 Quattuorvigintillion (10 to the 75th power)"; }
+      // Numbers from Wikipedia 'Names of large numbers' page
+   }
+   function eToO(num) {
+     return (''+ +num).replace(/(-?)(\d*)\.?(\d*)e([+-]\d+)/,
+       function(a,b,c,d,e) {
+         return e < 0
+           ? b + '0.' + Array(1-e-c.length).join(0) + c + d
+           : b + c + d + Array(e-d.length+1).join(0);
+       });
+   }
+   function check(item, equalOne, equalTwo, equalThree) {
+      if (item === equalOne || item === equalTwo || item === equalThree) { return true; }
+      else { return false; }
+   }
+   function returnNumber(number, str) {
+      if (num.length == number) { num = `${num.substring(0, 1)}.${num.substring(1, 2)}${str}`; }
+      else if (num.length == (number + 1)) { num = `${num.substring(0, 2)}.${num.substring(2, 3)}${str}`; }
+      else if (num.length == (number + 2)) { num = `${num.substring(0, 3)}.${num.substring(3, 4)}${str}`; }
+      return num;
+   }
+   // for wordnum.js (hosted squirrel-314.github.io/wordnumjs/word-num-${version}.js)
+}
 $(document).ready(function(){ $('.help-subjects-item').click(function () { $('.help-subjects-item-active').removeClass("help-subjects-item-active"); $(this).addClass("help-subjects-item-active"); }) });
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -925,7 +980,7 @@ function fadeTextAppear(e, txt, extraClass) {
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Settings & Produce | 23 LINES=
+// Settings | 23 LINES=
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 // Music
@@ -972,8 +1027,7 @@ marketData = JSON.parse(localStorage.getItem("marketData"));
 settings = JSON.parse(localStorage.getItem("settingData"));
 taskList = JSON.parse(localStorage.getItem("taskList"));
 
-if (settings) { } else { runIntro() }
-if (settings.intro != "finished") { runIntro() }
+if (!settings || (settings.intro != "finished")) { runIntro(); }
 
 function restart() {
    let areYouSure = confirm("Are you SURE you want to restart? This will wipe all your progress!");
@@ -1008,33 +1062,15 @@ const replacer = (key, value) => {
    else { return value; }
 }
 
-// For export
-// let save = [];
-// save.push(plotStatus);
-// save.push(produce);
-// save.push(plots);
-// save.push(marketData);
-// save.push(settings);
-
-for (i = 0; i != Object.keys(initalProduce).length; i++) {
-   // console.log(Object.keys(taskList).length);
-   // console.log(`${i}th iteration`);
-   // console.log(Object.keys(!taskList)[i]);
-   // console.log(Object.values(taskList)[i] == undefined);
-   if (Object.values(produce)[i] == undefined) {
-      console.log(Object.values(produce)[i]);
-      Object.values(produce)[i] = Object.values(initalProduce)[i];
-      console.log(Object.values(produce)[i]);
-   }
-   // console.log(Object.values(produce)[7]);
-   // console.log(Object.values(initalProduce)[7]);
-   // console.log(Object.keys(taskList)[i]);
-   // if (Object.keys(taskList)[i] != Object.keys(initalTaskList)[i]) {
-   //    console.log(Object.keys(taskList)[i]);
-   //    console.log(Object.keys(initalTaskList)[i]);
-   // }
-   // Object.keys(initalTaskList)[2]
-   // if (Object.keys(taskList) !== Object.keys(initalTaskList)) {
-   //    console.log(Object.keys(taskList));
-   // }
-}
+const initalPlotStatusKeys = Object.keys(initalPlotStatus);
+const initalProduceKeys = Object.keys(initalProduce);
+const initalPlotsKeys = Object.keys(initalPlots);
+const initalMarketDataKeys = Object.keys(initalMarketData);
+const initalSettingsKeys = Object.keys(initalSettings);
+const initalTaskListKeys = Object.keys(initalTaskList);
+for (key of initalPlotStatusKeys) { if (plotStatus[key] === undefined) { plotStatus[key] = initalPlotStatus[key]; } }
+for (key of initalProduceKeys) { if (produce[key] === undefined) { produce[key] = initalProduce[key]; } }
+for (key of initalPlotsKeys) { if (plots[key] === undefined) { plots[key] = initalPlots[key]; } }
+for (key of initalMarketDataKeys) { if (marketData[key] === undefined) { marketData[key] = initalMarketData[key]; } }
+for (key of initalSettingsKeys) { if (settings[key] === undefined) { settings[key] = initalSettings[key]; } }
+for (key of initalTaskListKeys) { if (taskList[key] === undefined) { taskList[key] = initalTaskList[key]; } }

@@ -581,7 +581,7 @@ Market
    bottom: 3vh;
    height: 10vh;
    width: 30%;
-   border-radius: 5vh;
+   border-radius: 2vh;
    overflow: hidden;
    transition: 0.2s;
 }
@@ -625,8 +625,8 @@ Market
 
 .market-item:hover {
    opacity: 0.98;
-   box-shadow: 0 0 25px #262626,
-               inset 0 0 5px #262626;
+   box-shadow: 0 0 5vh #262626,
+               inset 0 0 1vh #262626;
 }
 
 .market-item:nth-child(1) { background-color: #ddddb9; }
@@ -635,9 +635,11 @@ Market
 .market-item:nth-child(4) { background-color: #f0e0e0; }
 .market-item:nth-child(5) { background-color: #84f09e; }
 .market-item:nth-child(6) { background-color: #b388c6; }
+.market-item:nth-child(7) { background-color: #613f2a; }
+.market-item:nth-child(8) { background-color: #d96072; }
+.market-item:nth-child(9) { background-color: #b1078e; }
 
 /* Hover */
-
 .market-hover {
    position: absolute;
    top: 0;
@@ -1462,3 +1464,28 @@ Quests
    width: 18vh;
    font-size: 2.5vh;
 }
+
+#help-about-copyright {
+   font-size: 3vh;
+   font-weight: 300;
+   overflow-y:scroll;
+}
+
+table {
+   border-collapse: collapse;
+   width: 100%;
+   font-size: 2.5vh;
+   table-layout: fixed;
+}
+
+td, th {
+   border: .2vh solid #eee;
+   border-radius: .2vh;
+   padding: .5vh;
+   width: 25%;
+   color: #666;
+}
+
+td { font-weight: 100; }
+th { color: #aaa; }
+tr:nth-child(even) { background-color: #eee; }
