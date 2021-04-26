@@ -109,7 +109,7 @@ let initalMarketData = {
    seedCost: Math.floor(Math.random() * (10000 - 2000)) + 2000,
 }
 let initalSettings = {
-   theme: "dark",
+   theme: "light",
    intro: "unfinished",
 }
 let initalTaskList = {
@@ -165,8 +165,8 @@ function harvest(veg) {
    let hrvstID = "harvest" + veg;
    plotStatus[veg.toLowerCase()] = "empty";
    produce[veg.toLowerCase()]++;
-   hideObj(`#${hrvstID}`);
-   showObj(`#${plntID}`);
+   document.querySelector(`#${hrvstID}`).disabled = true;
+   document.querySelector(`#${plntID}`).disabled = false;
    marketData.seeds++;
    harvestLuck(veg);
    if (weather.rainy === true) { produce[veg.toLowerCase()]++; }
@@ -178,7 +178,7 @@ function plant(veg, timeOne, timeTwo) {
    else { plotStatus[veg + "Ready"] = currentTime + timeTwo; }
    plotStatus[veg] = "working";
    timeLeft(timeTwo, veg.toLowerCase());
-   hideObj("#grow" + capitalize(veg));
+   document.querySelector("#grow" + capitalize(veg)).disabled = true;
 }
 function fertilize(veg) {
    if (marketData.fertilizers >= 1) {
@@ -195,11 +195,11 @@ function plantLoop(veg, pltNumber, url, readyTime) {
    setInterval(vegStatus, 1000);
    function vegStatus() {
       timeLeft(readyTime, veg);
-      if (plotStatus[veg] === "working") { hideObj("#harvest" + capitalize(veg)); hideObj("#grow" + capitalize(veg)); }
-      if (plotStatus[veg] === "empty") { hideObj("#harvest" + capitalize(veg)); showObj("#grow" + capitalize(veg)); }
+      if (plotStatus[veg] === "working") { document.querySelector("#harvest" + capitalize(veg)).disabled = true; document.querySelector("#grow" + capitalize(veg)).disabled = true; }
+      if (plotStatus[veg] === "empty") { document.querySelector("#harvest" + capitalize(veg)).disabled = true; document.querySelector("#grow" + capitalize(veg)).disabled = false; }
       if (Date.now() >= plotStatus[veg + "Ready"]) {
          vegPlot.style.backgroundImage = String(imgUrl);
-         showObj("#harvest" + capitalize(veg));
+         document.querySelector("#harvest" + capitalize(veg)).disabled = false;
          plotStatus[veg + "Growing"] = Infinity;
       }
       else if (Date.now() >= plotStatus[veg + "Growing"]) { vegPlot.style.backgroundImage = "url(Images/Plots/growing.png)"; }
@@ -221,7 +221,7 @@ function detailedPlant(veg, timeOne, timeTwo, timeThree) {
    else { plotStatus[veg + "Ready"] = currentTime + timeThree; }
    plotStatus[veg] = "working";
    timeLeft(timeThree, veg.toLowerCase());
-   hideObj(`#grow${capitalize(veg)}`);
+   document.querySelector("#grow" + capitalize(veg)).disabled = true;
 }
 function detailedPlantLoop(veg, pltNumber, urlOne, urlTwo, urlThree, readyTime) {
    let vegetable = veg;
@@ -229,10 +229,13 @@ function detailedPlantLoop(veg, pltNumber, urlOne, urlTwo, urlThree, readyTime) 
    setInterval(detailedPlantStatus, 1000);
    function detailedPlantStatus() {
       timeLeft(readyTime, veg);
-      if (plotStatus[veg]  === "working") { hideObj(`#harvest${capitalize(veg)}`); hideObj(`#grow${capitalize(veg)}`); }
+      if (plotStatus[veg]  === "working") {
+         document.querySelector("#harvest" + capitalize(veg)).disabled = true;
+         document.querySelector("#grow" + capitalize(veg)).disabled = true;
+      }
       if (Date.now() >= plotStatus[veg + "Ready"]) {
          plotImg.style.backgroundImage = `url(Images/${urlThree})`;
-         showObj(`#harvest${capitalize(veg)}`);
+         document.querySelector("#harvest" + capitalize(veg)).disabled = false;
          plotStatus[veg + "Flowering"] = Infinity;
       }
       else if (Date.now() >= plotStatus[veg + "Flowering"]) { plotImg.style.backgroundImage = `url(Images/${urlTwo})`; plotStatus[veg + "Growing"] = Infinity; }
@@ -551,17 +554,11 @@ function harvestLuck(veg) {
 }
 function marketLuck() {
    rand = Math.random();
-   if (rand < 0.01) {
-      marketData.marketResets++;
-      callAlert(`You collected a market reset! You now have ${marketData.marketResets}`);
-   }
+   if (rand < 0.01) { marketData.marketResets++; }
 }
 function blackMarketLuck() {
    rand = Math.random();
-   if (rand < 0.02) {
-      callAlert("The police caught you! They fined you 6000 Seeds");
-      marketData.seeds -= 6000;
-   }
+   if (rand < 0.02) { marketData.seeds -= 6000; }
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -582,10 +579,7 @@ let luckyRoll = window.setInterval(function() {
    rand = Math.random();
    let vegLost = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
    let amountLost = Math.floor(produce[vegLost] / 3);
-   if (rand < .08) {
-      produce[vegLost] -= amountLost;
-      callAlert(`It snowed! You lost ${amountLost} of your ${vegLost}!`);
-    }
+   if (rand < .08) { produce[vegLost] -= amountLost; }
 }, 300000)
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -605,12 +599,12 @@ function unlockPlot(plotNum) {
    if (marketData.seeds >= plots["price" + plotNum]) {
       marketData.seeds -= plots["price" + plotNum];
       marketData.marketResets++;
-      if (number == "2") { setTimeout(() => { openLock("corn", 2); infoModal('UnlockedCorn'); }, 2500); document.getElementById("lock2").classList.add("removing-lock"); }
-      if (number == "3") { setTimeout(() => { openLock("strawberry", 3); infoModal('UnlockedStrawberry'); }, 2500); document.getElementById("lock3").classList.add("removing-lock"); }
-      if (number == "4") { setTimeout(() => { openLock("eggplant", 4); infoModal('UnlockedEggplant'); }, 2500); document.getElementById("lock4").classList.add("removing-lock"); }
-      if (number == "6") { setTimeout(() => { openLock("pumpkin", 6); infoModal('UnlockedPumpkin'); }, 2500); document.getElementById("lock6").classList.add("removing-lock"); }
-      if (number == "7") { setTimeout(() => { openLock("cabbage", 7); infoModal('UnlockedCabbage'); }, 2500); document.getElementById("lock7").classList.add("removing-lock"); }
-      if (number == "8") { setTimeout(() => { openLock("dandelion", 8); infoModal('UnlockedDandelion'); }, 2500); document.getElementById("lock8").classList.add("removing-lock"); }
+      if (number == "2") { setTimeout(() => { openLock("corn", 2); }, 2500); document.getElementById("lock2").classList.add("removing-lock"); }
+      if (number == "3") { setTimeout(() => { openLock("strawberry", 3); }, 2500); document.getElementById("lock3").classList.add("removing-lock"); }
+      if (number == "4") { setTimeout(() => { openLock("eggplant", 4); }, 2500); document.getElementById("lock4").classList.add("removing-lock"); }
+      if (number == "6") { setTimeout(() => { openLock("pumpkin", 6); }, 2500); document.getElementById("lock6").classList.add("removing-lock"); }
+      if (number == "7") { setTimeout(() => { openLock("cabbage", 7); }, 2500); document.getElementById("lock7").classList.add("removing-lock"); }
+      if (number == "8") { setTimeout(() => { openLock("dandelion", 8); }, 2500); document.getElementById("lock8").classList.add("removing-lock"); }
    }
    else { fadeTextAppear(event, `Not enough seeds`, false); }
 }
@@ -623,7 +617,7 @@ function openLock(vegetable, num) {
    if (vegetable === "eggplant") { document.getElementById("lock6Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price6, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(6)">Purchase Plot</button>`; }
    if (vegetable === "pumpkin") { document.getElementById("lock7Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price7, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(7)">Purchase Plot</button>`; }
    if (vegetable === "cabbage") { document.getElementById("lock8Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price8, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(8)">Purchase Plot</button>`; }
-   if (vegetable === "dandelion") { document.getElementById("lock9Text").innerHTML = `This plot is locked <br> Pay your soul to unlock <br> <button class="purchase-plot" onclick="callAlert('Error: Not signed into SoulPay+')">Requires SoulPay+</button>`; }
+   if (vegetable === "dandelion") { document.getElementById("lock9Text").innerHTML = `This plot is locked <br> Pay your soul to unlock <br> <button class="purchase-plot">Requires SoulPay+</button>`; }
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -666,23 +660,16 @@ function intro() {
    }
    function planting() {
       if (introData.planting === false) {
-         introText.textContent = "Farmin' is as easy as anything nowadays, with all this modern technology. Just press Grow Peas, and when it's done, press Harvest Peas!";
-         document.querySelector(".plant-quest-arrow").style.display = "block";
-         document.getElementById("plot1").style.zIndex = "100";
+         introText.textContent = "Farmin' is as easy as anything nowadays, with all this modern technology. Just press the plant button, and when it's done, the harvest button Peas!";
          introData.planting = true;
       }
-      else {
-         document.querySelector(".plant-quest-arrow").style.display = "none";
-         document.getElementById("plot1").style.zIndex = "0";
-         sidebar();
-      }
+      else { sidebar(); }
    }
    function sidebar() {
       if (introData.produceBar === false) {
          $(".intro-img").attr("src", "Images/Tasks/farmer.png");
-         introText.textContent = "This bar shows the amount of seeds and produce you have, so you can keep track of how your farm is going.";
-         document.querySelector(".produce").style.zIndex = "1";
-         introBlock.style.width = "90%";
+         introText.textContent = "This bar is where you control the farm.";
+         document.querySelector(".command-panel").style.zIndex = "1";
          introData.produceBar = true;
       }
       else { meetGran(); }
@@ -691,8 +678,6 @@ function intro() {
       if (introData.meetGran === false) {
          $(".intro-img").attr("src", "Images/Tasks/granny.png");
          introText.textContent = "Nice to meet you. I'm Grandma Josephine, and I'm here to teach you economics.";
-         document.querySelector(".produce").style.zIndex = "0";
-         introBlock.style.width = "auto";
          introData.meetGran = true;
       }
       else { market(); }
@@ -700,9 +685,6 @@ function intro() {
    function market() {
       if (introData.market === false) {
          introText.textContent = "This is the market, were you can gain seeds by selling produce, which are useful for many things, like opening more plots.";
-         introBlock.style.left = "60vh";
-         document.querySelector(".command-panel").style.zIndex = "9999";
-         commandBar();
          introData.market = true;
       }
       else { tasks(); }
@@ -711,7 +693,6 @@ function intro() {
       if (introData.tasks === false) {
          $(".intro-img").attr("src", "Images/Tasks/farmer.png");
          introText.textContent = "This little ribbon opens to show Tasks, where you can get rewards for doing chores around the farm.";
-         introBlock.style.left = "2.5vh";
          document.querySelector(".command-panel").style.zIndex = "0";
          document.querySelector(".quests").style.zIndex = "9999";
          introData.tasks = true;
@@ -859,18 +840,9 @@ let mainLoop = window.setInterval(function() {
    giveTasks();
    showTasks();
    checkMarket();
-   updateModalMarketPrices("Corn");
-   updateModalMarketPrices("Peas");
-   updateModalMarketPrices("Strawberries");
-   updateModalMarketPrices("Eggplants");
-   updateModalMarketPrices("Pumpkins");
-   updateModalMarketPrices("Cabbage");
-   updateModalMarketPrices("Dandelion");
-   function updateModalMarketPrices(veg) {
-      document.querySelector(`.modal${veg}PriceBuy`).textContent = `Buy For ${toWord(marketData[`buy${veg}`], "short")}`;
-      document.querySelector(`.modal${veg}PriceSell`).textContent = `Sell For ${toWord(marketData[`sell${veg}`], "short")}`;
-   }
    // Update produce display
+   document.querySelector("#seeds").style.display = "inline-block";
+   document.querySelector("#fertilizer").style.display = "inline-block";
    document.querySelector("#seeds").textContent = `${toWord(marketData.seeds, "short")} Seeds`;
    document.querySelector("#fertilizer").textContent = `${Math.round(marketData.fertilizers)} Fertilizers`;
    if (plots.peaplot === "unlocked") { revealProduce("#peaBushels", "peas"); }
@@ -881,7 +853,7 @@ let mainLoop = window.setInterval(function() {
    if (plots.cabbageplot === "unlocked") { revealProduce("#cabbageBushels", "cabbage"); }
    if (plots.dandelionplot === "unlocked") { revealProduce("#dandelionBushels", "dandelion"); }
    function revealProduce(id, veg) {
-      document.querySelector(".produce-tooltip-" + veg).style.display = "inline-block";
+      document.querySelector(id).style.display = "inline-block";
       document.querySelector(id).textContent = `${toWord(produce[veg], "short")} Bushels of ${capitalize(veg)}`;
    }
    if (plots.cornplot === "unlocked") { checkTasks("cornPlotUnlocked", "unlockThe_cornPlot"); }
@@ -917,16 +889,6 @@ function genColor() {
    let color = '#';
    for (let i = 0; i < 6; i++) { let index = rand(0, 15); color += hex[index]; }
    return color;
-}
-function callAlert(text) {
-   // Isn't it just great copying the code from other projects?
-   let alert = document.querySelector(".alert");
-   alert.style.opacity = "1";
-   alert.style.pointerEvents = "auto";
-   alert.textContent = text;
-   setTimeout(alertAnimation => { document.querySelector('.alert').classList.add('alertAnimation'); }, 6000);
-   setTimeout(removeAnimation => { document.querySelector('.alert').classList.remove('alertAnimation'); }, 9000);
-   setTimeout(hideAlerts => { alert.style.opacity = "0"; alert.style.pointerEvents = "none"; }, 9000);
 }
 function timeLeft(time, veg) {
    if (!Number.isFinite(plotStatus[veg + "Ready"])) { return; }
@@ -981,26 +943,6 @@ function questbar() {
       document.querySelector(".quests").style.left = "-80vh";
       document.querySelector(".questShadow").style.display = "none";
       questbarIsOpen = true;
-   }
-}
-function openCommands() {
-   if (document.querySelector(".commandsShadow").style.opacity === "0") { showObj(".commandsShadow"); }
-   else { hideObj(".commandsShadow"); }
-}
-function commandBar() {
-   if (document.querySelectorAll(".commandBarImg")[0].style.display === "inline-block") {
-      document.querySelectorAll(".commandBarImg")[0].style.display = "none";
-      document.querySelectorAll(".commandBarImg")[1].style.display = "none";
-      document.querySelectorAll(".commandBarImg")[2].style.display = "none";
-      document.querySelector(".slider").style.backgroundColor = "#cb9e00";
-      document.querySelector(".slider").style.transform = "rotate(0)";
-   }
-   else {
-      document.querySelectorAll(".commandBarImg")[0].style.display = "inline-block";
-      document.querySelectorAll(".commandBarImg")[1].style.display = "inline-block";
-      document.querySelectorAll(".commandBarImg")[2].style.display = "inline-block";
-      document.querySelector(".slider").style.backgroundColor = "#ffca18";
-      document.querySelector(".slider").style.transform = "rotate(180deg)";
    }
 }
 
@@ -1093,15 +1035,15 @@ function whatTheme() {
    else { darkTheme(); }
 }
 function darkTheme() {
-   document.querySelector('.produce').style.backgroundColor = '#111';
+   document.querySelector('.command-panel').style.backgroundColor = '#111';
    settings.theme = "dark";
 }
 function randTheme() {
-   document.querySelector('.produce').style.backgroundColor = genColor();
+   document.querySelector('.command-panel').style.backgroundColor = genColor();
    settings.theme = "random";
 }
 function light() {
-   document.querySelector('.produce').style.backgroundColor = '#f5f5f5';
+   document.querySelector('.command-panel').style.backgroundColor = '#f5f5f5';
    settings.theme = "light";
 }
 
@@ -1110,20 +1052,20 @@ function light() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 let saveLoop = window.setInterval(function() {
-   localStorage.setItem("plotStatus", JSON.stringify(plotStatus, replacer));
-   localStorage.setItem("produce", JSON.stringify(produce, replacer));
-   localStorage.setItem("plots", JSON.stringify(plots, replacer));
-   localStorage.setItem("marketData", JSON.stringify(marketData, replacer));
-   localStorage.setItem("settingData", JSON.stringify(settings, replacer));
-   localStorage.setItem("taskList", JSON.stringify(taskList, replacer));
+   localStorage.setItem("plotStatusMobile", JSON.stringify(plotStatus, replacer));
+   localStorage.setItem("produceMobile", JSON.stringify(produce, replacer));
+   localStorage.setItem("plotsMobile", JSON.stringify(plots, replacer));
+   localStorage.setItem("marketDataMobile", JSON.stringify(marketData, replacer));
+   localStorage.setItem("settingDataMobile", JSON.stringify(settings, replacer));
+   localStorage.setItem("taskListMobile", JSON.stringify(taskList, replacer));
 }, 1000)
 
-plotStatus = JSON.parse(localStorage.getItem("plotStatus"));
-produce = JSON.parse(localStorage.getItem("produce"));
-plots = JSON.parse(localStorage.getItem("plots"));
-marketData = JSON.parse(localStorage.getItem("marketData"));
-settings = JSON.parse(localStorage.getItem("settingData"));
-taskList = JSON.parse(localStorage.getItem("taskList"));
+plotStatus = JSON.parse(localStorage.getItem("plotStatusMobile"));
+produce = JSON.parse(localStorage.getItem("produceMobile"));
+plots = JSON.parse(localStorage.getItem("plotsMobile"));
+marketData = JSON.parse(localStorage.getItem("marketDataMobile"));
+settings = JSON.parse(localStorage.getItem("settingDataMobile"));
+taskList = JSON.parse(localStorage.getItem("taskListMobile"));
 
 if (!settings || (settings.intro != "finished")) { runIntro(); }
 
@@ -1133,18 +1075,18 @@ function restart() {
       let areYouReallySure = confirm("Are you REALLY SURE you want to restart? There is no going back!");
       if (areYouReallySure === true) {
          // Save
-         localStorage.setItem("plotStatus", JSON.stringify(initalPlotStatus, replacer));
-         localStorage.setItem("produce", JSON.stringify(initalProduce, replacer));
-         localStorage.setItem("plots", JSON.stringify(initalPlots, replacer));
-         localStorage.setItem("marketData", JSON.stringify(initalMarketData, replacer));
-         localStorage.setItem("settingData", JSON.stringify(initalSettings, replacer));
-         localStorage.setItem("taskList", JSON.stringify(initalTaskList, replacer));
-         plotStatus = JSON.parse(localStorage.getItem("plotStatus"));
-         produce = JSON.parse(localStorage.getItem("produce"));
-         plots = JSON.parse(localStorage.getItem("plots"));
-         marketData = JSON.parse(localStorage.getItem("marketData"));
-         settings = JSON.parse(localStorage.getItem("settingData"));
-         taskList = JSON.parse(localStorage.getItem("taskList"));
+         localStorage.setItem("plotStatusMobile", JSON.stringify(initalPlotStatus, replacer));
+         localStorage.setItem("produceMobile", JSON.stringify(initalProduce, replacer));
+         localStorage.setItem("plotsMobile", JSON.stringify(initalPlots, replacer));
+         localStorage.setItem("marketDataMobile", JSON.stringify(initalMarketData, replacer));
+         localStorage.setItem("settingDataMobile", JSON.stringify(initalSettings, replacer));
+         localStorage.setItem("taskListMobile", JSON.stringify(initalTaskList, replacer));
+         plotStatus = JSON.parse(localStorage.getItem("plotStatusMobile"));
+         produce = JSON.parse(localStorage.getItem("produceMobile"));
+         plots = JSON.parse(localStorage.getItem("plotsMobile"));
+         marketData = JSON.parse(localStorage.getItem("marketDataMobile"));
+         settings = JSON.parse(localStorage.getItem("settingDataMobile"));
+         taskList = JSON.parse(localStorage.getItem("taskListMobile"));
          // Reload
          location.reload();
       }
@@ -1173,5 +1115,5 @@ for (key of initalMarketDataKeys) { if (marketData[key] === undefined) { marketD
 for (key of initalSettingsKeys) { if (settings[key] === undefined) { settings[key] = initalSettings[key]; } }
 for (key of initalTaskListKeys) { if (taskList[key] === undefined) { taskList[key] = initalTaskList[key]; } }
 
-if (isMobile()) { document.location = "mobile.html"; }
+if (!isMobile()) { document.location = "index.html"; }
 function isMobile() { return ('ontouchstart' in document.documentElement); }

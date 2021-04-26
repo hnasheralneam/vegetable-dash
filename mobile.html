@@ -10,7 +10,7 @@
       <script src="https://squirrel-314.github.io/numtoword/main.js" charset="utf-8"></script>
       <!-- Favicon (Thanks, Justin) -->
       <link rel="shortcut icon" href="Images/Global Assets/favicon.png" type="image/x-icon">
-      <link rel="stylesheet" href="styles.css">
+      <link rel="stylesheet" href="mobile.css">
       <title>Vegetable Dash!</title>
    </head>
    <body>
@@ -18,48 +18,58 @@
       <div class="land">
          <!-- Pea Plot -->
          <div class="plot" id="plot1">
-            <img class="quest-arrow plant-quest-arrow" src="Images/Tasks/arrow.png" alt="Arrow">
-            <span class="ahh-perspective">
-               <button class="grow-button" id="growPeas" onclick="plant('peas', 2000, 5000)">Grow Peas!</button>
-               <button class="harvest-button" id="harvestPeas" onclick="harvest('Peas')">Harvest Peas!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button>
-            </span>
-            <div class="countdown time-left">
-               <span class="peas-time-left">00:00:00</span>
-               <img src="Images/Global Assets/clock.png" alt="Time Remaining">
+            <div class="plant-toolbar">
+               <button class="small-plant-button">
+                  <img onclick="infoModal('Peas')" class="veg-icon" src="Images/Vegetables/Peas/pea.png" alt="">
+               </button>
+               <button class="grow-button" id="growPeas" onclick="plant('peas', 2000, 5000)">
+                  <img src="Images/Global Assets/grow.png" alt="Grow">
+               </button>
+               <button class="harvest-button" id="harvestPeas" onclick="harvest('Peas')" disabled>
+                  <img src="Images/Global Assets/harvest.png" alt="Harvest">
+               </button>
+               <button class="small-plant-button time-left-container">
+                  <span class="peas-time-left">00:00:00</span>
+                  <img src="Images/Global Assets/clock.png" alt="Time Remaining">
+               </button>
             </div>
+
             <!-- Pea Info -->
-            <img onclick="infoModal('Peas')" class="veg-icon" src="Images/Vegetables/Peas/pea.png" alt="">
             <div id="infoPeas" class="veg-info">
                <div class="modal-content">
                   <button onclick="infoModal('Peas')" class="close depth-button green">×</button>
                   <button onclick="fertilize('peas')" class="fertilize depth-button green" title="Fertilize"><img src="Images/Global Assets/fertilizer.png" alt="Fertilizer"></button>
                   <h4>Peas <img class="info-icon" src="Images/Vegetables/Peas/pea.png" alt=""></h4>
                   <p>Peas are a climbing vine in the legume family. <br> These peas take 5 seconds to grow.</p>
-                  <div class="modal-market-prices">
-                     <div class="modalPeasPriceBuy">Buy For</div>
-                     <div class="modalPeasPriceSell">Sell For</div>
-                  </div>
                </div>
             </div>
          </div>
          <!-- Corn Plot -->
          <div class="plot" id="plot2">
             <div class="lock-tooltip" id="lockedDiv2">
-               <img id="lock2" class="locked" src="Images/Lock/lock.png" alt="Locked">
-               <span class="tooltiptext">This plot is locked <br> Pay 150 Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(2)">Purchase Plot</button></span>
+               <img id="lock2" class="locked" src="Images/Lock/lock.png" alt="Locked"><br>
+               <p>This plot is locked <br> Pay 150 Seeds to unlock</p><br>
+               <button class="purchase-plot" onclick="unlockPlot(2)">Purchase Plot</button>
             </div>
             <div class="open-plot" id="openPlot2">
-               <img class="veg-icon" src="Images/Vegetables/Corn/corn.png" alt="">
-               <span class="ahh-perspective">
-                  <button class="grow-button" id="growCorn" onclick="plant('corn', 8000, 12000)">Grow Corn!</button>
-                  <button class="harvest-button" id="harvestCorn" onclick="harvest('Corn')">Harvest Corn!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button>
-               </span>
-               <div class="countdown time-left">
-                  <span class="corn-time-left">00:00:00</span>
-                  <img src="Images/Global Assets/clock.png" alt="Time Remaining">
+               <div class="plant-toolbar">
+                  <button class="small-plant-button">
+                     <img onclick="infoModal('Corn')" class="veg-icon" src="Images/Vegetables/Corn/corn.png" alt="">
+                  </button>
+                  <button class="grow-button" id="growCorn" onclick="plant('corn', 8000, 12000)">
+                     <img src="Images/Global Assets/grow.png" alt="Grow">
+                  </button>
+                  <button class="harvest-button" id="harvestCorn" onclick="harvest('Corn')" disabled>
+                     <img src="Images/Global Assets/harvest.png" alt="Harvest">
+                  </button>
+                  <button class="small-plant-button time-left-container">
+                     <!-- Make Hover -->
+                     <span class="corn-time-left">00:00:00</span>
+                     <img src="Images/Global Assets/clock.png" alt="Time Remaining">
+                  </button>
                </div>
+
                <!-- Corn Info -->
-               <img onclick="infoModal('Corn')" class="veg-icon" src="Images/Vegetables/Corn/corn.png" alt="">
                <div id="infoCorn" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Corn')" class="close depth-button yellow">×</button>
@@ -72,34 +82,33 @@
                      </div>
                   </div>
                </div>
-               <!-- Corn Unlocked -->
-               <div id="infoUnlockedCorn" class="veg-info">
-                  <div class="modal-content modal-plot-unlocked">
-                     <button onclick="infoModal('UnlockedCorn')" class="close depth-button yellow">×</button>
-                     <h4>New Plot Unlocked!</h4>
-                     <p class="unlocked-text">+1 Market Reset!</p>
-                     <p class="unlocked-text">+ Corn Tasks!</p>
-                     <p class="unlocked-text">+ Growing Corn!</p>
-                     <p class="unlocked-text">+ Corn in Market!</p>
-                  </div>
-               </div>
             </div>
          </div>
          <!-- Strawberry Plot -->
          <div class="plot" id="plot3">
             <div class="lock-tooltip" id="lockedDiv3">
-               <img id="lock3" class="locked" src="Images/Lock/lock.png" alt="Locked">
+               <img id="lock3" class="locked" src="Images/Lock/lock.png" alt="Locked"><br>
                <span class="tooltiptext" id="lock3Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot3">
-               <span class="ahh-perspective"><button class="grow-button" id="growStrawberries" onclick="detailedPlant('strawberries', 20000, 60000, 120000)">Grow Strawberries!</button>
-               <button class="harvest-button" id="harvestStrawberries" onclick="harvest('Strawberries')">Harvest Strawberries!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button></span>
-               <div class="countdown time-left">
-                  <span class="strawberries-time-left">00:00:00</span>
-                  <img src="Images/Global Assets/clock.png" alt="Time Remaining">
+               <div class="plant-toolbar">
+                  <button class="small-plant-button">
+                     <img onclick="infoModal('Strawberry')" class="veg-icon" src="Images/Fruits/Strawberries/strawberry.png" alt="">
+                  </button>
+                  <button class="grow-button" id="growStrawberries" onclick="detailedPlant('strawberries', 20000, 60000, 120000)">
+                     <img src="Images/Global Assets/grow.png" alt="Grow">
+                  </button>
+                  <button class="harvest-button" id="harvestStrawberries" onclick="harvest('Strawberries')" disabled>
+                     <img src="Images/Global Assets/harvest.png" alt="Harvest">
+                  </button>
+                  <button class="small-plant-button time-left-container">
+                     <!-- Make Hover -->
+                     <span class="strawberries-time-left">00:00:00</span>
+                     <img src="Images/Global Assets/clock.png" alt="Time Remaining">
+                  </button>
                </div>
+
                <!-- Strawberry Info -->
-               <img onclick="infoModal('Strawberry')" class="veg-icon" src="Images/Fruits/Strawberries/strawberry.png" alt="">
                <div id="infoStrawberry" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Strawberry')" class="close depth-button red">×</button>
@@ -112,36 +121,33 @@
                      </div>
                   </div>
                </div>
-               <!-- Unlocked -->
-               <div id="infoUnlockedStrawberry" class="veg-info">
-                  <div class="modal-content modal-plot-unlocked">
-                     <button onclick="infoModal('UnlockedStrawberry')" class="close depth-button red">×</button>
-                     <h4>New Plot Unlocked!</h4>
-                     <p class="unlocked-text">+1 Market Reset!</p>
-                     <p class="unlocked-text">+ Strawberry Tasks!</p>
-                     <p class="unlocked-text">+ Growing Strawberries!</p>
-                     <p class="unlocked-text">+ Strawberries in Market!</p>
-                  </div>
-               </div>
             </div>
          </div>
+      </div>
+      <div class="land">
          <!-- Eggplant Plot -->
          <div class="plot" id="plot4">
             <div class="lock-tooltip" id="lockedDiv4">
-               <img id="lock4" class="locked" src="Images/Lock/lock.png" alt="Locked">
+               <img id="lock4" class="locked" src="Images/Lock/lock.png" alt="Locked"><br>
                <span class="tooltiptext" id="lock4Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot4">
-               <span class="ahh-perspective">
-                  <button class="grow-button" id="growEggplants" onclick="plant('eggplants', 120000, 480000)">Grow Eggplants!</button>
-                  <button class="harvest-button" id="harvestEggplants" onclick="harvest('Eggplants')">Harvest Eggplants!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button>
-               </span>
-               <div class="countdown time-left">
-                  <span class="eggplants-time-left">00:00:00</span>
-                  <img src="Images/Global Assets/clock.png" alt="Time Remaining">
+               <div class="plant-toolbar">
+                  <button class="small-plant-button">
+                     <img onclick="infoModal('Eggplant')" class="veg-icon" src="Images/Vegetables/Eggplant/dark.png" alt="">
+                  </button>
+                  <button class="grow-button" id="growEggplants" onclick="plant('eggplants', 120000, 480000)">
+                     <img src="Images/Global Assets/grow.png" alt="Grow">
+                  </button>
+                  <button class="harvest-button" id="harvestEggplants" onclick="harvest('Eggplants')" disabled>
+                     <img src="Images/Global Assets/harvest.png" alt="Harvest">
+                  </button>
+                  <button class="small-plant-button time-left-container">
+                     <span class="eggplants-time-left">00:00:00</span>
+                     <img src="Images/Global Assets/clock.png" alt="Time Remaining">
+                  </button>
                </div>
                <!-- Eggplant Info -->
-               <img onclick="infoModal('Eggplant')" class="veg-icon" src="Images/Vegetables/Eggplant/dark.png" alt="">
                <div id="infoEggplant" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Eggplant')" class="close depth-button purple">×</button>
@@ -170,7 +176,7 @@
          <!-- Center Plot -->
          <div class="plot" id="plot5">
             <div class="lock-tooltip" id="lockedDiv5">
-               <img id="lock5" class="locked" src="Images/Lock/lock.png" alt="Locked">
+               <img id="lock5" class="locked" src="Images/Lock/lock.png" alt="Locked"><br>
                <span class="tooltiptext"><br>This plot is locked <br> Purchase all other plots to unlock<br><br></span>
             </div>
             <div class="open-plot" id="openPlot5">
@@ -196,20 +202,26 @@
          <!-- Pumpkin Plot -->
          <div class="plot" id="plot6">
             <div class="lock-tooltip" id="lockedDiv6">
-               <img id="lock6" class="locked" src="Images/Lock/lock.png" alt="Locked">
+               <img id="lock6" class="locked" src="Images/Lock/lock.png" alt="Locked"><br>
                <span class="tooltiptext" id="lock6Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot6">
-               <span class="ahh-perspective">
-                  <button class="grow-button" id="growPumpkins" onclick="plant('pumpkins', 300000, 600000)">Grow Pumpkins!</button>
-                  <button class="harvest-button" id="harvestPumpkins" onclick="harvest('Pumpkins')">Harvest Pumpkins!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button>
-               </span>
-               <div class="countdown time-left">
-                  <span class="pumpkins-time-left">00:00:00</span>
-                  <img src="Images/Global Assets/clock.png" alt="Time Remaining">
+               <div class="plant-toolbar">
+                  <button class="small-plant-button">
+                     <img onclick="infoModal('Pumpkins')" class="veg-icon" src="Images/Vegetables/Pumpkins/pumpkin.png" alt="">
+                  </button>
+                  <button class="grow-button" id="growPumpkins" onclick="plant('pumpkins', 300000, 600000)">
+                     <img src="Images/Global Assets/grow.png" alt="Grow">
+                  </button>
+                  <button class="harvest-button" id="harvestPumpkins" onclick="harvest('Pumpkins')" disabled>
+                     <img src="Images/Global Assets/harvest.png" alt="Harvest">
+                  </button>
+                  <button class="small-plant-button time-left-container">
+                     <span class="pumpkins-time-left">00:00:00</span>
+                     <img src="Images/Global Assets/clock.png" alt="Time Remaining">
+                  </button>
                </div>
                <!-- Pumpkins Info -->
-               <img onclick="infoModal('Pumpkins')" class="veg-icon" src="Images/Vegetables/Pumpkins/pumpkin.png" alt="Pumpkin">
                <div id="infoPumpkins" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Pumpkins')" class="close depth-button orange">×</button>
@@ -235,24 +247,32 @@
                </div>
             </div>
          </div>
+      </div>
+      <div class="land">
          <!-- Cabbage Plot -->
          <div class="plot" id="plot7">
             <div class="lock-tooltip" id="lockedDiv7">
-               <img id="lock7" class="locked" src="Images/Lock/lock.png" alt="Locked">
+               <img id="lock7" class="locked" src="Images/Lock/lock.png" alt="Locked"><br>
                <span class="tooltiptext" id="lock7Text">This plot is locked <br> Purchase the previous plot to unlock<br></span>
             </div>
             <!-- Open Plot -->
             <div class="open-plot" id="openPlot7">
-               <span class="ahh-perspective">
-                  <button class="grow-button" id="growCabbage" onclick="plant('cabbage', 1800000, 3600000)">Grow Cabbage!</button>
-                  <button class="harvest-button" id="harvestCabbage" onclick="harvest('Cabbage')">Harvest Cabbage!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button>
-               </span>
-               <div class="countdown time-left">
-                  <span class="cabbage-time-left">00:00:00</span>
-                  <img src="Images/Global Assets/clock.png" alt="Time Remaining">
+               <div class="plant-toolbar">
+                  <button class="small-plant-button">
+                     <img onclick="infoModal('Cabbage')" class="veg-icon" src="Images/Vegetables/Cabbage/cabbage.png" alt="">
+                  </button>
+                  <button class="grow-button" id="growCabbage" onclick="plant('cabbage', 1800000, 3600000)">
+                     <img src="Images/Global Assets/grow.png" alt="Grow">
+                  </button>
+                  <button class="harvest-button" id="harvestCabbage" onclick="harvest('Cabbage')" disabled>
+                     <img src="Images/Global Assets/harvest.png" alt="Harvest">
+                  </button>
+                  <button class="small-plant-button time-left-container">
+                     <span class="cabbage-time-left">00:00:00</span>
+                     <img src="Images/Global Assets/clock.png" alt="Time Remaining">
+                  </button>
                </div>
                <!-- Information -->
-               <img onclick="infoModal('Cabbage')" class="veg-icon" src="Images/Vegetables/Cabbage/cabbage.png" alt="Cabbage">
                <div id="infoCabbage" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Cabbage')" class="close depth-button green">×</button>
@@ -281,18 +301,26 @@
          <!-- Dandelion Plot -->
          <div class="plot" id="plot8">
             <div class="lock-tooltip" id="lockedDiv8">
-               <img id="lock8" class="locked" src="Images/Lock/lock.png" alt="Locked">
+               <img id="lock8" class="locked" src="Images/Lock/lock.png" alt="Locked"><br>
                <span class="tooltiptext" id="lock8Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot8">
-               <span class="ahh-perspective"><button class="grow-button" id="growDandelion" onclick="detailedPlant('dandelion', 5400000, 5400000, 10800000)">Grow Dandelion!</button>
-               <button class="harvest-button" id="harvestDandelion" onclick="harvest('Dandelion')">Harvest Dandelion<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button></span>
-               <div class="countdown time-left">
-                  <span class="dandelion-time-left">00:00:00</span>
-                  <img src="Images/Global Assets/clock.png" alt="Time Remaining">
+               <div class="plant-toolbar">
+                  <button class="small-plant-button">
+                     <img onclick="infoModal('Dandelion')" class="veg-icon" src="Images/Vegetables/Dandelion/dandelion.png" alt="">
+                  </button>
+                  <button class="grow-button" id="growDandelion" onclick="detailedPlant('dandelion', 5400000, 5400000, 10800000)">
+                     <img src="Images/Global Assets/grow.png" alt="Grow">
+                  </button>
+                  <button class="harvest-button" id="harvestDandelion" onclick="harvest('Dandelion')" disabled>
+                     <img src="Images/Global Assets/harvest.png" alt="Harvest">
+                  </button>
+                  <button class="small-plant-button time-left-container">
+                     <span class="dandelion-time-left">00:00:00</span>
+                     <img src="Images/Global Assets/clock.png" alt="Time Remaining">
+                  </button>
                </div>
                <!-- Dandelion Info -->
-               <img onclick="infoModal('Dandelion')" class="veg-icon" src="Images/Vegetables/Dandelion/dandelion.png" alt="">
                <div id="infoDandelion" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Dandelion')" class="close depth-button yellow">×</button>
@@ -321,60 +349,18 @@
          <!-- Plot 9 -->
          <div class="plot" id="plot9">
             <div class="lock-tooltip" id="lockedDiv9">
-               <img id="lock9" class="locked" src="Images/Lock/lock.png" alt="Locked">
+               <img id="lock9" class="locked" src="Images/Lock/lock.png" alt="Locked"><br>
                <span class="tooltiptext" id="lock9Text">This plot is locked <br> Purchase the previous plot to unlock<br></span>
             </div>
          </div>
       </div>
-      <!-- Introduction -->
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+      <!-- Tour -->
       <div class="introDarkShadow">
          <div class="intro-container">
-            <img class="intro-img" src="Images/Tasks/farmer.png" alt="Guide Character Image">
-            <img class="intro-divide" src="Images/Tasks/gold-separator.png" alt="Separator">
             <p class="intro-text">Greetings. I am Farmer Jebediah, and I will be showing you around the farm.</p>
+            <img class="intro-img" src="Images/Tasks/farmer.png" alt="Guide Character Image">
             <span onclick="intro()" class="intro-nxt-btn">&#10230;</span>
-         </div>
-      </div>
-      <!-- Side Panel -->
-      <div class="sidebar">
-         <div class="produce">
-            <div style="display: inline-block;" class="produce-tooltip produce-tooltip-barrel">
-               <img src="Images/Global Assets/barrel.png" alt="">
-               <span id="seeds" class="tooltip-text">Tooltip text</span>
-            </div>
-            <div style="display: inline-block;" class="produce-tooltip produce-tooltip-barrel">
-               <img src="Images/Global Assets/fertilizer.png" alt="">
-               <span id="fertilizer" class="tooltip-text">Tooltip text</span>
-            </div>
-            <div class="produce-tooltip produce-tooltip-peas">
-               <img src="Images/Vegetables/Peas/pea.png" alt="">
-               <span id="peaBushels" class="tooltip-text">Tooltip text</span>
-            </div>
-            <div class="produce-tooltip produce-tooltip-corn">
-               <img src="Images/Vegetables/Corn/corn.png" alt="">
-               <span id="cornBushels" class="tooltip-text">Tooltip text</span>
-            </div>
-            <div class="produce-tooltip produce-tooltip-strawberries">
-               <img src="Images/Fruits/Strawberries/strawberry.png" alt="">
-               <span id="strawberryBushels" class="tooltip-text">Tooltip text</span>
-            </div>
-            <div class="produce-tooltip produce-tooltip-eggplants">
-               <img src="Images/Vegetables/Eggplant/dark.png" alt="">
-               <span id="eggplantBushels" class="tooltip-text">Tooltip text</span>
-            </div>
-            <div class="produce-tooltip produce-tooltip-pumpkins">
-               <img src="Images/Vegetables/Pumpkins/pumpkin.png" alt="">
-               <span id="pumpkinBushels" class="tooltip-text">Tooltip text</span>
-            </div>
-            <div class="produce-tooltip produce-tooltip-cabbage">
-               <img src="Images/Vegetables/Cabbage/cabbage.png" alt="">
-               <span id="cabbageBushels" class="tooltip-text">Tooltip text</span>
-            </div>
-            <div class="produce-tooltip produce-tooltip-dandelion">
-               <img src="Images/Vegetables/Dandelion/dandelion.png" alt="">
-               <span id="dandelionBushels" class="tooltip-text">Tooltip text</span>
-            </div>
-
          </div>
       </div>
       <!-- Welcome -->
@@ -384,7 +370,7 @@
             <h2>An intense experience, with everything a totally awesome game needs, from farmers and crop failures, to soil and vegetables!</h2>
             <button onclick="goIntro()" type="button" name="button">Take a quick tour</button>
             <button onclick="hideObj('.welcome')" type="button" name="button">Start straight away</button>
-
+            <br>
             <p>Questions? Comments? Suggestions? Having trouble? Please contact <a href="mailto:thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a></p>
             <p>Disclaimer: While the game may be called vegetable dash, some plants may not be vegetables botanically, such as peas, corn, ect.</p>
          </div>
@@ -392,7 +378,7 @@
       <!-- Tasks -->
       <div class="questShadow" onclick="questbar()"></div>
       <div class="quests">
-         <img class="quest-ribbon" src="Images/Tasks/short-ribbon.png" alt="Ribbon!" onclick="questbar()">
+         <!-- <img class="quest-ribbon" src="Images/Tasks/short-ribbon.png" alt="Ribbon!" onclick="questbar()"> -->
          <div class="questContent">
             <div class="task-block-parent">
                <div class="task-block task-block-1" onmouseover="taskHover(1)" onmouseleave="taskUnHover(1)">
@@ -438,15 +424,28 @@
       </div>
       <!-- Command Panel/Bar -->
       <div class="command-panel">
-         <img src="Images/Control Bar/settings.png" alt="Settings">
-         <img src="Images/Control Bar/produce.png" alt="Produce">
-         <img onclick="showObj('.marketShadow');" class="commandBarImg" src="Images/Control Bar/market.png" alt="Market">
-         <img onclick="openCommands()" class="commandBarImg" src="Images/Control Bar/commands.png" alt="Commands">
-         <img onclick="showObj('.settingShadow')" class="commandBarImg" src="Images/Control Bar/settings.png" alt="Settings">
-         <label class="switch">
-            <input type="checkbox" checked>
-            <span class="slider" onmouseover="commandBar()"></span>
-         </label>
+         <img onclick="showObj('.marketShadow');" src="Images/Mobile/market.png" alt="Market">
+         <div class="produce-tooltip">
+            <img class="weather-img">
+            <div class="weather-tooltip">
+               <h6 class="weather-name">Partly <br> Somthing</h6>
+               <p class="weather-description">Effects: Adverse/Positive <br> Benifits/Disadvantages:</p>
+            </div>
+         </div>
+         <div class="produce-tooltip">
+            <img src="Images/Global Assets/barrel.png" alt="Produce">
+            <div class="produce">
+               <span id="seeds" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="fertilizer" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="peaBushels" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="cornBushels" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="strawberryBushels" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="eggplantBushels" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="pumpkinBushels" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="cabbageBushels" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="dandelionBushels" class="tooltip-text-detailed">Tooltip text</span><br>
+            </div>
+         </div>
       </div>
       <!-- Market -->
       <div class="marketShadow">
@@ -535,17 +534,8 @@
             <br>
          </div>
       </div>
-      <!-- Commands -->
-      <div class="shadow commandsShadow">
-         <div class="modalContent commands">
-            <span onclick="openCommands()" class="closeModal">X</span>
-            <p><strong>Shift + Q</strong> to toggle <i>Quests</i></p>
-            <p><strong>Shift + W</strong> to toggle <i>Settings</i></p>
-            <p><strong>Shift + E</strong> to toggle <i>Commands</i></p>
-            <p><strong>Shift + M</strong> to toggle <i>Market</i></p>
-         </div>
-      </div>
       <!-- Settings -->
+      <img onclick="showObj('.settingShadow');" class="setting-open" src="Images/Mobile/settings.png" alt="Settings">
       <div class="shadow settingShadow">
          <div class="modalContent settings">
             <span onclick="hideObj('.settingShadow')" class="closeModal">X</span>
@@ -554,95 +544,34 @@
             <button class="sidebar-button theme-color" onclick="light()">Light</button>
             <button class="sidebar-button theme-color" onclick="randTheme()">Random</button>
             <button class="sidebar-button theme-color" onclick="darkTheme()">Dark</button>
-            <button class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.remove('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Normal Device</button>
-            <button class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.add('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Small Device</button>
-            <button  class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.add('land-for-tiny');">Tiny Device</button>
             <button class="sidebar-button" onclick="togglePlay()">Music</button>
             <audio class="mozart" src="Audio/mozart.mp3"></audio>
          </div>
       </div>
-      <!-- Festival -->
-      <!-- <div class="shadow festivalShadow">
-         <div class="modalContent festival">
-            <span onclick="hideObj('.festivalShadow')" class="closeModal">X</span>
-            <h4>The Vegetable Festival!</h4>
-            <div class="festival-land">
-               <div class="festival-plot">
-                  <img class="festival-plot-image" src="Images/Festival/grill.png" alt="Image">
-                  <span class="festival-ahh-perspective ahh-perspective">
-                     <button class="grow-button" id="grillCorn" onclick="process('peas', 2000, 5000)">Grill Corn! <img class="festival-gears" src="Images/Festival/gears.gif" alt=""></button>
-                     <button class="harvest-button" id="harvestPeas" onclick="harvest('Peas')">Collect!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button>
-                  </span>
-               </div>
-               <div class="festival-plot">
-                  <img class="festival-plot-image" src="Images/Festival/jam-machine.png" alt="Image">
-                  <div class="lock-tooltip" id="lockedDiv2">
-                     <img id="lock2" class="festival-locked" src="Images/Festival/lock.png" alt="Locked">
-                     <span class="tooltiptext">This plot is locked <br> Pay 150 Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(2)">Purchase Plot</button></span>
-                  </div
-               </div>
-               <div class="festival-plot">
-                  <img class="festival-plot-image" src="Images/Festival/pie-oven.png" alt="Image">
-                  <div class="lock-tooltip" id="lockedDiv3">
-                     <img id="lock3" class="festival-locked" src="Images/Festival/lock.png" alt="Locked">
-                     <span class="tooltiptext" id="lock3Text">This plot is locked <br> Purchase the previous plot to unlock</span>
-                  </div>
-               </div>
-               <div class="festival-plot">
-                  <div class="lock-tooltip" id="lockedDiv4">
-                     <img id="lock4" class="festival-locked" src="Images/Festival/lock.png" alt="Locked">
-                     <span class="tooltiptext" id="lock4Text">This plot is locked <br> Purchase the previous plot to unlock</span>
-                  </div>
-               </div>
-               <div class="festival-plot">
-                  <div class="lock-tooltip" id="lockedDiv5">
-                     <img id="lock5" class="festival-locked" src="Images/Festival/lock.png" alt="Locked">
-                     <span class="tooltiptext"><br>This plot is locked <br> Purchase all other plots to unlock<br><br></span>
-                  </div>
-               </div>
-               <div class="festival-plot">
-                  <div class="lock-tooltip" id="lockedDiv6">
-                     <img id="lock6" class="festival-locked" src="Images/Festival/lock.png" alt="Locked">
-                     <span class="tooltiptext" id="lock6Text">This plot is locked <br> Purchase the previous plot to unlock</span>
-                  </div>
-               </div>
-               <div class="festival-plot">
-                  <div class="lock-tooltip" id="lockedDiv5">
-                     <img id="lock5" class="festival-locked" src="Images/Festival/lock.png" alt="Locked">
-                     <span class="tooltiptext"><br>This plot is locked <br> Purchase all other plots to unlock<br><br></span>
-                  </div>
-               </div>
-               <div class="festival-plot">
-                  <div class="lock-tooltip" id="lockedDiv6">
-                     <img id="lock6" class="festival-locked" src="Images/Festival/lock.png" alt="Locked">
-                     <span class="tooltiptext" id="lock6Text">This plot is locked <br> Purchase the previous plot to unlock</span>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div> -->
       <!-- Help -->
       <img class="help-center-img" onclick="showObj('.help-shadow')" src="Images/Global Assets/more-info.png" alt="Help!">
       <div class="shadow help-shadow">
          <div class="help">
-            <button onclick="hideObj('.help-shadow')" class="close depth-button blue closeModalHelp">×</button>
-            <div class="help-subjects">
-               <div class="help-subjects-item help-subjects-item-center" onclick="scrollToSection('help-center')">Center</div>
-               <div class="help-subjects-item help-subjects-item-planting" onclick="scrollToSection('help-planting')">Planting</div>
-               <div class="help-subjects-item help-subjects-item-harvesting" onclick="scrollToSection('help-harvesting')">Harvesting</div>
-               <div class="help-subjects-item help-subjects-item-plots" onclick="scrollToSection('help-plots')">Plots</div>
-               <div class="help-subjects-item help-subjects-item-seeds" onclick="scrollToSection('help-seeds')">Seeds</div>
-               <div class="help-subjects-item help-subjects-item-market" onclick="scrollToSection('help-market')">Market</div>
-               <!-- <div class="help-subjects-item" onclick="scrollToSection('help-black-market')">Black Market</div> -->
-               <div class="help-subjects-item help-subjects-item-market-resets" onclick="scrollToSection('help-market-resets')">Market Resets</div>
-               <div class="help-subjects-item help-subjects-item-fertilizer" onclick="scrollToSection('help-fertilizer')">Fertilizer</div>
-               <div class="help-subjects-item help-subjects-item-tasks" onclick="scrollToSection('help-tasks')">Tasks</div>
-               <div class="help-subjects-item help-subjects-item-jebidiah" onclick="scrollToSection('help-farmer-jebediah')">Farmer Jebediah</div>
-               <div class="help-subjects-item help-subjects-item-jenkins" onclick="scrollToSection('help-grandpa-jenkins')">Grandpa Jenkins</div>
-               <div class="help-subjects-item help-subjects-item-josephine" onclick="scrollToSection('help-grandma-josephine')">Grandma Josephine</div>
-               <div class="help-subjects-item help-subjects-item-slippers" onclick="scrollToSection('help-bunny-slippers')">Bunny Slippers</div>
-               <div class="help-subjects-item help-subjects-item-about" onclick="scrollToSection('help-about-copyright')">About & Copyright</div>
+            <div class="dropdown">
+               <button class="dropbtn">Help Center</button>
+               <div class="dropdown-content">
+                  <div onclick="scrollToSection('help-center')">Center</div>
+                  <div onclick="scrollToSection('help-planting')">Planting</div>
+                  <div onclick="scrollToSection('help-harvesting')">Harvesting</div>
+                  <div onclick="scrollToSection('help-plots')">Plots</div>
+                  <div onclick="scrollToSection('help-seeds')">Seeds</div>
+                  <div onclick="scrollToSection('help-market')">Market</div>
+                  <div onclick="scrollToSection('help-market-resets')">Market Resets</div>
+                  <div onclick="scrollToSection('help-fertilizer')">Fertilizer</div>
+                  <div onclick="scrollToSection('help-tasks')">Tasks</div>
+                  <div onclick="scrollToSection('help-farmer-jebediah')">Farmer Jebediah</div>
+                  <div onclick="scrollToSection('help-grandpa-jenkins')">Grandpa Jenkins</div>
+                  <div onclick="scrollToSection('help-grandma-josephine')">Grandma Josephine</div>
+                  <div onclick="scrollToSection('help-bunny-slippers')">Bunny Slippers</div>
+                  <div onclick="scrollToSection('help-about-copyright')">About & Copyright</div>
+               </div>
             </div>
+            <button onclick="hideObj('.help-shadow')" class="close depth-button blue closeModalHelp">×</button>
             <div class="help-information">
                <div id="help-center">
                   <h1>Help Center</h1>
@@ -706,7 +635,6 @@
                   </div>
                   <h1>About & Copyright</h1>
                   <div>This game is &copy copyrighted by Squirrel. If you want to help, email me at <a href="mailto:thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a>, or send a suggestion.
-                     <br><br>
                      <table>
                         <tr>
                            <th>Version Number</th>
@@ -758,18 +686,10 @@
          <li>Support: <a href="mailto: thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a></li>
          <li>Version: 0.0.9</li>
       </div>
-      <!-- Weather -->
-      <div class="weather-short">
-         <div class="weather-img"></div>
-         <h6 class="weather-name">Partly <br> Somthing</h6>
-         <p class="weather-description">Effects: Adverse/Positive <br> Benifits/Disadvantages:</p>
-      </div>
-      <!-- Alert -->
-      <div class="alert">Game Saved!</div>
       <!-- Fade text -->
       <span class="hidden"><div class="fade-text">This text is fading</div></span>
       <script src="https://www.w3counter.com/tracker.js?id=134512"></script>
    </body>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-   <script src="main.js" charset="utf-8"></script>
+   <script src="mobile.js" charset="utf-8"></script>
 </html>

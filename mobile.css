@@ -6,7 +6,7 @@ Copyright January 1st 2021 by Squirrel
 body {
    background-image: url("Images/Homepage/tilled.png");
    background-size: cover;
-   overflow: hidden;
+   overflow: scroll;
 }
 
 ::selection { display: none;}
@@ -24,7 +24,6 @@ button {
 button:focus { outline: none; }
 button:active { transform: scale(0.99); }
 summary:focus { outline: none; }
-
 
 .depth-button {
   outline: none;
@@ -61,44 +60,45 @@ Welcome!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .welcome {
-   pointer-events: none;
    opacity: 0;
+   pointer-events: none;
    position: fixed;
+   left: 0;
    top: 0;
    width: 100%;
    height: 100%;
-   background-color: rgb(0, 0, 0, .5);
-   display: flex;
-   justify-content: center;
-   align-items: center;
+   background-color: rgba(25, 0, 0, 0.8);
+   backdrop-filter: blur(5px);
+   overflow: scroll;
    transition: 2s;
 }
 
 .welcome-content {
+   border-radius: 2vh;
+   margin: 2vh;
+   padding: 1vh;
    background-color: #f5f5f5;
-   width: 80%;
-   height: 75%;
-   padding: 5vh;
-   border-radius: 5vh;
+   text-align: center;
+   font-size: 8vh;
    font-family: "Roboto Condensed";
+   transition: 0.8s;
+   position: relative;
    text-align: center;
 }
 
-.welcome-content h1 {
-   font-size: 10vh;
+.welcome-content h1 { font-size: 6vh; }
+
+.welcome-content h2 {
+   font-size: 4vh;
+   font-weight: 200;
    margin: 2vh;
 }
 
-.welcome-content h2 {
-   font-size: 6vh;
-   font-weight: 200;
-   margin: 0 20vh;
-}
-
 .welcome-content button {
+   width: 90%;
+   font-size: 3vh;
    text-transform: uppercase;
-   margin: 5vh;
-   padding: 5vh 8vh;
+   padding: 2vh;
    transition: .5s;
 }
 
@@ -116,40 +116,15 @@ Farmland
 
 .land {
    position: relative;
-   height: 95vh;
-   width: 95vh;
+   height: 51vh;
+   width: 51vh;
    margin: 2vh auto;
    border: solid 1vh #000;
    border-radius: 1vh;
    transition: 0.5s;
    display: grid;
-   grid-template-areas:
-   "auto auto auto"
-   "auto auto auto"
-   "auto auto auto";
-}
-.land-for-small {
-   overflow-y: scroll;
-   grid-template-areas:
-   "auto auto"
-   "auto auto"
-   "auto auto"
-   "auto auto"
-   "auto auto";
-}
-.land-for-tiny {
-   overflow-y: scroll;
-   grid-template-areas:
-   "auto"
-   "auto"
-   "auto"
-   "auto"
-   "auto"
-   "auto"
-   "auto"
-   "auto"
-   "auto"
-   "auto";
+   grid-template-columns: auto auto auto;
+   overflow: scroll;
 }
 
 /* Plots */
@@ -164,64 +139,45 @@ Farmland
    align-items: center;
    transition: 2s;
    position: relative;
-   min-height: 14vw;
-   min-width: 14vw;
+   height: 50vh;
+   width: 50vh;
 }
 
-.open-plot { display: none; }
-
-.ahh-perspective {
-   perspective: 100vh;
+.open-plot {
+   display: none;
    width: 100%;
    height: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
 }
 
 /* Locks */
 .locked { height: 18vh; }
 
-.lock-tooltip {
-   position: relative;
+.lock-tooltip{
    font-family: "Nunito", sans-serif;
-}
-
-.lock-tooltip .tooltiptext::after {
-   content: "";
-   position: absolute;
-   top: 50%;
-   right: 100%;
-   margin-top: -1.5vh;
-   border-width: 1.5vh;
-   border-style: outset;
-   border-color: transparent lightblue transparent transparent;
-}
-
-.lock-tooltip .tooltiptext {
    padding: 20vh 5vh;
-   background-color: #606060;
    color: #fff;
-   border-radius: .6vh;
    position: absolute;
    padding: 2vh 2vh;
    width: 25vh;
-   min-height: 75%;
-   left: 102%;
    font-size: 3vh;
    text-align: center;
-   border: outset .5vh lightblue;
-   z-index: 1;
-   opacity: 0;
-   pointer-events: none;
    transition: .5s;
    transition-delay: 0.4s;
 }
 
-.lock-tooltip:hover .tooltiptext {
-   opacity: 1;
-   pointer-events: auto;
+.purchase-plot {
+   width: 50vw;
+   padding: 2vh;
+   margin: 0;
+   background-color: #272727;
+   border: solid .4vh #808080;
+   border-radius: 4vh;
+   font-size: 3vh;
+   color: #fff;
+   transition: 0.5s;
 }
+
+.purchase-plot:hover { box-shadow: 0 0 2vh #f5f5f5; }
 
 .removing-lock { animation: open-lock 2.5s forwards; }
 @keyframes open-lock {
@@ -231,37 +187,42 @@ Farmland
 }
 
 /* Buttons */
-.grow-button {
-   height: 10vh;
-   width: 25vh;
-   font-size: 3vh;
-   position: absolute;
-   pointer-events: auto;
-   opacity: 1;
+.plant-toolbar {
+   perspective: 100vh;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: flex-end;
 }
 
-.harvest-button {
-   height: 10vh;
-   width: 25vh;
-   font-size: 3vh;
-   pointer-events: none;
-   opacity: 0;
-}
-
-.ahh-perspective button {
+.grow-button, .harvest-button, .small-plant-button {
+   border-radius: 100vh;
+   margin: 2vh .5vh;
    transition: .2s;
-   border-radius: 1vh;
    border: solid .4vh rgb(0, 0, 0, .2);
    background-color: #ffd700;
-   font-family: "Roboto Condensed";
-   padding: 0;
-   color: #343cb9;
-   font-weight: 600;
-   /* text-shadow: 0 0 .1vh #800080,
-                0 2vh 2vh #fff; */
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
 }
 
-.ahh-perspective button:hover {
+.grow-button, .harvest-button {
+   height: 12vh;
+   width: 12vh;
+}
+
+.small-plant-button {
+   height: 6vh;
+   width: 6vh;
+}
+
+.grow-button:disabled, .harvest-button:disabled, .small-plant-button:disabled { filter: grayscale(100%); }
+
+.grow-button img, .harvest-button img { height: 8vh; }
+
+.grow-button:focus, .harvest-button:focus, .small-plant-button:focus {
    transform: translateY(-1vh) scale(1.05);
    box-shadow: 0 1.5vh 2vh #262626;
    animation: bob 1.8s infinite;
@@ -269,60 +230,85 @@ Farmland
 }
 
 @keyframes bob {
-   0% {
-      transform: translateY(-1vh) scale(1.05);
-      box-shadow: 0 1.5vh 2vh #262626;
-   }
-   50% {
-      transform: translateY(.4px) scale(1.05);
-      box-shadow: 0 .8vh 2vh #262626;
-   }
-   100% {
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 1.5vh 2vh #262626;
-   }
+   0% { transform: translateY(-1vh) scale(1.05); box-shadow: 0 1.5vh 2vh #262626; }
+   50% { transform: translateY(.4px) scale(1.05); box-shadow: 0 .8vh 2vh #262626; }
+   100% { transform: translateY(-5px) scale(1.05); box-shadow: 0 1.5vh 2vh #262626; }
 }
 
-/* .ahh-perspective button {
-   transition: .2s;
+.veg-icon { height: 6vh; }
+
+/* Time */
+.time-left-container {
+   position: relative;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.time-left-container span {
+   opacity: 0;
+   pointer-events: none;
+   width: 180%;
+   background-color: #f5f5f5;
+   text-align: center;
    border-radius: 1vh;
-   border: solid .4vh rgb(0, 0, 0, .2);
-   background-color: #ffd700;
-   padding: 0;
-   color: #800080;
-   text-shadow: 0 0 .1vh #800080,
-                0 2vh 2vh #fff;
-}
-
-.ahh-perspective button:hover {
-   transform: rotateX(25deg) scale(1.05);
-   box-shadow: 0 .5vh .05vh rgb(0, 0, 0, .6);
-   text-shadow: 0 0 #800080,
-                0 .2vh .02vh rgb(0, 0, 0, .6);
-} */
-
-.purchase-plot {
-   padding: 2vh;
-   margin: 0;
-   background-color: #272727;
-   border: solid .4vh #808080;
-   border-radius: .4vh;
-   color: #fff;
-   transition: 0.5s;
-}
-
-.purchase-plot:hover { box-shadow: 0 0 2vh #f5f5f5; }
-
-/* Button Images */
-.sickle, .seed-packet {
-   height: 4vh;
-   margin: 0 0 -.8vh .8vh;
-}
-.veg-icon {
-   height: 8vh;
+   padding: 1vh 0;
+   font-size: 2.5vh;
    position: absolute;
-   top: .5vh;
-   left: .5vh;
+   z-index: 1;
+   bottom: 130%;
+   left: -40%;
+   transition: .5s;
+}
+
+.time-left-container span::after {
+   content: "";
+   position: absolute;
+   top: 100%;
+   left: 50%;
+   margin-left: -1vh;
+   border-width: 1vh;
+   border-style: solid;
+   border-color: #f5f5f5 transparent transparent transparent;
+}
+
+.time-left-container:hover span {
+   opacity: 1;
+   pointer-events: auto;
+}
+
+.time-left-container img { height: 6vh; }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Settings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.settings h1 {
+   font-size: 10vh;
+   font-weight: 200;
+}
+
+.sidebar-button {
+   border-radius: .5vh;
+   padding: 1vh;
+   margin: .5vh auto;
+   width: 75vw;
+   box-shadow: 0 0 1vh #222;
+   background-color: #808080;
+   border: none;
+   font-size: 3.5vh;
+   color: lightblue;
+   display: inline;
+   text-shadow: 0 0 4vh #000;
+   font-family: inherit;
+}
+
+.theme-color { background-color: #aaaaaa; }
+
+.sidebar button:active {
+   transform: scale(1.03);
+   padding: 1.5vh;
+   margin: .5vh auto;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -332,13 +318,12 @@ Vegetable Info Modal
 .veg-info {
    pointer-events: none;
    opacity: 0;
-   position: fixed;
+   position: absolute;
    z-index: 1;
-   padding-top: 10vh;
-   left: 0;
    top: 0;
-   width: 100%;
-   height: 100%;
+   left: 0;
+   bottom: 0;
+   right: 0;
    background-color: rgba(0, 0, 0, 0.7);
    transition: .6s;
 }
@@ -355,8 +340,8 @@ Vegetable Info Modal
 
 .modal-content {
    width: 80%;
-   height: 75%;
-   margin: auto;
+   height: 80%;
+   margin: 1vh auto;
    padding: 4vh;
    font-size: 6vh;
    border-radius: .8vh;
@@ -372,7 +357,6 @@ Vegetable Info Modal
    width: 8vh;
    padding: .2vh;
    border-radius: 2vh;
-   width: 8vh;
    transition: 0.2s;
 }
 
@@ -386,8 +370,6 @@ Vegetable Info Modal
 }
 
 .fertilize img { height: 6vh; }
-
-.close:hover { color: #aaa; }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Right Click Menu
@@ -441,77 +423,46 @@ Introduction
 
 .intro-container {
    position: fixed;
-   bottom: 2vh;
+   top: 2vh;
    left: 2.5vh;
    right: 2.5vh;
    height: 30vh;
    background-color: #f5f5f5;
-   border-radius: 5vh;
+   border-radius: 1vh;
    font-family: "Nunito";
-   letter-spacing: -0.04vh;
    display: grid;
-   grid-template-columns: auto auto auto auto;
+   grid-template-columns: auto auto;
    transition: 2.5s;
 }
 
 .intro-img {
-   height: 25vh;
-   margin: 1.5vh;
-   transition: .5s;
-}
-
-.intro-divide {
-   height: 25vh;
-   width: 5vh;
-   margin: 1.5vh;
+   height: 12vh;
+   margin: 1.5vh 2vh;
    transition: .5s;
 }
 
 .intro-text {
-   font-size: 2.5vw;
+   text-align: center;
+   font-size: 5vw;
    margin: 1.5vh;
    transition: .5s;
 }
 
 .intro-nxt-btn {
-   margin-top: 16vh;
-   margin-right: 5vh;
+   position: absolute;
+   right: 0;
+   bottom: 0;
+   margin: 2vh;
    background-color: #7962b6;
-   height: 10vh;
-   width: 15vh;
+   height: 12vh;
+   width: 12vh;
    display: flex;
    justify-content: center;
    align-items: center;
    color: #fff;
-   font-size: 10vh;
-   border-radius: 25vh;
+   font-size: 8vh;
+   border-radius: 2vh;
    transition: .5s;
-}
-
-.intro-nxt-btn:hover {
-   box-shadow: 0 0 3vh #262626,
-               inset 1vh 0 4vh .8vh rgba(255, 255, 255, 0.5);
-}
-
-.quest-arrow {
-   height: 40vh;
-   z-index: 1;
-   animation: quest-arrow-nudge 3s infinite;
-   display: none;
-}
-
-.plant-quest-arrow {
-   position: absolute;
-   right: -115%;
-}
-
-@keyframes quest-arrow-nudge {
-   0% { margin-right: 0; }
-   20% { margin-right: -8px; }
-   40% { margin-right: -2px; }
-   55% { margin-right: -8px; }
-   70% { margin-right: 0; }
-   100% { margin-right: 0; }
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -545,7 +496,7 @@ Market
    text-align: center;
    font-family: "Roboto Condensed";
    display: grid;
-   grid-template-columns: 33.33333% 33.33333% 33.33333%;
+   grid-template-columns: 100%;
    cursor: url("Images/Global Assets/big-money.png"), auto;
    overflow: scroll;
    transition: 0.8s;
@@ -555,7 +506,7 @@ Market
    display: none;
    height: 45vh;
    width: 95%;
-   margin: 2vh auto;
+   margin: 1vh auto;
    border-radius: 5vh;
    transition: 0.5s;
    font-size: 5vh;
@@ -712,9 +663,9 @@ Basic Modal
 }
 
 .modalContent {
-   min-height: 75%;
+   min-height: 78%;
    border-radius: 2vh;
-   margin: 5vh;
+   margin: 3vh;
    padding: 8vh 0;
    background-color: #f5f5f5;
    text-align: center;
@@ -733,224 +684,126 @@ Basic Modal
 }
 .closeModal:hover { text-shadow: 0 0 .5vh #444; }
 
+/* Clean from here */
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Command Panel
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .command-panel {
    position: fixed;
-   bottom: 0;
-   border-radius: 0 5vh 0 0;
+   right: 1.5vh;
+   bottom: 1.5vh;
+   left: 1.5vh;
+   border-radius: 5vh;
    height: 15vh;
-   padding: 2vh 10vh 2vh 2vh;
+   padding: 2vh 1vh;
    text-align: center;
-   background-color: #ebbc17;
+   background-color: #f5f5f5;
 }
 
 .command-panel img {
-   display: none;
-   height: 15vh;
-   border: solid #cb9e00 .2vh;
-   border-radius: 2.5vh 5vh;
-   transition: 0.2s;
-}
-
-.command-panel img:hover, .slider:hover {
-   transform: scale(1.05);
-   box-shadow: 0 0 .5vh #cb9e00;
-}
-
-.switch {
-   position: absolute;
-   top: 2.5vh;
-   right: 2vh;
-   display: inline-block;
-   width: 7vh;
-   height: 15vh;
-}
-
-.switch input {
-   opacity: 0;
-   width: 0;
-   height: 0;
-}
-
-.slider {
-   position: absolute;
-   top: 0;
-   left: 0;
-   right: 0;
-   bottom: 0;
-   border: solid #cb9e00 .2vh;
-   background-color: #ffca18;
-   transition: .3s;
-   border-radius: 5vh;
-}
-
-.slider:before {
-   content: "";
-   position: absolute;
-   height: 5vh;
-   width: 5vh;
-   left: .8vh;
-   top: .8vh;
-   background-color: #f5f5f5;
-   transition: .3s;
-   border-radius: 50%;
-}
-
-input:checked + .slider { background-color: #cb9e00; }
-input:checked + .slider:before { transform: translateY(8vh); }
-
-/* Alert */
-.alert {
-   opacity: 0;
-   pointer-events: none;
-   z-index: 100;
-   position: fixed;
-   bottom: 2vh;
-   right: 2vh;
-   height: 40vh;
-   width: 50vh;
-   font-size: 2vh;
-   color: #f5f5f5;
-   padding: 10vh 10vh;
-   text-transform: uppercase;
-   transition: .5s;
-   box-sizing: border-box;
-   font-family: "Nunito";
-   text-align: center;
-   background-image: url("Images/Global Assets/frame.png");
-   background-size: contain;
-}
-
-.alertAnimation {
-   opacity: 1;
-   transform: scale(1) rotate(0);
-   pointer-events: none;
-   animation: alert-animation 3s forwards;
-}
-
-@keyframes alert-animation {
-   0% {
-      transform: scale(1) rotate(0);
-      opacity: 1;
-   }
-   100% {
-      transform: scale(0) rotate(720deg);
-      opacity: 0;
-   }
-}
-
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Produce
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-.produce {
-   position: absolute;
-   top: 0;
-   right: 0;
-   background-color: #111;
-   border-left: ridge 1vh gold;
-   padding: 3vh;
    height: 100%;
-   width: 6vh;
-   color: #fff;
-   transition: 0.5s;
-   box-shadow: 0 0 2vh #262626;
-   font-family: "Nunito";
+   width: 15vh;
+   margin: 0 .5vh;
 }
 
 .produce-tooltip {
+   display: inline;
    position: relative;
-   width: 10vh;
-   height: 10vh;
-   display: none;
    margin: .5vh 0;
+   font-family: "Nunito";
 }
 
-.produce-tooltip img { height: 8vh; }
+.tooltip-text-detailed {
+   display: none;
+   font-size: 3vh;
+   color: #262626;
+}
 
-.produce-tooltip .tooltip-text {
-   position: absolute;
+.produce {
    opacity: 0;
    pointer-events: none;
-   height: 120%;
-   min-width: 200%;
+   position: absolute;
+   left: 0;
+   bottom: 315%;
+   height: auto;
+   width: 80vw;
    background-color: #eee;
-   text-align: center;
    border-radius: 2vh;
    padding: .5vh 0;
    box-shadow: 0 0 2vh #ddd;
-   font-size: 3vh;
+   font-size: 4vh;
    color: #262626;
-   top: -3vh;
-   right: 115%;
-   z-index: 1;
+   left: -180%;
+   bottom: 18vh;
    transition: .8s;
-   transition-delay: 1s;
 }
 
-.produce-tooltip .tooltip-text::after {
+.produce-tooltip .produce::after {
    content: "";
    position: absolute;
-   top: 50%;
-   left: 100%;
-   margin-top: -1vh;
-   border-width: 1vh;
+   top: 100%;
+   left: 77%;
+   margin-top: -.2vh;
+   border-width: 2vh;
    border-style: solid;
-   border-color: transparent transparent transparent #eee;
+   border-color: #eee transparent transparent transparent;
 }
 
-.produce-tooltip:hover .tooltip-text {
+.produce-tooltip:hover .produce {
    opacity: 1;
    pointer-events: auto;
 }
 
-/* Settings */
-
-.settings h1 { font-weight: 200; }
-.sidebar-button {
-   border-radius: .5vh;
-   display: block;
-   padding: 1vh;
-   margin: .5vh auto;
-   width: 81vw;
-   box-shadow: 0 0 1vh #222;
-   background-color: #808080;
-   border: none;
-   font-size: 3.5vh;
-   color: lightblue;
-   display: inline;
-   text-shadow: 0 0 4vh #000;
-   font-family: inherit;
+.weather-tooltip {
+   opacity: 0;
+   pointer-events: none;
+   position: absolute;
+   left: 0;
+   bottom: 315%;
+   height: auto;
+   width: 80vw;
+   background-color: rgb(59, 74, 167, .9);
+   border: solid .5vh rgb(42, 50, 102, .9);
+   border-radius: 2vh;
+   padding: 2vh;
+   box-sizing: border-box;
+   box-shadow: 0 0 2vh #ddd;
+   font-size: 4vh;
+   color: #262626;
+   left: -90%;
+   bottom: 18vh;
+   transition: .8s;
 }
 
-.theme-color {
-   width: 26.3vw;
-   padding: 1vh;
-   margin: .5vh auto;
-   display: inline;
-   background-color: #aaaaaa;
+.weather-tooltip::after {
+   content: "";
+   position: absolute;
+   top: 100%;
+   left: 50%;
+   margin-left: -2vh;
+   border-width: 2vh;
+   border-style: solid;
+   border-color: rgb(42, 50, 102, .9) transparent transparent transparent;
 }
 
-.device-size-button {
-   width: 26.3vw;
-   padding: 1vh;
-   margin: .5vh auto;
-   display: inline;
-   background-color: #d9d9d9;
+.produce-tooltip:hover .weather-tooltip {
+   opacity: 1;
+   pointer-events: auto;
 }
 
-.sidebar button:hover {
-   transform: scale(0.95);
-   margin: .5vh auto;
+.weather-name {
+   font-size: 4.5vh;
+   font-family: "Nunito";
+   font-weight: 700;
+   color: #f5f5f5;
 }
 
-.sidebar button:active {
-   transform: scale(1.03);
-   padding: 1.5vh;
-   margin: .5vh auto;
+.weather-description {
+   font-size: 4vh;
+   font-family: "Nunito";
+   color: #f5f5f5;
 }
 
 #market-reset-more-info { filter: invert(); }
@@ -1029,38 +882,12 @@ More Information Hover
    background-color: #f5f5f5;
    border-radius: 5vh;
    display: grid;
-   grid-template-columns: 30% 70%;
+   grid-template-rows: 20% 80%;
    overflow: hidden;
 }
 
-.help-subjects { overflow: scroll; }
-
-.help-subjects-item {
-   background-color: #f97590;
-   font-family: sans-serif;
-   width: 60%;
-   font-size: 4vh;
-   padding: 4vh 2vh;
-   margin-bottom: .2vh;
-   color: #fff;
-   transition: .2s;
-}
-
-.help-subjects-item:first-child { background-color: #03fca5; }
-.help-subjects-item-active { filter: hue-rotate(180deg); }
-.help-subjects-item:last-child {
-   background-color: #6ee8ff;
-   margin: 0;
-}
-
-.help-subjects-item:hover {
-   transform: scale(1.2) translateX(5vh);
-   box-shadow: 0 0 2vh #000;
-   border-radius: .5vh;
-}
-
 .help-information {
-   padding: 2vh 20vh 0 5vh;
+   padding: 2vh;
    overflow: hidden;
    scroll-behavior: smooth;
 }
@@ -1083,10 +910,10 @@ More Information Hover
 }
 
 .help-center-img {
-   height: 8vh;
+   height: 9vh;
    position: fixed;
    top: 2vh;
-   left: 2vh;
+   right: 2vh;
    filter: invert();
 }
 
@@ -1097,6 +924,47 @@ More Information Hover
    transition: .5s;
    cursor: pointer;
 }
+
+.help .close {
+   top: 2vh;
+   right: 2vh;
+}
+
+/* Help Dropdown */
+.dropbtn {
+   width: 80vw;
+   margin: 2vh 8vw;
+   border: solid 1vh #eee;
+   border-radius: 2vh;
+   font-size: 4vh;
+}
+
+.dropdown {
+   position: relative;
+   display: inline-block;
+}
+
+.dropdown-content {
+   display: none;
+   height: 60vh;
+   width: 80vw;
+   overflow: scroll;
+   background-color: #f9f9f9;
+   margin: auto;
+   margin-top: -2vh;
+   border-radius: 1vh;
+   box-shadow: 0px 2vh 6vh 0px rgba(0, 0, 0, 0.2);
+   z-index: 1;
+}
+
+.dropdown-content div {
+   text-align: center;
+   font-size: 4vh;
+   padding: 3vh;
+}
+
+.dropdown-content div:hover { background-color: #f1f1f1; }
+.dropdown:hover .dropdown-content { display: block; }
 
 /* Help links */
 .help a {
@@ -1155,7 +1023,7 @@ More Information Hover
 .store-icon:hover { transform: scale(1.2); }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Quests
+Tasks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .quest-ribbon {
@@ -1278,180 +1146,6 @@ Quests
 
 .hidden { display: none; }
 
-.modal-market-prices {
-   height: 20vh;
-   margin: 2vh auto;
-   border: solid 2vh #eee;
-   border-radius: 5vh;
-   display: grid;
-   grid-template-columns: 50% 50%;
-}
-
-.modal-market-prices div:first-child { border-right: solid .5vh #8f8f8f; }
-
-.modal-market-prices div {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   font-size: 8vh;
-   color: #9f9f9f;
-}
-
-.weather-short {
-   position: fixed;
-   height: 15vh;
-   width: 15vh;
-   right: 18vh;
-   top: 2vh;
-   background-color: rgb(59, 74, 167, .9);
-   border: solid .5vh rgb(42, 50, 102, .9);
-   border-radius: 2vh;
-   overflow: hidden;
-   overflow: scroll;
-   display: grid;
-   grid-template-areas:
-   "a b"
-   "c c";
-   transition: 1s;
-   transition-delay: .2s;
-}
-
-.weather-short:hover {
-   height: 40vh;
-   width: 35vh;
-}
-
-.weather-short .weather-img {
-   grid-area: a;
-   height: 15vh;
-   width: 15vh;
-   background: url('https://api.iconify.design/wi:day-rain-wind.svg') no-repeat center center / contain;
-   transition: all .1s, margin .8s;
-   filter: invert(95%);
-}
-.weather-short:hover .weather-img { margin: 1vh 2vh; }
-
-.weather-name {
-   grid-area: b;
-   font-size: 4.5vh;
-   font-family: "Nunito";
-   font-weight: 700;
-   color: #f5f5f5;
-   text-align: center;
-   padding-top: 3vh;
-}
-
-.weather-description {
-   grid-area: c;
-   font-size: 4vh;
-   font-family: "Nunito";
-   color: #f5f5f5;
-   text-align: center;
-}
-
-.modal-plot-unlocked p {
-   text-align: left;
-   margin: 2vh 0 2vh 15%;
-   font-size: 10vh;
-   color: #555;
-   transform: translate(0, 25vh) scale(0);
-}
-
-.veg-info:hover .unlocked-text { animation: unlocked-text 1.5s forwards; }
-.veg-info:hover .unlocked-text:nth-last-child(1)  { animation-delay: 4.5s; }
-.veg-info:hover .unlocked-text:nth-last-child(2)  { animation-delay: 3s; }
-.veg-info:hover .unlocked-text:nth-last-child(3)  { animation-delay: 1.5s; }
-.veg-info:hover .unlocked-text:nth-last-child(4)  { animation-delay: 0; }
-
-@keyframes unlocked-text {
-   0% { transform: translate(0, 25vh) scale(0); }
-   100% { transform: translate(0, 0) scale(1); }
-}
-
-/* Festival */
-.festival-land {
-   position: relative;
-   height: 60vh;
-   width: 120vh;
-   margin: 2vh auto;
-   border: solid 1vh #000;
-   border-radius: 1vh;
-   transition: 0.5s;
-   display: grid;
-   grid-template-areas:
-   "auto auto auto auto"
-   "auto auto auto auto";
-}
-
-.festival-land button {
-   background-image: url("Images/Festival/shiny-metal.jpg");
-   background-size: contain;
-}
-
-.festival-plot-image {
-   position: absolute;
-   width: 25vh;
-}
-
-.festival-plot {
-   background-image: url("Images/Festival/metal-sheet.jpg");
-   background-size: cover;
-   margin: .2vh;
-   border: solid .3vh #000;
-   border-radius: .3vh;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   transition: 2s;
-   position: relative;
-   min-height: 14vw;
-   min-width: 14vw;
-}
-
-.festival-locked { height: 20vh; }
-
-.festival-ahh-perspective {
-   perspective: 100vh;
-   width: 100%;
-   height: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-
-.festival-ahh-perspective button { width: 90%; margin-top: 20vh; }
-.festival-gears { height: 4vh; margin: -1vh 1vh; }
-
-.time-left img {
-   height: 5vh;
-   margin: .5vh;
-   position: sticky;
-}
-
-.time-left {
-   position: absolute;
-   right: .5vh;
-   bottom: .5vh;
-   border: outset .8vh #f5f5f5;
-   border-radius: 1.5vh;
-   height: 5vh;
-   width: 5vh;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   background-color: rgba(255, 255, 255, 0.75);
-   color: #333;
-   font-family: "Nunito";
-   font-size: 0;
-   transition: width .5s;
-   overflow: scroll;
-}
-
-.time-left:hover {
-   width: 18vh;
-   font-size: 2.5vh;
-}
-
 #help-about-copyright {
    font-size: 3vh;
    font-weight: 300;
@@ -1476,3 +1170,12 @@ td, th {
 td { font-weight: 100; }
 th { color: #aaa; }
 tr:nth-child(even) { background-color: #eee; }
+
+.setting-open {
+   border-radius: 1vh;
+   padding: .2vh;
+   height: 7vh;
+   position: fixed;
+   top: 11vh;
+   right: 2.8vh;
+}
