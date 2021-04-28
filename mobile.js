@@ -191,7 +191,7 @@ function fertilize(veg) {
 }
 function plantLoop(veg, pltNumber, url, readyTime) {
    let vegPlot = document.querySelector("#plot" + pltNumber);
-   let imgUrl = "url(Images/Vegetables/" + url + ")";
+   let imgUrl = "url(Images/" + url + ")";
    setInterval(vegStatus, 1000);
    function vegStatus() {
       timeLeft(readyTime, veg);
@@ -207,11 +207,11 @@ function plantLoop(veg, pltNumber, url, readyTime) {
    }
 }
 
-plantLoop("peas", 1, 'Peas/grown-pea.png', 5000);
-plantLoop("corn", 2, 'Corn/grown-corn.png', 12000);
-plantLoop("eggplants", 4, 'Eggplant/grown-eggplant.png', 480000);
-plantLoop("pumpkins", 6, 'Pumpkins/grown-pumpkin.png', 600000);
-plantLoop("cabbage", 7, 'Cabbage/grown-cabbage.png', 3600000);
+plantLoop("peas", 1, 'Plots/grown-pea.png', 5000);
+plantLoop("corn", 2, 'Plots/grown-corn.png', 12000);
+plantLoop("eggplants", 4, 'Plots/grown-eggplant.png', 480000);
+plantLoop("pumpkins", 6, 'Plots/grown-pumpkin.png', 600000);
+plantLoop("cabbage", 7, 'Plots/grown-cabbage.png', 3600000);
 
 function detailedPlant(veg, timeOne, timeTwo, timeThree) {
    currentTime = Date.now();
@@ -244,8 +244,8 @@ function detailedPlantLoop(veg, pltNumber, urlOne, urlTwo, urlThree, readyTime) 
    }
 }
 
-detailedPlantLoop("strawberries", 3, "Fruits/Strawberries/growing-strawberries.png", "Fruits/Strawberries/flowering-strawberries.png", "Fruits/Strawberries/grown-strawberries.png", 120000)
-detailedPlantLoop("dandelion", 8, "Vegetables/Dandelion/flowering.png", "Vegetables/Dandelion/flowering.png", "Vegetables/Dandelion/fruiting.png", 10800000)
+detailedPlantLoop("strawberries", 3, "Plots/Strawberry/growing-strawberries.png", "Plots/Strawberry/flowering-strawberries.png", "Plots/Strawberry/grown-strawberries.png", 120000)
+detailedPlantLoop("dandelion", 8, "Plots/Dandelion/flowering.png", "Plots/Dandelion/flowering.png", "Plots/Dandelion/fruiting.png", 10800000)
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Weather | 21 LINES
@@ -389,7 +389,7 @@ function clearTask(num) {
    document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", "javascript: " );
    document.querySelector(`.task-info-${num}`).textContent = "";
    document.querySelector(`.task-info-giver-${num}`).textContent = "";
-   $(`.task-info-img-${num}`).attr("src", "Images/Global Assets/nothing.png");
+   $(`.task-info-img-${num}`).attr("src", "");
    taskList["taskBox" + num] = "unoccupied";
 }
 function emptyTaskCheck(task) {

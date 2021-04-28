@@ -4,7 +4,7 @@ Copyright January 1st 2021 by Squirrel
 
 * { margin: 0; padding: 0; }
 body {
-   background-image: url("Images/Homepage/tilled.png");
+   background-image: url("Images/Global Assets/tilled.png");
    background-size: cover;
    overflow: hidden;
 }
@@ -387,7 +387,7 @@ Vegetable Info Modal
 
 .fertilize img { height: 6vh; }
 
-.close:hover { color: #aaa; }
+.close:hover { transform: scale(1.05); }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Right Click Menu
@@ -859,6 +859,7 @@ Produce
    transition: 0.5s;
    box-shadow: 0 0 2vh #262626;
    font-family: "Nunito";
+   overflow: scroll;
 }
 
 .produce-tooltip {
@@ -908,9 +909,8 @@ Produce
 }
 
 /* Settings */
-
 .settings h1 { font-weight: 200; }
-.sidebar-button {
+.settings button {
    border-radius: .5vh;
    display: block;
    padding: 1vh;
@@ -942,12 +942,12 @@ Produce
    background-color: #d9d9d9;
 }
 
-.sidebar button:hover {
+.settings button:hover {
    transform: scale(0.95);
    margin: .5vh auto;
 }
 
-.sidebar button:active {
+.settings button:active {
    transform: scale(1.03);
    padding: 1.5vh;
    margin: .5vh auto;
@@ -1357,11 +1357,11 @@ Quests
    transform: translate(0, 25vh) scale(0);
 }
 
-.veg-info:hover .unlocked-text { animation: unlocked-text 1.5s forwards; }
-.veg-info:hover .unlocked-text:nth-last-child(1)  { animation-delay: 4.5s; }
-.veg-info:hover .unlocked-text:nth-last-child(2)  { animation-delay: 3s; }
-.veg-info:hover .unlocked-text:nth-last-child(3)  { animation-delay: 1.5s; }
-.veg-info:hover .unlocked-text:nth-last-child(4)  { animation-delay: 0; }
+body:hover .unlocked-text { animation: unlocked-text 1.5s forwards; }
+body:hover .unlocked-text:nth-last-child(1)  { animation-delay: 4.5s; }
+body:hover .unlocked-text:nth-last-child(2)  { animation-delay: 3s; }
+body:hover .unlocked-text:nth-last-child(3)  { animation-delay: 1.5s; }
+body:hover .unlocked-text:nth-last-child(4)  { animation-delay: 0; }
 
 @keyframes unlocked-text {
    0% { transform: translate(0, 25vh) scale(0); }
@@ -1476,3 +1476,22 @@ td, th {
 td { font-weight: 100; }
 th { color: #aaa; }
 tr:nth-child(even) { background-color: #eee; }
+
+.weed {
+   position: absolute;
+   height: 6vh;
+   width: 6vh;
+   z-index: 1;
+   transform: scale(0);
+   transition: transform .5s;
+}
+
+.weed:hover { animation: weed-found 1s; }
+
+@keyframes weed-found {
+   0% { transform: rotate(0); }
+   25% { transform: rotate(15deg); }
+   50% { transform: rotate(-15deg); }
+   75% { transform: rotate(15deg); }
+   100% { transform: rotate(0); }
+}

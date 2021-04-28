@@ -16,6 +16,7 @@
    <body>
       <!-- Land and Plots -->
       <div class="land">
+         <img onclick="collectWeed()" class="weed" src="Images/Global Assets/weed.png">
          <!-- Pea Plot -->
          <div class="plot" id="plot1">
             <img class="quest-arrow plant-quest-arrow" src="Images/Tasks/arrow.png" alt="Arrow">
@@ -28,12 +29,12 @@
                <img src="Images/Global Assets/clock.png" alt="Time Remaining">
             </div>
             <!-- Pea Info -->
-            <img onclick="infoModal('Peas')" class="veg-icon" src="Images/Vegetables/Peas/pea.png" alt="">
+            <img onclick="infoModal('Peas')" class="veg-icon" src="Images/Vegetables/pea.png" alt="">
             <div id="infoPeas" class="veg-info">
                <div class="modal-content">
                   <button onclick="infoModal('Peas')" class="close depth-button green">×</button>
                   <button onclick="fertilize('peas')" class="fertilize depth-button green" title="Fertilize"><img src="Images/Global Assets/fertilizer.png" alt="Fertilizer"></button>
-                  <h4>Peas <img class="info-icon" src="Images/Vegetables/Peas/pea.png" alt=""></h4>
+                  <h4>Peas <img class="info-icon" src="Images/Vegetables/pea.png" alt=""></h4>
                   <p>Peas are a climbing vine in the legume family. <br> These peas take 5 seconds to grow.</p>
                   <div class="modal-market-prices">
                      <div class="modalPeasPriceBuy">Buy For</div>
@@ -49,7 +50,7 @@
                <span class="tooltiptext">This plot is locked <br> Pay 150 Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(2)">Purchase Plot</button></span>
             </div>
             <div class="open-plot" id="openPlot2">
-               <img class="veg-icon" src="Images/Vegetables/Corn/corn.png" alt="">
+               <img class="veg-icon" src="Images/Vegetables/corn.png" alt="">
                <span class="ahh-perspective">
                   <button class="grow-button" id="growCorn" onclick="plant('corn', 8000, 12000)">Grow Corn!</button>
                   <button class="harvest-button" id="harvestCorn" onclick="harvest('Corn')">Harvest Corn!<img class="sickle" src="Images/Global Assets/sickle.png" alt=""></button>
@@ -59,12 +60,12 @@
                   <img src="Images/Global Assets/clock.png" alt="Time Remaining">
                </div>
                <!-- Corn Info -->
-               <img onclick="infoModal('Corn')" class="veg-icon" src="Images/Vegetables/Corn/corn.png" alt="">
+               <img onclick="infoModal('Corn')" class="veg-icon" src="Images/Vegetables/corn.png" alt="">
                <div id="infoCorn" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Corn')" class="close depth-button yellow">×</button>
                      <button onclick="fertilize('corn')" class="fertilize depth-button yellow" title="Fertilize"><img src="Images/Global Assets/fertilizer.png" alt="Fertilizer"></button>
-                     <h4>Corn <img class="info-icon" src="Images/Vegetables/Corn/corn.png" alt=""></h4>
+                     <h4>Corn <img class="info-icon" src="Images/Vegetables/corn.png" alt=""></h4>
                      <p>Corn, or maize, is a cereal grain originally grown 10,00 years ago in southern Mexico<br> These corn plants take 12 seconds to grow.</p>
                      <div class="modal-market-prices">
                         <div class="modalCornPriceBuy">Buy For</div>
@@ -99,12 +100,12 @@
                   <img src="Images/Global Assets/clock.png" alt="Time Remaining">
                </div>
                <!-- Strawberry Info -->
-               <img onclick="infoModal('Strawberry')" class="veg-icon" src="Images/Fruits/Strawberries/strawberry.png" alt="">
+               <img onclick="infoModal('Strawberry')" class="veg-icon" src="Images/Vegetables/strawberry.png" alt="">
                <div id="infoStrawberry" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Strawberry')" class="close depth-button red">×</button>
                      <button onclick="fertilize('strawberries')" class="fertilize depth-button red" title="Fertilize"><img src="Images/Global Assets/fertilizer.png" alt="Fertilizer"></button>
-                     <h4>Strawberries! <img class="info-icon" src="Images/Fruits/Strawberries/strawberry.png" alt=""></h4>
+                     <h4>Strawberries! <img class="info-icon" src="Images/Vegetables/strawberry.png" alt=""></h4>
                      <p>Strawberries are NOT a vegetable, but it was one of the first drawings I made. I will probably remove this at some point. <br> Strawberries are part of the genus Fragaria, native to North America. <br> These strawberries take 2 minutes to grow.</p>
                      <div class="modal-market-prices">
                         <div class="modalStrawberriesPriceBuy">Buy For</div>
@@ -141,12 +142,12 @@
                   <img src="Images/Global Assets/clock.png" alt="Time Remaining">
                </div>
                <!-- Eggplant Info -->
-               <img onclick="infoModal('Eggplant')" class="veg-icon" src="Images/Vegetables/Eggplant/dark.png" alt="">
+               <img onclick="infoModal('Eggplant')" class="veg-icon" src="Images/Vegetables/eggplant.png" alt="">
                <div id="infoEggplant" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Eggplant')" class="close depth-button purple">×</button>
                      <button onclick="fertilize('eggplants')" class="fertilize depth-button purple" title="Fertilize"><img src="Images/Global Assets/fertilizer.png" alt="Fertilizer"></button>
-                     <h4>Eggplant <img class="info-icon" src="Images/Vegetables/Eggplant/dark.png" alt=""></h4>
+                     <h4>Eggplant <img class="info-icon" src="Images/Vegetables/eggplant.png" alt=""></h4>
                      <p>Eggplants are a species in the Solanaceae, or nightshade family, and are thought to be native to India. <br> These eggplants take 8 minutes to grow.</p>
                      <div class="modal-market-prices">
                         <div class="modalEggplantsPriceBuy">Buy For</div>
@@ -171,7 +172,7 @@
          <div class="plot" id="plot5">
             <div class="lock-tooltip" id="lockedDiv5">
                <img id="lock5" class="locked" src="Images/Lock/lock.png" alt="Locked">
-               <span class="tooltiptext"><br>This plot is locked <br> Purchase all other plots to unlock<br><br></span>
+               <span class="tooltiptext" id="lock5Text"><br>This plot is locked <br> Purchase all other plots to unlock<br><br></span>
             </div>
             <div class="open-plot" id="openPlot5">
                <!-- Info -->
@@ -186,10 +187,10 @@
                <!-- Nice! -->
                <img onclick="if (document.getElementById('shop1').style.height === '100%') {document.getElementById('shop1').style.height = '0'} else {document.getElementById('shop1').style.height = '100%'}" class="almanac" src="Images/Global Assets/almanac.png" alt="">
                <ul class="shop-window" id="shop1">
-                  <li><img onclick="tend(plot5, 'Peas', 'plotStatus.multiplot1')" class="store-icon" src="Images/Vegetables/Peas/pea.png" alt="Pea"></li>
-                  <li><img onclick="tend(plot5, 'Corn', 'plotStatus.multiplot1')" class="store-icon" src="Images/Vegetables/Corn/corn.png" alt="Corn"></li>
-                  <li><img onclick="tend(plot5, 'Strawberries', 'plotStatus.multiplot1')" class="store-icon" src="Images/Fruits/Strawberries/strawberry.png"  alt="Strawberry"></li>
-                  <li><img onclick="tend(plot5, 'Eggplant', 'plotStatus.multiplot1')" class="store-icon" src="Images/Vegetables/Eggplant/dark.png" alt="Eggplant"></li>
+                  <li><img onclick="tend(plot5, 'Peas', 'plotStatus.multiplot1')" class="store-icon" src="Images/Vegetables/pea.png" alt="Pea"></li>
+                  <li><img onclick="tend(plot5, 'Corn', 'plotStatus.multiplot1')" class="store-icon" src="Images/Vegetables/corn.png" alt="Corn"></li>
+                  <li><img onclick="tend(plot5, 'Strawberries', 'plotStatus.multiplot1')" class="store-icon" src="Images/Vegetables/strawberry.png"  alt="Strawberry"></li>
+                  <li><img onclick="tend(plot5, 'Eggplant', 'plotStatus.multiplot1')" class="store-icon" src="Images/Vegetables/eggplant.png" alt="Eggplant"></li>
                </ul>
             </div>
          </div>
@@ -209,12 +210,12 @@
                   <img src="Images/Global Assets/clock.png" alt="Time Remaining">
                </div>
                <!-- Pumpkins Info -->
-               <img onclick="infoModal('Pumpkins')" class="veg-icon" src="Images/Vegetables/Pumpkins/pumpkin.png" alt="Pumpkin">
+               <img onclick="infoModal('Pumpkins')" class="veg-icon" src="Images/Vegetables/pumpkin.png" alt="Pumpkin">
                <div id="infoPumpkins" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Pumpkins')" class="close depth-button orange">×</button>
                      <button onclick="fertilize('pumpkins')" class="fertilize depth-button orange" title="Fertilize"><img src="Images/Global Assets/fertilizer.png" alt="Fertilizer"></button>
-                     <h4>Pumpkins <img class="info-icon" src="Images/Vegetables/Pumpkins/pumpkin.png" alt="Pumpkin"></h4>
+                     <h4>Pumpkins <img class="info-icon" src="Images/Vegetables/pumpkin.png" alt="Pumpkin"></h4>
                      <p>Pumpkins, a round winter squash with yellow to orange smooth skin, are believed to originate in Mexico. <br> These Pumpkins take 10 minutes to grow.</p>
                      <div class="modal-market-prices">
                         <div class="modalPumpkinsPriceBuy">Buy For</div>
@@ -252,12 +253,12 @@
                   <img src="Images/Global Assets/clock.png" alt="Time Remaining">
                </div>
                <!-- Information -->
-               <img onclick="infoModal('Cabbage')" class="veg-icon" src="Images/Vegetables/Cabbage/cabbage.png" alt="Cabbage">
+               <img onclick="infoModal('Cabbage')" class="veg-icon" src="Images/Vegetables/cabbage.png" alt="Cabbage">
                <div id="infoCabbage" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Cabbage')" class="close depth-button green">×</button>
                      <button onclick="fertilize('cabbage')" class="fertilize depth-button green" title="Fertilize"><img src="Images/Global Assets/fertilizer.png" alt="Fertilizer"></button>
-                     <h4>Cabbage <img class="info-icon" src="Images/Vegetables/Cabbage/cabbage.png" alt="Cabbage"></h4>
+                     <h4>Cabbage <img class="info-icon" src="Images/Vegetables/cabbage.png" alt="Cabbage"></h4>
                      <p>A leafy vegetable <br> These Cabbage plants take 1 hour to grow.</p>
                      <div class="modal-market-prices">
                         <div class="modalCabbagePriceBuy">Buy For</div>
@@ -292,12 +293,12 @@
                   <img src="Images/Global Assets/clock.png" alt="Time Remaining">
                </div>
                <!-- Dandelion Info -->
-               <img onclick="infoModal('Dandelion')" class="veg-icon" src="Images/Vegetables/Dandelion/dandelion.png" alt="">
+               <img onclick="infoModal('Dandelion')" class="veg-icon" src="Images/Vegetables/dandelion.png" alt="">
                <div id="infoDandelion" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Dandelion')" class="close depth-button yellow">×</button>
                      <button onclick="fertilize('dandelion')" class="fertilize depth-button yellow" title="Fertilize"><img src="Images/Global Assets/fertilizer.png" alt="Fertilizer"></button>
-                     <h4>Dandelions! <img class="info-icon" src="Images/Vegetables/Dandelion/dandelion.png" alt=""></h4>
+                     <h4>Dandelions! <img class="info-icon" src="Images/Vegetables/dandelion.png" alt=""></h4>
                      <p>These <strong>are</strong> vegetables, because the part eaten are the seeds and leaves, not the fruit. Of the Taraxacum family, the name dandelion come from the French dent-de-lion, which means 'lion's tooth'.<br> These dandelions take 3 hours to grow.</p>
                      <div class="modal-market-prices">
                         <div class="modalDandelionPriceBuy">Buy For</div>
@@ -318,11 +319,47 @@
                </div>
             </div>
          </div>
-         <!-- Plot 9 -->
+         <!-- Rhubarb Plot -->
          <div class="plot" id="plot9">
             <div class="lock-tooltip" id="lockedDiv9">
                <img id="lock9" class="locked" src="Images/Lock/lock.png" alt="Locked">
                <span class="tooltiptext" id="lock9Text">This plot is locked <br> Purchase the previous plot to unlock<br></span>
+            </div>
+            <!-- Open Plot -->
+            <div class="open-plot" id="openPlot9">
+               <span class="ahh-perspective">
+                  <button class="grow-button" id="growRhubarb" onclick="plant('rhubarb', 14400000, 28800000)">Grow Rhubarb!</button>
+                  <button class="harvest-button" id="harvestRhubarb" onclick="harvest('Rhubarb')">Harvest Rhubarb!<img class="sickle" src="Images/Global Assets/sickle.png"></button>
+               </span>
+               <div class="countdown time-left">
+                  <span class="rhubarb-time-left">00:00:00</span>
+                  <img src="Images/Global Assets/clock.png" alt="Time Remaining">
+               </div>
+               <!-- Information -->
+               <img onclick="infoModal('Rhubarb')" class="veg-icon" src="Images/Vegetables/rhubarb.png" alt="Rhubarb">
+               <div id="infoRhubarb" class="veg-info">
+                  <div class="modal-content">
+                     <button onclick="infoModal('Rhubarb')" class="close depth-button red">×</button>
+                     <button onclick="fertilize('rhubarb')" class="fertilize depth-button red" title="Fertilize"><img src="Images/Global Assets/fertilizer.png" alt="Fertilizer"></button>
+                     <h4>Rhubarb <img class="info-icon" src="Images/Vegetables/rhubarb.png" alt="Cabbage"></h4>
+                     <p>Don't eat the leaves. <br> The're poisonous. <br> These rhubarb plants take 8 hours to grow.</p>
+                     <div class="modal-market-prices">
+                        <div class="modalRhubarbPriceBuy">Buy For</div>
+                        <div class="modalRhubarbPriceSell">Sell For</div>
+                     </div>
+                  </div>
+               </div>
+               <!-- Unlocked -->
+               <div id="infoUnlockedRhubarb" class="veg-info">
+                  <div class="modal-content modal-plot-unlocked">
+                     <button onclick="infoModal('UnlockedRhubarb')" class="close depth-button red">×</button>
+                     <h4>New Plot Unlocked!</h4>
+                     <p class="unlocked-text">+1 Market Reset!</p>
+                     <p class="unlocked-text">+ Rhubarb Tasks!</p>
+                     <p class="unlocked-text">+ Growing Rhubarb!</p>
+                     <p class="unlocked-text">+ Rhubarb in Market!</p>
+                  </div>
+               </div>
             </div>
          </div>
       </div>
@@ -335,46 +372,47 @@
             <span onclick="intro()" class="intro-nxt-btn">&#10230;</span>
          </div>
       </div>
-      <!-- Side Panel -->
-      <div class="sidebar">
-         <div class="produce">
-            <div style="display: inline-block;" class="produce-tooltip produce-tooltip-barrel">
-               <img src="Images/Global Assets/barrel.png" alt="">
-               <span id="seeds" class="tooltip-text">Tooltip text</span>
-            </div>
-            <div style="display: inline-block;" class="produce-tooltip produce-tooltip-barrel">
-               <img src="Images/Global Assets/fertilizer.png" alt="">
-               <span id="fertilizer" class="tooltip-text">Tooltip text</span>
-            </div>
-            <div class="produce-tooltip produce-tooltip-peas">
-               <img src="Images/Vegetables/Peas/pea.png" alt="">
-               <span id="peaBushels" class="tooltip-text">Tooltip text</span>
-            </div>
-            <div class="produce-tooltip produce-tooltip-corn">
-               <img src="Images/Vegetables/Corn/corn.png" alt="">
-               <span id="cornBushels" class="tooltip-text">Tooltip text</span>
-            </div>
-            <div class="produce-tooltip produce-tooltip-strawberries">
-               <img src="Images/Fruits/Strawberries/strawberry.png" alt="">
-               <span id="strawberryBushels" class="tooltip-text">Tooltip text</span>
-            </div>
-            <div class="produce-tooltip produce-tooltip-eggplants">
-               <img src="Images/Vegetables/Eggplant/dark.png" alt="">
-               <span id="eggplantBushels" class="tooltip-text">Tooltip text</span>
-            </div>
-            <div class="produce-tooltip produce-tooltip-pumpkins">
-               <img src="Images/Vegetables/Pumpkins/pumpkin.png" alt="">
-               <span id="pumpkinBushels" class="tooltip-text">Tooltip text</span>
-            </div>
-            <div class="produce-tooltip produce-tooltip-cabbage">
-               <img src="Images/Vegetables/Cabbage/cabbage.png" alt="">
-               <span id="cabbageBushels" class="tooltip-text">Tooltip text</span>
-            </div>
-            <div class="produce-tooltip produce-tooltip-dandelion">
-               <img src="Images/Vegetables/Dandelion/dandelion.png" alt="">
-               <span id="dandelionBushels" class="tooltip-text">Tooltip text</span>
-            </div>
-
+      <!-- Produce -->
+      <div class="produce">
+         <div style="display: inline-block;" class="produce-tooltip produce-tooltip-barrel">
+            <img src="Images/Global Assets/barrel.png" alt="">
+            <span id="seeds" class="tooltip-text">Tooltip text</span>
+         </div>
+         <div style="display: inline-block;" class="produce-tooltip produce-tooltip-barrel">
+            <img src="Images/Global Assets/fertilizer.png" alt="">
+            <span id="fertilizer" class="tooltip-text">Tooltip text</span>
+         </div>
+         <div class="produce-tooltip produce-tooltip-peas">
+            <img src="Images/Vegetables/pea.png" alt="">
+            <span id="peaBushels" class="tooltip-text">Tooltip text</span>
+         </div>
+         <div class="produce-tooltip produce-tooltip-corn">
+            <img src="Images/Vegetables/corn.png" alt="">
+            <span id="cornBushels" class="tooltip-text">Tooltip text</span>
+         </div>
+         <div class="produce-tooltip produce-tooltip-strawberries">
+            <img src="Images/Vegetables/strawberry.png" alt="">
+            <span id="strawberryBushels" class="tooltip-text">Tooltip text</span>
+         </div>
+         <div class="produce-tooltip produce-tooltip-eggplants">
+            <img src="Images/Vegetables/eggplant.png" alt="">
+            <span id="eggplantBushels" class="tooltip-text">Tooltip text</span>
+         </div>
+         <div class="produce-tooltip produce-tooltip-pumpkins">
+            <img src="Images/Vegetables/pumpkin.png" alt="">
+            <span id="pumpkinBushels" class="tooltip-text">Tooltip text</span>
+         </div>
+         <div class="produce-tooltip produce-tooltip-cabbage">
+            <img src="Images/Vegetables/cabbage.png" alt="">
+            <span id="cabbageBushels" class="tooltip-text">Tooltip text</span>
+         </div>
+         <div class="produce-tooltip produce-tooltip-dandelion">
+            <img src="Images/Vegetables/dandelion.png" alt="">
+            <span id="dandelionBushels" class="tooltip-text">Tooltip text</span>
+         </div>
+         <div class="produce-tooltip produce-tooltip-rhubarb">
+            <img src="Images/Vegetables/rhubarb.png" alt="">
+            <span id="rhubarbBushels" class="tooltip-text">Tooltip text</span>
          </div>
       </div>
       <!-- Welcome -->
@@ -398,7 +436,7 @@
                <div class="task-block task-block-1" onmouseover="taskHover(1)" onmouseleave="taskUnHover(1)">
                   <div class="task-info">
                      <div class="task-info-a task-info-demand task-info-1"></div>
-                     <img class="task-info-c task-info-img task-info-img-1" src="Images/Global Assets/nothing.png" alt="Task Giver">
+                     <img class="task-info-c task-info-img task-info-img-1">
                      <h4 class="task-info-b task-info-giver-1"></h4>
                   </div>
                   <button class="depth-button red task-submit-depth-button task-info-button-1"></button>
@@ -408,7 +446,7 @@
                <div class="task-block task-block-2" onmouseover="taskHover(2)" onmouseleave="taskUnHover(2)">
                   <div class="task-info">
                      <div class="task-info-a task-info-demand task-info-2"></div>
-                     <img class="task-info-c task-info-img task-info-img-2" src="Images/Global Assets/nothing.png" alt="Farmer Jebediah">
+                     <img class="task-info-c task-info-img task-info-img-2">
                      <h4 class="task-info-b task-info-giver-2"></h4>
                   </div>
                   <button class="depth-button purple task-submit-depth-button task-info-button-2"></button>
@@ -418,7 +456,7 @@
                <div class="task-block task-block-3" onmouseover="taskHover(3)" onmouseleave="taskUnHover(3)">
                   <div class="task-info">
                      <div class="task-info-a task-info-demand task-info-3"></div>
-                     <img class="task-info-c task-info-img task-info-img-3" src="Images/Global Assets/nothing.png" alt="Task Giver">
+                     <img class="task-info-c task-info-img task-info-img-3">
                      <h4 class="task-info-b task-info-giver-3"></h4>
                   </div>
                   <button class="depth-button green task-submit-depth-button task-info-button-3"></button>
@@ -428,7 +466,7 @@
                <div class="task-block task-block-4" onmouseover="taskHover(4)" onmouseleave="taskUnHover(4)">
                   <div class="task-info">
                      <div class="task-info-a task-info-demand task-info-4"></div>
-                     <img class="task-info-c task-info-img task-info-img-4" src="Images/Global Assets/nothing.png" alt="Task Giver">
+                     <img class="task-info-c task-info-img task-info-img-4">
                      <h4 class="task-info-b task-info-giver-4"></h4>
                   </div>
                   <button class="depth-button blue task-submit-depth-button task-info-button-4"></button>
@@ -439,7 +477,6 @@
       <!-- Command Panel/Bar -->
       <div class="command-panel">
          <img src="Images/Control Bar/settings.png" alt="Settings">
-         <img src="Images/Control Bar/produce.png" alt="Produce">
          <img onclick="showObj('.marketShadow');" class="commandBarImg" src="Images/Control Bar/market.png" alt="Market">
          <img onclick="openCommands()" class="commandBarImg" src="Images/Control Bar/commands.png" alt="Commands">
          <img onclick="showObj('.settingShadow')" class="commandBarImg" src="Images/Control Bar/settings.png" alt="Settings">
@@ -461,52 +498,59 @@
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/Peas/pea.png" alt="Pea"><span class="peas-market-item"></span> </div>
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/pea.png" alt="Pea"><span class="peas-market-item"></span> </div>
                <div class="buy-sell">
                   <span class="market-item-buy" onclick="buyProduce('peas', 'Peas')">Buy</span>
                   <span class="market-item-sell"  onclick="sellProduce('peas', 'Peas')">Sell</span>
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/Corn/corn.png" alt="Corn"><span class="corn-market-item"></span></div>
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/corn.png" alt="Corn"><span class="corn-market-item"></span></div>
                <div class="buy-sell">
                   <span class="market-item-buy" onclick="buyProduce('corn', 'Corn')">Buy</span>
                   <span class="market-item-sell"  onclick="sellProduce('corn', 'Corn')">Sell</span>
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content"><img class="market-veg-img" src="Images/Fruits/Strawberries/strawberry.png" alt="Strawberry"><span class="strawberries-market-item"></span></div>
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/strawberry.png" alt="Strawberry"><span class="strawberries-market-item"></span></div>
                <div class="buy-sell">
                   <span class="market-item-buy" onclick="buyProduce('strawberries', 'Strawberries')">Buy</span>
                   <span class="market-item-sell"  onclick="sellProduce('strawberries', 'Strawberries')">Sell</span>
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/Eggplant/dark.png" alt="Eggplant"><span class="eggplants-market-item"></span></div>
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/eggplant.png" alt="Eggplant"><span class="eggplants-market-item"></span></div>
                <div class="buy-sell">
                   <span class="market-item-buy" onclick="buyProduce('eggplants', 'Eggplants')">Buy</span>
                   <span class="market-item-sell"  onclick="sellProduce('eggplants', 'Eggplants')">Sell</span>
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/Pumpkins/pumpkin.png" alt="Pumpkin"><span class="pumpkins-market-item"></span></div>
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/pumpkin.png" alt="Pumpkin"><span class="pumpkins-market-item"></span></div>
                <div class="buy-sell">
                   <span class="market-item-buy" onclick="buyProduce('pumpkins', 'Pumpkins')">Buy</span>
                   <span class="market-item-sell"  onclick="sellProduce('pumpkins', 'Pumpkins')">Sell</span>
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/Cabbage/cabbage.png" alt="Cabbage"><span class="cabbage-market-item"></span></div>
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/cabbage.png" alt="Cabbage"><span class="cabbage-market-item"></span></div>
                <div class="buy-sell">
                   <span class="market-item-buy" onclick="buyProduce('cabbage', 'Cabbage')">Buy</span>
                   <span class="market-item-sell"  onclick="sellProduce('cabbage', 'Cabbage')">Sell</span>
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/Dandelion/dandelion.png" alt="Dandelion"><span class="dandelion-market-item"></span></div>
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/dandelion.png" alt="Dandelion"><span class="dandelion-market-item"></span></div>
                <div class="buy-sell">
                   <span class="market-item-buy" onclick="buyProduce('dandelion', 'Dandelion')">Buy</span>
                   <span class="market-item-sell"  onclick="sellProduce('dandelion', 'Dandelion')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/rhubarb.png" alt="Rhubarb"><span class="rhubarb-market-item"></span></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('rhubarb', 'Rhubarb')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('rhubarb', 'Rhubarb')">Sell</span>
                </div>
             </div>
             <div class="market-item">
@@ -550,14 +594,14 @@
          <div class="modalContent settings">
             <span onclick="hideObj('.settingShadow')" class="closeModal">X</span>
             <h1>Settings</h1>
-            <button class="sidebar-button" onclick="restart()">Restart</button>
-            <button class="sidebar-button theme-color" onclick="light()">Light</button>
-            <button class="sidebar-button theme-color" onclick="randTheme()">Random</button>
-            <button class="sidebar-button theme-color" onclick="darkTheme()">Dark</button>
-            <button class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.remove('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Normal Device</button>
-            <button class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.add('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Small Device</button>
-            <button  class="sidebar-button device-size-button" onclick="document.querySelector('.land').classList.add('land-for-tiny');">Tiny Device</button>
-            <button class="sidebar-button" onclick="togglePlay()">Music</button>
+            <button onclick="restart()">Restart</button>
+            <button class="theme-color" onclick="light()">Light</button>
+            <button class="theme-color" onclick="randTheme()">Random</button>
+            <button class="theme-color" onclick="darkTheme()">Dark</button>
+            <button class="device-size-button" onclick="document.querySelector('.land').classList.remove('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Normal Device</button>
+            <button class="device-size-button" onclick="document.querySelector('.land').classList.add('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Small Device</button>
+            <button  class="device-size-button" onclick="document.querySelector('.land').classList.add('land-for-tiny');">Tiny Device</button>
+            <button onclick="togglePlay()">Music</button>
             <audio class="mozart" src="Audio/mozart.mp3"></audio>
          </div>
       </div>

@@ -20,18 +20,26 @@ v0.1.0 (May 25 2021)
 ~ rhubarb
 ~ rhubarb market
 
-~ more tasks
+~ tasks not working
 
 ~ weather
 ~ weather in tour
+~ weather help page
 
 ~ pictures for help
 ~ Update copyright
 
+- update mobile (rhubarb, ect.)
+
+~ disasters happen evey time
+
+
+
+random weeds apear on land, collect 5 for fertilizer
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Game Data | 57 LINES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
 let initalPlotStatus = {
    peas: "empty",
    corn: "empty",
@@ -40,6 +48,7 @@ let initalPlotStatus = {
    pumpkins: "empty",
    cabbage: "empty",
    dandelion: "empty",
+   rhubarb: "empty",
    // Grow Times
    peasGrowing: Infinity,
    peasReady: Infinity,
@@ -57,6 +66,8 @@ let initalPlotStatus = {
    dandelionGrowing: Infinity,
    dandelionFlowering: Infinity,
    dandelionReady: Infinity,
+   rhubarbGrowing: Infinity,
+   rhubarbReady: Infinity,
 }
 let initalProduce = {
    peas: 0,
@@ -66,6 +77,7 @@ let initalProduce = {
    pumpkins: 0,
    cabbage: 0,
    dandelion: 0,
+   rhubarb: 0,
 }
 let initalPlots = {
    price2: 150,
@@ -75,7 +87,7 @@ let initalPlots = {
    price6: 50000,
    price7: 250000,
    price8: 1000000,
-   price9: NaN,
+   price9: 8000000,
    peaplot: "unlocked",
    cornplot: "locked",
    strawberryplot: "locked",
@@ -83,6 +95,7 @@ let initalPlots = {
    pumpkinplot: "locked",
    cabbageplot: "locked",
    dandelionplot: "locked",
+   rhubarbplot: "locked",
 }
 let initalMarketData = {
    seeds: 0,
@@ -103,6 +116,8 @@ let initalMarketData = {
    sellCabbage: 25000,
    buyDandelion: 100000,
    sellDandelion: 100000,
+   buyRhubarb: 7500000,
+   sellRhubarb: 7500000,
    sellerName: ["Clearly Badd", "Hereto Steale", "Stolin Joye", "Heinous Krime", "Elig L. Felonie"][Math.floor(Math.random() * 5)],
    sellItem: ["Market Resets"][Math.floor(Math.random() * 1)],
    sellItemQuantity: Math.floor(Math.random() * (5 - 1)) + 1,
@@ -149,6 +164,26 @@ var produce = initalProduce;
 var plots = initalPlots;
 var marketData = initalMarketData;
 var taskList = initalTaskList;
+addWeed();
+function addWeed() {
+   let weedBoxHeight = document.querySelector(".land").clientHeight;
+   let weedBoxWidth = document.querySelector(".land").clientWidth;
+   $(".weed").each(function () {
+      var randomtop = (Math.floor(Math.random() * weedBoxHeight) - 25);
+      var randomleft = (Math.floor(Math.random() * weedBoxWidth) - 25);
+      $(this).css({
+         "transform": "scale(1)",
+         "margin-top": randomtop,
+         "margin-left": randomleft,
+      });
+   });
+}
+
+function collectWeed() {
+   this.remove();
+   marketData.weedPieces++;
+   callAlert(`You collected a weed fragment! You now have ${marketData.weedPieces}/5`);
+}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Vegetables | 61 LINES
@@ -191,7 +226,7 @@ function fertilize(veg) {
 }
 function plantLoop(veg, pltNumber, url, readyTime) {
    let vegPlot = document.querySelector("#plot" + pltNumber);
-   let imgUrl = "url(Images/Vegetables/" + url + ")";
+   let imgUrl = "url(Images/" + url + ")";
    setInterval(vegStatus, 1000);
    function vegStatus() {
       timeLeft(readyTime, veg);
@@ -207,11 +242,12 @@ function plantLoop(veg, pltNumber, url, readyTime) {
    }
 }
 
-plantLoop("peas", 1, 'Peas/grown-pea.png', 5000);
-plantLoop("corn", 2, 'Corn/grown-corn.png', 12000);
-plantLoop("eggplants", 4, 'Eggplant/grown-eggplant.png', 480000);
-plantLoop("pumpkins", 6, 'Pumpkins/grown-pumpkin.png', 600000);
-plantLoop("cabbage", 7, 'Cabbage/grown-cabbage.png', 3600000);
+plantLoop("peas", 1, 'Plots/grown-pea.png', 5000);
+plantLoop("corn", 2, 'Plots/grown-corn.png', 12000);
+plantLoop("eggplants", 4, 'Plots/grown-eggplant.png', 480000);
+plantLoop("pumpkins", 6, 'Plots/grown-pumpkin.png', 600000);
+plantLoop("cabbage", 7, 'Plots/grown-cabbage.png', 3600000);
+plantLoop("rhubarb", 9, 'Plots/grown-rhubarb.png', 28800000);
 
 function detailedPlant(veg, timeOne, timeTwo, timeThree) {
    currentTime = Date.now();
@@ -241,8 +277,8 @@ function detailedPlantLoop(veg, pltNumber, urlOne, urlTwo, urlThree, readyTime) 
    }
 }
 
-detailedPlantLoop("strawberries", 3, "Fruits/Strawberries/growing-strawberries.png", "Fruits/Strawberries/flowering-strawberries.png", "Fruits/Strawberries/grown-strawberries.png", 120000)
-detailedPlantLoop("dandelion", 8, "Vegetables/Dandelion/flowering.png", "Vegetables/Dandelion/flowering.png", "Vegetables/Dandelion/fruiting.png", 10800000)
+detailedPlantLoop("strawberries", 3, "Plots/Strawberry/growing-strawberries.png", "Plots/Strawberry/flowering-strawberries.png", "Plots/Strawberry/grown-strawberries.png", 120000)
+detailedPlantLoop("dandelion", 8, "Plots/Dandelion/flowering.png", "Plots/Dandelion/flowering.png", "Plots/Dandelion/fruiting.png", 10800000)
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Weather | 21 LINES
@@ -353,6 +389,7 @@ function maybeLose(veg) {
       }
    }
 }
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Tasks | 100 LINES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -386,7 +423,7 @@ function clearTask(num) {
    document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", "javascript: " );
    document.querySelector(`.task-info-${num}`).textContent = "";
    document.querySelector(`.task-info-giver-${num}`).textContent = "";
-   $(`.task-info-img-${num}`).attr("src", "Images/Global Assets/nothing.png");
+   $(`.task-info-img-${num}`).attr("src", "");
    taskList["taskBox" + num] = "unoccupied";
 }
 function emptyTaskCheck(task) {
@@ -576,6 +613,7 @@ function vegetablesOwnedLoop() {
    if (produce.pumpkins >= "3" && !vegetablesOwned.includes("pumpkins")) { vegetablesOwned.push("pumpkins") }
    if (produce.cabbage >= "3" && !vegetablesOwned.includes("cabbage")) { vegetablesOwned.push("cabbage") }
    if (produce.dandelion >= "3" && !vegetablesOwned.includes("dandelion")) { vegetablesOwned.push("dandelion") }
+   if (produce.rhubarb >= "3" && !vegetablesOwned.includes("rhubarb")) { vegetablesOwned.push("rhubarb") }
 }
 
 let luckyRoll = window.setInterval(function() {
@@ -599,6 +637,7 @@ function checkLocks() {
    if (plots.pumpkinplot === "unlocked") { openLock("pumpkin", 6) }
    if (plots.cabbageplot === "unlocked") { openLock("cabbage", 7) }
    if (plots.dandelionplot === "unlocked") { openLock("dandelion", 8) }
+   if (plots.rhubarbplot === "unlocked") { openLock("rhubarb", 9) }
 }
 function unlockPlot(plotNum) {
    let number = plotNum;
@@ -611,6 +650,7 @@ function unlockPlot(plotNum) {
       if (number == "6") { setTimeout(() => { openLock("pumpkin", 6); infoModal('UnlockedPumpkin'); }, 2500); document.getElementById("lock6").classList.add("removing-lock"); }
       if (number == "7") { setTimeout(() => { openLock("cabbage", 7); infoModal('UnlockedCabbage'); }, 2500); document.getElementById("lock7").classList.add("removing-lock"); }
       if (number == "8") { setTimeout(() => { openLock("dandelion", 8); infoModal('UnlockedDandelion'); }, 2500); document.getElementById("lock8").classList.add("removing-lock"); }
+      if (number == "9") { setTimeout(() => { openLock("rhubarb", 9); infoModal('UnlockedRhubarb'); }, 2500); document.getElementById("lock9").classList.add("removing-lock"); }
    }
    else { fadeTextAppear(event, `Not enough seeds`, false); }
 }
@@ -623,7 +663,8 @@ function openLock(vegetable, num) {
    if (vegetable === "eggplant") { document.getElementById("lock6Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price6, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(6)">Purchase Plot</button>`; }
    if (vegetable === "pumpkin") { document.getElementById("lock7Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price7, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(7)">Purchase Plot</button>`; }
    if (vegetable === "cabbage") { document.getElementById("lock8Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price8, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(8)">Purchase Plot</button>`; }
-   if (vegetable === "dandelion") { document.getElementById("lock9Text").innerHTML = `This plot is locked <br> Pay your soul to unlock <br> <button class="purchase-plot" onclick="callAlert('Error: Not signed into SoulPay+')">Requires SoulPay+</button>`; }
+   if (vegetable === "dandelion") { document.getElementById("lock9Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price9, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(9)">Purchase Plot</button>`; }
+   if (vegetable === "rhubarb") { document.getElementById("lock5Text").innerHTML = "Coming <br> Soon!"; }
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -819,6 +860,8 @@ function resetMarketValues() {
       marketData.sellCabbage = 25000;
       marketData.buyDandelion = 100000;
       marketData.sellDandelion = 100000;
+      marketData.buyRhubarb = 7500000;
+      marketData.sellRhubarb = 7500000;
       checkTasks("resetMarketValues", "useMarketResets");
    }
 }
@@ -866,6 +909,7 @@ let mainLoop = window.setInterval(function() {
    updateModalMarketPrices("Pumpkins");
    updateModalMarketPrices("Cabbage");
    updateModalMarketPrices("Dandelion");
+   updateModalMarketPrices("Rhubarb");
    function updateModalMarketPrices(veg) {
       document.querySelector(`.modal${veg}PriceBuy`).textContent = `Buy For ${toWord(marketData[`buy${veg}`], "short")}`;
       document.querySelector(`.modal${veg}PriceSell`).textContent = `Sell For ${toWord(marketData[`sell${veg}`], "short")}`;
@@ -880,6 +924,7 @@ let mainLoop = window.setInterval(function() {
    if (plots.pumpkinplot === "unlocked") { revealProduce("#pumpkinBushels", "pumpkins"); }
    if (plots.cabbageplot === "unlocked") { revealProduce("#cabbageBushels", "cabbage"); }
    if (plots.dandelionplot === "unlocked") { revealProduce("#dandelionBushels", "dandelion"); }
+   if (plots.rhubarb === "unlocked") { revealProduce("#rhubarbBushels", "rhubarb"); }
    function revealProduce(id, veg) {
       document.querySelector(".produce-tooltip-" + veg).style.display = "inline-block";
       document.querySelector(id).textContent = `${toWord(produce[veg], "short")} Bushels of ${capitalize(veg)}`;
