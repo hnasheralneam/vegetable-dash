@@ -4,8 +4,9 @@ TABLE OF CONTENTS
 ~~~~~~~~~~~~~~~~~
 Game Data          | Game information
 Vegetables         | Harvest and plant functions, as well as modals
+Weather            | Weather that effects plants
 Tasks              | Small chores given by main charecters
-Incidents          | Luck run when harvesting or using the Market
+Incidents          | Luck run when harvesting or using the Market, weeds
 Unlock Plots       | Functions that unlock plots
 Tour               | Welcome new players, should redo for market
 Market             | Sell items for seeds
@@ -17,10 +18,7 @@ Save               | Save the game data, restart
 
 // To do
 v0.1.0 (May 25 2021)
-~ rhubarb
 ~ rhubarb market
-
-~ tasks not working
 
 ~ weather
 ~ weather in tour
@@ -29,16 +27,17 @@ v0.1.0 (May 25 2021)
 ~ pictures for help
 ~ Update copyright
 
-- update mobile (rhubarb, ect.)
+- update mobile (from rhubarb)
 
-~ disasters happen evey time
+~ disasters happen evey [time]
 
+~ weeds in help
+~ weeds happen evey [time]
 
-
-random weeds apear on land, collect 5 for fertilizer
+~ fix light theme
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Game Data | 57 LINES
+Game Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 let initalPlotStatus = {
    peas: "empty",
@@ -101,6 +100,8 @@ let initalMarketData = {
    seeds: 0,
    marketResets: 0,
    fertilizers: 0,
+   weedPieces: 0,
+   weedSeason: Date.now() + 1800000,
    // Vegetable prices
    buyPeas: 25,
    sellPeas: 25,
@@ -164,7 +165,7 @@ var produce = initalProduce;
 var plots = initalPlots;
 var marketData = initalMarketData;
 var taskList = initalTaskList;
-addWeed();
+
 function addWeed() {
    let weedBoxHeight = document.querySelector(".land").clientHeight;
    let weedBoxWidth = document.querySelector(".land").clientWidth;
@@ -178,15 +179,27 @@ function addWeed() {
       });
    });
 }
-
 function collectWeed() {
-   this.remove();
+   $(".weed").remove();
    marketData.weedPieces++;
    callAlert(`You collected a weed fragment! You now have ${marketData.weedPieces}/5`);
+   if (marketData.weedPieces >= 5) {
+      marketData.weedPieces -= 5;
+      marketData.fertilizers += 1;
+      callAlert(`You made 1 fertilizer out of the composted weed fragments!`);
+   }
+}
+function toWeedOrNotToWeed() {
+   if (Date.now() >= marketData.weedSeason) {
+      let myRand = Math.random();
+      if (myRand <= .80) { addWeed(); }
+      marketData.weedSeason = Date.now() + 1800000;
+   }
+   currentTime = Date.now();
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Vegetables | 61 LINES
+// Vegetables
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 function infoModal(veg) {
@@ -281,7 +294,7 @@ detailedPlantLoop("strawberries", 3, "Plots/Strawberry/growing-strawberries.png"
 detailedPlantLoop("dandelion", 8, "Plots/Dandelion/flowering.png", "Plots/Dandelion/flowering.png", "Plots/Dandelion/fruiting.png", 10800000)
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Weather | 21 LINES
+// Weather
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 let weather = {
@@ -678,13 +691,7 @@ function runIntro() {
    plots = initalPlots;
    marketData = initalMarketData;
    settings = initalSettings;
-   // Save
-   localStorage.setItem("plotStatus", JSON.stringify(plotStatus));
-   localStorage.setItem("produce", JSON.stringify(produce));
-   localStorage.setItem("plots", JSON.stringify(plots));
-   localStorage.setItem("marketData", JSON.stringify(marketData));
-   localStorage.setItem("settingData", JSON.stringify(settings));
-
+   save();
    settings.intro = "finished";
    showObj(".welcome");
 }
@@ -792,8 +799,8 @@ document.addEventListener("keyup", function(event) { if (event.shiftKey && event
 function checkMarket() {
    let marketItem = document.getElementsByClassName("market-item");
    marketItem[0].style.display = "block";
-   marketItem[8].style.display = "block";
    marketItem[9].style.display = "block";
+   marketItem[10].style.display = "block";
    if (plots.peaplot != "locked") { marketItem[1].style.display = "block"; }
    if (plots.cornplot != "locked") { marketItem[2].style.display = "block"; }
    if (plots.strawberryplot != "locked") { marketItem[3].style.display = "block"; }
@@ -801,6 +808,7 @@ function checkMarket() {
    if (plots.pumpkinplot != "locked") { marketItem[5].style.display = "block"; }
    if (plots.cabbageplot != "locked") { marketItem[6].style.display = "block"; }
    if (plots.dandelionplot != "locked") { marketItem[7].style.display = "block"; }
+   if (plots.rhubarbplot != "locked") { marketItem[8].style.display = "block"; }
 }
 function buyProduce(produceRequested, produceCase) {
    if (marketData.seeds >= marketData["buy" + produceCase]) {
@@ -808,8 +816,6 @@ function buyProduce(produceRequested, produceCase) {
       marketData.seeds -= marketData["buy" + produceCase];
       marketData["buy" + produceCase] *= 1.08;
       marketData["sell" + produceCase] *= 1.02;
-      updateMarket();
-      checkMarket();
       marketLuck();
    }
    else { fadeTextAppear(event, `Not enough seeds`, false); }
@@ -820,8 +826,6 @@ function sellProduce(produceRequested, produceCase) {
       marketData.seeds += marketData["sell" + produceCase];
       marketData["buy" + produceCase] *= 0.98;
       marketData["sell" + produceCase] *= 0.92;
-      updateMarket();
-      checkMarket();
       marketLuck();
    }
    else { fadeTextAppear(event, `Not enough produce`, false); }
@@ -835,6 +839,7 @@ function updateMarket() {
    display("Pumpkins");
    display("Cabbage");
    display("Dandelion");
+   display("Rhubarb");
    function display(veg) {
       document.querySelector(`.${veg.toLowerCase()}-market-item`).textContent = `${veg}: ${toWord(produce[veg.toLowerCase()])}
       Buy for ${toWord(marketData["buy" + veg], "short")}
@@ -845,7 +850,7 @@ function updateMarket() {
 }
 function resetMarketValues() {
    if (marketData.marketResets > 0) {
-      marketData.marketResets--
+      marketData.marketResets--;
       marketData.buyPeas = 25;
       marketData.sellPeas = 25;
       marketData.buyCorn = 75;
@@ -1007,8 +1012,10 @@ $(document).ready(function(){ $('.help-subjects-item').click(function () { $('.h
 // Commands | 73 LINES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-// Command Panel
-document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 69) { openCommands(); } });
+document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 69) {
+   if (document.querySelector(".shortcutShadow").style.opacity === "0") { showObj(".shortcutShadow"); }
+   else { hideObj(".shortcutShadow"); }
+}});
 document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 81) { questbar(); } });
 document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 87) {
    if (document.querySelector(".settingShadow").style.opacity === "0") { showObj(".settingShadow"); }
@@ -1027,10 +1034,6 @@ function questbar() {
       document.querySelector(".questShadow").style.display = "none";
       questbarIsOpen = true;
    }
-}
-function openCommands() {
-   if (document.querySelector(".commandsShadow").style.opacity === "0") { showObj(".commandsShadow"); }
-   else { hideObj(".commandsShadow"); }
 }
 function commandBar() {
    if (document.querySelectorAll(".commandBarImg")[0].style.display === "inline-block") {
@@ -1133,35 +1136,28 @@ function togglePlay() { return myAudio.paused ? myAudio.play() : myAudio.pause()
 // Theme
 function whatTheme() {
    if (settings.theme === "dark") { darkTheme(); }
-   if (settings.theme === "light") { light(); }
+   if (settings.theme === "light") { lghtTheme(); }
    if (settings.theme === "random") { randTheme(); }
    else { darkTheme(); }
 }
-function darkTheme() {
-   document.querySelector('.produce').style.backgroundColor = '#111';
-   settings.theme = "dark";
-}
-function randTheme() {
-   document.querySelector('.produce').style.backgroundColor = genColor();
-   settings.theme = "random";
-}
-function light() {
-   document.querySelector('.produce').style.backgroundColor = '#f5f5f5';
-   settings.theme = "light";
-}
+function darkTheme() { document.querySelector('.produce').style.backgroundColor = '#111'; settings.theme = "dark"; }
+function randTheme() { document.querySelector('.produce').style.backgroundColor = genColor(); settings.theme = "random"; }
+function lghtTheme() { document.querySelector('.produce').style.backgroundColor = '#f5f5f5'; settings.theme = "light"; }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Save | 62 LINES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-let saveLoop = window.setInterval(function() {
+let saveLoop = window.setInterval(function() { save(); }, 1000)
+
+function save() {
    localStorage.setItem("plotStatus", JSON.stringify(plotStatus, replacer));
    localStorage.setItem("produce", JSON.stringify(produce, replacer));
    localStorage.setItem("plots", JSON.stringify(plots, replacer));
    localStorage.setItem("marketData", JSON.stringify(marketData, replacer));
    localStorage.setItem("settingData", JSON.stringify(settings, replacer));
    localStorage.setItem("taskList", JSON.stringify(taskList, replacer));
-}, 1000)
+}
 
 plotStatus = JSON.parse(localStorage.getItem("plotStatus"));
 produce = JSON.parse(localStorage.getItem("produce"));

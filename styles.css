@@ -27,19 +27,19 @@ summary:focus { outline: none; }
 
 
 .depth-button {
-  outline: none;
-  margin: 2vh;
-  padding: 8vh;
-  border: none;
-  border-radius: 5vh;
-  color: #fff;
-  font-size: 5vh;
-  transition: .15s;
+   outline: none;
+   margin: 2vh;
+   padding: 8vh;
+   border: none;
+   border-radius: 5vh;
+   color: #fff;
+   font-size: 5vh;
+   transition: .15s;
 }
 
 .depth-button:active {
-  outline: none;
-  transform: translateY(1vh);
+   outline: none;
+   transform: translateY(1vh);
 }
 
 .red { background-color: #f74040; box-shadow: 0 2vh #d61818; }
@@ -130,26 +130,13 @@ Farmland
 }
 .land-for-small {
    overflow-y: scroll;
-   grid-template-areas:
-   "auto auto"
-   "auto auto"
-   "auto auto"
-   "auto auto"
-   "auto auto";
+   grid-template-areas: none;
+   grid-template-columns: 50% 50%;
 }
 .land-for-tiny {
    overflow-y: scroll;
-   grid-template-areas:
-   "auto"
-   "auto"
-   "auto"
-   "auto"
-   "auto"
-   "auto"
-   "auto"
-   "auto"
-   "auto"
-   "auto";
+   grid-template-areas: none;
+   grid-template-columns: 100%;
 }
 
 /* Plots */
@@ -231,7 +218,7 @@ Farmland
 }
 
 /* Buttons */
-.grow-button {
+.ahh-perspective .grow {
    height: 10vh;
    width: 25vh;
    font-size: 3vh;
@@ -240,7 +227,7 @@ Farmland
    opacity: 1;
 }
 
-.harvest-button {
+.ahh-perspective .harvest {
    height: 10vh;
    width: 25vh;
    font-size: 3vh;
@@ -859,7 +846,6 @@ Produce
    transition: 0.5s;
    box-shadow: 0 0 2vh #262626;
    font-family: "Nunito";
-   overflow: scroll;
 }
 
 .produce-tooltip {
@@ -908,9 +894,11 @@ Produce
    pointer-events: auto;
 }
 
-/* Settings */
-.settings h1 { font-weight: 200; }
-.settings button {
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Settings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.setting-button {
    border-radius: .5vh;
    display: block;
    padding: 1vh;
@@ -923,8 +911,10 @@ Produce
    color: lightblue;
    display: inline;
    text-shadow: 0 0 4vh #000;
-   font-family: inherit;
+   font-family: "Nunito";
 }
+
+.settings h1 { font-weight: 200; }
 
 .theme-color {
    width: 26.3vw;
@@ -942,18 +932,8 @@ Produce
    background-color: #d9d9d9;
 }
 
-.settings button:hover {
-   transform: scale(0.95);
-   margin: .5vh auto;
-}
+.setting-button:active { transform: scale(0.95); }
 
-.settings button:active {
-   transform: scale(1.03);
-   padding: 1.5vh;
-   margin: .5vh auto;
-}
-
-#market-reset-more-info { filter: invert(); }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 More Information Hover
@@ -1153,6 +1133,7 @@ More Information Hover
 }
 
 .store-icon:hover { transform: scale(1.2); }
+#market-reset-more-info { filter: invert(); }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Quests
