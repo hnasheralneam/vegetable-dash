@@ -44,24 +44,9 @@
 //    time [veg] should be harvested = timePlanted[veg] + time growing;
 // }
 //
-//
 // check time() {
 //    if (time now - time [veg] should be harvested >= 0) {
 //       veg is ready
 //    }
 // }
 ```
-
-
-
-## Completed
-- **Second currency seeds**
-
-- **Info Modal**
-   - Click on vegetable image for informational modal
-- **Intro**
-   - Introduction to first timers
-- **Trading**
-   - Eventually there is market, with trading
-   - Each time you buy an item, % increase in price
-   - Selling and buying prices in informational
