@@ -17,7 +17,7 @@ button {
    padding: 4vh;
    margin: 1vh;
    font-family: sans-serif;
-   cursor: pointer;
+   cursor: inherit;
    transition: transform 150ms ease;
 }
 
@@ -362,17 +362,6 @@ Vegetable Info Modal
    width: 8vh;
    transition: 0.2s;
 }
-
-.fertilize {
-   float: right;
-   height: 8vh;
-   width: 8vh;
-   padding: .2vh;
-   border-radius: 2vh;
-   transition: 0.2s;
-}
-
-.fertilize img { height: 6vh; }
 
 .close:hover { transform: scale(1.05); }
 

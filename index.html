@@ -35,7 +35,6 @@
                <div id="infoPeas" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Peas')" class="close depth-button green">×</button>
-                     <button onclick="fertilize('peas')" class="fertilize depth-button green" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                      <h4>Peas <img class="info-icon" src="Images/Vegetables/pea.png"></h4>
                      <p>Peas are a climbing vine in the legume family. <br> These peas take 5 seconds to grow.</p>
                      <div class="modal-market-prices">
@@ -67,7 +66,6 @@
                <div id="infoCorn" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Corn')" class="close depth-button yellow">×</button>
-                     <button onclick="fertilize('corn')" class="fertilize depth-button yellow" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                      <h4>Corn <img class="info-icon" src="Images/Vegetables/corn.png"></h4>
                      <p>Corn, or maize, is a cereal grain originally grown 10,00 years ago in southern Mexico<br> These corn plants take 12 seconds to grow.</p>
                      <div class="modal-market-prices">
@@ -107,7 +105,6 @@
                <div id="infoStrawberry" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Strawberry')" class="close depth-button red">×</button>
-                     <button onclick="fertilize('strawberries')" class="fertilize depth-button red" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                      <h4>Strawberries! <img class="info-icon" src="Images/Vegetables/strawberry.png"></h4>
                      <p>Strawberries are NOT a vegetable, but it was one of the first drawings I made. I will probably remove this at some point. <br> Strawberries are part of the genus Fragaria, native to North America. <br> These strawberries take 2 minutes to grow.</p>
                      <div class="modal-market-prices">
@@ -149,7 +146,6 @@
                <div id="infoEggplant" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Eggplant')" class="close depth-button purple">×</button>
-                     <button onclick="fertilize('eggplants')" class="fertilize depth-button purple" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                      <h4>Eggplant <img class="info-icon" src="Images/Vegetables/eggplant.png"></h4>
                      <p>Eggplants are a species in the Solanaceae, or nightshade family, and are thought to be native to India. <br> These eggplants take 8 minutes to grow.</p>
                      <div class="modal-market-prices">
@@ -173,11 +169,11 @@
          </div>
          <!-- Center Plot -->
          <div class="plot" id="plot5">
-            <!-- <div class="lock-tooltip" id="lockedDiv5">
+            <div class="lock-tooltip" id="lockedDiv5">
                <img id="lock5" class="locked" src="Images/Lock/lock.png">
                <span class="tooltiptext" id="lock5Text"><br>This plot is locked <br> Purchase all other plots to unlock<br><br></span>
-            </div> -->
-            <div class="open-plot" id="openPlot5" style="display: block;">
+            </div>
+            <div class="open-plot" id="openPlot5">
                <!-- Info -->
                <img onclick="infoModal('Rainbow')" class="veg-icon" src="Images/Global Assets/rainbow-fruit.png">
                <div id="infoRainbow" class="veg-info">
@@ -217,7 +213,6 @@
                <div id="infoPumpkins" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Pumpkins')" class="close depth-button orange">×</button>
-                     <button onclick="fertilize('pumpkins')" class="fertilize depth-button orange" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                      <h4>Pumpkins <img class="info-icon" src="Images/Vegetables/pumpkin.png"></h4>
                      <p>Pumpkins, a round winter squash with yellow to orange smooth skin, are believed to originate in Mexico. <br> These Pumpkins take 10 minutes to grow.</p>
                      <div class="modal-market-prices">
@@ -259,7 +254,6 @@
                <div id="infoCabbage" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Cabbage')" class="close depth-button green">×</button>
-                     <button onclick="fertilize('cabbage')" class="fertilize depth-button green" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                      <h4>Cabbage <img class="info-icon" src="Images/Vegetables/cabbage.png"></h4>
                      <p>A leafy vegetable <br> These Cabbage plants take 1 hour to grow.</p>
                      <div class="modal-market-prices">
@@ -299,7 +293,6 @@
                <div id="infoDandelion" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Dandelion')" class="close depth-button yellow">×</button>
-                     <button onclick="fertilize('dandelion')" class="fertilize depth-button yellow" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                      <h4>Dandelions! <img class="info-icon" src="Images/Vegetables/dandelion.png"></h4>
                      <p>These <strong>are</strong> vegetables, because the part eaten are the seeds and leaves, not the fruit. Of the Taraxacum family, the name dandelion come from the French dent-de-lion, which means 'lion's tooth'.<br> These dandelions take 3 hours to grow.</p>
                      <div class="modal-market-prices">
@@ -341,7 +334,6 @@
                <div id="infoRhubarb" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Rhubarb')" class="close depth-button red">×</button>
-                     <button onclick="fertilize('rhubarb')" class="fertilize depth-button red" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                      <h4>Rhubarb <img class="info-icon" src="Images/Vegetables/rhubarb.png"></h4>
                      <p>Don't eat the leaves. <br> The're poisonous. <br> These rhubarb plants take 8 hours to grow.</p>
                      <div class="modal-market-prices">
@@ -371,7 +363,7 @@
             <span id="seeds" class="tooltip-text">Tooltip text</span>
          </div>
          <div style="display: inline-block;" class="produce-tooltip produce-tooltip-barrel">
-            <img src="Images/Global Assets/fertilizer.png">
+            <img onclick="fertilizeHover()" src="Images/Global Assets/fertilizer.png">
             <span id="fertilizer" class="tooltip-text">Tooltip text</span>
          </div>
          <div class="produce-tooltip produce-tooltip-peas">
@@ -619,6 +611,7 @@
                   <div id="help-planting">
                      <h1>Planting</h1>
                      <p>Just press the button that says grow, then use a rare and powerful skill called <em>patience</em>, and wait until it says <span onclick="scrollToSection('help-harvesting'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-harvesting').addClass('help-subjects-item-active');">harvest</span>.</p>
+                     <img src="Images/Help/plant-harvest.gif">
                   </div>
                   <div id="help-harvesting">
                      <h1>Harvesting</h1>
@@ -646,7 +639,7 @@
                   </div>
                   <div id="help-fertilizer">
                      <h1>Fertilizer</h1>
-                     <p>Fertilizer is a useful item that when used on a vegetable plot instantly completes the growing and adds an extra vegetable of that type. Fertilizer can be bought in the Black Market (coming soon), or earned from <span onclick="scrollToSection('help-tasks'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-tasks').addClass('help-subjects-item-active');">Tasks</span>.</p>
+                     <p>Fertilizer is a useful item, that when used on a plant will make the plant instantly conclude growing and yeild one extra of that vegetable. Fertilizer can be bought in the Black Market (coming soon), or earned from <span onclick="scrollToSection('help-tasks'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-tasks').addClass('help-subjects-item-active');">Tasks</span>.</p>
                   </div>
                   <div id="help-tasks">
                      <h1>Tasks</h1>

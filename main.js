@@ -944,6 +944,27 @@ function setup() {
 }
 window.addEventListener('load', (event) => { setup(); });
 
+// Fertilizer
+let fertilizerCursor = "not active";
+function fertilizeHover() {
+   if (fertilizerCursor === "active") {
+      fertilizerCursor = "not active";
+      document.querySelector(".land").style.cursor = "auto";
+   }
+   else {
+      fertilizerCursor = "active";
+      document.querySelector(".land").style.cursor = "url('D:/Documents/GitHub/vegetable-dash/Images/Global Assets/fertilizer-shovel.png'), auto";
+   }
+}
+document.querySelector('#plot1').addEventListener('click', event => { if (fertilizerCursor === "active") { fertilize('peas'); fertilizeHover(); } });
+document.querySelector('#plot2').addEventListener('click', event => { if (fertilizerCursor === "active") { fertilize('corn'); fertilizeHover(); } });
+document.querySelector('#plot3').addEventListener('click', event => { if (fertilizerCursor === "active") { fertilize('strawberries'); fertilizeHover(); } });
+document.querySelector('#plot4').addEventListener('click', event => { if (fertilizerCursor === "active") { fertilize('eggplants'); fertilizeHover(); } });
+document.querySelector('#plot6').addEventListener('click', event => { if (fertilizerCursor === "active") { fertilize('pumpkins'); fertilizeHover(); } });
+document.querySelector('#plot7').addEventListener('click', event => { if (fertilizerCursor === "active") { fertilize('cabbage'); fertilizeHover(); } });
+document.querySelector('#plot8').addEventListener('click', event => { if (fertilizerCursor === "active") { fertilize('dandelion'); fertilizeHover(); } });
+document.querySelector('#plot9').addEventListener('click', event => { if (fertilizerCursor === "active") { fertilize('rhubarb'); fertilizeHover(); } });
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Helpful Functions | 22 LINES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -1148,6 +1169,15 @@ function lghtTheme() { document.querySelector('.produce').style.backgroundColor 
 // Save | 62 LINES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+// For keeping Infinity the same after saving
+const replacer = (key, value) => {
+   if (value instanceof Function) { return value.toString(); }
+   else if (value === NaN) { return 'NaN'; }
+   else if (value === Infinity) { return 'Infinity'; }
+   else if (typeof value === 'undefined') { return 'undefined'; }
+   else { return value; }
+}
+
 let saveLoop = window.setInterval(function() { save(); }, 1000)
 
 function save() {
@@ -1190,15 +1220,6 @@ function restart() {
          location.reload();
       }
    }
-}
-
-// For keeping Infinity the same after saving
-const replacer = (key, value) => {
-   if (value instanceof Function) { return value.toString(); }
-   else if (value === NaN) { return 'NaN'; }
-   else if (value === Infinity) { return 'Infinity'; }
-   else if (typeof value === 'undefined') { return 'undefined'; }
-   else { return value; }
 }
 
 const initalPlotStatusKeys = Object.keys(initalPlotStatus);
