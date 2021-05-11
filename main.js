@@ -18,23 +18,12 @@ Save               | Save the game data, restart
 
 // To do
 v0.1.0 (May 25 2021)
-~ rhubarb market
-
 ~ weather
-~ weather in tour
-~ weather help page
-
-~ pictures for help
-~ Update copyright
-
-- update mobile (from rhubarb)
 
 ~ disasters happen evey [time]
-
-~ weeds in help
 ~ weeds happen evey [time]
 
-~ fix light theme
+- update mobile (from rhubarb)
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Game Data
@@ -101,7 +90,9 @@ let initalMarketData = {
    marketResets: 0,
    fertilizers: 0,
    weedPieces: 0,
+   // Time (Where elese do I put it?)
    weedSeason: Date.now() + 1800000,
+   disasterTime: Date.now() + 300000,
    // Vegetable prices
    buyPeas: 25,
    sellPeas: 25,
@@ -232,7 +223,6 @@ function fertilize(veg) {
    if (marketData.fertilizers >= 1) {
       marketData.fertilizers -= 1;
       plotStatus[veg + "Ready"] = 0;
-      if (veg === "strawberries") { plotStatus[veg + "Ready"] = 0; }
       produce[veg]++;
       checkTasks("fertilize", "tryFertilizer");
    }
@@ -282,6 +272,7 @@ function detailedPlantLoop(veg, pltNumber, urlOne, urlTwo, urlThree, readyTime) 
       if (Date.now() >= plotStatus[veg + "Ready"]) {
          plotImg.style.backgroundImage = `url(Images/${urlThree})`;
          showObj(`#harvest${capitalize(veg)}`);
+		 plotStatus[veg + "Growing"] = Infinity;
          plotStatus[veg + "Flowering"] = Infinity;
       }
       else if (Date.now() >= plotStatus[veg + "Flowering"]) { plotImg.style.backgroundImage = `url(Images/${urlTwo})`; plotStatus[veg + "Growing"] = Infinity; }
@@ -629,15 +620,28 @@ function vegetablesOwnedLoop() {
    if (produce.rhubarb >= "3" && !vegetablesOwned.includes("rhubarb")) { vegetablesOwned.push("rhubarb") }
 }
 
-let luckyRoll = window.setInterval(function() {
+
+function luckyRoll() {
    rand = Math.random();
    let vegLost = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
    let amountLost = Math.floor(produce[vegLost] / 3);
    if (rand < .08) {
       produce[vegLost] -= amountLost;
-      callAlert(`It snowed! You lost ${amountLost} of your ${vegLost}!`);
+      callAlert(`A pirate has pillaged your plots! You lost ${amountLost} of your ${vegLost}!`);
     }
-}, 300000)
+}
+
+let whenToLuck = window.setInterval(function() {
+	}
+	if (Date.now >= marketData.disasterTime) { console.log("more")}
+	if (Date.now <= marketData.disasterTime) { console.log("less")}
+
+	if (false) {
+	   console.log("working...");
+	   luckyRoll();
+	   marketData.disasterTime = Date.now() + 3000;
+	}
+}, 1000)
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Unlock Plots | 52 LINES
@@ -728,10 +732,19 @@ function intro() {
    function sidebar() {
       if (introData.produceBar === false) {
          $(".intro-img").attr("src", "Images/Tasks/farmer.png");
-         introText.textContent = "This bar shows the amount of seeds and produce you have, so you can keep track of how your farm is going.";
-         document.querySelector(".produce").style.zIndex = "1";
-         introBlock.style.width = "90%";
+         introText.textContent = "This toolbar shows the amount of produce you have, holds the fertilizer for growing plants quickly, and the sickle for harvesting.";
+         document.querySelector(".toolbar").style.zIndex = "100";
          introData.produceBar = true;
+      }
+      else { weather(); }
+   }
+   function weather() {
+      if (introData.weather === false) {
+         $(".intro-img").attr("src", "Images/Tasks/jenkins.png");
+         introText.textContent = "Keep an eye on the weather, because it will affect you plants! Sometimes it will help, while other times it could ruin your crop!";
+		 document.querySelector(".toolbar").style.zIndex = "0";
+         document.querySelector(".weather-short").style.zIndex = "9999";
+         introData.weather = true;
       }
       else { meetGran(); }
    }
@@ -739,8 +752,7 @@ function intro() {
       if (introData.meetGran === false) {
          $(".intro-img").attr("src", "Images/Tasks/granny.png");
          introText.textContent = "Nice to meet you. I'm Grandma Josephine, and I'm here to teach you economics.";
-         document.querySelector(".produce").style.zIndex = "0";
-         introBlock.style.width = "auto";
+		 document.querySelector(".weather-short").style.zIndex = "0";
          introData.meetGran = true;
       }
       else { market(); }
@@ -748,7 +760,7 @@ function intro() {
    function market() {
       if (introData.market === false) {
          introText.textContent = "This is the market, were you can gain seeds by selling produce, which are useful for many things, like opening more plots.";
-         introBlock.style.left = "60vh";
+         introBlock.style.bottom = "20vh";
          document.querySelector(".command-panel").style.zIndex = "9999";
          commandBar();
          introData.market = true;
@@ -759,27 +771,17 @@ function intro() {
       if (introData.tasks === false) {
          $(".intro-img").attr("src", "Images/Tasks/farmer.png");
          introText.textContent = "This little ribbon opens to show Tasks, where you can get rewards for doing chores around the farm.";
-         introBlock.style.left = "2.5vh";
+         introBlock.style.bottom = "2vh";
          document.querySelector(".command-panel").style.zIndex = "0";
          document.querySelector(".quests").style.zIndex = "9999";
          introData.tasks = true;
-      }
-      else { weather(); }
-   }
-   function weather() {
-      if (introData.tasks === false) {
-         $(".intro-img").attr("src", "Images/Tasks/jenkins.png");
-         introText.textContent = "Keep an eye on the weather, because it will affect you plants!";
-         document.querySelector(".command-panel").style.zIndex = "0";
-         document.querySelector(".weather").style.zIndex = "9999";
-         introData.weather = true;
       }
       else { help(); }
    }
    function help() {
       if (introData.help === false) {
          $(".intro-img").attr("src", "Images/Tasks/farmer.png");
-         introText.textContent = "That's it! If you need more help, just check the small help icon in the top left corner.";
+         introText.textContent = "That's it! If you need more help, just check out the small help icon in the top left corner.";
          document.querySelector(".quests").style.zIndex = "0";
          document.querySelector(".help-center-img").style.zIndex = "9999";
          introData.help = true;
@@ -921,20 +923,16 @@ let mainLoop = window.setInterval(function() {
    }
    // Update produce display
    document.querySelector("#seeds").textContent = `${toWord(marketData.seeds, "short")} Seeds`;
-   document.querySelector("#fertilizer").textContent = `${Math.round(marketData.fertilizers)} Fertilizers`;
+   document.querySelector("#fertilizer").textContent = `${Math.round(marketData.fertilizers)} Fertilizers Click + Place to apply`;
    if (plots.peaplot === "unlocked") { revealProduce("#peaBushels", "peas"); }
-   if (plots.cornplot === "unlocked") { revealProduce("#cornBushels", "corn"); }
+   if (plots.cornplot === "unlocked") { revealProduce("#cornBushels", "corn"); checkTasks("cornPlotUnlocked", "unlockThe_cornPlot"); }
    if (plots.strawberryplot === "unlocked") { revealProduce("#strawberryBushels", "strawberries"); }
    if (plots.eggplantplot === "unlocked") { revealProduce("#eggplantBushels", "eggplants"); }
    if (plots.pumpkinplot === "unlocked") { revealProduce("#pumpkinBushels", "pumpkins"); }
    if (plots.cabbageplot === "unlocked") { revealProduce("#cabbageBushels", "cabbage"); }
    if (plots.dandelionplot === "unlocked") { revealProduce("#dandelionBushels", "dandelion"); }
-   if (plots.rhubarb === "unlocked") { revealProduce("#rhubarbBushels", "rhubarb"); }
-   function revealProduce(id, veg) {
-      document.querySelector(".produce-tooltip-" + veg).style.display = "inline-block";
-      document.querySelector(id).textContent = `${toWord(produce[veg], "short")} Bushels of ${capitalize(veg)}`;
-   }
-   if (plots.cornplot === "unlocked") { checkTasks("cornPlotUnlocked", "unlockThe_cornPlot"); }
+   if (plots.rhubarbplot === "unlocked") { revealProduce("#rhubarbBushels", "rhubarb"); }
+   function revealProduce(id, veg) { document.querySelector(id).textContent = `${toWord(produce[veg], "short")} Bushels of ${capitalize(veg)}`; }
 }, 200)
 function setup() {
    if (!taskList) { taskList = initalTaskList; }
@@ -953,7 +951,7 @@ function fertilizeHover() {
    }
    else {
       fertilizerCursor = "active";
-      document.querySelector(".land").style.cursor = "url('D:/Documents/GitHub/vegetable-dash/Images/Global Assets/fertilizer-shovel.png'), auto";
+      document.querySelector(".land").style.cursor = "url('Images/Global Assets/fertilizer-shovel.png'), auto";
    }
 }
 document.querySelector('#plot1').addEventListener('click', event => { if (fertilizerCursor === "active") { fertilize('peas'); fertilizeHover(); } });
@@ -1157,13 +1155,13 @@ function togglePlay() { return myAudio.paused ? myAudio.play() : myAudio.pause()
 // Theme
 function whatTheme() {
    if (settings.theme === "dark") { darkTheme(); }
-   if (settings.theme === "light") { lghtTheme(); }
-   if (settings.theme === "random") { randTheme(); }
+   else if (settings.theme === "light") { lightTheme(); }
+   else if (settings.theme === "random") { randTheme(); }
    else { darkTheme(); }
 }
-function darkTheme() { document.querySelector('.produce').style.backgroundColor = '#111'; settings.theme = "dark"; }
-function randTheme() { document.querySelector('.produce').style.backgroundColor = genColor(); settings.theme = "random"; }
-function lghtTheme() { document.querySelector('.produce').style.backgroundColor = '#f5f5f5'; settings.theme = "light"; }
+function darkTheme() { document.querySelector('.toolbar').style.backgroundColor = '#111'; settings.theme = "dark"; }
+function randTheme() { document.querySelector('.toolbar').style.backgroundColor = genColor(); settings.theme = "random"; }
+function lightTheme() { document.querySelector('.toolbar').style.backgroundColor = '#f5f5f5'; settings.theme = "light"; }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Save | 62 LINES
@@ -1237,3 +1235,50 @@ for (key of initalTaskListKeys) { if (taskList[key] === undefined) { taskList[ke
 
 if (isMobile()) { document.location = "mobile.html"; }
 function isMobile() { return ('ontouchstart' in document.documentElement); }
+
+document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 68) { 
+   let cheatPassword = prompt("Password?");
+   if (cheatPassword === "dev") {
+      marketData.seeds += 1000000;
+      marketData.fertilizers += 250
+	  marketData.marketResets += 15;
+      plots.cornplot = "unlocked";
+      plots.strawberryplot = "unlocked";
+      plots.eggplantplot = "unlocked";
+      plots.pumpkinplot = "unlocked";
+      plots.cabbageplot = "unlocked";
+      plots.dandelionplot = "unlocked";
+      plots.rhubarbplot = "unlocked";
+	  settings.theme = "light";
+	  save();
+	  location.reload();
+	  alert("Welcome, Squirrel");
+   }
+   else { alert("No cheating for you"); }
+}});
+
+var mouseDown = 0;
+document.body.onmousedown = function() { mouseDown = 1; }
+document.body.onmouseup = function() { mouseDown = 0; }
+
+$("#plot1").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["peasReady"]) { harvest("Peas"); } });
+$("#plot2").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["cornReady"]) { harvest("Corn"); } });
+$("#plot3").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["strawberriesReady"]) { harvest("Strawberries"); } });
+$("#plot4").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["eggplantsReady"]) { harvest("Eggplants"); } });
+$("#plot6").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["pumpkinsReady"]) { harvest("Pumpkins"); } });
+$("#plot7").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["cabbageReady"]) { harvest("Cabbage"); } });
+$("#plot8").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["dandelionReady"]) { harvest("Dandelion"); } });
+$("#plot9").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["rhubarbReady"]) { harvest("Rhubarb"); } });
+
+
+let harvestCursor = "not active";
+function harvestDrag() {
+   if (harvestCursor === "active") {
+      harvestCursor = "not active";
+      document.querySelector(".land").style.cursor = "auto";
+   }
+   else {
+      harvestCursor = "active";
+      document.querySelector(".land").style.cursor = "url('Images/Global Assets/sickle-cursor.png'), auto";
+   }
+}

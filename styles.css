@@ -2,7 +2,12 @@
 Copyright January 1st 2021 by Squirrel
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-* { margin: 0; padding: 0; }
+* {
+   margin: 0;
+   padding: 0;
+   -webkit-user-select: none;
+   user-select: none;
+}
 body {
    background-image: url("Images/Global Assets/tilled.png");
    background-size: cover;
@@ -370,7 +375,7 @@ Right Click Menu
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 #menu {
-   width: 52vh;
+   width: 40vh;
    position: fixed;
    z-index: 9999;
    display: none;
@@ -386,6 +391,10 @@ Right Click Menu
    list-style-type: none;
    padding: 2vh 5vh;
    transition: .2s;
+}
+
+#menu a {
+   color: #54abd3;
 }
 
 #menu li:hover {
@@ -478,7 +487,7 @@ Introduction
 
 .plant-quest-arrow {
    position: absolute;
-   right: -115%;
+   right: -135%;
 }
 
 @keyframes quest-arrow-nudge {
@@ -819,40 +828,57 @@ input:checked + .slider:before { transform: translateY(8vh); }
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Produce
+Toolbar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-.produce {
+.toolbar {
    position: absolute;
-   top: 0;
-   right: 0;
+   top: 2vh;
+   right: 2vh;
    background-color: #111;
-   border-left: ridge 1vh gold;
-   padding: 3vh;
-   height: 100%;
-   width: 6vh;
-   color: #fff;
+   border: ridge .8vh gold;
+   border-radius: 2vh;
+   height: 38.5vh;
+   width: 14.5vh;
    transition: 0.5s;
    box-shadow: 0 0 2vh #262626;
    font-family: "Nunito";
 }
 
-.produce-tooltip {
-   position: relative;
-   width: 10vh;
-   height: 10vh;
-   display: none;
-   margin: .5vh 0;
+.produce-scroll {
+   position: absolute;
+   top: 0;
+   right: 0;
+   padding: 3vh 3vh 3vh 26vh;
+   height: 100%;
+   width: 35vh;
+   font-family: "Nunito";
+   box-sizing: border-box;
 }
 
-.produce-tooltip img { height: 8vh; }
+.produce-tooltip {
+   position: relative;
+   width: auto;
+   margin: auto;
+   text-align: center;
+}
+
+.produce-image {
+   height: 4vh;
+   margin: 0 .5vh;
+}
+
+.toolbar-img {
+   height: 10vh;
+   margin: 1.2vh 0;
+}
 
 .produce-tooltip .tooltip-text {
    position: absolute;
    opacity: 0;
    pointer-events: none;
-   height: 120%;
-   min-width: 200%;
+   width: 20vh;
+   height: 12vh;
    background-color: #eee;
    text-align: center;
    border-radius: 2vh;
@@ -860,11 +886,17 @@ Produce
    box-shadow: 0 0 2vh #ddd;
    font-size: 3vh;
    color: #262626;
-   top: -3vh;
-   right: 115%;
+   top: -1vh;
+   right: 95%;
    z-index: 1;
    transition: .8s;
    transition-delay: 1s;
+}
+
+.produce-tooltip .tooltip-text-produce {
+   min-width: 50vh;
+   height: auto;
+   padding: 2vh 0;
 }
 
 .produce-tooltip .tooltip-text::after {
@@ -877,6 +909,8 @@ Produce
    border-style: solid;
    border-color: transparent transparent transparent #eee;
 }
+
+.produce-tooltip .tooltip-text-produce::after { top: 7vh; }
 
 .produce-tooltip:hover .tooltip-text {
    opacity: 1;
@@ -1034,6 +1068,13 @@ More Information Hover
    scroll-behavior: smooth;
 }
 
+.help-information div {
+   height: 100%;
+   width: 100%;
+   position: relative;
+   margin-bottom: 10vh;
+}
+
 .help-information h1 {
    font-family: "Nunito";
    text-align: center;
@@ -1043,6 +1084,12 @@ More Information Hover
 .help-information p {
    font-size: 3.5vh;
    margin-bottom: 100vh;
+}
+
+.help img {
+   position: absolute;
+   bottom: 0;
+   right: 0;
 }
 
 .help-information span {
@@ -1271,8 +1318,8 @@ Quests
    position: fixed;
    height: 15vh;
    width: 15vh;
-   right: 18vh;
-   top: 2vh;
+   right: 2vh;
+   top: 45vh;
    background-color: rgb(59, 74, 167, .9);
    border: solid .5vh rgb(42, 50, 102, .9);
    border-radius: 2vh;

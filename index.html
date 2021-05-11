@@ -20,10 +20,10 @@
          <!-- Pea Plot -->
          <div class="plot" id="plot1">
             <div class="plot-inner">
-               <img class="quest-arrow plant-quest-arrow" src="Images/Tasks/arrow.png">
                <span class="ahh-perspective">
                   <button class="grow" id="growPeas" onclick="plant('peas', 2000, 5000)">Grow Peas!</button>
                   <button class="harvest" id="harvestPeas" onclick="harvest('Peas')">Harvest Peas!<img class="sickle" src="Images/Global Assets/sickle.png"></button>
+				  <img class="quest-arrow plant-quest-arrow" src="Images/Tasks/arrow.png">
                </span>
                <div class="countdown time-left">
                   <span class="peas-time-left">00:00:00</span>
@@ -356,49 +356,31 @@
             </div>
          </div>
       </div>
-      <!-- Produce -->
-      <div class="produce">
-         <div style="display: inline-block;" class="produce-tooltip produce-tooltip-barrel">
-            <img src="Images/Global Assets/barrel.png">
-            <span id="seeds" class="tooltip-text">Tooltip text</span>
+      <!-- Toolbar -->
+      <div class="toolbar">
+         <div class="produce-tooltip produce-tooltip-barrel">
+            <img class="toolbar-img" src="Images/Global Assets/barrel.png">
+            <span class="tooltip-text tooltip-text-produce">
+               <span id="seeds">Tooltip Text</span><br>
+               <span id="peaBushels">Tooltip text</span><img class="produce-image" src="Images/Vegetables/pea.png"><br>
+               <span id="cornBushels">Tooltip text</span><img class="produce-image" src="Images/Vegetables/corn.png"><br>
+               <span id="strawberryBushels">Tooltip text</span><img class="produce-image" src="Images/Vegetables/strawberry.png"><br>
+               <span id="eggplantBushels">Tooltip text</span><img class="produce-image" src="Images/Vegetables/eggplant.png"><br>
+               <span id="pumpkinBushels">Tooltip text</span><img class="produce-image" src="Images/Vegetables/pumpkin.png"><br>
+               <span id="cabbageBushels">Tooltip text</span><img class="produce-image" src="Images/Vegetables/cabbage.png"><br>
+               <span id="dandelionBushels">Tooltip text</span><img class="produce-image" src="Images/Vegetables/dandelion.png"><br>
+               <span id="rhubarbBushels">Tooltip text</span><img class="produce-image" src="Images/Vegetables/rhubarb.png"><br>
+            </span>
          </div>
-         <div style="display: inline-block;" class="produce-tooltip produce-tooltip-barrel">
-            <img onclick="fertilizeHover()" src="Images/Global Assets/fertilizer.png">
+         <div class="produce-tooltip produce-tooltip-fertilizer">
+            <img class="toolbar-img" onclick="fertilizeHover()" src="Images/Global Assets/fertilizer.png">
             <span id="fertilizer" class="tooltip-text">Tooltip text</span>
          </div>
-         <div class="produce-tooltip produce-tooltip-peas">
-            <img src="Images/Vegetables/pea.png">
-            <span id="peaBushels" class="tooltip-text">Tooltip text</span>
+		 <div class="produce-tooltip produce-tooltip-harvest-drag">
+            <img class="toolbar-img" onclick="harvestDrag()" src="Images/Global Assets/sickle.png">
+            <span id="harvest-drag" class="tooltip-text">Hold + Drag to harvest</span>
          </div>
-         <div class="produce-tooltip produce-tooltip-corn">
-            <img src="Images/Vegetables/corn.png">
-            <span id="cornBushels" class="tooltip-text">Tooltip text</span>
-         </div>
-         <div class="produce-tooltip produce-tooltip-strawberries">
-            <img src="Images/Vegetables/strawberry.png">
-            <span id="strawberryBushels" class="tooltip-text">Tooltip text</span>
-         </div>
-         <div class="produce-tooltip produce-tooltip-eggplants">
-            <img src="Images/Vegetables/eggplant.png">
-            <span id="eggplantBushels" class="tooltip-text">Tooltip text</span>
-         </div>
-         <div class="produce-tooltip produce-tooltip-pumpkins">
-            <img src="Images/Vegetables/pumpkin.png">
-            <span id="pumpkinBushels" class="tooltip-text">Tooltip text</span>
-         </div>
-         <div class="produce-tooltip produce-tooltip-cabbage">
-            <img src="Images/Vegetables/cabbage.png">
-            <span id="cabbageBushels" class="tooltip-text">Tooltip text</span>
-         </div>
-         <div class="produce-tooltip produce-tooltip-dandelion">
-            <img src="Images/Vegetables/dandelion.png">
-            <span id="dandelionBushels" class="tooltip-text">Tooltip text</span>
-         </div>
-         <div class="produce-tooltip produce-tooltip-rhubarb">
-            <img src="Images/Vegetables/rhubarb.png">
-            <span id="rhubarbBushels" class="tooltip-text">Tooltip text</span>
-         </div>
-      </div>
+	  </div>
       <!-- Tasks -->
       <div class="questShadow" onclick="questbar()"></div>
       <div class="quests">
@@ -568,7 +550,7 @@
                <span onclick="hideObj('.settingShadow')" class="closeModal">X</span>
                <h1>Settings</h1>
                <button class="setting-button" onclick="restart()">Restart</button>
-               <button class="setting-button theme-color" onclick="lghtTheme()">Light</button>
+               <button class="setting-button theme-color" onclick="lightTheme()">Light</button>
                <button class="setting-button theme-color" onclick="randTheme()">Random</button>
                <button class="setting-button theme-color" onclick="darkTheme()">Dark</button>
                <button class="setting-button device-size-button" onclick="document.querySelector('.land').classList.remove('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Normal Device</button>
@@ -597,10 +579,11 @@
                   <div class="help-subjects-item help-subjects-item-market-resets" onclick="scrollToSection('help-market-resets')">Market Resets</div>
                   <div class="help-subjects-item help-subjects-item-fertilizer" onclick="scrollToSection('help-fertilizer')">Fertilizer</div>
                   <div class="help-subjects-item help-subjects-item-tasks" onclick="scrollToSection('help-tasks')">Tasks</div>
+                  <div class="help-subjects-item help-subjects-item-weather" onclick="scrollToSection('help-weather')">Weather</div>
+                  <div class="help-subjects-item help-subjects-item-weeds" onclick="scrollToSection('help-weeds')">Weeds</div>
                   <div class="help-subjects-item help-subjects-item-jebidiah" onclick="scrollToSection('help-farmer-jebediah')">Farmer Jebediah</div>
                   <div class="help-subjects-item help-subjects-item-jenkins" onclick="scrollToSection('help-grandpa-jenkins')">Grandpa Jenkins</div>
                   <div class="help-subjects-item help-subjects-item-josephine" onclick="scrollToSection('help-grandma-josephine')">Grandma Josephine</div>
-                  <div class="help-subjects-item help-subjects-item-slippers" onclick="scrollToSection('help-bunny-slippers')">Bunny Slippers</div>
                   <div class="help-subjects-item help-subjects-item-about" onclick="scrollToSection('help-about-copyright')">About & Copyright</div>
                </div>
                <div class="help-information">
@@ -611,15 +594,17 @@
                   <div id="help-planting">
                      <h1>Planting</h1>
                      <p>Just press the button that says grow, then use a rare and powerful skill called <em>patience</em>, and wait until it says <span onclick="scrollToSection('help-harvesting'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-harvesting').addClass('help-subjects-item-active');">harvest</span>.</p>
-                     <img src="Images/Help/plant-harvest.gif">
+                     <img src="Images/Help/plant-harvest.gif" style="height: 50vh">
                   </div>
                   <div id="help-harvesting">
                      <h1>Harvesting</h1>
                      <p>A button shall appear out of thin air, and written on it shall be that wonderful word: Harvest [Vegetable Name]. You want to press that button. By doing this, you shall gain 1 vegetable of that type and 1 seed. By harvesting there is a 5% chance of collecting a <span onclick="scrollToSection('help-market-resets'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market-resets').addClass('help-subjects-item-active');">Market Reset</span>, a 10% chance of collection 2 extra vegetables, and a 20% chance of collecting 5 extra <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span>.</p>
+					 <img src="Images/Help/plant-harvest.gif" style="height: 50vh">
                   </div>
                   <div id="help-plots">
                      <h1>Plots</h1>
                      <p>Plots are where vegetables are grown. Each plot grows a certain type of vegetable. To unlock the next plot, hover over the large yellow lock and click 'purchase plot'. This shall cost <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span></p>
+					 <img src="Images/Help/plots.png" style="height: 50vh">
                   </div>
                   <div id="help-seeds">
                      <h1>Seeds</h1>
@@ -628,6 +613,7 @@
                   <div id="help-market">
                      <h1>Market</h1>
                      <p>The market is a wonderful and bustling place filled with plenty of vegetables. It can be accessed by hovering over the bar in the bottom left corner then clicking the button with a shop icon. It show how much <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span> you have in the first box. The next box has a the amount of a certain type of vegetable you have, and you can sell 5 of them for an amount of <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span> or buy 5 for some <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span>. You can reset the price values with <span onclick="scrollToSection('help-market-resets'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market-resets').addClass('help-subjects-item-active');">Market Resets</span></p>
+					 <img src="Images/Help/market.png" style="height: 45vh">
                   </div>
                   <!-- <div id="help-black-market">
                      <h1>Black Market</h1>
@@ -636,37 +622,48 @@
                   <div id="help-market-resets">
                      <h1>Market Resets</h1>
                      <p>Market resets can be found as the last item in the <span onclick="scrollToSection('help-market'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market').addClass('help-subjects-item-active');">Market</span>. By using one all of the values in the market are reset to what they began as, not the outrageous price they have become. There is a 1% chance of collecting one after each trade, and a 5% chance after each harvest. One is gained every time you unlock a plot.</p>
+					 <img src="Images/Help/market-resets.png" style="height: 50vh">
                   </div>
                   <div id="help-fertilizer">
                      <h1>Fertilizer</h1>
                      <p>Fertilizer is a useful item, that when used on a plant will make the plant instantly conclude growing and yeild one extra of that vegetable. Fertilizer can be bought in the Black Market (coming soon), or earned from <span onclick="scrollToSection('help-tasks'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-tasks').addClass('help-subjects-item-active');">Tasks</span>.</p>
+					 <img src="Images/Help/fertilizer.gif" style="height: 50vh">
                   </div>
                   <div id="help-tasks">
                      <h1>Tasks</h1>
                      <p>Tasks are small chores that <span onclick="scrollToSection('help-farmer-jebediah'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-jebidiah').addClass('help-subjects-item-active');">Farmer Jebediah</span>, <span onclick="scrollToSection('help-grandpa-jenkins'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-jenkins').addClass('help-subjects-item-active');">Grandpa Jenkins</span>, <span onclick="scrollToSection('help-grandma-josephine'); ; $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-josephine').addClass('help-subjects-item-active');">Grandma Josephine</span>, or special guests request that require you to do a task for them or pay some items. They give helpful rewards like <span onclick="scrollToSection('help-fertilizer'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-fertilizer').addClass('help-subjects-item-active');">Fertilizer</span> and <span onclick="scrollToSection('help-market-resets'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market-resets').addClass('help-subjects-item-active');">Market Resets</span>.</p>
+					 <img src="Images/Help/tasks.png" style="height: 50vh">
+                  </div>
+				  <div id="help-weather">
+                     <h1>Weather</h1>
+                     <p>Weather is a natural phenomenon that sometimes occurs, usally in the sky. It will effect your plants, sometimes positivly and sometimes negatively. Keep a close eye on the weather in the top right corner! Note: There are no forcasts, because those are always wrong</p>
+					 <img src="Images/Help/weather.png" style="height: 50vh">
+                  </div>
+				  <div id="help-weeds">
+                     <h1>Weeds</h1>
+                     <p>Weeds are small little plants that grow places you don't want them to. However, you do want these weeds, because of you gather enough and compost them you get fertilizer! Weeds will apear in random plots, and if you harvest five you will revice one fertilizer.</p>
+					 <img src="Images/Help/tasks.png" style="height: 50vh">
                   </div>
                   <div id="help-farmer-jebediah">
                      <h1>Farmer Jebediah</h1>
                      <p>Previous owner of the farm, you closest adviser. He gives many important <span onclick="scrollToSection('help-tasks'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-tasks').addClass('help-subjects-item-active');">Tasks</span>.</p>
+					 <img src="Images/Help/farmer.png" style="height: 50vh">
                   </div>
                   <div id="help-grandpa-jenkins">
                      <h1>Grandpa Jenkins</h1>
                      <p>Guide on everything farming, bearer of the Bunny Slippers, and giver of <span onclick="scrollToSection('help-tasks'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-tasks').addClass('help-subjects-item-active');">Tasks</span>.</p>
+					 <img src="Images/Help/jenkins.png" style="height: 50vh">
                   </div>
                   <div id="help-grandma-josephine">
                      <h1>Grandma Josephine</h1>
                      <p>Your personal economic adviser, and giver of <span onclick="scrollToSection('help-tasks'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-tasks').addClass('help-subjects-item-active');">Tasks</span>.</p>
-                  </div>
-                  <div id="help-bunny-slippers">
-                     <h1>Bunny Slippers</h1>
-                     <p>Currently borne by <span onclick="scrollToSection('help-grandpa-jenkins'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-jenkins').addClass('help-subjects-item-active');">Grandpa Jenkins</span>, the Bunny Slippers are the main object of the Bunny Slippers Task List, a Task List being a collection of related tasks. It begins with <span onclick="scrollToSection('help-grandma-josephine'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-josephine').addClass('help-subjects-item-active');">Grandma Josephine</span> telling you to sell the slippers, then <span onclick="scrollToSection('help-grandpa-jenkins'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-jenkins').addClass('help-subjects-item-active');">Grandpa Jenkins</span> reveals their true value, and you must go on a long task list meeting many people who all want you to do something for them, finally ending with the retrieval of the Bunny Slippers.</p>
+					 <img src="Images/Help/granny.png" style="height: 50vh">
                   </div>
                   <div id="help-about-copyright">
-                     <div class="">
-
-                     </div>
                      <h1>About & Copyright</h1>
-                     <div>This game is &copy copyrighted by Squirrel. If you want to help, email me at <a href="mailto:thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a>, or send a suggestion.
+                     This game is &copy copyrighted by Squirrel. If you want to help, email me at <a href="mailto:thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a>, or send a suggestion. <br>
+					 Strawberry, Eggplant, and Pea images are courtesy of <a href="https://www.youtube.com/channel/UCW4Ba6Mu-nRZII6kg2eEGzA">Urdons</a>. <br>
+					 Favicon image is courtesy of <a href="https://github.com/PusheenMaster5">Justin</a>.
                         <br><br>
                         <table>
                            <tr>
@@ -702,7 +699,6 @@
                         <a href="https://github.com/Squirrel-314/vegetable-dash">Vegetable Dash on GitHub</a>
                         <br>
                         <a href="https://github.com/Squirrel-314?tab=repositories">Squirrel on GitHub</a>
-                     </div>
                      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                   </div>
                </div>
@@ -737,14 +733,12 @@
             </div>
          </div>
          <div id="menu">
-            <li class="menu-links"><a href="https://meetsquirrel.github.io">Check this out!</a></li>
-            <li class="menu-links"><a href="https://squirrel-314.github.io">And this!</a></li>
-            <li>You won't regret it!</li>
-            <li>Probably.</li>
+            <li class="menu-links"><a href="https://meetsquirrel.github.io">Who's Squirrel?</a></li>
+            <li class="menu-links"><a href="https://squirrel-314.github.io">Gold Rush!</a></li>
             <hr>
             <li class="menu-links"><a href="https://github.com/Squirrel-314/vegetable-dash">GitHub</a></li>
-            <li>Support: <a href="mailto: thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a></li>
-            <li>Version: 0.0.9</li>
+            <li><a href="mailto: thehillsidetownship@gmail.com">Support</a></li>
+            <li>Version: 0.1.0</li>
          </div>
          <div class="alert">Game Saved!</div>
          <span class="hidden"><div class="fade-text">This text is fading</div></span>
