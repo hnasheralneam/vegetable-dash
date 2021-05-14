@@ -272,7 +272,7 @@ function detailedPlantLoop(veg, pltNumber, urlOne, urlTwo, urlThree, readyTime) 
       if (Date.now() >= plotStatus[veg + "Ready"]) {
          plotImg.style.backgroundImage = `url(Images/${urlThree})`;
          showObj(`#harvest${capitalize(veg)}`);
-		 plotStatus[veg + "Growing"] = Infinity;
+       plotStatus[veg + "Growing"] = Infinity;
          plotStatus[veg + "Flowering"] = Infinity;
       }
       else if (Date.now() >= plotStatus[veg + "Flowering"]) { plotImg.style.backgroundImage = `url(Images/${urlTwo})`; plotStatus[veg + "Growing"] = Infinity; }
@@ -281,7 +281,7 @@ function detailedPlantLoop(veg, pltNumber, urlOne, urlTwo, urlThree, readyTime) 
    }
 }
 
-detailedPlantLoop("strawberries", 3, "Plots/Strawberry/growing-strawberries.png", "Plots/Strawberry/flowering-strawberries.png", "Plots/Strawberry/grown-strawberries.png", 120000)
+detailedPlantLoop("strawberries", 3, "Plots/Strawberry/growing.png", "Plots/Strawberry/flowering.png", "Plots/Strawberry/fruiting.png", 120000)
 detailedPlantLoop("dandelion", 8, "Plots/Dandelion/flowering.png", "Plots/Dandelion/flowering.png", "Plots/Dandelion/fruiting.png", 10800000)
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -632,15 +632,14 @@ function luckyRoll() {
 }
 
 let whenToLuck = window.setInterval(function() {
-	}
-	if (Date.now >= marketData.disasterTime) { console.log("more")}
-	if (Date.now <= marketData.disasterTime) { console.log("less")}
+   if (Date.now >= marketData.disasterTime) { console.log("more")}
+   if (Date.now <= marketData.disasterTime) { console.log("less")}
 
-	if (false) {
-	   console.log("working...");
-	   luckyRoll();
-	   marketData.disasterTime = Date.now() + 3000;
-	}
+   if (false) {
+      console.log("working...");
+      luckyRoll();
+      marketData.disasterTime = Date.now() + 3000;
+   }
 }, 1000)
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -742,7 +741,7 @@ function intro() {
       if (introData.weather === false) {
          $(".intro-img").attr("src", "Images/Tasks/jenkins.png");
          introText.textContent = "Keep an eye on the weather, because it will affect you plants! Sometimes it will help, while other times it could ruin your crop!";
-		 document.querySelector(".toolbar").style.zIndex = "0";
+       document.querySelector(".toolbar").style.zIndex = "0";
          document.querySelector(".weather-short").style.zIndex = "9999";
          introData.weather = true;
       }
@@ -752,7 +751,7 @@ function intro() {
       if (introData.meetGran === false) {
          $(".intro-img").attr("src", "Images/Tasks/granny.png");
          introText.textContent = "Nice to meet you. I'm Grandma Josephine, and I'm here to teach you economics.";
-		 document.querySelector(".weather-short").style.zIndex = "0";
+       document.querySelector(".weather-short").style.zIndex = "0";
          introData.meetGran = true;
       }
       else { market(); }
@@ -1236,12 +1235,12 @@ for (key of initalTaskListKeys) { if (taskList[key] === undefined) { taskList[ke
 if (isMobile()) { document.location = "mobile.html"; }
 function isMobile() { return ('ontouchstart' in document.documentElement); }
 
-document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 68) { 
+document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 68) {
    let cheatPassword = prompt("Password?");
    if (cheatPassword === "dev") {
       marketData.seeds += 1000000;
       marketData.fertilizers += 250
-	  marketData.marketResets += 15;
+     marketData.marketResets += 15;
       plots.cornplot = "unlocked";
       plots.strawberryplot = "unlocked";
       plots.eggplantplot = "unlocked";
@@ -1249,10 +1248,10 @@ document.addEventListener("keyup", function(event) { if (event.shiftKey && event
       plots.cabbageplot = "unlocked";
       plots.dandelionplot = "unlocked";
       plots.rhubarbplot = "unlocked";
-	  settings.theme = "light";
-	  save();
-	  location.reload();
-	  alert("Welcome, Squirrel");
+     settings.theme = "light";
+     save();
+     location.reload();
+     alert("Welcome, Squirrel");
    }
    else { alert("No cheating for you"); }
 }});
