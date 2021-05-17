@@ -23,7 +23,10 @@ v0.1.0 (May 25 2021)
 ~ disasters happen evey [time]
 ~ weeds happen evey [time]
 
-- update mobile (from rhubarb)
+~ update mobile (from rhubarb)
+
+~ Vegetable amount shows when plots are not unlocked (fix this)
+~ Cannot fertilize if ready
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Game Data
