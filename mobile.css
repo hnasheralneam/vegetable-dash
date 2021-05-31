@@ -14,8 +14,8 @@ body {
 
 /* Remove default button styles */
 button {
-   padding: 4vh;
-   margin: 1vh;
+   padding: 8vw;
+   margin: 2vw;
    font-family: sans-serif;
    cursor: pointer;
    transition: transform 150ms ease;
@@ -27,33 +27,33 @@ summary:focus { outline: none; }
 
 .depth-button {
   outline: none;
-  margin: 2vh;
-  padding: 8vh;
+  margin: 1vw;
+  padding: 12vw;
   border: none;
-  border-radius: 5vh;
+  border-radius: 7.5vw;
   color: #fff;
-  font-size: 5vh;
+  font-size: 10vw;
   transition: .15s;
 }
 
 .depth-button:active {
   outline: none;
-  transform: translateY(1vh);
+  transform: translateY(2vw);
 }
 
-.red { background-color: #f74040; box-shadow: 0 2vh #d61818; }
-.orange { background-color: #F9A748; box-shadow: 0 2vh #DA7D12; }
-.yellow { background-color: #F8F948; box-shadow: 0 2vh #EAEB12; }
-.green { background-color: #3FE863; box-shadow: 0 2vh #03B428; }
-.blue { background-color: #63E1FF; box-shadow: 0 2vh #16CCF8; }
-.purple { background-color: #6B3FE8; box-shadow: 0 2vh #4B20C8; }
+.red { background-color: #f74040; box-shadow: 0 4vw #d61818; }
+.orange { background-color: #F9A748; box-shadow: 0 4vw #DA7D12; }
+.yellow { background-color: #F8F948; box-shadow: 0 4vw #EAEB12; }
+.green { background-color: #3FE863; box-shadow: 0 4vw #03B428; }
+.blue { background-color: #63E1FF; box-shadow: 0 4vw #16CCF8; }
+.purple { background-color: #6B3FE8; box-shadow: 0 4vw #4B20C8; }
 
-.red:active { box-shadow: 0 1vh #d61818; }
-.orange:active { box-shadow: 0 1vh #DA7D12; }
-.yellow:active { box-shadow: 0 1vh #EAEB12; }
-.green:active { box-shadow: 0 1vh #03B428; }
-.blue:active { box-shadow: 0 1vh #16CCF8; }
-.purple:active { box-shadow: 0 1vh #4B20C8; }
+.red:active { box-shadow: 0 2vw #d61818; }
+.orange:active { box-shadow: 0 2vw #DA7D12; }
+.yellow:active { box-shadow: 0 2vw #EAEB12; }
+.green:active { box-shadow: 0 2vw #03B428; }
+.blue:active { box-shadow: 0 2vw #16CCF8; }
+.purple:active { box-shadow: 0 2vw #4B20C8; }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Welcome!
@@ -74,41 +74,41 @@ Welcome!
 }
 
 .welcome-content {
-   border-radius: 2vh;
-   margin: 2vh;
-   padding: 1vh;
+   border-radius: 4vw;
+   margin: 4vw;
+   padding: 2vw;
    background-color: #f5f5f5;
    text-align: center;
-   font-size: 8vh;
+   font-size: 16vw;
    font-family: "Roboto Condensed";
    transition: 0.8s;
    position: relative;
    text-align: center;
 }
 
-.welcome-content h1 { font-size: 6vh; }
+.welcome-content h1 { font-size: 12vw; }
 
 .welcome-content h2 {
-   font-size: 4vh;
+   font-size: 8vw;
    font-weight: 200;
-   margin: 2vh;
+   margin: 4vw;
 }
 
 .welcome-content button {
    width: 90%;
-   font-size: 3vh;
+   font-size: 36vw;
    text-transform: uppercase;
-   padding: 2vh;
+   padding: 4vw;
    transition: .5s;
 }
 
 .welcome-content button:hover {
-   box-shadow: 0 0 2vh #262626;
-   border-radius: 2vh;
+   box-shadow: 0 0 4vw #262626;
+   border-radius: 4vw;
    border: none;
 }
 
-.welcome-content p { font-size: 3vh }
+.welcome-content p { font-size: 6vw; }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Farmland
@@ -116,11 +116,11 @@ Farmland
 
 .land {
    position: relative;
-   height: 51vh;
-   width: 51vh;
-   margin: 2vh auto;
-   border: solid 1vh #000;
-   border-radius: 1vh;
+   height: 90vw;
+   width: 90vw;
+   margin: 4vw auto;
+   border: solid 1.8vw #000;
+   border-radius: 1.8vw;
    transition: 0.5s;
    display: grid;
    grid-template-columns: auto auto auto;
@@ -131,16 +131,16 @@ Farmland
 .plot {
    background-image: url("Images/Plots/plot.png");
    background-size: cover;
-   margin: .2vh;
-   border: solid .3vh #000;
-   border-radius: .3vh;
+   margin: .4vw;
+   border: solid .6vw #000;
+   border-radius: .6vw;
    display: flex;
    justify-content: center;
    align-items: center;
    transition: 2s;
    position: relative;
-   height: 50vh;
-   width: 50vh;
+   height: 88vw;
+   width: 88vw;
 }
 
 .open-plot {
@@ -150,16 +150,16 @@ Farmland
 }
 
 /* Locks */
-.locked { height: 18vh; }
+.locked { height: 36vw; }
 
 .lock-tooltip{
    font-family: "Nunito", sans-serif;
-   padding: 20vh 5vh;
+   padding: 40vw 10vw;
    color: #fff;
    position: absolute;
-   padding: 2vh 2vh;
-   width: 25vh;
-   font-size: 3vh;
+   padding: 4vw;
+   width: 50vw;
+   font-size: 6vw;
    text-align: center;
    transition: .5s;
    transition-delay: 0.4s;
@@ -167,17 +167,17 @@ Farmland
 
 .purchase-plot {
    width: 50vw;
-   padding: 2vh;
+   padding: 4vw;
    margin: 0;
    background-color: #272727;
-   border: solid .4vh #808080;
-   border-radius: 4vh;
-   font-size: 3vh;
+   border: solid .8vw #808080;
+   border-radius: 8vw;
+   font-size: 6vw;
    color: #fff;
    transition: 0.5s;
 }
 
-.purchase-plot:hover { box-shadow: 0 0 2vh #f5f5f5; }
+.purchase-plot:hover { box-shadow: 0 0 4vw #f5f5f5; }
 
 .removing-lock { animation: open-lock 2.5s forwards; }
 @keyframes open-lock {
@@ -188,7 +188,6 @@ Farmland
 
 /* Buttons */
 .plant-toolbar {
-   perspective: 100vh;
    width: 100%;
    height: 100%;
    display: flex;
@@ -197,10 +196,10 @@ Farmland
 }
 
 .grow-button, .harvest-button, .small-plant-button {
-   border-radius: 100vh;
-   margin: 2vh .5vh;
+   border-radius: 50%;
+   margin: 4vw 1vw;
    transition: .2s;
-   border: solid .4vh rgb(0, 0, 0, .2);
+   border: solid .8vw rgb(0, 0, 0, .2);
    background-color: #ffd700;
    display: flex;
    justify-content: center;
@@ -209,33 +208,33 @@ Farmland
 }
 
 .grow-button, .harvest-button {
-   height: 12vh;
-   width: 12vh;
+   height: 20vw;
+   width: 20vw;
 }
 
 .small-plant-button {
-   height: 6vh;
-   width: 6vh;
+   height: 10vw;
+   width: 10vw;
 }
 
 .grow-button:disabled, .harvest-button:disabled, .small-plant-button:disabled { filter: grayscale(100%); }
 
-.grow-button img, .harvest-button img { height: 8vh; }
+.grow-button img, .harvest-button img { height: 15vw; }
 
 .grow-button:focus, .harvest-button:focus, .small-plant-button:focus {
-   transform: translateY(-1vh) scale(1.05);
-   box-shadow: 0 1.5vh 2vh #262626;
+   transform: translateY(-1.8vw) scale(1.05);
+   box-shadow: 0 2.8vw 4vw #262626;
    animation: bob 1.8s infinite;
    animation-delay: .5s;
 }
 
 @keyframes bob {
-   0% { transform: translateY(-1vh) scale(1.05); box-shadow: 0 1.5vh 2vh #262626; }
-   50% { transform: translateY(.4px) scale(1.05); box-shadow: 0 .8vh 2vh #262626; }
-   100% { transform: translateY(-5px) scale(1.05); box-shadow: 0 1.5vh 2vh #262626; }
+   0% { transform: translateY(-2vw) scale(1.05); box-shadow: 0 3vwh 4vw #262626; }
+   50% { transform: translateY(.4px) scale(1.05); box-shadow: 0 1.6vw 4vw #262626; }
+   100% { transform: translateY(-5px) scale(1.05); box-shadow: 0 3vw 4vw #262626; }
 }
 
-.veg-icon { height: 6vh; }
+.veg-icon { height: 12vw; }
 
 /* Time */
 .time-left-container {
@@ -251,9 +250,9 @@ Farmland
    width: 180%;
    background-color: #f5f5f5;
    text-align: center;
-   border-radius: 1vh;
-   padding: 1vh 0;
-   font-size: 2.5vh;
+   border-radius: 2vw;
+   padding: 2vw 0;
+   font-size: 5vw;
    position: absolute;
    z-index: 1;
    bottom: 130%;
@@ -266,8 +265,8 @@ Farmland
    position: absolute;
    top: 100%;
    left: 50%;
-   margin-left: -1vh;
-   border-width: 1vh;
+   margin-left: -2vw;
+   border-width: 2vw;
    border-style: solid;
    border-color: #f5f5f5 transparent transparent transparent;
 }
@@ -277,29 +276,29 @@ Farmland
    pointer-events: auto;
 }
 
-.time-left-container img { height: 6vh; }
+.time-left-container img { height: 12vw; }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .settings h1 {
-   font-size: 10vh;
+   font-size: 20vw;
    font-weight: 200;
 }
 
 .sidebar-button {
-   border-radius: .5vh;
-   padding: 1vh;
-   margin: .5vh auto;
+   border-radius: 1vw;
+   padding: 2vw;
+   margin: 1vw auto;
    width: 75vw;
-   box-shadow: 0 0 1vh #222;
+   box-shadow: 0 0 2vw #222;
    background-color: #808080;
    border: none;
-   font-size: 3.5vh;
+   font-size: 7vw;
    color: lightblue;
    display: inline;
-   text-shadow: 0 0 4vh #000;
+   text-shadow: 0 0 8vw #000;
    font-family: inherit;
 }
 
@@ -307,8 +306,8 @@ Settings
 
 .sidebar button:active {
    transform: scale(1.03);
-   padding: 1.5vh;
-   margin: .5vh auto;
+   padding: 3vw;
+   margin: 1vw auto;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -329,22 +328,22 @@ Vegetable Info Modal
 }
 
 .modal-content h4 {
-   font-size: 12vh;
-   margin: 1vh;
+   font-size: 24vw;
+   margin: 2vw;
 }
 
 .info-icon {
-   height: 12vh;
-   margin: 0 0 -2vh 0;
+   height: 20vw;
+   margin: 0 0 -4vw 0;
 }
 
 .modal-content {
    width: 80%;
    height: 80%;
-   margin: 1vh auto;
-   padding: 4vh;
-   font-size: 6vh;
-   border-radius: .8vh;
+   margin: 2vw auto;
+   padding: 8vw;
+   font-size: 12vw;
+   border-radius: 1.4vw;
    background-color: #fefefe;
    text-align: center;
    font-family: "Roboto Condensed";
@@ -353,38 +352,38 @@ Vegetable Info Modal
 
 .close {
    float: right;
-   height: 8vh;
-   width: 8vh;
-   padding: .2vh;
-   border-radius: 2vh;
+   height: 14vw;
+   width: 14vw;
+   padding: .4vw;
+   border-radius: 4vw;
    transition: 0.2s;
 }
 
 .fertilize {
    float: right;
-   height: 8vh;
-   width: 8vh;
-   padding: .2vh;
-   border-radius: 2vh;
+   height: 14vw;
+   width: 14vw;
+   padding: .4vw;
+   border-radius: 4vw;
    transition: 0.2s;
 }
 
-.fertilize img { height: 6vh; }
+.fertilize img { height: 11vw; }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Right Click Menu
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 #menu {
-   width: 52vh;
+   width: 100vw;
    position: fixed;
    z-index: 9999;
    display: none;
    font-family: Nunito;
-   font-size: 3vh;
+   font-size: 6vw;
    background: #fff;
    color: #555;
-   border-radius: 1vh;
+   border-radius: 1.8vw;
    box-shadow: 0 0 1vh #f5f5f5;
 }
 
@@ -426,7 +425,7 @@ Introduction
    top: 2vh;
    left: 2.5vh;
    right: 2.5vh;
-   height: 30vh;
+   height: 60vw;
    background-color: #f5f5f5;
    border-radius: 1vh;
    font-family: "Nunito";
@@ -436,7 +435,7 @@ Introduction
 }
 
 .intro-img {
-   height: 12vh;
+   height: 20vw;
    margin: 1.5vh 2vh;
    transition: .5s;
 }
@@ -454,7 +453,7 @@ Introduction
    bottom: 0;
    margin: 2vh;
    background-color: #7962b6;
-   height: 12vh;
+   height: 20vw;
    width: 12vh;
    display: flex;
    justify-content: center;
@@ -504,7 +503,7 @@ Market
 
 .market-item {
    display: none;
-   height: 45vh;
+   height: 85vw;
    width: 95%;
    margin: 1vh auto;
    border-radius: 5vh;
@@ -530,7 +529,7 @@ Market
    position: absolute;
    left: 35%;
    bottom: 3vh;
-   height: 10vh;
+   height: 18vw;
    width: 30%;
    border-radius: 2vh;
    overflow: hidden;
@@ -540,7 +539,7 @@ Market
    position: absolute;
    left: 25%;
    bottom: 3vh;
-   height: 10vh;
+   height: 18vw;
    width: 50%;
    border-radius: 5vh;
    overflow: hidden;
@@ -554,7 +553,7 @@ Market
    left: 0;
    bottom: 0;
    background-color: #ff94ec;
-   height: 5vh;
+   height: 9vw;
    width: 100%;
    transition: 0.2s;
    font-size: 4vh;
@@ -565,7 +564,7 @@ Market
    position: absolute;
    left: 0;
    background-color: #77aeff;
-   height: 5vh;
+   height: 9vw;
    width: 100%;
    transition: 0.2s;
    font-size: 4vh;
@@ -696,7 +695,7 @@ Command Panel
    bottom: 1.5vh;
    left: 1.5vh;
    border-radius: 5vh;
-   height: 15vh;
+   height: 26vw;
    padding: 2vh 1vh;
    text-align: center;
    background-color: #f5f5f5;
@@ -817,13 +816,13 @@ More Information Hover
    right: 15vh;
    bottom: 2.5vh;
 }
-.more-info-tooltip img { height: 11vh; }
+.more-info-tooltip img { height: 20vw; }
 
 .more-info-tooltip .tooltip-text {
    position: absolute;
    opacity: 0;
    pointer-events: none;
-   min-height: 10vh;
+   min-height: 20vw;
    width: 300%;
    background-color: #eee;
    text-align: center;
@@ -858,7 +857,7 @@ More Information Hover
 .hide-market {
    top: 0;
    right: 0;
-   height: 10vh;
+   height: 18vw;
    width: 10vh;
    font-size: 3vh;
    padding: 1vh;
@@ -867,8 +866,8 @@ More Information Hover
 
 .help-shadow {
    position: fixed;
-   height: 100vh;
-   width: 100vw;
+   height: 100%;
+   width: 100%;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -877,7 +876,7 @@ More Information Hover
 }
 
 .help {
-   height: 95vh;
+   height: 170vw;
    width: 95vw;
    background-color: #f5f5f5;
    border-radius: 5vh;
@@ -910,7 +909,7 @@ More Information Hover
 }
 
 .help-center-img {
-   height: 9vh;
+   height: 18vw;
    position: fixed;
    top: 2vh;
    right: 2vh;
@@ -946,7 +945,7 @@ More Information Hover
 
 .dropdown-content {
    display: none;
-   height: 60vh;
+   height: 120vw;
    width: 80vw;
    overflow: scroll;
    background-color: #f9f9f9;
@@ -978,7 +977,7 @@ More Information Hover
 .help a:after {
    content: "";
    display: block;
-   height: .2vh;
+   height: .4vw;
    left: 50%;
    position: absolute;
    background: lightblue;
@@ -993,7 +992,7 @@ More Information Hover
 
 /* Plot 5 */
 .almanac {
-   height: 8vh;
+   height: 16vw;
    position: absolute;
    bottom: .5vh;
    left: .5vh;
@@ -1016,7 +1015,7 @@ More Information Hover
 .shop-window li { margin: 1.2vh }
 
 .store-icon {
-   height: 5vh;
+   height: 10vw;
    transition: .5s;
 }
 
@@ -1030,7 +1029,7 @@ Tasks
    position: relative;
    top: 6vh;
    right: -100%;
-   height: 16vh;
+   height: 32vw;
 }
 
 .quests {
@@ -1105,6 +1104,27 @@ Tasks
    border-radius: 1vh;
    font-size: 2vh;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*  Fade text */
 .fade-text {

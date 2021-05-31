@@ -23,7 +23,7 @@
                   <img onclick="infoModal('Peas')" class="veg-icon" src="Images/Vegetables/pea.png">
                </button>
                <button class="grow-button" id="growPeas" onclick="plant('peas', 2000, 5000)">
-                  <img src="Images/Mobile/harvest.png">
+                  <img src="Images/Mobile/grow.png">
                </button>
                <button class="harvest-button" id="harvestPeas" onclick="harvest('Peas')" disabled>
                   <img src="Images/Mobile/harvest.png">
@@ -57,7 +57,7 @@
                      <img onclick="infoModal('Corn')" class="veg-icon" src="Images/Vegetables/corn.png">
                   </button>
                   <button class="grow-button" id="growCorn" onclick="plant('corn', 8000, 12000)">
-                     <img src="Images/Mobile/harvest.png">
+                     <img src="Images/Mobile/grow.png">
                   </button>
                   <button class="harvest-button" id="harvestCorn" onclick="harvest('Corn')" disabled>
                      <img src="Images/Mobile/harvest.png">
@@ -76,10 +76,6 @@
                      <button onclick="fertilize('corn')" class="fertilize depth-button yellow" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                      <h4>Corn <img class="info-icon" src="Images/Vegetables/corn.png"></h4>
                      <p>Corn, or maize, is a cereal grain originally grown 10,00 years ago in southern Mexico<br> These corn plants take 12 seconds to grow.</p>
-                     <div class="modal-market-prices">
-                        <div class="modalCornPriceBuy">Buy For</div>
-                        <div class="modalCornPriceSell">Sell For</div>
-                     </div>
                   </div>
                </div>
             </div>
@@ -96,7 +92,7 @@
                      <img onclick="infoModal('Strawberry')" class="veg-icon" src="Images/Vegetables/strawberry.png">
                   </button>
                   <button class="grow-button" id="growStrawberries" onclick="detailedPlant('strawberries', 20000, 60000, 120000)">
-                     <img src="Images/Mobile/harvest.png">
+                     <img src="Images/Mobile/grow.png">
                   </button>
                   <button class="harvest-button" id="harvestStrawberries" onclick="harvest('Strawberries')" disabled>
                      <img src="Images/Mobile/harvest.png">
@@ -115,10 +111,6 @@
                      <button onclick="fertilize('strawberries')" class="fertilize depth-button red" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                      <h4>Strawberries! <img class="info-icon" src="Images/Vegetables/strawberry.png"></h4>
                      <p>Strawberries are NOT a vegetable, but it was one of the first drawings I made. I will probably remove this at some point. <br> Strawberries are part of the genus Fragaria, native to North America. <br> These strawberries take 2 minutes to grow.</p>
-                     <div class="modal-market-prices">
-                        <div class="modalStrawberriesPriceBuy">Buy For</div>
-                        <div class="modalStrawberriesPriceSell">Sell For</div>
-                     </div>
                   </div>
                </div>
             </div>
@@ -137,7 +129,7 @@
                      <img onclick="infoModal('Eggplant')" class="veg-icon" src="Images/Vegetables/eggplant.png">
                   </button>
                   <button class="grow-button" id="growEggplants" onclick="plant('eggplants', 120000, 480000)">
-                     <img src="Images/Mobile/harvest.png">
+                     <img src="Images/Mobile/grow.png">
                   </button>
                   <button class="harvest-button" id="harvestEggplants" onclick="harvest('Eggplants')" disabled>
                      <img src="Images/Mobile/harvest.png">
@@ -154,21 +146,6 @@
                      <button onclick="fertilize('eggplants')" class="fertilize depth-button purple" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                      <h4>Eggplant <img class="info-icon" src="Images/Vegetables/eggplant.png"></h4>
                      <p>Eggplants are a species in the Solanaceae, or nightshade family, and are thought to be native to India. <br> These eggplants take 8 minutes to grow.</p>
-                     <div class="modal-market-prices">
-                        <div class="modalEggplantsPriceBuy">Buy For</div>
-                        <div class="modalEggplantsPriceSell">Sell For</div>
-                     </div>
-                  </div>
-               </div>
-               <!-- Unlocked -->
-               <div id="infoUnlockedEggplant" class="veg-info">
-                  <div class="modal-content modal-plot-unlocked">
-                     <button onclick="infoModal('UnlockedEggplant')" class="close depth-button purple">×</button>
-                     <h4>New Plot Unlocked!</h4>
-                     <p class="unlocked-text">+1 Market Reset!</p>
-                     <p class="unlocked-text">+ Eggplant Tasks!</p>
-                     <p class="unlocked-text">+ Growing Eggplants!</p>
-                     <p class="unlocked-text">+ Eggplants in Market!</p>
                   </div>
                </div>
             </div>
@@ -178,25 +155,6 @@
             <div class="lock-tooltip" id="lockedDiv5">
                <img id="lock5" class="locked" src="Images/Lock/lock.png"><br>
                <span class="tooltiptext"><br>This plot is locked <br> Purchase all other plots to unlock<br><br></span>
-            </div>
-            <div class="open-plot" id="openPlot5">
-               <!-- Info -->
-               <img onclick="infoModal('Rainbow')" class="veg-icon" src="Images/Global Assets/rainbow-fruit.png">
-               <div id="infoRainbow" class="veg-info">
-                  <div class="modal-content">
-                     <span onclick="infoModal('Rainbow')" class="close">×</span>
-                     <h4>Rainbow Plot! <img class="info-icon" src="Images/Global Assets/rainbow-fruit.png"></h4>
-                     <p>You can plant anything in this plot! <br> 🎉 Yay! 🎉</p>
-                  </div>
-               </div>
-               <!-- Nice! -->
-               <img onclick="if (document.getElementById('shop1').style.height === '100%') {document.getElementById('shop1').style.height = '0'} else {document.getElementById('shop1').style.height = '100%'}" class="almanac" src="Images/Global Assets/almanac.png">
-               <ul class="shop-window" id="shop1">
-                  <li><img onclick="tend(plot5, 'Peas', 'plotStatus.multiplot1')" class="store-icon" src="Images/Vegetables/pea.png"></li>
-                  <li><img onclick="tend(plot5, 'Corn', 'plotStatus.multiplot1')" class="store-icon" src="Images/Vegetables/corn.png"></li>
-                  <li><img onclick="tend(plot5, 'Strawberries', 'plotStatus.multiplot1')" class="store-icon" src="Images/Vegetables/strawberry.png"></li>
-                  <li><img onclick="tend(plot5, 'Eggplant', 'plotStatus.multiplot1')" class="store-icon" src="Images/Vegetables/eggplant.png"></li>
-               </ul>
             </div>
          </div>
          <!-- Pumpkin Plot -->
@@ -211,7 +169,7 @@
                      <img onclick="infoModal('Pumpkins')" class="veg-icon" src="Images/Vegetables/pumpkin.png">
                   </button>
                   <button class="grow-button" id="growPumpkins" onclick="plant('pumpkins', 300000, 600000)">
-                     <img src="Images/Mobile/harvest.png">
+                     <img src="Images/Mobile/grow.png">
                   </button>
                   <button class="harvest-button" id="harvestPumpkins" onclick="harvest('Pumpkins')" disabled>
                      <img src="Images/Mobile/harvest.png">
@@ -228,21 +186,6 @@
                      <button onclick="fertilize('pumpkins')" class="fertilize depth-button orange" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                      <h4>Pumpkins <img class="info-icon" src="Images/Vegetables/pumpkin.png"></h4>
                      <p>Pumpkins, a round winter squash with yellow to orange smooth skin, are believed to originate in Mexico. <br> These Pumpkins take 10 minutes to grow.</p>
-                     <div class="modal-market-prices">
-                        <div class="modalPumpkinsPriceBuy">Buy For</div>
-                        <div class="modalPumpkinsPriceSell">Sell For</div>
-                     </div>
-                  </div>
-               </div>
-               <!-- Unlocked -->
-               <div id="infoUnlockedPumpkin" class="veg-info">
-                  <div class="modal-content modal-plot-unlocked">
-                     <button onclick="infoModal('UnlockedPumpkin')" class="close depth-button orange">×</button>
-                     <h4>New Plot Unlocked!</h4>
-                     <p class="unlocked-text">+1 Market Reset!</p>
-                     <p class="unlocked-text">+ Pumpkin Tasks!</p>
-                     <p class="unlocked-text">+ Growing Pumpkins!</p>
-                     <p class="unlocked-text">+ Pumpkins in Market!</p>
                   </div>
                </div>
             </div>
@@ -262,7 +205,7 @@
                      <img onclick="infoModal('Cabbage')" class="veg-icon" src="Images/Vegetables/cabbage.png">
                   </button>
                   <button class="grow-button" id="growCabbage" onclick="plant('cabbage', 1800000, 3600000)">
-                     <img src="Images/Mobile/harvest.png">
+                     <img src="Images/Mobile/grow.png">
                   </button>
                   <button class="harvest-button" id="harvestCabbage" onclick="harvest('Cabbage')" disabled>
                      <img src="Images/Mobile/harvest.png">
@@ -279,21 +222,6 @@
                      <button onclick="fertilize('cabbage')" class="fertilize depth-button green" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                      <h4>Cabbage <img class="info-icon" src="Images/Vegetables/cabbage.png"></h4>
                      <p>A leafy vegetable <br> These Cabbage plants take 1 hour to grow.</p>
-                     <div class="modal-market-prices">
-                        <div class="modalCabbagePriceBuy">Buy For</div>
-                        <div class="modalCabbagePriceSell">Sell For</div>
-                     </div>
-                  </div>
-               </div>
-               <!-- Unlocked -->
-               <div id="infoUnlockedCabbage" class="veg-info">
-                  <div class="modal-content modal-plot-unlocked">
-                     <button onclick="infoModal('UnlockedCabbage')" class="close depth-button green">×</button>
-                     <h4>New Plot Unlocked!</h4>
-                     <p class="unlocked-text">+1 Market Reset!</p>
-                     <p class="unlocked-text">+ Cabbage Tasks!</p>
-                     <p class="unlocked-text">+ Growing Cabbages!</p>
-                     <p class="unlocked-text">+ Cabbages in Market!</p>
                   </div>
                </div>
             </div>
@@ -310,7 +238,7 @@
                      <img onclick="infoModal('Dandelion')" class="veg-icon" src="Images/Vegetables/dandelion.png">
                   </button>
                   <button class="grow-button" id="growDandelion" onclick="detailedPlant('dandelion', 5400000, 5400000, 10800000)">
-                     <img src="Images/Mobile/harvest.png">
+                     <img src="Images/Mobile/grow.png">
                   </button>
                   <button class="harvest-button" id="harvestDandelion" onclick="harvest('Dandelion')" disabled>
                      <img src="Images/Mobile/harvest.png">
@@ -327,21 +255,6 @@
                      <button onclick="fertilize('dandelion')" class="fertilize depth-button yellow" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                      <h4>Dandelions! <img class="info-icon" src="Images/Vegetables/dandelion.png"></h4>
                      <p>These <strong>are</strong> vegetables, because the part eaten are the seeds and leaves, not the fruit. Of the Taraxacum family, the name dandelion come from the French dent-de-lion, which means 'lion's tooth'.<br> These dandelions take 3 hours to grow.</p>
-                     <div class="modal-market-prices">
-                        <div class="modalDandelionPriceBuy">Buy For</div>
-                        <div class="modalDandelionPriceSell">Sell For</div>
-                     </div>
-                  </div>
-               </div>
-               <!-- Unlocked -->
-               <div id="infoUnlockedDandelion" class="veg-info">
-                  <div class="modal-content modal-plot-unlocked">
-                     <button onclick="infoModal('UnlockedDandelion')" class="close depth-button yellow">×</button>
-                     <h4>New Plot Unlocked!</h4>
-                     <p class="unlocked-text">+1 Market Reset!</p>
-                     <p class="unlocked-text">+ Dandelion Tasks!</p>
-                     <p class="unlocked-text">+ Growing Dandelions!</p>
-                     <p class="unlocked-text">+ Dandelions in Market!</p>
                   </div>
                </div>
             </div>
@@ -676,16 +589,14 @@
          </div>
       </div>
       <!-- Right Click Menu -->
-      <div id="menu">
-         <li class="menu-links"><a href="https://meetsquirrel.github.io">Check this out!</a></li>
-         <li class="menu-links"><a href="https://squirrel-314.github.io">And this!</a></li>
-         <li>You won't regret it!</li>
-         <li>Probably.</li>
-         <hr>
-         <li class="menu-links"><a href="https://github.com/Squirrel-314/vegetable-dash">GitHub</a></li>
-         <li>Support: <a href="mailto: thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a></li>
-         <li>Version: 0.0.9</li>
-      </div>
+         <div id="menu">
+            <li class="menu-links"><a href="https://meetsquirrel.github.io">Who's Squirrel?</a></li>
+            <li class="menu-links"><a href="https://squirrel-314.github.io">Gold Rush!</a></li>
+            <hr>
+            <li class="menu-links"><a href="https://github.com/Squirrel-314/vegetable-dash">GitHub</a></li>
+            <li><a href="mailto: thehillsidetownship@gmail.com">Support</a></li>
+            <li>Version: 0.1.0</li>
+         </div>
       <!-- Fade text -->
       <span class="hidden"><div class="fade-text">This text is fading</div></span>
       <script src="https://www.w3counter.com/tracker.js?id=134512"></script>
