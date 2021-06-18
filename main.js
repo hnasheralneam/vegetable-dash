@@ -40,22 +40,28 @@ let initalPlotStatus = {
    rhubarb: "empty",
    // Grow Times
    peasGrowing: Infinity,
+   peasFlowering: Infinity,
    peasReady: Infinity,
    cornGrowing: Infinity,
+   cornFlowering: Infinity,
    cornReady: Infinity,
    strawberriesGrowing: Infinity,
    strawberriesFlowering: Infinity,
    strawberriesReady: Infinity,
    eggplantsGrowing: Infinity,
+   eggplantsFlowering: Infinity,
    eggplantsReady: Infinity,
    pumpkinsGrowing: Infinity,
+   pumpkinsFlowering: Infinity,
    pumpkinsReady: Infinity,
    cabbageGrowing: Infinity,
+   cabbageFlowering: Infinity,
    cabbageReady: Infinity,
    dandelionGrowing: Infinity,
    dandelionFlowering: Infinity,
    dandelionReady: Infinity,
    rhubarbGrowing: Infinity,
+   rhubarbFlowering: Infinity,
    rhubarbReady: Infinity,
 }
 let initalProduce = {
@@ -211,15 +217,6 @@ function harvest(veg) {
    harvestLuck(veg);
    if (weather.rainy === true) { produce[veg.toLowerCase()]++; }
 }
-function plant(veg, timeOne, timeTwo) {
-   currentTime = Date.now();
-   plotStatus[veg + "Growing"] = currentTime + timeOne;
-   if (weather.cloudy) { plotStatus[veg + "Ready"] = currentTime + timeTwo + 5000; }
-   else { plotStatus[veg + "Ready"] = currentTime + timeTwo; }
-   plotStatus[veg] = "working";
-   timeLeft(timeTwo, veg.toLowerCase());
-   hideObj("#grow" + capitalize(veg));
-}
 function fertilize(veg) {
    if (marketData.fertilizers >= 1) {
       marketData.fertilizers -= 1;
@@ -228,32 +225,8 @@ function fertilize(veg) {
       checkTasks("fertilize", "tryFertilizer");
    }
 }
-function plantLoop(veg, pltNumber, url, readyTime) {
-   let vegPlot = document.querySelector("#plot" + pltNumber);
-   let imgUrl = "url(Images/" + url + ")";
-   setInterval(vegStatus, 1000);
-   function vegStatus() {
-      timeLeft(readyTime, veg);
-      if (plotStatus[veg] === "working") { hideObj("#harvest" + capitalize(veg)); hideObj("#grow" + capitalize(veg)); }
-      if (plotStatus[veg] === "empty") { hideObj("#harvest" + capitalize(veg)); showObj("#grow" + capitalize(veg)); }
-      if (Date.now() >= plotStatus[veg + "Ready"]) {
-         vegPlot.style.backgroundImage = String(imgUrl);
-         showObj("#harvest" + capitalize(veg));
-         plotStatus[veg + "Growing"] = Infinity;
-      }
-      else if (Date.now() >= plotStatus[veg + "Growing"]) { vegPlot.style.backgroundImage = "url(Images/Plots/growing.png)"; }
-      else { vegPlot.style.backgroundImage = "url(Images/Plots/plot.png)"; }
-   }
-}
 
-plantLoop("peas", 1, 'Plots/grown-pea.png', 5000);
-plantLoop("corn", 2, 'Plots/grown-corn.png', 12000);
-plantLoop("eggplants", 4, 'Plots/grown-eggplant.png', 480000);
-plantLoop("pumpkins", 6, 'Plots/grown-pumpkin.png', 600000);
-plantLoop("cabbage", 7, 'Plots/grown-cabbage.png', 3600000);
-plantLoop("rhubarb", 9, 'Plots/grown-rhubarb.png', 28800000);
-
-function detailedPlant(veg, timeOne, timeTwo, timeThree) {
+function plant(veg, timeOne, timeTwo, timeThree) {
    currentTime = Date.now();
    plotStatus[veg + "Growing"] = currentTime + timeOne;
    plotStatus[veg + "Flowering"] = currentTime + timeTwo;
@@ -282,8 +255,14 @@ function detailedPlantLoop(veg, pltNumber, urlOne, urlTwo, urlThree, readyTime) 
    }
 }
 
-detailedPlantLoop("strawberries", 3, "Plots/Strawberry/growing.png", "Plots/Strawberry/flowering.png", "Plots/Strawberry/fruiting.png", 120000)
-detailedPlantLoop("dandelion", 8, "Plots/Dandelion/flowering.png", "Plots/Dandelion/flowering.png", "Plots/Dandelion/fruiting.png", 10800000)
+detailedPlantLoop("peas", 1, "Plots/Peas/growing.png", "Plots/Peas/flowering.png", "Plots/Peas/fruiting.png", 5000);
+detailedPlantLoop("corn", 2, "Plots/growing.png", "Plots/Corn/growing.png", "Plots/Corn/fruiting.png", 12000);
+detailedPlantLoop("strawberries", 3, "Plots/Strawberry/growing.png", "Plots/Strawberry/flowering.png", "Plots/Strawberry/fruiting.png", 120000);
+detailedPlantLoop("eggplants", 4, "Plots/Eggplant/growing.png", "Plots/Eggplant/flowering.png", "Plots/Eggplant/fruiting.png", 480000);
+detailedPlantLoop("pumpkins", 6, "Plots/growing.png", "Plots/Pumpkin/growing.png", "Plots/Pumpkin/fruiting.png", 600000);
+detailedPlantLoop("cabbage", 7, "Plots/growing.png", "Plots/Cabbage/growing.png", "Plots/Cabbage/fruiting.png", 3600000);
+detailedPlantLoop("dandelion", 8, "Plots/Dandelion/flowering.png", "Plots/Dandelion/flowering.png", "Plots/Dandelion/fruiting.png", 10800000);
+detailedPlantLoop("rhubarb", 9, "Plots/growing.png", "Plots/Rhubarb/growing.png", "Plots/Rhubarb/fruiting.png", 28800000);
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Weather
@@ -932,7 +911,9 @@ let mainLoop = window.setInterval(function() {
    if (plots.cabbageplot === "unlocked") { revealProduce("#cabbageBushels", "cabbage"); }
    if (plots.dandelionplot === "unlocked") { revealProduce("#dandelionBushels", "dandelion"); }
    if (plots.rhubarbplot === "unlocked") { revealProduce("#rhubarbBushels", "rhubarb"); }
-   function revealProduce(id, veg) { document.querySelector(id).textContent = `${toWord(produce[veg], "short")} Bushels of ${capitalize(veg)}`; }
+   function revealProduce(id, veg) {
+      document.querySelector(`.${veg}Amount`).style.display = "block";
+      document.querySelector(id).textContent = `${toWord(produce[veg], "short")} Bushels of ${capitalize(veg)}`; }
 }, 200)
 function setup() {
    if (!taskList) { taskList = initalTaskList; }
@@ -1058,14 +1039,12 @@ function commandBar() {
    if (document.querySelectorAll(".commandBarImg")[0].style.display === "inline-block") {
       document.querySelectorAll(".commandBarImg")[0].style.display = "none";
       document.querySelectorAll(".commandBarImg")[1].style.display = "none";
-      document.querySelectorAll(".commandBarImg")[2].style.display = "none";
       document.querySelector(".slider").style.backgroundColor = "#cb9e00";
       document.querySelector(".slider").style.transform = "rotate(0)";
    }
    else {
       document.querySelectorAll(".commandBarImg")[0].style.display = "inline-block";
       document.querySelectorAll(".commandBarImg")[1].style.display = "inline-block";
-      document.querySelectorAll(".commandBarImg")[2].style.display = "inline-block";
       document.querySelector(".slider").style.backgroundColor = "#ffca18";
       document.querySelector(".slider").style.transform = "rotate(180deg)";
    }

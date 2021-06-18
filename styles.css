@@ -1512,3 +1512,5 @@ tr:nth-child(even) { background-color: #eee; }
    75% { transform: rotate(15deg); }
    100% { transform: rotate(0); }
 }
+
+.vegAmount { display: none; }
