@@ -36,7 +36,7 @@
                   <div class="modal-content">
                      <button onclick="infoModal('Peas')" class="close depth-button green">×</button>
                      <h4>Peas <img class="info-icon" src="Images/Vegetables/pea.png"></h4>
-                     <p>Peas are a climbing vine in the legume family. <br> These peas take 5 seconds to grow.</p>
+                     <p>Peas are a climbing vine in the legume family. <br> These pea plants take 10 seconds to grow.</p>
                      <div class="modal-market-prices">
                         <div class="modalPeasPriceBuy">Buy For</div>
                         <div class="modalPeasPriceSell">Sell For</div>
@@ -67,7 +67,7 @@
                   <div class="modal-content">
                      <button onclick="infoModal('Corn')" class="close depth-button yellow">×</button>
                      <h4>Corn <img class="info-icon" src="Images/Vegetables/corn.png"></h4>
-                     <p>Corn, or maize, is a cereal grain originally grown 10,00 years ago in southern Mexico<br> These corn plants take 12 seconds to grow.</p>
+                     <p>Corn, or maize, is a cereal grain originally grown 10,00 years ago in southern Mexico. <br> These corn plants take 25 seconds to grow.</p>
                      <div class="modal-market-prices">
                         <div class="modalCornPriceBuy">Buy For</div>
                         <div class="modalCornPriceSell">Sell For</div>
@@ -106,7 +106,7 @@
                   <div class="modal-content">
                      <button onclick="infoModal('Strawberry')" class="close depth-button red">×</button>
                      <h4>Strawberries! <img class="info-icon" src="Images/Vegetables/strawberry.png"></h4>
-                     <p>Strawberries are part of the genus Fragaria, native to North America. <br> These strawberries take 2 minutes to grow.</p>
+                     <p>Strawberries are part of the genus Fragaria, native to North America. <br> These strawberries take 2.5 minutes to grow.</p>
                      <div class="modal-market-prices">
                         <div class="modalStrawberriesPriceBuy">Buy For</div>
                         <div class="modalStrawberriesPriceSell">Sell For</div>
@@ -147,7 +147,7 @@
                   <div class="modal-content">
                      <button onclick="infoModal('Eggplant')" class="close depth-button purple">×</button>
                      <h4>Eggplant <img class="info-icon" src="Images/Vegetables/eggplant.png"></h4>
-                     <p>Eggplants are a species in the Solanaceae, or nightshade family, and are thought to be native to India. <br> These eggplants take 8 minutes to grow.</p>
+                     <p>Eggplants are a species in the Solanaceae, or nightshade family, and are thought to be native to India. <br> These eggplants take 15 minutes to grow.</p>
                      <div class="modal-market-prices">
                         <div class="modalEggplantsPriceBuy">Buy For</div>
                         <div class="modalEggplantsPriceSell">Sell For</div>
@@ -214,7 +214,7 @@
                   <div class="modal-content">
                      <button onclick="infoModal('Pumpkins')" class="close depth-button orange">×</button>
                      <h4>Pumpkins <img class="info-icon" src="Images/Vegetables/pumpkin.png"></h4>
-                     <p>Pumpkins, a round winter squash with yellow to orange smooth skin, are believed to originate in Mexico. <br> These Pumpkins take 10 minutes to grow.</p>
+                     <p>Pumpkins, a round winter squash with yellow to orange smooth skin, are believed to originate in Mexico. <br> These Pumpkins take 30 minutes to grow.</p>
                      <div class="modal-market-prices">
                         <div class="modalPumpkinsPriceBuy">Buy For</div>
                         <div class="modalPumpkinsPriceSell">Sell For</div>
@@ -376,16 +376,16 @@
             <img class="toolbar-img" onclick="fertilizeHover()" src="Images/Global Assets/fertilizer.png">
             <span id="fertilizer" class="tooltip-text">Tooltip text</span>
          </div>
-       <div class="produce-tooltip produce-tooltip-harvest-drag">
+         <div class="produce-tooltip produce-tooltip-harvest-drag">
             <img class="toolbar-img" onclick="harvestDrag()" src="Images/Global Assets/sickle.png">
             <span id="harvest-drag" class="tooltip-text">Hold + Drag to harvest</span>
          </div>
-     </div>
+      </div>
       <!-- Tasks -->
-      <div class="questShadow" onclick="questbar()"></div>
-      <div class="quests">
-         <img class="quest-ribbon" src="Images/Tasks/short-ribbon.png" onclick="questbar()">
-         <div class="questContent">
+      <div class="tasks">
+         <div class="taskShadow" onclick="taskbar()"></div>
+         <img class="task-ribbon" src="Images/Tasks/short-ribbon.png" onclick="taskbar()">
+         <div class="taskContent">
             <div class="task-block-parent">
                <div class="task-block task-block-1" onmouseover="taskHover(1)" onmouseleave="taskUnHover(1)">
                   <div class="task-info">
@@ -428,126 +428,123 @@
             </div>
          </div>
       </div>
-      <!-- Command Panel Contents -->
-      <div>
-         <!-- Command Panel/Bar -->
-         <div class="command-panel">
-            <img onclick="showObj('.marketShadow');" class="commandBarImg" src="Images/Control Bar/market.png">
-            <img onclick="showObj('.settingShadow')" class="commandBarImg" src="Images/Control Bar/settings.png">
-            <label class="switch">
-               <input type="checkbox" checked>
-               <span class="slider" onmouseover="commandBar()"></span>
-            </label>
-         </div>
-         <!-- Market -->
-         <div class="marketShadow">
-            <div class="market">
-               <div class="market-item">
-                  <button onclick="hideObj('.marketShadow')" class="closeModal hide-market depth-button blue">X</button>
-                  <div class="market-item-content special-market-item">
-                     Seeds: 0
-                     Market Resets: 0
-                     Watering Cans: 0
-                     Fertilizer: 0
-                  </div>
+      <!-- Command Panel/Bar -->
+      <div class="command-panel">
+         <img onclick="showObj('.marketShadow');" class="commandBarImg" src="Images/Control Bar/market.png">
+         <img onclick="showObj('.settingShadow')" class="commandBarImg" src="Images/Control Bar/settings.png">
+         <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider" onmouseover="commandBar()"></span>
+         </label>
+      </div>
+      <!-- Market -->
+      <div class="marketShadow">
+         <div class="market">
+            <div class="market-item">
+               <button onclick="hideObj('.marketShadow')" class="closeModal hide-market depth-button blue">X</button>
+               <div class="market-item-content special-market-item">
+                  Seeds: 0
+                  Market Resets: 0
+                  Watering Cans: 0
+                  Fertilizer: 0
                </div>
-               <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/pea.png"><span class="peas-market-item"></span> </div>
-                  <div class="buy-sell">
-                     <span class="market-item-buy" onclick="buyProduce('peas', 'Peas')">Buy</span>
-                     <span class="market-item-sell"  onclick="sellProduce('peas', 'Peas')">Sell</span>
-                  </div>
-               </div>
-               <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/corn.png"><span class="corn-market-item"></span></div>
-                  <div class="buy-sell">
-                     <span class="market-item-buy" onclick="buyProduce('corn', 'Corn')">Buy</span>
-                     <span class="market-item-sell"  onclick="sellProduce('corn', 'Corn')">Sell</span>
-                  </div>
-               </div>
-               <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/strawberry.png"><span class="strawberries-market-item"></span></div>
-                  <div class="buy-sell">
-                     <span class="market-item-buy" onclick="buyProduce('strawberries', 'Strawberries')">Buy</span>
-                     <span class="market-item-sell"  onclick="sellProduce('strawberries', 'Strawberries')">Sell</span>
-                  </div>
-               </div>
-               <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/eggplant.png"><span class="eggplants-market-item"></span></div>
-                  <div class="buy-sell">
-                     <span class="market-item-buy" onclick="buyProduce('eggplants', 'Eggplants')">Buy</span>
-                     <span class="market-item-sell"  onclick="sellProduce('eggplants', 'Eggplants')">Sell</span>
-                  </div>
-               </div>
-               <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/pumpkin.png"><span class="pumpkins-market-item"></span></div>
-                  <div class="buy-sell">
-                     <span class="market-item-buy" onclick="buyProduce('pumpkins', 'Pumpkins')">Buy</span>
-                     <span class="market-item-sell"  onclick="sellProduce('pumpkins', 'Pumpkins')">Sell</span>
-                  </div>
-               </div>
-               <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/cabbage.png"><span class="cabbage-market-item"></span></div>
-                  <div class="buy-sell">
-                     <span class="market-item-buy" onclick="buyProduce('cabbage', 'Cabbage')">Buy</span>
-                     <span class="market-item-sell"  onclick="sellProduce('cabbage', 'Cabbage')">Sell</span>
-                  </div>
-               </div>
-               <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/dandelion.png"><span class="dandelion-market-item"></span></div>
-                  <div class="buy-sell">
-                     <span class="market-item-buy" onclick="buyProduce('dandelion', 'Dandelion')">Buy</span>
-                     <span class="market-item-sell"  onclick="sellProduce('dandelion', 'Dandelion')">Sell</span>
-                  </div>
-               </div>
-               <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/rhubarb.png"><span class="rhubarb-market-item"></span></div>
-                  <div class="buy-sell">
-                     <span class="market-item-buy" onclick="buyProduce('rhubarb', 'Rhubarb')">Buy</span>
-                     <span class="market-item-sell"  onclick="sellProduce('rhubarb', 'Rhubarb')">Sell</span>
-                  </div>
-               </div>
-               <div class="market-item">
-                  <div class="market-item-content blackMarketOffer">
-                     Black Market <br> Coming Soon!
-                  </div>
-                  <!-- <div class="accept-deny">
-                     <span class="market-item-buy" onclick="accept()">Accept</span>
-                     <span class="market-item-sell"  onclick="deny()">Deny</span>
-                  </div> -->
-               </div>
-               <div class="market-item">
-                  <div class="market-item-content reset-market-item">
-                     You have 0 Market Resets
-                  </div>
-                  <div class="market-hover">
-                     <h1>Market Resets</h1>
-                     <p>Reset all market buy and sell values.</p>
-                     <button onclick="resetMarketValues()" class="use-market-reset-button">Use</button>
-                     <div class="more-info-tooltip">
-                        <img src="Images/Global Assets/more-info.png" id="market-reset-more-info">
-                        <span class="tooltip-text">There is a 1% chance of collecting one after each trade, and a 5% chance after each harvest.</span>
-                     </div>
-                  </div>
-               </div>
-               <br>
             </div>
-         </div>
-         <!-- Settings -->
-         <div class="shadow settingShadow">
-            <div class="modalContent settings">
-               <span onclick="hideObj('.settingShadow')" class="closeModal">X</span>
-               <h1>Settings</h1>
-               <button class="setting-button" onclick="restart()">Restart</button>
-               <button class="setting-button theme-color" onclick="lightTheme()">Light</button>
-               <button class="setting-button theme-color" onclick="randTheme()">Random</button>
-               <button class="setting-button theme-color" onclick="darkTheme()">Dark</button>
-               <button class="setting-button device-size-button" onclick="document.querySelector('.land').classList.remove('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Normal Device</button>
-               <button class="setting-button device-size-button" onclick="document.querySelector('.land').classList.add('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Small Device</button>
-               <button class="setting-button device-size-button" onclick="document.querySelector('.land').classList.add('land-for-tiny');">Tiny Device</button>
-               <button class="setting-button" onclick="togglePlay()">Music</button>
-               <audio class="mozart" src="Audio/mozart.mp3"></audio>
+            <div class="market-item">
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/pea.png"><span class="peas-market-item"></span> </div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('peas', 'Peas')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('peas', 'Peas')">Sell</span>
+               </div>
             </div>
+            <div class="market-item">
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/corn.png"><span class="corn-market-item"></span></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('corn', 'Corn')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('corn', 'Corn')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/strawberry.png"><span class="strawberries-market-item"></span></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('strawberries', 'Strawberries')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('strawberries', 'Strawberries')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/eggplant.png"><span class="eggplants-market-item"></span></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('eggplants', 'Eggplants')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('eggplants', 'Eggplants')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/pumpkin.png"><span class="pumpkins-market-item"></span></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('pumpkins', 'Pumpkins')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('pumpkins', 'Pumpkins')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/cabbage.png"><span class="cabbage-market-item"></span></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('cabbage', 'Cabbage')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('cabbage', 'Cabbage')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/dandelion.png"><span class="dandelion-market-item"></span></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('dandelion', 'Dandelion')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('dandelion', 'Dandelion')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/rhubarb.png"><span class="rhubarb-market-item"></span></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('rhubarb', 'Rhubarb')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('rhubarb', 'Rhubarb')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content blackMarketOffer">
+                  Black Market <br> Coming Soon!
+               </div>
+               <!-- <div class="accept-deny">
+                  <span class="market-item-buy" onclick="accept()">Accept</span>
+                  <span class="market-item-sell"  onclick="deny()">Deny</span>
+               </div> -->
+            </div>
+            <div class="market-item">
+               <div class="market-item-content reset-market-item">
+                  You have 0 Market Resets
+               </div>
+               <div class="market-hover">
+                  <h1>Market Resets</h1>
+                  <p>Reset all market buy and sell values.</p>
+                  <button onclick="resetMarketValues()" class="use-market-reset-button">Use</button>
+                  <div class="more-info-tooltip">
+                     <img src="Images/Global Assets/more-info.png" id="market-reset-more-info">
+                     <span class="tooltip-text">There is a 1% chance of collecting one after each trade, and a 5% chance after each harvest.</span>
+                  </div>
+               </div>
+            </div>
+            <br>
+         </div>
+      </div>
+      <!-- Settings -->
+      <div class="shadow settingShadow">
+         <div class="modalContent settings">
+            <span onclick="hideObj('.settingShadow')" class="closeModal">X</span>
+            <h1>Settings</h1>
+            <button class="setting-button" onclick="restart()">Restart</button>
+            <button class="setting-button theme-color" onclick="lightTheme()">Light</button>
+            <button class="setting-button theme-color" onclick="randTheme()">Random</button>
+            <button class="setting-button theme-color" onclick="darkTheme()">Dark</button>
+            <button class="setting-button device-size-button" onclick="document.querySelector('.land').classList.remove('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Normal Device</button>
+            <button class="setting-button device-size-button" onclick="document.querySelector('.land').classList.add('land-for-small'); document.querySelector('.land').classList.remove('land-for-tiny');">Small Device</button>
+            <button class="setting-button device-size-button" onclick="document.querySelector('.land').classList.add('land-for-tiny');">Tiny Device</button>
+            <button class="setting-button" onclick="togglePlay()">Music</button>
+            <audio class="mozart" src="Audio/mozart.mp3"></audio>
          </div>
       </div>
       <!-- Other -->
@@ -660,51 +657,15 @@
                      A nice table that shows the growing times for all the plants.
                      <br><br><br>
                      <table>
-                        <tr>
-                           <th>Vegetable</th>
-                           <th>Old Growing Time</th>
-                           <th>New Growing Times</th>
-                        </tr>
-                        <tr>
-                           <td>Peas</td>
-                           <td>5 Seconds</td>
-                           <td>10 Seconds</td>
-                        </tr>
-                        <tr class="tm-tb tm-tb-co" onmousemove="if (plots.cornplot !== 'unlocked') { this.style.display = 'none'; }">
-                           <td>Corn</td>
-                           <td>12 Seconds</td>
-                           <td>25 Seconds</td>
-                        </tr>
-                        <tr class="tm-tb tm-tb-st" onmousemove="if (plots.strawberryplot !== 'unlocked') { this.style.display = 'none'; }">
-                           <td>Strawberries</td>
-                           <td>2 Minutes</td>
-                           <td>2.5 Minutes</td>
-                        </tr>
-                        <tr class="tm-tb tm-tb-eg" onmousemove="if (plots.eggplantplot !== 'unlocked') { this.style.display = 'none'; }">
-                           <td>Eggplant</td>
-                           <td>8 Minutes</td>
-                           <td>15 Minutes</td>
-                        </tr>
-                        <tr class="tm-tb tm-tb-pu" onmousemove="if (plots.pumpkinplot !== 'unlocked') { this.style.display = 'none'; }">
-                           <td>Pumpkin</td>
-                           <td>10 Minutes</td>
-                           <td>30 Minutes</td>
-                        </tr>
-                        <tr class="tm-tb tm-tb-ca" onmousemove="if (plots.cabbageplot !== 'unlocked') { this.style.display = 'none'; }">
-                           <td>Cabbage</td>
-                           <td>1 Hour</td>
-                           <td>1 Hour</td>
-                        </tr>
-                        <tr class="tm-tb tm-tb-da" onmousemove="if (plots.dandelionplot !== 'unlocked') { this.style.display = 'none'; }">
-                           <td>Dandelion</td>
-                           <td>3 Hours</td>
-                           <td>3 Hours</td>
-                        </tr>
-                        <tr class="tm-tb tm-tb-rh" onmousemove="if (plots.rhubarbplot !== 'unlocked') { this.style.display = 'none'; }">
-                           <td>Rhubarb</td>
-                           <td>8 Hours</td>
-                           <td>8 Hours</td>
-                        </tr>
+                        <tr><th>Vegetable</th><th>Growing Time</th></tr>
+                        <tr><td>Peas</td><td>10 Seconds</td></tr>
+                        <tr class="tm-tb tm-tb-co"><td>Corn</td><td>25 Seconds</td></tr>
+                        <tr class="tm-tb tm-tb-st"><td>Strawberries</td><td>2.5 Minutes</td></tr>
+                        <tr class="tm-tb tm-tb-eg"><td>Eggplant</td><td>15 Minutes</td></tr>
+                        <tr class="tm-tb tm-tb-pu"><td>Pumpkin</td><td>30 Minutes</td></tr>
+                        <tr class="tm-tb tm-tb-ca"><td>Cabbage</td><td>1 Hour</td></tr>
+                        <tr class="tm-tb tm-tb-da"><td>Dandelion</td><td>3 Hours</td></tr>
+                        <tr class="tm-tb tm-tb-rh"><td>Rhubarb</td><td>8 Hours</td></tr>
                     </table>
                   </div>
                   <div id="help-shortcuts">

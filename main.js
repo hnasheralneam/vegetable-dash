@@ -746,7 +746,7 @@ function intro() {
          introText.textContent = "This little ribbon opens to show Tasks, where you can get rewards for doing chores around the farm.";
          introBlock.style.bottom = "2vh";
          document.querySelector(".command-panel").style.zIndex = "0";
-         document.querySelector(".quests").style.zIndex = "9999";
+         document.querySelector(".tasks").style.zIndex = "9999";
          introData.tasks = true;
       }
       else { help(); }
@@ -755,7 +755,7 @@ function intro() {
       if (introData.help === false) {
          $(".intro-img").attr("src", "Images/Tasks/farmer.png");
          introText.textContent = "That's it! If you need more help, just check out the small help icon in the top left corner.";
-         document.querySelector(".quests").style.zIndex = "0";
+         document.querySelector(".tasks").style.zIndex = "0";
          document.querySelector(".help-center-img").style.zIndex = "9999";
          introData.help = true;
       }
@@ -1018,22 +1018,22 @@ document.addEventListener("keyup", function(event) { if (event.shiftKey && event
    if (document.querySelector(".shortcutShadow").style.opacity === "0") { showObj(".shortcutShadow"); }
    else { hideObj(".shortcutShadow"); }
 }});
-document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 81) { questbar(); } });
+document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 81) { taskbar(); } });
 document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 87) {
    if (document.querySelector(".settingShadow").style.opacity === "0") { showObj(".settingShadow"); }
    else { hideObj(".settingShadow"); }
 } });
 
 questbarIsOpen = false;
-function questbar() {
+function taskbar() {
    if (questbarIsOpen === true) {
-      document.querySelector(".quests").style.left = "0";
-      document.querySelector(".questShadow").style.display = "block";
+      document.querySelector(".tasks").style.left = "0";
+      document.querySelector(".taskShadow").style.display = "block";
       questbarIsOpen = false;
    }
    else {
-      document.querySelector(".quests").style.left = "-80vh";
-      document.querySelector(".questShadow").style.display = "none";
+      document.querySelector(".tasks").style.left = "-80vh";
+      document.querySelector(".taskShadow").style.display = "none";
       questbarIsOpen = true;
    }
 }
