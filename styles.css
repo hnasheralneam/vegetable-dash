@@ -346,15 +346,17 @@ Vegetable Info Modal
 }
 
 .modal-content {
-   width: 80%;
-   height: 75%;
-   margin: auto;
-   padding: 4vh;
+   width: 90vw;
+   height: 90vh;
+   margin: -5vh auto 0 auto;
+   padding: 4vh 4vh 25vh 4vh;
    font-size: 6vh;
    border-radius: .8vh;
    background-color: #fefefe;
    text-align: center;
    font-family: "Roboto Condensed";
+   position: relative;
+   box-sizing: border-box;
    overflow: scroll;
 }
 
@@ -1296,12 +1298,17 @@ Quests
 .hidden { display: none; }
 
 .modal-market-prices {
-   height: 20vh;
-   margin: 2vh auto;
-   border: solid 2vh #eee;
-   border-radius: 5vh;
+   position: fixed;
+   right: 0;
+   bottom: -4vh;
+   left: 0;
+   height: 18vh;
+   margin: 9vh 5vw;
+   border-top: solid 2vh #eee;
+   border-radius: 0 0 5vh 5vh;
    display: grid;
    grid-template-columns: 50% 50%;
+   background-color: #fff;
 }
 
 .modal-market-prices div:first-child { border-right: solid .5vh #8f8f8f; }
@@ -1514,3 +1521,4 @@ tr:nth-child(even) { background-color: #eee; }
 }
 
 .vegAmount { display: none; }
+.tm-tb { opacity: 0; }

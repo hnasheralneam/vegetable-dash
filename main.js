@@ -19,9 +19,9 @@ Save               | Save the game data, restart
 // To do
 v0.1.0 (May 25 2021)
 ~ weather
-~ disasters happen every [time]
-~ plant drag4
-~ disaster help
+~ plant drag
+~ change plant times
+~ plant time chart in help
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Game Data
@@ -908,6 +908,14 @@ let mainLoop = window.setInterval(function() {
    function revealProduce(id, veg) {
       document.querySelector(`.${veg}Amount`).style.display = "block";
       document.querySelector(id).textContent = `${toWord(produce[veg], "short")} Bushels of ${capitalize(veg)}`; }
+   if (plots.cornplot === 'unlocked') { document.querySelector(".tm-tb-co").style.opacity = "1"; }
+   if (plots.strawberryplot === 'unlocked') { document.querySelector(".tm-tb-st").style.opacity = "1"; }
+   if (plots.eggplantplot === 'unlocked') { document.querySelector(".tm-tb-eg").style.opacity = "1"; }
+   if (plots.pumpkinplot === 'unlocked') { document.querySelector(".tm-tb-pu").style.opacity = "1"; }
+   if (plots.cabbageplot === 'unlocked') { document.querySelector(".tm-tb-ca").style.opacity = "1"; }
+   if (plots.dandelionplot === 'unlocked') { document.querySelector(".tm-tb-da").style.opacity = "1"; }
+   if (plots.rhubarbplot === 'unlocked') { document.querySelector(".tm-tb-rh").style.opacity = "1"; }
+
 }, 200)
 function setup() {
    if (!taskList) { taskList = initalTaskList; }
