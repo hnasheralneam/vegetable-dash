@@ -13,15 +13,13 @@ Market             | Sell items for seeds
 Main Loop & Setup  | Main loop and setup
 Helpful Functions  | Some helpful functions
 Commands           | Commands to open panels, right click menu
+Active Cursors     | Cursors you can enable to do things
 Settings           | Update Sidebar
 Save               | Save the game data, restart
 
 // To do
 v0.1.0 (May 25 2021)
 ~ weather
-~ plant drag
-~ change plant times
-~ plant time chart in help
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Game Data
@@ -31,6 +29,7 @@ let initalPlotStatus = {
    corn: "empty",
    strawberries: "empty",
    eggplants: "empty",
+   center: "empty",
    pumpkins: "empty",
    cabbage: "empty",
    dandelion: "empty",
@@ -48,6 +47,9 @@ let initalPlotStatus = {
    eggplantsGrowing: Infinity,
    eggplantsFlowering: Infinity,
    eggplantsReady: Infinity,
+   centerGrowing: Infinity,
+   centerFlowering: Infinity,
+   centerReady: Infinity,
    pumpkinsGrowing: Infinity,
    pumpkinsFlowering: Infinity,
    pumpkinsReady: Infinity,
@@ -60,6 +62,13 @@ let initalPlotStatus = {
    rhubarbGrowing: Infinity,
    rhubarbFlowering: Infinity,
    rhubarbReady: Infinity,
+   // Center Plot
+   centerStatus: "plant-ready",
+   centerReadyTime: 0,
+   centerHarvest: 0,
+   urlOne: "url(Images/Plots/plot.png)",
+   urlTwo: "url(Images/Plots/plot.png)",
+   urlThree: "url(Images/Plots/plot.png)",
 }
 let initalProduce = {
    peas: 0,
@@ -88,6 +97,7 @@ let initalPlots = {
    cabbageplot: "locked",
    dandelionplot: "locked",
    rhubarbplot: "locked",
+   centerplot: "locked",
 }
 let initalMarketData = {
    seeds: 0,
@@ -204,12 +214,10 @@ function infoModal(veg) {
 }
 function harvest(veg) {
    plotStatus[veg.toLowerCase() + "Ready"] = Infinity;
-   let plntID = "grow" + veg;
-   let hrvstID = "harvest" + veg;
    plotStatus[veg.toLowerCase()] = "empty";
    produce[veg.toLowerCase()]++;
-   hideObj(`#${hrvstID}`);
-   showObj(`#${plntID}`);
+   hideObj(`#${"harvest" + veg}`);
+   showObj(`#${"grow" + veg}`);
    marketData.seeds++;
    harvestLuck(veg);
    if (weather.rainy === true) { produce[veg.toLowerCase()]++; }
@@ -222,7 +230,6 @@ function fertilize(veg) {
       checkTasks("fertilize", "tryFertilizer");
    }
 }
-
 function plant(veg, timeOne, timeTwo, timeThree) {
    currentTime = Date.now();
    plotStatus[veg + "Growing"] = currentTime + timeOne;
@@ -234,33 +241,73 @@ function plant(veg, timeOne, timeTwo, timeThree) {
    hideObj(`#grow${capitalize(veg)}`);
 }
 function detailedPlantLoop(veg, pltNumber, urlOne, urlTwo, urlThree, readyTime) {
-   let vegetable = veg;
    let plotImg = document.querySelector("#plot" + pltNumber);
    setInterval(detailedPlantStatus, 1000);
    function detailedPlantStatus() {
       timeLeft(readyTime, veg);
       if (plotStatus[veg] === "working") { hideObj(`#harvest${capitalize(veg)}`); hideObj(`#grow${capitalize(veg)}`); }
       if (Date.now() >= plotStatus[veg + "Ready"]) {
-         plotImg.style.backgroundImage = `url(Images/${urlThree})`;
+         plotImg.style.backgroundImage = `url(Images/Plots/${urlThree})`;
          showObj(`#harvest${capitalize(veg)}`);
          plotStatus[veg + "Growing"] = Infinity;
          plotStatus[veg + "Flowering"] = Infinity;
          plotStatus[veg + "Ready"] = 0;
       }
-      else if (Date.now() >= plotStatus[veg + "Flowering"]) { plotImg.style.backgroundImage = `url(Images/${urlTwo})`; plotStatus[veg + "Growing"] = Infinity; }
-      else if (Date.now() >= plotStatus[veg + "Growing"]) { plotImg.style.backgroundImage = `url(Images/${urlOne})`; }
+      else if (Date.now() >= plotStatus[veg + "Flowering"]) { plotImg.style.backgroundImage = `url(Images/Plots/${urlTwo})`; plotStatus[veg + "Growing"] = Infinity; }
+      else if (Date.now() >= plotStatus[veg + "Growing"]) { plotImg.style.backgroundImage = `url(Images/Plots/${urlOne})`; }
       else { plotImg.style.backgroundImage = "url(Images/Plots/plot.png)"; }
    }
 }
+function tend(veg, timeOne, timeTwo, timeThree, urlOne, urlTwo, urlThree) {
+   if (plotStatus.centerStatus === "harvest-ready") {
+      plotStatus.centerReady = Infinity;
+      plotStatus.center = "empty";
+      produce[plotStatus.centerHarvest]++;
+      marketData.seeds++;
+      harvestLuck(capitalize(plotStatus.centerHarvest));
+      plotStatus.centerReadyTime = 0;
+      if (weather.rainy === true) { produce[plotStatus.centerHarvest]++; }
+      plotStatus.centerStatus = "plant-ready";
+   }
+   else if (plotStatus.centerStatus === "plant-ready") {
+      plotStatus.centerHarvest = veg;
+      currentTime = Date.now();
+      plotStatus.centerGrowing = currentTime + timeOne;
+      plotStatus.centerFlowering = currentTime + timeTwo;
+      if (weather.cloudy) { plotStatus.centerReady = currentTime + timeThree + 5000; }
+      else { plotStatus.centerReady = currentTime + timeThree; }
+      plotStatus.center = "working";
+      timeLeft(timeThree, veg);
+      plotStatus.centerReadyTime = timeThree;
+      plotStatus.urlOne = urlOne;
+      plotStatus.urlTwo = urlTwo;
+      plotStatus.urlThree = urlThree;
+      plotStatus.centerStatus = "growing";
+   }
+}
+setInterval(() => {
+   let plotImg = document.querySelector("#plot5");
+   timeLeft(plotStatus.centerReadyTime, "center");
+   if (Date.now() >= plotStatus.centerReady) {
+      plotImg.style.backgroundImage = `url(Images/Plots/${plotStatus.urlThree})`;
+      plotStatus.centerGrowing = Infinity;
+      plotStatus.centerFlowering = Infinity;
+      plotStatus.centerReady = 0;
+      plotStatus.centerStatus = "harvest-ready";
+   }
+   else if (Date.now() >= plotStatus.centerFlowering) { plotImg.style.backgroundImage = `url(Images/Plots/${plotStatus.urlTwo})`; plotStatus.centerGrowing = Infinity; }
+   else if (Date.now() >= plotStatus.centerGrowing) { plotImg.style.backgroundImage = `url(Images/Plots/${plotStatus.urlOne})`; }
+   else { plotImg.style.backgroundImage = "url(Images/Plots/plot.png)"; }
+}, 1000);
 
-detailedPlantLoop("peas", 1, "Plots/Peas/growing.png", "Plots/Peas/flowering.png", "Plots/Peas/fruiting.png", 5000);
-detailedPlantLoop("corn", 2, "Plots/growing.png", "Plots/Corn/growing.png", "Plots/Corn/fruiting.png", 12000);
-detailedPlantLoop("strawberries", 3, "Plots/Strawberry/growing.png", "Plots/Strawberry/flowering.png", "Plots/Strawberry/fruiting.png", 120000);
-detailedPlantLoop("eggplants", 4, "Plots/Eggplant/growing.png", "Plots/Eggplant/flowering.png", "Plots/Eggplant/fruiting.png", 480000);
-detailedPlantLoop("pumpkins", 6, "Plots/growing.png", "Plots/Pumpkin/growing.png", "Plots/Pumpkin/fruiting.png", 600000);
-detailedPlantLoop("cabbage", 7, "Plots/growing.png", "Plots/Cabbage/growing.png", "Plots/Cabbage/fruiting.png", 3600000);
-detailedPlantLoop("dandelion", 8, "Plots/Dandelion/flowering.png", "Plots/Dandelion/flowering.png", "Plots/Dandelion/fruiting.png", 10800000);
-detailedPlantLoop("rhubarb", 9, "Plots/growing.png", "Plots/Rhubarb/growing.png", "Plots/Rhubarb/fruiting.png", 28800000);
+detailedPlantLoop("peas", 1, "Peas/growing.png", "Peas/flowering.png", "Peas/fruiting.png", 10000);
+detailedPlantLoop("corn", 2, "growing.png", "Corn/growing.png", "Corn/fruiting.png", 25000);
+detailedPlantLoop("strawberries", 3, "Strawberry/growing.png", "Strawberry/flowering.png", "Strawberry/fruiting.png", 150000);
+detailedPlantLoop("eggplants", 4, "Eggplant/growing.png", "Eggplant/flowering.png", "Eggplant/fruiting.png", 900000);
+detailedPlantLoop("pumpkins", 6, "growing.png", "Pumpkin/growing.png", "Pumpkin/fruiting.png", 1800000);
+detailedPlantLoop("cabbage", 7, "growing.png", "Cabbage/growing.png", "Cabbage/fruiting.png", 3600000);
+detailedPlantLoop("dandelion", 8, "Dandelion/flowering.png", "Dandelion/flowering.png", "Dandelion/fruiting.png", 10800000);
+detailedPlantLoop("rhubarb", 9, "growing.png", "Rhubarb/growing.png", "Rhubarb/fruiting.png", 28800000);
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Weather
@@ -305,13 +352,13 @@ function chooseWeather() {
    if (weather.sunny) { weather.marketResetBonus = 0.03; }
    else { weather.marketResetBonus = 0; }
    // if (weather.frost) {
-   //    plots.peaplot === "unlocked" ? maybeLose("peas") : console.log();
-   //    plots.cornplot === "unlocked" ? maybeLose("corn") : console.log();
-   //    plots.strawberryplot === "unlocked" ? maybeLose("strawberries") : console.log();
-   //    plots.eggplantplot === "unlocked" ? maybeLose("eggplants") : console.log();
-   //    plots.pumpkinplot === "unlocked" ? maybeLose("pumpkins") : console.log();
-   //    plots.cabbageplot === "unlocked" ? maybeLose("cabbage") : console.log();
-   //    plots.dandelionplot === "unlocked" ? maybeLose("dandelion") : console.log();
+   //    plots.peaplot === "unlocked" ? maybeLose("peas") : nothin';
+   //    plots.cornplot === "unlocked" ? maybeLose("corn") : nothin';
+   //    plots.strawberryplot === "unlocked" ? maybeLose("strawberries") : nothin';
+   //    plots.eggplantplot === "unlocked" ? maybeLose("eggplants") : nothin';
+   //    plots.pumpkinplot === "unlocked" ? maybeLose("pumpkins") : nothin';
+   //    plots.cabbageplot === "unlocked" ? maybeLose("cabbage") : nothin';
+   //    plots.dandelionplot === "unlocked" ? maybeLose("dandelion") : nothin';
    //    function maybeLose(veg) {
    //       if (plotStatus[veg + "Ready"] != Infinity) {
    //          let random = Math.random();
@@ -341,7 +388,7 @@ function chooseWeather() {
    // }
    // let currentTime = Date.now();
    // plotStatus[veg + "Growing"] = currentTime + timeOne;
-   setTimeout(chooseWeather, 1000);
+   setTimeout(chooseWeather, 2000);
 }
 chooseWeather();
 
@@ -925,27 +972,6 @@ function setup() {
 }
 window.addEventListener('load', (event) => { setup(); });
 
-// Fertilizer
-let fertilizerCursor = "not active";
-function fertilizeHover() {
-   if (fertilizerCursor === "active") {
-      fertilizerCursor = "not active";
-      document.querySelector(".land").style.cursor = "auto";
-   }
-   else {
-      fertilizerCursor = "active";
-      document.querySelector(".land").style.cursor = "url('Images/Global Assets/fertilizer-shovel.png'), auto";
-   }
-}
-document.querySelector('#plot1').addEventListener('click', event => { if (fertilizerCursor === "active" && plotStatus.peasReady !== 0) { fertilize('peas'); fertilizeHover(); } });
-document.querySelector('#plot2').addEventListener('click', event => { if (fertilizerCursor === "active" && plotStatus.cornReady !== 0) { fertilize('corn'); fertilizeHover(); } });
-document.querySelector('#plot3').addEventListener('click', event => { if (fertilizerCursor === "active" && plotStatus.strawberriesReady !== 0) { fertilize('strawberries'); fertilizeHover(); } });
-document.querySelector('#plot4').addEventListener('click', event => { if (fertilizerCursor === "active" && plotStatus.eggplantsReady !== 0) { fertilize('eggplants'); fertilizeHover(); } });
-document.querySelector('#plot6').addEventListener('click', event => { if (fertilizerCursor === "active" && plotStatus.pumpkinsReady !== 0) { fertilize('pumpkins'); fertilizeHover(); } });
-document.querySelector('#plot7').addEventListener('click', event => { if (fertilizerCursor === "active" && plotStatus.cabbageReady !== 0) { fertilize('cabbage'); fertilizeHover(); } });
-document.querySelector('#plot8').addEventListener('click', event => { if (fertilizerCursor === "active" && plotStatus.dandelionReady !== 0) { fertilize('dandelion'); fertilizeHover(); } });
-document.querySelector('#plot9').addEventListener('click', event => { if (fertilizerCursor === "active" && plotStatus.rhubarbReady !== 0) { fertilize('rhubarb'); fertilizeHover(); } });
-
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Helpful Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -1014,18 +1040,17 @@ $(document).ready(function(){ $('.help-subjects-item').click(function () { $('.h
 // Commands
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 69) {
-   if (document.querySelector(".shortcutShadow").style.opacity === "0") { showObj(".shortcutShadow"); }
-   else { hideObj(".shortcutShadow"); }
-}});
-document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 81) { taskbar(); } });
-document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 87) {
-   if (document.querySelector(".settingShadow").style.opacity === "0") { showObj(".settingShadow"); }
-   else { hideObj(".settingShadow"); }
-} });
+function aEL(key, func) { document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === key) { func(); } }); }
+
+aEL(84, taskBar); // Shift + T
+aEL(68, cheat); // Shift + D
+aEL(83, settingModal); // Shift + S
+aEL(80, plantDrag); // Shift + P
+aEL(72, harvestDrag); // Shift + H
+aEL(70, fertilizeHover); // Shift + F
 
 questbarIsOpen = false;
-function taskbar() {
+function taskBar() {
    if (questbarIsOpen === true) {
       document.querySelector(".tasks").style.left = "0";
       document.querySelector(".taskShadow").style.display = "block";
@@ -1050,6 +1075,10 @@ function commandBar() {
       document.querySelector(".slider").style.backgroundColor = "#ffca18";
       document.querySelector(".slider").style.transform = "rotate(180deg)";
    }
+}
+function settingModal() {
+   if (document.querySelector(".settingShadow").style.opacity === "0") { showObj(".settingShadow"); }
+   else { hideObj(".settingShadow"); }
 }
 
 // Right Click Menu
@@ -1124,6 +1153,87 @@ function taskUnHover(num) {
       document.querySelector(`.task-block-${num}`).style.zIndex = '0';
    }, 250);
 }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Active Cursors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+var mouseDown = 0;
+document.body.onmousedown = function() { mouseDown = 1; }
+document.body.onmouseup = function() { mouseDown = 0; }
+
+var mouseWasDown = false;
+var plntMouseWasDown = false;
+let harvestCursor = "not active";
+let plantCursor = "not active";
+let fertilizerCursor = "not active";
+
+function harvestDrag() {
+   if (harvestCursor === "active") {
+      harvestCursor = "not active";
+      document.querySelector(".land").style.cursor = "auto";
+   }
+   else {
+      harvestCursor = "active";
+      document.querySelector(".land").style.cursor = "url('Images/Global Assets/sickle-cursor.png'), auto";
+   }
+}
+function plantDrag() {
+   if (plantCursor === "active") {
+      plantCursor = "not active";
+      document.querySelector(".land").style.cursor = "auto";
+   }
+   else {
+      plantCursor = "active";
+      document.querySelector(".land").style.cursor = "url('Images/Global Assets/plant-cursor.png'), auto";
+   }
+}
+function fertilizeHover() {
+   if (fertilizerCursor === "active") {
+      fertilizerCursor = "not active";
+      document.querySelector(".land").style.cursor = "auto";
+   }
+   else {
+      fertilizerCursor = "active";
+      document.querySelector(".land").style.cursor = "url('Images/Global Assets/fertilizer-shovel.png'), auto";
+   }
+}
+
+setInterval(() => {
+   if (harvestCursor === "active" && mouseDown === 1) { mouseWasDown = true; }
+   if (harvestCursor !== "active") { mouseWasDown = false; }
+   if (mouseDown === 0 && mouseWasDown === true) { harvestDrag(); }
+   if (plantCursor === "active" && mouseDown === 1) { plntMouseWasDown = true; }
+   if (plantCursor !== "active") { plntMouseWasDown = false; }
+   if (mouseDown === 0 && plntMouseWasDown === true) { plantDrag(); }
+}, 100)
+
+$("#plot1").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["peasReady"]) { harvest("Peas"); } });
+$("#plot2").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["cornReady"]) { harvest("Corn"); } });
+$("#plot3").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["strawberriesReady"]) { harvest("Strawberries"); } });
+$("#plot4").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["eggplantsReady"]) { harvest("Eggplants"); } });
+$("#plot6").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["pumpkinsReady"]) { harvest("Pumpkins"); } });
+$("#plot7").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["cabbageReady"]) { harvest("Cabbage"); } });
+$("#plot8").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["dandelionReady"]) { harvest("Dandelion"); } });
+$("#plot9").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["rhubarbReady"]) { harvest("Rhubarb"); } });
+
+$("#plot1").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["peas"]) { plant('peas', 3000, 6000, 10000); } });
+$("#plot2").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["corn"]) { plant('corn', 6000, 12000, 25000); } });
+$("#plot3").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["strawberries"]) { plant('strawberries', 50000, 100000, 150000); } });
+$("#plot4").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["eggplants"]) { plant('eggplants', 300000, 600000, 900000); } });
+$("#plot6").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["pumpkins"]) { plant('pumpkins', 600000, 1200000, 1800000); } });
+$("#plot7").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["cabbage"]) { plant('cabbage', 1200000, 2400000, 3600000); } });
+$("#plot8").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["dandelion"]) { plant('dandelion', 3600000, 7200000, 10800000); } });
+$("#plot9").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["rhubarb"]) { plant('rhubarb', 9600000, 18200000, 28800000); } });
+
+document.querySelector("#plot1").addEventListener("click", event => { if (fertilizerCursor === "active" && plotStatus.peasReady !== 0) { fertilize("peas"); fertilizeHover(); } });
+document.querySelector("#plot2").addEventListener("click", event => { if (fertilizerCursor === "active" && plotStatus.cornReady !== 0) { fertilize("corn"); fertilizeHover(); } });
+document.querySelector("#plot3").addEventListener("click", event => { if (fertilizerCursor === "active" && plotStatus.strawberriesReady !== 0) { fertilize("strawberries"); fertilizeHover(); } });
+document.querySelector("#plot4").addEventListener("click", event => { if (fertilizerCursor === "active" && plotStatus.eggplantsReady !== 0) { fertilize("eggplants"); fertilizeHover(); } });
+document.querySelector("#plot6").addEventListener("click", event => { if (fertilizerCursor === "active" && plotStatus.pumpkinsReady !== 0) { fertilize("pumpkins"); fertilizeHover(); } });
+document.querySelector("#plot7").addEventListener("click", event => { if (fertilizerCursor === "active" && plotStatus.cabbageReady !== 0) { fertilize("cabbage"); fertilizeHover(); } });
+document.querySelector("#plot8").addEventListener("click", event => { if (fertilizerCursor === "active" && plotStatus.dandelionReady !== 0) { fertilize("dandelion"); fertilizeHover(); } });
+document.querySelector("#plot9").addEventListener("click", event => { if (fertilizerCursor === "active" && plotStatus.rhubarbReady !== 0) { fertilize("rhubarb"); fertilizeHover(); } });
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Settings
@@ -1217,7 +1327,7 @@ for (key of initalTaskListKeys) { if (taskList[key] === undefined) { taskList[ke
 if (isMobile()) { document.location = "mobile.html"; }
 function isMobile() { return ('ontouchstart' in document.documentElement); }
 
-document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 68) {
+function cheat() {
    let cheatPassword = prompt("Password?");
    if (cheatPassword === "dev") {
       marketData.seeds += 1000000;
@@ -1236,58 +1346,4 @@ document.addEventListener("keyup", function(event) { if (event.shiftKey && event
      alert("Welcome, Squirrel");
    }
    else { alert("No cheating for you"); }
-}});
-
-var mouseDown = 0;
-document.body.onmousedown = function() { mouseDown = 1; }
-document.body.onmouseup = function() { mouseDown = 0; }
-var mouseWasDown = false;
-
-$("#plot1").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["peasReady"]) { harvest("Peas"); } });
-$("#plot2").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["cornReady"]) { harvest("Corn"); } });
-$("#plot3").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["strawberriesReady"]) { harvest("Strawberries"); } });
-$("#plot4").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["eggplantsReady"]) { harvest("Eggplants"); } });
-$("#plot6").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["pumpkinsReady"]) { harvest("Pumpkins"); } });
-$("#plot7").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["cabbageReady"]) { harvest("Cabbage"); } });
-$("#plot8").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["dandelionReady"]) { harvest("Dandelion"); } });
-$("#plot9").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["rhubarbReady"]) { harvest("Rhubarb"); } });
-
-// $("#plot1").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["peas"]) { harvest("Peas"); } });
-// $("#plot2").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["corn"]) { harvest("Corn"); } });
-// $("#plot3").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["strawberries"]) { harvest("Strawberries"); } });
-// $("#plot4").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["eggplants"]) { harvest("Eggplants"); } });
-// $("#plot6").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["pumpkins"]) { harvest("Pumpkins"); } });
-// $("#plot7").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["cabbage"]) { harvest("Cabbage"); } });
-// $("#plot8").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["dandelion"]) { harvest("Dandelion"); } });
-// $("#plot9").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["rhubarb"]) { harvest("Rhubarb"); } });
-
-
-setInterval(() => {
-   if (harvestCursor === "active" && mouseDown === 1) { mouseWasDown = true; }
-   if (harvestCursor !== "active") { mouseWasDown = false; }
-   if (mouseDown === 0 && mouseWasDown === true) { harvestDrag(); }
-}, 100)
-
-let harvestCursor = "not active";
-function harvestDrag() {
-   if (harvestCursor === "active") {
-      harvestCursor = "not active";
-      document.querySelector(".land").style.cursor = "auto";
-   }
-   else {
-      harvestCursor = "active";
-      document.querySelector(".land").style.cursor = "url('Images/Global Assets/sickle-cursor.png'), auto";
-   }
 }
-
-// let plantCursor = "not active";
-// function plantDrag() {
-//    if (plantCursor === "active") {
-//       plantCursor = "not active";
-//       document.querySelector(".land").style.cursor = "auto";
-//    }
-//    else {
-//       plantCursor = "active";
-//       document.querySelector(".land").style.cursor = "url('Images/Global Assets/sickle-cursor.png'), auto";
-//    }
-// }
