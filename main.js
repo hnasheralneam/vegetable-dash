@@ -16,11 +16,6 @@ Commands           | Commands to open panels, right click menu
 Active Cursors     | Cursors you can enable to do things
 Settings           | Update Sidebar
 Save               | Save the game data, restart
-
-// To do
-v0.1.0 (May 25 2021)
-~ weather
-
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Game Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -107,6 +102,7 @@ let initalMarketData = {
    // Time (Where elese do I put it?)
    weedSeason: Date.now() + 1800000,
    disasterTime: 0,
+   newWeatherTime: 0,
    // Vegetable prices
    buyPeas: 25,
    sellPeas: 25,
@@ -128,6 +124,22 @@ let initalMarketData = {
    sellItem: ["Market Resets"][Math.floor(Math.random() * 1)],
    sellItemQuantity: Math.floor(Math.random() * (5 - 1)) + 1,
    seedCost: Math.floor(Math.random() * (10000 - 2000)) + 2000,
+   weather: {
+      sunny: false,
+      rainy: false,
+      partlySunny: false,
+      partlyCloudy: false,
+      snowy: false,
+      cloudy: false,
+      frost: false,
+      flood: false,
+      marketResetBonus: 0,
+      hasBeenPunished: true,
+      // heatwave: ["depends", "?"],
+      // locusts: ["- all plants",],
+      // birds: ["-10% - 15% of seeds",], // Scarecrow investment will reduce by 5%
+      // flood: ["-20% stored veg"], // Irrigation investment will retract bad effects, make +1 produce
+   }
 }
 let initalSettings = {
    theme: "dark",
@@ -220,7 +232,7 @@ function harvest(veg) {
    showObj(`#${"grow" + veg}`);
    marketData.seeds++;
    harvestLuck(veg);
-   if (weather.rainy === true) { produce[veg.toLowerCase()]++; }
+   if (marketData.weather.rainy === true) { produce[veg.toLowerCase()]++; }
 }
 function fertilize(veg) {
    if (marketData.fertilizers >= 1) {
@@ -234,7 +246,7 @@ function plant(veg, timeOne, timeTwo, timeThree) {
    currentTime = Date.now();
    plotStatus[veg + "Growing"] = currentTime + timeOne;
    plotStatus[veg + "Flowering"] = currentTime + timeTwo;
-   if (weather.cloudy) { plotStatus[veg + "Ready"] = currentTime + timeThree + 5000; }
+   if (marketData.weather.cloudy) { plotStatus[veg + "Ready"] = currentTime + timeThree + 5000; }
    else { plotStatus[veg + "Ready"] = currentTime + timeThree; }
    plotStatus[veg] = "working";
    timeLeft(timeThree, veg.toLowerCase());
@@ -246,7 +258,8 @@ function detailedPlantLoop(veg, pltNumber, urlOne, urlTwo, urlThree, readyTime) 
    function detailedPlantStatus() {
       timeLeft(readyTime, veg);
       if (plotStatus[veg] === "working") { hideObj(`#harvest${capitalize(veg)}`); hideObj(`#grow${capitalize(veg)}`); }
-      if (Date.now() >= plotStatus[veg + "Ready"]) {
+      if (plotStatus[veg] === "withered") { plotImg.style.backgroundImage = `url(Images/Plots/withered.png)` }
+      else if (Date.now() >= plotStatus[veg + "Ready"]) {
          plotImg.style.backgroundImage = `url(Images/Plots/${urlThree})`;
          showObj(`#harvest${capitalize(veg)}`);
          plotStatus[veg + "Growing"] = Infinity;
@@ -266,7 +279,7 @@ function tend(veg, timeOne, timeTwo, timeThree, urlOne, urlTwo, urlThree) {
       marketData.seeds++;
       harvestLuck(capitalize(plotStatus.centerHarvest));
       plotStatus.centerReadyTime = 0;
-      if (weather.rainy === true) { produce[plotStatus.centerHarvest]++; }
+      if (marketData.weather.rainy === true) { produce[plotStatus.centerHarvest]++; }
       plotStatus.centerStatus = "plant-ready";
    }
    else if (plotStatus.centerStatus === "plant-ready") {
@@ -274,7 +287,7 @@ function tend(veg, timeOne, timeTwo, timeThree, urlOne, urlTwo, urlThree) {
       currentTime = Date.now();
       plotStatus.centerGrowing = currentTime + timeOne;
       plotStatus.centerFlowering = currentTime + timeTwo;
-      if (weather.cloudy) { plotStatus.centerReady = currentTime + timeThree + 5000; }
+      if (marketData.weather.cloudy) { plotStatus.centerReady = currentTime + timeThree + 5000; }
       else { plotStatus.centerReady = currentTime + timeThree; }
       plotStatus.center = "working";
       timeLeft(timeThree, veg);
@@ -313,24 +326,7 @@ detailedPlantLoop("rhubarb", 9, "growing.png", "Rhubarb/growing.png", "Rhubarb/f
 // Weather
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-let weather = {
-   sunny: false,
-   rainy: false,
-   partlySunny: false,
-   partlyCloudy: false,
-   snowy: false,
-   cloudy: false,
-   frost: false,
-   flood: false,
-   marketResetBonus: 0,
-
-   // heatwave: ["depends", "?"],
-   // locusts: ["- all plants",],
-   // birds: ["-10% - 15% of seeds",], // Scarecrow investment will reduce by 5%
-   // flood: ["-20% stored veg"], // Irrigation investment will retract bad effects, make +1 produce
-}
 let random = (Math.random()).toFixed(2);
-
 function weatherChance(min, max) {
    let value = {};
    for (i = min; i < max; i += .01) {
@@ -341,83 +337,77 @@ function weatherChance(min, max) {
 }
 function chooseWeather() {
    random = (Math.random()).toFixed(2);
-   if (weatherChance(0, .15) === true) { weather.sunny = true; } else { weather.sunny = false; }
-   if (weatherChance(.15, .30) === true) { weather.rainy = true; } else { weather.rainy = false; }
-   if (weatherChance(.30, .55) === true) { weather.partlySunny = true; } else { weather.partlySunny = false; }
-   if (weatherChance(.55, .80) === true) { weather.partlyCloudy = true; } else { weather.partlyCloudy = false; }
-   if (weatherChance(.80, .85) === true) { weather.snowy = true; } else { weather.snowy = false; }
-   if (weatherChance(.85, .93) === true) { weather.cloudy = true; } else { weather.cloudy = false; }
-   if (weatherChance(.93, .95) === true) { weather.frost = true; } else { weather.frost = false; }
-   if (weatherChance(.95, 1.01) === true) { weather.flood = true; } else { weather.flood = false; }
-   if (weather.sunny) { weather.marketResetBonus = 0.03; }
-   else { weather.marketResetBonus = 0; }
-   // if (weather.frost) {
-   //    plots.peaplot === "unlocked" ? maybeLose("peas") : nothin';
-   //    plots.cornplot === "unlocked" ? maybeLose("corn") : nothin';
-   //    plots.strawberryplot === "unlocked" ? maybeLose("strawberries") : nothin';
-   //    plots.eggplantplot === "unlocked" ? maybeLose("eggplants") : nothin';
-   //    plots.pumpkinplot === "unlocked" ? maybeLose("pumpkins") : nothin';
-   //    plots.cabbageplot === "unlocked" ? maybeLose("cabbage") : nothin';
-   //    plots.dandelionplot === "unlocked" ? maybeLose("dandelion") : nothin';
-   //    function maybeLose(veg) {
-   //       if (plotStatus[veg + "Ready"] != Infinity) {
-   //          let random = Math.random();
-   //          if (random > .5) {
-   //             plotStatus[veg] = "empty";
-   //             plotStatus[veg + "Growing"] = Infinity;
-   //             plotStatus[veg + "Ready"] = Infinity;
-   //             // Stop growing
-   //          }
-   //       }
-   //    }
-   //    chooseWeather();
-   // }
-   // if (weather.flood) {
-   //    let unluckyVeg = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
-   //    let amountLost = Math.floor(produce[vegLost] / 1);
-   //    produce[vegLost] -= amountLost;
-   //    // 20% stored
-   //    chooseWeather();
-   // }
-   // if (weather.snowy) {
-   //    let unluckyVeg = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
-   //    let amountLost = Math.floor(produce[unluckyVeg] / 3);
-   //    produce[unluckyVeg] -= amountLost;
-   //    // 33% stored
-   //    chooseWeather();
-   // }
-   // let currentTime = Date.now();
-   // plotStatus[veg + "Growing"] = currentTime + timeOne;
-   setTimeout(chooseWeather, 2000);
+   if (weatherChance(0, .15) === true) { marketData.weather.sunny = true; } else { marketData.weather.sunny = false; }
+   if (weatherChance(.15, .30) === true) { marketData.weather.rainy = true; } else { marketData.weather.rainy = false; }
+   if (weatherChance(.30, .55) === true) { marketData.weather.partlySunny = true; } else { marketData.weather.partlySunny = false; }
+   if (weatherChance(.55, .80) === true) { marketData.weather.partlyCloudy = true; } else { marketData.weather.partlyCloudy = false; }
+   if (weatherChance(.80, .85) === true) { marketData.weather.snowy = true; marketData.weather.hasBeenPunished = false; } else { marketData.weather.snowy = false; }
+   if (weatherChance(.85, .93) === true) { marketData.weather.cloudy = true; } else { marketData.weather.cloudy = false; }
+   if (weatherChance(.93, .95) === true) { marketData.weather.frost = true; marketData.weather.hasBeenPunished = false; } else { marketData.weather.frost = false; }
+   if (weatherChance(.95, 1.01) === true) { marketData.weather.flood = true; marketData.weather.hasBeenPunished = false; } else { marketData.weather.flood = false; }
 }
-chooseWeather();
-
-let updateWeatherImg = window.setInterval(function() {
-   if (weather.sunny === true) { changeWeatherDisplay("Sunny", "Effects: Positive <br> Benefits: +3% market reset harvest chance", "https://api.iconify.design/wi:day-sunny.svg") }
-   if (weather.rainy === true) { changeWeatherDisplay("Rainy", "Effects: Positive <br> Benefits: +1 produce", "https://api.iconify.design/wi:showers.svg") }
-   if (weather.partlyCloudy === true) { changeWeatherDisplay("Partly Cloudy", "Effects: None <br> Benefits: None", "https://api.iconify.design/wi:day-cloudy.svg") }
-   if (weather.partlySunny) {changeWeatherDisplay("Partly Sunny", "Effects: None <br> Benefits: None", "https://api.iconify.design/wi:day-sunny-overcast.svg") }
-   if (weather.snowy === true) {changeWeatherDisplay("Snowy", "Effects: Adverse <br> Disadvantages: -33% of a stored vegetable lost", "https://api.iconify.design/wi:snow.svg") }
-   if (weather.cloudy === true) {changeWeatherDisplay("Cloudy", "Effects: Adverse <br> Disadvantages: +5s growing time", "https://api.iconify.design/wi:cloudy.svg") }
-   if (weather.frost === true) {changeWeatherDisplay("Frost", "Effects: Adverse <br> Disadvantages: 50% plants wither", "https://api.iconify.design/wi:snowflake-cold.svg") }
-   if (weather.flood === true) {changeWeatherDisplay("Flooding", "Effects: Adverse <br> Disadvantages: -20% of a stored veg", "https://api.iconify.design/wi:flood.svg") }
+let updateWeather = window.setInterval(function() {
+   // Implement Weather Effects
+   if (marketData.weather.sunny) { marketData.weather.marketResetBonus = 0.03; }
+   else { marketData.weather.marketResetBonus = 0; }
+   if (marketData.weather.snowy && marketData.weather.hasBeenPunished === false) {
+      let unluckyVeg = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
+      let amountLost = Math.floor(produce[unluckyVeg] / 3);
+      produce[unluckyVeg] -= amountLost;
+      callAlert(`It has snowed! You lost ${amountLost} ${unluckyVeg}!`);
+      marketData.weather.hasBeenPunished = true;
+   }
+   if (marketData.weather.flood && marketData.weather.hasBeenPunished === false) {
+      let unluckyVeg = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
+      let amountLost = Math.floor(produce[unluckyVeg] / 5);
+      produce[unluckyVeg] -= amountLost;
+      callAlert(`It has flooded! You lost ${amountLost} ${unluckyVeg}!`);
+      marketData.weather.hasBeenPunished = true;
+   }
+   if (marketData.weather.frost && marketData.weather.hasBeenPunished === false) {
+      console.log("DAMAGE!");
+      if (plots.peaplot === "unlocked" && plotStatus.peasReady != Infinity) { maybeLose("peas"); }
+      if (plots.cornplot === "unlocked" && plotStatus.cornReady != Infinity) { maybeLose("corn"); }
+      if (plots.strawberryplot === "unlocked" && plotStatus.strawberriesReady != Infinity) { maybeLose("strawberries"); }
+      if (plots.eggplantplot === "unlocked" && plotStatus.eggplantsReady != Infinity) { maybeLose("eggplants"); }
+      if (plots.pumpkinplot === "unlocked" && plotStatus.pumpkinsReady != Infinity) { maybeLose("pumpkins"); }
+      if (plots.cabbageplot === "unlocked" && plotStatus.cabbageReady != Infinity) { maybeLose("cabbage"); }
+      if (plots.dandelionplot === "unlocked" && plotStatus.dandelionReady != Infinity) { maybeLose("dandelion"); }
+      if (plots.rhubarbplot === "unlocked" && plotStatus.rhubarbReady != Infinity) { maybeLose("rhubarb"); }
+      function maybeLose(veg) {
+         let random = Math.random();
+         if (random > .5) {
+            plotStatus[veg + "Growing"] = Infinity;
+            plotStatus[veg + "Flowering"] = Infinity;
+            plotStatus[veg + "Ready"] = Infinity;
+            plotStatus[veg] = "withered";
+            hideObj(`#${"harvest" + capitalize(veg)}`);
+            showObj(`#${"grow" + capitalize(veg)}`);
+         }
+      }
+      marketData.weather.hasBeenPunished = true;
+   }
+   // Choose next weathertime
+   if (Date.now() >= marketData.newWeatherTime) {
+      chooseWeather();
+      // 6 Minutes (360000)
+      marketData.newWeatherTime = Date.now() + 360000;
+   }
+   // Update Display
+   if (marketData.weather.sunny === true) { changeWeatherDisplay("Sunny", "Benefits: +3% market reset harvest chance", "https://api.iconify.design/wi:day-sunny.svg") }
+   if (marketData.weather.rainy === true) { changeWeatherDisplay("Rainy", "Benefits: +1 produce", "https://api.iconify.design/wi:showers.svg") }
+   if (marketData.weather.partlyCloudy === true) { changeWeatherDisplay("Partly Cloudy", "Effects: None", "https://api.iconify.design/wi:day-cloudy.svg") }
+   if (marketData.weather.partlySunny) {changeWeatherDisplay("Partly Sunny", "Effects: None", "https://api.iconify.design/wi:day-sunny-overcast.svg") }
+   if (marketData.weather.snowy === true) {changeWeatherDisplay("Snowy", "Detriments: -33% of a stored vegetable", "https://api.iconify.design/wi:snow.svg") }
+   if (marketData.weather.cloudy === true) {changeWeatherDisplay("Cloudy", "Detriments: +5s growing time", "https://api.iconify.design/wi:cloudy.svg") }
+   if (marketData.weather.frost === true) {changeWeatherDisplay("Frost", "Detriments: 50% chance plants will wither", "https://api.iconify.design/wi:snowflake-cold.svg") }
+   if (marketData.weather.flood === true) {changeWeatherDisplay("Flooding", "Detriments: -20% of a stored vegetable", "https://api.iconify.design/wi:flood.svg") }
    function changeWeatherDisplay(weather, text, url) {
       document.querySelector(".weather-name"). textContent = weather;
       document.querySelector(".weather-description").innerHTML = text;
       document.querySelector(".weather-img").style.background = `url("${url}") no-repeat center center / contain`;
    }
-}, 200)
-function maybeLose(veg) {
-   if (plotStatus[veg + "Ready"] != Infinity) {
-      let random = Math.random();
-      if (random > .5) {
-         plotStatus[veg] = "empty";
-         plotStatus[veg + "Growing"] = Infinity;
-         plotStatus[veg + "Ready"] = Infinity;
-         // Stop growing
-      }
-   }
-}
+}, 100)
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Tasks
@@ -610,7 +600,7 @@ function harvestLuck(veg) {
       fadeTextAppear(event, `It rained! You collected \n 2 extra ${veg}!`, "vegLuck");
       produce[veg.toLowerCase()] += 2;
    }
-   if (rand < (0.05 + weather.marketResetBonus)) {
+   if (rand < (0.05 + marketData.weather.marketResetBonus)) {
       fadeTextAppear(event, `You collected a market \n reset! You now have ${marketData.marketResets}`, "vegLuck");
       marketData.marketResets++;
    }
