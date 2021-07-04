@@ -22,7 +22,7 @@
                <button class="small-plant-button">
                   <img onclick="infoModal('Peas')" class="veg-icon" src="Images/Vegetables/pea.png">
                </button>
-               <button class="grow-button" id="growPeas" onclick="plant('peas', 2000, 5000)">
+               <button class="grow-button" id="growPeas" onclick="plant('peas', 3000, 6000, 10000)">
                   <img src="Images/Mobile/grow.png">
                </button>
                <button class="harvest-button" id="harvestPeas" onclick="harvest('Peas')" disabled>
@@ -33,14 +33,12 @@
                   <img src="Images/Global Assets/clock.png">
                </button>
             </div>
-
-            <!-- Pea Info -->
             <div id="infoPeas" class="veg-info">
                <div class="modal-content">
                   <button onclick="infoModal('Peas')" class="close depth-button green">×</button>
                   <button onclick="fertilize('peas')" class="fertilize depth-button green" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                   <h4>Peas <img class="info-icon" src="Images/Vegetables/pea.png"></h4>
-                  <p>Peas are a climbing vine in the legume family. <br> These peas take 5 seconds to grow.</p>
+                  <p>Peas are a climbing vine in the legume family. <br> These peas take 10 seconds to grow.</p>
                </div>
             </div>
          </div>
@@ -56,7 +54,7 @@
                   <button class="small-plant-button">
                      <img onclick="infoModal('Corn')" class="veg-icon" src="Images/Vegetables/corn.png">
                   </button>
-                  <button class="grow-button" id="growCorn" onclick="plant('corn', 8000, 12000)">
+                  <button class="grow-button" id="growCorn" onclick="plant('corn', 6000, 12000, 25000)">
                      <img src="Images/Mobile/grow.png">
                   </button>
                   <button class="harvest-button" id="harvestCorn" onclick="harvest('Corn')" disabled>
@@ -68,14 +66,12 @@
                      <img src="Images/Global Assets/clock.png">
                   </button>
                </div>
-
-               <!-- Corn Info -->
                <div id="infoCorn" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Corn')" class="close depth-button yellow">×</button>
                      <button onclick="fertilize('corn')" class="fertilize depth-button yellow" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                      <h4>Corn <img class="info-icon" src="Images/Vegetables/corn.png"></h4>
-                     <p>Corn, or maize, is a cereal grain originally grown 10,00 years ago in southern Mexico<br> These corn plants take 12 seconds to grow.</p>
+                     <p>Corn, or maize, is a cereal grain originally grown 10,00 years ago in southern Mexico<br> These corn plants take 25 seconds to grow.</p>
                   </div>
                </div>
             </div>
@@ -91,7 +87,7 @@
                   <button class="small-plant-button">
                      <img onclick="infoModal('Strawberry')" class="veg-icon" src="Images/Vegetables/strawberry.png">
                   </button>
-                  <button class="grow-button" id="growStrawberries" onclick="detailedPlant('strawberries', 20000, 60000, 120000)">
+                  <button class="grow-button" id="growStrawberries" onclick="plant('strawberries', 50000, 100000, 150000)">
                      <img src="Images/Mobile/grow.png">
                   </button>
                   <button class="harvest-button" id="harvestStrawberries" onclick="harvest('Strawberries')" disabled>
@@ -103,14 +99,12 @@
                      <img src="Images/Global Assets/clock.png">
                   </button>
                </div>
-
-               <!-- Strawberry Info -->
                <div id="infoStrawberry" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Strawberry')" class="close depth-button red">×</button>
                      <button onclick="fertilize('strawberries')" class="fertilize depth-button red" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                      <h4>Strawberries! <img class="info-icon" src="Images/Vegetables/strawberry.png"></h4>
-                     <p>Strawberries are NOT a vegetable, but it was one of the first drawings I made. I will probably remove this at some point. <br> Strawberries are part of the genus Fragaria, native to North America. <br> These strawberries take 2 minutes to grow.</p>
+                     <p>Strawberries are NOT a vegetable, but it was one of the first drawings I made. I will probably remove this at some point. <br> Strawberries are part of the genus Fragaria, native to North America. <br> These strawberries take 2.5 minutes to grow.</p>
                   </div>
                </div>
             </div>
@@ -128,7 +122,7 @@
                   <button class="small-plant-button">
                      <img onclick="infoModal('Eggplant')" class="veg-icon" src="Images/Vegetables/eggplant.png">
                   </button>
-                  <button class="grow-button" id="growEggplants" onclick="plant('eggplants', 120000, 480000)">
+                  <button class="grow-button" id="growEggplants" onclick="plant('eggplants', 300000, 600000, 900000)">
                      <img src="Images/Mobile/grow.png">
                   </button>
                   <button class="harvest-button" id="harvestEggplants" onclick="harvest('Eggplants')" disabled>
@@ -139,13 +133,12 @@
                      <img src="Images/Global Assets/clock.png">
                   </button>
                </div>
-               <!-- Eggplant Info -->
                <div id="infoEggplant" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Eggplant')" class="close depth-button purple">×</button>
                      <button onclick="fertilize('eggplants')" class="fertilize depth-button purple" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                      <h4>Eggplant <img class="info-icon" src="Images/Vegetables/eggplant.png"></h4>
-                     <p>Eggplants are a species in the Solanaceae, or nightshade family, and are thought to be native to India. <br> These eggplants take 8 minutes to grow.</p>
+                     <p>Eggplants are a species in the Solanaceae, or nightshade family, and are thought to be native to India. <br> These eggplants take 15 minutes to grow.</p>
                   </div>
                </div>
             </div>
@@ -153,8 +146,34 @@
          <!-- Center Plot -->
          <div class="plot" id="plot5">
             <div class="lock-tooltip" id="lockedDiv5">
-               <img id="lock5" class="locked" src="Images/Lock/lock.png"><br>
-               <span class="tooltiptext"><br>This plot is locked <br> Purchase all other plots to unlock<br><br></span>
+               <img id="lock5" class="locked" src="Images/Lock/lock.png">
+               <span class="tooltiptext" id="lock5Text"><br>This plot is locked <br> Purchase all other plots to unlock<br><br></span>
+            </div>
+            <div class="open-plot" id="openPlot5">
+               <div class="countdown time-left">
+                  <span class="center-time-left">00:00:00</span>
+                  <img src="Images/Global Assets/clock.png">
+               </div>
+               <!-- Center Info -->
+               <img onclick="infoModal('Rainbow')" class="veg-icon" src="Images/Global Assets/rainbow-fruit.png">
+               <div id="infoRainbow" class="veg-info">
+                  <div class="modal-content">
+                     <span onclick="infoModal('Rainbow')" class="close">×</span>
+                     <h4>Rainbow Plot! <img class="info-icon" src="Images/Global Assets/rainbow-fruit.png"></h4>
+                     <p>You can plant anything in this plot! <br> 🎉 Yay! 🎉</p>
+                  </div>
+               </div>
+               <img onclick="if (document.getElementById('shop1').style.height === '100%') {document.getElementById('shop1').style.height = '0'} else {document.getElementById('shop1').style.height = '100%'}" class="almanac" src="Images/Global Assets/almanac.png">
+               <ul class="shop-window" id="shop1">
+                  <li><img onclick="tend('peas', 3000, 6000, 10000, 'Peas/growing.png', 'Peas/flowering.png', 'Peas/fruiting.png')" class="store-icon" src="Images/Vegetables/pea.png"></li>
+                  <li><img onclick="tend('corn', 6000, 12000, 25000, 'growing.png', 'Corn/growing.png', 'Corn/fruiting.png')" class="store-icon" src="Images/Vegetables/corn.png"></li>
+                  <li><img onclick="tend('strawberries', 50000, 100000, 150000, 'Strawberry/growing.png', 'Strawberry/flowering.png', 'Strawberry/fruiting.png')" class="store-icon" src="Images/Vegetables/strawberry.png"></li>
+                  <li><img onclick="tend('eggplants', 300000, 600000, 900000, 'Eggplant/growing.png', 'Eggplant/flowering.png', 'Eggplant/fruiting.png')" class="store-icon" src="Images/Vegetables/eggplant.png"></li>
+                  <li><img onclick="tend('pumpkins', 600000, 1200000, 1800000, 'growing.png', 'Pumpkin/growing.png', 'Pumpkin/fruiting.png')" class="store-icon" src="Images/Vegetables/pumpkin.png"></li>
+                  <li><img onclick="tend('cabbage', 1200000, 2400000, 3600000, 'growing.png', 'Cabbage/growing.png', 'Cabbage/fruiting.png')" class="store-icon" src="Images/Vegetables/cabbage.png"></li>
+                  <li><img onclick="tend('dandelion', 3600000, 7200000, 10800000, 'Dandelion/flowering.png', 'Dandelion/flowering.png', 'Dandelion/fruiting.png')" class="store-icon" src="Images/Vegetables/dandelion.png"></li>
+                  <li><img onclick="tend('rhubarb', 9600000, 18200000, 28800000, 'growing.png', 'Rhubarb/growing.png', 'Rhubarb/fruiting.png')" class="store-icon" src="Images/Vegetables/rhubarb.png"></li>
+               </ul>
             </div>
          </div>
          <!-- Pumpkin Plot -->
@@ -168,7 +187,7 @@
                   <button class="small-plant-button">
                      <img onclick="infoModal('Pumpkins')" class="veg-icon" src="Images/Vegetables/pumpkin.png">
                   </button>
-                  <button class="grow-button" id="growPumpkins" onclick="plant('pumpkins', 300000, 600000)">
+                  <button class="grow-button" id="growPumpkins" onclick="plant('pumpkins', 600000, 1200000, 1800000)">
                      <img src="Images/Mobile/grow.png">
                   </button>
                   <button class="harvest-button" id="harvestPumpkins" onclick="harvest('Pumpkins')" disabled>
@@ -179,13 +198,12 @@
                      <img src="Images/Global Assets/clock.png">
                   </button>
                </div>
-               <!-- Pumpkins Info -->
                <div id="infoPumpkins" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Pumpkins')" class="close depth-button orange">×</button>
                      <button onclick="fertilize('pumpkins')" class="fertilize depth-button orange" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
                      <h4>Pumpkins <img class="info-icon" src="Images/Vegetables/pumpkin.png"></h4>
-                     <p>Pumpkins, a round winter squash with yellow to orange smooth skin, are believed to originate in Mexico. <br> These Pumpkins take 10 minutes to grow.</p>
+                     <p>Pumpkins, a round winter squash with yellow to orange smooth skin, are believed to originate in Mexico. <br> These Pumpkins take 30 minutes to grow.</p>
                   </div>
                </div>
             </div>
@@ -204,7 +222,7 @@
                   <button class="small-plant-button">
                      <img onclick="infoModal('Cabbage')" class="veg-icon" src="Images/Vegetables/cabbage.png">
                   </button>
-                  <button class="grow-button" id="growCabbage" onclick="plant('cabbage', 1800000, 3600000)">
+                  <button class="grow-button" id="growCabbage" onclick="plant('cabbage', 1200000, 2400000, 3600000)">
                      <img src="Images/Mobile/grow.png">
                   </button>
                   <button class="harvest-button" id="harvestCabbage" onclick="harvest('Cabbage')" disabled>
@@ -237,7 +255,7 @@
                   <button class="small-plant-button">
                      <img onclick="infoModal('Dandelion')" class="veg-icon" src="Images/Vegetables/dandelion.png">
                   </button>
-                  <button class="grow-button" id="growDandelion" onclick="detailedPlant('dandelion', 5400000, 5400000, 10800000)">
+                  <button class="grow-button" id="growDandelion" onclick="plant('dandelion', 3600000, 7200000, 10800000)">
                      <img src="Images/Mobile/grow.png">
                   </button>
                   <button class="harvest-button" id="harvestDandelion" onclick="harvest('Dandelion')" disabled>
@@ -259,11 +277,37 @@
                </div>
             </div>
          </div>
-         <!-- Plot 9 -->
+         <!-- Rhubarb Plot -->
          <div class="plot" id="plot9">
             <div class="lock-tooltip" id="lockedDiv9">
                <img id="lock9" class="locked" src="Images/Lock/lock.png"><br>
                <span class="tooltiptext" id="lock9Text">This plot is locked <br> Purchase the previous plot to unlock<br></span>
+            </div>
+            <div class="open-plot" id="openPlot9">
+               <div class="plant-toolbar">
+                  <button class="small-plant-button">
+                     <img onclick="infoModal('Rhubarb')" class="veg-icon" src="Images/Vegetables/rhubarb.png">
+                  </button>
+                  <button class="grow-button" id="growRhubarb" onclick="plant('rhubarb', 9600000, 18200000, 28800000)">
+                     <img src="Images/Mobile/grow.png">
+                  </button>
+                  <button class="harvest-button" id="harvestRhubarb" onclick="harvest('Rhubarb')" disabled>
+                     <img src="Images/Mobile/harvest.png">
+                  </button>
+                  <button class="small-plant-button time-left-container">
+                     <span class="rhubarb-time-left">00:00:00</span>
+                     <img src="Images/Global Assets/clock.png">
+                  </button>
+               </div>
+               <!-- Rhubarb Info -->
+               <div id="infoRhubarb" class="veg-info">
+                  <div class="modal-content">
+                     <button onclick="infoModal('Rhubarb')" class="close depth-button purple">×</button>
+                     <button onclick="fertilize('rhubarb')" class="fertilize depth-button purple" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
+                     <h4>Rhubarb <img class="info-icon" src="Images/Vegetables/rhubarb.png"></h4>
+                     <p>Don't eat the leaves. <br> The're poisonous. <br> These rhubarb plants take 8 hours to grow.</p>
+                  </div>
+               </div>
             </div>
          </div>
       </div>
@@ -289,12 +333,16 @@
          </div>
       </div>
       <!-- Tasks -->
-      <div class="questShadow" onclick="questbar()"></div>
-      <div class="quests">
-         <!-- <img class="quest-ribbon" src="Images/Tasks/short-ribbon.png" onclick="questbar()"> -->
-         <div class="questContent">
+      <div class="mobile-tasks">
+         <div class="mobile-tasks-bubble"></div>
+         <img class="mobile-tasks-img" src="Images/Mobile/tasks.png" onclick="taskBar()">
+      </div>
+      <div class="tasks">
+         <div class="taskShadow" onclick="taskBar()"></div>
+         <div class="taskContent">
+            <div class="close depth-button yellow" onclick="taskBar()">x</div>
             <div class="task-block-parent">
-               <div class="task-block task-block-1" onmouseover="taskHover(1)" onmouseleave="taskUnHover(1)">
+               <div class="task-block task-block-1">
                   <div class="task-info">
                      <div class="task-info-a task-info-demand task-info-1"></div>
                      <img class="task-info-c task-info-img task-info-img-1">
@@ -304,7 +352,7 @@
                </div>
             </div>
             <div class="task-block-parent">
-               <div class="task-block task-block-2" onmouseover="taskHover(2)" onmouseleave="taskUnHover(2)">
+               <div class="task-block task-block-2">
                   <div class="task-info">
                      <div class="task-info-a task-info-demand task-info-2"></div>
                      <img class="task-info-c task-info-img task-info-img-2">
@@ -314,7 +362,7 @@
                </div>
             </div>
             <div class="task-block-parent">
-               <div class="task-block task-block-3" onmouseover="taskHover(3)" onmouseleave="taskUnHover(3)">
+               <div class="task-block task-block-3">
                   <div class="task-info">
                      <div class="task-info-a task-info-demand task-info-3"></div>
                      <img class="task-info-c task-info-img task-info-img-3">
@@ -324,7 +372,7 @@
                </div>
             </div>
             <div class="task-block-parent">
-               <div class="task-block task-block-4" onmouseover="taskHover(4)" onmouseleave="taskUnHover(4)">
+               <div class="task-block task-block-4">
                   <div class="task-info">
                      <div class="task-info-a task-info-demand task-info-4"></div>
                      <img class="task-info-c task-info-img task-info-img-4">
@@ -357,6 +405,7 @@
                <span id="pumpkinBushels" class="tooltip-text-detailed">Tooltip text</span><br>
                <span id="cabbageBushels" class="tooltip-text-detailed">Tooltip text</span><br>
                <span id="dandelionBushels" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="rhubarbBushels" class="tooltip-text-detailed">Tooltip text</span><br>
             </div>
          </div>
       </div>
@@ -422,6 +471,13 @@
                </div>
             </div>
             <div class="market-item">
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/rhubarb.png"><span class="rhubarb-market-item"></span></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('rhubarb', 'Rhubarb')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('rhubarb', 'Rhubarb')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
                <div class="market-item-content blackMarketOffer">
                   Black Market <br> Coming Soon!
                </div>
@@ -454,7 +510,7 @@
             <span onclick="hideObj('.settingShadow')" class="closeModal">X</span>
             <h1>Settings</h1>
             <button class="sidebar-button" onclick="restart()">Restart</button>
-            <button class="sidebar-button theme-color" onclick="light()">Light</button>
+            <button class="sidebar-button theme-color" onclick="lightTheme()">Light</button>
             <button class="sidebar-button theme-color" onclick="randTheme()">Random</button>
             <button class="sidebar-button theme-color" onclick="darkTheme()">Dark</button>
             <button class="sidebar-button" onclick="togglePlay()">Music</button>
@@ -589,7 +645,7 @@
          </div>
       </div>
       <!-- Right Click Menu -->
-         <div id="menu">
+      <div id="menu">
             <li class="menu-links"><a href="https://meetsquirrel.github.io">Who's Squirrel?</a></li>
             <li class="menu-links"><a href="https://squirrel-314.github.io">Gold Rush!</a></li>
             <hr>

@@ -2,7 +2,7 @@
 Copyright January 1st 2021 by Squirrel
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-* { margin: 0; padding: 0; }
+* { margin: 0; padding: 0; transition: max-height 0; }
 body {
    background-image: url("Images/Global Assets/tilled.png");
    background-size: cover;
@@ -318,7 +318,7 @@ Vegetable Info Modal
    pointer-events: none;
    opacity: 0;
    position: absolute;
-   z-index: 1;
+   z-index: .8;
    top: 0;
    left: 0;
    bottom: 0;
@@ -328,33 +328,33 @@ Vegetable Info Modal
 }
 
 .modal-content h4 {
-   font-size: 24vw;
-   margin: 2vw;
+   font-size: 16vw;
+   margin-top: 10vw;
 }
 
 .info-icon {
-   height: 20vw;
+   height: 16vw;
    margin: 0 0 -4vw 0;
 }
 
 .modal-content {
-   width: 80%;
-   height: 80%;
-   margin: 2vw auto;
-   padding: 8vw;
+   width: 100%;
+   height: 100%;
+   margin: 0;
+   padding: 2vw;
    font-size: 12vw;
-   border-radius: 1.4vw;
    background-color: #fefefe;
    text-align: center;
    font-family: "Roboto Condensed";
    overflow: scroll;
+   box-sizing: border-box;
 }
 
 .close {
    float: right;
    height: 14vw;
    width: 14vw;
-   padding: .4vw;
+   padding: .2vw;
    border-radius: 4vw;
    transition: 0.2s;
 }
@@ -363,7 +363,7 @@ Vegetable Info Modal
    float: right;
    height: 14vw;
    width: 14vw;
-   padding: .4vw;
+   padding: .2vw;
    border-radius: 4vw;
    transition: 0.2s;
 }
@@ -384,23 +384,23 @@ Right Click Menu
    background: #fff;
    color: #555;
    border-radius: 1.8vw;
-   box-shadow: 0 0 1vh #f5f5f5;
+   box-shadow: 0 0 2vw #f5f5f5;
 }
 
 #menu li {
    list-style-type: none;
-   padding: 2vh 5vh;
+   padding: 4vw 10vw;
    transition: .2s;
 }
 
 #menu li:hover {
-   text-shadow: 0 .04vh .04vh #262626;
+   text-shadow: 0 .08vw .08vw #262626;
    background-color: #fafafa;
-   border-radius: .5vh;
+   border-radius: 1vw;
 }
 
 #menu hr {
-   border: .25vh solid #ebebeb;
+   border: .5vw solid #ebebeb;
    border-bottom: 0;
 }
 
@@ -422,12 +422,12 @@ Introduction
 
 .intro-container {
    position: fixed;
-   top: 2vh;
-   left: 2.5vh;
-   right: 2.5vh;
+   top: 4vw;
+   left: 5vw;
+   right: 5vw;
    height: 60vw;
    background-color: #f5f5f5;
-   border-radius: 1vh;
+   border-radius: 2vw;
    font-family: "Nunito";
    display: grid;
    grid-template-columns: auto auto;
@@ -436,14 +436,14 @@ Introduction
 
 .intro-img {
    height: 20vw;
-   margin: 1.5vh 2vh;
+   margin: 3vw 4vw;
    transition: .5s;
 }
 
 .intro-text {
    text-align: center;
    font-size: 5vw;
-   margin: 1.5vh;
+   margin: 3vw;
    transition: .5s;
 }
 
@@ -451,16 +451,16 @@ Introduction
    position: absolute;
    right: 0;
    bottom: 0;
-   margin: 2vh;
+   margin: 4vw;
    background-color: #7962b6;
    height: 20vw;
-   width: 12vh;
+   width: 24vw;
    display: flex;
    justify-content: center;
    align-items: center;
    color: #fff;
-   font-size: 8vh;
-   border-radius: 2vh;
+   font-size: 16vw;
+   border-radius: 4vw;
    transition: .5s;
 }
 
@@ -478,17 +478,17 @@ Market
    height: 100%;
    z-index: 1;
    background-color: rgba(25, 0, 0, 0.8);
-   backdrop-filter: blur(.5vh);
+   backdrop-filter: blur(1vw);
    transition: 0.8s;
 }
 
 .market {
    position: absolute;
-   top: 2.5vh;
-   right: 2.5vh;
-   bottom: 2.5vh;
-   left: 2.5vh;
-   border-radius: 5vh;
+   top: 5vw;
+   right: 5vw;
+   bottom: 5vw;
+   left: 5vw;
+   border-radius: 10vw;
    background-image: url("Images/Market/bustling.png");
    background-size: cover;
    background-color: #262626;
@@ -505,10 +505,10 @@ Market
    display: none;
    height: 85vw;
    width: 95%;
-   margin: 1vh auto;
-   border-radius: 5vh;
+   margin: 2vw auto;
+   border-radius: 10vw;
    transition: 0.5s;
-   font-size: 5vh;
+   font-size: 10vw;
    background-color: #13baf0;
    position: relative;
    opacity: 0.95;
@@ -528,25 +528,25 @@ Market
 .buy-sell {
    position: absolute;
    left: 35%;
-   bottom: 3vh;
+   bottom: 6vw;
    height: 18vw;
    width: 30%;
-   border-radius: 2vh;
+   border-radius: 4vw;
    overflow: hidden;
    transition: 0.2s;
 }
 .accept-deny {
    position: absolute;
    left: 25%;
-   bottom: 3vh;
+   bottom: 6vw;
    height: 18vw;
    width: 50%;
-   border-radius: 5vh;
+   border-radius: 10vw;
    overflow: hidden;
    transition: 0.2s;
 }
 
-.buy-sell:hover { box-shadow: 0 0 .5vh #262626; }
+.buy-sell:hover { box-shadow: 0 0 1vw #262626; }
 
 .market-item-buy {
    position: absolute;
@@ -556,7 +556,7 @@ Market
    height: 9vw;
    width: 100%;
    transition: 0.2s;
-   font-size: 4vh;
+   font-size: 8vw;
 }
 
 .market-item-sell {
@@ -567,7 +567,7 @@ Market
    height: 9vw;
    width: 100%;
    transition: 0.2s;
-   font-size: 4vh;
+   font-size: 8vw;
 }
 
 .market-item-buy:hover { background-color: #f96bdf; }
@@ -575,8 +575,8 @@ Market
 
 .market-item:hover {
    opacity: 0.98;
-   box-shadow: 0 0 5vh #262626,
-               inset 0 0 1vh #262626;
+   box-shadow: 0 0 10vw #262626,
+               inset 0 0 2vw #262626;
 }
 
 .market-item:nth-child(1) { background-color: #ddddb9; }
@@ -602,18 +602,18 @@ Market
    align-items: center;
    text-align: center;
    color: #fff;
-   transition: all 0.5s;
+   transition: 0.5s;
    transform: translateY(100%);
 }
 
 .market-hover h1 {
    text-transform: uppercase;
-   font-size: 8vh;
+   font-size: 16vw;
 }
 
 .market-hover p {
-   font-size: 4vh;
-   padding: 0 6vh;
+   font-size: 8vw;
+   padding: 0 12vw;
    display: inline;
 }
 
@@ -623,24 +623,24 @@ Market
 }
 
 .use-market-reset-button {
-   padding: 2vh;
-   font-size: 3vh;
-   border-radius: 1vh;
-   border: solid .4vh rgb(0, 0, 0, .2);
+   padding: 4vw;
+   font-size: 6vw;
+   border-radius: 2vw;
+   border: solid .8vw rgb(0, 0, 0, .2);
    background-color: #ffd700;
    font-family: "Roboto Condensed";
    color: #343cb9;
    font-weight: 600;
    position: absolute;
-   bottom: 4vh;
-   right: 4vh;
+   bottom: 8vw;
+   right: 8vw;
 }
 
 .market-veg-img {
-   height: 10vh;
+   height: 20vw;
    position: absolute;
-   top: 4vh;
-   left: 4vh;
+   top: 8vw;
+   left: 8vw;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -663,12 +663,12 @@ Basic Modal
 
 .modalContent {
    min-height: 78%;
-   border-radius: 2vh;
-   margin: 3vh;
-   padding: 8vh 0;
+   border-radius: 4vw;
+   margin: 6vw;
+   padding: 16vw 0;
    background-color: #f5f5f5;
    text-align: center;
-   font-size: 8vh;
+   font-size: 16vw;
    font-family: "Nunito";
    transition: 0.8s;
    position: relative;
@@ -676,12 +676,12 @@ Basic Modal
 
 .closeModal {
    position: absolute;
-   top: 3vh;
-   right: 5vh;
+   top: 6vw;
+   right: 10vw;
    transition: .5s;
    cursor: pointer;
 }
-.closeModal:hover { text-shadow: 0 0 .5vh #444; }
+.closeModal:hover { text-shadow: 0 0 1vw #444; }
 
 /* Clean from here */
 
@@ -691,32 +691,32 @@ Command Panel
 
 .command-panel {
    position: fixed;
-   right: 1.5vh;
-   bottom: 1.5vh;
-   left: 1.5vh;
-   border-radius: 5vh;
-   height: 26vw;
-   padding: 2vh 1vh;
+   right: 3vw;
+   bottom: 3vw;
+   left: 3vw;
+   border-radius: 10vw;
+   padding: 2vw 1vw;
    text-align: center;
    background-color: #f5f5f5;
+   z-index: 1;
 }
 
 .command-panel img {
-   height: 100%;
-   width: 15vh;
-   margin: 0 .5vh;
+   height: 25vw;
+   width: 25vw;
+   margin: 0 1vw;
 }
 
 .produce-tooltip {
    display: inline;
    position: relative;
-   margin: .5vh 0;
+   margin: 1vw 0;
    font-family: "Nunito";
 }
 
 .tooltip-text-detailed {
    display: none;
-   font-size: 3vh;
+   font-size: 6vw;
    color: #262626;
 }
 
@@ -725,17 +725,16 @@ Command Panel
    pointer-events: none;
    position: absolute;
    left: 0;
-   bottom: 315%;
    height: auto;
    width: 80vw;
    background-color: #eee;
-   border-radius: 2vh;
-   padding: .5vh 0;
-   box-shadow: 0 0 2vh #ddd;
-   font-size: 4vh;
+   border-radius: 4vw;
+   padding: 1vw 0;
+   box-shadow: 0 0 4vw #ddd;
+   font-size: 8vw;
    color: #262626;
    left: -180%;
-   bottom: 18vh;
+   bottom: 32vw;
    transition: .8s;
 }
 
@@ -743,9 +742,9 @@ Command Panel
    content: "";
    position: absolute;
    top: 100%;
-   left: 77%;
-   margin-top: -.2vh;
-   border-width: 2vh;
+   left: 72%;
+   margin-top: -.4vw;
+   border-width: 4vw;
    border-style: solid;
    border-color: #eee transparent transparent transparent;
 }
@@ -759,20 +758,18 @@ Command Panel
    opacity: 0;
    pointer-events: none;
    position: absolute;
-   left: 0;
-   bottom: 315%;
    height: auto;
    width: 80vw;
    background-color: rgb(59, 74, 167, .9);
-   border: solid .5vh rgb(42, 50, 102, .9);
-   border-radius: 2vh;
-   padding: 2vh;
+   border: solid 1vw rgb(42, 50, 102, .9);
+   border-radius: 4vw;
+   padding: 4vw;
    box-sizing: border-box;
-   box-shadow: 0 0 2vh #ddd;
-   font-size: 4vh;
+   box-shadow: 0 0 4vw #ddd;
+   font-size: 8vw;
    color: #262626;
-   left: -90%;
-   bottom: 18vh;
+   left: -100%;
+   bottom: 32vw;
    transition: .8s;
 }
 
@@ -781,8 +778,8 @@ Command Panel
    position: absolute;
    top: 100%;
    left: 50%;
-   margin-left: -2vh;
-   border-width: 2vh;
+   margin-left: -4vw;
+   border-width: 4vw;
    border-style: solid;
    border-color: rgb(42, 50, 102, .9) transparent transparent transparent;
 }
@@ -793,14 +790,14 @@ Command Panel
 }
 
 .weather-name {
-   font-size: 4.5vh;
+   font-size: 9vw;
    font-family: "Nunito";
    font-weight: 700;
    color: #f5f5f5;
 }
 
 .weather-description {
-   font-size: 4vh;
+   font-size: 8vw;
    font-family: "Nunito";
    color: #f5f5f5;
 }
@@ -813,8 +810,8 @@ More Information Hover
 
 .more-info-tooltip {
    position: absolute;
-   right: 15vh;
-   bottom: 2.5vh;
+   right: 30vw;
+   bottom: 5vw;
 }
 .more-info-tooltip img { height: 20vw; }
 
@@ -826,11 +823,11 @@ More Information Hover
    width: 300%;
    background-color: #eee;
    text-align: center;
-   border-radius: 2vh;
+   border-radius: 4vw;
    box-sizing: border-box;
-   padding: 1vh;
-   box-shadow: 0 0 2vh #ddd;
-   font-size: 3vh;
+   padding: 2vw;
+   box-shadow: 0 0 4vw #ddd;
+   font-size: 6vw;
    color: #262626;
    left: -100%;
    bottom: 110%;
@@ -843,8 +840,8 @@ More Information Hover
    position: absolute;
    left: 44%;
    top: 105%;
-   margin-top: -2vh;
-   border-width: 2vh;
+   margin-top: -4vw;
+   border-width: 4vw;
    border-style: solid;
    border-color: #eee transparent transparent transparent;
 }
@@ -858,9 +855,9 @@ More Information Hover
    top: 0;
    right: 0;
    height: 18vw;
-   width: 10vh;
-   font-size: 3vh;
-   padding: 1vh;
+   width: 20vw;
+   font-size: 6vw;
+   padding: 2vw;
    transition: .05s;
 }
 
@@ -871,7 +868,7 @@ More Information Hover
    display: flex;
    justify-content: center;
    align-items: center;
-   backdrop-filter: blur(.5vh);
+   backdrop-filter: blur(1vw);
    background-color: rgb(0, 0, 0, .5)
 }
 
@@ -879,14 +876,14 @@ More Information Hover
    height: 170vw;
    width: 95vw;
    background-color: #f5f5f5;
-   border-radius: 5vh;
+   border-radius: 10vw;
    display: grid;
    grid-template-rows: 20% 80%;
    overflow: hidden;
 }
 
 .help-information {
-   padding: 2vh;
+   padding: 4vw;
    overflow: hidden;
    scroll-behavior: smooth;
 }
@@ -894,12 +891,12 @@ More Information Hover
 .help-information h1 {
    font-family: "Nunito";
    text-align: center;
-   font-size: 8vh;
+   font-size: 16vw;
 }
 
 .help-information p {
-   font-size: 3.5vh;
-   margin-bottom: 100vh;
+   font-size: 7vw;
+   margin-bottom: 200vw;
 }
 
 .help-information span {
@@ -908,35 +905,29 @@ More Information Hover
    text-decoration: underline;
 }
 
-.help-center-img {
-   height: 18vw;
-   position: fixed;
-   top: 2vh;
-   right: 2vh;
-   filter: invert();
-}
-
 .closeModalHelp {
    position: absolute;
-   top: 6vh;
-   right: 10vh;
+   top: 12vw;
+   right: 20vw;
    transition: .5s;
    cursor: pointer;
 }
 
 .help .close {
-   top: 2vh;
-   right: 2vh;
+   top: 4vw;
+   right: 4vw;
 }
 
 /* Help Dropdown */
 .dropbtn {
    width: 80vw;
-   margin: 2vh 8vw;
-   border: solid 1vh #eee;
-   border-radius: 2vh;
-   font-size: 4vh;
+   margin: 4vw 8vw;
+   border: solid 2vw #eee;
+   border-radius: 4vw;
+   font-size: 8vw;
 }
+
+.dropbtn:focus { border-radius: 4vw 4vw 0 0; }
 
 .dropdown {
    position: relative;
@@ -950,16 +941,16 @@ More Information Hover
    overflow: scroll;
    background-color: #f9f9f9;
    margin: auto;
-   margin-top: -2vh;
-   border-radius: 1vh;
-   box-shadow: 0px 2vh 6vh 0px rgba(0, 0, 0, 0.2);
+   margin-top: -4vw;
+   border-radius: 0 0 4vw 4vw;
+   box-shadow: 0px 4vw 12vw 0px rgba(0, 0, 0, 0.2);
    z-index: 1;
 }
 
 .dropdown-content div {
    text-align: center;
-   font-size: 4vh;
-   padding: 3vh;
+   font-size: 8vw;
+   padding: 6vw;
 }
 
 .dropdown-content div:hover { background-color: #f1f1f1; }
@@ -981,7 +972,7 @@ More Information Hover
    left: 50%;
    position: absolute;
    background: lightblue;
-   transition: all .2s;
+   transition: .2s;
    width: 0;
 }
 
@@ -994,8 +985,8 @@ More Information Hover
 .almanac {
    height: 16vw;
    position: absolute;
-   bottom: .5vh;
-   left: .5vh;
+   bottom: 1vw;
+   left: 1vw;
 }
 
 .shop-window {
@@ -1004,15 +995,15 @@ More Information Hover
    right: 0;
    bottom: 0;
    height: 0;
-   width: 8vh;
+   width: 16vw;
    text-align: center;
    background-color: rgb(0, 0, 0, .8);
    list-style-type: none;
    overflow-y: scroll;
-   transition: all 1.2s ease;
+   transition: 1.2s ease;
 }
 
-.shop-window li { margin: 1.2vh }
+.shop-window li { margin: 2.4vw }
 
 .store-icon {
    height: 10vw;
@@ -1025,27 +1016,36 @@ More Information Hover
 Tasks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-.quest-ribbon {
-   position: relative;
-   top: 6vh;
-   right: -100%;
-   height: 32vw;
-}
-
-.quests {
+.tasks {
    position: fixed;
-   top: 8vh;
-   left: -80vh;
-   height: 85vh;
-   width: 80vh;
+   left: 0;
+   right: 0;
+   top: -100vh;
+   height: 100vh;
    background-color: #f9f9f9;
-   border-top-right-radius: 2vh;
-   border-bottom-right-radius: 2vh;
-   z-index: .9;
+   z-index: 100;
    transition: .8s;
 }
 
-.questShadow {
+.mobile-tasks-bubble {
+   position: fixed;
+   top: 42vw;
+   right: 10vw;
+   background-color: #fff;
+   height: 5vw;
+   width: 5vw;
+   border-radius: 100%;
+   transition: .5s;
+}
+.mobile-tasks:hover .mobile-tasks-bubble {
+   top: 0;
+   right: 0;
+   height: 100vh;
+   width: 100vw;
+   border-radius: 0;
+}
+
+.taskShadow {
    display: none;
    z-index: .9;
    position: fixed;
@@ -1055,18 +1055,24 @@ Tasks
    width: 100%;
 }
 
-.questContent {
-   margin-top: -15vh;
+.taskContent {
    overflow: scroll;
-   display: grid;
+   height: 100vh;
+   display: none;
    position: relative;
-   grid-template-columns: 50% 50%;
    font-family: "Nunito";
 }
 
+.taskContent .close {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-bottom: 5vw;
+}
+
 .task-block {
-   width: 92%;
-   height: 37vh;
+   width: 90vw;
+   height: 90vw;
    margin: 2vh auto;
    text-align: center;
    box-sizing: border-box;
@@ -1105,30 +1111,9 @@ Tasks
    font-size: 2vh;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*  Fade text */
 .fade-text {
-   max-width: 40vh;
+   max-width: 80vw;
    position: fixed;
    top: -100%;
    right: -100%;
@@ -1137,22 +1122,22 @@ Tasks
    font-family: "Nunito";
    text-align: center;
    white-space: pre-wrap;
-   font-size: 3vh;
+   font-size: 6vw;
    color: #fff;
-   border-radius: 1vh;
-   text-shadow: 0 0 1vh #f5f5f5;
+   border-radius: 2vw;
+   text-shadow: 0 0 2vw #f5f5f5;
    opacity: 0;
-   transform: translateY(10vh) scale(.85);
+   transform: translateY(20vw) scale(.85);
    animation: fade-text 6s forwards;
 }
 
-.vegLuck:nth-last-child(2) { margin-top: 10vh; }
-.vegLuck:nth-last-child(1) { margin-top: 20vh; }
+.vegLuck:nth-last-child(2) { margin-top: 20vw; }
+.vegLuck:nth-last-child(1) { margin-top: 40vw; }
 
 @keyframes fade-text {
    0% {
       opacity: 0;
-      transform: translateY(10vh) scale(.85);
+      transform: translateY(20vw) scale(.85);
    }
    30%, 40% {
       opacity: 1;
@@ -1160,14 +1145,14 @@ Tasks
    }
    90%, 100% {
       opacity: 0;
-      transform: translateY(-10vh) scale(1);
+      transform: translateY(-20vw) scale(1);
    }
 }
 
 .hidden { display: none; }
 
 #help-about-copyright {
-   font-size: 3vh;
+   font-size: 6vw;
    font-weight: 300;
    overflow-y:scroll;
 }
@@ -1175,14 +1160,14 @@ Tasks
 table {
    border-collapse: collapse;
    width: 100%;
-   font-size: 2.5vh;
+   font-size: 5vw;
    table-layout: fixed;
 }
 
 td, th {
-   border: .2vh solid #eee;
-   border-radius: .2vh;
-   padding: .5vh;
+   border: .4vw solid #eee;
+   border-radius: .4vw;
+   padding: 1vw;
    width: 25%;
    color: #666;
 }
@@ -1192,10 +1177,25 @@ th { color: #aaa; }
 tr:nth-child(even) { background-color: #eee; }
 
 .setting-open {
-   border-radius: 1vh;
-   padding: .2vh;
-   height: 7vh;
+   border-radius: 2vw;
+   padding: .4vw;
+   height: 14vw;
    position: fixed;
-   top: 11vh;
-   right: 2.8vh;
+   top: 22vw;
+   right: 5.6vw;
+}
+
+.help-center-img {
+   height: 18vw;
+   position: fixed;
+   top: 4vw;
+   right: 4vw;
+   filter: invert();
+}
+
+.mobile-tasks-img {
+   height: 18vw;
+   position: fixed;
+   top: 39vw;
+   right: 2.5vw;
 }
