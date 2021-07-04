@@ -952,7 +952,6 @@ let mainLoop = window.setInterval(function() {
    if (plots.cabbageplot === 'unlocked') { document.querySelector(".tm-tb-ca").style.opacity = "1"; }
    if (plots.dandelionplot === 'unlocked') { document.querySelector(".tm-tb-da").style.opacity = "1"; }
    if (plots.rhubarbplot === 'unlocked') { document.querySelector(".tm-tb-rh").style.opacity = "1"; }
-
 }, 200)
 function setup() {
    if (!taskList) { taskList = initalTaskList; }

@@ -133,16 +133,6 @@ Farmland
    "auto auto auto"
    "auto auto auto";
 }
-.land-for-small {
-   overflow-y: scroll;
-   grid-template-areas: none;
-   grid-template-columns: 50% 50%;
-}
-.land-for-tiny {
-   overflow-y: scroll;
-   grid-template-areas: none;
-   grid-template-columns: 100%;
-}
 
 /* Plots */
 .plot {
@@ -949,14 +939,6 @@ Settings
    background-color: #aaaaaa;
 }
 
-.device-size-button {
-   width: 26.3vw;
-   padding: 1vh;
-   margin: .5vh auto;
-   display: inline;
-   background-color: #d9d9d9;
-}
-
 .setting-button:active { transform: scale(0.95); }
 
 
@@ -1174,7 +1156,7 @@ More Information Hover
 #market-reset-more-info { filter: invert(); }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Quests
+Tasks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .task-ribbon {
