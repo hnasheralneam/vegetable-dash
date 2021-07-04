@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <!-- Google Fonts -->
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+      <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+      <script src="https://squirrel-314.github.io/digit/main.js" charset="utf-8"></script>
+      <!-- Favicon (Thanks, Justin) -->
+      <link rel="shortcut icon" href="Images/Global Assets/favicon.png" type="image/x-icon">
+      <link rel="stylesheet" href="mobile.css">
+      <title>Vegetable Dash!</title>
+   </head>
+   <body>
+      <!-- Land and Plots -->
+      <div class="land">
+         <!-- Pea Plot -->
+         <div class="plot" id="plot1">
+            <div class="plant-toolbar">
+               <button class="small-plant-button">
+                  <img onclick="infoModal('Peas')" class="veg-icon" src="Images/Vegetables/pea.png">
+               </button>
+               <button class="grow-button" id="growPeas" onclick="plant('peas', 3000, 6000, 10000)">
+                  <img src="Images/Mobile/grow.png">
+               </button>
+               <button class="harvest-button" id="harvestPeas" onclick="harvest('Peas')" disabled>
+                  <img src="Images/Mobile/harvest.png">
+               </button>
+               <button class="small-plant-button time-left-container">
+                  <span class="peas-time-left">00:00:00</span>
+                  <img src="Images/Global Assets/clock.png">
+               </button>
+            </div>
+            <div id="infoPeas" class="veg-info">
+               <div class="modal-content">
+                  <button onclick="infoModal('Peas')" class="close depth-button green">×</button>
+                  <button onclick="fertilize('peas')" class="fertilize depth-button green" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
+                  <h4>Peas <img class="info-icon" src="Images/Vegetables/pea.png"></h4>
+                  <p>Peas are a climbing vine in the legume family. <br> These peas take 10 seconds to grow.</p>
+               </div>
+            </div>
+         </div>
+         <!-- Corn Plot -->
+         <div class="plot" id="plot2">
+            <div class="lock-tooltip" id="lockedDiv2">
+               <img id="lock2" class="locked" src="Images/Lock/lock.png"><br>
+               <p>This plot is locked <br> Pay 150 Seeds to unlock</p><br>
+               <button class="purchase-plot" onclick="unlockPlot(2)">Purchase Plot</button>
+            </div>
+            <div class="open-plot" id="openPlot2">
+               <div class="plant-toolbar">
+                  <button class="small-plant-button">
+                     <img onclick="infoModal('Corn')" class="veg-icon" src="Images/Vegetables/corn.png">
+                  </button>
+                  <button class="grow-button" id="growCorn" onclick="plant('corn', 6000, 12000, 25000)">
+                     <img src="Images/Mobile/grow.png">
+                  </button>
+                  <button class="harvest-button" id="harvestCorn" onclick="harvest('Corn')" disabled>
+                     <img src="Images/Mobile/harvest.png">
+                  </button>
+                  <button class="small-plant-button time-left-container">
+                     <!-- Make Hover -->
+                     <span class="corn-time-left">00:00:00</span>
+                     <img src="Images/Global Assets/clock.png">
+                  </button>
+               </div>
+               <div id="infoCorn" class="veg-info">
+                  <div class="modal-content">
+                     <button onclick="infoModal('Corn')" class="close depth-button yellow">×</button>
+                     <button onclick="fertilize('corn')" class="fertilize depth-button yellow" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
+                     <h4>Corn <img class="info-icon" src="Images/Vegetables/corn.png"></h4>
+                     <p>Corn, or maize, is a cereal grain originally grown 10,00 years ago in southern Mexico<br> These corn plants take 25 seconds to grow.</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- Strawberry Plot -->
+         <div class="plot" id="plot3">
+            <div class="lock-tooltip" id="lockedDiv3">
+               <img id="lock3" class="locked" src="Images/Lock/lock.png"><br>
+               <span class="tooltiptext" id="lock3Text">This plot is locked <br> Purchase the previous plot to unlock</span>
+            </div>
+            <div class="open-plot" id="openPlot3">
+               <div class="plant-toolbar">
+                  <button class="small-plant-button">
+                     <img onclick="infoModal('Strawberry')" class="veg-icon" src="Images/Vegetables/strawberry.png">
+                  </button>
+                  <button class="grow-button" id="growStrawberries" onclick="plant('strawberries', 50000, 100000, 150000)">
+                     <img src="Images/Mobile/grow.png">
+                  </button>
+                  <button class="harvest-button" id="harvestStrawberries" onclick="harvest('Strawberries')" disabled>
+                     <img src="Images/Mobile/harvest.png">
+                  </button>
+                  <button class="small-plant-button time-left-container">
+                     <!-- Make Hover -->
+                     <span class="strawberries-time-left">00:00:00</span>
+                     <img src="Images/Global Assets/clock.png">
+                  </button>
+               </div>
+               <div id="infoStrawberry" class="veg-info">
+                  <div class="modal-content">
+                     <button onclick="infoModal('Strawberry')" class="close depth-button red">×</button>
+                     <button onclick="fertilize('strawberries')" class="fertilize depth-button red" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
+                     <h4>Strawberries! <img class="info-icon" src="Images/Vegetables/strawberry.png"></h4>
+                     <p>Strawberries are NOT a vegetable, but it was one of the first drawings I made. I will probably remove this at some point. <br> Strawberries are part of the genus Fragaria, native to North America. <br> These strawberries take 2.5 minutes to grow.</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="land">
+         <!-- Eggplant Plot -->
+         <div class="plot" id="plot4">
+            <div class="lock-tooltip" id="lockedDiv4">
+               <img id="lock4" class="locked" src="Images/Lock/lock.png"><br>
+               <span class="tooltiptext" id="lock4Text">This plot is locked <br> Purchase the previous plot to unlock</span>
+            </div>
+            <div class="open-plot" id="openPlot4">
+               <div class="plant-toolbar">
+                  <button class="small-plant-button">
+                     <img onclick="infoModal('Eggplant')" class="veg-icon" src="Images/Vegetables/eggplant.png">
+                  </button>
+                  <button class="grow-button" id="growEggplants" onclick="plant('eggplants', 300000, 600000, 900000)">
+                     <img src="Images/Mobile/grow.png">
+                  </button>
+                  <button class="harvest-button" id="harvestEggplants" onclick="harvest('Eggplants')" disabled>
+                     <img src="Images/Mobile/harvest.png">
+                  </button>
+                  <button class="small-plant-button time-left-container">
+                     <span class="eggplants-time-left">00:00:00</span>
+                     <img src="Images/Global Assets/clock.png">
+                  </button>
+               </div>
+               <div id="infoEggplant" class="veg-info">
+                  <div class="modal-content">
+                     <button onclick="infoModal('Eggplant')" class="close depth-button purple">×</button>
+                     <button onclick="fertilize('eggplants')" class="fertilize depth-button purple" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
+                     <h4>Eggplant <img class="info-icon" src="Images/Vegetables/eggplant.png"></h4>
+                     <p>Eggplants are a species in the Solanaceae, or nightshade family, and are thought to be native to India. <br> These eggplants take 15 minutes to grow.</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- Center Plot -->
+         <div class="plot" id="plot5">
+            <div class="lock-tooltip" id="lockedDiv5">
+               <img id="lock5" class="locked" src="Images/Lock/lock.png">
+               <span class="tooltiptext" id="lock5Text"><br>This plot is locked <br> Purchase all other plots to unlock<br><br></span>
+            </div>
+            <div class="open-plot" id="openPlot5">
+               <div class="countdown time-left">
+                  <span class="center-time-left">00:00:00</span>
+                  <img src="Images/Global Assets/clock.png">
+               </div>
+               <!-- Center Info -->
+               <img onclick="infoModal('Rainbow')" class="veg-icon" src="Images/Global Assets/rainbow-fruit.png">
+               <div id="infoRainbow" class="veg-info">
+                  <div class="modal-content">
+                     <span onclick="infoModal('Rainbow')" class="close">×</span>
+                     <h4>Rainbow Plot! <img class="info-icon" src="Images/Global Assets/rainbow-fruit.png"></h4>
+                     <p>You can plant anything in this plot! <br> 🎉 Yay! 🎉</p>
+                  </div>
+               </div>
+               <img onclick="if (document.getElementById('shop1').style.height === '100%') {document.getElementById('shop1').style.height = '0'} else {document.getElementById('shop1').style.height = '100%'}" class="almanac" src="Images/Global Assets/almanac.png">
+               <ul class="shop-window" id="shop1">
+                  <li><img onclick="tend('peas', 3000, 6000, 10000, 'Peas/growing.png', 'Peas/flowering.png', 'Peas/fruiting.png')" class="store-icon" src="Images/Vegetables/pea.png"></li>
+                  <li><img onclick="tend('corn', 6000, 12000, 25000, 'growing.png', 'Corn/growing.png', 'Corn/fruiting.png')" class="store-icon" src="Images/Vegetables/corn.png"></li>
+                  <li><img onclick="tend('strawberries', 50000, 100000, 150000, 'Strawberry/growing.png', 'Strawberry/flowering.png', 'Strawberry/fruiting.png')" class="store-icon" src="Images/Vegetables/strawberry.png"></li>
+                  <li><img onclick="tend('eggplants', 300000, 600000, 900000, 'Eggplant/growing.png', 'Eggplant/flowering.png', 'Eggplant/fruiting.png')" class="store-icon" src="Images/Vegetables/eggplant.png"></li>
+                  <li><img onclick="tend('pumpkins', 600000, 1200000, 1800000, 'growing.png', 'Pumpkin/growing.png', 'Pumpkin/fruiting.png')" class="store-icon" src="Images/Vegetables/pumpkin.png"></li>
+                  <li><img onclick="tend('cabbage', 1200000, 2400000, 3600000, 'growing.png', 'Cabbage/growing.png', 'Cabbage/fruiting.png')" class="store-icon" src="Images/Vegetables/cabbage.png"></li>
+                  <li><img onclick="tend('dandelion', 3600000, 7200000, 10800000, 'Dandelion/flowering.png', 'Dandelion/flowering.png', 'Dandelion/fruiting.png')" class="store-icon" src="Images/Vegetables/dandelion.png"></li>
+                  <li><img onclick="tend('rhubarb', 9600000, 18200000, 28800000, 'growing.png', 'Rhubarb/growing.png', 'Rhubarb/fruiting.png')" class="store-icon" src="Images/Vegetables/rhubarb.png"></li>
+               </ul>
+            </div>
+         </div>
+         <!-- Pumpkin Plot -->
+         <div class="plot" id="plot6">
+            <div class="lock-tooltip" id="lockedDiv6">
+               <img id="lock6" class="locked" src="Images/Lock/lock.png"><br>
+               <span class="tooltiptext" id="lock6Text">This plot is locked <br> Purchase the previous plot to unlock</span>
+            </div>
+            <div class="open-plot" id="openPlot6">
+               <div class="plant-toolbar">
+                  <button class="small-plant-button">
+                     <img onclick="infoModal('Pumpkins')" class="veg-icon" src="Images/Vegetables/pumpkin.png">
+                  </button>
+                  <button class="grow-button" id="growPumpkins" onclick="plant('pumpkins', 600000, 1200000, 1800000)">
+                     <img src="Images/Mobile/grow.png">
+                  </button>
+                  <button class="harvest-button" id="harvestPumpkins" onclick="harvest('Pumpkins')" disabled>
+                     <img src="Images/Mobile/harvest.png">
+                  </button>
+                  <button class="small-plant-button time-left-container">
+                     <span class="pumpkins-time-left">00:00:00</span>
+                     <img src="Images/Global Assets/clock.png">
+                  </button>
+               </div>
+               <div id="infoPumpkins" class="veg-info">
+                  <div class="modal-content">
+                     <button onclick="infoModal('Pumpkins')" class="close depth-button orange">×</button>
+                     <button onclick="fertilize('pumpkins')" class="fertilize depth-button orange" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
+                     <h4>Pumpkins <img class="info-icon" src="Images/Vegetables/pumpkin.png"></h4>
+                     <p>Pumpkins, a round winter squash with yellow to orange smooth skin, are believed to originate in Mexico. <br> These Pumpkins take 30 minutes to grow.</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="land">
+         <!-- Cabbage Plot -->
+         <div class="plot" id="plot7">
+            <div class="lock-tooltip" id="lockedDiv7">
+               <img id="lock7" class="locked" src="Images/Lock/lock.png"><br>
+               <span class="tooltiptext" id="lock7Text">This plot is locked <br> Purchase the previous plot to unlock<br></span>
+            </div>
+            <!-- Open Plot -->
+            <div class="open-plot" id="openPlot7">
+               <div class="plant-toolbar">
+                  <button class="small-plant-button">
+                     <img onclick="infoModal('Cabbage')" class="veg-icon" src="Images/Vegetables/cabbage.png">
+                  </button>
+                  <button class="grow-button" id="growCabbage" onclick="plant('cabbage', 1200000, 2400000, 3600000)">
+                     <img src="Images/Mobile/grow.png">
+                  </button>
+                  <button class="harvest-button" id="harvestCabbage" onclick="harvest('Cabbage')" disabled>
+                     <img src="Images/Mobile/harvest.png">
+                  </button>
+                  <button class="small-plant-button time-left-container">
+                     <span class="cabbage-time-left">00:00:00</span>
+                     <img src="Images/Global Assets/clock.png">
+                  </button>
+               </div>
+               <!-- Information -->
+               <div id="infoCabbage" class="veg-info">
+                  <div class="modal-content">
+                     <button onclick="infoModal('Cabbage')" class="close depth-button green">×</button>
+                     <button onclick="fertilize('cabbage')" class="fertilize depth-button green" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
+                     <h4>Cabbage <img class="info-icon" src="Images/Vegetables/cabbage.png"></h4>
+                     <p>A leafy vegetable <br> These Cabbage plants take 1 hour to grow.</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- Dandelion Plot -->
+         <div class="plot" id="plot8">
+            <div class="lock-tooltip" id="lockedDiv8">
+               <img id="lock8" class="locked" src="Images/Lock/lock.png"><br>
+               <span class="tooltiptext" id="lock8Text">This plot is locked <br> Purchase the previous plot to unlock</span>
+            </div>
+            <div class="open-plot" id="openPlot8">
+               <div class="plant-toolbar">
+                  <button class="small-plant-button">
+                     <img onclick="infoModal('Dandelion')" class="veg-icon" src="Images/Vegetables/dandelion.png">
+                  </button>
+                  <button class="grow-button" id="growDandelion" onclick="plant('dandelion', 3600000, 7200000, 10800000)">
+                     <img src="Images/Mobile/grow.png">
+                  </button>
+                  <button class="harvest-button" id="harvestDandelion" onclick="harvest('Dandelion')" disabled>
+                     <img src="Images/Mobile/harvest.png">
+                  </button>
+                  <button class="small-plant-button time-left-container">
+                     <span class="dandelion-time-left">00:00:00</span>
+                     <img src="Images/Global Assets/clock.png">
+                  </button>
+               </div>
+               <!-- Dandelion Info -->
+               <div id="infoDandelion" class="veg-info">
+                  <div class="modal-content">
+                     <button onclick="infoModal('Dandelion')" class="close depth-button yellow">×</button>
+                     <button onclick="fertilize('dandelion')" class="fertilize depth-button yellow" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
+                     <h4>Dandelions! <img class="info-icon" src="Images/Vegetables/dandelion.png"></h4>
+                     <p>These <strong>are</strong> vegetables, because the part eaten are the seeds and leaves, not the fruit. Of the Taraxacum family, the name dandelion come from the French dent-de-lion, which means 'lion's tooth'.<br> These dandelions take 3 hours to grow.</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- Rhubarb Plot -->
+         <div class="plot" id="plot9">
+            <div class="lock-tooltip" id="lockedDiv9">
+               <img id="lock9" class="locked" src="Images/Lock/lock.png"><br>
+               <span class="tooltiptext" id="lock9Text">This plot is locked <br> Purchase the previous plot to unlock<br></span>
+            </div>
+            <div class="open-plot" id="openPlot9">
+               <div class="plant-toolbar">
+                  <button class="small-plant-button">
+                     <img onclick="infoModal('Rhubarb')" class="veg-icon" src="Images/Vegetables/rhubarb.png">
+                  </button>
+                  <button class="grow-button" id="growRhubarb" onclick="plant('rhubarb', 9600000, 18200000, 28800000)">
+                     <img src="Images/Mobile/grow.png">
+                  </button>
+                  <button class="harvest-button" id="harvestRhubarb" onclick="harvest('Rhubarb')" disabled>
+                     <img src="Images/Mobile/harvest.png">
+                  </button>
+                  <button class="small-plant-button time-left-container">
+                     <span class="rhubarb-time-left">00:00:00</span>
+                     <img src="Images/Global Assets/clock.png">
+                  </button>
+               </div>
+               <!-- Rhubarb Info -->
+               <div id="infoRhubarb" class="veg-info">
+                  <div class="modal-content">
+                     <button onclick="infoModal('Rhubarb')" class="close depth-button purple">×</button>
+                     <button onclick="fertilize('rhubarb')" class="fertilize depth-button purple" title="Fertilize"><img src="Images/Global Assets/fertilizer.png"></button>
+                     <h4>Rhubarb <img class="info-icon" src="Images/Vegetables/rhubarb.png"></h4>
+                     <p>Don't eat the leaves. <br> The're poisonous. <br> These rhubarb plants take 8 hours to grow.</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+      <!-- Tour -->
+      <div class="introDarkShadow">
+         <div class="intro-container">
+            <p class="intro-text">Greetings. I am Farmer Jebediah, and I will be showing you around the farm.</p>
+            <img class="intro-img" src="Images/Tasks/farmer.png">
+            <span onclick="intro()" class="intro-nxt-btn">&#10230;</span>
+         </div>
+      </div>
+      <!-- Welcome -->
+      <div class="welcome">
+         <div class="welcome-content">
+            <h1>Welcome to Vegetable Dash!</h1>
+            <h2>An intense experience, with everything a totally awesome game needs, from farmers and crop failures, to soil and vegetables!</h2>
+            <button onclick="goIntro()" type="button" name="button">Take a quick tour</button>
+            <button onclick="hideObj('.welcome')" type="button" name="button">Start straight away</button>
+            <br>
+            <p>Questions? Comments? Suggestions? Having trouble? Please contact <a href="mailto:thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a></p>
+            <p>Disclaimer: While the game may be called vegetable dash, some plants may not be vegetables botanically, such as peas, corn, ect.</p>
+         </div>
+      </div>
+      <!-- Tasks -->
+      <div class="mobile-tasks">
+         <div class="mobile-tasks-bubble"></div>
+         <img class="mobile-tasks-img" src="Images/Mobile/tasks.png" onclick="taskBar()">
+      </div>
+      <div class="tasks">
+         <div class="taskShadow" onclick="taskBar()"></div>
+         <div class="taskContent">
+            <div class="close depth-button yellow" onclick="taskBar()">x</div>
+            <div class="task-block-parent">
+               <div class="task-block task-block-1">
+                  <div class="task-info">
+                     <div class="task-info-a task-info-demand task-info-1"></div>
+                     <img class="task-info-c task-info-img task-info-img-1">
+                     <h4 class="task-info-b task-info-giver-1"></h4>
+                  </div>
+                  <button class="depth-button red task-submit-depth-button task-info-button-1"></button>
+               </div>
+            </div>
+            <div class="task-block-parent">
+               <div class="task-block task-block-2">
+                  <div class="task-info">
+                     <div class="task-info-a task-info-demand task-info-2"></div>
+                     <img class="task-info-c task-info-img task-info-img-2">
+                     <h4 class="task-info-b task-info-giver-2"></h4>
+                  </div>
+                  <button class="depth-button purple task-submit-depth-button task-info-button-2"></button>
+               </div>
+            </div>
+            <div class="task-block-parent">
+               <div class="task-block task-block-3">
+                  <div class="task-info">
+                     <div class="task-info-a task-info-demand task-info-3"></div>
+                     <img class="task-info-c task-info-img task-info-img-3">
+                     <h4 class="task-info-b task-info-giver-3"></h4>
+                  </div>
+                  <button class="depth-button green task-submit-depth-button task-info-button-3"></button>
+               </div>
+            </div>
+            <div class="task-block-parent">
+               <div class="task-block task-block-4">
+                  <div class="task-info">
+                     <div class="task-info-a task-info-demand task-info-4"></div>
+                     <img class="task-info-c task-info-img task-info-img-4">
+                     <h4 class="task-info-b task-info-giver-4"></h4>
+                  </div>
+                  <button class="depth-button blue task-submit-depth-button task-info-button-4"></button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Command Panel/Bar -->
+      <div class="command-panel">
+         <img onclick="showObj('.marketShadow');" src="Images/Mobile/market.png">
+         <div class="produce-tooltip">
+            <img class="weather-img">
+            <div class="weather-tooltip">
+               <h6 class="weather-name">Partly <br> Somthing</h6>
+               <p class="weather-description">Effects: Adverse/Positive <br> Benifits/Disadvantages:</p>
+            </div>
+         </div>
+         <div class="produce-tooltip">
+            <img src="Images/Global Assets/barrel.png">
+            <div class="produce">
+               <span id="seeds" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="fertilizer" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="peaBushels" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="cornBushels" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="strawberryBushels" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="eggplantBushels" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="pumpkinBushels" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="cabbageBushels" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="dandelionBushels" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="rhubarbBushels" class="tooltip-text-detailed">Tooltip text</span><br>
+            </div>
+         </div>
+      </div>
+      <!-- Market -->
+      <div class="marketShadow">
+         <div class="market">
+            <div class="market-item">
+               <button onclick="hideObj('.marketShadow')" class="closeModal hide-market depth-button blue">X</button>
+               <div class="market-item-content special-market-item">
+                  Seeds: 0
+                  Market Resets: 0
+                  Watering Cans: 0
+                  Fertilizer: 0
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/pea.png"><span class="peas-market-item"></span> </div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('peas', 'Peas')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('peas', 'Peas')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/corn.png"><span class="corn-market-item"></span></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('corn', 'Corn')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('corn', 'Corn')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/strawberry.png"><span class="strawberries-market-item"></span></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('strawberries', 'Strawberries')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('strawberries', 'Strawberries')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/eggplant.png"><span class="eggplants-market-item"></span></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('eggplants', 'Eggplants')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('eggplants', 'Eggplants')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/pumpkin.png"><span class="pumpkins-market-item"></span></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('pumpkins', 'Pumpkins')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('pumpkins', 'Pumpkins')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/cabbage.png"><span class="cabbage-market-item"></span></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('cabbage', 'Cabbage')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('cabbage', 'Cabbage')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/dandelion.png"><span class="dandelion-market-item"></span></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('dandelion', 'Dandelion')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('dandelion', 'Dandelion')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/rhubarb.png"><span class="rhubarb-market-item"></span></div>
+               <div class="buy-sell">
+                  <span class="market-item-buy" onclick="buyProduce('rhubarb', 'Rhubarb')">Buy</span>
+                  <span class="market-item-sell"  onclick="sellProduce('rhubarb', 'Rhubarb')">Sell</span>
+               </div>
+            </div>
+            <div class="market-item">
+               <div class="market-item-content blackMarketOffer">
+                  Black Market <br> Coming Soon!
+               </div>
+               <!-- <div class="accept-deny">
+                  <span class="market-item-buy" onclick="accept()">Accept</span>
+                  <span class="market-item-sell"  onclick="deny()">Deny</span>
+               </div> -->
+            </div>
+            <div class="market-item">
+               <div class="market-item-content reset-market-item">
+                  You have 0 Market Resets
+               </div>
+               <div class="market-hover">
+                  <h1>Market Resets</h1>
+                  <p>Reset all market buy and sell values.</p>
+                  <button onclick="resetMarketValues()" class="use-market-reset-button">Use</button>
+                  <div class="more-info-tooltip">
+                     <img src="Images/Global Assets/more-info.png" id="market-reset-more-info">
+                     <span class="tooltip-text">There is a 1% chance of collecting one after each trade, and a 5% chance after each harvest.</span>
+                  </div>
+               </div>
+            </div>
+            <br>
+         </div>
+      </div>
+      <!-- Settings -->
+      <img onclick="showObj('.settingShadow');" class="setting-open" src="Images/Mobile/settings.png">
+      <div class="shadow settingShadow">
+         <div class="modalContent settings">
+            <span onclick="hideObj('.settingShadow')" class="closeModal">X</span>
+            <h1>Settings</h1>
+            <button class="sidebar-button" onclick="restart()">Restart</button>
+            <button class="sidebar-button theme-color" onclick="lightTheme()">Light</button>
+            <button class="sidebar-button theme-color" onclick="randTheme()">Random</button>
+            <button class="sidebar-button theme-color" onclick="darkTheme()">Dark</button>
+            <button class="sidebar-button" onclick="togglePlay()">Music</button>
+            <audio class="mozart" src="Audio/mozart.mp3"></audio>
+         </div>
+      </div>
+      <!-- Help -->
+      <img class="help-center-img" onclick="showObj('.help-shadow')" src="Images/Global Assets/more-info.png">
+      <div class="shadow help-shadow">
+         <div class="help">
+            <div class="dropdown">
+               <button class="dropbtn">Help Center</button>
+               <div class="dropdown-content">
+                  <div onclick="scrollToSection('help-center')">Center</div>
+                  <div onclick="scrollToSection('help-planting')">Planting</div>
+                  <div onclick="scrollToSection('help-harvesting')">Harvesting</div>
+                  <div onclick="scrollToSection('help-plots')">Plots</div>
+                  <div onclick="scrollToSection('help-seeds')">Seeds</div>
+                  <div onclick="scrollToSection('help-market')">Market</div>
+                  <div onclick="scrollToSection('help-market-resets')">Market Resets</div>
+                  <div onclick="scrollToSection('help-fertilizer')">Fertilizer</div>
+                  <div onclick="scrollToSection('help-tasks')">Tasks</div>
+                  <div onclick="scrollToSection('help-farmer-jebediah')">Farmer Jebediah</div>
+                  <div onclick="scrollToSection('help-grandpa-jenkins')">Grandpa Jenkins</div>
+                  <div onclick="scrollToSection('help-grandma-josephine')">Grandma Josephine</div>
+                  <div onclick="scrollToSection('help-bunny-slippers')">Bunny Slippers</div>
+                  <div onclick="scrollToSection('help-about-copyright')">About & Copyright</div>
+               </div>
+            </div>
+            <button onclick="hideObj('.help-shadow')" class="close depth-button blue closeModalHelp">×</button>
+            <div class="help-information">
+               <div id="help-center">
+                  <h1>Help Center</h1>
+                  <p>This is an incomplete guide of Vegetable Dash. If any old or experienced players want to make changes or add new pages, email me here: thehillsidetownship@gmail.com</p>
+               </div>
+               <div id="help-planting">
+                  <h1>Planting</h1>
+                  <p>Just press the button that says grow, then use a rare and powerful skill called <em>patience</em>, and wait until it says <span onclick="scrollToSection('help-harvesting'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-harvesting').addClass('help-subjects-item-active');">harvest</span>.</p>
+               </div>
+               <div id="help-harvesting">
+                  <h1>Harvesting</h1>
+                  <p>A button shall appear out of thin air, and written on it shall be that wonderful word: Harvest [Vegetable Name]. You want to press that button. By doing this, you shall gain 1 vegetable of that type and 1 seed. By harvesting there is a 5% chance of collecting a <span onclick="scrollToSection('help-market-resets'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market-resets').addClass('help-subjects-item-active');">Market Reset</span>, a 10% chance of collection 2 extra vegetables, and a 20% chance of collecting 5 extra <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span>.</p>
+               </div>
+               <div id="help-plots">
+                  <h1>Plots</h1>
+                  <p>Plots are where vegetables are grown. Each plot grows a certain type of vegetable. To unlock the next plot, hover over the large yellow lock and click 'purchase plot'. This shall cost <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span></p>
+               </div>
+               <div id="help-seeds">
+                  <h1>Seeds</h1>
+                  <p>In this wonderful utopia, seeds are the only currency, most carrots are purple, and the sky is always blue except the times when it is not. Most thing require seeds such as unlocking plots and exchanging in the <span onclick="scrollToSection('help-market'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market').addClass('help-subjects-item-active');">Market</span>. You can collect them by selling produce in the market or <span onclick="scrollToSection('help-harvesting'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-harvesting').addClass('help-subjects-item-active');">harvesting</span> vegetables.</p>
+               </div>
+               <div id="help-market">
+                  <h1>Market</h1>
+                  <p>The market is a wonderful and bustling place filled with plenty of vegetables. It can be accessed by hovering over the bar in the bottom left corner then clicking the button with a shop icon. It show how much <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span> you have in the first box. The next box has a the amount of a certain type of vegetable you have, and you can sell 5 of them for an amount of <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span> or buy 5 for some <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span>. You can reset the price values with <span onclick="scrollToSection('help-market-resets'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market-resets').addClass('help-subjects-item-active');">Market Resets</span></p>
+               </div>
+               <!-- <div id="help-black-market">
+                  <h1>Black Market</h1>
+                  <p>The black market is a wonderful and bustling place filled with plenty of illegal items. It located at an undisclosed location. For an amount of <span onclick="scrollToSection('help-seeds')">seeds</span> you can purchase illegal items such as <span onclick="scrollToSection('help-market-resets')">Market Resets</span>. But watch out! There is a 2% chance that the police will catch you and make you pay a terrible fine!</p>
+               </div> -->
+               <div id="help-market-resets">
+                  <h1>Market Resets</h1>
+                  <p>Market resets can be found as the last item in the <span onclick="scrollToSection('help-market'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market').addClass('help-subjects-item-active');">Market</span>. By using one all of the values in the market are reset to what they began as, not the outrageous price they have become. There is a 1% chance of collecting one after each trade, and a 5% chance after each harvest. One is gained every time you unlock a plot.</p>
+               </div>
+               <div id="help-fertilizer">
+                  <h1>Fertilizer</h1>
+                  <p>Fertilizer is a useful item that when used on a vegetable plot instantly completes the growing and adds an extra vegetable of that type. Fertilizer can be bought in the Black Market (coming soon), or earned from <span onclick="scrollToSection('help-tasks'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-tasks').addClass('help-subjects-item-active');">Tasks</span>.</p>
+               </div>
+               <div id="help-tasks">
+                  <h1>Tasks</h1>
+                  <p>Tasks are small chores that <span onclick="scrollToSection('help-farmer-jebediah'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-jebidiah').addClass('help-subjects-item-active');">Farmer Jebediah</span>, <span onclick="scrollToSection('help-grandpa-jenkins'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-jenkins').addClass('help-subjects-item-active');">Grandpa Jenkins</span>, <span onclick="scrollToSection('help-grandma-josephine'); ; $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-josephine').addClass('help-subjects-item-active');">Grandma Josephine</span>, or special guests request that require you to do a task for them or pay some items. They give helpful rewards like <span onclick="scrollToSection('help-fertilizer'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-fertilizer').addClass('help-subjects-item-active');">Fertilizer</span> and <span onclick="scrollToSection('help-market-resets'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market-resets').addClass('help-subjects-item-active');">Market Resets</span>.</p>
+               </div>
+               <div id="help-farmer-jebediah">
+                  <h1>Farmer Jebediah</h1>
+                  <p>Previous owner of the farm, you closest adviser. He gives many important <span onclick="scrollToSection('help-tasks'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-tasks').addClass('help-subjects-item-active');">Tasks</span>.</p>
+               </div>
+               <div id="help-grandpa-jenkins">
+                  <h1>Grandpa Jenkins</h1>
+                  <p>Guide on everything farming, bearer of the Bunny Slippers, and giver of <span onclick="scrollToSection('help-tasks'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-tasks').addClass('help-subjects-item-active');">Tasks</span>.</p>
+               </div>
+               <div id="help-grandma-josephine">
+                  <h1>Grandma Josephine</h1>
+                  <p>Your personal economic adviser, and giver of <span onclick="scrollToSection('help-tasks'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-tasks').addClass('help-subjects-item-active');">Tasks</span>.</p>
+               </div>
+               <div id="help-bunny-slippers">
+                  <h1>Bunny Slippers</h1>
+                  <p>Currently borne by <span onclick="scrollToSection('help-grandpa-jenkins'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-jenkins').addClass('help-subjects-item-active');">Grandpa Jenkins</span>, the Bunny Slippers are the main object of the Bunny Slippers Task List, a Task List being a collection of related tasks. It begins with <span onclick="scrollToSection('help-grandma-josephine'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-josephine').addClass('help-subjects-item-active');">Grandma Josephine</span> telling you to sell the slippers, then <span onclick="scrollToSection('help-grandpa-jenkins'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-jenkins').addClass('help-subjects-item-active');">Grandpa Jenkins</span> reveals their true value, and you must go on a long task list meeting many people who all want you to do something for them, finally ending with the retrieval of the Bunny Slippers.</p>
+               </div>
+               <div id="help-about-copyright">
+                  <div class="">
+
+                  </div>
+                  <h1>About & Copyright</h1>
+                  <div>This game is &copy copyrighted by Squirrel. If you want to help, email me at <a href="mailto:thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a>, or send a suggestion.
+                     <table>
+                        <tr>
+                           <th>Version Number</th>
+                           <th>Version Name</th>
+                           <th>Release Date</th>
+                           <th>Possible Features</th>
+                        </tr>
+                        <tr>
+                           <td>0.1.0 (Current)</td>
+                           <td>The Miscellaneous Major Items Update</td>
+                           <td>May 25 2021</td>
+                           <td> - 3 Vegetables <br> - Weather <br> - Tasks <br> - Growing Time Remaining</td>
+                        </tr>
+                        <tr>
+                           <td>0.1.1</td>
+                           <td>The Black Market Update</td>
+                           <td>June 5 2021</td>
+                           <td> - The Black Market</td>
+                        </tr>
+                        <tr>
+                           <td>0.1.2</td>
+                           <td>The Sound Update</td>
+                           <td>Unknown</td>
+                           <td> - Music <br> - Sound Effects <br> - All the noise you could ever want</td>
+                        </tr>
+                     </table>
+                     <br><br>
+                     <a  href="https://meetsquirrel.github.io">More about Squirrel</a>
+                     <br>
+                     <a href="https://squirrel-314.github.io">Gold Rush</a>
+                     <br>
+                     <a href="https://github.com/Squirrel-314/vegetable-dash">Vegetable Dash on GitHub</a>
+                     <br>
+                     <a href="https://github.com/Squirrel-314?tab=repositories">Squirrel on GitHub</a>
+                  </div>
+                  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Right Click Menu -->
+      <div id="menu">
+            <li class="menu-links"><a href="https://meetsquirrel.github.io">Who's Squirrel?</a></li>
+            <li class="menu-links"><a href="https://squirrel-314.github.io">Gold Rush!</a></li>
+            <hr>
+            <li class="menu-links"><a href="https://github.com/Squirrel-314/vegetable-dash">GitHub</a></li>
+            <li><a href="mailto: thehillsidetownship@gmail.com">Support</a></li>
+            <li>Version: 0.1.0</li>
+         </div>
+      <!-- Fade text -->
+      <span class="hidden"><div class="fade-text">This text is fading</div></span>
+      <script src="https://www.w3counter.com/tracker.js?id=134512"></script>
+   </body>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script src="mobile.js" charset="utf-8"></script>
+</html>
