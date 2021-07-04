@@ -5,10 +5,11 @@ Copyright January 1st 2021 by Squirrel
 * {
    margin: 0;
    padding: 0;
+   -webkit-user-select: none;
+   user-select: none;
 }
-
 body {
-   background-image: url("Images/Homepage/tilled.png");
+   background-image: url("Images/Global Assets/tilled.png");
    background-size: cover;
    overflow: hidden;
 }
@@ -21,7 +22,7 @@ button {
    padding: 4vh;
    margin: 1vh;
    font-family: sans-serif;
-   cursor: pointer;
+   cursor: inherit;
    transition: transform 150ms ease;
 }
 
@@ -31,50 +32,27 @@ summary:focus { outline: none; }
 
 
 .depth-button {
-  outline: none;
-  margin: 2vh;
-  padding: 8vh;
-  border: none;
-  border-radius: 5vh;
-  color: #fff;
-  font-size: 5vh;
-  transition: .15s;
+   outline: none;
+   margin: 2vh;
+   padding: 8vh;
+   border: none;
+   border-radius: 5vh;
+   color: #fff;
+   font-size: 5vh;
+   transition: .15s;
 }
 
 .depth-button:active {
-  outline: none;
-  transform: translateY(1vh);
+   outline: none;
+   transform: translateY(1vh);
 }
 
-.red {
-  background-color: #f74040;
-  box-shadow: 0 2vh #d61818;
-}
-
-.orange {
-  background-color: #F9A748;
-  box-shadow: 0 2vh #DA7D12;
-}
-
-.yellow {
-  background-color: #F8F948;
-  box-shadow: 0 2vh #EAEB12;
-}
-
-.green {
-  background-color: #3FE863;
-  box-shadow: 0 2vh #03B428;
-}
-
-.blue {
-  background-color: #63E1FF;
-  box-shadow: 0 2vh #16CCF8;
-}
-
-.purple {
-  background-color: #6B3FE8;
-  box-shadow: 0 2vh #4B20C8;
-}
+.red { background-color: #f74040; box-shadow: 0 2vh #d61818; }
+.orange { background-color: #F9A748; box-shadow: 0 2vh #DA7D12; }
+.yellow { background-color: #F8F948; box-shadow: 0 2vh #EAEB12; }
+.green { background-color: #3FE863; box-shadow: 0 2vh #03B428; }
+.blue { background-color: #63E1FF; box-shadow: 0 2vh #16CCF8; }
+.purple { background-color: #6B3FE8; box-shadow: 0 2vh #4B20C8; }
 
 .red:active { box-shadow: 0 1vh #d61818; }
 .orange:active { box-shadow: 0 1vh #DA7D12; }
@@ -156,31 +134,6 @@ Farmland
    "auto auto auto";
 }
 
-.land-for-small {
-   overflow-y: scroll;
-   grid-template-areas:
-   "auto auto"
-   "auto auto"
-   "auto auto"
-   "auto auto"
-   "auto auto";
-}
-
-.land-for-tiny {
-   overflow-y: scroll;
-   grid-template-areas:
-   "auto"
-   "auto"
-   "auto"
-   "auto"
-   "auto"
-   "auto"
-   "auto"
-   "auto"
-   "auto"
-   "auto";
-}
-
 /* Plots */
 .plot {
    background-image: url("Images/Plots/plot.png");
@@ -197,9 +150,7 @@ Farmland
    min-width: 14vw;
 }
 
-.open-plot {
-   display: none;
-}
+.open-plot { display: none; }
 
 .ahh-perspective {
    perspective: 100vh;
@@ -211,9 +162,7 @@ Farmland
 }
 
 /* Locks */
-.locked {
-   height: 18vh;
-}
+.locked { height: 18vh; }
 
 .lock-tooltip {
    position: relative;
@@ -264,7 +213,7 @@ Farmland
 }
 
 /* Buttons */
-.grow-button {
+.ahh-perspective .grow {
    height: 10vh;
    width: 25vh;
    font-size: 3vh;
@@ -273,7 +222,7 @@ Farmland
    opacity: 1;
 }
 
-.harvest-button {
+.ahh-perspective .harvest {
    height: 10vh;
    width: 25vh;
    font-size: 3vh;
@@ -335,6 +284,8 @@ Farmland
 } */
 
 .purchase-plot {
+   padding: 2vh;
+   margin: 0;
    background-color: #272727;
    border: solid .4vh #808080;
    border-radius: .4vh;
@@ -342,9 +293,7 @@ Farmland
    transition: 0.5s;
 }
 
-.purchase-plot:hover {
-   box-shadow: 0 0 2vh #f5f5f5;
-}
+.purchase-plot:hover { box-shadow: 0 0 2vh #f5f5f5; }
 
 /* Button Images */
 .sickle, .seed-packet {
@@ -387,15 +336,17 @@ Vegetable Info Modal
 }
 
 .modal-content {
-   width: 80%;
-   height: 75%;
-   margin: auto;
-   padding: 4vh;
+   width: 90vw;
+   height: 90vh;
+   margin: -5vh auto 0 auto;
+   padding: 4vh 4vh 25vh 4vh;
    font-size: 6vh;
    border-radius: .8vh;
    background-color: #fefefe;
    text-align: center;
    font-family: "Roboto Condensed";
+   position: relative;
+   box-sizing: border-box;
    overflow: scroll;
 }
 
@@ -409,27 +360,14 @@ Vegetable Info Modal
    transition: 0.2s;
 }
 
-.fertilize {
-   float: right;
-   height: 8vh;
-   width: 8vh;
-   padding: .2vh;
-   border-radius: 2vh;
-   transition: 0.2s;
-}
-
-.fertilize img {
-   height: 6vh;
-}
-
-.close:hover { color: #aaa; }
+.close:hover { transform: scale(1.05); }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Right Click Menu
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 #menu {
-   width: 52vh;
+   width: 40vh;
    position: fixed;
    z-index: 9999;
    display: none;
@@ -445,6 +383,10 @@ Right Click Menu
    list-style-type: none;
    padding: 2vh 5vh;
    transition: .2s;
+}
+
+#menu a {
+   color: #54abd3;
 }
 
 #menu li:hover {
@@ -537,7 +479,7 @@ Introduction
 
 .plant-quest-arrow {
    position: absolute;
-   right: -115%;
+   right: -135%;
 }
 
 @keyframes quest-arrow-nudge {
@@ -616,7 +558,7 @@ Market
    bottom: 3vh;
    height: 10vh;
    width: 30%;
-   border-radius: 5vh;
+   border-radius: 2vh;
    overflow: hidden;
    transition: 0.2s;
 }
@@ -660,8 +602,8 @@ Market
 
 .market-item:hover {
    opacity: 0.98;
-   box-shadow: 0 0 25px #262626,
-               inset 0 0 5px #262626;
+   box-shadow: 0 0 5vh #262626,
+               inset 0 0 1vh #262626;
 }
 
 .market-item:nth-child(1) { background-color: #ddddb9; }
@@ -670,9 +612,11 @@ Market
 .market-item:nth-child(4) { background-color: #f0e0e0; }
 .market-item:nth-child(5) { background-color: #84f09e; }
 .market-item:nth-child(6) { background-color: #b388c6; }
+.market-item:nth-child(7) { background-color: #613f2a; }
+.market-item:nth-child(8) { background-color: #d96072; }
+.market-item:nth-child(9) { background-color: #b1078e; }
 
 /* Hover */
-
 .market-hover {
    position: absolute;
    top: 0;
@@ -876,40 +820,57 @@ input:checked + .slider:before { transform: translateY(8vh); }
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Produce
+Toolbar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-.produce {
+.toolbar {
    position: absolute;
-   top: 0;
-   right: 0;
+   top: 2vh;
+   right: 2vh;
    background-color: #111;
-   border-left: ridge 1vh gold;
-   padding: 3vh;
-   height: 100%;
-   width: 6vh;
-   color: #fff;
+   border: ridge .8vh gold;
+   border-radius: 2vh;
+   height: 38.5vh;
+   width: 14.5vh;
    transition: 0.5s;
    box-shadow: 0 0 2vh #262626;
    font-family: "Nunito";
 }
 
-.produce-tooltip {
-   position: relative;
-   width: 10vh;
-   height: 10vh;
-   display: none;
-   margin: .5vh 0;
+.produce-scroll {
+   position: absolute;
+   top: 0;
+   right: 0;
+   padding: 3vh 3vh 3vh 26vh;
+   height: 100%;
+   width: 35vh;
+   font-family: "Nunito";
+   box-sizing: border-box;
 }
 
-.produce-tooltip img { height: 8vh; }
+.produce-tooltip {
+   position: relative;
+   width: auto;
+   margin: auto;
+   text-align: center;
+}
+
+.produce-image {
+   height: 4vh;
+   margin: 0 .5vh;
+}
+
+.toolbar-img {
+   height: 10vh;
+   margin: 1.2vh 0;
+}
 
 .produce-tooltip .tooltip-text {
    position: absolute;
    opacity: 0;
    pointer-events: none;
-   height: 120%;
-   min-width: 200%;
+   width: 20vh;
+   height: 12vh;
    background-color: #eee;
    text-align: center;
    border-radius: 2vh;
@@ -917,10 +878,17 @@ Produce
    box-shadow: 0 0 2vh #ddd;
    font-size: 3vh;
    color: #262626;
-   top: -3vh;
-   right: 115%;
+   top: -1vh;
+   right: 95%;
+   z-index: 1;
    transition: .8s;
    transition-delay: 1s;
+}
+
+.produce-tooltip .tooltip-text-produce {
+   min-width: 50vh;
+   height: auto;
+   padding: 2vh 0;
 }
 
 .produce-tooltip .tooltip-text::after {
@@ -934,15 +902,18 @@ Produce
    border-color: transparent transparent transparent #eee;
 }
 
+.produce-tooltip .tooltip-text-produce::after { top: 7vh; }
+
 .produce-tooltip:hover .tooltip-text {
    opacity: 1;
    pointer-events: auto;
 }
 
-/* Settings */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Settings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-.settings h1 { font-weight: 200; }
-.sidebar-button {
+.setting-button {
    border-radius: .5vh;
    display: block;
    padding: 1vh;
@@ -955,8 +926,10 @@ Produce
    color: lightblue;
    display: inline;
    text-shadow: 0 0 4vh #000;
-   font-family: inherit;
+   font-family: "Nunito";
 }
+
+.settings h1 { font-weight: 200; }
 
 .theme-color {
    width: 26.3vw;
@@ -966,26 +939,8 @@ Produce
    background-color: #aaaaaa;
 }
 
-.device-size-button {
-   width: 26.3vw;
-   padding: 1vh;
-   margin: .5vh auto;
-   display: inline;
-   background-color: #d9d9d9;
-}
+.setting-button:active { transform: scale(0.95); }
 
-.sidebar button:hover {
-   transform: scale(0.95);
-   margin: .5vh auto;
-}
-
-.sidebar button:active {
-   transform: scale(1.03);
-   padding: 1.5vh;
-   margin: .5vh auto;
-}
-
-#market-reset-more-info { filter: invert(); }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 More Information Hover
@@ -1079,6 +1034,7 @@ More Information Hover
 }
 
 .help-subjects-item:first-child { background-color: #03fca5; }
+.help-subjects-item-active { filter: hue-rotate(180deg); }
 .help-subjects-item:last-child {
    background-color: #6ee8ff;
    margin: 0;
@@ -1096,6 +1052,13 @@ More Information Hover
    scroll-behavior: smooth;
 }
 
+.help-information div {
+   height: 100%;
+   width: 100%;
+   position: relative;
+   margin-bottom: 10vh;
+}
+
 .help-information h1 {
    font-family: "Nunito";
    text-align: center;
@@ -1105,6 +1068,12 @@ More Information Hover
 .help-information p {
    font-size: 3.5vh;
    margin-bottom: 100vh;
+}
+
+.help img {
+   position: absolute;
+   bottom: 0;
+   right: 0;
 }
 
 .help-information span {
@@ -1184,19 +1153,20 @@ More Information Hover
 }
 
 .store-icon:hover { transform: scale(1.2); }
+#market-reset-more-info { filter: invert(); }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Quests
+Tasks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-.quest-ribbon {
+.task-ribbon {
    position: relative;
    top: 6vh;
    right: -100%;
    height: 16vh;
 }
 
-.quests {
+.tasks {
    position: fixed;
    top: 8vh;
    left: -80vh;
@@ -1209,9 +1179,7 @@ Quests
    transition: .8s;
 }
 
-.quests:hover { z-index: 1; }
-
-.questShadow {
+.taskShadow {
    display: none;
    z-index: .9;
    position: fixed;
@@ -1221,7 +1189,7 @@ Quests
    width: 100%;
 }
 
-.questContent {
+.taskContent {
    margin-top: -15vh;
    overflow: scroll;
    display: grid;
@@ -1243,17 +1211,6 @@ Quests
    background-size: cover;
    overflow: scroll;
    transition: 0.5s;
-}
-
-.task-block-parent:hover .task-block {
-   transform: scale(2);
-   position: absolute;
-   top: 18vh;
-   right: 0;
-   left: 0;
-   height: 40vh;
-   width: 40vh;
-   z-index: 1;
 }
 
 .task-info-a { grid-area: a; }
@@ -1323,12 +1280,17 @@ Quests
 .hidden { display: none; }
 
 .modal-market-prices {
-   height: 20vh;
-   margin: 2vh auto;
-   border: solid 2vh #eee;
-   border-radius: 5vh;
+   position: fixed;
+   right: 0;
+   bottom: -4vh;
+   left: 0;
+   height: 18vh;
+   margin: 9vh 5vw;
+   border-top: solid 2vh #eee;
+   border-radius: 0 0 5vh 5vh;
    display: grid;
    grid-template-columns: 50% 50%;
+   background-color: #fff;
 }
 
 .modal-market-prices div:first-child { border-right: solid .5vh #8f8f8f; }
@@ -1340,3 +1302,205 @@ Quests
    font-size: 8vh;
    color: #9f9f9f;
 }
+
+.weather-short {
+   position: fixed;
+   height: 15vh;
+   width: 15vh;
+   right: 2vh;
+   top: 45vh;
+   background-color: rgb(59, 74, 167, .9);
+   border: solid .5vh rgb(42, 50, 102, .9);
+   border-radius: 2vh;
+   overflow: hidden;
+   overflow: scroll;
+   display: grid;
+   grid-template-areas:
+   "a b"
+   "c c";
+   transition: 1s;
+   transition-delay: .2s;
+}
+
+.weather-short:hover {
+   height: 40vh;
+   width: 35vh;
+}
+
+.weather-short .weather-img {
+   grid-area: a;
+   height: 15vh;
+   width: 15vh;
+   background: url('https://api.iconify.design/wi:day-rain-wind.svg') no-repeat center center / contain;
+   transition: all .1s, margin .8s;
+   filter: invert(95%);
+}
+.weather-short:hover .weather-img { margin: 1vh 2vh; }
+
+.weather-name {
+   grid-area: b;
+   font-size: 4.5vh;
+   font-family: "Nunito";
+   font-weight: 700;
+   color: #f5f5f5;
+   text-align: center;
+   padding-top: 3vh;
+}
+
+.weather-description {
+   grid-area: c;
+   font-size: 4vh;
+   font-family: "Nunito";
+   color: #f5f5f5;
+   text-align: center;
+}
+
+.modal-plot-unlocked p {
+   text-align: left;
+   margin: 2vh 0 2vh 15%;
+   font-size: 10vh;
+   color: #555;
+   transform: translate(0, 25vh) scale(0);
+}
+
+body:hover .unlocked-text { animation: unlocked-text 1.5s forwards; }
+body:hover .unlocked-text:nth-last-child(1)  { animation-delay: 4.5s; }
+body:hover .unlocked-text:nth-last-child(2)  { animation-delay: 3s; }
+body:hover .unlocked-text:nth-last-child(3)  { animation-delay: 1.5s; }
+body:hover .unlocked-text:nth-last-child(4)  { animation-delay: 0; }
+
+@keyframes unlocked-text {
+   0% { transform: translate(0, 25vh) scale(0); }
+   100% { transform: translate(0, 0) scale(1); }
+}
+
+/* Festival */
+.festival-land {
+   position: relative;
+   height: 60vh;
+   width: 120vh;
+   margin: 2vh auto;
+   border: solid 1vh #000;
+   border-radius: 1vh;
+   transition: 0.5s;
+   display: grid;
+   grid-template-areas:
+   "auto auto auto auto"
+   "auto auto auto auto";
+}
+
+.festival-land button {
+   background-image: url("Images/Festival/shiny-metal.jpg");
+   background-size: contain;
+}
+
+.festival-plot-image {
+   position: absolute;
+   width: 25vh;
+}
+
+.festival-plot {
+   background-image: url("Images/Festival/metal-sheet.jpg");
+   background-size: cover;
+   margin: .2vh;
+   border: solid .3vh #000;
+   border-radius: .3vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   transition: 2s;
+   position: relative;
+   min-height: 14vw;
+   min-width: 14vw;
+}
+
+.festival-locked { height: 20vh; }
+
+.festival-ahh-perspective {
+   perspective: 100vh;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.festival-ahh-perspective button { width: 90%; margin-top: 20vh; }
+.festival-gears { height: 4vh; margin: -1vh 1vh; }
+
+.time-left img {
+   height: 5vh;
+   margin: .5vh;
+   position: sticky;
+}
+
+.time-left {
+   position: absolute;
+   right: .5vh;
+   bottom: .5vh;
+   border: outset .8vh #f5f5f5;
+   border-radius: 1.5vh;
+   height: 5vh;
+   width: 5vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: rgba(255, 255, 255, 0.75);
+   color: #333;
+   font-family: "Nunito";
+   font-size: 0;
+   transition: width .5s;
+   overflow: scroll;
+}
+
+.time-left:hover {
+   width: 18vh;
+   font-size: 2.5vh;
+}
+
+#help-about-copyright {
+   font-size: 3vh;
+   font-weight: 300;
+   overflow-y:scroll;
+}
+
+table {
+   border-collapse: collapse;
+   width: 100%;
+   font-size: 2.5vh;
+   table-layout: fixed;
+}
+
+td, th {
+   border: .2vh solid #eee;
+   border-radius: .2vh;
+   padding: .5vh;
+   width: 25%;
+   color: #666;
+}
+
+td { font-weight: 100; }
+th { color: #aaa; }
+tr:nth-child(even) { background-color: #eee; }
+
+.weed {
+   position: absolute;
+   height: 6vh;
+   width: 6vh;
+   z-index: 1;
+   transform: scale(0);
+   transition: transform .5s;
+}
+
+.weed:hover { animation: weed-found 1s; }
+
+@keyframes weed-found {
+   0% { transform: rotate(0); }
+   25% { transform: rotate(15deg); }
+   50% { transform: rotate(-15deg); }
+   75% { transform: rotate(15deg); }
+   100% { transform: rotate(0); }
+}
+
+.vegAmount { display: none; }
+.tm-tb { opacity: 0; }
