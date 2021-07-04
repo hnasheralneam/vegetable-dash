@@ -882,7 +882,7 @@ Toolbar
    right: 95%;
    z-index: 1;
    transition: .8s;
-   transition-delay: 1s;
+   transition-delay: .2s;
 }
 
 .produce-tooltip .tooltip-text-produce {
