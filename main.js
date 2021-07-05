@@ -16,9 +16,22 @@ Commands           | Commands to open panels, right click menu
 Active Cursors     | Cursors you can enable to do things
 Settings           | Update Sidebar
 Save               | Save the game data, restart
+
+// To-do
+~ update copyright
+~ black market exchanges increase chance of being caught by 1%
+~ doughnuts reset police chance
+~ shift/ctrl for selling/buying more market
+~ black market task
+
+// Mobile
+~ market exchanges
+~ black market panel
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Game Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 let initalPlotStatus = {
    peas: "empty",
    corn: "empty",
@@ -124,6 +137,16 @@ let initalMarketData = {
    sellItem: ["Market Resets"][Math.floor(Math.random() * 1)],
    sellItemQuantity: Math.floor(Math.random() * (5 - 1)) + 1,
    seedCost: Math.floor(Math.random() * (10000 - 2000)) + 2000,
+   exchangeMarket: {
+      peas: .2,
+      corn: .5,
+      strawberries: 6,
+      eggplants: 45,
+      pumpkins: 90,
+      cabbage: 180,
+      dandelion: 440,
+      rhubarb: 1240,
+   },
    weather: {
       sunny: false,
       rainy: false,
@@ -326,17 +349,17 @@ detailedPlantLoop("rhubarb", 9, "growing.png", "Rhubarb/growing.png", "Rhubarb/f
 // Weather
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-let random = (Math.random()).toFixed(2);
+let randomWeatherNum = (Math.random()).toFixed(2);
 function weatherChance(min, max) {
    let value = {};
    for (i = min; i < max; i += .01) {
-      if (random === i.toFixed(2)) { value[i] = true; }
+      if (randomWeatherNum=== i.toFixed(2)) { value[i] = true; }
       else { value[i.toFixed(2)] = false; }
    }
    return !Object.keys(value).every((k) => !value[k]);
 }
 function chooseWeather() {
-   random = (Math.random()).toFixed(2);
+   randomWeatherNum= (Math.random()).toFixed(2);
    if (weatherChance(0, .15) === true) { marketData.weather.sunny = true; } else { marketData.weather.sunny = false; }
    if (weatherChance(.15, .30) === true) { marketData.weather.rainy = true; } else { marketData.weather.rainy = false; }
    if (weatherChance(.30, .55) === true) { marketData.weather.partlySunny = true; } else { marketData.weather.partlySunny = false; }
@@ -365,7 +388,6 @@ let updateWeather = window.setInterval(function() {
       marketData.weather.hasBeenPunished = true;
    }
    if (marketData.weather.frost && marketData.weather.hasBeenPunished === false) {
-      console.log("DAMAGE!");
       if (plots.peaplot === "unlocked" && plotStatus.peasReady != Infinity) { maybeLose("peas"); }
       if (plots.cornplot === "unlocked" && plotStatus.cornReady != Infinity) { maybeLose("corn"); }
       if (plots.strawberryplot === "unlocked" && plotStatus.strawberriesReady != Infinity) { maybeLose("strawberries"); }
@@ -625,14 +647,14 @@ function blackMarketLuck() {
 let vegetablesOwned = [];
 vegetablesOwned.push("peas")
 function vegetablesOwnedLoop() {
-   if (produce.peas >= "3" && !vegetablesOwned.includes("peas")) { vegetablesOwned.push("peas") }
-   if (produce.corn >= "3" && !vegetablesOwned.includes("corn")) { vegetablesOwned.push("corn") }
-   if (produce.strawberries >= "3" && !vegetablesOwned.includes("strawberries")) { vegetablesOwned.push("strawberries") }
-   if (produce.eggplants >= "3" && !vegetablesOwned.includes("eggplants")) { vegetablesOwned.push("eggplants") }
-   if (produce.pumpkins >= "3" && !vegetablesOwned.includes("pumpkins")) { vegetablesOwned.push("pumpkins") }
-   if (produce.cabbage >= "3" && !vegetablesOwned.includes("cabbage")) { vegetablesOwned.push("cabbage") }
-   if (produce.dandelion >= "3" && !vegetablesOwned.includes("dandelion")) { vegetablesOwned.push("dandelion") }
-   if (produce.rhubarb >= "3" && !vegetablesOwned.includes("rhubarb")) { vegetablesOwned.push("rhubarb") }
+   if (plots.peaplot === "unlocked" && !vegetablesOwned.includes("peas")) { vegetablesOwned.push("peas") }
+   if (plots.cornplot === "unlocked" && !vegetablesOwned.includes("corn")) { vegetablesOwned.push("corn") }
+   if (plots.strawberryplot === "unlocked" && !vegetablesOwned.includes("strawberries")) { vegetablesOwned.push("strawberries") }
+   if (plots.eggplantplot === "unlocked" && !vegetablesOwned.includes("eggplants")) { vegetablesOwned.push("eggplants") }
+   if (plots.pumpkinplot === "unlocked" && !vegetablesOwned.includes("pumpkins")) { vegetablesOwned.push("pumpkins") }
+   if (plots.cabbageplot === "unlocked" && !vegetablesOwned.includes("cabbage")) { vegetablesOwned.push("cabbage") }
+   if (plots.dandelionplot === "unlocked" && !vegetablesOwned.includes("dandelion")) { vegetablesOwned.push("dandelion") }
+   if (plots.rhubarbplot === "unlocked" && !vegetablesOwned.includes("rhubarb")) { vegetablesOwned.push("rhubarb") }
 }
 
 function luckyRoll() {
@@ -804,45 +826,20 @@ function intro() {
 // Market
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === 77) {
-   if (document.querySelector(".marketShadow").style.opacity === "0") { showObj(".marketShadow"); }
-   else { hideObj(".marketShadow"); }
-}})
+// Market
 function checkMarket() {
    let marketItem = document.getElementsByClassName("market-item");
    marketItem[0].style.display = "block";
-   marketItem[9].style.display = "block";
-   marketItem[10].style.display = "block";
+   marketItem[11].style.display = "block";
    if (plots.peaplot != "locked") { marketItem[1].style.display = "block"; }
-   if (plots.cornplot != "locked") { marketItem[2].style.display = "block"; }
-   if (plots.strawberryplot != "locked") { marketItem[3].style.display = "block"; }
+   if (plots.cornplot != "locked") { marketItem[2].style.display = "block"; marketItem[9].style.display = "block"; }
+   if (plots.strawberryplot != "locked") { marketItem[3].style.display = "block"; marketItem[10].style.display = "block"; }
    if (plots.eggplantplot != "locked") { marketItem[4].style.display = "block"; }
    if (plots.pumpkinplot != "locked") { marketItem[5].style.display = "block"; }
    if (plots.cabbageplot != "locked") { marketItem[6].style.display = "block"; }
    if (plots.dandelionplot != "locked") { marketItem[7].style.display = "block"; }
    if (plots.rhubarbplot != "locked") { marketItem[8].style.display = "block"; }
 }
-function buyProduce(produceRequested, produceCase) {
-   if (marketData.seeds >= marketData["buy" + produceCase]) {
-      produce[produceRequested] += 5;
-      marketData.seeds -= marketData["buy" + produceCase];
-      marketData["buy" + produceCase] *= 1.08;
-      marketData["sell" + produceCase] *= 1.02;
-      marketLuck();
-   }
-   else { fadeTextAppear(event, `Not enough seeds`, false); }
-}
-function sellProduce(produceRequested, produceCase) {
-   if (produce[produceRequested] >= 5) {
-      produce[produceRequested] -= 5;
-      marketData.seeds += marketData["sell" + produceCase];
-      marketData["buy" + produceCase] *= 0.98;
-      marketData["sell" + produceCase] *= 0.92;
-      marketLuck();
-   }
-   else { fadeTextAppear(event, `Not enough produce`, false); }
-}
-
 function updateMarket() {
    display("Peas");
    display("Corn");
@@ -883,6 +880,72 @@ function resetMarketValues() {
    }
 }
 
+// Buy & Sell Vegetables
+function buyProduce(produceRequested, produceCase) {
+   if (event.ctrlKey && marketData.seeds >= (marketData["buy" + produceCase] * 10)) {
+      for (i = 0; i < 10; i++) { buy(); } marketLuck();
+   }
+   else if (event.shiftKey && marketData.seeds >= (marketData["buy" + produceCase] * 5)) {
+      for (i = 0; i < 5; i++) { buy(); } marketLuck();
+   }
+   else if (marketData.seeds >= marketData["buy" + produceCase]) { buy(); marketLuck(); }
+   else { fadeTextAppear(event, `Not enough seeds`, false); }
+   function buy() {
+      produce[produceRequested] += 5;
+      marketData.seeds -= marketData["buy" + produceCase];
+      marketData["buy" + produceCase] *= 1.08;
+      marketData["sell" + produceCase] *= 1.02;
+   }
+}
+function sellProduce(produceRequested, produceCase) {
+   if (event.ctrlKey && produce[produceRequested] >= 50) {
+      for (i = 0; i < 10; i++) { sell(); } marketLuck();
+   }
+   else if (event.shiftKey && produce[produceRequested] >= 25) {
+      for (i = 0; i < 5; i++) { sell(); } marketLuck();
+   }
+   else if (produce[produceRequested] >= 5) { sell(); marketLuck(); }
+   else { fadeTextAppear(event, `Not enough produce`, false); }
+   function sell() {
+      produce[produceRequested] -= 5;
+      marketData.seeds += marketData["sell" + produceCase];
+      marketData["buy" + produceCase] *= 0.98;
+      marketData["sell" + produceCase] *= 0.92;
+   }
+}
+
+// Exchange Market!
+let offerVeg = {};
+let costVeg = {};
+function generateExchange() {
+   let merchantNames = ["Ramesh Devi", "Zhang Wei", "Emmanuel Abara", "Kim Nguyen", "John Smith", "Muhammad Khan", "David Smith", "Achariya Sok", "Aleksandr Ivanov", "Mary Smith", "José Silva", "Oliver Gruber", "James Wang", "Kenji Satō"];
+   let merchantName = merchantNames[Math.floor(Math.random() * merchantNames.length)];
+   let x = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
+   let n = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
+   offerVeg.vegetable = x;
+   costVeg.vegetable = n;
+   offerVeg.worth = marketData["exchangeMarket"][x];
+   costVeg.worth = marketData["exchangeMarket"][n];
+   offerVeg.amount = random(2, 25);
+   offerVeg.totalVal = offerVeg.amount * offerVeg.worth;
+   costVeg.amount = offerVeg.totalVal / costVeg.worth;
+   document.querySelector(".market-exchange").style.backgroundColor = genColor();
+   document.querySelector(".exchange-merchant").textContent = `${merchantName}`;
+   document.querySelector(".exchange-offer").textContent = `${Math.round(offerVeg.amount)} ${x}`;
+   document.querySelector(".exchange-demand").textContent = `${Math.round(costVeg.amount)} ${n}`;
+   if (Math.round(offerVeg.amount) === 0) { generateExchange(); }
+   if (Math.round(costVeg.amount) === 0) { generateExchange(); }
+}
+function acceptExchange() {
+   if (produce[costVeg.vegetable] >= costVeg.amount) {
+      produce[offerVeg.vegetable] += offerVeg.amount;
+      produce[costVeg.vegetable] -= costVeg.amount;
+      generateExchange();
+   }
+   else { fadeTextAppear(event, `Not enough produce`, false); }
+}
+
+// Black Market
 /* newBlackOffer();
 function blackMarketValues() {
    marketData.sellerName = ["Clearly Badd", "Hereto Steale", "Heinous Krime", "Elig L. Felonie", "Sheeft E. Karacter", "Abad Deel"][Math.floor(Math.random() * 6)];
@@ -958,6 +1021,7 @@ function setup() {
    whatTheme();
    checkLocks();
    checkMarket();
+   generateExchange();
 }
 window.addEventListener('load', (event) => { setup(); });
 
@@ -967,6 +1031,8 @@ window.addEventListener('load', (event) => { setup(); });
 
 function capitalize(string) { return string.charAt(0).toUpperCase() + string.slice(1); }
 function commas(num) { return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+function diff(n, x) { return n / x; }
+function random(min, max) { return Math.floor(Math.random() * (max - min + 1) + min); }
 function scrollToSection(id) { document.getElementById(id).scrollIntoView(); }
 function hideObj(objId) {
    document.querySelector(objId).style.opacity = "0";
@@ -1037,6 +1103,7 @@ aEL(83, settingModal); // Shift + S
 aEL(80, plantDrag); // Shift + P
 aEL(72, harvestDrag); // Shift + H
 aEL(70, fertilizeHover); // Shift + F
+aEL(77, toggleMarket); // Shift + M
 
 questbarIsOpen = false;
 function taskBar() {
@@ -1068,6 +1135,10 @@ function commandBar() {
 function settingModal() {
    if (document.querySelector(".settingShadow").style.opacity === "0") { showObj(".settingShadow"); }
    else { hideObj(".settingShadow"); }
+}
+function toggleMarket() {
+   if (document.querySelector(".marketShadow").style.opacity === "0") { showObj(".marketShadow"); }
+   else { hideObj(".marketShadow"); }
 }
 
 // Right Click Menu

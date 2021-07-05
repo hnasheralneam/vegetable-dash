@@ -521,11 +521,14 @@ Market
    background-color: #262626;
    text-align: center;
    font-family: "Roboto Condensed";
-   display: grid;
-   grid-template-columns: 33.33333% 33.33333% 33.33333%;
    cursor: url("Images/Global Assets/big-money.png"), auto;
    overflow: scroll;
    transition: 0.8s;
+}
+
+.marketVegetables {
+   display: grid;
+   grid-template-columns: 33.33333% 33.33333% 33.33333%;
 }
 
 .market-item {
@@ -686,10 +689,11 @@ Basic Modal
    backdrop-filter: blur(5px);
    overflow: scroll;
    transition: 0.8s;
+   box-sizing: border-box;
 }
 
 .modalContent {
-   min-height: 75%;
+   min-height: 90%;
    border-radius: 2vh;
    margin: 5vh;
    padding: 8vh 0;
@@ -699,6 +703,7 @@ Basic Modal
    font-family: "Nunito";
    transition: 0.8s;
    position: relative;
+   box-sizing: border-box;
 }
 
 .closeModal {
@@ -1504,3 +1509,17 @@ tr:nth-child(even) { background-color: #eee; }
 
 .vegAmount { display: none; }
 .tm-tb { opacity: 0; }
+
+.market-exchange-content {
+   padding-bottom: 5vh;
+   display: grid;
+   grid-template-columns: 33.33333% 33.33333% 33.33333%;
+}
+
+.exchange-market-item { width: 30vw; }
+
+.blackMarketHome {
+   background-image: url("Images/Market/black-market.png");
+   background-size: cover;
+   background-position: center;
+}
