@@ -17,16 +17,16 @@ Active Cursors     | Cursors you can enable to do things
 Settings           | Update Sidebar
 Save               | Save the game data, restart
 
-// To-do
-~ update copyright
-~ black market exchanges increase chance of being caught by 1%
-~ doughnuts reset police chance
-~ shift/ctrl for selling/buying more market
-~ black market task
-
 // Mobile
+~ update copyright
 ~ market exchanges
 ~ black market panel
+~ black market help
+~ exchanges help
+~ doughnut display
+~ black market exchanges increase chance of being caught by 1%
+~ doughnuts task
+~ black market task
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Game Data
@@ -111,6 +111,7 @@ let initalMarketData = {
    seeds: 0,
    marketResets: 0,
    fertilizers: 0,
+   doughnuts: 0,
    weedPieces: 0,
    // Time (Where elese do I put it?)
    weedSeason: Date.now() + 1800000,
@@ -133,10 +134,16 @@ let initalMarketData = {
    sellDandelion: 100000,
    buyRhubarb: 7500000,
    sellRhubarb: 7500000,
-   sellerName: ["Clearly Badd", "Hereto Steale", "Stolin Joye", "Heinous Krime", "Elig L. Felonie"][Math.floor(Math.random() * 5)],
-   sellItem: ["Market Resets"][Math.floor(Math.random() * 1)],
-   sellItemQuantity: Math.floor(Math.random() * (5 - 1)) + 1,
-   seedCost: Math.floor(Math.random() * (10000 - 2000)) + 2000,
+   black: {
+      name: 0,
+      item: 0,
+      quantity: 0,
+      cost: 0,
+      resets: 1500,
+      fertilizer: 7500,
+      doughnuts: 750,
+      catchChance: .02,
+   },
    exchangeMarket: {
       peas: .2,
       corn: .5,
@@ -184,6 +191,11 @@ let initalTaskList = {
    jebsGrilledCornNum: 0,
    josephinesDandelionSalad: "unreached",
    josephinesDandelionSaladNum: 0,
+   // Black Market
+   seeBlackMarket: "unreached",
+   seeBlackMarketNum: 0,
+   tryPoliceDoughnuts: "unreached",
+   tryPoliceDoughnutsNum: 0,
    // Unlock Plots: Grandpa Jenkins
    unlockThe_cornPlot:  "unreached",
    unlockThe_cornPlotNum: 0,
@@ -262,7 +274,7 @@ function fertilize(veg) {
       marketData.fertilizers -= 1;
       plotStatus[veg + "Ready"] = 0;
       produce[veg]++;
-      checkTasks("fertilize", "tryFertilizer");
+      checkTasks("tryFertilizer");
    }
 }
 function plant(veg, timeOne, timeTwo, timeThree) {
@@ -491,6 +503,9 @@ function taskAlreadyUp(task) {
    if (value[1] === false && value[2] === false && value[3] === false && value[4] === false) { return false }
    else { return true }
 }
+function checkTasks(task) {
+   if (taskList[task] === "active") { taskList[task] = "ready"; }
+}
 
 // Task Sensitive
 function giveTasks() {
@@ -500,6 +515,8 @@ function giveTasks() {
    if (ifTrue("jebsGrilledCorn") && plots.cornplot === "unlocked") { taskList.jebsGrilledCorn = "active" }
    if (ifTrue("josephinesDandelionSalad") && plots.dandelionplot === "unlocked") { taskList.josephinesDandelionSalad = "active" }
    if (ifTrue("unlockThe_cornPlot") && plots.cornplot === "locked") { taskList.unlockThe_cornPlot = "active" }
+   if (ifTrueComplete("seeBlackMarket", "useMarketResets") && plots.strawberryplot === "unlocked") { taskList.seeBlackMarket = "active"; }
+   if (ifTrueComplete("tryPoliceDoughnuts", "seeBlackMarket")) { taskList.tryPoliceDoughnuts = "active"; }
    // Bake Sale
    if (plots.pumpkinplot === "unlocked") { taskList.bakeSale = "progressing"; }
    if (ifTrue("bakeSale_cornBread") && taskList.bakeSale === "progressing") { taskList.bakeSale_cornBread = "active" }
@@ -526,6 +543,8 @@ function showTasks() {
    if (ifCheck("jebsGrilledCorn")) { setTask(emptyTaskCheck("jebsGrilledCorn"), "jebsGrilledCorn"); }
    if (ifCheck("josephinesDandelionSalad")) { setTask(emptyTaskCheck("josephinesDandelionSalad"), "josephinesDandelionSalad"); }
    if (ifCheck("unlockThe_cornPlot")) { setTask(emptyTaskCheck("unlockThe_cornPlot"), "unlockThe_cornPlot"); }
+   if (ifCheck("seeBlackMarket")) { setTask(emptyTaskCheck("seeBlackMarket"), "seeBlackMarket"); }
+   if (ifCheck("tryPoliceDoughnuts")) { setTask(emptyTaskCheck("tryPoliceDoughnuts"), "tryPoliceDoughnuts"); }
    // Bake Sale
    if (ifCheck("bakeSale_cornBread")) { setTask(emptyTaskCheck("bakeSale_cornBreadNum"), "bakeSale_cornBread"); }
    if (ifCheck("bakeSale_peaSnacks")) { setTask(emptyTaskCheck("bakeSale_peaSnacksNum"), "bakeSale_peaSnacks"); }
@@ -537,74 +556,71 @@ function showTasks() {
    }
    // Old open tasks
    if (oldTaskCheck("jebsPeaSalad") != false) {
-      if (taskList.jebsPeaSalad === "ready") { startTask(`${oldTaskCheck("jebsPeaSalad")}`, "Collect 2 Fertilizer", "collectTaskReward('jebsPeaSalad', taskList.jebsPeaSaladNum)", "That salad sure was delicious! To pay back the favor, I'll give you some fertilizer! Use it wisely!", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsPeaSalad"); }
-      else { startTask(`${oldTaskCheck("jebsPeaSalad")}`, "Submit 25 Peas", "if (produce.peas >= 25) { produce.peas -= 25; checkTasks('producePaid', 'jebsPeaSalad'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsPeaSalad"); }
+      if (taskList.jebsPeaSalad === "ready") { startTask(`${oldTaskCheck("jebsPeaSalad")}`, "Collect 2 Fertilizer", "collectTaskReward('jebsPeaSalad')", "That salad sure was delicious! To pay back the favor, I'll give you some fertilizer! Use it wisely!", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsPeaSalad"); }
+      else { startTask(`${oldTaskCheck("jebsPeaSalad")}`, "Submit 25 Peas", "if (produce.peas >= 25) { produce.peas -= 25; checkTasks('jebsPeaSalad'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsPeaSalad"); }
    }
    if (oldTaskCheck("useMarketResets") != false) {
-      if (taskList.useMarketResets === "ready") { startTask(`${oldTaskCheck("useMarketResets")}`, "Collect 250 Seeds", "collectTaskReward('useMarketResets', taskList.useMarketResetsNum)", "Thank you for completing that small task for me! Here, take 250 seeds!", "Grandma Josephine", "Images/Tasks/granny.png", "useMarketResets"); }
+      if (taskList.useMarketResets === "ready") { startTask(`${oldTaskCheck("useMarketResets")}`, "Collect 250 Seeds", "collectTaskReward('useMarketResets')", "Thank you for completing that small task for me! Here, take 250 seeds!", "Grandma Josephine", "Images/Tasks/granny.png", "useMarketResets"); }
       else { startTask(`${oldTaskCheck("useMarketResets")}`, "Use 1 Market Reset", " ", "Have I told you about market resets yet? They can reset all of the prices in the market! Why don't you use one now?", "Grandma Josephine", "Images/Tasks/granny.png", "useMarketResets"); }
    }
    if (oldTaskCheck("tryFertilizer") != false) {
-      if (taskList.tryFertilizer === "ready") { startTask(`${oldTaskCheck("tryFertilizer")}`, "Collect 2 Market Resets", "collectTaskReward('tryFertilizer', taskList.tryFertilizerNum)", "Wow, just look at those plants grow! Here, take these, I've had them lying about for years.", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "tryFertilizer"); }
+      if (taskList.tryFertilizer === "ready") { startTask(`${oldTaskCheck("tryFertilizer")}`, "Collect 2 Market Resets", "collectTaskReward('tryFertilizer')", "Wow, just look at those plants grow! Here, take these, I've had them lying about for years.", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "tryFertilizer"); }
       else { startTask(`${oldTaskCheck("tryFertilizer")}`, "Use 1 Fertilizer", " ", "Your plants look like they could do with some help. Why don't you use some fertilizer? It'll double the crop yeild and finish the growing instantly!", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "tryFertilizer"); }
    }
    if (oldTaskCheck("jebsGrilledCorn") != false) {
-      if (taskList.jebsGrilledCorn === "ready") { startTask(`${oldTaskCheck("jebsGrilledCorn")}`, "Collect 8 Market Resets", "collectTaskReward('jebsGrilledCorn', taskList.jebsGrilledCornNum)", "What a wonderful time we all had! Did you like the food? My family did, and they sent you some gifts!", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsGrilledCorn"); }
-      else { startTask(`${oldTaskCheck("jebsGrilledCorn")}`, "Submit 50 Corn", "if (produce.corn >= 50) { produce.corn -= 50; checkTasks('jebsGrilledCornPaid', 'jebsGrilledCorn'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "I'm inviting some family over, and I want to serve corn on the cob. I'm going to need to get come corn. Could you get them for me?", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsGrilledCorn"); }
+      if (taskList.jebsGrilledCorn === "ready") { startTask(`${oldTaskCheck("jebsGrilledCorn")}`, "Collect 8 Market Resets", "collectTaskReward('jebsGrilledCorn')", "What a wonderful time we all had! Did you like the food? My family did, and they sent you some gifts!", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsGrilledCorn"); }
+      else { startTask(`${oldTaskCheck("jebsGrilledCorn")}`, "Submit 50 Corn", "if (produce.corn >= 50) { produce.corn -= 50; checkTasks('jebsGrilledCorn'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "I'm inviting some family over, and I want to serve corn on the cob. I'm going to need to get come corn. Could you get them for me?", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsGrilledCorn"); }
    }
    if (oldTaskCheck("josephinesDandelionSalad") != false) {
-      if (taskList.josephinesDandelionSalad === "ready") { startTask(`${oldTaskCheck("josephinesDandelionSalad")}`, "Collect 15,000 Seeds", "collectTaskReward('josephinesDandelionSalad', taskList.josephinesDandelionSaladNum)", "Take that, Happy Place Farm! Our profits have increased by 20%, and their quarterly earnings fell by 35%! Hurrah for dandelion salad!", "Grandma Josephine", "Images/Tasks/granny.png", "josephinesDandelionSalad"); }
-      else { startTask(`${oldTaskCheck("josephinesDandelionSalad")}`, "Submit 6 Dandelions", "if (produce.dandelion >= 6) { produce.dandelion -= 6; checkTasks('josephinesDandelionSaladPaid', 'josephinesDandelionSalad'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "What an outrage! I have found that we have been losing profit to a competing company, Happy Place Farms! Their top product is lettuce salad, but I think we can do better! Meet dandelion salad!", "Grandma Josephine", "Images/Tasks/granny.png", "josephinesDandelionSalad"); }
+      if (taskList.josephinesDandelionSalad === "ready") { startTask(`${oldTaskCheck("josephinesDandelionSalad")}`, "Collect 15,000 Seeds", "collectTaskReward('josephinesDandelionSalad')", "Take that, Happy Place Farm! Our profits have increased by 20%, and their quarterly earnings fell by 35%! Hurrah for dandelion salad!", "Grandma Josephine", "Images/Tasks/granny.png", "josephinesDandelionSalad"); }
+      else { startTask(`${oldTaskCheck("josephinesDandelionSalad")}`, "Submit 6 Dandelions", "if (produce.dandelion >= 6) { produce.dandelion -= 6; checkTasks('josephinesDandelionSalad'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "What an outrage! I have found that we have been losing profit to a competing company, Happy Place Farms! Their top product is lettuce salad, but I think we can do better! Meet dandelion salad!", "Grandma Josephine", "Images/Tasks/granny.png", "josephinesDandelionSalad"); }
    }
    if (oldTaskCheck("unlockThe_cornPlot") != false) {
-      if (taskList.unlockThe_cornPlot === "ready") { startTask(`${oldTaskCheck("unlockThe_cornPlot")}`, "Collect 1 Fertilizer", "collectTaskReward('unlockThe_cornPlot', taskList.unlockThe_cornPlotNum)", "Ooooh, look! It's corn! Whoopie!", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "unlockThe_cornPlot"); }
+      if (taskList.unlockThe_cornPlot === "ready") { startTask(`${oldTaskCheck("unlockThe_cornPlot")}`, "Collect 1 Fertilizer", "collectTaskReward('unlockThe_cornPlot')", "Ooooh, look! It's corn! Whoopie!", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "unlockThe_cornPlot"); }
       else { startTask(`${oldTaskCheck("unlockThe_cornPlot")}`, "Unlock the second plot", " ", "You need to diversify your farm. Unlock the second plot for a new plant!", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "unlockThe_cornPlot"); }
+   }
+   if (oldTaskCheck("seeBlackMarket") != false) {
+      if (taskList.seeBlackMarket === "ready") { startTask(`${oldTaskCheck("seeBlackMarket")}`, "Collect 5 Doughnuts", "collectTaskReward('seeBlackMarket')", "Well done. Keep up the bad work.", "Shade E. Charekter", "Images/Tasks/shade-e.png", "seeBlackMarket"); }
+      else { startTask(`${oldTaskCheck("seeBlackMarket")}`, "Accept a Black Market offer", " ", "My friend has an offer to make you, meet him in the dark alleyway behind the marketplace.", "Shade E. Charekter", "Images/Tasks/shade-e.png", "seeBlackMarket"); }
+   }
+   if (oldTaskCheck("tryPoliceDoughnuts") != false) {
+      if (taskList.tryPoliceDoughnuts === "ready") { startTask(`${oldTaskCheck("tryPoliceDoughnuts")}`, "Collect 7,500 Seeds", "collectTaskReward('tryPoliceDoughnuts')", "Very good. Here, take some cash.", "Shade E. Charekter", "Images/Tasks/shade-e.png", "tryPoliceDoughnuts"); }
+      else { startTask(`${oldTaskCheck("tryPoliceDoughnuts")}`, "Use 1 Doughnut", " ", "After accepting or declining a few offers, the police will get suspicious. Feed them doughnuts to satiate their wrath.", "Shade E. Charekter", "Images/Tasks/shade-e.png", "tryPoliceDoughnuts"); }
    }
    // Bake Sale
    if (oldTaskCheck("bakeSale_cornBread") != false) {
-      if (taskList.bakeSale_cornBread === "ready") { startTask(oldTaskCheck("bakeSale_cornBread"), "Collect 5 Seeds", "collectTaskReward('bakeSale_cornBread', taskList.bakeSale_cornBreadNum)", "Just you wait! This bake sale is just beginning!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale.cornBread"); }
-      else { startTask(oldTaskCheck("bakeSale_cornBread"), "Submit 20 Corn", "if (produce.corn >= 20) { produce.corn -= 20; checkTasks('cornBreadPaid', 'bakeSale_cornBread'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "I have a wonderful lucrative idea! We can hold a bake sale with plenty of delicious foods! Let's start with cornbread, my personal faviorite!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_cornBread"); }
+      if (taskList.bakeSale_cornBread === "ready") { startTask(oldTaskCheck("bakeSale_cornBread"), "Collect 5 Seeds", "collectTaskReward('bakeSale_cornBread')", "Just you wait! This bake sale is just beginning!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale.cornBread"); }
+      else { startTask(oldTaskCheck("bakeSale_cornBread"), "Submit 20 Corn", "if (produce.corn >= 20) { produce.corn -= 20; checkTasks('bakeSale_cornBread'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "I have a wonderful lucrative idea! We can hold a bake sale with plenty of delicious foods! Let's start with cornbread, my personal faviorite!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_cornBread"); }
    }
    if (oldTaskCheck("bakeSale_peaSnacks") != false) {
-      if (taskList.bakeSale_peaSnacks === "ready") { startTask(oldTaskCheck("bakeSale_peaSnacks"), "Collect 10 Seeds", "collectTaskReward('bakeSale_peaSnacks', taskList.bakeSale_peaSnacksNum)", "We may not have sold much yet, but we've barely started!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale.peaSnacks"); }
-      else { startTask(oldTaskCheck("bakeSale_peaSnacks"), "Submit 60 Peas", "if (produce.peas >= 60) { produce.peas -= 60; checkTasks('peaSnacksPaid', 'bakeSale_peaSnacks'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "Next, let's make some crunchy pea snacks!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_peaSnacks"); }
+      if (taskList.bakeSale_peaSnacks === "ready") { startTask(oldTaskCheck("bakeSale_peaSnacks"), "Collect 10 Seeds", "collectTaskReward('bakeSale_peaSnacks')", "We may not have sold much yet, but we've barely started!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale.peaSnacks"); }
+      else { startTask(oldTaskCheck("bakeSale_peaSnacks"), "Submit 60 Peas", "if (produce.peas >= 60) { produce.peas -= 60; checkTasks('bakeSale_peaSnacks'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "Next, let's make some crunchy pea snacks!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_peaSnacks"); }
    }
    if (oldTaskCheck("bakeSale_strawberryJam") != false) {
-      if (taskList.bakeSale_strawberryJam === "ready") { startTask(oldTaskCheck("bakeSale_strawberryJam"), "Collect 15 Seeds", "collectTaskReward('bakeSale_strawberryJam', taskList.bakeSale_strawberryJamNum)", "Be patient, for great rewards come to those who wait!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale.strawberryJam"); }
-      else { startTask(oldTaskCheck("bakeSale_strawberryJam"), "Submit 15 Strawberries", "if (produce.strawberries >= 15) { produce.strawberries -= 15; checkTasks('strawberryJamPaid', 'bakeSale_strawberryJam'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "Do you like spreading nice, sweet, jam on toast? I sure do, and so will our customers!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_strawberryJam"); }
+      if (taskList.bakeSale_strawberryJam === "ready") { startTask(oldTaskCheck("bakeSale_strawberryJam"), "Collect 15 Seeds", "collectTaskReward('bakeSale_strawberryJam')", "Be patient, for great rewards come to those who wait!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale.strawberryJam"); }
+      else { startTask(oldTaskCheck("bakeSale_strawberryJam"), "Submit 15 Strawberries", "if (produce.strawberries >= 15) { produce.strawberries -= 15; checkTasks('bakeSale_strawberryJam'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "Do you like spreading nice, sweet, jam on toast? I sure do, and so will our customers!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_strawberryJam"); }
    }
    if (oldTaskCheck("bakeSale_pumpkinPie") != false) {
-      if (taskList.bakeSale_pumpkinPie === "ready") { startTask(oldTaskCheck("bakeSale_pumpkinPie"), "Collect 75,000 Seeds", "collectTaskReward('bakeSale_pumpkinPie', taskList.bakeSale_pumpkinPieNum)", "Ha ha! Look at that, this bake sale sure was a success! Look at these profit margins!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale.pumpkinPie"); }
-      else { startTask(oldTaskCheck("bakeSale_pumpkinPie"), "Submit 10 Pumpkins", "if (produce.pumpkins >= 10) { produce.pumpkins -= 10; checkTasks('pumpkinPiePaid', 'bakeSale_pumpkinPie'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "Not all pumpkin pies are great, but my recipe is! Let's make a few!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_pumpkinPie"); }
+      if (taskList.bakeSale_pumpkinPie === "ready") { startTask(oldTaskCheck("bakeSale_pumpkinPie"), "Collect 75,000 Seeds", "collectTaskReward('bakeSale_pumpkinPie')", "Ha ha! Look at that, this bake sale sure was a success! Look at these profit margins!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale.pumpkinPie"); }
+      else { startTask(oldTaskCheck("bakeSale_pumpkinPie"), "Submit 10 Pumpkins", "if (produce.pumpkins >= 10) { produce.pumpkins -= 10; checkTasks('bakeSale_pumpkinPie'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "Not all pumpkin pies are great, but my recipe is! Let's make a few!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_pumpkinPie"); }
    }
 }
-function checkTasks(origin, task) {
-   if (taskList[task] === "active" && origin === "producePaid") { taskList.jebsPeaSalad = "ready"; }
-   if (taskList[task] === "active" && origin === "resetMarketValues") { taskList.useMarketResets = "ready"; }
-   if (taskList[task] === "active" && origin === "fertilize") { taskList.tryFertilizer = "ready"; }
-   if (taskList[task] === "active" && origin === "jebsGrilledCornPaid") { taskList.jebsGrilledCorn = "ready"; }
-   if (taskList[task] === "active" && origin === "josephinesDandelionSaladPaid") { taskList.josephinesDandelionSalad = "ready"; }
-   if (taskList[task] === "active" && origin === "cornPlotUnlocked") { taskList.unlockThe_cornPlot = "ready"; }
-   // Bake Sale
-   if (taskList[task] === "active" && origin === "cornBreadPaid") { taskList.bakeSale_cornBread = "ready"; }
-   if (taskList[task] === "active" && origin === "peaSnacksPaid") { taskList.bakeSale_peaSnacks = "ready"; }
-   if (taskList[task] === "active" && origin === "strawberryJamPaid") { taskList.bakeSale_strawberryJam = "ready"; }
-   if (taskList[task] === "active" && origin === "pumpkinPiePaid") { taskList.bakeSale_pumpkinPie = "ready"; }
-}
-function collectTaskReward(task, num) {
+function collectTaskReward(task) {
    if (task === "jebsPeaSalad") { marketData.fertilizers += 2; }
    if (task === "useMarketResets") { marketData.seeds += 250; }
    if (task === "tryFertilizer") { marketData.marketResets += 2; }
    if (task === "jebsGrilledCorn") { marketData.marketResets += 8; }
    if (task === "josephinesDandelionSalad") { marketData.seeds += 15000; }
    if (task === "unlockThe_cornPlot") { marketData.fertilizers += 1; }
+   if (task === "seeBlackMarket") { marketData.doughnuts += 5; }
+   if (task === "tryPoliceDoughnuts") { marketData.seeds += 7500; }
    // Bake Sale
    if (task === "bakeSale_cornBread") { marketData.seeds += 5; }
    if (task === "bakeSale_peaSnacks") { marketData.seeds += 10; }
    if (task === "bakeSale_strawberryJam") { marketData.seeds += 15; }
    if (task === "bakeSale_pumpkinPie") { marketData.seeds += 75000; }
    taskList[task] = "complete";
-   clearTask(num);
+   clearTask(taskList[task + "Num"]);
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -636,7 +652,7 @@ function marketLuck() {
 }
 function blackMarketLuck() {
    rand = Math.random();
-   if (rand < 0.02) {
+   if (rand < marketData.black.catchChance) {
       callAlert("The police caught you! They fined you 6000 Seeds");
       marketData.seeds -= 6000;
    }
@@ -876,7 +892,7 @@ function resetMarketValues() {
       marketData.sellDandelion = 100000;
       marketData.buyRhubarb = 7500000;
       marketData.sellRhubarb = 7500000;
-      checkTasks("resetMarketValues", "useMarketResets");
+      checkTasks("useMarketResets");
    }
 }
 
@@ -946,31 +962,50 @@ function acceptExchange() {
 }
 
 // Black Market
-/* newBlackOffer();
 function blackMarketValues() {
-   marketData.sellerName = ["Clearly Badd", "Hereto Steale", "Heinous Krime", "Elig L. Felonie", "Sheeft E. Karacter", "Abad Deel"][Math.floor(Math.random() * 6)];
-   marketData.sellItem = ["Market Resets"][Math.floor(Math.random() * 1)];
-   // sellItem = ["Watering Cans", "Compost", "Fertilizer"] compost = extra, watering can = instant
-   marketData.sellItemQuantity = Math.floor(Math.random() * (5 - 1)) + 1;
-   marketData.seedCost = Math.floor(Math.random() * (10000 - 2000)) + 2000;
+   marketData.black.name = ["Clearly Badd", "Hereto Steale", "Heinous Krime", "Elig L. Felonie", "Sheeft E. Karacter", "Abad Deel", "Stolin Goods"][Math.floor(Math.random() * 7)];
+   marketData.black.item = ["Market Resets", "Fertilizer", "Doughnuts"][Math.floor(Math.random() * 3)];
+   marketData.black.quantity = random(1, 5);
+   if (marketData.black.item === "Market Resets") { marketData.black.worth = marketData.black.resets; }
+   if (marketData.black.item === "Fertilizer") { marketData.black.worth = marketData.black.fertilizer; }
+   if (marketData.black.item === "Doughnuts") { marketData.black.worth = marketData.black.doughnuts; }
+   marketData.black.cost = marketData.black.worth * marketData.black.quantity;
 }
-function newBlackOffer() { document.querySelector(".blackMarketOffer").textContent = `Offer by ${marketData.sellerName} \n Selling ${marketData.sellItemQuantity} ${marketData.sellItem} \n for ${marketData.seedCost} Seeds`; }
+function newBlackOffer() {
+   document.querySelector(".bmo-seller").textContent = marketData.black.name;
+   document.querySelector(".bmo-offer").textContent = marketData.black.quantity + " " + marketData.black.item;
+   document.querySelector(".bmo-price").textContent = toWord(marketData.black.cost);
+   document.querySelector(".blackMarket").style.backgroundColor = genColor();
+}
 function accept() {
-   if (marketData.seeds >= marketData.seedCost) {
-      marketData.seeds -= marketData.seedCost;
-      blackMarketLuck();
+   if (marketData.seeds >= marketData.black.cost) {
+      marketData.seeds -= marketData.black.cost;
       blackMarketValues();
+      blackMarketLuck();
       newBlackOffer();
-      if (marketData.sellItem === "Market Resets") { marketData.marketResets += marketData.sellItemQuantity; }
+      marketData.black.catchChance += .01;
+      if (marketData.black.item === "Market Resets") { marketData.marketResets += marketData.black.quantity; }
+      if (marketData.black.item === "Fertilizer") { marketData.fertilizers += marketData.black.quantity; }
+      if (marketData.black.item === "Doughnuts") { marketData.doughnuts += marketData.black.quantity; }
+      checkTasks("seeBlackMarket");
    }
    else { fadeTextAppear(event, `Not enough seeds`, false); }
 }
 function deny() {
-   blackMarketLuck();
    blackMarketValues();
+   blackMarketLuck();
    newBlackOffer();
-   document.querySelector(".blackMarketOffer").style.backgroundColor = genColor();
-} */
+   marketData.black.catchChance += .01;
+}
+function feedPolice() {
+   if (marketData.doughnuts >= 1) {
+      marketData.doughnuts -= 1;
+      marketData.black.catchChance = .02;
+      fadeTextAppear(event, `-1 Doughnut`, false);
+      checkTasks("tryPoliceDoughnuts");
+   }
+   else { fadeTextAppear(event, `Not enough doughnuts`, false); }
+}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Main Loop & Setup
@@ -995,11 +1030,14 @@ let mainLoop = window.setInterval(function() {
       document.querySelector(`.modal${veg}PriceSell`).textContent = `Sell For ${toWord(marketData[`sell${veg}`], "short")}`;
    }
    // Update produce display
+   document.querySelector(".police-chance").textContent = (marketData.black.catchChance).toFixed(2);
    document.querySelector("#seeds").textContent = `${toWord(marketData.seeds, "short")} Seeds`;
+   document.querySelector("#doughnuts").textContent = `${toWord(marketData.doughnuts, "short")} Doughnuts`;
    document.querySelector("#fertilizer").textContent = `${Math.round(marketData.fertilizers)} Fertilizers Click + Place to apply`;
    if (plots.peaplot === "unlocked") { revealProduce("#peaBushels", "peas"); }
-   if (plots.cornplot === "unlocked") { revealProduce("#cornBushels", "corn"); checkTasks("cornPlotUnlocked", "unlockThe_cornPlot"); }
-   if (plots.strawberryplot === "unlocked") { revealProduce("#strawberryBushels", "strawberries"); }
+   if (plots.cornplot === "unlocked") { revealProduce("#cornBushels", "corn"); checkTasks("unlockThe_cornPlot"); }
+   if (plots.strawberryplot === "unlocked") { revealProduce("#strawberryBushels", "strawberries");
+      document.querySelector(`.doughnutsAmount`).style.display = "block"; document.querySelector(`#doughnuts`).textContent = `${toWord(marketData.doughnuts, "short")} Doughnuts`; }
    if (plots.eggplantplot === "unlocked") { revealProduce("#eggplantBushels", "eggplants"); }
    if (plots.pumpkinplot === "unlocked") { revealProduce("#pumpkinBushels", "pumpkins"); }
    if (plots.cabbageplot === "unlocked") { revealProduce("#cabbageBushels", "cabbage"); }
@@ -1022,6 +1060,7 @@ function setup() {
    checkLocks();
    checkMarket();
    generateExchange();
+   newBlackOffer();
 }
 window.addEventListener('load', (event) => { setup(); });
 
