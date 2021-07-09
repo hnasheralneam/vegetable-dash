@@ -830,7 +830,6 @@ function intro() {
 // Market
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-// Market
 function checkMarket() {
    let marketItem = document.getElementsByClassName("market-item");
    marketItem[0].style.display = "block";
@@ -1044,6 +1043,7 @@ let mainLoop = window.setInterval(function() {
 }, 200)
 function setup() {
    if (!taskList) { taskList = initalTaskList; }
+   if (marketData.fertilizers == NaN) { marketData.fertilizers = 0; }
    whatTheme();
    checkLocks();
    checkMarket();
