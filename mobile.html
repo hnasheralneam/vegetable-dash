@@ -397,6 +397,7 @@
             <img src="Images/Global Assets/barrel.png">
             <div class="produce">
                <span id="seeds" class="tooltip-text-detailed">Tooltip text</span><br>
+               <span id="doughnuts" class="tooltip-text-detailed">Tooltip text</span><br>
                <span id="fertilizer" class="tooltip-text-detailed">Tooltip text</span><br>
                <span id="peaBushels" class="tooltip-text-detailed">Tooltip text</span><br>
                <span id="cornBushels" class="tooltip-text-detailed">Tooltip text</span><br>
@@ -413,7 +414,6 @@
       <div class="marketShadow">
          <div class="market">
             <div class="market-item">
-               <button onclick="hideObj('.marketShadow')" class="closeModal hide-market depth-button blue">X</button>
                <div class="market-item-content special-market-item">
                   Seeds: 0
                   Market Resets: 0
@@ -477,16 +477,51 @@
                   <span class="market-item-sell"  onclick="sellProduce('rhubarb', 'Rhubarb')">Sell</span>
                </div>
             </div>
-            <div class="market-item">
-               <div class="market-item-content blackMarketOffer">
-                  Black Market <br> Coming Soon!
+            <div class="market-item market-item-exchange">
+               <div class="market-item-content market-exchange">
+                  <div class="market-exchange-content">
+                     <h1 style="font-size: 4vh; position: absolute; top: 1vh; left: 0; right: 0;">Exchange Market</h1>
+                     <div class="exchange-market-item">
+                        Merchant
+                        <p class="exchange-merchant">Name Here</p>
+                     </div>
+                     <div class="exchange-market-item">
+                        Offer
+                        <p class="exchange-offer">x Veg</p>
+                     </div>
+                     <div class="exchange-market-item">
+                        Demand
+                        <p class="exchange-demand">n Veg </p>
+                     </div>
+                  </div>
                </div>
-               <!-- <div class="accept-deny">
-                  <span class="market-item-buy" onclick="accept()">Accept</span>
-                  <span class="market-item-sell"  onclick="deny()">Deny</span>
-               </div> -->
+               <div class="accept-deny">
+                  <span class="market-item-buy" onclick="acceptExchange();">Accept</span>
+                  <span class="market-item-sell" onclick="generateExchange();">Decline</span>
+               </div>
             </div>
             <div class="market-item">
+               <div class="market-item-content blackMarketHome">
+                  <div class="blackMarketOffer">
+                     <div class="bmo-text"></div>
+                  </div>
+                  <div class="accept-deny black-accept-deny">
+                     <span class="black-buy" onclick="accept()">Accept</span>
+                     <span class="black-sell" onclick="deny()">Deny</span>
+                  </div>
+               </div>
+               <img onclick="document.querySelectorAll('.market-hover')[0].style.backgroundColor = 'rgba(0, 0, 0, 0.6)'; document.querySelectorAll('.market-hover')[0].style.transform = 'translateY(0)';" class="black-doughnut" src="Images/Market/doughnut.png">
+               <div class="market-hover">
+                  <h1 onclick="document.querySelectorAll('.market-hover')[0].style.backgroundColor = 'rgba(0, 0, 0, 0.6)'; document.querySelectorAll('.market-hover')[0].style.transform = 'translateY(100%)';">Doughnuts</h1>
+                  <p onclick="document.querySelectorAll('.market-hover')[0].style.backgroundColor = 'rgba(0, 0, 0, 0.6)'; document.querySelectorAll('.market-hover')[0].style.transform = 'translateY(100%)';">Doughnuts reset the chance that the police will catch you.</p>
+                  <button onclick="feedPolice()" class="use-market-reset-button">Use</button>
+                  <div class="more-info-tooltip">
+                     <img src="Images/Global Assets/more-info.png" id="market-reset-more-info">
+                     <span class="tooltip-text">Current Chance: <span class="police-chance"></span></span>
+                  </div>
+               </div>
+            </div>
+            <div class="market-item market-item-norm">
                <div class="market-item-content reset-market-item">
                   You have 0 Market Resets
                </div>
@@ -501,6 +536,7 @@
                </div>
             </div>
             <br>
+            <button onclick="hideObj('.marketShadow')" class="closeModal hide-market depth-button blue">X</button>
          </div>
       </div>
       <!-- Settings -->
@@ -530,6 +566,8 @@
                   <div onclick="scrollToSection('help-plots')">Plots</div>
                   <div onclick="scrollToSection('help-seeds')">Seeds</div>
                   <div onclick="scrollToSection('help-market')">Market</div>
+                  <div onclick="scrollToSection('help-market-exchange')">Market Exchanges</div>
+                  <div onclick="scrollToSection('help-black-market')">Black Market</div>
                   <div onclick="scrollToSection('help-market-resets')">Market Resets</div>
                   <div onclick="scrollToSection('help-fertilizer')">Fertilizer</div>
                   <div onclick="scrollToSection('help-tasks')">Tasks</div>
@@ -566,10 +604,14 @@
                   <h1>Market</h1>
                   <p>The market is a wonderful and bustling place filled with plenty of vegetables. It can be accessed by hovering over the bar in the bottom left corner then clicking the button with a shop icon. It show how much <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span> you have in the first box. The next box has a the amount of a certain type of vegetable you have, and you can sell 5 of them for an amount of <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span> or buy 5 for some <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span>. You can reset the price values with <span onclick="scrollToSection('help-market-resets'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market-resets').addClass('help-subjects-item-active');">Market Resets</span></p>
                </div>
-               <!-- <div id="help-black-market">
+               <div id="help-market-exchange">
+                  <h1>Market Exchanges</h1>
+                  <p>To be found in the market is a place where many taders come to show their goods, the market exchanges corner. For a certiant amount of one vegetable, you can get a set amount of another, no seeds required.</p>
+               </div>
+               <div id="help-black-market">
                   <h1>Black Market</h1>
-                  <p>The black market is a wonderful and bustling place filled with plenty of illegal items. It located at an undisclosed location. For an amount of <span onclick="scrollToSection('help-seeds')">seeds</span> you can purchase illegal items such as <span onclick="scrollToSection('help-market-resets')">Market Resets</span>. But watch out! There is a 2% chance that the police will catch you and make you pay a terrible fine!</p>
-               </div> -->
+                  <p>The black market is a wonderful and bustling place filled with plenty of illegal items. It located at an undisclosed location. For an amount of <span onclick="scrollToSection('help-seeds');  $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span> you can purchase illegal items such as <span onclick="scrollToSection('help-market-resets')">Market Resets</span>. But watch out! There is a 2% chance that the police will catch you and make you pay a terrible fine! To make matter worse, when you make a trade, the chance goes up by 1%.</p>
+               </div>
                <div id="help-market-resets">
                   <h1>Market Resets</h1>
                   <p>Market resets can be found as the last item in the <span onclick="scrollToSection('help-market'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market').addClass('help-subjects-item-active');">Market</span>. By using one all of the values in the market are reset to what they began as, not the outrageous price they have become. There is a 1% chance of collecting one after each trade, and a 5% chance after each harvest. One is gained every time you unlock a plot.</p>
@@ -599,11 +641,11 @@
                   <p>Currently borne by <span onclick="scrollToSection('help-grandpa-jenkins'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-jenkins').addClass('help-subjects-item-active');">Grandpa Jenkins</span>, the Bunny Slippers are the main object of the Bunny Slippers Task List, a Task List being a collection of related tasks. It begins with <span onclick="scrollToSection('help-grandma-josephine'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-josephine').addClass('help-subjects-item-active');">Grandma Josephine</span> telling you to sell the slippers, then <span onclick="scrollToSection('help-grandpa-jenkins'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-jenkins').addClass('help-subjects-item-active');">Grandpa Jenkins</span> reveals their true value, and you must go on a long task list meeting many people who all want you to do something for them, finally ending with the retrieval of the Bunny Slippers.</p>
                </div>
                <div id="help-about-copyright">
-                  <div class="">
-
-                  </div>
-                  <h1>About & Copyright</h1>
-                  <div>This game is &copy copyrighted by Squirrel. If you want to help, email me at <a href="mailto:thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a>, or send a suggestion.
+                     <h1>About & Copyright</h1>
+                     This game is &copy copyrighted by Squirrel. If you want to help, email me at <a href="mailto:thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a>, or send a suggestion. <br>
+                     Strawberry, Eggplant, Plot, Pea and other images are courtesy of <a href="https://www.youtube.com/channel/UCW4Ba6Mu-nRZII6kg2eEGzA">Urdons</a>. <br>
+                     Favicon image is courtesy of <a href="https://github.com/PusheenMaster5">Justin</a>.
+                     <br><br>
                      <table>
                         <tr>
                            <th>Version Number</th>
@@ -612,16 +654,10 @@
                            <th>Possible Features</th>
                         </tr>
                         <tr>
-                           <td>0.1.0 (Current)</td>
-                           <td>The Miscellaneous Major Items Update</td>
-                           <td>May 25 2021</td>
-                           <td> - 3 Vegetables <br> - Weather <br> - Tasks <br> - Growing Time Remaining</td>
-                        </tr>
-                        <tr>
-                           <td>0.1.1</td>
+                           <td>0.1.1 (Current)</td>
                            <td>The Black Market Update</td>
-                           <td>June 5 2021</td>
-                           <td> - The Black Market</td>
+                           <td>July 9 2021</td>
+                           <td> - The Black Market <br> - Market Exchanges <br> - Better Market</td>
                         </tr>
                         <tr>
                            <td>0.1.2</td>
@@ -629,17 +665,30 @@
                            <td>Unknown</td>
                            <td> - Music <br> - Sound Effects <br> - All the noise you could ever want</td>
                         </tr>
-                     </table>
-                     <br><br>
-                     <a  href="https://meetsquirrel.github.io">More about Squirrel</a>
-                     <br>
-                     <a href="https://squirrel-314.github.io">Gold Rush</a>
-                     <br>
-                     <a href="https://github.com/Squirrel-314/vegetable-dash">Vegetable Dash on GitHub</a>
-                     <br>
-                     <a href="https://github.com/Squirrel-314?tab=repositories">Squirrel on GitHub</a>
-                  </div>
-                  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                        <tr>
+                           <td>0.1.3</td>
+                           <td>The Festival & Events Update</td>
+                           <td>In a long time</td>
+                           <td> - Music <br> - Sound Effects <br> - All the noise you could ever want</td>
+                        </tr>
+                        <tr>
+                           <td>0.1.4</td>
+                           <td>The Investments Update (Sponsered by Grandma Josephine)</td>
+                           <td>Much later</td>
+                           <td>I don't know yet</td>
+                        </tr>
+                        <tr>
+                           <td>0.2.0</td>
+                           <td>Vegetable World!</td>
+                           <td>Next millennia</td>
+                           <td>Keep you in suspense!</td>
+                        </tr>
+                    </table>
+                    <br><br>
+                    <a href="https://meetsquirrel.github.io">More about Squirrel</a> <br>
+                    <a href="https://squirrel-314.github.io">Gold Rush</a> <br>
+                    <a href="https://github.com/Squirrel-314/vegetable-dash">Vegetable Dash on GitHub</a> <br>
+                    <a href="https://github.com/Squirrel-314?tab=repositories">Squirrel on GitHub</a> <br>
                </div>
             </div>
          </div>
@@ -651,7 +700,7 @@
             <hr>
             <li class="menu-links"><a href="https://github.com/Squirrel-314/vegetable-dash">GitHub</a></li>
             <li><a href="mailto: thehillsidetownship@gmail.com">Support</a></li>
-            <li>Version: 0.1.0</li>
+            <li>Version: 0.1.1</li>
          </div>
       <!-- Fade text -->
       <span class="hidden"><div class="fade-text">This text is fading</div></span>

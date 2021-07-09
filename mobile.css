@@ -617,7 +617,7 @@ Market
    display: inline;
 }
 
-.market-item:hover .market-hover {
+.market-item-norm:hover .market-hover {
    background-color: rgba(0, 0, 0, 0.6);
    transform: translateY(0);
 }
@@ -639,8 +639,8 @@ Market
 .market-veg-img {
    height: 20vw;
    position: absolute;
-   top: 8vw;
-   left: 8vw;
+   top: 2vw;
+   left: 2vw;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -852,10 +852,11 @@ More Information Hover
 }
 
 .hide-market {
-   top: 0;
-   right: 0;
+   position: fixed;
+   top: 5vw;
+   right: 5vw;
    height: 18vw;
-   width: 20vw;
+   width: 18vw;
    font-size: 6vw;
    padding: 2vw;
    transition: .05s;
@@ -1057,7 +1058,7 @@ Tasks
 
 .taskContent {
    overflow: scroll;
-   height: 100vh;
+   height: 100%;
    display: none;
    position: relative;
    font-family: "Nunito";
@@ -1073,12 +1074,12 @@ Tasks
 .task-block {
    width: 90vw;
    height: 90vw;
-   margin: 2vh auto;
+   margin: 4vw auto;
    text-align: center;
    box-sizing: border-box;
    position: relative;
-   padding: 6vh 2vh;
-   font-size: 2.2vh;
+   padding: 12vw 4vw;
+   font-size: 4.4vw;
    background-image: url("Images/Tasks/sticky-note.png");
    background-size: cover;
    overflow: scroll;
@@ -1097,26 +1098,25 @@ Tasks
 }
 
 .task-info-img {
-   height: 10vh;
+   height: 20vw;
    margin: auto;
 }
 
 .task-submit-depth-button {
    position: absolute;
-   bottom: 4vh;
-   left: 2vh;
-   margin: .2vh;
-   padding: 1vh 2vh;
-   border-radius: 1vh;
-   font-size: 2vh;
+   bottom: 8vw;
+   left: 4vw;
+   margin: .4vw;
+   padding: 2vw 4vw;
+   border-radius: 2vw;
+   font-size: 4vw;
 }
 
 /*  Fade text */
 .fade-text {
-   max-width: 80vw;
+   width: 100%;
    position: fixed;
-   top: -100%;
-   right: -100%;
+   top: 10vw;
    z-index: 9999;
    pointer-events: none;
    font-family: "Nunito";
@@ -1199,3 +1199,78 @@ tr:nth-child(even) { background-color: #eee; }
    top: 39vw;
    right: 2.5vw;
 }
+
+.market-item-exchange { height: 170vw; }
+.market-exchange-content { padding-bottom: 20vw; }
+.exchange-market-item {
+   width: 100%;
+   margin: -10vw 0;
+   padding: 0 3vw;
+}
+
+.blackMarketHome {
+   background-image: url("Images/Market/black-market.png");
+   background-size: cover;
+   background-position: center;
+}
+
+.blackMarket {
+   min-height: 100%;
+   border-radius: 0;
+   margin: 0;
+   box-shadow: inset 4vw 4vw 12vw #000,
+               inset -4vw -4vw 12vw #000;
+   background-image: url("Images/Market/black-market.png");
+   background-size: cover;
+   background-position: center;
+}
+
+.black-doughnut {
+   display: flex;
+   height: 18vw;
+   position: absolute;
+   top: 2vw;
+   left: 2vw;
+}
+
+.black-accept-deny {
+   left: 0;
+   bottom: 0;
+   right: 0;
+   height: 20vw;
+   width: 100%;
+   border-radius: 0;
+   display: grid;
+   grid-template-columns: 50% 50%;
+}
+
+.black-buy {
+   background-color: #0fd20e;
+   transition: 0.2s;
+   font-size: 8vw;
+   opacity: .8;
+   padding: 5vw 0;
+}
+
+.black-sell {
+   background-color: #da2d13;
+   transition: 0.2s;
+   font-size: 8vw;
+   opacity: .8;
+   padding: 5vw 0;
+}
+
+.black-buy:hover { background-color: #02993e; opacity: 1; }
+.black-sell:hover { background-color: #911300; opacity: 1; }
+
+.blackMarketOffer {
+   position: absolute;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   background-color: #eee;
+   opacity: .8;
+   padding: 5vw;
+}
+
+.bmo-seller, .bmo-offer, .bmo-price { font-size: 24vw; }

@@ -79,6 +79,7 @@
                   <div class="modal-content modal-plot-unlocked">
                      <button onclick="infoModal('UnlockedCorn')" class="close depth-button yellow">×</button>
                      <h4>New Plot Unlocked!</h4>
+                     <p class="unlocked-text">Market Exchanges!</p>
                      <p class="unlocked-text">+1 Market Reset!</p>
                      <p class="unlocked-text">+ Corn Tasks!</p>
                      <p class="unlocked-text">+ Growing Corn!</p>
@@ -118,6 +119,7 @@
                   <div class="modal-content modal-plot-unlocked">
                      <button onclick="infoModal('UnlockedStrawberry')" class="close depth-button red">×</button>
                      <h4>New Plot Unlocked!</h4>
+                     <p class="unlocked-text">The Black Market!</p>
                      <p class="unlocked-text">+1 Market Reset!</p>
                      <p class="unlocked-text">+ Strawberry Tasks!</p>
                      <p class="unlocked-text">+ Growing Strawberries!</p>
@@ -369,14 +371,15 @@
             <img class="toolbar-img" src="Images/Global Assets/barrel.png">
             <span class="tooltip-text tooltip-text-produce">
                <span id="seeds">0</span><br>
-               <div class="vegAmount peasAmount"><span id="peaBushels">0</span><img class="produce-image" src="Images/Vegetables/pea.png"><br></div>
-               <div class="vegAmount cornAmount"><span id="cornBushels">0</span><img class="produce-image" src="Images/Vegetables/corn.png"><br></div>
-               <div class="vegAmount strawberriesAmount"><span id="strawberryBushels">0</span><img class="produce-image" src="Images/Vegetables/strawberry.png"><br></div>
-               <div class="vegAmount eggplantsAmount"><span id="eggplantBushels">0</span><img class="produce-image" src="Images/Vegetables/eggplant.png"><br></div>
-               <div class="vegAmount pumpkinsAmount"><span id="pumpkinBushels">0</span><img class="produce-image" src="Images/Vegetables/pumpkin.png"><br></div>
-               <div class="vegAmount cabbageAmount"><span id="cabbageBushels">0</span><img class="produce-image" src="Images/Vegetables/cabbage.png"><br></div>
-               <div class="vegAmount dandelionAmount"><span id="dandelionBushels">0</span><img class="produce-image" src="Images/Vegetables/dandelion.png"><br></div>
-               <div class="vegAmount rhubarbAmount"><span id="rhubarbBushels">0</span><img class="produce-image" src="Images/Vegetables/rhubarb.png"><br></div>
+               <div class="vegAmount doughnutsAmount"><span id="doughnuts">0</span> <img class="produce-image" src="Images/Market/doughnut.png"><br></div>
+               <div class="vegAmount peasAmount"><span id="peaBushels">0</span> <img class="produce-image" src="Images/Vegetables/pea.png"><br></div>
+               <div class="vegAmount cornAmount"><span id="cornBushels">0</span> <img class="produce-image" src="Images/Vegetables/corn.png"><br></div>
+               <div class="vegAmount strawberriesAmount"><span id="strawberryBushels">0</span> <img class="produce-image" src="Images/Vegetables/strawberry.png"><br></div>
+               <div class="vegAmount eggplantsAmount"><span id="eggplantBushels">0</span> <img class="produce-image" src="Images/Vegetables/eggplant.png"><br></div>
+               <div class="vegAmount pumpkinsAmount"><span id="pumpkinBushels">0</span> <img class="produce-image" src="Images/Vegetables/pumpkin.png"><br></div>
+               <div class="vegAmount cabbageAmount"><span id="cabbageBushels">0</span> <img class="produce-image" src="Images/Vegetables/cabbage.png"><br></div>
+               <div class="vegAmount dandelionAmount"><span id="dandelionBushels">0</span> <img class="produce-image" src="Images/Vegetables/dandelion.png"><br></div>
+               <div class="vegAmount rhubarbAmount"><span id="rhubarbBushels">0</span> <img class="produce-image" src="Images/Vegetables/rhubarb.png"><br></div>
             </span>
          </div>
          <div class="produce-tooltip produce-tooltip-fertilizer">
@@ -447,79 +450,95 @@
       <!-- Market -->
       <div class="marketShadow">
          <div class="market">
-            <div class="market-item">
-               <button onclick="hideObj('.marketShadow')" class="closeModal hide-market depth-button blue">X</button>
-               <div class="market-item-content special-market-item">
-                  Seeds: 0
-                  Market Resets: 0
-                  Watering Cans: 0
-                  Fertilizer: 0
+            <div class="marketVegetables">
+               <div class="market-item">
+                  <button onclick="hideObj('.marketShadow')" class="closeModal hide-market depth-button blue">X</button>
+                  <div class="market-item-content special-market-item">Seeds: 0</div>
+               </div>
+               <div class="market-item">
+                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/pea.png"><span class="peas-market-item"></span> </div>
+                  <div class="buy-sell">
+                     <span class="market-item-buy" onclick="buyProduce('peas', 'Peas')">Buy</span>
+                     <span class="market-item-sell"  onclick="sellProduce('peas', 'Peas')">Sell</span>
+                  </div>
+               </div>
+               <div class="market-item">
+                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/corn.png"><span class="corn-market-item"></span></div>
+                  <div class="buy-sell">
+                     <span class="market-item-buy" onclick="buyProduce('corn', 'Corn')">Buy</span>
+                     <span class="market-item-sell"  onclick="sellProduce('corn', 'Corn')">Sell</span>
+                  </div>
+               </div>
+               <div class="market-item">
+                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/strawberry.png"><span class="strawberries-market-item"></span></div>
+                  <div class="buy-sell">
+                     <span class="market-item-buy" onclick="buyProduce('strawberries', 'Strawberries')">Buy</span>
+                     <span class="market-item-sell"  onclick="sellProduce('strawberries', 'Strawberries')">Sell</span>
+                  </div>
+               </div>
+               <div class="market-item">
+                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/eggplant.png"><span class="eggplants-market-item"></span></div>
+                  <div class="buy-sell">
+                     <span class="market-item-buy" onclick="buyProduce('eggplants', 'Eggplants')">Buy</span>
+                     <span class="market-item-sell"  onclick="sellProduce('eggplants', 'Eggplants')">Sell</span>
+                  </div>
+               </div>
+               <div class="market-item">
+                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/pumpkin.png"><span class="pumpkins-market-item"></span></div>
+                  <div class="buy-sell">
+                     <span class="market-item-buy" onclick="buyProduce('pumpkins', 'Pumpkins')">Buy</span>
+                     <span class="market-item-sell"  onclick="sellProduce('pumpkins', 'Pumpkins')">Sell</span>
+                  </div>
+               </div>
+               <div class="market-item">
+                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/cabbage.png"><span class="cabbage-market-item"></span></div>
+                  <div class="buy-sell">
+                     <span class="market-item-buy" onclick="buyProduce('cabbage', 'Cabbage')">Buy</span>
+                     <span class="market-item-sell"  onclick="sellProduce('cabbage', 'Cabbage')">Sell</span>
+                  </div>
+               </div>
+               <div class="market-item">
+                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/dandelion.png"><span class="dandelion-market-item"></span></div>
+                  <div class="buy-sell">
+                     <span class="market-item-buy" onclick="buyProduce('dandelion', 'Dandelion')">Buy</span>
+                     <span class="market-item-sell"  onclick="sellProduce('dandelion', 'Dandelion')">Sell</span>
+                  </div>
+               </div>
+               <div class="market-item">
+                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/rhubarb.png"><span class="rhubarb-market-item"></span></div>
+                  <div class="buy-sell">
+                     <span class="market-item-buy" onclick="buyProduce('rhubarb', 'Rhubarb')">Buy</span>
+                     <span class="market-item-sell"  onclick="sellProduce('rhubarb', 'Rhubarb')">Sell</span>
+                  </div>
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/pea.png"><span class="peas-market-item"></span> </div>
-               <div class="buy-sell">
-                  <span class="market-item-buy" onclick="buyProduce('peas', 'Peas')">Buy</span>
-                  <span class="market-item-sell"  onclick="sellProduce('peas', 'Peas')">Sell</span>
+               <div class="market-item-content market-exchange">
+                  <div class="market-exchange-content">
+                     <h1 style="font-size: 4vh; position: absolute; top: 1vh; left: 0; right: 0;">Exchange Market</h1>
+                     <div class="exchange-market-item">
+                        Merchant
+                        <p class="exchange-merchant">Name Here</p>
+                     </div>
+                     <div class="exchange-market-item">
+                        Offer
+                        <p class="exchange-offer">x Veg</p>
+                     </div>
+                     <div class="exchange-market-item">
+                        Demand
+                        <p class="exchange-demand">n Veg </p>
+                     </div>
+                  </div>
+               </div>
+               <div class="accept-deny">
+                  <span class="market-item-buy" onclick="acceptExchange();">Accept</span>
+                  <span class="market-item-sell" onclick="generateExchange();">Decline</span>
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/corn.png"><span class="corn-market-item"></span></div>
-               <div class="buy-sell">
-                  <span class="market-item-buy" onclick="buyProduce('corn', 'Corn')">Buy</span>
-                  <span class="market-item-sell"  onclick="sellProduce('corn', 'Corn')">Sell</span>
+               <div class="market-item-content blackMarketHome" onclick="showObj('.blackMarketShadow')">
+                  <span style="font-size: 10vh; font-weight: 800; font-family: 'Nunito'">Black Market</span>
                </div>
-            </div>
-            <div class="market-item">
-               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/strawberry.png"><span class="strawberries-market-item"></span></div>
-               <div class="buy-sell">
-                  <span class="market-item-buy" onclick="buyProduce('strawberries', 'Strawberries')">Buy</span>
-                  <span class="market-item-sell"  onclick="sellProduce('strawberries', 'Strawberries')">Sell</span>
-               </div>
-            </div>
-            <div class="market-item">
-               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/eggplant.png"><span class="eggplants-market-item"></span></div>
-               <div class="buy-sell">
-                  <span class="market-item-buy" onclick="buyProduce('eggplants', 'Eggplants')">Buy</span>
-                  <span class="market-item-sell"  onclick="sellProduce('eggplants', 'Eggplants')">Sell</span>
-               </div>
-            </div>
-            <div class="market-item">
-               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/pumpkin.png"><span class="pumpkins-market-item"></span></div>
-               <div class="buy-sell">
-                  <span class="market-item-buy" onclick="buyProduce('pumpkins', 'Pumpkins')">Buy</span>
-                  <span class="market-item-sell"  onclick="sellProduce('pumpkins', 'Pumpkins')">Sell</span>
-               </div>
-            </div>
-            <div class="market-item">
-               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/cabbage.png"><span class="cabbage-market-item"></span></div>
-               <div class="buy-sell">
-                  <span class="market-item-buy" onclick="buyProduce('cabbage', 'Cabbage')">Buy</span>
-                  <span class="market-item-sell"  onclick="sellProduce('cabbage', 'Cabbage')">Sell</span>
-               </div>
-            </div>
-            <div class="market-item">
-               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/dandelion.png"><span class="dandelion-market-item"></span></div>
-               <div class="buy-sell">
-                  <span class="market-item-buy" onclick="buyProduce('dandelion', 'Dandelion')">Buy</span>
-                  <span class="market-item-sell"  onclick="sellProduce('dandelion', 'Dandelion')">Sell</span>
-               </div>
-            </div>
-            <div class="market-item">
-               <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/rhubarb.png"><span class="rhubarb-market-item"></span></div>
-               <div class="buy-sell">
-                  <span class="market-item-buy" onclick="buyProduce('rhubarb', 'Rhubarb')">Buy</span>
-                  <span class="market-item-sell"  onclick="sellProduce('rhubarb', 'Rhubarb')">Sell</span>
-               </div>
-            </div>
-            <div class="market-item">
-               <div class="market-item-content blackMarketOffer">
-                  Black Market <br> Coming Soon!
-               </div>
-               <!-- <div class="accept-deny">
-                  <span class="market-item-buy" onclick="accept()">Accept</span>
-                  <span class="market-item-sell"  onclick="deny()">Deny</span>
-               </div> -->
             </div>
             <div class="market-item">
                <div class="market-item-content reset-market-item">
@@ -551,6 +570,28 @@
             <audio class="mozart" src="Audio/mozart.mp3"></audio>
          </div>
       </div>
+      <!-- Black Market -->
+      <div class="shadow blackMarketShadow">
+         <div class="modalContent blackMarket">
+            <span onclick="hideObj('.blackMarketShadow')" class="closeModal">X</span>
+            <h3>Black Market</h3>
+            <div class="doughnut-parent">
+               <div class="more-info-tooltip more-info-tooltip-black">
+                  <img onclick="feedPolice();" class="black-doughnut" src="Images/Market/doughnut.png">
+                  <span class="tooltip-text">Doughnuts reset the chance that the police will catch you. Current Chance: <span class="police-chance"></span></span>
+               </div>
+            </div>
+            <div class="blackMarketOffer">
+               <div>Offer by <br> <span class="bmo-seller"></span></div>
+               <div>Selling <br> <span class="bmo-offer"></span></div>
+               <div>For <br> <span class="bmo-price"></span></div>
+            </div>
+            <div class="accept-deny black-accept-deny">
+               <span class="market-item-buy black-buy" onclick="accept()">Accept</span>
+               <span class="market-item-sell black-sell" onclick="deny()">Deny</span>
+            </div>
+         </div>
+      </div>
       <!-- Other -->
       <div>
          <!-- Help -->
@@ -565,7 +606,8 @@
                   <div class="help-subjects-item help-subjects-item-plots" onclick="scrollToSection('help-plots')">Plots</div>
                   <div class="help-subjects-item help-subjects-item-seeds" onclick="scrollToSection('help-seeds')">Seeds</div>
                   <div class="help-subjects-item help-subjects-item-market" onclick="scrollToSection('help-market')">Market</div>
-                  <!-- <div class="help-subjects-item" onclick="scrollToSection('help-black-market')">Black Market</div> -->
+                  <div class="help-subjects-item help-subjects-item-market-exchanges" onclick="scrollToSection('help-market-exchanges')">Market Exchanges</div>
+                  <div class="help-subjects-item" onclick="scrollToSection('help-black-market')">Black Market</div>
                   <div class="help-subjects-item help-subjects-item-market-resets" onclick="scrollToSection('help-market-resets')">Market Resets</div>
                   <div class="help-subjects-item help-subjects-item-fertilizer" onclick="scrollToSection('help-fertilizer')">Fertilizer</div>
                   <div class="help-subjects-item help-subjects-item-tasks" onclick="scrollToSection('help-tasks')">Tasks</div>
@@ -605,13 +647,18 @@
                   </div>
                   <div id="help-market">
                      <h1>Market</h1>
-                     <p>The market is a wonderful and bustling place filled with plenty of vegetables. It can be accessed by hovering over the bar in the bottom left corner then clicking the button with a shop icon. It show how much <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span> you have in the first box. The next box has a the amount of a certain type of vegetable you have, and you can sell 5 of them for an amount of <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span> or buy 5 for some <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span>. You can reset the price values with <span onclick="scrollToSection('help-market-resets'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market-resets').addClass('help-subjects-item-active');">Market Resets</span></p>
+                     <p>The market is a wonderful and bustling place filled with plenty of vegetables. It can be accessed by hovering over the bar in the bottom left corner then clicking the button with a shop icon. It show how much <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span> you have in the first box. The next box has a the amount of a certain type of vegetable you have, and you can sell 5 of them for an amount of <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span> or buy 5 for some <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span>. You can reset the price values with <span onclick="scrollToSection('help-market-resets'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market-resets').addClass('help-subjects-item-active');">Market Resets</span>. Holding Shift multiplies you order by 5, while holding Ctrl multiplies it tenfold.</p>
                      <img src="Images/Help/market.png" style="height: 45vh">
                   </div>
-                  <!-- <div id="help-black-market">
+                  <div id="help-market-exchanges">
+                     <h1>Market Exchanges</h1>
+                     <p>To be found in the market is a place where many taders come to show their goods, the market exchanges corner. For a certiant amount of one vegetable, you can get a set amount of another, no seeds required.</p>
+                     <img src="Images/Help/market-exchanges.png" style="height: 26vh">
+                  </div>
+                  <div id="help-black-market">
                      <h1>Black Market</h1>
-                     <p>The black market is a wonderful and bustling place filled with plenty of illegal items. It located at an undisclosed location. For an amount of <span onclick="scrollToSection('help-seeds')">seeds</span> you can purchase illegal items such as <span onclick="scrollToSection('help-market-resets')">Market Resets</span>. But watch out! There is a 2% chance that the police will catch you and make you pay a terrible fine!</p>
-                  </div> -->
+                     <p>The black market is a wonderful and bustling place filled with plenty of illegal items. It located at an undisclosed location. For an amount of <span onclick="scrollToSection('help-seeds')">seeds</span> you can purchase illegal items such as <span onclick="scrollToSection('help-market-resets')">Market Resets</span>. But watch out! There is a 2% chance that the police will catch you and make you pay a terrible fine! To make matter worse, when you make a trade, the chance goes up by 1%.</p>
+                  </div>
                   <div id="help-market-resets">
                      <h1>Market Resets</h1>
                      <p>Market resets can be found as the last item in the <span onclick="scrollToSection('help-market'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market').addClass('help-subjects-item-active');">Market</span>. By using one all of the values in the market are reset to what they began as, not the outrageous price they have become. There is a 1% chance of collecting one after each trade, and a 5% chance after each harvest. One is gained every time you unlock a plot.</p>
@@ -644,7 +691,7 @@
                   <div id="help-farmer-jebediah">
                      <h1>Farmer Jebediah</h1>
                      <p>Previous owner of the farm, you closest adviser. He gives many important <span onclick="scrollToSection('help-tasks'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-tasks').addClass('help-subjects-item-active');">Tasks</span>.</p>
-                     <img src="Images/Help/farmer.png" style="height: 50vh">
+                     <img src="Images/Tasks/farmer.png" style="height: 50vh">
                   </div>
                   <div id="help-grandpa-jenkins">
                      <h1>Grandpa Jenkins</h1>
@@ -654,7 +701,7 @@
                   <div id="help-grandma-josephine">
                      <h1>Grandma Josephine</h1>
                      <p>Your personal economic adviser, and giver of <span onclick="scrollToSection('help-tasks'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-tasks').addClass('help-subjects-item-active');">Tasks</span>.</p>
-                     <img src="Images/Help/granny.png" style="height: 50vh">
+                     <img src="Images/Tasks/granny.png" style="height: 50vh">
                   </div>
                   <div id="help-plant-times">
                      <h1>Plant Times</h1>
@@ -697,22 +744,34 @@
                               <th>Possible Features</th>
                            </tr>
                            <tr>
-                              <td>0.1.0 (Current)</td>
-                              <td>The Weather Update</td>
-                              <td>July 5 2021</td>
-                              <td> - More Plots <br> - Weather <br> - Additional Tasks <br> - Growing Time Remaining</td>
-                           </tr>
-                           <tr>
-                              <td>0.1.1</td>
+                              <td>0.1.1 (Current)</td>
                               <td>The Black Market Update</td>
-                              <td>July 25 2021</td>
-                              <td> - The Black Market - Market Exchanges</td>
+                              <td>July 9 2021</td>
+                              <td> - The Black Market <br> - Market Exchanges <br> - Better Market</td>
                            </tr>
                            <tr>
                               <td>0.1.2</td>
                               <td>The Sound Update</td>
                               <td>Unknown</td>
                               <td> - Music <br> - Sound Effects <br> - All the noise you could ever want</td>
+                           </tr>
+                           <tr>
+                              <td>0.1.3</td>
+                              <td>The Festival & Events Update</td>
+                              <td>In a long time</td>
+                              <td> - Music <br> - Sound Effects <br> - All the noise you could ever want</td>
+                           </tr>
+                           <tr>
+                              <td>0.1.4</td>
+                              <td>The Investments Update (Sponsered by Grandma Josephine)</td>
+                              <td>Much later</td>
+                              <td>I don't know yet</td>
+                           </tr>
+                           <tr>
+                              <td>0.2.0</td>
+                              <td>Vegetable World!</td>
+                              <td>Next millennia</td>
+                              <td>Keep you in suspense!</td>
                            </tr>
                        </table>
                        <br><br>
@@ -730,9 +789,7 @@
             <h6 class="weather-name">Partly <br> Somthing</h6>
             <p class="weather-description">Effects: Adverse/Positive <br> Benifits/Disadvantages:</p>
          </div>
-      </div>
-      <!-- Various -->
-      <div>
+         <!-- Various -->
          <div class="introDarkShadow">
             <div class="intro-container">
                <img class="intro-img" src="Images/Tasks/farmer.png">
@@ -744,7 +801,6 @@
          <div class="welcome">
             <div class="welcome-content">
                <h1>Welcome to Vegetable Dash!</h1>
-               <h2>An intense experience, with everything a totally awesome game needs, from farmers and crop failures, to soil and vegetables!</h2>
                <button onclick="goIntro()" type="button" name="button">Take a quick tour</button>
                <button onclick="hideObj('.welcome')" type="button" name="button">Start straight away</button>
 
@@ -758,7 +814,7 @@
             <hr>
             <li class="menu-links"><a href="https://github.com/Squirrel-314/vegetable-dash">GitHub</a></li>
             <li><a href="mailto: thehillsidetownship@gmail.com">Support</a></li>
-            <li>Version: 0.1.0</li>
+            <li>Version: 0.1.1</li>
          </div>
          <div class="alert">Game Saved!</div>
          <span class="hidden"><div class="fade-text">This text is fading</div></span>
