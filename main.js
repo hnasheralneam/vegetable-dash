@@ -16,18 +16,6 @@ Commands           | Commands to open panels, right click menu
 Active Cursors     | Cursors you can enable to do things
 Settings           | Update Sidebar
 Save               | Save the game data, restart
-
-// Mobile
-~ update copyright
-~ market exchanges
-~ black market panel
-~ black market help
-~ exchanges help
-~ doughnut display
-~ black market exchanges increase chance of being caught by 1%
-~ doughnuts task
-~ black market task
-
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Game Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
