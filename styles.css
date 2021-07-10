@@ -72,26 +72,24 @@ Welcome!
    top: 0;
    width: 100%;
    height: 100%;
-   background-color: rgb(0, 0, 0, .5);
-   display: flex;
-   justify-content: center;
-   align-items: center;
    transition: 2s;
+   box-shadow: inset 0 -5vh 30vh 10vh #000;
+   backdrop-filter: sepia(.8);
+   font-family: "Nunito";
+   color: #fff;
 }
 
 .welcome-content {
-   background-color: #f5f5f5;
-   width: 80%;
-   height: 75%;
-   padding: 5vh;
+   width: 100%;
+   height: 100%;
    border-radius: 5vh;
-   font-family: "Roboto Condensed";
    text-align: center;
 }
 
 .welcome-content h1 {
-   font-size: 10vh;
-   margin: 2vh;
+   font-size: 8vh;
+   margin: 8vh 2vh 2vh 2vh;
+   font-weight: 400;
 }
 
 .welcome-content h2 {
@@ -100,20 +98,68 @@ Welcome!
    margin: 0 20vh;
 }
 
-.welcome-content button {
+.welcome-btn-one, .welcome-btn-two {
    text-transform: uppercase;
-   margin: 5vh;
-   padding: 5vh 8vh;
+   height: 100vh;
+   width: 50vh;
    transition: .5s;
+   border: none;
+   top: 0;
+   bottom: 0;
+   position: absolute;
+   padding: 6vh;
+   font-size: 3vh;
+   color: #eee;
 }
 
-.welcome-content button:hover {
-   box-shadow: 0 0 2vh #262626;
-   border-radius: 2vh;
+.welcome-btn-one {
+   left: 0;
+   background-color: rgb(86, 12, 99, .5);
+   clip-path: circle(50% at 0% 50%);
+   text-align: left;
+
+}
+
+.welcome-btn-two {
+   right: 0;
+   background-color: rgb(57, 217, 118, .5);
+   clip-path: circle(50% at 100% 50%);
+   text-align: right;
+}
+
+.welcome-btn-one:hover {
+   background-color: rgb(86, 12, 99, .8);
+   font-size: 6vh;
+   color: #fff;
    border: none;
 }
 
-.welcome-content p { font-size: 3vh }
+.welcome-btn-two:hover {
+   background-color: rgb(57, 217, 118, .8);
+   font-size: 6vh;
+   color: #fff;
+   border: none;
+}
+
+.welcome-content div {
+   position: absolute;
+   bottom: 2vh;
+   font-size: 3vh;
+}
+
+.welcome-content a { color: #3aade8; }
+
+.wlcm-choice {
+   font-size: 4vh;
+   width: 40vh;
+   margin: 6vh auto;
+   background-color: rgba(150, 138, 80, 0.5);
+   box-shadow: 0 0 5vh rgba(150, 138, 80);
+   border-radius: 5vh;
+   transition: .2s;
+}
+
+.wlcm-choice:hover { transform: scale(1.05); }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Farmland
