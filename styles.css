@@ -25,11 +25,9 @@ button {
    cursor: inherit;
    transition: transform 150ms ease;
 }
-
 button:focus { outline: none; }
 button:active { transform: scale(0.99); }
 summary:focus { outline: none; }
-
 
 .depth-button {
    outline: none;
@@ -41,7 +39,6 @@ summary:focus { outline: none; }
    font-size: 5vh;
    transition: .15s;
 }
-
 .depth-button:active {
    outline: none;
    transform: translateY(1vh);
@@ -78,26 +75,22 @@ Welcome!
    font-family: "Nunito";
    color: #fff;
 }
-
 .welcome-content {
    width: 100%;
    height: 100%;
    border-radius: 5vh;
    text-align: center;
 }
-
 .welcome-content h1 {
    font-size: 8vh;
    margin: 8vh 2vh 2vh 2vh;
    font-weight: 400;
 }
-
 .welcome-content h2 {
    font-size: 6vh;
    font-weight: 200;
    margin: 0 20vh;
 }
-
 .welcome-btn-one, .welcome-btn-two {
    text-transform: uppercase;
    height: 100vh;
@@ -111,7 +104,6 @@ Welcome!
    font-size: 3vh;
    color: #eee;
 }
-
 .welcome-btn-one {
    left: 0;
    background-color: rgb(86, 12, 99, .5);
@@ -119,36 +111,30 @@ Welcome!
    text-align: left;
 
 }
-
 .welcome-btn-two {
    right: 0;
    background-color: rgb(57, 217, 118, .5);
    clip-path: circle(50% at 100% 50%);
    text-align: right;
 }
-
 .welcome-btn-one:hover {
    background-color: rgb(86, 12, 99, .8);
    font-size: 6vh;
    color: #fff;
    border: none;
 }
-
 .welcome-btn-two:hover {
    background-color: rgb(57, 217, 118, .8);
    font-size: 6vh;
    color: #fff;
    border: none;
 }
-
 .welcome-content div {
    position: absolute;
    bottom: 2vh;
    font-size: 3vh;
 }
-
 .welcome-content a { color: #3aade8; }
-
 .wlcm-choice {
    font-size: 4vh;
    width: 40vh;
@@ -158,11 +144,10 @@ Welcome!
    border-radius: 5vh;
    transition: .2s;
 }
-
 .wlcm-choice:hover { transform: scale(1.05); }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Farmland
+Farmland & Plots
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .land {
@@ -179,8 +164,6 @@ Farmland
    "auto auto auto"
    "auto auto auto";
 }
-
-/* Plots */
 .plot {
    background-image: url("Images/Plots/plot.png");
    background-size: cover;
@@ -195,26 +178,58 @@ Farmland
    min-height: 14vw;
    min-width: 14vw;
 }
-
 .open-plot { display: none; }
 
-.ahh-perspective {
-   perspective: 100vh;
-   width: 100%;
-   height: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
+/* Buttons */
+.plot .btn {
+   font-size: 3vh;
+   height: 10vh;
+   width: 25vh;
+   transition: .2s;
+   border-radius: 1vh;
+   border: solid .4vh rgb(0, 0, 0, .2);
+   background-color: #ffd700;
+   font-family: "Roboto Condensed";
+   padding: 0;
+   color: #343cb9;
+   font-weight: 600;
+   pointer-events: auto;
+   opacity: 1;
+}
+.plot .btn:hover {
+   transform: translateY(-1vh) scale(1.05);
+   box-shadow: 0 1.5vh 2vh #262626;
+   animation: bob 1.8s infinite;
+   animation-delay: .5s;
+}
+.veg-icon {
+   height: 8vh;
+   position: absolute;
+   top: .5vh;
+   left: .5vh;
+}
+.purchase-plot {
+   padding: 2vh;
+   margin: 0;
+   background-color: #272727;
+   border: solid .4vh #808080;
+   border-radius: .4vh;
+   color: #fff;
+   transition: 0.5s;
+}
+.purchase-plot:hover { box-shadow: 0 0 2vh #f5f5f5; }
+@keyframes bob {
+   0% { transform: translateY(-1vh) scale(1.05); box-shadow: 0 1.5vh 2vh #262626; }
+   50% { transform: translateY(.4px) scale(1.05); box-shadow: 0 .8vh 2vh #262626; }
+   100% { transform: translateY(-5px) scale(1.05); box-shadow: 0 1.5vh 2vh #262626; }
 }
 
 /* Locks */
 .locked { height: 18vh; }
-
 .lock-tooltip {
    position: relative;
    font-family: "Nunito", sans-serif;
 }
-
 .lock-tooltip .tooltiptext::after {
    content: "";
    position: absolute;
@@ -225,7 +240,6 @@ Farmland
    border-style: outset;
    border-color: transparent lightblue transparent transparent;
 }
-
 .lock-tooltip .tooltiptext {
    padding: 20vh 5vh;
    background-color: #606060;
@@ -245,12 +259,10 @@ Farmland
    transition: .5s;
    transition-delay: 0.4s;
 }
-
 .lock-tooltip:hover .tooltiptext {
    opacity: 1;
    pointer-events: auto;
 }
-
 .removing-lock { animation: open-lock 2.5s forwards; }
 @keyframes open-lock {
    0% { content: url("Images/Lock/lock.png"); }
@@ -258,105 +270,11 @@ Farmland
    100% { content: url("Images/Lock/open-lock.png"); }
 }
 
-/* Buttons */
-.ahh-perspective .grow {
-   height: 10vh;
-   width: 25vh;
-   font-size: 3vh;
-   position: absolute;
-   pointer-events: auto;
-   opacity: 1;
-}
-
-.ahh-perspective .harvest {
-   height: 10vh;
-   width: 25vh;
-   font-size: 3vh;
-   pointer-events: none;
-   opacity: 0;
-}
-
-.ahh-perspective button {
-   transition: .2s;
-   border-radius: 1vh;
-   border: solid .4vh rgb(0, 0, 0, .2);
-   background-color: #ffd700;
-   font-family: "Roboto Condensed";
-   padding: 0;
-   color: #343cb9;
-   font-weight: 600;
-   /* text-shadow: 0 0 .1vh #800080,
-                0 2vh 2vh #fff; */
-}
-
-.ahh-perspective button:hover {
-   transform: translateY(-1vh) scale(1.05);
-   box-shadow: 0 1.5vh 2vh #262626;
-   animation: bob 1.8s infinite;
-   animation-delay: .5s;
-}
-
-@keyframes bob {
-   0% {
-      transform: translateY(-1vh) scale(1.05);
-      box-shadow: 0 1.5vh 2vh #262626;
-   }
-   50% {
-      transform: translateY(.4px) scale(1.05);
-      box-shadow: 0 .8vh 2vh #262626;
-   }
-   100% {
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 1.5vh 2vh #262626;
-   }
-}
-
-/* .ahh-perspective button {
-   transition: .2s;
-   border-radius: 1vh;
-   border: solid .4vh rgb(0, 0, 0, .2);
-   background-color: #ffd700;
-   padding: 0;
-   color: #800080;
-   text-shadow: 0 0 .1vh #800080,
-                0 2vh 2vh #fff;
-}
-
-.ahh-perspective button:hover {
-   transform: rotateX(25deg) scale(1.05);
-   box-shadow: 0 .5vh .05vh rgb(0, 0, 0, .6);
-   text-shadow: 0 0 #800080,
-                0 .2vh .02vh rgb(0, 0, 0, .6);
-} */
-
-.purchase-plot {
-   padding: 2vh;
-   margin: 0;
-   background-color: #272727;
-   border: solid .4vh #808080;
-   border-radius: .4vh;
-   color: #fff;
-   transition: 0.5s;
-}
-
-.purchase-plot:hover { box-shadow: 0 0 2vh #f5f5f5; }
-
-/* Button Images */
-.sickle, .seed-packet {
-   height: 4vh;
-   margin: 0 0 -.8vh .8vh;
-}
-.veg-icon {
-   height: 8vh;
-   position: absolute;
-   top: .5vh;
-   left: .5vh;
-}
-
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Vegetable Info Modal
+Modals
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+/* Vegetable Info Modal */
 .veg-info {
    pointer-events: none;
    opacity: 0;
@@ -370,17 +288,14 @@ Vegetable Info Modal
    background-color: rgba(0, 0, 0, 0.7);
    transition: .6s;
 }
-
 .modal-content h4 {
    font-size: 12vh;
    margin: 1vh;
 }
-
 .info-icon {
    height: 12vh;
    margin: 0 0 -2vh 0;
 }
-
 .modal-content {
    width: 90vw;
    height: 90vh;
@@ -395,7 +310,6 @@ Vegetable Info Modal
    box-sizing: border-box;
    overflow: scroll;
 }
-
 .close {
    float: right;
    height: 8vh;
@@ -405,8 +319,65 @@ Vegetable Info Modal
    width: 8vh;
    transition: 0.2s;
 }
-
 .close:hover { transform: scale(1.05); }
+.modal-market-prices {
+   position: fixed;
+   right: 0;
+   bottom: -4vh;
+   left: 0;
+   height: 18vh;
+   margin: 9vh 5vw;
+   border-top: solid 2vh #eee;
+   border-radius: 0 0 5vh 5vh;
+   display: grid;
+   grid-template-columns: 50% 50%;
+   background-color: #fff;
+}
+.modal-market-prices div:first-child { border-right: solid .5vh #8f8f8f; }
+.modal-market-prices div {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-size: 8vh;
+   color: #9f9f9f;
+}
+
+/* Default Modal */
+.shadow {
+   opacity: 0;
+   pointer-events: none;
+   position: fixed;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(25, 0, 0, 0.8);
+   backdrop-filter: blur(5px);
+   overflow: scroll;
+   transition: 0.8s;
+   box-sizing: border-box;
+}
+.modalContent {
+   min-height: 90%;
+   border-radius: 2vh;
+   margin: 5vh;
+   padding: 8vh 0;
+   background-color: #f5f5f5;
+   text-align: center;
+   font-size: 8vh;
+   font-family: "Nunito";
+   transition: 0.8s;
+   position: relative;
+   box-sizing: border-box;
+}
+.closeModal {
+   position: absolute;
+   top: 3vh;
+   right: 5vh;
+   transition: .5s;
+   cursor: pointer;
+}
+.closeModal:hover { text-shadow: 0 0 .5vh #444; }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Right Click Menu
@@ -424,30 +395,26 @@ Right Click Menu
    border-radius: 1vh;
    box-shadow: 0 0 1vh #f5f5f5;
 }
-
 #menu li {
    list-style-type: none;
    padding: 2vh 5vh;
    transition: .2s;
 }
-
 #menu a {
    color: #54abd3;
 }
-
 #menu li:hover {
    text-shadow: 0 .04vh .04vh #262626;
    background-color: #fafafa;
    border-radius: .5vh;
 }
-
 #menu hr {
    border: .25vh solid #ebebeb;
    border-bottom: 0;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Introduction
+Tour
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .introDarkShadow {
@@ -461,7 +428,6 @@ Introduction
    background-color: rgba(25, 0, 0, 0.8);
    transition: 2.5s;
 }
-
 .intro-container {
    position: fixed;
    bottom: 2vh;
@@ -476,26 +442,22 @@ Introduction
    grid-template-columns: auto auto auto auto;
    transition: 2.5s;
 }
-
 .intro-img {
    height: 25vh;
    margin: 1.5vh;
    transition: .5s;
 }
-
 .intro-divide {
    height: 25vh;
    width: 5vh;
    margin: 1.5vh;
    transition: .5s;
 }
-
 .intro-text {
    font-size: 2.5vw;
    margin: 1.5vh;
    transition: .5s;
 }
-
 .intro-nxt-btn {
    margin-top: 16vh;
    margin-right: 5vh;
@@ -510,24 +472,20 @@ Introduction
    border-radius: 25vh;
    transition: .5s;
 }
-
 .intro-nxt-btn:hover {
    box-shadow: 0 0 3vh #262626,
                inset 1vh 0 4vh .8vh rgba(255, 255, 255, 0.5);
 }
-
 .quest-arrow {
    height: 40vh;
    z-index: 1;
    animation: quest-arrow-nudge 3s infinite;
    display: none;
 }
-
 .plant-quest-arrow {
    position: absolute;
    right: -135%;
 }
-
 @keyframes quest-arrow-nudge {
    0% { margin-right: 0; }
    20% { margin-right: -8px; }
@@ -538,7 +496,7 @@ Introduction
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Market
+Market & Black Market
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .marketShadow {
@@ -554,7 +512,6 @@ Market
    backdrop-filter: blur(.5vh);
    transition: 0.8s;
 }
-
 .market {
    position: absolute;
    top: 2.5vh;
@@ -571,12 +528,10 @@ Market
    overflow: scroll;
    transition: 0.8s;
 }
-
 .marketVegetables {
    display: grid;
    grid-template-columns: 33.33333% 33.33333% 33.33333%;
 }
-
 .market-item {
    display: none;
    height: 45vh;
@@ -591,7 +546,6 @@ Market
    position: relative;
    overflow: hidden;
 }
-
 .market-item-content {
    height: 100%;
    display: flex;
@@ -600,7 +554,6 @@ Market
    white-space: pre-line;
    transition: 0.2s;
 }
-
 .buy-sell {
    position: absolute;
    left: 35%;
@@ -621,9 +574,7 @@ Market
    overflow: hidden;
    transition: 0.2s;
 }
-
 .buy-sell:hover { box-shadow: 0 0 .5vh #262626; }
-
 .market-item-buy {
    position: absolute;
    left: 0;
@@ -634,7 +585,6 @@ Market
    transition: 0.2s;
    font-size: 4vh;
 }
-
 .market-item-sell {
    float: bottom;
    position: absolute;
@@ -645,27 +595,13 @@ Market
    transition: 0.2s;
    font-size: 4vh;
 }
-
 .market-item-buy:hover { background-color: #f96bdf; }
 .market-item-sell:hover { background-color: #4f94fa; }
-
 .market-item:hover {
    opacity: 0.98;
    box-shadow: 0 0 5vh #262626,
                inset 0 0 1vh #262626;
 }
-
-.market-item:nth-child(1) { background-color: #ddddb9; }
-.market-item:nth-child(2) { background-color: #ffcc00; }
-.market-item:nth-child(3) { background-color: #1f7880; }
-.market-item:nth-child(4) { background-color: #f0e0e0; }
-.market-item:nth-child(5) { background-color: #84f09e; }
-.market-item:nth-child(6) { background-color: #b388c6; }
-.market-item:nth-child(7) { background-color: #613f2a; }
-.market-item:nth-child(8) { background-color: #d96072; }
-.market-item:nth-child(9) { background-color: #b1078e; }
-
-/* Hover */
 .market-hover {
    position: absolute;
    top: 0;
@@ -681,23 +617,19 @@ Market
    transition: all 0.5s;
    transform: translateY(100%);
 }
-
 .market-hover h1 {
    text-transform: uppercase;
    font-size: 8vh;
 }
-
 .market-hover p {
    font-size: 4vh;
    padding: 0 6vh;
    display: inline;
 }
-
 .market-item:hover .market-hover {
    background-color: rgba(0, 0, 0, 0.6);
    transform: translateY(0);
 }
-
 .use-market-reset-button {
    padding: 2vh;
    font-size: 3vh;
@@ -711,55 +643,158 @@ Market
    bottom: 4vh;
    right: 4vh;
 }
-
 .market-veg-img {
    height: 10vh;
    position: absolute;
    top: 4vh;
    left: 4vh;
 }
-
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Basic Modal
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-.shadow {
+.more-info-tooltip {
+   position: absolute;
+   right: 15vh;
+   bottom: 2.5vh;
+}
+.more-info-tooltip img { height: 11vh; }
+.more-info-tooltip .tooltip-text {
+   position: absolute;
    opacity: 0;
    pointer-events: none;
-   position: fixed;
-   left: 0;
-   top: 0;
-   width: 100%;
-   height: 100%;
-   background-color: rgba(25, 0, 0, 0.8);
-   backdrop-filter: blur(5px);
-   overflow: scroll;
-   transition: 0.8s;
-   box-sizing: border-box;
-}
-
-.modalContent {
-   min-height: 90%;
-   border-radius: 2vh;
-   margin: 5vh;
-   padding: 8vh 0;
-   background-color: #f5f5f5;
+   min-height: 10vh;
+   width: 300%;
+   background-color: #eee;
    text-align: center;
-   font-size: 8vh;
-   font-family: "Nunito";
-   transition: 0.8s;
-   position: relative;
+   border-radius: 2vh;
    box-sizing: border-box;
+   padding: 1vh;
+   box-shadow: 0 0 2vh #ddd;
+   font-size: 3vh;
+   color: #262626;
+   left: -100%;
+   bottom: 110%;
+   transition: .8s;
+   transition-delay: .2s;
 }
-
-.closeModal {
+.more-info-tooltip .tooltip-text::after {
+   content: "";
    position: absolute;
-   top: 3vh;
-   right: 5vh;
-   transition: .5s;
-   cursor: pointer;
+   left: 44%;
+   top: 105%;
+   margin-top: -2vh;
+   border-width: 2vh;
+   border-style: solid;
+   border-color: #eee transparent transparent transparent;
 }
-.closeModal:hover { text-shadow: 0 0 .5vh #444; }
+.more-info-tooltip:hover .tooltip-text {
+   opacity: 1;
+   pointer-events: auto;
+}
+.hide-market {
+   top: 0;
+   right: 0;
+   height: 10vh;
+   width: 10vh;
+   font-size: 3vh;
+   padding: 1vh;
+   transition: .05s;
+}
+#market-reset-more-info { filter: invert(); }
+
+.market-item:nth-child(1) { background-color: #ddddb9; }
+.market-item:nth-child(2) { background-color: #ffcc00; }
+.market-item:nth-child(3) { background-color: #1f7880; }
+.market-item:nth-child(4) { background-color: #f0e0e0; }
+.market-item:nth-child(5) { background-color: #84f09e; }
+.market-item:nth-child(6) { background-color: #b388c6; }
+.market-item:nth-child(7) { background-color: #613f2a; }
+.market-item:nth-child(8) { background-color: #d96072; }
+.market-item:nth-child(9) { background-color: #b1078e; }
+
+/* Black Market & Market Exchanges */
+.blackMarketShadow { overflow: hidden; }
+.market-exchange-content {
+   padding-bottom: 5vh;
+   display: grid;
+   grid-template-columns: 33.33333% 33.33333% 33.33333%;
+}
+.exchange-market-item { width: 30vw; }
+.blackMarketHome {
+   background-image: url("Images/Market/black-market.png");
+   background-size: cover;
+   background-position: center;
+}
+.blackMarket {
+   min-height: 100%;
+   border-radius: 0;
+   margin: 0;
+   box-shadow: inset 2vh 2vh 6vh #000,
+               inset -2vh -2vh 6vh #000;
+   background-image: url("Images/Market/black-market.png");
+   background-size: cover;
+   background-position: center;
+}
+.black-doughnut { height: 12vh; }
+.doughnut-parent {
+   position: absolute;
+   top: 5vh;
+   left: 25vh;
+   height: 12vh;
+   width: 12vh;
+}
+.more-info-tooltip-black {
+   position: relative;
+   padding: 1vh;
+   display: inline-block;
+}
+.more-info-tooltip-black .tooltip-text {
+   width: 25vh;
+   height: 26vh;
+   left: -50%;
+   top: 92%;
+   z-index: 1000;
+}
+.more-info-tooltip-black .tooltip-text::after {
+   left: 44%;
+   top: -6%;
+   border-color: transparent transparent #eee transparent;
+}
+.black-accept-deny {
+   left: 0;
+   bottom: 0;
+   height: 20vh;
+   width: 100%;
+   border-radius: 0;
+}
+.black-buy {
+   opacity: .8;
+   background-color: #0fd20e;
+   height: 10vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   transition: .5s;
+}
+.black-sell {
+   opacity: .8;
+   background-color: #da2d13;
+   height: 10vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   transition: .5s;
+}
+.black-buy:hover { background-color: #02993e; opacity: 1; }
+.black-sell:hover { background-color: #911300; opacity: 1; }
+.blackMarketOffer {
+   position: absolute;
+   bottom: 20vh;
+   width: 100%;
+   height: 60vh;
+   background-color: #eee;
+   opacity: .8;
+   display: grid;
+   grid-template-columns: 33.33333% 33.33333% 33.33333%;
+}
+.bmo-seller, .bmo-offer, .bmo-price { font-size: 12vh; }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Command Panel
@@ -774,7 +809,6 @@ Command Panel
    text-align: center;
    background-color: #ebbc17;
 }
-
 .command-panel img {
    display: none;
    height: 15vh;
@@ -782,12 +816,10 @@ Command Panel
    border-radius: 2.5vh 5vh;
    transition: 0.2s;
 }
-
 .command-panel img:hover, .slider:hover {
    transform: scale(1.05);
    box-shadow: 0 0 .5vh #cb9e00;
 }
-
 .switch {
    position: absolute;
    top: 2.5vh;
@@ -796,13 +828,11 @@ Command Panel
    width: 7vh;
    height: 15vh;
 }
-
 .switch input {
    opacity: 0;
    width: 0;
    height: 0;
 }
-
 .slider {
    position: absolute;
    top: 0;
@@ -814,7 +844,6 @@ Command Panel
    transition: .3s;
    border-radius: 5vh;
 }
-
 .slider:before {
    content: "";
    position: absolute;
@@ -827,10 +856,10 @@ Command Panel
    border-radius: 50%;
 }
 
-input:checked + .slider { background-color: #cb9e00; }
-input:checked + .slider:before { transform: translateY(8vh); }
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Alert
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-/* Alert */
 .alert {
    opacity: 0;
    pointer-events: none;
@@ -851,14 +880,12 @@ input:checked + .slider:before { transform: translateY(8vh); }
    background-image: url("Images/Global Assets/frame.png");
    background-size: contain;
 }
-
 .alertAnimation {
    opacity: 1;
    transform: scale(1) rotate(0);
    pointer-events: none;
    animation: alert-animation 3s forwards;
 }
-
 @keyframes alert-animation {
    0% {
       transform: scale(1) rotate(0);
@@ -887,35 +914,20 @@ Toolbar
    box-shadow: 0 0 2vh #262626;
    font-family: "Nunito";
 }
-
-.produce-scroll {
-   position: absolute;
-   top: 0;
-   right: 0;
-   padding: 3vh 3vh 3vh 26vh;
-   height: 100%;
-   width: 35vh;
-   font-family: "Nunito";
-   box-sizing: border-box;
-}
-
 .produce-tooltip {
    position: relative;
    width: auto;
    margin: auto;
    text-align: center;
 }
-
 .produce-image {
    height: 4vh;
    margin: 0 .5vh -.8vh .5vh;
 }
-
 .toolbar-img {
    height: 10vh;
    margin: 1.2vh 0;
 }
-
 .produce-tooltip .tooltip-text {
    position: absolute;
    opacity: 0;
@@ -935,13 +947,11 @@ Toolbar
    transition: .8s;
    transition-delay: .2s;
 }
-
 .produce-tooltip .tooltip-text-produce {
    min-width: 50vh;
    height: auto;
    padding: 2vh 0;
 }
-
 .produce-tooltip .tooltip-text::after {
    content: "";
    position: absolute;
@@ -952,9 +962,7 @@ Toolbar
    border-style: solid;
    border-color: transparent transparent transparent #eee;
 }
-
 .produce-tooltip .tooltip-text-produce::after { top: 7vh; }
-
 .produce-tooltip:hover .tooltip-text {
    opacity: 1;
    pointer-events: auto;
@@ -979,9 +987,7 @@ Settings
    text-shadow: 0 0 4vh #000;
    font-family: "Nunito";
 }
-
 .settings h1 { font-weight: 200; }
-
 .theme-color {
    width: 26.3vw;
    padding: 1vh;
@@ -989,66 +995,11 @@ Settings
    display: inline;
    background-color: #aaaaaa;
 }
-
 .setting-button:active { transform: scale(0.95); }
 
-
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-More Information Hover
+Help
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-.more-info-tooltip {
-   position: absolute;
-   right: 15vh;
-   bottom: 2.5vh;
-}
-.more-info-tooltip img { height: 11vh; }
-
-.more-info-tooltip .tooltip-text {
-   position: absolute;
-   opacity: 0;
-   pointer-events: none;
-   min-height: 10vh;
-   width: 300%;
-   background-color: #eee;
-   text-align: center;
-   border-radius: 2vh;
-   box-sizing: border-box;
-   padding: 1vh;
-   box-shadow: 0 0 2vh #ddd;
-   font-size: 3vh;
-   color: #262626;
-   left: -100%;
-   bottom: 110%;
-   transition: .8s;
-   transition-delay: .2s;
-}
-
-.more-info-tooltip .tooltip-text::after {
-   content: "";
-   position: absolute;
-   left: 44%;
-   top: 105%;
-   margin-top: -2vh;
-   border-width: 2vh;
-   border-style: solid;
-   border-color: #eee transparent transparent transparent;
-}
-
-.more-info-tooltip:hover .tooltip-text {
-   opacity: 1;
-   pointer-events: auto;
-}
-
-.hide-market {
-   top: 0;
-   right: 0;
-   height: 10vh;
-   width: 10vh;
-   font-size: 3vh;
-   padding: 1vh;
-   transition: .05s;
-}
 
 .help-shadow {
    position: fixed;
@@ -1060,7 +1011,6 @@ More Information Hover
    backdrop-filter: blur(.5vh);
    background-color: rgb(0, 0, 0, .5)
 }
-
 .help {
    height: 95vh;
    width: 95vw;
@@ -1070,9 +1020,7 @@ More Information Hover
    grid-template-columns: 30% 70%;
    overflow: hidden;
 }
-
 .help-subjects { overflow: scroll; }
-
 .help-subjects-item {
    background-color: #f97590;
    font-family: sans-serif;
@@ -1083,56 +1031,47 @@ More Information Hover
    color: #fff;
    transition: .2s;
 }
-
 .help-subjects-item:first-child { background-color: #03fca5; }
 .help-subjects-item-active { filter: hue-rotate(180deg); }
 .help-subjects-item:last-child {
    background-color: #6ee8ff;
    margin: 0;
 }
-
 .help-subjects-item:hover {
    transform: scale(1.2) translateX(5vh);
    box-shadow: 0 0 2vh #000;
    border-radius: .5vh;
 }
-
 .help-information {
    padding: 2vh 20vh 0 5vh;
    overflow: hidden;
    scroll-behavior: smooth;
 }
-
 .help-information div {
    height: 100%;
    width: 100%;
    position: relative;
    margin-bottom: 10vh;
 }
-
 .help-information h1 {
    font-family: "Nunito";
    text-align: center;
    font-size: 8vh;
 }
-
 .help-information p {
    font-size: 3.5vh;
    margin-bottom: 100vh;
 }
-
 .help img {
    position: absolute;
    bottom: 0;
    right: 0;
 }
-
 .help-information span {
    color: #ccc;
    font-family: "Nunito";
    text-decoration: underline;
 }
-
 .help-center-img {
    height: 8vh;
    position: fixed;
@@ -1140,7 +1079,6 @@ More Information Hover
    left: 2vh;
    filter: invert();
 }
-
 .closeModalHelp {
    position: absolute;
    top: 6vh;
@@ -1148,16 +1086,12 @@ More Information Hover
    transition: .5s;
    cursor: pointer;
 }
-
-/* Help links */
 .help a {
    color: lightblue;
    text-decoration: none;
    position: relative;
 }
-
 .help .no-link:after { display: none; }
-
 .help a:after {
    content: "";
    display: block;
@@ -1168,43 +1102,10 @@ More Information Hover
    transition: all .2s;
    width: 0;
 }
-
 .help a:hover:after {
    width: 100%;
    left: 0;
 }
-
-/* Plot 5 */
-.almanac {
-   height: 8vh;
-   position: absolute;
-   bottom: .5vh;
-   left: .5vh;
-}
-
-.shop-window {
-   position: absolute;
-   top: 0;
-   right: 0;
-   bottom: 0;
-   height: 0;
-   width: 8vh;
-   text-align: center;
-   background-color: rgb(0, 0, 0, .8);
-   list-style-type: none;
-   overflow-y: scroll;
-   transition: all 1.2s ease;
-}
-
-.shop-window li { margin: 1.2vh }
-
-.store-icon {
-   height: 5vh;
-   transition: .5s;
-}
-
-.store-icon:hover { transform: scale(1.2); }
-#market-reset-more-info { filter: invert(); }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Tasks
@@ -1216,7 +1117,6 @@ Tasks
    right: -100%;
    height: 16vh;
 }
-
 .tasks {
    position: fixed;
    top: 8vh;
@@ -1230,7 +1130,6 @@ Tasks
    transition: .8s;
    z-index: 1;
 }
-
 .taskShadow {
    display: none;
    z-index: .9;
@@ -1240,7 +1139,6 @@ Tasks
    height: 100%;
    width: 100%;
 }
-
 .taskContent {
    margin-top: -15vh;
    overflow: scroll;
@@ -1249,7 +1147,6 @@ Tasks
    grid-template-columns: 50% 50%;
    font-family: "Nunito";
 }
-
 .task-block {
    width: 92%;
    height: 37vh;
@@ -1264,23 +1161,19 @@ Tasks
    overflow: scroll;
    transition: 0.5s;
 }
-
 .task-info-a { grid-area: a; }
 .task-info-a { grid-area: b; }
 .task-info-a { grid-area: c; }
-
 .task-info {
    display: grid;
    grid-template-areas:
                "a b"
                "c c";
 }
-
 .task-info-img {
    height: 10vh;
    margin: auto;
 }
-
 .task-submit-depth-button {
    position: absolute;
    bottom: 4vh;
@@ -1290,6 +1183,37 @@ Tasks
    border-radius: 1vh;
    font-size: 2vh;
 }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Other
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/* Plot 5 */
+.almanac {
+   height: 8vh;
+   position: absolute;
+   bottom: .5vh;
+   left: .5vh;
+}
+.shop-window {
+   position: absolute;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   height: 0;
+   width: 8vh;
+   text-align: center;
+   background-color: rgb(0, 0, 0, .8);
+   list-style-type: none;
+   overflow-y: scroll;
+   transition: all 1.2s ease;
+}
+.shop-window li { margin: 1.2vh }
+.store-icon {
+   height: 5vh;
+   transition: .5s;
+}
+.store-icon:hover { transform: scale(1.2); }
 
 /*  Fade text */
 .fade-text {
@@ -1310,10 +1234,8 @@ Tasks
    transform: translateY(10vh) scale(.85);
    animation: fade-text 6s forwards;
 }
-
 .vegLuck:nth-last-child(2) { margin-top: 10vh; }
 .vegLuck:nth-last-child(1) { margin-top: 20vh; }
-
 @keyframes fade-text {
    0% {
       opacity: 0;
@@ -1329,32 +1251,7 @@ Tasks
    }
 }
 
-.hidden { display: none; }
-
-.modal-market-prices {
-   position: fixed;
-   right: 0;
-   bottom: -4vh;
-   left: 0;
-   height: 18vh;
-   margin: 9vh 5vw;
-   border-top: solid 2vh #eee;
-   border-radius: 0 0 5vh 5vh;
-   display: grid;
-   grid-template-columns: 50% 50%;
-   background-color: #fff;
-}
-
-.modal-market-prices div:first-child { border-right: solid .5vh #8f8f8f; }
-
-.modal-market-prices div {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   font-size: 8vh;
-   color: #9f9f9f;
-}
-
+/* Weather */
 .weather-short {
    position: fixed;
    height: 15vh;
@@ -1373,12 +1270,10 @@ Tasks
    transition: 1s;
    transition-delay: .2s;
 }
-
 .weather-short:hover {
    height: 40vh;
    width: 35vh;
 }
-
 .weather-short .weather-img {
    grid-area: a;
    height: 15vh;
@@ -1388,7 +1283,6 @@ Tasks
    filter: invert(95%);
 }
 .weather-short:hover .weather-img { margin: 1vh 2vh; }
-
 .weather-name {
    grid-area: b;
    font-size: 4.5vh;
@@ -1398,7 +1292,6 @@ Tasks
    text-align: center;
    padding-top: 3vh;
 }
-
 .weather-description {
    grid-area: c;
    font-size: 4vh;
@@ -1407,6 +1300,7 @@ Tasks
    text-align: center;
 }
 
+/* New Plot Unlocked */
 .modal-plot-unlocked p {
    text-align: left;
    margin: 2vh 0 2vh 15%;
@@ -1414,13 +1308,11 @@ Tasks
    color: #555;
    transform: translate(0, 25vh) scale(0);
 }
-
 body:hover .unlocked-text { animation: unlocked-text 1.5s forwards; }
 body:hover .unlocked-text:nth-last-child(1)  { animation-delay: 4.5s; }
 body:hover .unlocked-text:nth-last-child(2)  { animation-delay: 3s; }
 body:hover .unlocked-text:nth-last-child(3)  { animation-delay: 1.5s; }
 body:hover .unlocked-text:nth-last-child(4)  { animation-delay: 0; }
-
 @keyframes unlocked-text {
    0% { transform: translate(0, 25vh) scale(0); }
    100% { transform: translate(0, 0) scale(1); }
@@ -1440,17 +1332,14 @@ body:hover .unlocked-text:nth-last-child(4)  { animation-delay: 0; }
    "auto auto auto auto"
    "auto auto auto auto";
 }
-
 .festival-land button {
    background-image: url("Images/Festival/shiny-metal.jpg");
    background-size: contain;
 }
-
 .festival-plot-image {
    position: absolute;
    width: 25vh;
 }
-
 .festival-plot {
    background-image: url("Images/Festival/metal-sheet.jpg");
    background-size: cover;
@@ -1465,10 +1354,8 @@ body:hover .unlocked-text:nth-last-child(4)  { animation-delay: 0; }
    min-height: 14vw;
    min-width: 14vw;
 }
-
 .festival-locked { height: 20vh; }
-
-.festival-ahh-perspective {
+.festival-plot /*chnge*/ {
    perspective: 100vh;
    width: 100%;
    height: 100%;
@@ -1476,53 +1363,63 @@ body:hover .unlocked-text:nth-last-child(4)  { animation-delay: 0; }
    justify-content: center;
    align-items: center;
 }
-
-.festival-ahh-perspective button { width: 90%; margin-top: 20vh; }
+.festival-plot /*chnge*/ button { width: 90%; margin-top: 20vh; }
 .festival-gears { height: 4vh; margin: -1vh 1vh; }
 
+/* Time Left */
 .time-left img {
    height: 5vh;
    margin: .5vh;
    position: sticky;
 }
-
+.time-left:hover img {
+   height: 0;
+   width: 0;
+}
 .time-left {
    position: absolute;
    right: .5vh;
    bottom: .5vh;
-   border: outset .8vh #f5f5f5;
+   border: outset .7vh rgba(225, 225, 225, 0.75);
+   padding: .1vh;
    border-radius: 1.5vh;
    height: 5vh;
    width: 5vh;
    display: flex;
    justify-content: center;
    align-items: center;
-   background-color: rgba(255, 255, 255, 0.75);
+   background-color: rgba(225, 225, 225, 0.75);
    color: #333;
    font-family: "Nunito";
    font-size: 0;
-   transition: width .5s;
    overflow: scroll;
+   opacity: .8;
+   transition: .2s;
+   transition: width .3s, opacity .2s;
+   transform: scale(.9);
+   mix-blend-mode: luminosity;
 }
-
 .time-left:hover {
-   width: 18vh;
+   width: 12vh;
    font-size: 2.5vh;
+   opacity: 1;
+   transform: scale(1);
+   border: outset .7vh rgba(245, 245, 245, 0.75);
+   background-color: rgba(245, 245, 245, 0.75);
 }
 
+/* Help */
 #help-about-copyright {
    font-size: 3vh;
    font-weight: 300;
-   overflow-y:scroll;
+   overflow-y: scroll;
 }
-
 table {
    border-collapse: collapse;
    width: 100%;
    font-size: 2.5vh;
    table-layout: fixed;
 }
-
 td, th {
    border: .2vh solid #eee;
    border-radius: .2vh;
@@ -1530,11 +1427,12 @@ td, th {
    width: 25%;
    color: #666;
 }
-
 td { font-weight: 100; }
 th { color: #aaa; }
 tr:nth-child(even) { background-color: #eee; }
+.tm-tb { opacity: 0; }
 
+/* Weeds */
 .weed {
    position: absolute;
    height: 6vh;
@@ -1543,9 +1441,7 @@ tr:nth-child(even) { background-color: #eee; }
    transform: scale(0);
    transition: transform .5s;
 }
-
 .weed:hover { animation: weed-found 1s; }
-
 @keyframes weed-found {
    0% { transform: rotate(0); }
    25% { transform: rotate(15deg); }
@@ -1554,108 +1450,5 @@ tr:nth-child(even) { background-color: #eee; }
    100% { transform: rotate(0); }
 }
 
+/* Other */
 .vegAmount { display: none; }
-.tm-tb { opacity: 0; }
-
-.blackMarketShadow { overflow: hidden; }
-
-.market-exchange-content {
-   padding-bottom: 5vh;
-   display: grid;
-   grid-template-columns: 33.33333% 33.33333% 33.33333%;
-}
-
-.exchange-market-item { width: 30vw; }
-
-.blackMarketHome {
-   background-image: url("Images/Market/black-market.png");
-   background-size: cover;
-   background-position: center;
-}
-
-.blackMarket {
-   min-height: 100%;
-   border-radius: 0;
-   margin: 0;
-   box-shadow: inset 2vh 2vh 6vh #000,
-               inset -2vh -2vh 6vh #000;
-   background-image: url("Images/Market/black-market.png");
-   background-size: cover;
-   background-position: center;
-}
-
-.black-doughnut { height: 12vh; }
-
-.doughnut-parent {
-   position: absolute;
-   top: 5vh;
-   left: 25vh;
-   height: 12vh;
-   width: 12vh;
-}
-
-.more-info-tooltip-black {
-   position: relative;
-   padding: 1vh;
-   display: inline-block;
-}
-
-.more-info-tooltip-black .tooltip-text {
-   width: 25vh;
-   height: 26vh;
-   left: -50%;
-   top: 92%;
-   z-index: 1000;
-}
-
-.more-info-tooltip-black .tooltip-text::after {
-   left: 44%;
-   top: -6%;
-   border-color: transparent transparent #eee transparent;
-}
-
-.black-accept-deny {
-   left: 0;
-   bottom: 0;
-   height: 20vh;
-   width: 100%;
-   border-radius: 0;
-}
-
-.black-buy {
-   opacity: .8;
-   background-color: #0fd20e;
-   height: 10vh;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   transition: .5s;
-}
-
-.black-sell {
-   opacity: .8;
-   background-color: #da2d13;
-   height: 10vh;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   transition: .5s;
-}
-
-.black-buy:hover { background-color: #02993e; opacity: 1; }
-.black-sell:hover { background-color: #911300; opacity: 1; }
-
-.blackMarketOffer {
-   position: absolute;
-   bottom: 20vh;
-   width: 100%;
-   height: 60vh;
-   background-color: #eee;
-   opacity: .8;
-   display: grid;
-   grid-template-columns: 33.33333% 33.33333% 33.33333%;
-}
-
-.bmo-seller, .bmo-offer, .bmo-price {
-   font-size: 12vh;
-}

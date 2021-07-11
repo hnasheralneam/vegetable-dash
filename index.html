@@ -19,28 +19,24 @@
          <img onclick="collectWeed()" class="weed" src="Images/Global Assets/weed.png">
          <!-- Pea Plot -->
          <div class="plot" id="plot1">
-            <div class="plot-inner">
-               <span class="ahh-perspective">
-                  <button class="grow" id="growPeas" onclick="plant('peas', 3000, 6000, 10000)">Grow Peas!</button>
-                  <button class="harvest" id="harvestPeas" onclick="harvest('Peas')">Harvest Peas!<img class="sickle" src="Images/Global Assets/sickle.png"></button>
-                  <img class="quest-arrow plant-quest-arrow" src="Images/Tasks/arrow.png">
-               </span>
-               <div class="countdown time-left">
-                  <span class="peas-time-left">00:00:00</span>
-                  <img src="Images/Global Assets/clock.png">
-               </div>
+            <button class="Peas btn" onclick="tend('peas', 3000, 6000, 10000)">Grow Peas!</button>
+            <!-- Countdown -->
+            <div class="countdown peas-countdown time-left">
+               <span class="peas-time-left">00:00:00</span>
+               <img src="Images/Global Assets/clock.png">
             </div>
-            <div class="info-inner">
-               <img onclick="infoModal('Peas')" class="veg-icon" src="Images/Vegetables/pea.png">
-               <div id="infoPeas" class="veg-info">
-                  <div class="modal-content">
-                     <button onclick="infoModal('Peas')" class="close depth-button green">×</button>
-                     <h4>Peas <img class="info-icon" src="Images/Vegetables/pea.png"></h4>
-                     <p>Peas are a climbing vine in the legume family. <br> These pea plants take 10 seconds to grow.</p>
-                     <div class="modal-market-prices">
-                        <div class="modalPeasPriceBuy">Buy For</div>
-                        <div class="modalPeasPriceSell">Sell For</div>
-                     </div>
+            <!-- Special -->
+            <img class="quest-arrow plant-quest-arrow" src="Images/Tasks/arrow.png">
+            <!-- Modal -->
+            <img onclick="infoModal('Peas')" class="veg-icon" src="Images/Vegetables/pea.png">
+            <div id="infoPeas" class="veg-info">
+               <div class="modal-content">
+                  <button onclick="infoModal('Peas')" class="close depth-button green">×</button>
+                  <h4>Peas <img class="info-icon" src="Images/Vegetables/pea.png"></h4>
+                  <p>Peas are a climbing vine in the legume family. <br> These pea plants take 10 seconds to grow.</p>
+                  <div class="modal-market-prices">
+                     <div class="modalPeasPriceBuy"></div>
+                     <div class="modalPeasPriceSell"></div>
                   </div>
                </div>
             </div>
@@ -52,16 +48,13 @@
                <span class="tooltiptext">This plot is locked <br> Pay 150 Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(2)">Purchase Plot</button></span>
             </div>
             <div class="open-plot" id="openPlot2">
-               <img class="veg-icon" src="Images/Vegetables/corn.png">
-               <span class="ahh-perspective">
-                  <button class="grow" id="growCorn" onclick="plant('corn', 6000, 12000, 25000)">Grow Corn!</button>
-                  <button class="harvest" id="harvestCorn" onclick="harvest('Corn')">Harvest Corn!<img class="sickle" src="Images/Global Assets/sickle.png"></button>
-               </span>
+               <button class="Corn btn" onclick="tend('corn', 6000, 12000, 25000)">Grow Corn!</button>
+               <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="corn-time-left">00:00:00</span>
                   <img src="Images/Global Assets/clock.png">
                </div>
-               <!-- Corn Info -->
+               <!-- Modal -->
                <img onclick="infoModal('Corn')" class="veg-icon" src="Images/Vegetables/corn.png">
                <div id="infoCorn" class="veg-info">
                   <div class="modal-content">
@@ -74,7 +67,7 @@
                      </div>
                   </div>
                </div>
-               <!-- Corn Unlocked -->
+               <!-- Unlocked -->
                <div id="infoUnlockedCorn" class="veg-info">
                   <div class="modal-content modal-plot-unlocked">
                      <button onclick="infoModal('UnlockedCorn')" class="close depth-button yellow">×</button>
@@ -95,13 +88,13 @@
                <span class="tooltiptext" id="lock3Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot3">
-               <span class="ahh-perspective"><button class="grow" id="growStrawberries" onclick="plant('strawberries', 50000, 100000, 150000)">Grow Strawberries!</button>
-               <button class="harvest" id="harvestStrawberries" onclick="harvest('Strawberries')">Harvest Strawberries!<img class="sickle" src="Images/Global Assets/sickle.png"></button></span>
+               <button class="Strawberries btn" onclick="tend('strawberries', 50000, 100000, 150000)">Grow Strawberries!</button>
+               <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="strawberries-time-left">00:00:00</span>
                   <img src="Images/Global Assets/clock.png">
                </div>
-               <!-- Strawberry Info -->
+               <!-- Info -->
                <img onclick="infoModal('Strawberry')" class="veg-icon" src="Images/Vegetables/strawberry.png">
                <div id="infoStrawberry" class="veg-info">
                   <div class="modal-content">
@@ -135,15 +128,13 @@
                <span class="tooltiptext" id="lock4Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot4">
-               <span class="ahh-perspective">
-                  <button class="grow" id="growEggplants" onclick="plant('eggplants', 300000, 600000, 900000)">Grow Eggplants!</button>
-                  <button class="harvest" id="harvestEggplants" onclick="harvest('Eggplants')">Harvest Eggplants!<img class="sickle" src="Images/Global Assets/sickle.png"></button>
-               </span>
+               <button class="Eggplants btn" onclick="tend('eggplants', 300000, 600000, 900000)">Grow Eggplants!</button>
+               <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="eggplants-time-left">00:00:00</span>
                   <img src="Images/Global Assets/clock.png">
                </div>
-               <!-- Eggplant Info -->
+               <!-- Info -->
                <img onclick="infoModal('Eggplant')" class="veg-icon" src="Images/Vegetables/eggplant.png">
                <div id="infoEggplant" class="veg-info">
                   <div class="modal-content">
@@ -191,14 +182,14 @@
                </div>
                <img onclick="if (document.getElementById('shop1').style.height === '100%') {document.getElementById('shop1').style.height = '0'} else {document.getElementById('shop1').style.height = '100%'}" class="almanac" src="Images/Global Assets/almanac.png">
                <ul class="shop-window" id="shop1">
-                  <li><img onclick="tend('peas', 3000, 6000, 10000, 'Peas/growing.png', 'Peas/flowering.png', 'Peas/fruiting.png')" class="store-icon" src="Images/Vegetables/pea.png"></li>
-                  <li><img onclick="tend('corn', 6000, 12000, 25000, 'growing.png', 'Corn/growing.png', 'Corn/fruiting.png')" class="store-icon" src="Images/Vegetables/corn.png"></li>
-                  <li><img onclick="tend('strawberries', 50000, 100000, 150000, 'Strawberry/growing.png', 'Strawberry/flowering.png', 'Strawberry/fruiting.png')" class="store-icon" src="Images/Vegetables/strawberry.png"></li>
-                  <li><img onclick="tend('eggplants', 300000, 600000, 900000, 'Eggplant/growing.png', 'Eggplant/flowering.png', 'Eggplant/fruiting.png')" class="store-icon" src="Images/Vegetables/eggplant.png"></li>
-                  <li><img onclick="tend('pumpkins', 600000, 1200000, 1800000, 'growing.png', 'Pumpkin/growing.png', 'Pumpkin/fruiting.png')" class="store-icon" src="Images/Vegetables/pumpkin.png"></li>
-                  <li><img onclick="tend('cabbage', 1200000, 2400000, 3600000, 'growing.png', 'Cabbage/growing.png', 'Cabbage/fruiting.png')" class="store-icon" src="Images/Vegetables/cabbage.png"></li>
-                  <li><img onclick="tend('dandelion', 3600000, 7200000, 10800000, 'Dandelion/flowering.png', 'Dandelion/flowering.png', 'Dandelion/fruiting.png')" class="store-icon" src="Images/Vegetables/dandelion.png"></li>
-                  <li><img onclick="tend('rhubarb', 9600000, 18200000, 28800000, 'growing.png', 'Rhubarb/growing.png', 'Rhubarb/fruiting.png')" class="store-icon" src="Images/Vegetables/rhubarb.png"></li>
+                  <li><img onclick="tendCenter('peas', 3000, 6000, 10000, 'Peas/growing.png', 'Peas/flowering.png', 'Peas/fruiting.png')" class="store-icon" src="Images/Vegetables/pea.png"></li>
+                  <li><img onclick="tendCenter('corn', 6000, 12000, 25000, 'growing.png', 'Corn/growing.png', 'Corn/fruiting.png')" class="store-icon" src="Images/Vegetables/corn.png"></li>
+                  <li><img onclick="tendCenter('strawberries', 50000, 100000, 150000, 'Strawberry/growing.png', 'Strawberry/flowering.png', 'Strawberry/fruiting.png')" class="store-icon" src="Images/Vegetables/strawberry.png"></li>
+                  <li><img onclick="tendCenter('eggplants', 300000, 600000, 900000, 'Eggplant/growing.png', 'Eggplant/flowering.png', 'Eggplant/fruiting.png')" class="store-icon" src="Images/Vegetables/eggplant.png"></li>
+                  <li><img onclick="tendCenter('pumpkins', 600000, 1200000, 1800000, 'growing.png', 'Pumpkin/growing.png', 'Pumpkin/fruiting.png')" class="store-icon" src="Images/Vegetables/pumpkin.png"></li>
+                  <li><img onclick="tendCenter('cabbage', 1200000, 2400000, 3600000, 'growing.png', 'Cabbage/growing.png', 'Cabbage/fruiting.png')" class="store-icon" src="Images/Vegetables/cabbage.png"></li>
+                  <li><img onclick="tendCenter('dandelion', 3600000, 7200000, 10800000, 'Dandelion/flowering.png', 'Dandelion/flowering.png', 'Dandelion/fruiting.png')" class="store-icon" src="Images/Vegetables/dandelion.png"></li>
+                  <li><img onclick="tendCenter('rhubarb', 9600000, 18200000, 28800000, 'growing.png', 'Rhubarb/growing.png', 'Rhubarb/fruiting.png')" class="store-icon" src="Images/Vegetables/rhubarb.png"></li>
                </ul>
             </div>
          </div>
@@ -209,15 +200,13 @@
                <span class="tooltiptext" id="lock6Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot6">
-               <span class="ahh-perspective">
-                  <button class="grow" id="growPumpkins" onclick="plant('pumpkins', 600000, 1200000, 1800000)">Grow Pumpkins!</button>
-                  <button class="harvest" id="harvestPumpkins" onclick="harvest('Pumpkins')">Harvest Pumpkins!<img class="sickle" src="Images/Global Assets/sickle.png"></button>
-               </span>
+               <button class="Pumpkins btn" onclick="tend('pumpkins', 600000, 1200000, 1800000)">Grow Pumpkins!</button>
+               <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="pumpkins-time-left">00:00:00</span>
                   <img src="Images/Global Assets/clock.png">
                </div>
-               <!-- Pumpkins Info -->
+               <!-- Info -->
                <img onclick="infoModal('Pumpkins')" class="veg-icon" src="Images/Vegetables/pumpkin.png">
                <div id="infoPumpkins" class="veg-info">
                   <div class="modal-content">
@@ -250,10 +239,8 @@
                <span class="tooltiptext" id="lock7Text">This plot is locked <br> Purchase the previous plot to unlock<br></span>
             </div>
             <div class="open-plot" id="openPlot7">
-               <span class="ahh-perspective">
-                  <button class="grow" id="growCabbage" onclick="plant('cabbage', 1200000, 2400000, 3600000)">Grow Cabbage!</button>
-                  <button class="harvest" id="harvestCabbage" onclick="harvest('Cabbage')">Harvest Cabbage!<img class="sickle" src="Images/Global Assets/sickle.png"></button>
-               </span>
+               <button class="Cabbage btn" onclick="tend('cabbage', 1200000, 2400000, 3600000)">Grow Cabbage!</button>
+               <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="cabbage-time-left">00:00:00</span>
                   <img src="Images/Global Assets/clock.png">
@@ -291,13 +278,13 @@
                <span class="tooltiptext" id="lock8Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot8">
-               <span class="ahh-perspective"><button class="grow" id="growDandelion" onclick="plant('dandelion', 3600000, 7200000, 10800000)">Grow Dandelion!</button>
-               <button class="harvest" id="harvestDandelion" onclick="harvest('Dandelion')">Harvest Dandelion<img class="sickle" src="Images/Global Assets/sickle.png"></button></span>
+               <button class="Dandelion btn" onclick="tend('dandelion', 3600000, 7200000, 10800000)">Grow Dandelion!</button>
+               <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="dandelion-time-left">00:00:00</span>
                   <img src="Images/Global Assets/clock.png">
                </div>
-               <!-- Dandelion Info -->
+               <!-- Info -->
                <img onclick="infoModal('Dandelion')" class="veg-icon" src="Images/Vegetables/dandelion.png">
                <div id="infoDandelion" class="veg-info">
                   <div class="modal-content">
@@ -330,10 +317,8 @@
                <span class="tooltiptext" id="lock9Text">This plot is locked <br> Purchase the previous plot to unlock<br></span>
             </div>
             <div class="open-plot" id="openPlot9">
-               <span class="ahh-perspective">
-                  <button class="grow" id="growRhubarb" onclick="plant('rhubarb', 9600000, 18200000, 28800000)">Grow Rhubarb!</button>
-                  <button class="harvest" id="harvestRhubarb" onclick="harvest('Rhubarb')">Harvest Rhubarb!<img class="sickle" src="Images/Global Assets/sickle.png"></button>
-               </span>
+               <button class="Rhubarb btn" onclick="tend('rhubarb', 9600000, 18200000, 28800000)">Grow Rhubarb!</button>
+               <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="rhubarb-time-left">00:00:00</span>
                   <img src="Images/Global Assets/clock.png">
@@ -820,7 +805,7 @@
             <li>Version: 0.1.1</li>
          </div>
          <div class="alert">Game Saved!</div>
-         <span class="hidden"><div class="fade-text">This text is fading</div></span>
+         <span style="display: none;"><div class="fade-text">This text is fading</div></span>
       </div>
       <script src="https://www.w3counter.com/tracker.js?id=134512"></script>
    </body>
