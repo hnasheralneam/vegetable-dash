@@ -247,15 +247,27 @@ function infoModal(veg) {
    if (document.querySelector(modalID).style.opacity === "1") { hideObj(modalID); }
    else { showObj(modalID); }
 }
-function harvest(veg) {
-   plotStatus[veg.toLowerCase() + "Ready"] = Infinity;
-   plotStatus[veg.toLowerCase()] = "empty";
-   produce[veg.toLowerCase()]++;
-   hideObj(`#${"harvest" + veg}`);
-   showObj(`#${"grow" + veg}`);
-   marketData.seeds++;
-   harvestLuck(veg);
-   if (marketData.weather.rainy === true) { produce[veg.toLowerCase()]++; }
+function tend(veg, timeOne, timeTwo, timeThree) {
+   if (plotStatus[veg + "Ready"] === 0) {
+      plotStatus[veg + "Ready"] = Infinity;
+      plotStatus[veg] = "empty";
+      produce[veg]++;
+      document.querySelector(`.${capitalize(veg)}`).textContent = `Grow ${capitalize(veg)}!`;
+      marketData.seeds++;
+      harvestLuck(capitalize(veg));
+      showObj(`.${capitalize(veg)}`);
+      if (marketData.weather.rainy === true) { produce[veg]++; }
+   }
+   else {
+      currentTime = Date.now();
+      plotStatus[veg + "Growing"] = currentTime + timeOne;
+      plotStatus[veg + "Flowering"] = currentTime + timeTwo;
+      if (marketData.weather.cloudy) { plotStatus[veg + "Ready"] = currentTime + timeThree + 5000; }
+      else { plotStatus[veg + "Ready"] = currentTime + timeThree; }
+      plotStatus[veg] = "working";
+      timeLeft(timeThree, veg.toLowerCase());
+      hideObj(`.${capitalize(veg)}`);
+   }
 }
 function fertilize(veg) {
    if (marketData.fertilizers >= 1) {
@@ -265,26 +277,17 @@ function fertilize(veg) {
       checkTasks("tryFertilizer");
    }
 }
-function plant(veg, timeOne, timeTwo, timeThree) {
-   currentTime = Date.now();
-   plotStatus[veg + "Growing"] = currentTime + timeOne;
-   plotStatus[veg + "Flowering"] = currentTime + timeTwo;
-   if (marketData.weather.cloudy) { plotStatus[veg + "Ready"] = currentTime + timeThree + 5000; }
-   else { plotStatus[veg + "Ready"] = currentTime + timeThree; }
-   plotStatus[veg] = "working";
-   timeLeft(timeThree, veg.toLowerCase());
-   hideObj(`#grow${capitalize(veg)}`);
-}
-function detailedPlantLoop(veg, pltNumber, urlOne, urlTwo, urlThree, readyTime) {
+function plantLoop(veg, pltNumber, urlOne, urlTwo, urlThree, readyTime) {
    let plotImg = document.querySelector("#plot" + pltNumber);
    setInterval(detailedPlantStatus, 1000);
    function detailedPlantStatus() {
       timeLeft(readyTime, veg);
-      if (plotStatus[veg] === "working") { hideObj(`#harvest${capitalize(veg)}`); hideObj(`#grow${capitalize(veg)}`); }
+      if (plotStatus[veg] === "working") { hideObj(`.${capitalize(veg)}`); }
       if (plotStatus[veg] === "withered") { plotImg.style.backgroundImage = `url(Images/Plots/withered.png)` }
       else if (Date.now() >= plotStatus[veg + "Ready"]) {
          plotImg.style.backgroundImage = `url(Images/Plots/${urlThree})`;
-         showObj(`#harvest${capitalize(veg)}`);
+         document.querySelector(`.${capitalize(veg)}`).textContent = `Harvest ${capitalize(veg)}!`;
+         showObj(`.${capitalize(veg)}`);
          plotStatus[veg + "Growing"] = Infinity;
          plotStatus[veg + "Flowering"] = Infinity;
          plotStatus[veg + "Ready"] = 0;
@@ -294,7 +297,7 @@ function detailedPlantLoop(veg, pltNumber, urlOne, urlTwo, urlThree, readyTime) 
       else { plotImg.style.backgroundImage = "url(Images/Plots/plot.png)"; }
    }
 }
-function tend(veg, timeOne, timeTwo, timeThree, urlOne, urlTwo, urlThree) {
+function tendCenter(veg, timeOne, timeTwo, timeThree, urlOne, urlTwo, urlThree) {
    if (plotStatus.centerStatus === "harvest-ready") {
       plotStatus.centerReady = Infinity;
       plotStatus.center = "empty";
@@ -336,14 +339,14 @@ setInterval(() => {
    else { plotImg.style.backgroundImage = "url(Images/Plots/plot.png)"; }
 }, 1000);
 
-detailedPlantLoop("peas", 1, "Peas/growing.png", "Peas/flowering.png", "Peas/fruiting.png", 10000);
-detailedPlantLoop("corn", 2, "growing.png", "Corn/growing.png", "Corn/fruiting.png", 25000);
-detailedPlantLoop("strawberries", 3, "Strawberry/growing.png", "Strawberry/flowering.png", "Strawberry/fruiting.png", 150000);
-detailedPlantLoop("eggplants", 4, "Eggplant/growing.png", "Eggplant/flowering.png", "Eggplant/fruiting.png", 900000);
-detailedPlantLoop("pumpkins", 6, "growing.png", "Pumpkin/growing.png", "Pumpkin/fruiting.png", 1800000);
-detailedPlantLoop("cabbage", 7, "growing.png", "Cabbage/growing.png", "Cabbage/fruiting.png", 3600000);
-detailedPlantLoop("dandelion", 8, "Dandelion/flowering.png", "Dandelion/flowering.png", "Dandelion/fruiting.png", 10800000);
-detailedPlantLoop("rhubarb", 9, "growing.png", "Rhubarb/growing.png", "Rhubarb/fruiting.png", 28800000);
+plantLoop("peas", 1, "Peas/growing.png", "Peas/flowering.png", "Peas/fruiting.png", 10000);
+plantLoop("corn", 2, "growing.png", "Corn/growing.png", "Corn/fruiting.png", 25000);
+plantLoop("strawberries", 3, "Strawberry/growing.png", "Strawberry/flowering.png", "Strawberry/fruiting.png", 150000);
+plantLoop("eggplants", 4, "Eggplant/growing.png", "Eggplant/flowering.png", "Eggplant/fruiting.png", 900000);
+plantLoop("pumpkins", 6, "growing.png", "Pumpkin/growing.png", "Pumpkin/fruiting.png", 1800000);
+plantLoop("cabbage", 7, "growing.png", "Cabbage/growing.png", "Cabbage/fruiting.png", 3600000);
+plantLoop("dandelion", 8, "Dandelion/flowering.png", "Dandelion/flowering.png", "Dandelion/fruiting.png", 10800000);
+plantLoop("rhubarb", 9, "growing.png", "Rhubarb/growing.png", "Rhubarb/fruiting.png", 28800000);
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Weather
@@ -616,6 +619,18 @@ function collectTaskReward(task) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 let rand = Math.random();
+let vegetablesOwned = [];
+vegetablesOwned.push("peas")
+function vegetablesOwnedLoop() {
+   if (plots.peaplot === "unlocked" && !vegetablesOwned.includes("peas")) { vegetablesOwned.push("peas") }
+   if (plots.cornplot === "unlocked" && !vegetablesOwned.includes("corn")) { vegetablesOwned.push("corn") }
+   if (plots.strawberryplot === "unlocked" && !vegetablesOwned.includes("strawberries")) { vegetablesOwned.push("strawberries") }
+   if (plots.eggplantplot === "unlocked" && !vegetablesOwned.includes("eggplants")) { vegetablesOwned.push("eggplants") }
+   if (plots.pumpkinplot === "unlocked" && !vegetablesOwned.includes("pumpkins")) { vegetablesOwned.push("pumpkins") }
+   if (plots.cabbageplot === "unlocked" && !vegetablesOwned.includes("cabbage")) { vegetablesOwned.push("cabbage") }
+   if (plots.dandelionplot === "unlocked" && !vegetablesOwned.includes("dandelion")) { vegetablesOwned.push("dandelion") }
+   if (plots.rhubarbplot === "unlocked" && !vegetablesOwned.includes("rhubarb")) { vegetablesOwned.push("rhubarb") }
+}
 function harvestLuck(veg) {
    rand = Math.random();
    if (rand < 0.20) {
@@ -645,22 +660,6 @@ function blackMarketLuck() {
       marketData.seeds -= 6000;
    }
 }
-
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-let vegetablesOwned = [];
-vegetablesOwned.push("peas")
-function vegetablesOwnedLoop() {
-   if (plots.peaplot === "unlocked" && !vegetablesOwned.includes("peas")) { vegetablesOwned.push("peas") }
-   if (plots.cornplot === "unlocked" && !vegetablesOwned.includes("corn")) { vegetablesOwned.push("corn") }
-   if (plots.strawberryplot === "unlocked" && !vegetablesOwned.includes("strawberries")) { vegetablesOwned.push("strawberries") }
-   if (plots.eggplantplot === "unlocked" && !vegetablesOwned.includes("eggplants")) { vegetablesOwned.push("eggplants") }
-   if (plots.pumpkinplot === "unlocked" && !vegetablesOwned.includes("pumpkins")) { vegetablesOwned.push("pumpkins") }
-   if (plots.cabbageplot === "unlocked" && !vegetablesOwned.includes("cabbage")) { vegetablesOwned.push("cabbage") }
-   if (plots.dandelionplot === "unlocked" && !vegetablesOwned.includes("dandelion")) { vegetablesOwned.push("dandelion") }
-   if (plots.rhubarbplot === "unlocked" && !vegetablesOwned.includes("rhubarb")) { vegetablesOwned.push("rhubarb") }
-}
-
 function luckyRoll() {
    rand = Math.random();
    let vegLost = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
@@ -670,7 +669,6 @@ function luckyRoll() {
       callAlert(`A pirate has pillaged your plots! You lost ${amountLost} of your ${vegLost}!`);
     }
 }
-
 let whenToLuck = window.setInterval(function() {
    if (Date.now() >= marketData.disasterTime) {
       luckyRoll();
