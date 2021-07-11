@@ -96,19 +96,14 @@ Welcome!
 
 .welcome-content button {
    width: 90%;
-   font-size: 36vw;
+   font-size: 5vw;
    text-transform: uppercase;
    padding: 4vw;
    transition: .5s;
 }
 
-.welcome-content button:hover {
-   box-shadow: 0 0 4vw #262626;
-   border-radius: 4vw;
-   border: none;
-}
-
-.welcome-content p { font-size: 6vw; }
+.welcome-content button:hover { border: none; }
+.welcome-content p { margin-top: 5vw; font-size: 6vw; }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Farmland

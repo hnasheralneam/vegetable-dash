@@ -308,14 +308,14 @@ let updateWeather = window.setInterval(function() {
       let unluckyVeg = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
       let amountLost = Math.floor(produce[unluckyVeg] / 3);
       produce[unluckyVeg] -= amountLost;
-      callAlert(`It has snowed! You lost ${amountLost} ${unluckyVeg}!`);
+      alert(`It has snowed! You lost ${amountLost} ${unluckyVeg}!`);
       marketData.weather.hasBeenPunished = true;
    }
    if (marketData.weather.flood && marketData.weather.hasBeenPunished === false) {
       let unluckyVeg = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
       let amountLost = Math.floor(produce[unluckyVeg] / 5);
       produce[unluckyVeg] -= amountLost;
-      callAlert(`It has flooded! You lost ${amountLost} ${unluckyVeg}!`);
+      alert(`It has flooded! You lost ${amountLost} ${unluckyVeg}!`);
       marketData.weather.hasBeenPunished = true;
    }
    if (marketData.weather.frost && marketData.weather.hasBeenPunished === false) {
