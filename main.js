@@ -1295,23 +1295,38 @@ setInterval(() => {
    if (mouseDown === 0 && plntMouseWasDown === true) { plantDrag(); }
 }, 100)
 
-$("#plot1").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["peasReady"]) { harvest("Peas"); } });
-$("#plot2").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["cornReady"]) { harvest("Corn"); } });
-$("#plot3").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["strawberriesReady"]) { harvest("Strawberries"); } });
-$("#plot4").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["eggplantsReady"]) { harvest("Eggplants"); } });
-$("#plot6").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["pumpkinsReady"]) { harvest("Pumpkins"); } });
-$("#plot7").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["cabbageReady"]) { harvest("Cabbage"); } });
-$("#plot8").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["dandelionReady"]) { harvest("Dandelion"); } });
-$("#plot9").mouseenter(() => { if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["rhubarbReady"]) { harvest("Rhubarb"); } });
-
-$("#plot1").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["peas"]) { plant('peas', 3000, 6000, 10000); } });
-$("#plot2").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["corn"]) { plant('corn', 6000, 12000, 25000); } });
-$("#plot3").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["strawberries"]) { plant('strawberries', 50000, 100000, 150000); } });
-$("#plot4").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["eggplants"]) { plant('eggplants', 300000, 600000, 900000); } });
-$("#plot6").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["pumpkins"]) { plant('pumpkins', 600000, 1200000, 1800000); } });
-$("#plot7").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["cabbage"]) { plant('cabbage', 1200000, 2400000, 3600000); } });
-$("#plot8").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["dandelion"]) { plant('dandelion', 3600000, 7200000, 10800000); } });
-$("#plot9").mouseenter(() => { if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["rhubarb"]) { plant('rhubarb', 9600000, 18200000, 28800000); } });
+$("#plot1").mouseenter(() => {
+   if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["peas"]) { tend('peas', 3000, 6000, 10000); }
+   if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["peasReady"]) { tend('peas', 3000, 6000, 10000); }
+});
+$("#plot2").mouseenter(() => {
+   if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["corn"]) { tend('corn', 6000, 12000, 25000); }
+   if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["cornReady"]) { tend('corn', 6000, 12000, 25000); }
+});
+$("#plot3").mouseenter(() => {
+   if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["strawberries"]) { tend('strawberries', 50000, 100000, 150000); }
+   if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["strawberriesReady"]) { tend('strawberries', 50000, 100000, 150000); }
+});
+$("#plot4").mouseenter(() => {
+   if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["eggplants"]) { tend('eggplants', 300000, 600000, 900000); }
+   if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["eggplantsReady"]) { tend('eggplants', 300000, 600000, 900000); }
+});
+$("#plot6").mouseenter(() => {
+   if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["pumpkins"]) { tend('pumpkins', 600000, 1200000, 1800000); }
+   if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["pumpkinsReady"]) { tend('pumpkins', 600000, 1200000, 1800000); }
+});
+$("#plot7").mouseenter(() => {
+   if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["cabbage"]) { tend('cabbage', 1200000, 2400000, 3600000); }
+   if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["cabbageReady"]) { tend('cabbage', 1200000, 2400000, 3600000); }
+});
+$("#plot8").mouseenter(() => {
+   if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["dandelion"]) { tend('dandelion', 3600000, 7200000, 10800000); }
+   if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["dandelionReady"]) { tend('dandelion', 3600000, 7200000, 10800000); }
+});
+$("#plot9").mouseenter(() => {
+   if (mouseDown === 1 && plantCursor === "active" && "working" !== plotStatus["rhubarb"]) { tend('rhubarb', 9600000, 18200000, 28800000); }
+   if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= plotStatus["rhubarbReady"]) { tend('rhubarb', 9600000, 18200000, 28800000); }
+});
 
 document.querySelector("#plot1").addEventListener("click", event => { if (fertilizerCursor === "active" && plotStatus.peasReady !== 0) { fertilize("peas"); fertilizeHover(); } });
 document.querySelector("#plot2").addEventListener("click", event => { if (fertilizerCursor === "active" && plotStatus.cornReady !== 0) { fertilize("corn"); fertilizeHover(); } });

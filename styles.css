@@ -181,7 +181,7 @@ Farmland & Plots
 .open-plot { display: none; }
 
 /* Buttons */
-.plot .btn {
+.btn {
    font-size: 3vh;
    height: 10vh;
    width: 25vh;
@@ -196,7 +196,7 @@ Farmland & Plots
    pointer-events: auto;
    opacity: 1;
 }
-.plot .btn:hover {
+.btn:hover {
    transform: translateY(-1vh) scale(1.05);
    box-shadow: 0 1.5vh 2vh #262626;
    animation: bob 1.8s infinite;
@@ -1185,6 +1185,70 @@ Tasks
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Festival
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.festival {
+   opacity: 0;
+   pointer-events: none;
+   position: fixed;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   overflow: scroll;
+   transition: 0.8s;
+   box-sizing: border-box;
+   padding: 8vh 0;
+   background-image: url("Images/Festival/metal-sheet.jpg");
+   background-size: cover;
+   text-align: center;
+   font-size: 8vh;
+   font-family: "Nunito";
+   color: #fff;
+ }
+.festival-land {
+   width: 100%;
+   display: grid;
+   grid-template-columns: 25% 25% 25% 25%;
+}
+.festival-land button {
+   background-image: url("Images/Festival/shiny-metal.jpg");
+   background-size: contain;
+}
+.festival-plot-image {
+   position: absolute;
+   width: 25vh;
+}
+.festival-plot {
+   transition: 2s;
+   position: absolute;
+   height: 20vh;
+   width: 20vh;
+   overflow: hidden;
+}
+.festival-locked { height: 20vh; }
+.festival-ahh-perspective {
+   perspective: 100vh;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.festival-ahh-perspective button { width: 90%; margin-top: 20vh; }
+.festival-gears { height: 4vh; margin: -1vh 1vh; }
+
+#fstvl-1 { top: 20vh; left: 12vw; }
+#fstvl-2 { top: 16vh; left: 34vw; }
+#fstvl-3 { top: 27vh; left: 63vw; }
+#fstvl-4 { top: 22vh; left: 79vw; }
+#fstvl-5 { top: 51vh; left: 7vw; }
+#fstvl-6 { top: 62vh; left: 31vw; }
+#fstvl-7 { top: 57vh; left: 59vw; }
+#fstvl-8 { top: 68vh; left: 83vw; }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Other
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -1317,54 +1381,6 @@ body:hover .unlocked-text:nth-last-child(4)  { animation-delay: 0; }
    0% { transform: translate(0, 25vh) scale(0); }
    100% { transform: translate(0, 0) scale(1); }
 }
-
-/* Festival */
-.festival-land {
-   position: relative;
-   height: 60vh;
-   width: 120vh;
-   margin: 2vh auto;
-   border: solid 1vh #000;
-   border-radius: 1vh;
-   transition: 0.5s;
-   display: grid;
-   grid-template-areas:
-   "auto auto auto auto"
-   "auto auto auto auto";
-}
-.festival-land button {
-   background-image: url("Images/Festival/shiny-metal.jpg");
-   background-size: contain;
-}
-.festival-plot-image {
-   position: absolute;
-   width: 25vh;
-}
-.festival-plot {
-   background-image: url("Images/Festival/metal-sheet.jpg");
-   background-size: cover;
-   margin: .2vh;
-   border: solid .3vh #000;
-   border-radius: .3vh;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   transition: 2s;
-   position: relative;
-   min-height: 14vw;
-   min-width: 14vw;
-}
-.festival-locked { height: 20vh; }
-.festival-plot /*chnge*/ {
-   perspective: 100vh;
-   width: 100%;
-   height: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-.festival-plot /*chnge*/ button { width: 90%; margin-top: 20vh; }
-.festival-gears { height: 4vh; margin: -1vh 1vh; }
 
 /* Time Left */
 .time-left img {
