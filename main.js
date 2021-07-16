@@ -1449,3 +1449,5 @@ function cheat() {
    }
    else { alert("No cheating for you"); }
 }
+
+if (location.hostname === "squirrel-314.github.io") { alert("You are using the old version of Vegetable Dash, which shall be removed as soon as cross-site saving is avalible. If you have no progress, use vegetable-dash.herokuapp.com"); }
