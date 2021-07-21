@@ -176,9 +176,9 @@ Farmland
 
 .removing-lock { animation: open-lock 2.5s forwards; }
 @keyframes open-lock {
-   0% { content: url("Images/Lock/lock.png"); }
-   20% { content: url("Images/Lock/open-lock.png"); }
-   100% { content: url("Images/Lock/open-lock.png"); }
+   0% { content: url("Images/Lock/lock.svg"); }
+   20% { content: url("Images/Lock/open-lock.svg"); }
+   100% { content: url("Images/Lock/open-lock.svg"); }
 }
 
 /* Buttons */

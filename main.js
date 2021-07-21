@@ -19,7 +19,7 @@ Save               | Save the game data, restart
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Game Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
+// findAvg("array")
 let initalPlotStatus = {
    peas: "empty",
    corn: "empty",
@@ -162,6 +162,7 @@ let initalMarketData = {
 let initalSettings = {
    theme: "dark",
    intro: "unfinished",
+   loadtimes: [1000],
 }
 let initalTaskList = {
    isInSave: true,
@@ -205,6 +206,7 @@ var produce = initalProduce;
 var plots = initalPlots;
 var marketData = initalMarketData;
 var taskList = initalTaskList;
+settings.loadtime = findAvg(settings.loadtimes);
 
 function addWeed() {
    let weedBoxHeight = document.querySelector(".land").clientHeight;
@@ -236,6 +238,13 @@ function toWeedOrNotToWeed() {
       marketData.weedSeason = Date.now() + 1800000;
    }
    currentTime = Date.now();
+}
+
+function findAvg(array) {
+   let total = 0;
+   for(let i = 0; i < array.length; i++) { total += array[i]; }
+   let avg = total / array.length;
+   return avg;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1451,3 +1460,36 @@ function cheat() {
 }
 
 if (location.hostname === "squirrel-314.github.io") { alert("You are using the old version of Vegetable Dash, which shall be removed as soon as cross-site saving is avalible. If you have no progress, use vegetable-dash.herokuapp.com"); }
+
+if (Math.random() > .80) { document.querySelector(".meter").classList.add("red-load"); }
+else if (Math.random() > .60) { document.querySelector(".meter").classList.add("orange-load"); }
+else if (Math.random() > .40) { document.querySelector(".meter").classList.add("yellow-load"); }
+else if (Math.random() > .20) { document.querySelector(".meter").classList.add("green-load"); }
+else if (Math.random() > .10) { document.querySelector(".meter").classList.add("blue-load"); }
+else { document.querySelector(".meter").classList.add("purple-load"); }
+
+window.addEventListener('load', (event) => {
+   settings.loadtimes.push(Date.now() - timerStart);
+   console.log("Loaded");
+   clearInterval(loadbar);
+   document.querySelector(".loading-progress").style.width = "100%";
+   document.querySelector(".load-display").textContent = "100%";
+   setTimeout(() => { $(".cover").hide(); }, 750);
+});
+
+let everytime = settings.loadtime / 100;
+let loadProgress = 0;
+let loadbar = setInterval(() => {
+   loadProgress += 3;
+   document.querySelector(".loading-progress").style.width = loadProgress + "%";
+   document.querySelector(".load-display").textContent = loadProgress + "%";
+   if (loadProgress >= 197) { clearInterval(loadbar); }
+}, everytime);
+
+
+$(".meter > span").each(function () {
+   $(this)
+   .data("origWidth", $(this).width())
+   .width(0)
+   .animate( { width: $(this).data("origWidth") }, 1  );
+});

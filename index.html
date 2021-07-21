@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
    <head>
+      <script type="text/javascript">var timerStart = Date.now();</script>
       <meta charset="utf-8">
       <!-- Google Fonts -->
       <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -14,6 +15,11 @@
       <title>Vegetable Dash!</title>
    </head>
    <body ondragstart="return false;">
+      <div class="cover">
+         <div class="meter">
+           <span class="loading-progress" style="width: 0%"><span class="load-display">0%</span></span>
+         </div>
+      </div>
       <!-- Land and Plots -->
       <div class="land">
          <img onclick="collectWeed()" class="weed" src="Images/Global Assets/weed.png">
@@ -44,7 +50,7 @@
          <!-- Corn Plot -->
          <div class="plot" id="plot2">
             <div class="lock-tooltip" id="lockedDiv2">
-               <img id="lock2" class="locked" src="Images/Lock/lock.png">
+               <img id="lock2" class="locked" src="Images/Lock/lock.svg">
                <span class="tooltiptext">This plot is locked <br> Pay 150 Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(2)">Purchase Plot</button></span>
             </div>
             <div class="open-plot" id="openPlot2">
@@ -84,7 +90,7 @@
          <!-- Strawberry Plot -->
          <div class="plot" id="plot3">
             <div class="lock-tooltip" id="lockedDiv3">
-               <img id="lock3" class="locked" src="Images/Lock/lock.png">
+               <img id="lock3" class="locked" src="Images/Lock/lock.svg">
                <span class="tooltiptext" id="lock3Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot3">
@@ -124,7 +130,7 @@
          <!-- Eggplant Plot -->
          <div class="plot" id="plot4">
             <div class="lock-tooltip" id="lockedDiv4">
-               <img id="lock4" class="locked" src="Images/Lock/lock.png">
+               <img id="lock4" class="locked" src="Images/Lock/lock.svg">
                <span class="tooltiptext" id="lock4Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot4">
@@ -163,7 +169,7 @@
          <!-- Center Plot -->
          <div class="plot" id="plot5">
             <div class="lock-tooltip" id="lockedDiv5">
-               <img id="lock5" class="locked" src="Images/Lock/lock.png">
+               <img id="lock5" class="locked" src="Images/Lock/lock.svg">
                <span class="tooltiptext" id="lock5Text"><br>This plot is locked <br> Purchase all other plots to unlock<br><br></span>
             </div>
             <div class="open-plot" id="openPlot5">
@@ -187,7 +193,7 @@
                   <li><img onclick="tendCenter('strawberries', 50000, 100000, 150000, 'Strawberry/growing.png', 'Strawberry/flowering.png', 'Strawberry/fruiting.png')" class="store-icon" src="Images/Vegetables/strawberry.png"></li>
                   <li><img onclick="tendCenter('eggplants', 300000, 600000, 900000, 'Eggplant/growing.png', 'Eggplant/flowering.png', 'Eggplant/fruiting.png')" class="store-icon" src="Images/Vegetables/eggplant.png"></li>
                   <li><img onclick="tendCenter('pumpkins', 600000, 1200000, 1800000, 'growing.png', 'Pumpkin/growing.png', 'Pumpkin/fruiting.png')" class="store-icon" src="Images/Vegetables/pumpkin.png"></li>
-                  <li><img onclick="tendCenter('cabbage', 1200000, 2400000, 3600000, 'growing.png', 'Cabbage/growing.png', 'Cabbage/fruiting.png')" class="store-icon" src="Images/Vegetables/cabbage.png"></li>
+                  <li><img onclick="tendCenter('cabbage', 1200000, 2400000, 3600000, 'growing.png', 'Cabbage/growing.png', 'Cabbage/fruiting.png')" class="store-icon" src="Images/Vegetables/cabbage.svg"></li>
                   <li><img onclick="tendCenter('dandelion', 3600000, 7200000, 10800000, 'Dandelion/flowering.png', 'Dandelion/flowering.png', 'Dandelion/fruiting.png')" class="store-icon" src="Images/Vegetables/dandelion.png"></li>
                   <li><img onclick="tendCenter('rhubarb', 9600000, 18200000, 28800000, 'growing.png', 'Rhubarb/growing.png', 'Rhubarb/fruiting.png')" class="store-icon" src="Images/Vegetables/rhubarb.png"></li>
                </ul>
@@ -196,7 +202,7 @@
          <!-- Pumpkin Plot -->
          <div class="plot" id="plot6">
             <div class="lock-tooltip" id="lockedDiv6">
-               <img id="lock6" class="locked" src="Images/Lock/lock.png">
+               <img id="lock6" class="locked" src="Images/Lock/lock.svg">
                <span class="tooltiptext" id="lock6Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot6">
@@ -235,7 +241,7 @@
          <!-- Cabbage Plot -->
          <div class="plot" id="plot7">
             <div class="lock-tooltip" id="lockedDiv7">
-               <img id="lock7" class="locked" src="Images/Lock/lock.png">
+               <img id="lock7" class="locked" src="Images/Lock/lock.svg">
                <span class="tooltiptext" id="lock7Text">This plot is locked <br> Purchase the previous plot to unlock<br></span>
             </div>
             <div class="open-plot" id="openPlot7">
@@ -246,11 +252,11 @@
                   <img src="Images/Global Assets/clock.png">
                </div>
                <!-- Information -->
-               <img onclick="infoModal('Cabbage')" class="veg-icon" src="Images/Vegetables/cabbage.png">
+               <img onclick="infoModal('Cabbage')" class="veg-icon" src="Images/Vegetables/cabbage.svg">
                <div id="infoCabbage" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Cabbage')" class="close depth-button green">×</button>
-                     <h4>Cabbage <img class="info-icon" src="Images/Vegetables/cabbage.png"></h4>
+                     <h4>Cabbage <img class="info-icon" src="Images/Vegetables/cabbage.svg"></h4>
                      <p>A leafy vegetable <br> These Cabbage plants take 1 hour to grow.</p>
                      <div class="modal-market-prices">
                         <div class="modalCabbagePriceBuy">Buy For</div>
@@ -274,7 +280,7 @@
          <!-- Dandelion Plot -->
          <div class="plot" id="plot8">
             <div class="lock-tooltip" id="lockedDiv8">
-               <img id="lock8" class="locked" src="Images/Lock/lock.png">
+               <img id="lock8" class="locked" src="Images/Lock/lock.svg">
                <span class="tooltiptext" id="lock8Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot8">
@@ -313,7 +319,7 @@
          <!-- Rhubarb Plot -->
          <div class="plot" id="plot9">
             <div class="lock-tooltip" id="lockedDiv9">
-               <img id="lock9" class="locked" src="Images/Lock/lock.png">
+               <img id="lock9" class="locked" src="Images/Lock/lock.svg">
                <span class="tooltiptext" id="lock9Text">This plot is locked <br> Purchase the previous plot to unlock<br></span>
             </div>
             <div class="open-plot" id="openPlot9">
@@ -362,7 +368,7 @@
                <div class="vegAmount strawberriesAmount"><span id="strawberryBushels">0</span> <img class="produce-image" src="Images/Vegetables/strawberry.png"><br></div>
                <div class="vegAmount eggplantsAmount"><span id="eggplantBushels">0</span> <img class="produce-image" src="Images/Vegetables/eggplant.png"><br></div>
                <div class="vegAmount pumpkinsAmount"><span id="pumpkinBushels">0</span> <img class="produce-image" src="Images/Vegetables/pumpkin.png"><br></div>
-               <div class="vegAmount cabbageAmount"><span id="cabbageBushels">0</span> <img class="produce-image" src="Images/Vegetables/cabbage.png"><br></div>
+               <div class="vegAmount cabbageAmount"><span id="cabbageBushels">0</span> <img class="produce-image" src="Images/Vegetables/cabbage.svg"><br></div>
                <div class="vegAmount dandelionAmount"><span id="dandelionBushels">0</span> <img class="produce-image" src="Images/Vegetables/dandelion.png"><br></div>
                <div class="vegAmount rhubarbAmount"><span id="rhubarbBushels">0</span> <img class="produce-image" src="Images/Vegetables/rhubarb.png"><br></div>
             </span>
@@ -476,7 +482,7 @@
                   </div>
                </div>
                <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/cabbage.png"><span class="cabbage-market-item"></span></div>
+                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/cabbage.svg"><span class="cabbage-market-item"></span></div>
                   <div class="buy-sell">
                      <span class="market-item-buy" onclick="buyProduce('cabbage', 'Cabbage')">Buy</span>
                      <span class="market-item-sell"  onclick="sellProduce('cabbage', 'Cabbage')">Sell</span>
@@ -581,6 +587,11 @@
       <div class="festival">
          <span onclick="hideObj('.festival')" class="closeModal">X</span>
          <h4>The Vegetable Festival!</h4>
+         <!-- Advertisment -->
+         <!-- Grill -->
+         <!-- Transport -->
+         <!-- Jam -->
+         <!-- Oven -->
          <div class="festival-plot" id="fstvl-1">
             <img class="festival-plot-image" src="Images/Festival/grill.png">
             <span class="festival-ahh-perspective">
@@ -612,24 +623,6 @@
             <div class="lock-tooltip">
                <img class="festival-locked" src="Images/Festival/lock.png">
                <span class="tooltiptext"><br>This plot is locked <br> Purchase all other plots to unlock<br><br></span>
-            </div>
-         </div>
-         <div class="festival-plot" id="fstvl-6">
-            <div class="lock-tooltip">
-               <img class="festival-locked" src="Images/Festival/lock.png">
-               <span class="tooltiptext">This plot is locked <br> Purchase the previous plot to unlock</span>
-            </div>
-         </div>
-         <div class="festival-plot" id="fstvl-7">
-            <div class="lock-tooltip">
-               <img class="festival-locked" src="Images/Festival/lock.png">
-               <span class="tooltiptext"><br>This plot is locked <br> Purchase all other plots to unlock<br><br></span>
-            </div>
-         </div>
-         <div class="festival-plot" id="fstvl-8">
-            <div class="lock-tooltip">
-               <img class="festival-locked" src="Images/Festival/lock.png">
-               <span class="tooltiptext">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
          </div>
       </div>
