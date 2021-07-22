@@ -19,7 +19,7 @@ Save               | Save the game data, restart
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Game Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-// findAvg("array")
+
 let initalPlotStatus = {
    peas: "empty",
    corn: "empty",
@@ -428,18 +428,18 @@ let updateWeather = window.setInterval(function() {
       marketData.newWeatherTime = Date.now() + 360000;
    }
    // Update Display
-   if (marketData.weather.sunny === true) { changeWeatherDisplay("Sunny", "Benefits: +3% market reset harvest chance", "https://api.iconify.design/wi:day-sunny.svg") }
-   if (marketData.weather.rainy === true) { changeWeatherDisplay("Rainy", "Benefits: +1 produce", "https://api.iconify.design/wi:showers.svg") }
-   if (marketData.weather.partlyCloudy === true) { changeWeatherDisplay("Partly Cloudy", "Effects: None", "https://api.iconify.design/wi:day-cloudy.svg") }
-   if (marketData.weather.partlySunny) {changeWeatherDisplay("Partly Sunny", "Effects: None", "https://api.iconify.design/wi:day-sunny-overcast.svg") }
-   if (marketData.weather.snowy === true) {changeWeatherDisplay("Snowy", "Detriments: -33% of a stored vegetable", "https://api.iconify.design/wi:snow.svg") }
-   if (marketData.weather.cloudy === true) {changeWeatherDisplay("Cloudy", "Detriments: +5s growing time", "https://api.iconify.design/wi:cloudy.svg") }
-   if (marketData.weather.frost === true) {changeWeatherDisplay("Frost", "Detriments: 50% chance plants will wither", "https://api.iconify.design/wi:snowflake-cold.svg") }
-   if (marketData.weather.flood === true) {changeWeatherDisplay("Flooding", "Detriments: -20% of a stored vegetable", "https://api.iconify.design/wi:flood.svg") }
+   if (marketData.weather.sunny === true) { changeWeatherDisplay("Sunny", "Benefits: +3% market reset harvest chance", "sunny.svg"); }
+   if (marketData.weather.rainy === true) { changeWeatherDisplay("Rainy", "Benefits: +1 produce", "rain.svg"); }
+   if (marketData.weather.partlyCloudy === true) { changeWeatherDisplay("Partly Cloudy", "Effects: None", "overcast.svg"); }
+   if (marketData.weather.partlySunny === true) { changeWeatherDisplay("Partly Sunny", "Effects: None", "partly-cloudy.svg"); }
+   if (marketData.weather.snowy === true) { changeWeatherDisplay("Snowy", "Detriments: -33% of a stored vegetable", "snow.svg"); }
+   if (marketData.weather.cloudy === true) { changeWeatherDisplay("Cloudy", "Detriments: +5s growing time", "cloudy.svg"); }
+   if (marketData.weather.frost === true) { changeWeatherDisplay("Frost", "Detriments: 50% chance plants will wither", "frost.svg"); }
+   if (marketData.weather.flood === true) { changeWeatherDisplay("Flooding", "Detriments: -20% of a stored vegetable", "flood.svg"); }
    function changeWeatherDisplay(weather, text, url) {
       document.querySelector(".weather-name"). textContent = weather;
       document.querySelector(".weather-description").innerHTML = text;
-      document.querySelector(".weather-img").style.background = `url("${url}") no-repeat center center / contain`;
+      document.querySelector(".weather-img").style.background = `url("Images/Weather/${url}") no-repeat center center / contain`;
    }
 }, 100)
 
@@ -1485,7 +1485,6 @@ let loadbar = setInterval(() => {
    document.querySelector(".load-display").textContent = loadProgress + "%";
    if (loadProgress >= 197) { clearInterval(loadbar); }
 }, everytime);
-
 
 $(".meter > span").each(function () {
    $(this)

@@ -1337,7 +1337,6 @@ Other
    width: 15vh;
    background: url('https://api.iconify.design/wi:day-rain-wind.svg') no-repeat center center / contain;
    transition: all .1s, margin .8s;
-   filter: invert(95%);
 }
 .weather-short:hover .weather-img { margin: 1vh 2vh; }
 .weather-name {
