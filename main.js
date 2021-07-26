@@ -1492,3 +1492,37 @@ $(".meter > span").each(function () {
    .width(0)
    .animate( { width: $(this).data("origWidth") }, 1  );
 });
+
+setInterval(() => {
+   document.querySelector(".stringSave").textContent = reverseString(`${JSON.stringify(settings)}~${JSON.stringify(plotStatus)}~${JSON.stringify(produce)}~${JSON.stringify(plots)}~${JSON.stringify(marketData)}~${JSON.stringify(taskList)}`);
+}, 500);
+
+function exportSave() {
+
+   // copy text in the .stringSave element to the clipboard
+   let text = document.querySelector(".stringSave").textContent;
+   let textArea = document.createElement("textarea");
+   textArea.value = text;
+   document.body.appendChild(textArea);
+   textArea.select();
+   document.execCommand("copy");
+   document.body.removeChild(textArea);
+}
+
+function importSave() {
+   let saveInput = prompt("where is your save?");
+   var imported = reverseString(saveInput).split('~');
+   if (saveInput !== null) {
+      settings = JSON.parse(imported[0]);
+      plotStatus = JSON.parse(imported[1]);
+      produce = JSON.parse(imported[2]);
+      plots = JSON.parse(imported[3]);
+      marketData = JSON.parse(imported[4]);
+      taskList = JSON.parse(imported[5]);
+   }
+}
+
+function reverseString(str) {
+   let splitString = str.split("");
+   return splitString.reverse().join("");
+}
