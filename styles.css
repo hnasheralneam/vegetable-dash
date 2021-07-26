@@ -358,7 +358,7 @@ Modals
    box-sizing: border-box;
 }
 .modalContent {
-   min-height: 90%;
+   min-height: 88%;
    border-radius: 2vh;
    margin: 5vh;
    padding: 8vh 0;
@@ -1536,3 +1536,51 @@ tr:nth-child(even) { background-color: #eee; }
 .green-load > span {background-image: linear-gradient(#a3f0b3, #23f47b); }
 .blue-load > span {background-image: linear-gradient(#f0a3a3, #f42323); }
 .purple-load > span {background-image: linear-gradient(#f0a3a3, #f42323); }
+
+.save-export-img {
+   height: 20vh;
+}
+
+.darkFadeText { color: #505050; }
+
+.import-export-tooltip {
+  position: relative;
+  display: inline-block;
+  margin: 10vh 25vh;
+  height: 20vh;
+  width: 20vh;
+}
+
+.import-export-tooltip .import-export-tooltip-text {
+  opacity: 0;
+  pointer-events: none;
+  width: 250%;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 2vh;
+  padding: 2vh 0;
+  position: absolute;
+  z-index: 1;
+  top: 110%;
+  left: -20%;
+  margin-left: -11vh;
+  font-size: 4vh;
+  transition: .3s;
+}
+
+.import-export-tooltip .import-export-tooltip-text::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -2.5vh;
+  border-width: 2.5vh;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+.import-export-tooltip:hover .import-export-tooltip-text {
+   opacity: 1;
+   pointer-events: auto;
+}

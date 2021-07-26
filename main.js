@@ -80,7 +80,7 @@ let initalPlots = {
    price2: 150,
    price3: 750,
    price4: 3750,
-   price5: "your soul (or $$$ - we don't accept credit)",
+   price5: "free - but extra plant is needed",
    price6: 50000,
    price7: 250000,
    price8: 1000000,
@@ -428,14 +428,14 @@ let updateWeather = window.setInterval(function() {
       marketData.newWeatherTime = Date.now() + 360000;
    }
    // Update Display
-   if (marketData.weather.sunny === true) { changeWeatherDisplay("Sunny", "Benefits: +3% market reset harvest chance", "sunny.svg"); }
-   if (marketData.weather.rainy === true) { changeWeatherDisplay("Rainy", "Benefits: +1 produce", "rain.svg"); }
-   if (marketData.weather.partlyCloudy === true) { changeWeatherDisplay("Partly Cloudy", "Effects: None", "overcast.svg"); }
-   if (marketData.weather.partlySunny === true) { changeWeatherDisplay("Partly Sunny", "Effects: None", "partly-cloudy.svg"); }
-   if (marketData.weather.snowy === true) { changeWeatherDisplay("Snowy", "Detriments: -33% of a stored vegetable", "snow.svg"); }
-   if (marketData.weather.cloudy === true) { changeWeatherDisplay("Cloudy", "Detriments: +5s growing time", "cloudy.svg"); }
-   if (marketData.weather.frost === true) { changeWeatherDisplay("Frost", "Detriments: 50% chance plants will wither", "frost.svg"); }
-   if (marketData.weather.flood === true) { changeWeatherDisplay("Flooding", "Detriments: -20% of a stored vegetable", "flood.svg"); }
+   if (marketData.weather.sunny) { changeWeatherDisplay("Sunny", "Benefits: +3% market reset harvest chance", "sunny.svg"); }
+   if (marketData.weather.rainy) { changeWeatherDisplay("Rainy", "Benefits: +1 produce", "rain.svg"); }
+   if (marketData.weather.partlyCloudy) { changeWeatherDisplay("Partly Cloudy", "Effects: None", "overcast.svg"); }
+   if (marketData.weather.partlySunny) { changeWeatherDisplay("Partly Sunny", "Effects: None", "partly-cloudy.svg"); }
+   if (marketData.weather.snowy) { changeWeatherDisplay("Snowy", "Detriments: -33% of a stored vegetable", "snow.svg"); }
+   if (marketData.weather.cloudy) { changeWeatherDisplay("Cloudy", "Detriments: +5s growing time", "cloudy.svg"); }
+   if (marketData.weather.frost) { changeWeatherDisplay("Frost", "Detriments: 50% chance plants will wither", "frost.svg"); }
+   if (marketData.weather.flood) { changeWeatherDisplay("Flooding", "Detriments: -20% of a stored vegetable", "flood.svg"); }
    function changeWeatherDisplay(weather, text, url) {
       document.querySelector(".weather-name"). textContent = weather;
       document.querySelector(".weather-description").innerHTML = text;
@@ -1067,6 +1067,10 @@ window.addEventListener('load', (event) => { setup(); });
 
 function capitalize(string) { return string.charAt(0).toUpperCase() + string.slice(1); }
 function commas(num) { return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+function reverseString(str) {
+   let splitString = str.split("");
+   return splitString.reverse().join("");
+}
 function diff(n, x) { return n / x; }
 function random(min, max) { return Math.floor(Math.random() * (max - min + 1) + min); }
 function scrollToSection(id) { document.getElementById(id).scrollIntoView(); }
@@ -1459,8 +1463,6 @@ function cheat() {
    else { alert("No cheating for you"); }
 }
 
-if (location.hostname === "squirrel-314.github.io") { alert("You are using the old version of Vegetable Dash, which shall be removed as soon as cross-site saving is avalible. If you have no progress, use vegetable-dash.herokuapp.com"); }
-
 if (Math.random() > .80) { document.querySelector(".meter").classList.add("red-load"); }
 else if (Math.random() > .60) { document.querySelector(".meter").classList.add("orange-load"); }
 else if (Math.random() > .40) { document.querySelector(".meter").classList.add("yellow-load"); }
@@ -1492,3 +1494,57 @@ $(".meter > span").each(function () {
    .width(0)
    .animate( { width: $(this).data("origWidth") }, 1  );
 });
+
+// Import/Export Save
+setInterval(() => {
+   document.querySelector(".stringSave").textContent = reverseString(`${JSON.stringify(settings)}~${JSON.stringify(plotStatus)}~${JSON.stringify(produce)}~${JSON.stringify(plots)}~${JSON.stringify(marketData)}~${JSON.stringify(taskList)}`);
+}, 500);
+
+function exportSave() {
+   let text = document.querySelector(".stringSave").textContent;
+   let textArea = document.createElement("textarea");
+   textArea.value = text;
+   document.body.appendChild(textArea);
+   textArea.select();
+   document.execCommand("copy");
+   document.body.removeChild(textArea);
+}
+function importSave() {
+   let saveInput = prompt("where is your save?");
+   if (saveInput !== null) {
+      let imported = reverseString(saveInput).split('~');
+      settings = JSON.parse(imported[0]);
+      plotStatus = JSON.parse(imported[1]);
+      produce = JSON.parse(imported[2]);
+      plots = JSON.parse(imported[3]);
+      marketData = JSON.parse(imported[4]);
+      taskList = JSON.parse(imported[5]);
+   }
+   save();
+   location.reload();
+}
+
+// Sent to new site
+if (location.hostname === "squirrel-314.github.io") { window.location.href = `https://vegetable-dash.herokuapp.com#${reverseString(`${JSON.stringify(settings).replace(" ","")}~${JSON.stringify(plotStatus).replace(" ","")}~${JSON.stringify(produce).replace(" ","")}~${JSON.stringify(plots).replace(" ","")}~${JSON.stringify(marketData).replace(" ","")}~${JSON.stringify(taskList).replace(" ","")}`)}`; }
+
+let siteLocation = window.location.href;
+if (siteLocation.includes("#")) {
+   let importQuestion = prompt("You were redirected from the old site. Would you like to bring your save over with you, or start from scratch? (y/n)");
+   if (importQuestion == "y") {
+      let saveFromOldOne = siteLocation.replace("https://vegetable-dash.herokuapp.com/#","");
+      let saveFromOld = decodeURIComponent(saveFromOldOne);
+      console.log(saveFromOld);
+      if (saveFromOld !== null) {
+         let imported = reverseString(saveFromOld).split('~');
+         settings = JSON.parse(imported[0]);
+         plotStatus = JSON.parse(imported[1]);
+         produce = JSON.parse(imported[2]);
+         plots = JSON.parse(imported[3]);
+         marketData = JSON.parse(imported[4]);
+         taskList = JSON.parse(imported[5]);
+      }
+      save();
+      window.location.href = `https://vegetable-dash.herokuapp.com/`;
+   }
+   else { window.location.href = `https://vegetable-dash.herokuapp.com/`; }
+}

@@ -559,6 +559,16 @@
             <button class="setting-button theme-color" onclick="darkTheme()">Dark</button>
             <button class="setting-button" onclick="togglePlay()">Music</button>
             <audio class="mozart" src="Audio/mozart.mp3"></audio>
+            <br>
+            <div class="import-export-tooltip">
+               <img onclick="importSave();" class="save-export-img" src="Images/Global Assets/import-save.svg">
+               <span class="import-export-tooltip-text">Import Save</span>
+            </div>
+            <div class="import-export-tooltip">
+               <img onclick="exportSave(); fadeTextAppear(event, `Save Copied to Clipboard!`, 'darkFadeText');" class="save-export-img" src="Images/Global Assets/export-save.svg">
+               <span class="import-export-tooltip-text">Export Save</span>
+            </div>
+            <p style="display: none;" class="stringSave"></p>
          </div>
       </div>
       <!-- Black Market -->
