@@ -272,7 +272,7 @@ function tend(veg, timeOne, timeTwo, timeThree) {
       plotStatus[veg + "Growing"] = currentTime + timeOne;
       plotStatus[veg + "Flowering"] = currentTime + timeTwo;
       if (marketData.weather.cloudy) { plotStatus[veg + "Ready"] = currentTime + timeThree + 5000; }
-      else { plotStatus[veg + "Ready"] = currentTime + timeThree; }
+      file:///home/squirrel/Documents/GitHub/vegetable-dash/index.html     else { plotStatus[veg + "Ready"] = currentTime + timeThree; }
       plotStatus[veg] = "working";
       timeLeft(timeThree, veg.toLowerCase());
       hideObj(`.${capitalize(veg)}`);
@@ -737,6 +737,7 @@ function runIntro() {
    plots = initalPlots;
    marketData = initalMarketData;
    settings = initalSettings;
+   taskList = initalTaskList;
    save();
    settings.intro = "finished";
    showObj(".welcome");
@@ -1050,16 +1051,13 @@ let mainLoop = window.setInterval(function() {
    if (plots.dandelionplot === 'unlocked') { document.querySelector(".tm-tb-da").style.opacity = "1"; }
    if (plots.rhubarbplot === 'unlocked') { document.querySelector(".tm-tb-rh").style.opacity = "1"; }
 }, 200)
-function setup() {
-   if (!taskList) { taskList = initalTaskList; }
-   if (marketData.fertilizers == NaN) { marketData.fertilizers = 0; }
-   whatTheme();
-   checkLocks();
-   checkMarket();
-   generateExchange();
-   newBlackOffer();
-}
-window.addEventListener('load', (event) => { setup(); });
+
+// Run on page load
+whatTheme();
+checkLocks();
+checkMarket();
+generateExchange();
+newBlackOffer();
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Helpful Functions
@@ -1138,7 +1136,6 @@ $(document).ready(function(){ $('.help-subjects-item').click(function () { $('.h
 function aEL(key, func) { document.addEventListener("keyup", function(event) { if (event.shiftKey && event.keyCode === key) { func(); } }); }
 
 aEL(84, taskBar); // Shift + T
-aEL(68, cheat); // Shift + D
 aEL(83, settingModal); // Shift + S
 aEL(80, plantDrag); // Shift + P
 aEL(72, harvestDrag); // Shift + H
@@ -1182,31 +1179,31 @@ function toggleMarket() {
 }
 
 // Right Click Menu
-let rightClickMenu = document.querySelector("#menu").style;
-if (document.addEventListener) {
-   document.addEventListener('contextmenu', function(e) {
-      let posX = e.clientX;
-      let posY = e.clientY;
-      menu(posX, posY);
-      e.preventDefault();
-   }, false);
-   document.addEventListener('click', function(e) {
-      rightClickMenu.display = "none";
-   }, false);
-}
-else {
-   document.attachEvent('oncontextmenu', function(e) {
-      var posX = e.clientX;
-      var posY = e.clientY;
-      menu(posX, posY);
-      e.preventDefault();
-   });
-   document.attachEvent('onclick', function(e) {
-      setTimeout(function() {
-         rightClickMenu.display = "none";
-      }, 501);
-   });
-}
+// let rightClickMenu = document.querySelector("#menu").style;
+// if (document.addEventListener) {
+//    document.addEventListener('contextmenu', function(e) {
+//       let posX = e.clientX;
+//       let posY = e.clientY;
+//       menu(posX, posY);
+//       e.preventDefault();
+//    }, false);
+//    document.addEventListener('click', function(e) {
+//       rightClickMenu.display = "none";
+//    }, false);
+// }
+// else {
+//    document.attachEvent('oncontextmenu', function(e) {
+//       var posX = e.clientX;
+//       var posY = e.clientY;
+//       menu(posX, posY);
+//       e.preventDefault();
+//    });
+//    document.attachEvent('onclick', function(e) {
+//       setTimeout(function() {
+//          rightClickMenu.display = "none";
+//       }, 501);
+//    });
+// }
 function menu(x, y) {
    rightClickMenu.top = y + "px";
    rightClickMenu.left = x + "px";
@@ -1393,12 +1390,14 @@ function save() {
    localStorage.setItem("taskList", JSON.stringify(taskList, replacer));
 }
 
-plotStatus = JSON.parse(localStorage.getItem("plotStatus"));
-produce = JSON.parse(localStorage.getItem("produce"));
-plots = JSON.parse(localStorage.getItem("plots"));
-marketData = JSON.parse(localStorage.getItem("marketData"));
-settings = JSON.parse(localStorage.getItem("settingData"));
-taskList = JSON.parse(localStorage.getItem("taskList"));
+if (settings.intro != "finished") {
+   plotStatus = JSON.parse(localStorage.getItem("plotStatus"));
+   produce = JSON.parse(localStorage.getItem("produce"));
+   plots = JSON.parse(localStorage.getItem("plots"));
+   marketData = JSON.parse(localStorage.getItem("marketData"));
+   settings = JSON.parse(localStorage.getItem("settingData"));
+   taskList = JSON.parse(localStorage.getItem("taskList"));
+}
 
 if (!settings || (settings.intro != "finished")) { runIntro(); }
 
@@ -1441,27 +1440,6 @@ for (key of initalTaskListKeys) { if (taskList[key] === undefined) { taskList[ke
 
 if (isMobile()) { document.location = "mobile.html"; }
 function isMobile() { return ('ontouchstart' in document.documentElement); }
-
-function cheat() {
-   let cheatPassword = prompt("Password?");
-   if (cheatPassword === "dev") {
-      marketData.seeds += 1000000;
-      marketData.fertilizers += 250
-      marketData.marketResets += 15;
-      plots.cornplot = "unlocked";
-      plots.strawberryplot = "unlocked";
-      plots.eggplantplot = "unlocked";
-      plots.pumpkinplot = "unlocked";
-      plots.cabbageplot = "unlocked";
-      plots.dandelionplot = "unlocked";
-      plots.rhubarbplot = "unlocked";
-     settings.theme = "light";
-     save();
-     location.reload();
-     alert("Welcome, Squirrel");
-   }
-   else { alert("No cheating for you"); }
-}
 
 if (Math.random() > .80) { document.querySelector(".meter").classList.add("red-load"); }
 else if (Math.random() > .60) { document.querySelector(".meter").classList.add("orange-load"); }
