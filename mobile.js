@@ -491,8 +491,8 @@ function showTasks() {
    }
    // Old open tasks
    if (oldTaskCheck("jebsPeaSalad") != false) {
-      if (taskList.jebsPeaSalad === "ready") { startTask(`${oldTaskCheck("jebsPeaSalad")}`, "Collect 2 Fertilizer", "collectTaskReward('jebsPeaSalad')", "That salad sure was delicious! To pay back the favor, I'll give you some fertilizer! Use it wisely!", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsPeaSalad"); }
-      else { startTask(`${oldTaskCheck("jebsPeaSalad")}`, "Submit 25 Peas", "if (produce.peas >= 25) { produce.peas -= 25; checkTasks('jebsPeaSalad'); } else { fadeTextAppear('Not enough produce', false); }", "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsPeaSalad"); }
+      if (taskList.jebsPeaSalad === "ready") { startTask(`${oldTaskCheck("jebsPeaSalad")}`, "Collect 2 Fertilizer", "collectTaskReward('jebsPeaSalad')", "That salad sure was delicious! To pay back the favor, I'll give you some fertilizer! Use it wisely!", "Farmer Jebediah", "Images/Tasks/farmer.svg", "jebsPeaSalad"); }
+      else { startTask(`${oldTaskCheck("jebsPeaSalad")}`, "Submit 25 Peas", "if (produce.peas >= 25) { produce.peas -= 25; checkTasks('jebsPeaSalad'); } else { fadeTextAppear('Not enough produce', false); }", "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?", "Farmer Jebediah", "Images/Tasks/farmer.svg", "jebsPeaSalad"); }
    }
    if (oldTaskCheck("useMarketResets") != false) {
       if (taskList.useMarketResets === "ready") { startTask(`${oldTaskCheck("useMarketResets")}`, "Collect 250 Seeds", "collectTaskReward('useMarketResets')", "Thank you for completing that small task for me! Here, take 250 seeds!", "Grandma Josephine", "Images/Tasks/granny.png", "useMarketResets"); }
@@ -503,8 +503,8 @@ function showTasks() {
       else { startTask(`${oldTaskCheck("tryFertilizer")}`, "Use 1 Fertilizer", " ", "Your plants look like they could do with some help. Why don't you use some fertilizer? It'll double the crop yeild and finish the growing instantly!", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "tryFertilizer"); }
    }
    if (oldTaskCheck("jebsGrilledCorn") != false) {
-      if (taskList.jebsGrilledCorn === "ready") { startTask(`${oldTaskCheck("jebsGrilledCorn")}`, "Collect 8 Market Resets", "collectTaskReward('jebsGrilledCorn')", "What a wonderful time we all had! Did you like the food? My family did, and they sent you some gifts!", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsGrilledCorn"); }
-      else { startTask(`${oldTaskCheck("jebsGrilledCorn")}`, "Submit 50 Corn", "if (produce.corn >= 50) { produce.corn -= 50; checkTasks('jebsGrilledCorn'); } else { fadeTextAppear('Not enough produce', false); }", "I'm inviting some family over, and I want to serve corn on the cob. I'm going to need to get come corn. Could you get them for me?", "Farmer Jebediah", "Images/Tasks/farmer.png", "jebsGrilledCorn"); }
+      if (taskList.jebsGrilledCorn === "ready") { startTask(`${oldTaskCheck("jebsGrilledCorn")}`, "Collect 8 Market Resets", "collectTaskReward('jebsGrilledCorn')", "What a wonderful time we all had! Did you like the food? My family did, and they sent you some gifts!", "Farmer Jebediah", "Images/Tasks/farmer.svg", "jebsGrilledCorn"); }
+      else { startTask(`${oldTaskCheck("jebsGrilledCorn")}`, "Submit 50 Corn", "if (produce.corn >= 50) { produce.corn -= 50; checkTasks('jebsGrilledCorn'); } else { fadeTextAppear('Not enough produce', false); }", "I'm inviting some family over, and I want to serve corn on the cob. I'm going to need to get come corn. Could you get them for me?", "Farmer Jebediah", "Images/Tasks/farmer.svg", "jebsGrilledCorn"); }
    }
    if (oldTaskCheck("josephinesDandelionSalad") != false) {
       if (taskList.josephinesDandelionSalad === "ready") { startTask(`${oldTaskCheck("josephinesDandelionSalad")}`, "Collect 15,000 Seeds", "collectTaskReward('josephinesDandelionSalad')", "Take that, Happy Place Farm! Our profits have increased by 20%, and their quarterly earnings fell by 35%! Hurrah for dandelion salad!", "Grandma Josephine", "Images/Tasks/granny.png", "josephinesDandelionSalad"); }
@@ -515,12 +515,12 @@ function showTasks() {
       else { startTask(`${oldTaskCheck("unlockThe_cornPlot")}`, "Unlock the second plot", " ", "You need to diversify your farm. Unlock the second plot for a new plant!", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "unlockThe_cornPlot"); }
    }
    if (oldTaskCheck("seeBlackMarket") != false) {
-      if (taskList.seeBlackMarket === "ready") { startTask(`${oldTaskCheck("seeBlackMarket")}`, "Collect 5 Doughnuts", "collectTaskReward('seeBlackMarket')", "Well done. Keep up the bad work.", "Shade E. Charekter", "Images/Tasks/shade-e.png", "seeBlackMarket"); }
-      else { startTask(`${oldTaskCheck("seeBlackMarket")}`, "Accept a Black Market offer", " ", "My friend has an offer to make you, meet him in the dark alleyway behind the marketplace.", "Shade E. Charekter", "Images/Tasks/shade-e.png", "seeBlackMarket"); }
+      if (taskList.seeBlackMarket === "ready") { startTask(`${oldTaskCheck("seeBlackMarket")}`, "Collect 5 Doughnuts", "collectTaskReward('seeBlackMarket')", "Well done. Keep up the bad work.", "Shade E. Charekter", "Images/Tasks/shade-e.svg", "seeBlackMarket"); }
+      else { startTask(`${oldTaskCheck("seeBlackMarket")}`, "Accept a Black Market offer", " ", "My friend has an offer to make you, meet him in the dark alleyway behind the marketplace.", "Shade E. Charekter", "Images/Tasks/shade-e.svg", "seeBlackMarket"); }
    }
    if (oldTaskCheck("tryPoliceDoughnuts") != false) {
-      if (taskList.tryPoliceDoughnuts === "ready") { startTask(`${oldTaskCheck("tryPoliceDoughnuts")}`, "Collect 7,500 Seeds", "collectTaskReward('tryPoliceDoughnuts')", "Very good. Here, take some cash.", "Shade E. Charekter", "Images/Tasks/shade-e.png", "tryPoliceDoughnuts"); }
-      else { startTask(`${oldTaskCheck("tryPoliceDoughnuts")}`, "Use 1 Doughnut", " ", "After accepting or declining a few offers, the police will get suspicious. Feed them doughnuts to satiate their wrath.", "Shade E. Charekter", "Images/Tasks/shade-e.png", "tryPoliceDoughnuts"); }
+      if (taskList.tryPoliceDoughnuts === "ready") { startTask(`${oldTaskCheck("tryPoliceDoughnuts")}`, "Collect 7,500 Seeds", "collectTaskReward('tryPoliceDoughnuts')", "Very good. Here, take some cash.", "Shade E. Charekter", "Images/Tasks/shade-e.svg", "tryPoliceDoughnuts"); }
+      else { startTask(`${oldTaskCheck("tryPoliceDoughnuts")}`, "Use 1 Doughnut", " ", "After accepting or declining a few offers, the police will get suspicious. Feed them doughnuts to satiate their wrath.", "Shade E. Charekter", "Images/Tasks/shade-e.svg", "tryPoliceDoughnuts"); }
    }
    // Bake Sale
    if (oldTaskCheck("bakeSale_cornBread") != false) {
@@ -708,7 +708,7 @@ function intro() {
    }
    function sidebar() {
       if (introData.produceBar === false) {
-         $(".intro-img").attr("src", "Images/Tasks/farmer.png");
+         $(".intro-img").attr("src", "Images/Tasks/farmer.svg");
          introText.textContent = "This bar is where you control the farm.";
          document.querySelector(".command-panel").style.zIndex = "1";
          introData.produceBar = true;
@@ -732,7 +732,7 @@ function intro() {
    }
    function tasks() {
       if (introData.tasks === false) {
-         $(".intro-img").attr("src", "Images/Tasks/farmer.png");
+         $(".intro-img").attr("src", "Images/Tasks/farmer.svg");
          introText.textContent = "This little ribbon opens to show Tasks, where you can get rewards for doing chores around the farm.";
          document.querySelector(".command-panel").style.zIndex = "0";
          document.querySelector(".quests").style.zIndex = "9999";
@@ -752,7 +752,7 @@ function intro() {
    }
    function help() {
       if (introData.help === false) {
-         $(".intro-img").attr("src", "Images/Tasks/farmer.png");
+         $(".intro-img").attr("src", "Images/Tasks/farmer.svg");
          introText.textContent = "That's it! If you need more help, just check the small help icon in the top left corner.";
          document.querySelector(".quests").style.zIndex = "0";
          document.querySelector(".help-center-img").style.zIndex = "9999";

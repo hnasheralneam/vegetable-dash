@@ -25,7 +25,7 @@
          <img onclick="collectWeed()" class="weed" src="Images/Global Assets/weed.png">
          <!-- Pea Plot -->
          <div class="plot" id="plot1">
-            <button class="Peas btn" onclick="tend('peas', 3000, 6000, 10000)">Grow Peas!</button>
+            <button class="Peas btn" onclick="tend('peas')">Grow Peas!</button>
             <!-- Countdown -->
             <div class="countdown peas-countdown time-left">
                <span class="peas-time-left">00:00:00</span>
@@ -54,7 +54,7 @@
                <span class="tooltiptext">This plot is locked <br> Pay 150 Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(2)">Purchase Plot</button></span>
             </div>
             <div class="open-plot" id="openPlot2">
-               <button class="Corn btn" onclick="tend('corn', 6000, 12000, 25000)">Grow Corn!</button>
+               <button class="Corn btn" onclick="tend('corn')">Grow Corn!</button>
                <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="corn-time-left">00:00:00</span>
@@ -94,7 +94,7 @@
                <span class="tooltiptext" id="lock3Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot3">
-               <button class="Strawberries btn" onclick="tend('strawberries', 50000, 100000, 150000)">Grow Strawberries!</button>
+               <button class="Strawberries btn" onclick="tend('strawberries')">Grow Strawberries!</button>
                <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="strawberries-time-left">00:00:00</span>
@@ -134,7 +134,7 @@
                <span class="tooltiptext" id="lock4Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot4">
-               <button class="Eggplants btn" onclick="tend('eggplants', 300000, 600000, 900000)">Grow Eggplants!</button>
+               <button class="Eggplants btn" onclick="tend('eggplants')">Grow Eggplants!</button>
                <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="eggplants-time-left">00:00:00</span>
@@ -206,7 +206,7 @@
                <span class="tooltiptext" id="lock6Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot6">
-               <button class="Pumpkins btn" onclick="tend('pumpkins', 600000, 1200000, 1800000)">Grow Pumpkins!</button>
+               <button class="Pumpkins btn" onclick="tend('pumpkins')">Grow Pumpkins!</button>
                <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="pumpkins-time-left">00:00:00</span>
@@ -245,7 +245,7 @@
                <span class="tooltiptext" id="lock7Text">This plot is locked <br> Purchase the previous plot to unlock<br></span>
             </div>
             <div class="open-plot" id="openPlot7">
-               <button class="Cabbage btn" onclick="tend('cabbage', 1200000, 2400000, 3600000)">Grow Cabbage!</button>
+               <button class="Cabbage btn" onclick="tend('cabbage')">Grow Cabbage!</button>
                <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="cabbage-time-left">00:00:00</span>
@@ -284,7 +284,7 @@
                <span class="tooltiptext" id="lock8Text">This plot is locked <br> Purchase the previous plot to unlock</span>
             </div>
             <div class="open-plot" id="openPlot8">
-               <button class="Dandelion btn" onclick="tend('dandelion', 3600000, 7200000, 10800000)">Grow Dandelion!</button>
+               <button class="Dandelion btn" onclick="tend('dandelion')">Grow Dandelion!</button>
                <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="dandelion-time-left">00:00:00</span>
@@ -323,7 +323,7 @@
                <span class="tooltiptext" id="lock9Text">This plot is locked <br> Purchase the previous plot to unlock<br></span>
             </div>
             <div class="open-plot" id="openPlot9">
-               <button class="Rhubarb btn" onclick="tend('rhubarb', 9600000, 18200000, 28800000)">Grow Rhubarb!</button>
+               <button class="Rhubarb btn" onclick="tend('rhubarb')">Grow Rhubarb!</button>
                <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="rhubarb-time-left">00:00:00</span>
@@ -384,8 +384,8 @@
       </div>
       <!-- Tasks -->
       <div class="tasks">
-         <div class="taskShadow" onclick="taskBar()"></div>
-         <img class="task-ribbon" src="Images/Tasks/short-ribbon.png" onclick="taskBar()">
+         <div class="taskShadow" onclick="taskBar('open');"></div>
+         <img class="task-ribbon" src="Images/Tasks/ribbon.svg" onclick="taskBar('close')">
          <svg
          class="aTaskIsReady"
          width="200.75131mm"
@@ -968,8 +968,8 @@
       </div>
       <!-- Command Panel/Bar -->
       <div class="command-panel">
-         <img onclick="showObj('.marketShadow');" class="commandBarImg" src="Images/Control Bar/market.png">
-         <img onclick="showObj('.settingShadow')" class="commandBarImg" src="Images/Control Bar/settings.png">
+         <img onclick="showObj('.marketShadow'); settings.marketOpen = true;" class="commandBarImg" src="Images/Control Bar/shop.svg">
+         <img onclick="showObj('.settingShadow'); settings.settingsOpen = true;" class="commandBarImg" src="Images/Control Bar/preferences.svg">
          <label class="switch">
             <input type="checkbox" checked>
             <span class="slider" onmouseover="commandBar()"></span>
@@ -980,7 +980,7 @@
          <div class="market">
             <div class="marketVegetables">
                <div class="market-item">
-                  <button onclick="hideObj('.marketShadow')" class="closeModal hide-market depth-button blue">X</button>
+                  <button onclick="hideObj('.marketShadow'); settings.marketOpen = false;" class="closeModal hide-market depth-button blue">X</button>
                   <div class="market-item-content special-market-item">Seeds: 0</div>
                </div>
                <div class="market-item">
@@ -1064,7 +1064,7 @@
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content blackMarketHome" onclick="showObj('.blackMarketShadow')">
+               <div class="market-item-content blackMarketHome" onclick="showObj('.blackMarketShadow'); settings.blackMarketOpen = true;">
                   <span style="font-size: 10vh; font-weight: 800; font-family: 'Nunito'">Black Market</span>
                </div>
             </div>
@@ -1088,7 +1088,7 @@
       <!-- Settings -->
       <div class="shadow settingShadow">
          <div class="modalContent settings">
-            <span onclick="hideObj('.settingShadow')" class="closeModal">X</span>
+            <span onclick="hideObj('.settingShadow'); settings.settingsOpen = false;" class="closeModal">X</span>
             <h1>Settings</h1>
             <button class="setting-button" onclick="restart()">Restart</button>
             <button class="setting-button theme-color" onclick="lightTheme()">Light</button>
@@ -1111,7 +1111,7 @@
       <!-- Black Market -->
       <div class="shadow blackMarketShadow">
          <div class="modalContent blackMarket">
-            <span onclick="hideObj('.blackMarketShadow')" class="closeModal">X</span>
+            <span onclick="hideObj('.blackMarketShadow'); settings.blackMarketOpen = false;" class="closeModal">X</span>
             <h3>Black Market</h3>
             <div class="doughnut-parent">
                <div class="more-info-tooltip more-info-tooltip-black">
@@ -1176,10 +1176,10 @@
       <!-- Other -->
       <div>
          <!-- Help -->
-         <img class="help-center-img" onclick="showObj('.help-shadow')" src="Images/Global Assets/more-info.png">
+         <img class="help-center-img" onclick="showObj('.help-shadow'); settings.helpOpen = true;" src="Images/Global Assets/more-info.png">
          <div class="shadow help-shadow">
             <div class="help">
-               <button onclick="hideObj('.help-shadow')" class="close depth-button blue closeModalHelp">×</button>
+               <button onclick="hideObj('.help-shadow'); settings.helpOpen = false;" class="close depth-button blue closeModalHelp">×</button>
                <div class="help-subjects">
                   <div class="help-subjects-item help-subjects-item-center" onclick="scrollToSection('help-center')">Center</div>
                   <div class="help-subjects-item help-subjects-item-planting" onclick="scrollToSection('help-planting')">Planting</div>
@@ -1257,7 +1257,7 @@
                   </div>
                   <div id="help-weather">
                      <h1>Weather</h1>
-                     <p>Weather is a natural phenomenon that sometimes occurs, usuallyus  in the sky. It will effect your plants, sometimes positively and sometimes negatively. Keep a close eye on the weather in the bottom right corner! Note: There are no forecasts, because those are always wrong</p>
+                     <p>Weather is a natural phenomenon that sometimes occurs, usuallyus  in the sky. It will effect your plants, sometimes positively and sometimes negatively. Keep a close eye on the weather in the bottom right corner! Next weather can be seen on the bottom right and last weather on the bottom left.</p>
                      <img src="Images/Help/weather.png" style="height: 50vh">
                   </div>
                   <div id="help-disasters">
@@ -1272,7 +1272,7 @@
                   <div id="help-farmer-jebediah">
                      <h1>Farmer Jebediah</h1>
                      <p>Previous owner of the farm, you closest adviser. He gives many important <span onclick="scrollToSection('help-tasks'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-tasks').addClass('help-subjects-item-active');">Tasks</span>.</p>
-                     <img src="Images/Tasks/farmer.png" style="height: 50vh">
+                     <img src="Images/Tasks/farmer.svg" style="height: 50vh">
                   </div>
                   <div id="help-grandpa-jenkins">
                      <h1>Grandpa Jenkins</h1>
@@ -1374,11 +1374,13 @@
             <div class="weather-img"></div>
             <h6 class="weather-name"></h6>
             <p class="weather-description"></p>
+            <div class="weather-last"></div>
+            <div class="weather-next"></div>
          </div>
          <!-- Various -->
          <div class="introDarkShadow">
             <div class="intro-container">
-               <img class="intro-img" src="Images/Tasks/farmer.png">
+               <img class="intro-img" src="Images/Tasks/farmer.svg">
                <img class="intro-divide" src="Images/Tasks/gold-separator.png">
                <p class="intro-text">Greetings. I am Farmer Jebediah, and I will be showing you around the farm.</p>
                <span onclick="intro()" class="intro-nxt-btn">&#10230;</span>
