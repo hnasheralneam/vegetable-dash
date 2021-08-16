@@ -286,7 +286,7 @@ function tend(veg) {
       currentTime = Date.now();
       plotStatus[veg + "Growing"] = currentTime + plotStatus[veg + "Time"][0];
       plotStatus[veg + "Flowering"] = currentTime + plotStatus[veg + "Time"][1];
-      if (marketData.weather.weather === "cloudy") { plotStatus[veg + "Ready"] = currentTime + plotStatus[veg + "Time"][2] + 5000; }
+      if (marketData.weather.weather === "cloudy") { plotStatus[veg + "Ready"] = currentTime + plotStatus[veg + "Time"][2] + (plotStatus[veg + "Time"][2] / 4); }
       else { plotStatus[veg + "Ready"] = currentTime + plotStatus[veg + "Time"][2]; }
       plotStatus[veg] = "working";
       timeLeft(plotStatus[veg + "Time"][2], veg.toLowerCase());
@@ -336,7 +336,7 @@ function tendCenter(veg, timeOne, timeTwo, timeThree, urlOne, urlTwo, urlThree) 
       currentTime = Date.now();
       plotStatus.centerGrowing = currentTime + timeOne;
       plotStatus.centerFlowering = currentTime + timeTwo;
-      if (marketData.weather.weather === "cloudy") { plotStatus.centerReady = currentTime + timeThree + 5000; }
+      if (marketData.weather.weather === "cloudy") { plotStatus.centerReady = currentTime + (timeThree / 4); }
       else { plotStatus.centerReady = currentTime + timeThree; }
       plotStatus.center = "working";
       timeLeft(timeThree, veg);
@@ -447,7 +447,7 @@ let updateWeather = window.setInterval(function() {
    if (marketData.weather.weather === "partlyCloudy") { changeWeatherDisplay("Partly Cloudy", "Effects: None", "overcast.svg"); }
    if (marketData.weather.weather === "partlySunny") { changeWeatherDisplay("Partly Sunny", "Effects: None", "partly-cloudy.svg"); }
    if (marketData.weather.weather === "snowy") { changeWeatherDisplay("Snowy", "Detriments: -33% of a stored vegetable", "snow.svg"); }
-   if (marketData.weather.weather === "cloudy") { changeWeatherDisplay("Cloudy", "Detriments: +5s growing time", "cloudy.svg"); }
+   if (marketData.weather.weather === "cloudy") { changeWeatherDisplay("Cloudy", "Detriments: +25% growing time", "cloudy.svg"); }
    if (marketData.weather.weather === "frost") { changeWeatherDisplay("Frost", "Detriments: 50% chance plants will wither", "frost.svg"); }
    if (marketData.weather.weather === "flood") { changeWeatherDisplay("Flooding", "Detriments: -20% of a stored vegetable", "flood.svg"); }
    if (marketData.weather.lastWeather === "sunny") { lastWeather("sunny.svg"); }
