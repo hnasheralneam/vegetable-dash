@@ -412,7 +412,6 @@ let updateWeather = window.setInterval(function() {
       let amountLost = Math.floor(produce[unluckyVeg] /= 5);
       produce[unluckyVeg] -= amountLost;
       callAlert(`It has flooded! You lost ${amountLost} ${unluckyVeg}!`);
-      console.log("has flood");
       marketData.weather.hasBeenPunished = true;
    }
    if (marketData.weather.weather === "frost" && marketData.weather.hasBeenPunished === false) {
@@ -424,7 +423,6 @@ let updateWeather = window.setInterval(function() {
       if (plotStatus.cabbageReady != Infinity) { maybeLose("cabbage"); }
       if (plotStatus.dandelionReady != Infinity) { maybeLose("dandelion"); }
       if (plotStatus.rhubarbReady != Infinity) { maybeLose("rhubarb"); }
-      console.log("has frost");
       function maybeLose(veg) {
          if (Math.random() > .5) {
             plotStatus[veg + "Growing"] = plotStatus[veg + "Flowering"] = plotStatus[veg + "Ready"] = Infinity;
@@ -1546,7 +1544,6 @@ else { document.querySelector(".meter").classList.add("purple-load"); }
 
 window.addEventListener('load', (event) => {
    settings.loadtimes.push(Date.now() - timerStart);
-   console.log("Loaded");
    clearInterval(loadbar);
    document.querySelector(".loading-progress").style.width = "100%";
    document.querySelector(".load-display").textContent = "100%";
@@ -1607,7 +1604,6 @@ if (siteLocation.includes("#")) {
    if (importQuestion == "y") {
       let saveFromOldOne = siteLocation.replace("https://vegetable-dash.herokuapp.com/#","");
       let saveFromOld = decodeURIComponent(saveFromOldOne);
-      console.log(saveFromOld);
       if (saveFromOld !== null) {
          let imported = reverseString(saveFromOld).split('~');
          settings = JSON.parse(imported[0]);
