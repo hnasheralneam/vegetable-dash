@@ -579,7 +579,7 @@ function showTasks() {
    // Old open tasks
    if (oldTaskCheck("jebsPeaSalad") != false) {
       if (taskList.jebsPeaSalad === "ready") { startTask(`${oldTaskCheck("jebsPeaSalad")}`, "Collect 2 Fertilizer", "collectTaskReward('jebsPeaSalad')", "That salad sure was delicious! To pay back the favor, I'll give you some fertilizer! Use it wisely!", "Farmer Jebediah", "Images/Tasks/farmer.svg", "jebsPeaSalad"); }
-      else { startTask(`${oldTaskCheck("jebsPeaSalad")}`, "Submit 25 Peas", "if (produce.peas >= 25) { produce.peas -= 25; checkTasks('jebsPeaSalad'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?", "Farmer Jebediah", "Images/Tasks/farmer.svg", "jebsPeaSalad"); }
+      else { startTask(`${oldTaskCheck("jebsPeaSalad")}`, "Submit 25 Peas", "if (produce.peas >= 25) { produce.peas -= 25; checkTasks('jebsPeaSalad'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }", "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?", "Farmer Jebediah", "Images/Tasks/farmer.svg", "jebsPeaSalad"); }
    }
    if (oldTaskCheck("useMarketResets") != false) {
       if (taskList.useMarketResets === "ready") { startTask(`${oldTaskCheck("useMarketResets")}`, "Collect 250 Seeds", "collectTaskReward('useMarketResets')", "Thank you for completing that small task for me! Here, take 250 seeds!", "Grandma Josephine", "Images/Tasks/granny.png", "useMarketResets"); }
@@ -591,11 +591,11 @@ function showTasks() {
    }
    if (oldTaskCheck("jebsGrilledCorn") != false) {
       if (taskList.jebsGrilledCorn === "ready") { startTask(`${oldTaskCheck("jebsGrilledCorn")}`, "Collect 8 Market Resets", "collectTaskReward('jebsGrilledCorn')", "What a wonderful time we all had! Did you like the food? My family did, and they sent you some gifts!", "Farmer Jebediah", "Images/Tasks/farmer.svg", "jebsGrilledCorn"); }
-      else { startTask(`${oldTaskCheck("jebsGrilledCorn")}`, "Submit 50 Corn", "if (produce.corn >= 50) { produce.corn -= 50; checkTasks('jebsGrilledCorn'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "I'm inviting some family over, and I want to serve corn on the cob. I'm going to need to get come corn. Could you get them for me?", "Farmer Jebediah", "Images/Tasks/farmer.svg", "jebsGrilledCorn"); }
+      else { startTask(`${oldTaskCheck("jebsGrilledCorn")}`, "Submit 50 Corn", "if (produce.corn >= 50) { produce.corn -= 50; checkTasks('jebsGrilledCorn'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }", "I'm inviting some family over, and I want to serve corn on the cob. I'm going to need to get come corn. Could you get them for me?", "Farmer Jebediah", "Images/Tasks/farmer.svg", "jebsGrilledCorn"); }
    }
    if (oldTaskCheck("josephinesDandelionSalad") != false) {
       if (taskList.josephinesDandelionSalad === "ready") { startTask(`${oldTaskCheck("josephinesDandelionSalad")}`, "Collect 15,000 Seeds", "collectTaskReward('josephinesDandelionSalad')", "Take that, Happy Place Farm! Our profits have increased by 20%, and their quarterly earnings fell by 35%! Hurrah for dandelion salad!", "Grandma Josephine", "Images/Tasks/granny.png", "josephinesDandelionSalad"); }
-      else { startTask(`${oldTaskCheck("josephinesDandelionSalad")}`, "Submit 6 Dandelions", "if (produce.dandelion >= 6) { produce.dandelion -= 6; checkTasks('josephinesDandelionSalad'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "What an outrage! I have found that we have been losing profit to a competing company, Happy Place Farms! Their top product is lettuce salad, but I think we can do better! Meet dandelion salad!", "Grandma Josephine", "Images/Tasks/granny.png", "josephinesDandelionSalad"); }
+      else { startTask(`${oldTaskCheck("josephinesDandelionSalad")}`, "Submit 6 Dandelions", "if (produce.dandelion >= 6) { produce.dandelion -= 6; checkTasks('josephinesDandelionSalad'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }", "What an outrage! I have found that we have been losing profit to a competing company, Happy Place Farms! Their top product is lettuce salad, but I think we can do better! Meet dandelion salad!", "Grandma Josephine", "Images/Tasks/granny.png", "josephinesDandelionSalad"); }
    }
    if (oldTaskCheck("unlockThe_cornPlot") != false) {
       if (taskList.unlockThe_cornPlot === "ready") { startTask(`${oldTaskCheck("unlockThe_cornPlot")}`, "Collect 1 Fertilizer", "collectTaskReward('unlockThe_cornPlot')", "Ooooh, look! It's corn! Whoopie!", "Grandpa Jenkins", "Images/Tasks/jenkins.png", "unlockThe_cornPlot"); }
@@ -612,19 +612,19 @@ function showTasks() {
    // Bake Sale
    if (oldTaskCheck("bakeSale_cornBread") != false) {
       if (taskList.bakeSale_cornBread === "ready") { startTask(oldTaskCheck("bakeSale_cornBread"), "Collect 5 Seeds", "collectTaskReward('bakeSale_cornBread')", "Just you wait! This bake sale is just beginning!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale.cornBread"); }
-      else { startTask(oldTaskCheck("bakeSale_cornBread"), "Submit 20 Corn", "if (produce.corn >= 20) { produce.corn -= 20; checkTasks('bakeSale_cornBread'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "I have a wonderful lucrative idea! We can hold a bake sale with plenty of delicious foods! Let's start with cornbread, my personal faviorite!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_cornBread"); }
+      else { startTask(oldTaskCheck("bakeSale_cornBread"), "Submit 20 Corn", "if (produce.corn >= 20) { produce.corn -= 20; checkTasks('bakeSale_cornBread'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }", "I have a wonderful lucrative idea! We can hold a bake sale with plenty of delicious foods! Let's start with cornbread, my personal faviorite!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_cornBread"); }
    }
    if (oldTaskCheck("bakeSale_peaSnacks") != false) {
       if (taskList.bakeSale_peaSnacks === "ready") { startTask(oldTaskCheck("bakeSale_peaSnacks"), "Collect 10 Seeds", "collectTaskReward('bakeSale_peaSnacks')", "We may not have sold much yet, but we've barely started!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale.peaSnacks"); }
-      else { startTask(oldTaskCheck("bakeSale_peaSnacks"), "Submit 60 Peas", "if (produce.peas >= 60) { produce.peas -= 60; checkTasks('bakeSale_peaSnacks'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "Next, let's make some crunchy pea snacks!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_peaSnacks"); }
+      else { startTask(oldTaskCheck("bakeSale_peaSnacks"), "Submit 60 Peas", "if (produce.peas >= 60) { produce.peas -= 60; checkTasks('bakeSale_peaSnacks'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }", "Next, let's make some crunchy pea snacks!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_peaSnacks"); }
    }
    if (oldTaskCheck("bakeSale_strawberryJam") != false) {
       if (taskList.bakeSale_strawberryJam === "ready") { startTask(oldTaskCheck("bakeSale_strawberryJam"), "Collect 15 Seeds", "collectTaskReward('bakeSale_strawberryJam')", "Be patient, for great rewards come to those who wait!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale.strawberryJam"); }
-      else { startTask(oldTaskCheck("bakeSale_strawberryJam"), "Submit 15 Strawberries", "if (produce.strawberries >= 15) { produce.strawberries -= 15; checkTasks('bakeSale_strawberryJam'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "Do you like spreading nice, sweet, jam on toast? I sure do, and so will our customers!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_strawberryJam"); }
+      else { startTask(oldTaskCheck("bakeSale_strawberryJam"), "Submit 15 Strawberries", "if (produce.strawberries >= 15) { produce.strawberries -= 15; checkTasks('bakeSale_strawberryJam'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }", "Do you like spreading nice, sweet, jam on toast? I sure do, and so will our customers!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_strawberryJam"); }
    }
    if (oldTaskCheck("bakeSale_pumpkinPie") != false) {
       if (taskList.bakeSale_pumpkinPie === "ready") { startTask(oldTaskCheck("bakeSale_pumpkinPie"), "Collect 75,000 Seeds", "collectTaskReward('bakeSale_pumpkinPie')", "Ha ha! Look at that, this bake sale sure was a success! Look at these profit margins!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale.pumpkinPie"); }
-      else { startTask(oldTaskCheck("bakeSale_pumpkinPie"), "Submit 10 Pumpkins", "if (produce.pumpkins >= 10) { produce.pumpkins -= 10; checkTasks('bakeSale_pumpkinPie'); } else { fadeTextAppear(event, 'Not enough produce', false); }", "Not all pumpkin pies are great, but my recipe is! Let's make a few!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_pumpkinPie"); }
+      else { startTask(oldTaskCheck("bakeSale_pumpkinPie"), "Submit 10 Pumpkins", "if (produce.pumpkins >= 10) { produce.pumpkins -= 10; checkTasks('bakeSale_pumpkinPie'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }", "Not all pumpkin pies are great, but my recipe is! Let's make a few!", "Grandma Josephine", "Images/Tasks/granny.png", "bakeSale_pumpkinPie"); }
    }
 }
 function collectTaskReward(task) {
@@ -655,15 +655,15 @@ vegetablesOwned.push("peas")
 function harvestLuck(veg) {
    rand = Math.random();
    if (rand < 0.20) {
-      fadeTextAppear(event, `You collected 5 \n extra seeds!`, "vegLuck");
+      fadeTextAppear(event, `You collected 5 \n extra seeds!`, "vegLuck", "#00de88");
       marketData.seeds += 5;
    }
    if (rand < 0.10) {
-      fadeTextAppear(event, `This was a good crop! You collected \n 2 extra ${veg}!`, "vegLuck");
+      fadeTextAppear(event, `This was a good crop! You collected \n 2 extra ${veg}!`, "vegLuck", "#00de88");
       produce[veg.toLowerCase()] += 2;
    }
    if (rand < (0.05 + marketData.weather.marketResetBonus)) {
-      fadeTextAppear(event, `You collected a market \n reset! You now have ${marketData.marketResets}`, "vegLuck");
+      fadeTextAppear(event, `You collected a market \n reset! You now have ${marketData.marketResets}`, "vegLuck", "#00de88");
       marketData.marketResets++;
    }
 }
@@ -696,6 +696,15 @@ let whenToLuck = window.setInterval(function() {
 // Unlock Plots
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+function showBuyPlot() {
+   if (plots.cornplot === "unlocked") { openLock("corn", 2); document.getElementById("lock3Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price3, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(3)">Purchase Plot</button>`; }
+   if (plots.strawberryplot === "unlocked") { openLock("strawberry", 3); document.getElementById("lock4Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price4, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(4)">Purchase Plot</button>`; }
+   if (plots.eggplantplot === "unlocked") { openLock("eggplant", 4); document.getElementById("lock6Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price6, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(6)">Purchase Plot</button>`; }
+   if (plots.pumpkinplot === "unlocked") { openLock("pumpkin", 6); document.getElementById("lock7Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price7, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(7)">Purchase Plot</button>`; }
+   if (plots.cabbageplot === "unlocked") { openLock("cabbage", 7); document.getElementById("lock8Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price8, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(8)">Purchase Plot</button>`; }
+   if (plots.dandelionplot === "unlocked") { openLock("dandelion", 8); document.getElementById("lock9Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price9, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(9)">Purchase Plot</button>`; }
+   if (plots.rhubarbplot === "unlocked") { openLock("rhubarb", 9); document.getElementById("lock5Text").innerHTML = "Coming <br> Soon!"; }
+}
 function unlockPlot(plotNum) {
    let number = plotNum;
    if (marketData.seeds >= plots["price" + plotNum]) {
@@ -709,7 +718,7 @@ function unlockPlot(plotNum) {
       if (number == "8") { setTimeout(() => { openLock("dandelion", 8); infoModal('UnlockedDandelion'); }, 2500); document.getElementById("lock8").classList.add("removing-lock"); }
       if (number == "9") { setTimeout(() => { openLock("rhubarb", 9); infoModal('UnlockedRhubarb'); }, 2500); document.getElementById("lock9").classList.add("removing-lock"); }
    }
-   else { fadeTextAppear(event, `Not enough seeds`, false); }
+   else { fadeTextAppear(event, `Not enough seeds`, false, '#de0000'); }
 }
 function openLock(vegetable, num) {
    document.querySelector(`#lockedDiv${num}`).style.display = "none";
@@ -894,7 +903,7 @@ function buyProduce(produceRequested, produceCase) {
       for (i = 0; i < 5; i++) { buy(); } marketLuck();
    }
    else if (marketData.seeds >= marketData["buy" + produceCase]) { buy(); marketLuck(); }
-   else { fadeTextAppear(event, `Not enough seeds`, false); }
+   else { fadeTextAppear(event, `Not enough seeds`, false, "#de0000"); }
    function buy() {
       produce[produceRequested] += 5;
       marketData.seeds -= marketData["buy" + produceCase];
@@ -916,7 +925,7 @@ function sellProduce(produceRequested, produceCase) {
       for (i = 0; i < 5; i++) { sell(); } marketLuck();
    }
    else if (produce[produceRequested] >= 5) { sell(); marketLuck(); }
-   else { fadeTextAppear(event, `Not enough produce`, false); }
+   else { fadeTextAppear(event, `Not enough produce`, false, "#de0000"); }
    function sell() {
       produce[produceRequested] -= 5;
       marketData.seeds += marketData["sell" + produceCase];
@@ -955,7 +964,7 @@ function acceptExchange() {
       produce[costVeg.vegetable] -= Math.round(costVeg.amount);
       generateExchange();
    }
-   else { fadeTextAppear(event, `Not enough produce`, false); }
+   else { fadeTextAppear(event, `Not enough produce`, false, "#de0000"); }
 }
 
 // Black Market
@@ -986,7 +995,7 @@ function accept() {
       if (marketData.black.item === "Doughnuts") { marketData.doughnuts += marketData.black.quantity; }
       checkTasks("seeBlackMarket");
    }
-   else { fadeTextAppear(event, `Not enough seeds`, false); }
+   else { fadeTextAppear(event, `Not enough seeds`, false, "#de0000"); }
 }
 function deny() {
    blackMarketValues();
@@ -998,10 +1007,10 @@ function feedPolice() {
    if (marketData.doughnuts >= 1) {
       marketData.doughnuts -= 1;
       marketData.black.catchChance = .02;
-      fadeTextAppear(event, `-1 Doughnut`, false);
+      fadeTextAppear(event, `-1 Doughnut`, false, "#de0000");
       checkTasks("tryPoliceDoughnuts");
    }
-   else { fadeTextAppear(event, `Not enough doughnuts`, false); }
+   else { fadeTextAppear(event, `Not enough doughnuts`, false, "#de0000"); }
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1040,7 +1049,6 @@ let mainLoop = window.setInterval(() => {
       checkTasks("unlockThe_cornPlot");
       document.querySelector(".tm-tb-co").style.opacity = "1";
       !vegetablesOwned.includes("corn") ? vegetablesOwned.push("corn") : null;
-      openLock("corn", 2); document.getElementById("lock3Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price3, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(3)">Purchase Plot</button>`;
    } if (plots.strawberryplot === "unlocked") {
       revealProduceQwk("#strawberryBushelsQuick", "strawberries");
       revealProduce("#strawberryBushels", "strawberries");
@@ -1050,37 +1058,31 @@ let mainLoop = window.setInterval(() => {
       document.querySelector(`#doughnutsQuick`).textContent = `${toWord(marketData.doughnuts, "short")} Doughnuts`;
       document.querySelector(".tm-tb-st").style.opacity = "1";
       !vegetablesOwned.includes("strawberries") ? vegetablesOwned.push("strawberries") : null;
-      openLock("strawberry", 3); document.getElementById("lock4Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price4, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(4)">Purchase Plot</button>`;
    } if (plots.eggplantplot === "unlocked") {
       revealProduceQwk("#eggplantBushelsQuick", "eggplants");
       revealProduce("#eggplantBushels", "eggplants");
       document.querySelector(".tm-tb-eg").style.opacity = "1";
       !vegetablesOwned.includes("eggplants") ? vegetablesOwned.push("eggplants") : null;
-      openLock("eggplant", 4); document.getElementById("lock6Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price6, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(6)">Purchase Plot</button>`;
    } if (plots.pumpkinplot === "unlocked") {
       revealProduceQwk("#pumpkinBushelsQuick", "pumpkins");
       revealProduce("#pumpkinBushels", "pumpkins");
       document.querySelector(".tm-tb-pu").style.opacity = "1";
       !vegetablesOwned.includes("pumpkins") ? vegetablesOwned.push("pumpkins") : null;
-      openLock("pumpkin", 6); document.getElementById("lock7Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price7, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(7)">Purchase Plot</button>`;
    } if (plots.cabbageplot === "unlocked") {
       revealProduceQwk("#cabbageBushelsQuick", "cabbage");
       revealProduce("#cabbageBushels", "cabbage");
       document.querySelector(".tm-tb-ca").style.opacity = "1";
       !vegetablesOwned.includes("cabbage") ? vegetablesOwned.push("cabbage") : null;
-      openLock("cabbage", 7); document.getElementById("lock8Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price8, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(8)">Purchase Plot</button>`;
    } if (plots.dandelionplot === "unlocked") {
       revealProduceQwk("#dandelionBushelsQuick", "dandelion");
       revealProduce("#dandelionBushels", "dandelion");
       document.querySelector(".tm-tb-da").style.opacity = "1";
       !vegetablesOwned.includes("dandelion") ? vegetablesOwned.push("dandelion") : null;
-      openLock("dandelion", 8); document.getElementById("lock9Text").innerHTML = `This plot is locked <br> Pay ${toWord(plots.price9, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(9)">Purchase Plot</button>`;
    } if (plots.rhubarbplot === "unlocked") {
       revealProduceQwk("#rhubarbBushelsQuick", "rhubarb");
       revealProduce("#rhubarbBushels", "rhubarb");
       document.querySelector(".tm-tb-rh").style.opacity = "1";
       !vegetablesOwned.includes("rhubarb") ? vegetablesOwned.push("rhubarb") : null;
-      openLock("rhubarb", 9); document.getElementById("lock5Text").innerHTML = "Coming <br> Soon!";
    }
    function revealProduce(id, veg) {
       document.querySelector(`.${veg}Amount`).style.display = "block";
@@ -1115,6 +1117,7 @@ window.onload = function() {
    if (settings.blackMarketOpen) { showObj('.marketShadow'); showObj('.blackMarketShadow'); settings.marketOpen = true; }
    if (settings.tasksOpen) { taskBar("close"); }
 }
+setTimeout(() => { showBuyPlot(); }, 500);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Helpful Functions
@@ -1307,12 +1310,16 @@ function menu(x, y) {
    rightClickMenu.display = "block";
 }
 
-function fadeTextAppear(e, txt, extraClass) {
+function fadeTextAppear(e, txt, extraClass, txtColor) {
    let fadeText = document.querySelector(".fade-text").cloneNode();
    fadeText.id = "fadeTextNew";
    fadeText.textContent = txt;
    document.querySelector("body").appendChild(fadeText);
    if (extraClass != false) { fadeText.classList.add(extraClass); }
+   if (txtColor) {
+      fadeText.style.color = txtColor;
+      fadeText.style.textShadow = `0 0 .5vh ${txtColor}`;
+   }
    fadeText.style.left = `${(window.Event) ? e.pageX : event.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft)}px`;
    fadeText.style.top = `${(window.Event) ? e.pageY : event.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop)}px`;
 }
