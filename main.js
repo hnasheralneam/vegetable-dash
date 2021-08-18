@@ -224,38 +224,6 @@ var marketData = initalMarketData;
 var taskList = initalTaskList;
 settings.loadtime = findAvg(settings.loadtimes);
 
-function addWeed() {
-   let weedBoxHeight = document.querySelector(".land").clientHeight;
-   let weedBoxWidth = document.querySelector(".land").clientWidth;
-   $(".weed").each(function () {
-      var randomtop = (Math.floor(Math.random() * weedBoxHeight) - 25);
-      var randomleft = (Math.floor(Math.random() * weedBoxWidth) - 25);
-      $(this).css({
-         "transform": "scale(1)",
-         "margin-top": randomtop,
-         "margin-left": randomleft,
-      });
-   });
-}
-function collectWeed() {
-   $(".weed").remove();
-   marketData.weedPieces++;
-   callAlert(`You collected a weed fragment! You now have ${marketData.weedPieces}/5`);
-   if (marketData.weedPieces >= 5) {
-      marketData.weedPieces -= 5;
-      marketData.fertilizers += 1;
-      callAlert(`You made 1 fertilizer out of the composted weed fragments!`);
-   }
-}
-function toWeedOrNotToWeed() {
-   if (Date.now() >= marketData.weedSeason) {
-      let myRand = Math.random();
-      if (myRand <= .80) { addWeed(); }
-      marketData.weedSeason = Date.now() + 1800000;
-   }
-   currentTime = Date.now();
-}
-
 function findAvg(array) {
    let total = 0;
    for(let i = 0; i < array.length; i++) { total += array[i]; }
@@ -692,6 +660,29 @@ let whenToLuck = window.setInterval(function() {
    if (Date.now() >= marketData.disasterTime) { luckyRoll(); marketData.disasterTime = Date.now() + 480000; }
 }, 1000)
 
+// Weeds
+function addWeed() {
+   let weedBoxHeight = document.querySelector(".land").clientHeight;
+   let weedBoxWidth = document.querySelector(".land").clientWidth;
+   let weed = document.querySelector(".weed").cloneNode();
+   document.querySelector(".land").appendChild(weed);
+   var randomtop = (Math.floor(Math.random() * weedBoxHeight) - 25);
+   var randomleft = (Math.floor(Math.random() * weedBoxWidth) - 25);
+   weed.style.transform = "scale(1)";
+   weed.style.top = `${randomtop}px`;
+   weed.style.left = `${randomleft}px`;
+}
+function collectWeed(THIS) {
+   THIS.remove();
+   marketData.weedPieces++;
+   callAlert(`You collected a weed fragment! You now have ${marketData.weedPieces}/5`);
+   if (marketData.weedPieces >= 5) {
+      marketData.weedPieces -= 5;
+      marketData.fertilizers += 1;
+      callAlert(`You made 1 fertilizer out of the composted weed fragments!`);
+   }
+}
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Unlock Plots
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1090,6 +1081,12 @@ let mainLoop = window.setInterval(() => {
    function revealProduceQwk(id, veg) {
       document.querySelector(`.${veg}AmountQuick`).style.display = "block";
       document.querySelector(id).textContent = `${toWord(produce[veg], "short")} Bushels of ${capitalize(veg)}`; }
+   // To weed or not to weed
+   if (Date.now() >= marketData.weedSeason) {
+      let myRand = Math.random();
+      if (myRand <= .80) { addWeed(); }
+      marketData.weedSeason = Date.now() + 1800000;
+   }
 }, 200)
 let tasksReadyLoop = setInterval(() => {
    if (chechIf()) { document.querySelector(".aTaskIsReady").style.opacity = "1"; }
