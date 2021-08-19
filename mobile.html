@@ -14,18 +14,20 @@
       <title>Vegetable Dash!</title>
    </head>
    <body>
+      <p style="display: none;" class="stringSave"></p>
       <!-- Land and Plots -->
       <div class="land">
+         <img onclick="collectWeed(this)" class="weed" src="Images/Global Assets/weed.png">
          <!-- Pea Plot -->
-         <div class="plot" id="plot1">
+         <div class="plot peaPlot" id="plot1">
             <div class="plant-toolbar">
                <button class="small-plant-button">
                   <img onclick="infoModal('Peas')" class="veg-icon" src="Images/Vegetables/pea.png">
                </button>
-               <button class="grow-button" id="growPeas" onclick="plant('peas', 3000, 6000, 10000)">
+               <button class="grow-button" id="growPeas" onclick="tend('peas')">
                   <img src="Images/Mobile/grow.png">
                </button>
-               <button class="harvest-button" id="harvestPeas" onclick="harvest('Peas')" disabled>
+               <button class="harvest-button" id="harvestPeas" onclick="tend('peas')" disabled>
                   <img src="Images/Mobile/harvest.png">
                </button>
                <button class="small-plant-button time-left-container">
@@ -54,10 +56,10 @@
                   <button class="small-plant-button">
                      <img onclick="infoModal('Corn')" class="veg-icon" src="Images/Vegetables/corn.png">
                   </button>
-                  <button class="grow-button" id="growCorn" onclick="plant('corn', 6000, 12000, 25000)">
+                  <button class="grow-button" id="growCorn" onclick="tend('corn')">
                      <img src="Images/Mobile/grow.png">
                   </button>
-                  <button class="harvest-button" id="harvestCorn" onclick="harvest('Corn')" disabled>
+                  <button class="harvest-button" id="harvestCorn" onclick="tend('corn')" disabled>
                      <img src="Images/Mobile/harvest.png">
                   </button>
                   <button class="small-plant-button time-left-container">
@@ -87,10 +89,10 @@
                   <button class="small-plant-button">
                      <img onclick="infoModal('Strawberry')" class="veg-icon" src="Images/Vegetables/strawberry.png">
                   </button>
-                  <button class="grow-button" id="growStrawberries" onclick="plant('strawberries', 50000, 100000, 150000)">
+                  <button class="grow-button" id="growStrawberries" onclick="tend('strawberries')">
                      <img src="Images/Mobile/grow.png">
                   </button>
-                  <button class="harvest-button" id="harvestStrawberries" onclick="harvest('Strawberries')" disabled>
+                  <button class="harvest-button" id="harvestStrawberries" onclick="tend('strawberries')" disabled>
                      <img src="Images/Mobile/harvest.png">
                   </button>
                   <button class="small-plant-button time-left-container">
@@ -122,10 +124,10 @@
                   <button class="small-plant-button">
                      <img onclick="infoModal('Eggplant')" class="veg-icon" src="Images/Vegetables/eggplant.png">
                   </button>
-                  <button class="grow-button" id="growEggplants" onclick="plant('eggplants', 300000, 600000, 900000)">
+                  <button class="grow-button" id="growEggplants" onclick="tend('eggplants')">
                      <img src="Images/Mobile/grow.png">
                   </button>
-                  <button class="harvest-button" id="harvestEggplants" onclick="harvest('Eggplants')" disabled>
+                  <button class="harvest-button" id="harvestEggplants" onclick="tend('eggplants')" disabled>
                      <img src="Images/Mobile/harvest.png">
                   </button>
                   <button class="small-plant-button time-left-container">
@@ -187,10 +189,10 @@
                   <button class="small-plant-button">
                      <img onclick="infoModal('Pumpkins')" class="veg-icon" src="Images/Vegetables/pumpkin.png">
                   </button>
-                  <button class="grow-button" id="growPumpkins" onclick="plant('pumpkins', 600000, 1200000, 1800000)">
+                  <button class="grow-button" id="growPumpkins" onclick="tend('pumpkins')">
                      <img src="Images/Mobile/grow.png">
                   </button>
-                  <button class="harvest-button" id="harvestPumpkins" onclick="harvest('Pumpkins')" disabled>
+                  <button class="harvest-button" id="harvestPumpkins" onclick="tend('pumpkins')" disabled>
                      <img src="Images/Mobile/harvest.png">
                   </button>
                   <button class="small-plant-button time-left-container">
@@ -222,10 +224,10 @@
                   <button class="small-plant-button">
                      <img onclick="infoModal('Cabbage')" class="veg-icon" src="Images/Vegetables/cabbage.png">
                   </button>
-                  <button class="grow-button" id="growCabbage" onclick="plant('cabbage', 1200000, 2400000, 3600000)">
+                  <button class="grow-button" id="growCabbage" onclick="tend('cabbage')">
                      <img src="Images/Mobile/grow.png">
                   </button>
-                  <button class="harvest-button" id="harvestCabbage" onclick="harvest('Cabbage')" disabled>
+                  <button class="harvest-button" id="harvestCabbage" onclick="tend('cabbage')" disabled>
                      <img src="Images/Mobile/harvest.png">
                   </button>
                   <button class="small-plant-button time-left-container">
@@ -255,10 +257,10 @@
                   <button class="small-plant-button">
                      <img onclick="infoModal('Dandelion')" class="veg-icon" src="Images/Vegetables/dandelion.png">
                   </button>
-                  <button class="grow-button" id="growDandelion" onclick="plant('dandelion', 3600000, 7200000, 10800000)">
+                  <button class="grow-button" id="growDandelion" onclick="tend('dandelion')">
                      <img src="Images/Mobile/grow.png">
                   </button>
-                  <button class="harvest-button" id="harvestDandelion" onclick="harvest('Dandelion')" disabled>
+                  <button class="harvest-button" id="harvestDandelion" onclick="tend('dandelion')" disabled>
                      <img src="Images/Mobile/harvest.png">
                   </button>
                   <button class="small-plant-button time-left-container">
@@ -288,10 +290,10 @@
                   <button class="small-plant-button">
                      <img onclick="infoModal('Rhubarb')" class="veg-icon" src="Images/Vegetables/rhubarb.png">
                   </button>
-                  <button class="grow-button" id="growRhubarb" onclick="plant('rhubarb', 9600000, 18200000, 28800000)">
+                  <button class="grow-button" id="growRhubarb" onclick="tend('rhubarb')">
                      <img src="Images/Mobile/grow.png">
                   </button>
-                  <button class="harvest-button" id="harvestRhubarb" onclick="harvest('Rhubarb')" disabled>
+                  <button class="harvest-button" id="harvestRhubarb" onclick="tend('rhubarb')" disabled>
                      <img src="Images/Mobile/harvest.png">
                   </button>
                   <button class="small-plant-button time-left-container">
@@ -390,6 +392,8 @@
             <div class="weather-tooltip">
                <h6 class="weather-name">Partly <br> Somthing</h6>
                <p class="weather-description">Effects: Adverse/Positive <br> Benifits/Disadvantages:</p>
+               <div class="weather-last"></div>
+               <div class="weather-next"></div>
             </div>
          </div>
          <div class="produce-tooltip">
@@ -539,7 +543,7 @@
          </div>
       </div>
       <!-- Settings -->
-      <img onclick="showObj('.settingShadow');" class="setting-open" src="Images/Mobile/settings.png">
+      <img onclick="showObj('.settingShadow');" class="setting-open" src="Images/Control Bar/preferences.svg" style="filter: invert();">
       <div class="shadow settingShadow">
          <div class="modalContent settings">
             <span onclick="hideObj('.settingShadow')" class="closeModal">X</span>
@@ -553,7 +557,7 @@
          </div>
       </div>
       <!-- Help -->
-      <img class="help-center-img" onclick="showObj('.help-shadow')" src="Images/Global Assets/more-info.png">
+      <img class="help-center-img" onclick="showObj('.help-shadow')" src="Images/Global Assets/more-info.png" style="filter: invert();">
       <div class="shadow help-shadow">
          <div class="help">
             <div class="dropdown">

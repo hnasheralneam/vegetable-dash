@@ -110,6 +110,7 @@ Farmland
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .land {
+   scroll-snap-type: x mandatory;
    position: relative;
    height: 90vw;
    width: 90vw;
@@ -124,6 +125,7 @@ Farmland
 
 /* Plots */
 .plot {
+   scroll-snap-align: start;
    background-image: url("Images/Plots/plot.png");
    background-size: cover;
    margin: .4vw;
@@ -689,17 +691,17 @@ Command Panel
    right: 3vw;
    bottom: 3vw;
    left: 3vw;
-   border-radius: 10vw;
+   border-radius: 6vw;
    padding: 2vw 1vw;
    text-align: center;
-   background-color: #f5f5f5;
+   background-color: #f0f0f0;
    z-index: 1;
 }
 
 .command-panel img {
    height: 25vw;
    width: 25vw;
-   margin: 0 1vw;
+   margin: 0 1.5vw;
 }
 
 .produce-tooltip {
