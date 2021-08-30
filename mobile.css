@@ -55,6 +55,31 @@ summary:focus { outline: none; }
 .blue:active { box-shadow: 0 2vw #16CCF8; }
 .purple:active { box-shadow: 0 2vw #4B20C8; }
 
+.alertDiv {
+   position: fixed;
+   top: 1.5vh;
+   left: 2.5vw;
+   right: 2.5vw;
+   height: 20vh;
+   z-index: 1000;
+   background-color: #c8fea5;
+   border-radius: 2vh;
+   text-align: center;
+   font-size: 4.5vh;
+   font-family: "Nunito";
+   animation: alert 4s forwards;
+}
+
+@keyframes alert {
+   0% { top: -25vh; }
+   10% { top: -25vh; }
+   20% { top: 1.5vh; }
+   50% { top: 1.5vh; }
+   80% { top: 1.5vh; }
+   90% { top: -25vh; }
+   100% { top: -25vh; }
+}
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Welcome!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
