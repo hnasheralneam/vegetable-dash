@@ -2,7 +2,7 @@
 ## A JavaScript game about vegetables
 Play it: [Vegetable Dash!](https://squirrel-314.github.io/vegetable-dash/)
 
-My first image based game, and what amazing images those are, about vegetables. Or mostly vegetables, as only the last two plants are vegetables. Plants are grown and harvested to be sold for seeds, used to unlock new plots. Players can do tasks for the previous owners of the farm, for rewards. I am looking for someone to help, either with the code or the images, which should be completly redone. If you want to help, email me at thehillsidetownship@gmail.com!
+My first image based game, and what amazing images those are, about vegetables. Or mostly vegetables, as only the last three plants are vegetables. Plants are grown and harvested to be sold for seeds, used to unlock new plots. Players can do tasks for the previous owners of the farm, for rewards. I am looking for someone to help, either with the code or the images. If you want to help, email me at thehillsidetownship@gmail.com!
 
 
 ## Images
@@ -17,11 +17,3 @@ Tour | Tour | Tour | Tour
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
 ![Tour 1](https://user-images.githubusercontent.com/68402033/114046322-c1257900-9856-11eb-9c7b-31eca75cbe79.png) | ![Tour 2](https://user-images.githubusercontent.com/68402033/114046424-d69aa300-9856-11eb-8b93-c12e08e7b4d6.png) | ![Tour 3](https://user-images.githubusercontent.com/68402033/114046528-e914dc80-9856-11eb-8620-cfcfa116ced5.png) | ![Tour 4](https://user-images.githubusercontent.com/68402033/114046575-f3cf7180-9856-11eb-855e-deae7c48e68c.png)
 ![Tour 5](https://user-images.githubusercontent.com/68402033/114046723-15305d80-9857-11eb-9cc0-846ad7dbfa84.png) | ![Tour 6](https://user-images.githubusercontent.com/68402033/114047066-64768e00-9857-11eb-9a01-18a415637786.png) | ![Tour 7](https://user-images.githubusercontent.com/68402033/114047138-72c4aa00-9857-11eb-87a1-10fc6e0cef1e.png) | ![Tour 8](https://user-images.githubusercontent.com/68402033/114047238-8708a700-9857-11eb-9b90-8895802b8d29.png)
-
-
-
-
-
-
-
-

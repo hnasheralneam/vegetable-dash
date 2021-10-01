@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require("express");
 var mongoose = require("mongoose");
 var bodyParser = require('body-parser');
@@ -14,7 +15,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/assets"));
 
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb+srv://Squirrel:R0CkaXXR5lBDbChk@test-user-data.daqv1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_URL}`, { useUnifiedTopology: true, useNewUrlParser: true });
 
 const connection = mongoose.connection
 
@@ -52,7 +53,6 @@ function addNewUser(name, email, passcode) {
    }
 }
 
-// allow changing accounts
 // force good accounts
 // UserData.findByIdAndRemove("612015dbdf91cf6ce81ef6ab", function (err) { if (err) { console.log(err) } });
 
@@ -71,25 +71,31 @@ app.get("/vegetable-dash", (req, res) => {
 });
 //Sign in
 app.get("/sign-in", (req, res) => {
-   res.render("signin", { error: { is: false } });
+   console.log(signedIn);
+   if (!signedIn) { res.render("signin", { error: { is: false } }); }
+   else { res.render("index", { userFrom: signedInUser }); }
 });
-app.post("/sign-in-attempt", (req, res) => {
+app.post("/play", (req, res) => {
    UserData.findOne({ name: req.body.name, email: req.body.emil, passcode: req.body.pscd }, (err, user) => {
       if (err) return console.error(err);
       if (!user) { res.render("signin", { error: { is: true, more: "The data dosen't line up. Try again!" } }); }
       else {
          signedIn = true;
          signedInUser = user;
-         res.render("vegetable-dash", { userFrom: signedInUser });
+         res.render("index", { userFrom: signedInUser });
       }
    });
 });
 // Home page
 app.get("/", (req, res) => {
-   res.send("Home");
-   if (signedIn) {
-      res.send(`Your email: ${signedInUser.email} <br> Your Passcode: ${signedInUser.passcode}`);
-   }
+   res.render("home", { error: { is: false } });
+});
+
+app.get("/sign-out", (req, res) => {
+   signedIn = false;
+   user = null;
+   signedInUser = null;
+   res.render("home");
 });
 
 app.listen(port);

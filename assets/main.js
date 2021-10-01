@@ -19,7 +19,14 @@ Save               | Save the game data, restart
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Game Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-// console.log(user);
+
+// import * as data from "./app.js";
+// var data = require("./app");
+
+console.log(userData.name);
+window.addEventListener("beforeunload", function(e){
+   prompt("Ya sure?");
+}, false);
 
 let initalPlotStatus = {
    peas: "empty",
@@ -152,7 +159,7 @@ let initalMarketData = {
       rhubarb: 1240,
    },
    weather: {
-      weather: "rainy",
+      weather: "partlySunny",
       lastWeather: "",
       nextWeather: "",
       sunny: false,
@@ -1598,4 +1605,28 @@ function importSave() {
    }
    save();
    location.reload();
+}
+
+// Sent to new site
+if (location.hostname === "squirrel-314.github.io") { window.location.href = `https://vegetable-dash.herokuapp.com#${reverseString(`${JSON.stringify(settings, replacer)}~${JSON.stringify(plotStatus, replacer)}~${JSON.stringify(produce, replacer)}~${JSON.stringify(plots, replacer)}~${JSON.stringify(marketData, replacer)}~${JSON.stringify(taskList, replacer)}`)}`; }
+
+let siteLocation = window.location.href;
+if (siteLocation.includes("#")) {
+   let importQuestion = prompt("You were redirected from the old site. Would you like to bring your save over with you, or start from scratch? (y/n)");
+   if (importQuestion == "y") {
+      let saveFromOldOne = siteLocation.replace("https://vegetable-dash.herokuapp.com/#","");
+      let saveFromOld = decodeURIComponent(saveFromOldOne);
+      if (saveFromOld !== null) {
+         let imported = reverseString(saveFromOld).split('~');
+         settings = JSON.parse(imported[0]);
+         plotStatus = JSON.parse(imported[1]);
+         produce = JSON.parse(imported[2]);
+         plots = JSON.parse(imported[3]);
+         marketData = JSON.parse(imported[4]);
+         taskList = JSON.parse(imported[5]);
+      }
+      save();
+      window.location.href = `https://vegetable-dash.herokuapp.com/`;
+   }
+   else { window.location.href = `https://vegetable-dash.herokuapp.com/`; }
 }

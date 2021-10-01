@@ -4,17 +4,23 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <title>Node Test</title>
+   <link rel="stylesheet" href="signin.css">
+   <title>Create Account</title>
 </head>
 <body>
-   <h2>Sign Up</h2>
-   <form method="POST" action="/create-account" method="post">
-      <input type="text" name="name" value="" placeholder="Name" required><br><br>
-      <input type="email" name="emil" value="" placeholder="Email" required><br><br>
-      <input type="password" name="pscd" value="" placeholder="Password" required><br><br>
-      <input type="submit" name="" value="Create Account">
-   </form>
+   <div class="content">
+      <h2>Sign Up</h2>
+      <form method="POST" action="/create-account" method="post">
+         <input class="input" type="text" name="name" value="" placeholder="Name" required><br><br>
+         <input class="input" type="email" name="emil" value="" placeholder="Email" required><br><br>
+         <input class="input" type="password" name="pscd" value="" placeholder="Password" minlength="4" maxlength="4"  required><br><br>
+         <input class="submit" type="submit" name="" value="Create Account">
+      </form>
+   </div>
    <body>
+      <style media="screen">
+      * { text-overflow: ellipsis; }
+      </style>
 </body>
 </body>
 </html>

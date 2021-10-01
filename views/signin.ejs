@@ -13,12 +13,23 @@
       <% if (error.is) { %>
          <p><%= error.more %></p>
       <% } %>
-      <form method="POST" action="/sign-in-attempt" method="post">
-         <input class="input" type="text" name="name" value="" placeholder="Name" required><br>
+      <form method="POST" action="/play" method="post">
+         <input class="input" type="text" name="name" value="" minlength="2" maxlength="12" placeholder="Name" required><br>
          <input class="input" type="email" name="emil" value="" placeholder="Email" required><br>
-         <input class="input" type="password" name="pscd" value="" placeholder="Password" required><br>
+         <input class="input pin" type="password" name="pscd" value="" minlength="4" maxlength="4" placeholder="Password" required><br>
          <input class="submit" type="submit" name="" value="Enter Account">
       </form>
+      <style media="screen">
+      * { text-overflow: ellipsis; }
+      /* .pin {
+         -webkit-text-security: square;
+         text-security: square;
+      }
+      input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+         -webkit-appearance: none;
+         margin: 0;
+      } */
+      </style>
    </div>
    <body>
 </body>
