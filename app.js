@@ -3,10 +3,10 @@ var express = require("express");
 var mongoose = require("mongoose");
 var bodyParser = require('body-parser');
 var app = express();
-var port = 3000;
+var port = process.env.PORT || 3000;
 
 let signedIn = false;
-let signedInUser = "not signed in";
+let signedInUser = "(not signed in)";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -79,7 +79,7 @@ app.post("/play", (req, res) => {
    UserData.findOne({ name: req.body.name, email: req.body.emil, passcode: req.body.pscd }, (err, user) => {
       if (err) return console.error(err);
       if (!user) { res.render("signin", { error: { is: true, more: "The data dosen't line up. Try again!" } }); }
-      else {
+      else if (user) {
          signedIn = true;
          signedInUser = user;
          res.render("index", { userFrom: signedInUser });
@@ -88,14 +88,14 @@ app.post("/play", (req, res) => {
 });
 // Home page
 app.get("/", (req, res) => {
-   res.render("home", { error: { is: false } });
+   res.render("home", { user: signedInUser });
 });
 
 app.get("/sign-out", (req, res) => {
    signedIn = false;
    user = null;
-   signedInUser = null;
-   res.render("home");
+   signedInUser = "(not signed in)";
+   res.render("home", { user: signedInUser });
 });
 
 app.listen(port);

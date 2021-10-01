@@ -18,6 +18,9 @@ body {
 </style>
 <body>
    <h2>Home!</h2>
+   <% if (user) { %>
+   <h2>Welcome, you are signed in as <%- user.name %></h2>
+   <% } %>
    <p>Already signed in? <a href="/sign-in">Play!</a></p>
    <p>Do you already have an account? <a href="/sign-in">Sign in!</a></p>
    <p>Someone else is playing? <a href="/sign-out">Sign out!</a></p>
