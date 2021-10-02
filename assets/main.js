@@ -20,12 +20,15 @@ Save               | Save the game data, restart
 Game Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-// import * as data from "./app.js";
-// var data = require("./app");
+console.log(`hi ${userData.name}`);
 
-console.log(userData.name);
 window.addEventListener("beforeunload", function(e){
-   prompt("Ya sure?");
+   localStorage.setItem("plotStatus", JSON.stringify(plotStatus, replacer));
+   localStorage.setItem("produce", JSON.stringify(produce, replacer));
+   localStorage.setItem("plots", JSON.stringify(plots, replacer));
+   localStorage.setItem("marketData", JSON.stringify(marketData, replacer));
+   localStorage.setItem("settingData", JSON.stringify(settings, replacer));
+   localStorage.setItem("taskList", JSON.stringify(taskList, replacer));
 }, false);
 
 let initalPlotStatus = {
@@ -1016,7 +1019,12 @@ function feedPolice() {
 // Main Loop
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+let bgImgArr = [["bg-lake-night", "bg-lake-day"], ["bg-mountian-night", "bg-mountian-day"]];
+let bgImg = bgImgArr[Math.floor(Math.random() * bgImgArr.length)];
 let mainLoop = window.setInterval(() => {
+   const hours = new Date().getHours();
+   if (hours > 6 && hours < 20) { document.body.style.backgroundImage = `url('Images/Global Assets/${bgImg[1]}.svg')`; }
+   else { document.body.style.backgroundImage = `url('Images/Global Assets/${bgImg[0]}.svg')`; }
    updateMarket();
    giveTasks();
    showTasks();
@@ -1488,8 +1496,7 @@ const replacer = (key, value) => {
    else { return value; }
 }
 
-let saveLoop = window.setInterval(function() { save(); }, 1000)
-
+let saveLoop = window.setInterval(function() { save(); }, 300000);
 function save() {
    localStorage.setItem("plotStatus", JSON.stringify(plotStatus, replacer));
    localStorage.setItem("produce", JSON.stringify(produce, replacer));
@@ -1629,4 +1636,36 @@ if (siteLocation.includes("#")) {
       window.location.href = `https://vegetable-dash.herokuapp.com/`;
    }
    else { window.location.href = `https://vegetable-dash.herokuapp.com/`; }
+}
+
+var hover;
+var mouseX;
+var mouseY;
+var doThigsOnMousemoveList = [];
+function getCoords(e) {
+   mouseX = event.clientX;
+   mouseY = event.clientY;
+   if (doThigsOnMousemoveList.length >= 1) {
+      for (i = 0; i < doThigsOnMousemoveList.length; i++) {
+         let thsFunction = window[doThigsOnMousemoveList[i]];
+         thsFunction();
+      }
+   }
+}
+
+function info(THIS) {
+   let parent = THIS.parentElement;
+   hover = document.createElement("span");
+   hover.textContent = THIS.dataset.info;
+   hover.style.position = "fixed";
+   if (settings.theme === "light") { hover.classList.add("dynamicHover"); }
+   else { hover.classList.add("dynamicHoverDark"); }
+   doThigsOnMousemoveList.push("moveInfoHover");
+   parent.appendChild(hover);
+   THIS.addEventListener("mouseleave", doThis);
+   function doThis() { hover.remove(); doThigsOnMousemoveList.splice(doThigsOnMousemoveList.indexOf("moveInfoHover"), 1); THIS.removeEventListener("mouseleave", doThis); }
+}
+function moveInfoHover() {
+   hover.style.top = `${mouseY}px`;
+   hover.style.left = `${mouseX + 25}px`;
 }

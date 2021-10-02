@@ -14,7 +14,7 @@
       <link rel="stylesheet" href="styles.css">
       <title>Vegetable Dash!</title>
    </head>
-   <body ondragstart="return false;">
+   <body ondragstart="return false;" onmousemove="getCoords(event)">
       <div class="cover">
          <div class="meter">
            <span class="loading-progress" style="width: 0%"><span class="load-display">0%</span></span>
@@ -29,7 +29,7 @@
             <!-- Countdown -->
             <div class="countdown peas-countdown time-left">
                <span class="peas-time-left">00:00:00</span>
-               <img src="Images/Global Assets/clock.png">
+               <img src="Images/Icons/clock.svg">
             </div>
             <!-- Special -->
             <img class="quest-arrow plant-quest-arrow" src="Images/Tasks/arrow.png">
@@ -58,7 +58,7 @@
                <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="corn-time-left">00:00:00</span>
-                  <img src="Images/Global Assets/clock.png">
+                  <img src="Images/Icons/clock.svg">
                </div>
                <!-- Modal -->
                <img onclick="infoModal('Corn')" class="veg-icon" src="Images/Vegetables/corn.png">
@@ -98,7 +98,7 @@
                <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="strawberries-time-left">00:00:00</span>
-                  <img src="Images/Global Assets/clock.png">
+                  <img src="Images/Icons/clock.svg">
                </div>
                <!-- Info -->
                <img onclick="infoModal('Strawberry')" class="veg-icon" src="Images/Vegetables/strawberry.png">
@@ -138,7 +138,7 @@
                <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="eggplants-time-left">00:00:00</span>
-                  <img src="Images/Global Assets/clock.png">
+                  <img src="Images/Icons/clock.svg">
                </div>
                <!-- Info -->
                <img onclick="infoModal('Eggplant')" class="veg-icon" src="Images/Vegetables/eggplant.png">
@@ -175,7 +175,7 @@
             <div class="open-plot" id="openPlot5">
                <div class="countdown time-left">
                   <span class="center-time-left">00:00:00</span>
-                  <img src="Images/Global Assets/clock.png">
+                  <img src="Images/Icons/clock.svg">
                </div>
                <!-- Center Info -->
                <img onclick="infoModal('Rainbow')" class="veg-icon" src="Images/Global Assets/rainbow-fruit.png">
@@ -192,7 +192,7 @@
                   <li><img onclick="tendCenter('corn', 6000, 12000, 25000, 'growing.png', 'Corn/growing.png', 'Corn/fruiting.png')" class="store-icon" src="Images/Vegetables/corn.png"></li>
                   <li><img onclick="tendCenter('strawberries', 50000, 100000, 150000, 'Strawberry/growing.png', 'Strawberry/flowering.png', 'Strawberry/fruiting.png')" class="store-icon" src="Images/Vegetables/strawberry.png"></li>
                   <li><img onclick="tendCenter('eggplants', 300000, 600000, 900000, 'Eggplant/growing.png', 'Eggplant/flowering.png', 'Eggplant/fruiting.png')" class="store-icon" src="Images/Vegetables/eggplant.png"></li>
-                  <li><img onclick="tendCenter('pumpkins', 600000, 1200000, 1800000, 'growing.png', 'Pumpkin/growing.png', 'Pumpkin/fruiting.png')" class="store-icon" src="Images/Vegetables/pumpkin.png"></li>
+                  <li><img onclick="tendCenter('pumpkins', 600000, 1200000, 1800000, 'growing.png', 'Pumpkin/growing.png', 'Pumpkin/fruiting.png')" class="store-icon" src="Images/Vegetables/pumpkin.svg"></li>
                   <li><img onclick="tendCenter('cabbage', 1200000, 2400000, 3600000, 'growing.png', 'Cabbage/growing.png', 'Cabbage/fruiting.png')" class="store-icon" src="Images/Vegetables/cabbage.svg"></li>
                   <li><img onclick="tendCenter('dandelion', 3600000, 7200000, 10800000, 'Dandelion/flowering.png', 'Dandelion/flowering.png', 'Dandelion/fruiting.png')" class="store-icon" src="Images/Vegetables/dandelion.png"></li>
                   <li><img onclick="tendCenter('rhubarb', 9600000, 18200000, 28800000, 'growing.png', 'Rhubarb/growing.png', 'Rhubarb/fruiting.png')" class="store-icon" src="Images/Vegetables/rhubarb.png"></li>
@@ -210,14 +210,14 @@
                <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="pumpkins-time-left">00:00:00</span>
-                  <img src="Images/Global Assets/clock.png">
+                  <img src="Images/Icons/clock.svg">
                </div>
                <!-- Info -->
-               <img onclick="infoModal('Pumpkins')" class="veg-icon" src="Images/Vegetables/pumpkin.png">
+               <img onclick="infoModal('Pumpkins')" class="veg-icon" src="Images/Vegetables/pumpkin.svg">
                <div id="infoPumpkins" class="veg-info">
                   <div class="modal-content">
                      <button onclick="infoModal('Pumpkins')" class="close depth-button orange">×</button>
-                     <h4>Pumpkins <img class="info-icon" src="Images/Vegetables/pumpkin.png"></h4>
+                     <h4>Pumpkins <img class="info-icon" src="Images/Vegetables/pumpkin.svg"></h4>
                      <p>Pumpkins, a round winter squash with yellow to orange smooth skin, are believed to originate in Mexico. <br> These Pumpkins take 30 minutes to grow.</p>
                      <div class="modal-market-prices">
                         <div class="modalPumpkinsPriceBuy">Buy For</div>
@@ -249,7 +249,7 @@
                <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="cabbage-time-left">00:00:00</span>
-                  <img src="Images/Global Assets/clock.png">
+                  <img src="Images/Icons/clock.svg">
                </div>
                <!-- Information -->
                <img onclick="infoModal('Cabbage')" class="veg-icon" src="Images/Vegetables/cabbage.svg">
@@ -288,7 +288,7 @@
                <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="dandelion-time-left">00:00:00</span>
-                  <img src="Images/Global Assets/clock.png">
+                  <img src="Images/Icons/clock.svg">
                </div>
                <!-- Info -->
                <img onclick="infoModal('Dandelion')" class="veg-icon" src="Images/Vegetables/dandelion.png">
@@ -327,7 +327,7 @@
                <!-- Countdown -->
                <div class="countdown time-left">
                   <span class="rhubarb-time-left">00:00:00</span>
-                  <img src="Images/Global Assets/clock.png">
+                  <img src="Images/Icons/clock.svg">
                </div>
                <!-- Information -->
                <img onclick="infoModal('Rhubarb')" class="veg-icon" src="Images/Vegetables/rhubarb.png">
@@ -359,7 +359,7 @@
       <!-- Toolbar -->
       <div class="toolbar">
          <div class="produce-tooltip produce-tooltip-barrel">
-            <img class="toolbar-img" src="Images/Global Assets/barrel.png">
+            <img class="toolbar-img" src="Images/Icons/barrel.svg">
             <span class="tooltip-text tooltip-text-produce">
                <span class="seeds">0</span><br>
                <div class="vegAmount doughnutsAmount"><span id="doughnuts">0</span> <img class="produce-image" src="Images/Market/doughnut.png"><br></div>
@@ -367,14 +367,14 @@
                <div class="vegAmount cornAmount"><span id="cornBushels">0</span> <img class="produce-image" src="Images/Vegetables/corn.png"><br></div>
                <div class="vegAmount strawberriesAmount"><span id="strawberryBushels">0</span> <img class="produce-image" src="Images/Vegetables/strawberry.png"><br></div>
                <div class="vegAmount eggplantsAmount"><span id="eggplantBushels">0</span> <img class="produce-image" src="Images/Vegetables/eggplant.png"><br></div>
-               <div class="vegAmount pumpkinsAmount"><span id="pumpkinBushels">0</span> <img class="produce-image" src="Images/Vegetables/pumpkin.png"><br></div>
+               <div class="vegAmount pumpkinsAmount"><span id="pumpkinBushels">0</span> <img class="produce-image" src="Images/Vegetables/pumpkin.svg"><br></div>
                <div class="vegAmount cabbageAmount"><span id="cabbageBushels">0</span> <img class="produce-image" src="Images/Vegetables/cabbage.svg"><br></div>
                <div class="vegAmount dandelionAmount"><span id="dandelionBushels">0</span> <img class="produce-image" src="Images/Vegetables/dandelion.png"><br></div>
                <div class="vegAmount rhubarbAmount"><span id="rhubarbBushels">0</span> <img class="produce-image" src="Images/Vegetables/rhubarb.png"><br></div>
             </span>
          </div>
          <div class="produce-tooltip produce-tooltip-fertilizer">
-            <img class="toolbar-img" onclick="fertilizeHover()" src="Images/Global Assets/fertilizer.png">
+            <img class="toolbar-img" style="margin: 0.5vh" onclick="fertilizeHover()" src="Images/Global Assets/fertilizer.svg">
             <span id="fertilizer" class="tooltip-text"></span>
          </div>
          <div class="produce-tooltip produce-tooltip-harvest-drag">
@@ -968,8 +968,8 @@
       </div>
       <!-- Command Panel/Bar -->
       <div class="command-panel">
-         <img onclick="showObj('.marketShadow'); settings.marketOpen = true;" class="commandBarImg" src="Images/Control Bar/shop.svg">
-         <img onclick="showObj('.settingShadow'); settings.settingsOpen = true;" class="commandBarImg" src="Images/Control Bar/preferences.svg">
+         <img onmouseover="info(this)" data-info="Market" onclick="showObj('.marketShadow'); settings.marketOpen = true;" class="commandBarImg" src="Images/Icons/market.svg">
+         <img onmouseover="info(this)" data-info="Settings" onclick="showObj('.settingShadow'); settings.settingsOpen = true;" class="commandBarImg" src="Images/Icons/settings.svg">
          <label class="switch">
             <input type="checkbox" checked>
             <span class="slider" onmouseover="commandBar()"></span>
@@ -1012,7 +1012,7 @@
                   </div>
                </div>
                <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/pumpkin.png"><span class="pumpkins-market-item"></span></div>
+                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/pumpkin.svg"><span class="pumpkins-market-item"></span></div>
                   <div class="buy-sell">
                      <span class="market-item-buy" onclick="buyProduce('pumpkins', 'Pumpkins')">Buy</span>
                      <span class="market-item-sell"  onclick="sellProduce('pumpkins', 'Pumpkins')">Sell</span>
@@ -1176,7 +1176,7 @@
       <!-- Other -->
       <div>
          <!-- Help -->
-         <img class="help-center-img" onclick="showObj('.help-shadow'); settings.helpOpen = true;" src="Images/Global Assets/more-info.png">
+         <img onmouseover="info(this)" data-info="Help" class="help-center-img" onclick="showObj('.help-shadow'); settings.helpOpen = true;" src="Images/Icons/help.svg">
          <div class="shadow help-shadow">
             <div class="help">
                <button onclick="hideObj('.help-shadow'); settings.helpOpen = false;" class="close depth-button blue closeModalHelp">×</button>
@@ -1320,7 +1320,12 @@
                         <h1>About & Copyright</h1>
                         This game is &copy copyrighted by Squirrel. If you want to help, email me at <a href="mailto:thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a>, or send a suggestion. <br>
                         Strawberry, Eggplant, Plot, Pea and other images are courtesy of <a href="https://www.youtube.com/channel/UCW4Ba6Mu-nRZII6kg2eEGzA">Urdons</a>. <br>
-                        Favicon image is courtesy of <a href="https://github.com/PusheenMaster5">Justin</a>.
+                        Favicon image is courtesy of <a href="https://github.com/PusheenMaster5">Justin</a>.<br>
+                        <span>Barrel and help icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></span><br>
+                        <span>Seed packet icon made by <a href="https://www.flaticon.com/authors/flat-icons" title="Flat Icons">Flat Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></span><br>
+                        <span>Settings icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></span><br>
+                        <span>Command bar market icon made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></span>
+                        <span>Plant clock icon made by <a href="https://www.flaticon.com/authors/bqlqn" title="bqlqn">bqlqn</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></span>
                         <br><br>
                         <table>
                            <tr>
@@ -1374,8 +1379,8 @@
             <div class="weather-img"></div>
             <h6 class="weather-name"></h6>
             <p class="weather-description"></p>
-            <div class="weather-last"></div>
-            <div class="weather-next"></div>
+            <div onmouseover="info(this)" data-info="Last Weather" class="weather-last"></div>
+            <div onmouseover="info(this)" data-info="Next Weather" class="weather-next"></div>
          </div>
          <!-- Various -->
          <div class="introDarkShadow">
@@ -1414,7 +1419,7 @@
             <div class="vegAmount cornAmountQuick"><span id="cornBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/corn.png"><br></div>
             <div class="vegAmount strawberriesAmountQuick"><span id="strawberryBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/strawberry.png"><br></div>
             <div class="vegAmount eggplantsAmountQuick"><span id="eggplantBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/eggplant.png"><br></div>
-            <div class="vegAmount pumpkinsAmountQuick"><span id="pumpkinBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/pumpkin.png"><br></div>
+            <div class="vegAmount pumpkinsAmountQuick"><span id="pumpkinBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/pumpkin.svg"><br></div>
             <div class="vegAmount cabbageAmountQuick"><span id="cabbageBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/cabbage.svg"><br></div>
             <div class="vegAmount dandelionAmountQuick"><span id="dandelionBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/dandelion.png"><br></div>
             <div class="vegAmount rhubarbAmountQuick"><span id="rhubarbBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/rhubarb.png"><br></div>

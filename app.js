@@ -24,7 +24,15 @@ connection.on('error', console.error.bind(console, 'Connection error: '));
 var useDataSchema = new mongoose.Schema({
    name: String,
    email: String,
-   passcode: String
+   passcode: String,
+   gameSave: {
+      plotStatus: {},
+      produce: {},
+      plots: {},
+      marketData: {},
+      settings: {},
+      taskList: {}
+   }
 });
 
 var namesList = [];
@@ -41,7 +49,7 @@ function addNewUser(name, email, passcode) {
    else { addNow(); }
    function addNow() {
       if (namesList.includes(name)) { console.log("Choose a different name! (This one is taken!)"); return false; }
-      else if (passcode.length !== 4) { console.log(passcode.length, "Passcode must be 4 numbers long!"); return false; }
+      // else if (passcode.length !== 4) { console.log(passcode.length, "Passcode must be 4 numbers long!"); return false; }
       else if (parseInt(passcode) === NaN) { console.log("Passcode must contain only numbers!"); return false; }
       else {
          var newUser = new UserData({ name: name, email: email, passcode: passcode });
@@ -53,6 +61,8 @@ function addNewUser(name, email, passcode) {
    }
 }
 
+// change password
+// let doc = await UserData.findOneAndUpdate({ name: "Squirrel", passcode: 0825 }, { password: 0258 }, { new: true });
 // force good accounts
 // UserData.findByIdAndRemove("612015dbdf91cf6ce81ef6ab", function (err) { if (err) { console.log(err) } });
 
@@ -71,7 +81,6 @@ app.get("/vegetable-dash", (req, res) => {
 });
 //Sign in
 app.get("/sign-in", (req, res) => {
-   console.log(signedIn);
    if (!signedIn) { res.render("signin", { error: { is: false } }); }
    else { res.render("index", { userFrom: signedInUser }); }
 });
