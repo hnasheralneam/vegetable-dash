@@ -1019,12 +1019,12 @@ function feedPolice() {
 // Main Loop
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-let bgImgArr = [["bg-lake-night", "bg-lake-day"], ["bg-mountian-night", "bg-mountian-day"]];
+let bgImgArr = [["lake-night", "lake-day"], ["mountian-night", "mountian-day"]];
 let bgImg = bgImgArr[Math.floor(Math.random() * bgImgArr.length)];
 let mainLoop = window.setInterval(() => {
    const hours = new Date().getHours();
-   if (hours > 6 && hours < 20) { document.body.style.backgroundImage = `url('Images/Global Assets/${bgImg[1]}.svg')`; }
-   else { document.body.style.backgroundImage = `url('Images/Global Assets/${bgImg[0]}.svg')`; }
+   if (hours > 6 && hours < 20) { document.body.style.backgroundImage = `url('Images/Background/${bgImg[1]}.svg')`; }
+   else { document.body.style.backgroundImage = `url('Images/Background/${bgImg[0]}.svg')`; }
    updateMarket();
    giveTasks();
    showTasks();
@@ -1389,7 +1389,7 @@ function harvestDrag() {
    }
    else {
       harvestCursor = "active";
-      document.querySelector(".land").style.cursor = "url('Images/Global Assets/sickle-cursor.png'), auto";
+      document.querySelector(".land").style.cursor = "url('Images/Cursors/sickle.png'), auto";
    }
 }
 function plantDrag() {
@@ -1399,7 +1399,7 @@ function plantDrag() {
    }
    else {
       plantCursor = "active";
-      document.querySelector(".land").style.cursor = "url('Images/Global Assets/plant-cursor.png'), auto";
+      document.querySelector(".land").style.cursor = "url('Images/Cursors/plant.png'), auto";
    }
 }
 function fertilizeHover() {
@@ -1409,7 +1409,7 @@ function fertilizeHover() {
    }
    else {
       fertilizerCursor = "active";
-      document.querySelector(".land").style.cursor = "url('Images/Global Assets/fertilizer-shovel.png'), auto";
+      document.querySelector(".land").style.cursor = "url('Images/Cursors/fertilizer.png'), auto";
    }
 }
 

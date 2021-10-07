@@ -21,10 +21,17 @@ const connection = mongoose.connection
 
 connection.on('error', console.error.bind(console, 'Connection error: '));
 
+var chatSchema = new mongoose.Schema({
+   poster: String,
+   posterPicture: String,
+   post: String,
+});
+
 var useDataSchema = new mongoose.Schema({
    name: String,
    email: String,
    passcode: String,
+   avatar: String,
    gameSave: {
       plotStatus: {},
       produce: {},
@@ -38,10 +45,30 @@ var useDataSchema = new mongoose.Schema({
 var namesList = [];
 var dataDone = false;
 var UserData = mongoose.model('UserData', useDataSchema);
+var ChatData = mongoose.model('ChatData', chatSchema);
+
+// ChatData.find((err, posts) => {
+//    if (err) return console.error(err);
+//    for (i = 0; i < posts.length; i++) { if (!namesList.includes(posts[i].post)) { namesList.push(posts[i].post);
+//    console.log(posts); } }
+// }).then(item => { dataDone = true; })
+//
+// // for (chatListLength) {
+// //    make chat element, show poster image with title of name
+// // }
+
+
+// var newPost = new ChatData({ poster: "Squirrel", posterPicture: "squirrel", post: "Hello everyone! Hope you like my game!" });
+// newPost.save(function (err, newPost) {
+//    if (err) return console.error(err);
+//    else { console.log("Post succesful!"); }
+// });
 
 UserData.find((err, users) => {
    if (err) return console.error(err);
-   for (i = 0; i < users.length; i++) { if (!namesList.includes(users[i].name)) { namesList.push(users[i].name); } }
+   for (i = 0; i < users.length; i++) {
+      if (!namesList.includes(users[i].name)) { namesList.push(users[i].name); }
+   }
 }).then(item => { dataDone = true; })
 
 function addNewUser(name, email, passcode) {
@@ -60,6 +87,15 @@ function addNewUser(name, email, passcode) {
       }
    }
 }
+
+// UserData.updateMany(
+// { avatar: { $exists: false }},
+// { $set: { avatar: "squirrel" }},
+// { multi: true }
+// )
+//
+
+// let thang = UserData.findOneAndUpdate({ name: "Squirrel", avatar: "squirrel" }, { password: 0258 }, { new: true });
 
 // change password
 // let doc = await UserData.findOneAndUpdate({ name: "Squirrel", passcode: 0825 }, { password: 0258 }, { new: true });
@@ -97,14 +133,15 @@ app.post("/play", (req, res) => {
 });
 // Home page
 app.get("/", (req, res) => {
-   res.render("home", { user: signedInUser });
+   console.log(signedInUser);
+   res.render("home", { user: signedInUser, UserData: UserData });
 });
 
 app.get("/sign-out", (req, res) => {
    signedIn = false;
    user = null;
    signedInUser = "(not signed in)";
-   res.render("home", { user: signedInUser });
+   res.render("home", { user: signedInUser, UserData: UserData });
 });
 
 app.listen(port);

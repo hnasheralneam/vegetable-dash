@@ -1,31 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <link rel="shortcut icon" href="Images/Global Assets/logo.svg" type="image/x-icon">
+   <link rel="stylesheet" href="home.css">
    <title>Home</title>
 </head>
-<style media="screen">
-* {
-   padding: 0;
-   margin: 0;
-}
-body {
-   background-image: url("Images/Global Assets/background.png");
-   background-size: 100vw 100vh;
-}
-</style>
 <body>
-   <h2>Home!</h2>
-   <% if (user) { %>
-   <h2>Welcome, you are signed in as <%- user.name %></h2>
+   <% if (user !== "(not signed in)") { %>
+      <div class="signed-in">
+         <div class="signed-inner">
+            <h2 style="color: #fff; font-family: 'Nunito';">Welcome, you are signed in as <%- user.name %></h2><br>
+            <div class="opening">
+               <img class="avatar yourAvatar" src=<%= `Avatars/${user.avatar}.png` %>>
+               <p class="playButton" style="display: inline;"><a href="/sign-in">Play!</a></p><br><br><br><br>
+               <p>Ready to leave?</p><a href="/sign-out">Sign out!</a>
+            </div>
+            <br>
+            <div class="opening">
+               <h4>Choose Avatar</h4><br>
+               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '1' }, { new: true }); %>;" src="Avatars/1.png">
+               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '2' }, { new: true }); %>;" src="Avatars/2.png">
+               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '3' }, { new: true }); %>;" src="Avatars/3.png">
+               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '4' }, { new: true }); %>;" src="Avatars/4.png">
+               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '5' }, { new: true }); %>;" src="Avatars/5.png">
+               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '6' }, { new: true }); %>;" src="Avatars/6.png">
+               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '7' }, { new: true }); %>;" src="Avatars/7.png">
+            </div>
+            <br><br>
+            <p>Avatar icons made by <a href="https://www.flaticon.com/authors/vitaly-gorbachev" title="Vitaly Gorbachev">Vitaly Gorbachev</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></p>
+         </div>
+      </div>
+   <%} else { %>
+      <div class="not-signed-in">
+               <div class="not-signed-inner">
+                  <h2 style="text-align: center;">Welcome to Vegetable Dash!</h2>
+                  <h4 style="text-align: center;">You are not signed in</h4><br>
+                  <div class="opening">
+                     <p>Do you have an account?</p><a href="/sign-in">Sign in!</a><br><br>
+                     <p>Don't have an account?</p><a href="/create-account">Create an account!</a>
+                  </div>
+               </div>
+      </div>
    <% } %>
-   <p>Already signed in? <a href="/sign-in">Play!</a></p>
-   <p>Do you already have an account? <a href="/sign-in">Sign in!</a></p>
-   <p>Someone else is playing? <a href="/sign-out">Sign out!</a></p>
-   <p>Don't have an account? <a href="/create-account">Create an account!</a></p>
-<body>
-</body>
 </body>
 </html>

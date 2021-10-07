@@ -540,7 +540,7 @@ Market & Black Market
    background-color: #262626;
    text-align: center;
    font-family: "Roboto Condensed";
-   cursor: url('Images/Global Assets/money.png'), auto;
+   cursor: url('Images/Cursors/money.png'), auto;
    overflow: scroll;
    transition: 0.8s;
 }
@@ -988,6 +988,10 @@ Toolbar
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.settings {
+   cursor: url('Images/Cursors/chisel.png'), auto;
+}
 
 .setting-button {
    border-radius: .5vh;
@@ -1489,7 +1493,7 @@ tr:nth-child(even) { background-color: #eee; }
    display: flex;
    justify-content: center;
    text-align: center;
-   background-image: url("Images/Global Assets/background.png") !important;
+   background-image: url("Images/Background/background.png") !important;
    background-size: cover;
 }
 
