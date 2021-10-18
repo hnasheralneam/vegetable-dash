@@ -670,7 +670,7 @@ Market & Black Market
    right: 15vh;
    bottom: 2.5vh;
 }
-.more-info-tooltip img { height: 11vh; }
+.more-info-tooltip img { height: 9vh; margin-bottom: 1vh; }
 .more-info-tooltip .tooltip-text {
    position: absolute;
    opacity: 0;

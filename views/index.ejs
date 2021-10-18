@@ -22,7 +22,7 @@
       </div>
       <!-- Land and Plots -->
       <div class="land">
-         <img onclick="collectWeed(this)" class="weed" src="Images/Global Assets/weed.png">
+         <img onclick="collectWeed(this)" class="weed" src="Images/Global Assets/weed.svg">
          <!-- Pea Plot -->
          <div class="plot" id="plot1">
             <button class="Peas btn" onclick="tend('peas')">Grow Peas!</button>
@@ -178,11 +178,11 @@
                   <img src="Images/Icons/clock.svg">
                </div>
                <!-- Center Info -->
-               <img onclick="infoModal('Rainbow')" class="veg-icon" src="Images/Global Assets/rainbow-fruit.png">
+               <img onclick="infoModal('Rainbow')" class="veg-icon" src="Images/Global Assets/rainbow-fruit.svg">
                <div id="infoRainbow" class="veg-info">
                   <div class="modal-content">
                      <span onclick="infoModal('Rainbow')" class="close">×</span>
-                     <h4>Rainbow Plot! <img class="info-icon" src="Images/Global Assets/rainbow-fruit.png"></h4>
+                     <h4>Rainbow Plot! <img class="info-icon" src="Images/Global Assets/rainbow-fruit.svg"></h4>
                      <p>You can plant anything in this plot! <br> 🎉 Yay! 🎉</p>
                   </div>
                </div>
@@ -378,7 +378,7 @@
             <span id="fertilizer" class="tooltip-text"></span>
          </div>
          <div class="produce-tooltip produce-tooltip-harvest-drag">
-            <img class="toolbar-img" onclick="harvestDrag()" src="Images/Global Assets/sickle.png">
+            <img class="toolbar-img" onclick="harvestDrag()" src="Images/Global Assets/sickle.svg">
             <span id="harvest-drag" class="tooltip-text">Hold + Drag to harvest</span>
          </div>
       </div>
@@ -1077,7 +1077,7 @@
                   <p>Reset all market buy and sell values.</p>
                   <button onclick="resetMarketValues()" class="use-market-reset-button">Use</button>
                   <div class="more-info-tooltip">
-                     <img src="Images/Global Assets/more-info.png" id="market-reset-more-info">
+                     <img src="Images/Global Assets/more-info.svg" id="market-reset-more-info">
                      <span class="tooltip-text">There is a 1% chance of collecting one after each trade, and a 5% chance after each harvest.</span>
                   </div>
                </div>
@@ -1314,7 +1314,6 @@
                         <strong>Shift + Click</strong> to buy <i>x5 in Market</i> <br>
                         <strong>Ctrl + Click</strong> to buy <i>x10 in Market</i> <br>
                      </p>
-                     <img src="Images/Control Bar/commands.png" style="height: 40vh">
                   </div>
                   <div id="help-about-copyright">
                         <h1>About & Copyright</h1>
@@ -1438,5 +1437,6 @@
       var userData = JSON.parse(userDataWorking);
    </script>
    <% } %>
+   <script src="tasks.js" charset="utf-8"></script>
    <script src="main.js" charset="utf-8"></script>
 </html>

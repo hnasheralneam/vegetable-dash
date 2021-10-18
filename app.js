@@ -133,7 +133,7 @@ app.post("/play", (req, res) => {
 });
 // Home page
 app.get("/", (req, res) => {
-   console.log(signedInUser);
+   // console.log(signedInUser);
    res.render("home", { user: signedInUser, UserData: UserData });
 });
 
