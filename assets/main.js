@@ -230,9 +230,9 @@ let initalTaskList = {
 var settings = initalSettings;
 var plotStatus = initalPlotStatus;
 var produce = initalProduce;
-var plots = initalPlots;
-var marketData = initalMarketData;
-var taskList = initalTaskList;
+plots = initalPlots;
+marketData = initalMarketData;
+taskList = initalTaskList;
 settings.loadtime = findAvg(settings.loadtimes);
 
 function findAvg(array) {
@@ -456,7 +456,7 @@ let updateWeather = window.setInterval(function() {
 // Tasks
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-let tD = cheese;
+var tD = rawTaskData;
 for (i = 1; i <= 4; i++) { hideObj(`.task-info-button-${i}`); }
 
 // Task Insensitive

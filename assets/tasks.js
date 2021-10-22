@@ -1,4 +1,4 @@
-const cheese = {
+var rawTaskData = {
 numOTasks: 12,
 listOfTasks: ["jebsPeaSalad", "useMarketResets", "tryFertilizer", "jebsGrilledCorn", "josephinesDandelionSalad", "unlockThe_cornPlot", "seeBlackMarket", "tryPoliceDoughnuts", "bakeSale_cornBread", "bakeSale_peaSnacks", "bakeSale_strawberryJam", "bakeSale_pumpkinPie"],
 // jebsPeaSalad
