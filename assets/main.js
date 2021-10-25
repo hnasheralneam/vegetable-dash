@@ -670,8 +670,8 @@ function sellProduce(produceRequested, produceCase) {
 }
 
 // Exchange Market!
-let offerVeg = {};
-let costVeg = {};
+let offerVeg = { vegetable: null, worth: null, amount: null, totalVal: null };
+let costVeg = { vegetable: null, worth: null, amount: null, totalVal: null };
 function generateExchange() {
    let merchantNames = ["Ramesh Devi", "Zhang Wei", "Emmanuel Abara", "Kim Nguyen", "John Smith", "Muhammad Khan", "David Smith", "Achariya Sok", "Aleksandr Ivanov", "Mary Smith", "José Silva", "Oliver Gruber", "James Wang", "Kenji Satō"];
    let merchantName = merchantNames[Math.floor(Math.random() * merchantNames.length)];
@@ -685,7 +685,7 @@ function generateExchange() {
    costVeg.worth = marketData["exchangeMarket"][costVeg.vegetable];
    offerVeg.amount = random(2, 25);
    offerVeg.totalVal = offerVeg.amount * offerVeg.worth;
-   costVeg.amount = offerVeg.totalVal / costVeg.worth;
+   costVeg.amount = Math.round(offerVeg.totalVal / costVeg.worth);
    document.querySelector(".market-exchange").style.backgroundColor = genColor();
    document.querySelector(".exchange-merchant").textContent = `${merchantName}`;
    document.querySelector(".exchange-offer").textContent = `${Math.round(offerVeg.amount)} ${offerVeg.vegetable}`;
@@ -1186,14 +1186,14 @@ $("#plot9").mouseenter(() => {
    if (mouseDown === 1 && harvestCursor === "active" && plots.rhubarbplot === "unlocked" && Date.now() >= plotStatus["rhubarbReady"]) { tend('rhubarb'); }
 });
 
-document.querySelector("#plot1").addEventListener("click", event => { if (fertilizerCursor === "active" && plotStatus.peasReady !== 0) { fertilize("peas"); fertilizeHover(); } });
-document.querySelector("#plot2").addEventListener("click", event => { if (fertilizerCursor === "active" && plotStatus.cornReady !== 0) { fertilize("corn"); fertilizeHover(); } });
-document.querySelector("#plot3").addEventListener("click", event => { if (fertilizerCursor === "active" && plotStatus.strawberriesReady !== 0) { fertilize("strawberries"); fertilizeHover(); } });
-document.querySelector("#plot4").addEventListener("click", event => { if (fertilizerCursor === "active" && plotStatus.eggplantsReady !== 0) { fertilize("eggplants"); fertilizeHover(); } });
-document.querySelector("#plot6").addEventListener("click", event => { if (fertilizerCursor === "active" && plotStatus.pumpkinsReady !== 0) { fertilize("pumpkins"); fertilizeHover(); } });
-document.querySelector("#plot7").addEventListener("click", event => { if (fertilizerCursor === "active" && plotStatus.cabbageReady !== 0) { fertilize("cabbage"); fertilizeHover(); } });
-document.querySelector("#plot8").addEventListener("click", event => { if (fertilizerCursor === "active" && plotStatus.dandelionReady !== 0) { fertilize("dandelion"); fertilizeHover(); } });
-document.querySelector("#plot9").addEventListener("click", event => { if (fertilizerCursor === "active" && plotStatus.rhubarbReady !== 0) { fertilize("rhubarb"); fertilizeHover(); } });
+document.querySelector("#plot1").addEventListener("click", event => { if (fertilizerCursor === "active" && plots.peaplot != "locked" && plotStatus.peasReady !== 0) { fertilize("peas"); fertilizeHover(); } });
+document.querySelector("#plot2").addEventListener("click", event => { if (fertilizerCursor === "active" && plots.cornplot != "locked" && plotStatus.cornReady !== 0) { fertilize("corn"); fertilizeHover(); } });
+document.querySelector("#plot3").addEventListener("click", event => { if (fertilizerCursor === "active" && plots.strawberryplot != "locked" && plotStatus.strawberriesReady !== 0) { fertilize("strawberries"); fertilizeHover(); } });
+document.querySelector("#plot4").addEventListener("click", event => { if (fertilizerCursor === "active" && plots.eggplantplot != "locked" && plotStatus.eggplantsReady !== 0) { fertilize("eggplants"); fertilizeHover(); } });
+document.querySelector("#plot6").addEventListener("click", event => { if (fertilizerCursor === "active" && plots.pumpkinplot != "locked" && plotStatus.pumpkinsReady !== 0) { fertilize("pumpkins"); fertilizeHover(); } });
+document.querySelector("#plot7").addEventListener("click", event => { if (fertilizerCursor === "active" && plots.cabbageplot != "locked" && plotStatus.cabbageReady !== 0) { fertilize("cabbage"); fertilizeHover(); } });
+document.querySelector("#plot8").addEventListener("click", event => { if (fertilizerCursor === "active" && plots.dandelionplot != "locked" && plotStatus.dandelionReady !== 0) { fertilize("dandelion"); fertilizeHover(); } });
+document.querySelector("#plot9").addEventListener("click", event => { if (fertilizerCursor === "active" && plots.rhubarbplot != "locked" && plotStatus.rhubarbReady !== 0) { fertilize("rhubarb"); fertilizeHover(); } });
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Settings
@@ -1393,8 +1393,10 @@ function info(THIS) {
    else { hover.classList.add("dynamicHoverDark"); }
    doThigsOnMousemoveList.push("moveInfoHover");
    parent.appendChild(hover);
+   // setTimeout(() => { hover.style.opacity = "1" }, 100);
    THIS.addEventListener("mouseleave", doThis);
    function doThis() { hover.remove(); doThigsOnMousemoveList.splice(doThigsOnMousemoveList.indexOf("moveInfoHover"), 1); THIS.removeEventListener("mouseleave", doThis); }
+   // hover.style.opacity = "0"; setTimeout(() => { hover.remove(); }, 100);
 }
 function moveInfoHover() {
    hover.style.top = `${mouseY}px`;
