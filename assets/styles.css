@@ -381,7 +381,7 @@ Modals
    position: absolute;
    top: 3vh;
    right: 5vh;
-   transition: .5s;
+   transition: .25s;
    cursor: pointer;
 }
 .closeModal:hover { text-shadow: 0 0 .5vh #444; }
@@ -710,13 +710,32 @@ Market & Black Market
    pointer-events: auto;
 }
 .hide-market {
+   z-index: 50;
+   position: absolute;
    top: 0;
    right: 0;
-   height: 10vh;
-   width: 10vh;
-   font-size: 3vh;
-   padding: 1vh;
-   transition: .05s;
+   height: 1vh;
+   width: 1vh;
+   font-family: "Nunito";
+   margin: 2vh;
+   border-radius: 1.5vh;
+   color: #fff;
+   font-size: 8vh;
+   transition: .3s;
+   box-shadow: 0 1vh #16CCF8;
+   border: solid 2vh #63E1FF;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.hide-market:hover {
+   background-color: #63E1FF;
+   text-shadow: 0 0 .25vh #444;
+}
+.hide-market:active {
+   outline: none;
+   transform: translateY(.5vh);
+   box-shadow: 0 .5vh #16CCF8;
 }
 #market-reset-more-info { filter: invert(); }
 
@@ -1616,7 +1635,7 @@ tr:nth-child(even) { background-color: #eee; }
    height: 10vh;
    position: absolute;
    top: 8vh;
-   right: -78vh;
+   right: -55vh;
    z-index: 1000000;
    transition: .5s;
    opacity: 0;

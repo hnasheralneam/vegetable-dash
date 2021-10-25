@@ -330,27 +330,25 @@ function showTasks() {
       else { return false; }
    }
 }
-
-// https://stackoverflow.com/questions/16096581/how-do-i-skip-or-ignore-errors-in-javascript-jquery (use to fix errors)
-// jeb fed but unhappy
-
 function giveTasks() {
+   // This line should be repeated only for taskLists
    if (plots.pumpkinplot === "unlocked") { taskList.bakeSale = "progressing"; }
-   // Functions
    for (let i = 1; i <= tD.numOTasks; i++) {
       if (checkIf(tD[`t${i}`]["n"], tD[`t${i}`]["c"])) { taskList[tD[`t${i}`]["n"]] = "active"; }
    }
    function checkIf(name, conditions) {
       let trueList = { is1: false, is2: false, is3: false }
-      if (name != "complete" && name != "ready") { trueList.is1 = true; }
+      if (taskList[name] != "complete" && taskList[name] != "ready") { trueList.is1 = true; }
       if (conditions[0][0]) {
-         conditions[0][1][0] = tD;   
-         if (conditions[0][1][0][conditions[0][1][1]][conditions[0][1][2]] === "complete") { trueList.is2 = true; }
+         conditions[0][1][0] = tD;
+         if (taskList[conditions[0][1][0][conditions[0][1][1]][conditions[0][1][2]]] === "complete") { trueList.is2 = true; }
       } else { trueList.is2 = true; }
       if (conditions[1][0]) {
-         conditions[1][1][0] = marketData;
+         if (conditions[1][1][0] == "plots") { conditions[1][1][0] = plots; }
+         if (conditions[1][1][0] == "marketData") { conditions[1][1][0] = marketData; }
+         if (conditions[1][1][0] == "taskList") { conditions[1][1][0] = taskList; }
          if (typeof conditions[1][2] === "number") { if (conditions[1][1][0][conditions[1][1][1]] >= conditions[1][2]) { trueList.is3 = true; } }
-         else { if (conditions[1][1] === conditions[1][2]) { trueList.is3 = true; } }
+         else { if (conditions[1][1][0][conditions[1][1][1]] === conditions[1][2]) { trueList.is3 = true; } if(name == "bakeSale_cornBread"){console.log(conditions[1][1][0][conditions[1][1][1]], conditions[1][2])} }
       } else { trueList.is3 = true; }
       if (trueList.is1 && trueList.is2 && trueList.is3) { return true; }
       else { return false; }
