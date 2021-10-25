@@ -401,13 +401,14 @@ Right Click Menu
 #menu li {
    list-style-type: none;
    padding: 2vh 5vh;
-   transition: .2s;
+   font-weight: 300;
+   transition: .5s;
 }
 #menu a {
    color: #54abd3;
 }
 #menu li:hover {
-   text-shadow: 0 .04vh .04vh #262626;
+   font-weight: 500;
    background-color: #fafafa;
    border-radius: .5vh;
 }

@@ -1,3 +1,9 @@
+let tD;
+let marketData;
+let plots;
+let taskList;
+
+
 var rawTaskData = {
 numOTasks: 12,
 listOfTasks: ["jebsPeaSalad", "useMarketResets", "tryFertilizer", "jebsGrilledCorn", "josephinesDandelionSalad", "unlockThe_cornPlot", "seeBlackMarket", "tryPoliceDoughnuts", "bakeSale_cornBread", "bakeSale_peaSnacks", "bakeSale_strawberryJam", "bakeSale_pumpkinPie"],
@@ -7,7 +13,7 @@ t1: {
    tG: "Farmer Jebediah", // Task giver
    tGI: "Images/Tasks/farmer.svg", // Task giver imate
    tD: "Submit 25 Peas", // Task demand
-   tDC: "if (produce.peas >= 25) { produce.peas -= 25; checkTasks('jebsPeaSalad'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }", // Task demand code
+   tDC: "if (produce.peas >= 25) { console.log('SNEAKY!'); produce.peas -= 25; checkTasks('jebsPeaSalad'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }", // Task demand code
    nRT: "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?", // Not ready text
    rT: "That salad sure was delicious! To pay back the favor, I'll give you some fertilizer! Use it wisely!", // Ready text
    cRT: "Collect 2 Fertilizer", // Collect reward text
@@ -29,7 +35,7 @@ t2: {
    cRC: "collectTaskReward('useMarketResets')",
    rIT: "seeds",
    rA: 250,
-   c: [[true, tD.t1.n], [true, marketData.marketResets, 1]]
+   c: [[true, [tD, ["t1"], ["n"]]], [true, [marketData, "marketResets"], 1]]
 },
 // tryFertilizer
 t3: {
@@ -44,7 +50,7 @@ t3: {
    cRC: "collectTaskReward('tryFertilizer')",
    rIT: "marketResets",
    rA: 2,
-   c: [[true, tD.t1.n], [true, marketData.fertilizers, 1]]
+   c: [[true, [tD, ["t1"], ["n"]]], [true, [marketData, "fertilizers"], 1]]
 },
 // jebsGrilledCorn
 t4: {
@@ -59,7 +65,7 @@ t4: {
    cRC: "collectTaskReward('jebsGrilledCorn')",
    rIT: "marketResets",
    rA: 8,
-   c: [[false], [true, plots.cornplot, "unlocked"]]
+   c: [[false], [true, [plots, "cornplot"], "unlocked"]]
 },
 // josephinesDandelionSalad
 t5: {
@@ -74,7 +80,7 @@ t5: {
    cRC: "collectTaskReward('josephinesDandelionSalad')",
    rIT: "seeds",
    rA: 15000,
-   c: [[false], [true, plots.dandelionplot, "unlocked"]]
+   c: [[false], [true, [plots, "dandelionplot"], "unlocked"]]
 },
 //unlockThe_cornPlot
 t6: {
@@ -89,7 +95,7 @@ t6: {
    cRC: "collectTaskReward('unlockThe_cornPlot')",
    rIT: "fertilizers",
    rA: 1,
-   c: [[false], [true, plots.cornplot, "locked"]]
+   c: [[false], [true, [plots, "cornplot"], "locked"]]
 },
 // seeBlackMarket
 t7: {
@@ -104,7 +110,7 @@ t7: {
    cRC: "collectTaskReward('seeBlackMarket')",
    rIT: "doughnuts",
    rA: 5,
-   c: [[true, tD.t2.n], [true, plots.strawberryplot, "unlocked"]]
+   c: [[true, [tD, ["t2"], ["n"]]], [true, [plots, "strawberryplot"], "unlocked"]]
 },
 // tryPoliceDoughnuts
 t8: {
@@ -119,7 +125,7 @@ t8: {
    cRC: "collectTaskReward('tryPoliceDoughnuts')",
    rIT: "seeds",
    rA: 7500,
-   c: [[true, tD.t7.n], [false]]
+   c: [[true, [tD, ["t7"], ["n"]]], [false]]
 },
 //bakeSale_cornBread
 t9: {
@@ -134,7 +140,7 @@ t9: {
    cRC: "collectTaskReward('bakeSale_cornBread')",
    rIT: "seeds",
    rA: 5,
-   c: [[false], [true, taskList.bakeSale, "progressing"]]
+   c: [[false], [true, [taskList, "bakeSale"], "progressing"]]
 },
 // bakeSale_peaSnacks
 t10: {
@@ -149,7 +155,7 @@ t10: {
    cRC: "collectTaskReward('bakeSale_peaSnacks')",
    rIT: "seeds",
    rA: 10,
-   c: [[true, tD.t9.n], [false]]
+   c: [[true, [tD, ["t9"], ["n"]]], [false]]
 },
 // bakeSale_strawberryJam
 t11: {
@@ -164,7 +170,7 @@ t11: {
    cRC: "collectTaskReward('bakeSale_strawberryJam')",
    rIT: "seeds",
    rA: 15,
-   c: [[true, tD.t10.n], [false]]
+   c: [[true, [tD, ["t10"], ["n"]]], [false]]
 },
 //bakeSale_pumpkinPie
 t12: {
@@ -179,6 +185,6 @@ t12: {
    cRC: "collectTaskReward('bakeSale_pumpkinPie')",
    rIT: "seeds",
    rA: 75000,
-   c: [[true, tD.t11.n], [false]]
+   c: [[true, [tD, ["t11"], ["n"]]], [false]]
 }
 }

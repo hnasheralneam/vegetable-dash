@@ -31,208 +31,13 @@ window.addEventListener("beforeunload", function(e){
    localStorage.setItem("taskList", JSON.stringify(taskList, replacer));
 }, false);
 
-let initalPlotStatus = {
-   peas: "empty",
-   corn: "empty",
-   strawberries: "empty",
-   eggplants: "empty",
-   center: "empty",
-   pumpkins: "empty",
-   cabbage: "empty",
-   dandelion: "empty",
-   rhubarb: "empty",
-   peasTime: [3000, 6000, 10000],
-   cornTime: [6000, 12000, 25000],
-   strawberriesTime: [50000, 100000, 150000],
-   eggplantsTime: [300000, 600000, 900000],
-   pumpkinsTime: [600000, 1200000, 1800000],
-   cabbageTime: [1200000, 2400000, 3600000],
-   dandelionTime: [3600000, 7200000, 10800000],
-   rhubarbTime: [9600000, 18200000, 28800000],
-   // Grow Times
-   peasGrowing: Infinity,
-   peasFlowering: Infinity,
-   peasReady: Infinity,
-   cornGrowing: Infinity,
-   cornFlowering: Infinity,
-   cornReady: Infinity,
-   strawberriesGrowing: Infinity,
-   strawberriesFlowering: Infinity,
-   strawberriesReady: Infinity,
-   eggplantsGrowing: Infinity,
-   eggplantsFlowering: Infinity,
-   eggplantsReady: Infinity,
-   centerGrowing: Infinity,
-   centerFlowering: Infinity,
-   centerReady: Infinity,
-   pumpkinsGrowing: Infinity,
-   pumpkinsFlowering: Infinity,
-   pumpkinsReady: Infinity,
-   cabbageGrowing: Infinity,
-   cabbageFlowering: Infinity,
-   cabbageReady: Infinity,
-   dandelionGrowing: Infinity,
-   dandelionFlowering: Infinity,
-   dandelionReady: Infinity,
-   rhubarbGrowing: Infinity,
-   rhubarbFlowering: Infinity,
-   rhubarbReady: Infinity,
-   // Center Plot
-   centerStatus: "plant-ready",
-   centerReadyTime: 0,
-   centerHarvest: 0,
-   urlOne: "url(Images/Plots/plot.png)",
-   urlTwo: "url(Images/Plots/plot.png)",
-   urlThree: "url(Images/Plots/plot.png)",
-}
-let initalProduce = {
-   peas: 0,
-   corn: 0,
-   strawberries: 0,
-   eggplants: 0,
-   pumpkins: 0,
-   cabbage: 0,
-   dandelion: 0,
-   rhubarb: 0,
-}
-let initalPlots = {
-   price2: 150,
-   price3: 750,
-   price4: 3750,
-   price5: "Recive an extra plant!",
-   price6: 50000,
-   price7: 250000,
-   price8: 1000000,
-   price9: 8000000,
-   peaplot: "unlocked",
-   cornplot: "locked",
-   strawberryplot: "locked",
-   eggplantplot: "locked",
-   pumpkinplot: "locked",
-   cabbageplot: "locked",
-   dandelionplot: "locked",
-   rhubarbplot: "locked",
-   centerplot: "locked",
-}
-let initalMarketData = {
-   seeds: 0,
-   marketResets: 0,
-   fertilizers: 0,
-   doughnuts: 0,
-   weedPieces: 0,
-   // Time (Where elese do I put it?)
-   weedSeason: Date.now() + 1800000,
-   disasterTime: 0,
-   newWeatherTime: 0,
-   // Vegetable prices
-   buyPeas: 25,
-   sellPeas: 25,
-   buyCorn: 75,
-   sellCorn: 75,
-   buyStrawberries: 250,
-   sellStrawberries: 250,
-   buyEggplants: 750,
-   sellEggplants: 750,
-   buyPumpkins: 5000,
-   sellPumpkins: 5000,
-   buyCabbage: 25000,
-   sellCabbage: 25000,
-   buyDandelion: 100000,
-   sellDandelion: 100000,
-   buyRhubarb: 7500000,
-   sellRhubarb: 7500000,
-   black: {
-      name: 0,
-      item: 0,
-      quantity: 0,
-      cost: 0,
-      resets: 1500,
-      fertilizer: 7500,
-      doughnuts: 750,
-      catchChance: .02,
-   },
-   exchangeMarket: {
-      peas: .2,
-      corn: .5,
-      strawberries: 6,
-      eggplants: 45,
-      pumpkins: 90,
-      cabbage: 180,
-      dandelion: 440,
-      rhubarb: 1240,
-   },
-   weather: {
-      weather: "partlySunny",
-      lastWeather: "",
-      nextWeather: "",
-      sunny: false,
-      rainy: false,
-      partlySunny: false,
-      partlyCloudy: false,
-      snowy: false,
-      cloudy: false,
-      frost: false,
-      flood: false,
-      marketResetBonus: 0,
-      hasBeenPunished: true,
-      // heatwave: ["depends", "?"],
-      // locusts: ["- all plants",],
-      // birds: ["-10% - 15% of seeds",], // Scarecrow investment will reduce by 5%
-      // flood: ["-20% stored veg"], // Irrigation investment will retract bad effects, make +1 produce
-   }
-}
-let initalSettings = {
-   theme: "dark",
-   intro: "unfinished",
-   loadtimes: [1000],
-   helpOpen: false,
-   settingsOpen: false,
-   marketOpen: false,
-   blackMarketOpen: false,
-   tasksOpen: false
-}
-let initalTaskList = {
-   isInSave: true,
-   taskBox1: "unoccupied",
-   taskBox2: "unoccupied",
-   taskBox3: "unoccupied",
-   taskBox4: "unoccupied",
-   jebsPeaSalad: "active",
-   jebsPeaSaladNum: 0,
-   useMarketResets: "unreached",
-   useMarketResetsNum: 0,
-   tryFertilizer: "unreached",
-   tryFertilizerNum: 0,
-   jebsGrilledCorn: "unreached",
-   jebsGrilledCornNum: 0,
-   josephinesDandelionSalad: "unreached",
-   josephinesDandelionSaladNum: 0,
-   // Black Market
-   seeBlackMarket: "unreached",
-   seeBlackMarketNum: 0,
-   tryPoliceDoughnuts: "unreached",
-   tryPoliceDoughnutsNum: 0,
-   // Unlock Plots: Grandpa Jenkins
-   unlockThe_cornPlot:  "unreached",
-   unlockThe_cornPlotNum: 0,
-   // Bake Sale: Grandma Josephine
-   bakeSale: "awaiting",
-   bakeSale_peaSnacks: "unreached",
-   bakeSale_peaSnacksNum: 0,
-   bakeSale_cornBread: "unreached",
-   bakeSale_cornBreadNum: 0,
-   bakeSale_strawberryJam: "unreached",
-   bakeSale_strawberryJamNum: 0,
-   bakeSale_pumpkinPie: "unreached",
-   bakeSale_pumpkinPieNum: 0,
-}
+var plotStatus = initPlotStatus;
+var produce = initProduce;
+plots = initPlots;
+marketData = initMarketData;
+var settings = initSettings;
+taskList = initTaskList;
 
-var settings = initalSettings;
-var plotStatus = initalPlotStatus;
-var produce = initalProduce;
-plots = initalPlots;
-marketData = initalMarketData;
-taskList = initalTaskList;
 settings.loadtime = findAvg(settings.loadtimes);
 
 function findAvg(array) {
@@ -456,7 +261,7 @@ let updateWeather = window.setInterval(function() {
 // Tasks
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-var tD = rawTaskData;
+tD = rawTaskData;
 for (i = 1; i <= 4; i++) { hideObj(`.task-info-button-${i}`); }
 
 // Task Insensitive
@@ -527,8 +332,8 @@ function showTasks() {
 }
 
 // https://stackoverflow.com/questions/16096581/how-do-i-skip-or-ignore-errors-in-javascript-jquery (use to fix errors)
+// jeb fed but unhappy
 
-// Task Sensitive
 function giveTasks() {
    if (plots.pumpkinplot === "unlocked") { taskList.bakeSale = "progressing"; }
    // Functions
@@ -538,11 +343,15 @@ function giveTasks() {
    function checkIf(name, conditions) {
       let trueList = { is1: false, is2: false, is3: false }
       if (name != "complete" && name != "ready") { trueList.is1 = true; }
-      if (conditions[0][0]) { if (conditions[0][1] === "complete") { trueList.is2 = true; } }
+      if (conditions[0][0]) {
+         conditions[0][1][0] = tD;   
+         if (conditions[0][1][0][conditions[0][1][1]][conditions[0][1][2]] === "complete") { trueList.is2 = true; }
+      } else { trueList.is2 = true; }
       if (conditions[1][0]) {
-         if (typeof conditions[1][2] === "number") { if (conditions[1][1] >= conditions[1][2]) { trueList.is3 = true; } }
+         conditions[1][1][0] = marketData;
+         if (typeof conditions[1][2] === "number") { if (conditions[1][1][0][conditions[1][1][1]] >= conditions[1][2]) { trueList.is3 = true; } }
          else { if (conditions[1][1] === conditions[1][2]) { trueList.is3 = true; } }
-      }
+      } else { trueList.is3 = true; }
       if (trueList.is1 && trueList.is2 && trueList.is3) { return true; }
       else { return false; }
    }
@@ -658,12 +467,12 @@ function openLock(vegetable, num) {
 
 let introData = { hello: false, meetGramps: false, planting: false, produceBar: false, meetGran: false, market: false, tasks: false, weather: false, help: false, }
 function runIntro() {
-   plotStatus = initalPlotStatus;
-   produce = initalProduce;
-   plots = initalPlots;
-   marketData = initalMarketData;
-   settings = initalSettings;
-   taskList = initalTaskList;
+   plotStatus = initPlotStatus;
+   produce = initProduce;
+   plots = initPlots;
+   marketData = initMarketData;
+   settings = initSettings;
+   taskList = initTaskList;
    chooseWeather();
    save();
    settings.intro = "finished";
@@ -1443,12 +1252,12 @@ function restart() {
    let areYouSure = confirm("Are you SURE you want to restart? This will wipe all your progress!");
    let areYouReallySure = confirm("Are you REALLY SURE you want to restart? There is no going back!");
    if (areYouSure === true && areYouReallySure === true) {
-      localStorage.setItem("plotStatus", JSON.stringify(initalPlotStatus, replacer));
-      localStorage.setItem("produce", JSON.stringify(initalProduce, replacer));
-      localStorage.setItem("plots", JSON.stringify(initalPlots, replacer));
-      localStorage.setItem("marketData", JSON.stringify(initalMarketData, replacer));
-      localStorage.setItem("settingData", JSON.stringify(initalSettings, replacer));
-      localStorage.setItem("taskList", JSON.stringify(initalTaskList, replacer));
+      localStorage.setItem("plotStatus", JSON.stringify(initPlotStatus, replacer));
+      localStorage.setItem("produce", JSON.stringify(initProduce, replacer));
+      localStorage.setItem("plots", JSON.stringify(initPlots, replacer));
+      localStorage.setItem("marketData", JSON.stringify(initMarketData, replacer));
+      localStorage.setItem("settingData", JSON.stringify(initSettings, replacer));
+      localStorage.setItem("taskList", JSON.stringify(initTaskList, replacer));
       plotStatus = JSON.parse(localStorage.getItem("plotStatus"));
       produce = JSON.parse(localStorage.getItem("produce"));
       plots = JSON.parse(localStorage.getItem("plots"));
@@ -1460,12 +1269,12 @@ function restart() {
    }
 }
 
-const initalPlotStatusKeys = Object.keys(initalPlotStatus);
-const initalProduceKeys = Object.keys(initalProduce);
-const initalPlotsKeys = Object.keys(initalPlots);
-const initalMarketDataKeys = Object.keys(initalMarketData);
-const initalSettingsKeys = Object.keys(initalSettings);
-const initalTaskListKeys = Object.keys(initalTaskList);
+const initalPlotStatusKeys = Object.keys(initPlotStatus);
+const initalProduceKeys = Object.keys(initProduce);
+const initalPlotsKeys = Object.keys(initPlots);
+const initalMarketDataKeys = Object.keys(initMarketData);
+const initalSettingsKeys = Object.keys(initSettings);
+const initalTaskListKeys = Object.keys(initTaskList);
 for (key of initalPlotStatusKeys) { if (plotStatus[key] === undefined) { plotStatus[key] = initalPlotStatus[key]; } }
 for (key of initalProduceKeys) { if (produce[key] === undefined) { produce[key] = initalProduce[key]; } }
 for (key of initalPlotsKeys) { if (plots[key] === undefined) { plots[key] = initalPlots[key]; } }
