@@ -256,6 +256,22 @@ let updateWeather = window.setInterval(function() {
       document.querySelector(".weather-img").style.background = `url("Images/Weather/${url}") no-repeat center center / contain`;
    }
 }, 100)
+function weatherTimeLeft() {
+   let countDown = document.querySelector(".weather-time");
+   let secondsLeftms;
+   function setCountDown() {
+      console.log(marketData.newWeatherTime)
+      secondsLeftms = marketData.newWeatherTime - Date.now();
+      let secondsLeft = Math.round(secondsLeftms / 1000);
+      let hours = Math.floor(secondsLeft / 3600);
+      let minutes = Math.floor(secondsLeft / 60) - (hours * 60);
+      let seconds = secondsLeft % 60;
+      if (seconds < 10) { seconds = `0${seconds}`; }
+      countDown.textContent = `Next Weather: ${minutes}:${seconds}`;
+   };
+   setInterval(() => { setCountDown(); }, 1000);
+}
+weatherTimeLeft();
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Tasks
@@ -348,7 +364,7 @@ function giveTasks() {
          if (conditions[1][1][0] == "marketData") { conditions[1][1][0] = marketData; }
          if (conditions[1][1][0] == "taskList") { conditions[1][1][0] = taskList; }
          if (typeof conditions[1][2] === "number") { if (conditions[1][1][0][conditions[1][1][1]] >= conditions[1][2]) { trueList.is3 = true; } }
-         else { if (conditions[1][1][0][conditions[1][1][1]] === conditions[1][2]) { trueList.is3 = true; } if(name == "bakeSale_cornBread"){console.log(conditions[1][1][0][conditions[1][1][1]], conditions[1][2])} }
+         else { if (conditions[1][1][0][conditions[1][1][1]] === conditions[1][2]) { trueList.is3 = true; } }
       } else { trueList.is3 = true; }
       if (trueList.is1 && trueList.is2 && trueList.is3) { return true; }
       else { return false; }
@@ -903,16 +919,16 @@ function callAlert(text) {
 }
 function timeLeft(time, veg) {
    if (!Number.isFinite(plotStatus[veg + "Ready"])) { return; }
-   var countDown = document.querySelector(`.${veg}-time-left`);
-   var endTime = plotStatus[veg + "Ready"];
-   var countDownInterval;
-   var secondsLeftms;
-   var setCountDown = (endTime) => {
+   let countDown = document.querySelector(`.${veg}-time-left`);
+   let endTime = plotStatus[veg + "Ready"];
+   let countDownInterval;
+   let secondsLeftms;
+   let setCountDown = (endTime) => {
       secondsLeftms = endTime - Date.now();
-      var secondsLeft = Math.round(secondsLeftms / 1000);
-      var hours = Math.floor(secondsLeft / 3600);
-      var minutes = Math.floor(secondsLeft / 60) - (hours * 60);
-      var seconds = secondsLeft % 60;
+      let secondsLeft = Math.round(secondsLeftms / 1000);
+      let hours = Math.floor(secondsLeft / 3600);
+      let minutes = Math.floor(secondsLeft / 60) - (hours * 60);
+      let seconds = secondsLeft % 60;
       if (secondsLeft < 0) { resetCountDown(); return; }
       if (hours < 10) { hours = `0${hours}`; }
       if (minutes < 10) { minutes = `0${minutes}`; }
@@ -920,7 +936,6 @@ function timeLeft(time, veg) {
       countDown.textContent = `${hours}:${minutes}:${seconds}`;
    };
    if (time > 0) {
-      var now = Date.now();
       setCountDown(endTime);
       countDownInterval = setInterval(() => { setCountDown(endTime); }, 1000);
    }
