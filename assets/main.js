@@ -1286,9 +1286,44 @@ for (key of initalMarketDataKeys) { if (marketData[key] === undefined) { marketD
 for (key of initalSettingsKeys) { if (settings[key] === undefined) { settings[key] = initalSettings[key]; } }
 for (key of initalTaskListKeys) { if (taskList[key] === undefined) { taskList[key] = initalTaskList[key]; } }
 
-if (isMobile()) { document.location = "mobile.html"; }
+// Import/Export Save
+setInterval(() => {
+   document.querySelector(".stringSave").textContent = reverseString(`${JSON.stringify(settings)}~${JSON.stringify(plotStatus)}~${JSON.stringify(produce)}~${JSON.stringify(plots)}~${JSON.stringify(marketData)}~${JSON.stringify(taskList)}`);
+}, 500);
+
+function exportSave() {
+   let text = document.querySelector(".stringSave").textContent;
+   let textArea = document.createElement("textarea");
+   textArea.value = text;
+   document.body.appendChild(textArea);
+   textArea.select();
+   document.execCommand("copy");
+   document.body.removeChild(textArea);
+}
+function importSave() {
+   let saveInput = prompt("where is your save?");
+   if (saveInput !== null) {
+      let imported = reverseString(saveInput).split('~');
+      settings = JSON.parse(imported[0]);
+      plotStatus = JSON.parse(imported[1]);
+      produce = JSON.parse(imported[2]);
+      plots = JSON.parse(imported[3]);
+      marketData = JSON.parse(imported[4]);
+      taskList = JSON.parse(imported[5]);
+   }
+   save();
+   location.reload();
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// NOT Save
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// Send to mobile
+if (isMobile()) { document.location = "https://vegetable-dash-beta.herokuapp.com/mobile.html"; }
 function isMobile() { return ('ontouchstart' in document.documentElement); }
 
+// Load
 if (Math.random() > .80) { document.querySelector(".meter").classList.add("red-load"); }
 else if (Math.random() > .60) { document.querySelector(".meter").classList.add("orange-load"); }
 else if (Math.random() > .40) { document.querySelector(".meter").classList.add("yellow-load"); }
@@ -1320,59 +1355,10 @@ $(".meter > span").each(function () {
    .animate( { width: $(this).data("origWidth") }, 1  );
 });
 
-// Import/Export Save
-setInterval(() => {
-   document.querySelector(".stringSave").textContent = reverseString(`${JSON.stringify(settings)}~${JSON.stringify(plotStatus)}~${JSON.stringify(produce)}~${JSON.stringify(plots)}~${JSON.stringify(marketData)}~${JSON.stringify(taskList)}`);
-}, 500);
-
-function exportSave() {
-   let text = document.querySelector(".stringSave").textContent;
-   let textArea = document.createElement("textarea");
-   textArea.value = text;
-   document.body.appendChild(textArea);
-   textArea.select();
-   document.execCommand("copy");
-   document.body.removeChild(textArea);
-}
-function importSave() {
-   let saveInput = prompt("where is your save?");
-   if (saveInput !== null) {
-      let imported = reverseString(saveInput).split('~');
-      settings = JSON.parse(imported[0]);
-      plotStatus = JSON.parse(imported[1]);
-      produce = JSON.parse(imported[2]);
-      plots = JSON.parse(imported[3]);
-      marketData = JSON.parse(imported[4]);
-      taskList = JSON.parse(imported[5]);
-   }
-   save();
-   location.reload();
-}
-
 // Sent to new site
-if (location.hostname === "squirrel-314.github.io") { window.location.href = `https://vegetable-dash.herokuapp.com#${reverseString(`${JSON.stringify(settings, replacer)}~${JSON.stringify(plotStatus, replacer)}~${JSON.stringify(produce, replacer)}~${JSON.stringify(plots, replacer)}~${JSON.stringify(marketData, replacer)}~${JSON.stringify(taskList, replacer)}`)}`; }
+if (location.hostname === "squirrel-314.github.io") { window.location.href = `https://vegetable-dash.herokuapp.com`; }
 
-let siteLocation = window.location.href;
-if (siteLocation.includes("#")) {
-   let importQuestion = prompt("You were redirected from the old site. Would you like to bring your save over with you, or start from scratch? (y/n)");
-   if (importQuestion == "y") {
-      let saveFromOldOne = siteLocation.replace("https://vegetable-dash.herokuapp.com/#","");
-      let saveFromOld = decodeURIComponent(saveFromOldOne);
-      if (saveFromOld !== null) {
-         let imported = reverseString(saveFromOld).split('~');
-         settings = JSON.parse(imported[0]);
-         plotStatus = JSON.parse(imported[1]);
-         produce = JSON.parse(imported[2]);
-         plots = JSON.parse(imported[3]);
-         marketData = JSON.parse(imported[4]);
-         taskList = JSON.parse(imported[5]);
-      }
-      save();
-      window.location.href = `https://vegetable-dash.herokuapp.com/`;
-   }
-   else { window.location.href = `https://vegetable-dash.herokuapp.com/`; }
-}
-
+// Dynamic hover
 var hover;
 var mouseX;
 var mouseY;
