@@ -1,0 +1,39 @@
+{
+  "name": "vegetable-dash",
+  "version": "0.1.2",
+  "description": "A farming game",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Squirrel-314/vegetable-dash.git"
+  },
+  "keywords": [
+    "farming",
+    "game",
+    "javascript",
+    "browser"
+  ],
+  "author": "Squirrel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Squirrel-314/vegetable-dash/issues"
+  },
+  "homepage": "https://github.com/Squirrel-314/vegetable-dash#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  },
+  "engines": {
+    "node": "16.x"
+  }
+}

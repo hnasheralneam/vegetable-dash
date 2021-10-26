@@ -1,0 +1,106 @@
+* {
+   padding: 0;
+   margin: 0;
+}
+body {
+   background-image: url("Images/Background/background.svg");
+   background-size: 100vw 100vh;
+}
+.avatar {
+   height: 12vh;
+}
+.playButton {
+   font-size: 4vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #ffb100;
+   border-radius: 2vh;
+   padding: 3vh 3vw;
+   margin: 5vh;
+}
+.yourAvatar {
+   margin: 0 0 -4vh 2vh;
+}
+.playButton a {
+   color: #367335;
+   text-decoration: none;
+   transition: .2s;
+   font-family: "Nunito";
+   background-color: rgba(138, 243, 249, 0);
+}
+.playButton a:hover {
+   color: #214b21;
+   text-decoration: underline;
+   background-color: rgba(138, 243, 249, 0);
+}
+.opening {
+   background-color: rgba(255, 255, 255, 0.85);
+   margin: 1vh;
+   padding: 3vh 2vh 3vh 1vh;
+   display: inline-block;
+   border-radius: 2.5vh;
+}
+p {
+   margin: 5vh 1vw;
+   display: inline;
+   color: #333;
+   text-decoration: none;
+   transition: .2s;
+   font-family: "Nunito";
+   background-color: rgba(53, 251, 166, 0.5);
+   padding: .25vh;
+   border-radius: .5vh;
+
+}
+form {
+   display: inline;
+}
+a {
+   color: #fff;
+   text-decoration: none;
+   transition: .2s;
+   font-family: "Nunito";
+   background-color: rgba(138, 243, 249, 0.5);
+   padding: .5vh;
+   border-radius: .5vh;
+}
+a:hover {
+   color: #555;
+   text-decoration: underline;
+   background-color: rgba(138, 249, 232, 0.75);
+}
+.not-signed-in {
+   position: fixed;
+   height: 100vh;
+   width: 100vw;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.not-signed-inner {
+   background-color: #b97c2b;
+   border: solid 2vh #583a13;
+   padding: 5vh;
+   border-radius: 2.5vh;
+   transform: scale(1.5);
+}
+.signed-in {
+   position: fixed;
+   height: 100vh;
+   width: 100vw;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.signed-inner {
+   background-color: rgba(185, 124, 43, 0.5);
+   border: solid 2vh rgba(88, 58, 19, 0.5);
+   padding: 5vh;
+   border-radius: 2.5vh;
+   transform: scale(1.5);
+   max-height: 50vh;
+   width: 55vw;
+   overflow: auto;
+   text-align: center;
+}
