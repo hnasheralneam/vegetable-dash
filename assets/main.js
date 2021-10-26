@@ -256,22 +256,13 @@ let updateWeather = window.setInterval(function() {
       document.querySelector(".weather-img").style.background = `url("Images/Weather/${url}") no-repeat center center / contain`;
    }
 }, 100)
-function weatherTimeLeft() {
-   let countDown = document.querySelector(".weather-time");
-   let secondsLeftms;
-   function setCountDown() {
-      console.log(marketData.newWeatherTime)
-      secondsLeftms = marketData.newWeatherTime - Date.now();
-      let secondsLeft = Math.round(secondsLeftms / 1000);
-      let hours = Math.floor(secondsLeft / 3600);
-      let minutes = Math.floor(secondsLeft / 60) - (hours * 60);
-      let seconds = secondsLeft % 60;
-      if (seconds < 10) { seconds = `0${seconds}`; }
-      countDown.textContent = `Next Weather: ${minutes}:${seconds}`;
-   };
-   setInterval(() => { setCountDown(); }, 1000);
-}
-weatherTimeLeft();
+let updateWeatherTimeDisplay = setInterval(() => {
+   let secondsLeft = Math.round((marketData.newWeatherTime - Date.now()) / 1000);
+   let minutes = Math.floor(secondsLeft / 60) - (Math.floor(secondsLeft / 3600) * 60);
+   let seconds = secondsLeft % 60;
+   if (seconds < 10) { seconds = `0${seconds}`; }
+   document.querySelector(".weather-time").textContent = `Next Weather: ${minutes}:${seconds}`;
+}, 1000);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Tasks
