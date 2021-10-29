@@ -412,7 +412,7 @@ let whenToLuck = window.setInterval(function() {
 }, 1000)
 
 // Weeds
-function addWeed() {
+function addWeed(check) {
    let weedBoxHeight = document.querySelector(".land").clientHeight;
    let weedBoxWidth = document.querySelector(".land").clientWidth;
    let weed = document.querySelector(".weed").cloneNode();
@@ -422,16 +422,18 @@ function addWeed() {
    weed.style.transform = "scale(1)";
    weed.style.top = `${randomtop}px`;
    weed.style.left = `${randomleft}px`;
+   if (!check) { marketData.weedsLeft++; }
 }
 function collectWeed(THIS) {
    THIS.remove();
    marketData.weedPieces++;
-   callAlert(`You collected a weed fragment! You now have ${marketData.weedPieces}/5`);
+   marketData.weedsLeft--;
    if (marketData.weedPieces >= 5) {
       marketData.weedPieces -= 5;
       marketData.fertilizers += 1;
       callAlert(`You made 1 fertilizer out of the composted weed fragments!`);
    }
+   else { callAlert(`You collected a weed fragment! You now have ${marketData.weedPieces}/5`); }
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -855,6 +857,7 @@ let tasksReadyLoop = setInterval(() => {
       else { return false; }
    }
    function isTrue(array) { let result = false; for (let i = 0; i < array.length; i++) { if (array[i] === true) { return true; } } }
+
 }, 2000);
 
 window.onload = function() {
@@ -870,6 +873,9 @@ window.onload = function() {
 }
 setTimeout(() => { showBuyPlot(); }, 500);
 
+// Create old weeds
+setTimeout(() => { for (let i = 0; i < marketData.weedsLeft; i++) { addWeed(true); } }, 500)
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Helpful Functions
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -883,6 +889,11 @@ function reverseString(str) {
 function diff(n, x) { return n / x; }
 function random(min, max) { return Math.floor(Math.random() * (max - min + 1) + min); }
 function scrollToSection(id) { document.getElementById(id).scrollIntoView(); }
+function hlpScrl(id) {
+   document.querySelector(`#help-${id}`).scrollIntoView();
+   $('.help-subjects-item-active').removeClass('help-subjects-item-active');
+   $(`.help-subjects-item-${id}`).addClass('help-subjects-item-active');
+}
 function hideObj(objId) {
    document.querySelector(objId).style.opacity = "0";
    document.querySelector(objId).style.pointerEvents = "none";

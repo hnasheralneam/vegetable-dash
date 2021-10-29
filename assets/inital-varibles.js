@@ -96,6 +96,7 @@ let initMarketData = {
     fertilizers: 0,
     doughnuts: 0,
     weedPieces: 0,
+    weedsLeft: 0,
     // Time (Where elese do I put it?)
     weedSeason: Date.now() + 1800000,
     disasterTime: 0,
