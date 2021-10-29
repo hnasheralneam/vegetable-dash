@@ -898,15 +898,15 @@ function genColor() {
    for (let i = 0; i < 6; i++) { let index = rand(0, 15); color += hex[index]; }
    return color;
 }
+// callAlert("A swarm of locusts have eaten all of your cheese! Que the profound weeping!"); // Test alert ;)
 function callAlert(text) {
    // Isn't it just great copying the code from other projects?
-   let alert = document.querySelector(".alert");
-   alert.style.opacity = "1";
-   alert.style.pointerEvents = "auto";
+   let alert = document.querySelector(".alert").cloneNode(true);
+   document.querySelector(".alert-box").insertBefore(alert, document.querySelector(".alert-box").firstChild);
+   alert.style.display = "block";
    alert.textContent = text;
-   setTimeout(alertAnimation => { document.querySelector('.alert').classList.add('alertAnimation'); }, 6000);
-   setTimeout(removeAnimation => { document.querySelector('.alert').classList.remove('alertAnimation'); }, 9000);
-   setTimeout(hideAlerts => { alert.style.opacity = "0"; alert.style.pointerEvents = "none"; }, 9000);
+   setTimeout(alertAnimation => { alert.classList.add('alertAnimation'); }, 6000);
+   setTimeout(removeAnimation => { alert.classList.remove('alertAnimation');  alert.remove(); }, 7000);
 }
 function timeLeft(time, veg) {
    if (!Number.isFinite(plotStatus[veg + "Ready"])) { return; }
