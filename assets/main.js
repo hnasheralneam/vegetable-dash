@@ -43,8 +43,7 @@ settings.loadtime = findAvg(settings.loadtimes);
 function findAvg(array) {
    let total = 0;
    for(let i = 0; i < array.length; i++) { total += array[i]; }
-   let avg = total / array.length;
-   return avg;
+   return total / array.length;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -56,16 +55,18 @@ function infoModal(veg) {
    else { showObj(`#info${veg}`); }
 }
 function tend(veg) {
+   // Harvest
    if (plotStatus[veg + "Ready"] === 0) {
       plotStatus[veg + "Ready"] = Infinity;
       plotStatus[veg] = "empty";
-      produce[veg]++;
       document.querySelector(`.${capitalize(veg)}`).textContent = `Grow ${capitalize(veg)}!`;
       marketData.seeds++;
       harvestLuck(capitalize(veg));
       showObj(`.${capitalize(veg)}`);
-      if (marketData.weather.weather === "rainy") { produce[veg]++; }
+      produce[veg] += plotStatus[veg + "Reward"];
+      plotStatus[veg + "Reward"] = 1;
    }
+   // Plant
    else {
       currentTime = Date.now();
       plotStatus[veg + "Growing"] = currentTime + plotStatus[veg + "Time"][0];
@@ -75,13 +76,14 @@ function tend(veg) {
       plotStatus[veg] = "working";
       timeLeft(plotStatus[veg + "Time"][2], veg.toLowerCase());
       hideObj(`.${capitalize(veg)}`);
+      if (marketData.weather.weather === "rainy") { plotStatus[veg + "Reward"]++; }
    }
 }
 function fertilize(veg) {
    if (marketData.fertilizers >= 1) {
       marketData.fertilizers -= 1;
       plotStatus[veg + "Ready"] = 0;
-      produce[veg]++;
+      plotStatus[veg + "Reward"]++;
       checkTasks("tryFertilizer");
    }
 }
@@ -1279,12 +1281,12 @@ const initalPlotsKeys = Object.keys(initPlots);
 const initalMarketDataKeys = Object.keys(initMarketData);
 const initalSettingsKeys = Object.keys(initSettings);
 const initalTaskListKeys = Object.keys(initTaskList);
-for (key of initalPlotStatusKeys) { if (plotStatus[key] === undefined) { plotStatus[key] = initalPlotStatus[key]; } }
-for (key of initalProduceKeys) { if (produce[key] === undefined) { produce[key] = initalProduce[key]; } }
-for (key of initalPlotsKeys) { if (plots[key] === undefined) { plots[key] = initalPlots[key]; } }
-for (key of initalMarketDataKeys) { if (marketData[key] === undefined) { marketData[key] = initalMarketData[key]; } }
-for (key of initalSettingsKeys) { if (settings[key] === undefined) { settings[key] = initalSettings[key]; } }
-for (key of initalTaskListKeys) { if (taskList[key] === undefined) { taskList[key] = initalTaskList[key]; } }
+for (key of initalPlotStatusKeys) { if (plotStatus[key] === undefined) { plotStatus[key] = initPlotStatus[key]; } }
+for (key of initalProduceKeys) { if (produce[key] === undefined) { produce[key] = initProduce[key]; } }
+for (key of initalPlotsKeys) { if (plots[key] === undefined) { plots[key] = initPlots[key]; } }
+for (key of initalMarketDataKeys) { if (marketData[key] === undefined) { marketData[key] = initMarketData[key]; } }
+for (key of initalSettingsKeys) { if (settings[key] === undefined) { settings[key] = initSettings[key]; } }
+for (key of initalTaskListKeys) { if (taskList[key] === undefined) { taskList[key] = initTaskList[key]; } }
 
 // Import/Export Save
 setInterval(() => {

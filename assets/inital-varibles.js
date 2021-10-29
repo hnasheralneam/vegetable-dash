@@ -44,6 +44,15 @@ let initPlotStatus = {
     rhubarbGrowing: Infinity,
     rhubarbFlowering: Infinity,
     rhubarbReady: Infinity,
+    // Harvest Rewards
+    peasRewards: 1,
+    cornRewards: 1,
+    strawberriesReward: 1,
+    eggplantReward: 1,
+    pumpkinsRewards: 1,
+    cabbageReward: 1,
+    dandelionReward: 1,
+    rhubarbReward: 1,
     // Center Plot
     centerStatus: "plant-ready",
     centerReadyTime: 0,
