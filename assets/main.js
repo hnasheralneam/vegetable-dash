@@ -368,27 +368,24 @@ function giveTasks() {
 // Incidents
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-let rand = Math.random();
 let vegetablesOwned = [];
 vegetablesOwned.push("peas")
 function harvestLuck(veg) {
-   rand = Math.random();
-   if (rand < 0.20) {
-      fadeTextAppear(event, `You collected 5 \n extra seeds!`, "vegLuck", "#00de88");
+   if (Math.random() < 0.20) {
       marketData.seeds += 5;
+      fadeTextAppear(event, `You collected 5 \n extra seeds!`, "vegLuck", "#00de88");
    }
-   if (rand < 0.10) {
-      fadeTextAppear(event, `This was a good crop! You collected \n 2 extra ${veg}!`, "vegLuck", "#00de88");
+   if (Math.random() < 0.10) {
       produce[veg.toLowerCase()] += 2;
+      fadeTextAppear(event, `This was a good crop! You collected \n 2 extra ${veg}!`, "vegLuck", "#00de88");
    }
-   if (rand < (0.05 + marketData.weather.marketResetBonus)) {
-      fadeTextAppear(event, `You collected a market \n reset! You now have ${marketData.marketResets}`, "vegLuck", "#00de88");
+   if (Math.random() < (0.05 + marketData.weather.marketResetBonus)) {
       marketData.marketResets++;
+      fadeTextAppear(event, `You collected a market \n reset! You now have ${marketData.marketResets}`, "vegLuck", "#00de88");
    }
 }
 function marketLuck() {
-   rand = Math.random();
-   if (rand < 0.01) {
+   if (Math.random() < 0.01) {
       marketData.marketResets++;
       callAlert(`You collected a market reset! You now have ${marketData.marketResets}`);
    }
