@@ -21,11 +21,11 @@ const connection = mongoose.connection
 
 connection.on('error', console.error.bind(console, 'Connection error: '));
 
-var chatSchema = new mongoose.Schema({
-   poster: String,
-   posterPicture: String,
-   post: String,
-});
+// var chatSchema = new mongoose.Schema({
+//    poster: String,
+//    posterPicture: String,
+//    post: String,
+// });
 
 var useDataSchema = new mongoose.Schema({
    name: String,
@@ -45,7 +45,7 @@ var useDataSchema = new mongoose.Schema({
 var namesList = [];
 var dataDone = false;
 var UserData = mongoose.model('UserData', useDataSchema);
-var ChatData = mongoose.model('ChatData', chatSchema);
+// var ChatData = mongoose.model('ChatData', chatSchema);
 
 // ChatData.find((err, posts) => {
 //    if (err) return console.error(err);
@@ -145,3 +145,45 @@ app.get("/sign-out", (req, res) => {
 });
 
 app.listen(port);
+
+
+
+
+
+
+
+
+const chatSchema = mongoose.Schema({
+   input: String,
+   user: String,
+   avatar: Number
+});
+
+const Chat = mongoose.model("Chat", chatSchema);
+
+
+
+
+app.get("/chat", (req, res) => {
+   Chat.find(function(err, found) {
+      if (err) { console.log(err); }
+      else { res.render("chat", { foundItems: found }); }
+   })
+});
+
+app.post("/chat-message", (req, res) => {
+   const newChat = new Chat({
+      input: req.body.message,
+      user: req.body.poster,
+      avatar: req.body.avatar
+   });
+   newChat.save(function(err){
+      if (err) {
+         console.log(err);
+      } else {
+         res.render("chat");
+      }
+   });
+
+   res.redirect("/chat");
+});
