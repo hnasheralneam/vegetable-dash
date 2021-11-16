@@ -11,40 +11,53 @@
     <link rel="stylesheet" href="chat.css">
 </head>
 <body>
-    <div class="messageBox">
-        <%foundItems.forEach(function(item) {%>
-            <div class="message">
-                <div>
-                    <img class="avatar" src=<%= `Avatars/${item.avatar}.png` %>><br>
-                    <h2 class="chatter"><%=item.user%></h2>
+    <% if (user !== "(not signed in)") { %>
+        <div class="messageBox">
+            <%foundItems.forEach(function(item) {%>
+                <div class="message">
+                    <div>
+                        <img class="avatar" src=<%= `Avatars/${item.avatar}.png` %>><br>
+                        <h2 class="chatter"><%=item.user%></h2>
+                    </div>
+                    <h2 class="post"><%=item.input%></h2> 
                 </div>
-                <h2 class="post"><%=item.input%></h2> 
-            </div>
-        <%})%>
-    </div>
-    <div class="postBox">
-        <form action="chat-message" method="POST">
-            <input class="message-box" type="text" name="message" placeholder="Message..." required><br>
-            <input class="username-box" type="text" name="poster" placeholder="Username..." required><br>
-            <div class="chooseAvatar">
-                <label><input type="radio" name="avatar" value="1" checked><img class="choose-avatar" src="Avatars/1.png"></label>
-                <label><input type="radio" name="avatar" value="2"><img class="choose-avatar" src="Avatars/2.png"></label>
-                <label><input type="radio" name="avatar" value="3"><img class="choose-avatar" src="Avatars/3.png"></label>
-                <label><input type="radio" name="avatar" value="4"><img class="choose-avatar" src="Avatars/4.png"></label>
-                <label><input type="radio" name="avatar" value="5"><img class="choose-avatar" src="Avatars/5.png"></label>
-                <label><input type="radio" name="avatar" value="6"><img class="choose-avatar" src="Avatars/6.png"></label>
-                <label><input type="radio" name="avatar" value="7"><img class="choose-avatar" src="Avatars/7.png"></label>
-                <label><input type="radio" name="avatar" value="8"><img class="choose-avatar" src="Avatars/8.png"></label>
-                <label><input type="radio" name="avatar" value="9"><img class="choose-avatar" src="Avatars/9.png"></label>
-                <label><input type="radio" name="avatar" value="10"><img class="choose-avatar" src="Avatars/10.png"></label>
-                <label><input type="radio" name="avatar" value="11"><img class="choose-avatar" src="Avatars/11.png"></label>
-                <label><input type="radio" name="avatar" value="12"><img class="choose-avatar" src="Avatars/12.png"></label>
-                <label><input type="radio" name="avatar" value="13"><img class="choose-avatar" src="Avatars/13.png"></label>
-                <label><input type="radio" name="avatar" value="14"><img class="choose-avatar" src="Avatars/14.png"></label>    
-            </div>
-            <br>
-            <button class="post-button" type="text">Post</button>
-        </form>
-    </div>
+            <%})%>
+        </div>
+        <div class="postBox">
+            <form action="chat-message" method="POST">
+                <input class="message-box" type="text" name="message" placeholder="Message..." required><br>
+                <!-- <input class="username-box" type="text" name="poster" placeholder="Username..."><br> -->
+                <!-- <div class="chooseAvatar">
+                    <label><input type="radio" name="avatar" value="1" checked><img class="choose-avatar" src="Avatars/1.png"></label>
+                    <label><input type="radio" name="avatar" value="2"><img class="choose-avatar" src="Avatars/2.png"></label>
+                    <label><input type="radio" name="avatar" value="3"><img class="choose-avatar" src="Avatars/3.png"></label>
+                    <label><input type="radio" name="avatar" value="4"><img class="choose-avatar" src="Avatars/4.png"></label>
+                    <label><input type="radio" name="avatar" value="5"><img class="choose-avatar" src="Avatars/5.png"></label>
+                    <label><input type="radio" name="avatar" value="6"><img class="choose-avatar" src="Avatars/6.png"></label>
+                    <label><input type="radio" name="avatar" value="7"><img class="choose-avatar" src="Avatars/7.png"></label>
+                    <label><input type="radio" name="avatar" value="8"><img class="choose-avatar" src="Avatars/8.png"></label>
+                    <label><input type="radio" name="avatar" value="9"><img class="choose-avatar" src="Avatars/9.png"></label>
+                    <label><input type="radio" name="avatar" value="10"><img class="choose-avatar" src="Avatars/10.png"></label>
+                    <label><input type="radio" name="avatar" value="11"><img class="choose-avatar" src="Avatars/11.png"></label>
+                    <label><input type="radio" name="avatar" value="12"><img class="choose-avatar" src="Avatars/12.png"></label>
+                    <label><input type="radio" name="avatar" value="13"><img class="choose-avatar" src="Avatars/13.png"></label>
+                    <label><input type="radio" name="avatar" value="14"><img class="choose-avatar" src="Avatars/14.png"></label>    
+                </div> -->
+                <br>
+                <button class="post-button" type="text">Post</button>
+            </form>
+        </div>    
+     <%} else { %>
+        <div class="not-signed-in">
+                 <div class="not-signed-inner">
+                    <h2 style="text-align: center;">Welcome to Vegetable Dash!</h2>
+                    <h4 style="text-align: center;">You are not signed in</h4><br>
+                    <div class="opening">
+                       <p>Do you have an account?</p><a href="/sign-in">Sign in!</a><br><br>
+                       <p>Don't have an account?</p><a href="/create-account">Create an account!</a>
+                    </div>
+                 </div>
+        </div>
+     <% } %>
 </body>
 </html>

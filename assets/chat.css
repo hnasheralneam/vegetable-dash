@@ -135,7 +135,7 @@
     border-radius: .5vh;
     display: block;
     padding: 2vh;
-    width: 90vw;
+    width: 92%;
 }
 
 .message-box:focus {

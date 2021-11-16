@@ -21,6 +21,12 @@ const connection = mongoose.connection
 
 connection.on('error', console.error.bind(console, 'Connection error: '));
 
+// var chatSchema = new mongoose.Schema({
+//    poster: String,
+//    posterPicture: String,
+//    post: String,
+// });
+
 var useDataSchema = new mongoose.Schema({
    name: String,
    email: String,
@@ -39,6 +45,24 @@ var useDataSchema = new mongoose.Schema({
 var namesList = [];
 var dataDone = false;
 var UserData = mongoose.model('UserData', useDataSchema);
+// var ChatData = mongoose.model('ChatData', chatSchema);
+
+// ChatData.find((err, posts) => {
+//    if (err) return console.error(err);
+//    for (i = 0; i < posts.length; i++) { if (!namesList.includes(posts[i].post)) { namesList.push(posts[i].post);
+//    console.log(posts); } }
+// }).then(item => { dataDone = true; })
+//
+// // for (chatListLength) {
+// //    make chat element, show poster image with title of name
+// // }
+
+
+// var newPost = new ChatData({ poster: "Squirrel", posterPicture: "squirrel", post: "Hello everyone! Hope you like my game!" });
+// newPost.save(function (err, newPost) {
+//    if (err) return console.error(err);
+//    else { console.log("Post succesful!"); }
+// });
 
 UserData.find((err, users) => {
    if (err) return console.error(err);
@@ -63,6 +87,20 @@ function addNewUser(name, email, passcode) {
       }
    }
 }
+
+// UserData.updateMany(
+// { avatar: { $exists: false }},
+// { $set: { avatar: "squirrel" }},
+// { multi: true }
+// )
+//
+
+// let thang = UserData.findOneAndUpdate({ name: "Squirrel", avatar: "squirrel" }, { password: 0258 }, { new: true });
+
+// change password
+// let doc = await UserData.findOneAndUpdate({ name: "Squirrel", passcode: 0825 }, { password: 0258 }, { new: true });
+// force good accounts
+// UserData.findByIdAndRemove("612015dbdf91cf6ce81ef6ab", function (err) { if (err) { console.log(err) } });
 
 // Sign up
 app.get("/create-account", (req, res) => { res.render("signup"); });
@@ -95,6 +133,7 @@ app.post("/play", (req, res) => {
 });
 // Home page
 app.get("/", (req, res) => {
+   // console.log(signedInUser);
    res.render("home", { user: signedInUser, UserData: UserData });
 });
 
@@ -107,6 +146,19 @@ app.get("/sign-out", (req, res) => {
 
 app.listen(port);
 
+
+// UserData.findOne({ name: signedInUser.name }, (err, user) => {
+//    if (err) return console.error(err);
+//    else {
+//       console.log(user.avatar, "hi");
+//    }
+// });
+
+
+
+
+
+
 const chatSchema = mongoose.Schema({
    input: String,
    user: String,
@@ -114,6 +166,8 @@ const chatSchema = mongoose.Schema({
 });
 
 const Chat = mongoose.model("Chat", chatSchema);
+
+
 
 
 app.get("/chat", (req, res) => {
@@ -133,10 +187,7 @@ app.post("/chat-message", (req, res) => {
       if (err) {
          console.log(err);
       } else {
-         Chat.find(function(err, found) {
-            if (err) { console.log(err); }
-            else { res.render("chat", { user: signedInUser, UserData: UserData, foundItems: found }); }
-         })
+         res.render("chat", { user: signedInUser, UserData: UserData, foundItems: found });
       }
    });
 
@@ -150,7 +201,10 @@ app.post("/choose-avatar", (req, res) => {
       { name: signedInUser.name },
       { avatar: req.body.avatar },
       { new: true },
-      (err, doc) => { if (err) return console.error(err); }
+      (err, doc) => {
+         if (err) return console.error(err);
+         else { console.log(doc.avatar); }
+      }
    );
    UserData.findOne({ name: signedInUser.name }, (err, user) => {
       if (err) return console.error(err);

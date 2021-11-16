@@ -6,7 +6,7 @@ body {
    background-image: url("Images/Background/background.svg");
    background-size: 100vw 100vh;
 }
-.avatar {
+.havatar {
    height: 12vh;
 }
 .playButton {
@@ -103,4 +103,53 @@ a:hover {
    width: 55vw;
    overflow: auto;
    text-align: center;
+}
+
+/* Avatars */
+.post-button {
+   background-color: #fff;
+    border: solid .8vh #ff0000;
+    color: #ff0000;
+    transition: .25s;
+    font-size: 5vh;
+    border-radius: .5vh;
+    padding: 2vh;
+    width: 100%;
+}
+
+.post-button:hover {
+   background-color: #ff0000;
+   color: #fff;
+}
+
+[type=radio] { 
+   position: absolute;
+   opacity: 0;
+   width: 0;
+   height: 0;
+}
+ 
+[type=radio]:checked + img {
+   outline: 1vh solid #f00;
+}
+
+.avatar {
+   height: 12vh;
+   padding: 2vh;
+   background-color: #eee;
+   border-radius: 50%;
+   border: solid 1vh #73f173;
+   transition: .2s;
+}
+
+.avatar:hover {
+   box-shadow: 0 0 1vh #73f173;
+}
+
+.choose-avatar {
+   height: 10vh;
+   padding: 1vh;
+   margin: 1.2vh .8vh;
+   border-radius: 50%;
+   border: solid .8vh #73e2f1;
 }

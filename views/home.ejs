@@ -16,27 +16,41 @@
          <div class="signed-inner">
             <h2 style="color: #fff; font-family: 'Nunito';">Welcome, you are signed in as <%- user.name %></h2><br>
             <div class="opening">
-               <img class="avatar yourAvatar" src=<%= `Avatars/${user.avatar}.png` %>>
+               <img class="havatar yourAvatar" src=<%= `Avatars/${user.avatar}.png` %>>
                <p class="playButton" style="display: inline;"><a href="/sign-in">Play!</a></p><br><br><br><br>
                <p>Ready to leave?</p><a href="/sign-out">Sign out!</a>
             </div>
             <br>
             <div class="opening">
-               <h4>Choose Avatar</h4><br>
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '1' }, { new: true }); %>;" src="Avatars/1.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '2' }, { new: true }); %>;" src="Avatars/2.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '3' }, { new: true }); %>;" src="Avatars/3.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '4' }, { new: true }); %>;" src="Avatars/4.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '5' }, { new: true }); %>;" src="Avatars/5.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '6' }, { new: true }); %>;" src="Avatars/6.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '7' }, { new: true }); %>;" src="Avatars/7.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '8' }, { new: true }); %>;" src="Avatars/8.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '9' }, { new: true }); %>;" src="Avatars/9.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '10' }, { new: true }); %>;" src="Avatars/10.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '11' }, { new: true }); %>;" src="Avatars/11.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '12' }, { new: true }); %>;" src="Avatars/12.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '13' }, { new: true }); %>;" src="Avatars/13.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '14' }, { new: true }); %>;" src="Avatars/14.png">
+               <h1>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="/chat">Chat</a>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               </h1>
+            </div>
+            <br>
+            <div class="opening">
+               <form action="choose-avatar" method="POST">
+                  <div>
+                      <label><input type="radio" name="avatar" value="1" checked><img class="choose-avatar" src="Avatars/1.png"></label>
+                      <label><input type="radio" name="avatar" value="2"><img class="choose-avatar" src="Avatars/2.png"></label>
+                      <label><input type="radio" name="avatar" value="3"><img class="choose-avatar" src="Avatars/3.png"></label>
+                      <label><input type="radio" name="avatar" value="4"><img class="choose-avatar" src="Avatars/4.png"></label>
+                      <label><input type="radio" name="avatar" value="5"><img class="choose-avatar" src="Avatars/5.png"></label>
+                      <label><input type="radio" name="avatar" value="6"><img class="choose-avatar" src="Avatars/6.png"></label>
+                      <label><input type="radio" name="avatar" value="7"><img class="choose-avatar" src="Avatars/7.png"></label>
+                      <label><input type="radio" name="avatar" value="8"><img class="choose-avatar" src="Avatars/8.png"></label>
+                      <label><input type="radio" name="avatar" value="9"><img class="choose-avatar" src="Avatars/9.png"></label>
+                      <label><input type="radio" name="avatar" value="10"><img class="choose-avatar" src="Avatars/10.png"></label>
+                      <label><input type="radio" name="avatar" value="11"><img class="choose-avatar" src="Avatars/11.png"></label>
+                      <label><input type="radio" name="avatar" value="12"><img class="choose-avatar" src="Avatars/12.png"></label>
+                      <label><input type="radio" name="avatar" value="13"><img class="choose-avatar" src="Avatars/13.png"></label>
+                      <label><input type="radio" name="avatar" value="14"><img class="choose-avatar" src="Avatars/14.png"></label>    
+                  </div>
+                  <button class="post-button" type="text">Pick</button>
+              </form>
             </div>
             <br><br>
             <p>Avatar icons made by <a href="https://www.flaticon.com/authors/vitaly-gorbachev" title="Vitaly Gorbachev">Vitaly Gorbachev</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></p>
