@@ -12,7 +12,105 @@
 </head>
 <body>
     <% if (user !== "(not signed in)") { %>
-        <div class="messageBox">
+        
+      <div class="info">
+         <div class="workerInfo">
+            <img class="infoImg" src="New Vegetable/worker.jpg">
+            <p class="workers"></p>
+            <p class="avalibleWorkers"></p>
+         </div>
+         <div class="resourceInfo">
+            <p class="lumber"></p>
+            <p class="wood"></p>
+            <p class="coins"></p>
+         </div>
+      </div>
+      <div class="taskOccuring">
+         <h2>WORKING</h2>
+      </div>
+      <div class="workBuildings">
+         <h2>BUILDINGS</h2>
+      </div>
+      <div class="passiveBuildings">
+         <h2>BUILDINGS</h2>
+      </div>
+      <div class="store">
+         <h2>STORE</h2>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- <style media="screen">
+            * {
+               padding: 0;
+               margin: 0;
+               font-size: 0;
+            }
+            .land {
+               /* background-color: #279ce6;
+               height: 60vh;
+               width: 60vh; */
+               padding: 10vh;
+               box-sizing: content-box;
+               margin: 25vh 0 0 10vh;
+               transform: rotate(45deg) skew(-15deg, -15deg);
+            }
+            .plot-spot {
+               height: 20vh;
+               width: 20vh;
+               display: inline-block;
+               box-sizing: margin-box;
+               padding: 0;
+               margin: 0;
+               position: relative;
+               overflow: hidden;
+               border: solid red .1vh;
+               background-color: blueviolet;
+            }
+            .plot-spot-img {
+               height: 20vh; 
+               width: 20vh;
+               position: absolute;
+               bottom: 0;
+               left: 0;
+               width: 30vh;
+               pointer-events: none;
+               /* transform: rotate(-45deg); */
+               background-color: #000;
+            }
+            .construction-option {
+               font-size: 5vh;
+            }
+         </style>
+         <div class="land"></div>
+         <div class="construction-option" onclick="placeHand = 'empty'">Demolish</div>
+         <div class="construction-option" onclick="placeHand = 'grass'">Lawn</div>
+         <div class="construction-option" onclick="placeHand = 'house'">House</div>
+         <div class="construction-option" onclick="placeHand = 'longhouse'">Longhouse</div> -->
+
+
+
+
+
+
+        <!-- <div class="messageBox">
             <%foundItems.forEach(function(item) {%>
                 <div class="message">
                     <div>
@@ -22,31 +120,13 @@
                     <h2 class="post"><%=item.input%></h2> 
                 </div>
             <%})%>
-        </div>
-        <div class="postBox">
+        </div> -->
+        <!-- <div class="postBox">
             <form action="chat-message" method="POST">
                 <input class="message-box" type="text" name="message" placeholder="Message..." required><br>
-                <!-- <input class="username-box" type="text" name="poster" placeholder="Username..."><br> -->
-                <!-- <div class="chooseAvatar">
-                    <label><input type="radio" name="avatar" value="1" checked><img class="choose-avatar" src="Avatars/1.png"></label>
-                    <label><input type="radio" name="avatar" value="2"><img class="choose-avatar" src="Avatars/2.png"></label>
-                    <label><input type="radio" name="avatar" value="3"><img class="choose-avatar" src="Avatars/3.png"></label>
-                    <label><input type="radio" name="avatar" value="4"><img class="choose-avatar" src="Avatars/4.png"></label>
-                    <label><input type="radio" name="avatar" value="5"><img class="choose-avatar" src="Avatars/5.png"></label>
-                    <label><input type="radio" name="avatar" value="6"><img class="choose-avatar" src="Avatars/6.png"></label>
-                    <label><input type="radio" name="avatar" value="7"><img class="choose-avatar" src="Avatars/7.png"></label>
-                    <label><input type="radio" name="avatar" value="8"><img class="choose-avatar" src="Avatars/8.png"></label>
-                    <label><input type="radio" name="avatar" value="9"><img class="choose-avatar" src="Avatars/9.png"></label>
-                    <label><input type="radio" name="avatar" value="10"><img class="choose-avatar" src="Avatars/10.png"></label>
-                    <label><input type="radio" name="avatar" value="11"><img class="choose-avatar" src="Avatars/11.png"></label>
-                    <label><input type="radio" name="avatar" value="12"><img class="choose-avatar" src="Avatars/12.png"></label>
-                    <label><input type="radio" name="avatar" value="13"><img class="choose-avatar" src="Avatars/13.png"></label>
-                    <label><input type="radio" name="avatar" value="14"><img class="choose-avatar" src="Avatars/14.png"></label>    
-                </div> -->
-                <br>
                 <button class="post-button" type="text">Post</button>
             </form>
-        </div>    
+        </div> -->
      <%} else { %>
         <div class="not-signed-in">
                  <div class="not-signed-inner">
@@ -60,4 +140,5 @@
         </div>
      <% } %>
 </body>
+<script src="farmgame.js"></script>
 </html>
