@@ -40,7 +40,6 @@
                            <div class="friend">
                               <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
                               <h2 class="name"><%=someUser.name%></h2>
-                              <h2 class="name"><%=someUser.passcode%></h2>
                               <form action="send-friend-request" method="POST">
                                  <input style="display: none;" name="thisUser" value="<%- user.name %>">
                                  <input style="display: none;" name="thatUser" value="<%- someUser.name %>">
