@@ -191,6 +191,29 @@
                  -.5vh -.5vh #ffd900;
 }
 
+.store h3 {
+    width: 100%;
+    text-align: center;
+    font-family: "Nunito";
+    font-size: 5vh;
+    font-weight: 600;
+    color: #008cff;
+    transition: .25s;
+}
+
+.store h3:hover {
+    text-shadow: .25vh .25vh #00d9ff,
+    -.25vh -.25vh #002fff;
+    /* text-shadow: .5vh .5vh #7700ff,
+    -.5vh -.5vh #00ff95; */
+}
+
+.store-item {
+    padding: 2.5vh;
+    background-color: #c5b8002c;
+    border-radius: 2vh;
+}
+
 
 
 

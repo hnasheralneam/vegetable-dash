@@ -21,6 +21,65 @@
                <p>Ready to leave?</p><a href="/sign-out">Sign out!</a>
             </div>
             <br>
+            <div class="opening friends">
+               <p>Your Friends</p><br>
+               <%users.forEach(function(someUser) {%>
+                  <% if (user.friends.includes(someUser.name)) { %>
+                     <div class="friend">
+                        <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
+                        <h2 class="name"><%=someUser.name%></h2>
+                     </div>
+                  <%}%>
+               <%})%>
+               <br><br>
+               <div>
+                  <p>Find Friends!</p><br>
+                  <div style="overflow: auto; white-space: nowrap; width: 50vw;">
+                     <%users.forEach(function(someUser) {%>
+                        <% if (someUser.name !== user.name && !user.friends.includes(someUser.name) && !user.friendInvitesSent.includes(someUser.name) && !user.friendInvitesRecived.includes(someUser.name)) { %>
+                           <div class="friend">
+                              <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
+                              <h2 class="name"><%=someUser.name%></h2>
+                              <h2 class="name"><%=someUser.passcode%></h2>
+                              <form action="send-friend-request" method="POST">
+                                 <input style="display: none;" name="thisUser" value="<%- user.name %>">
+                                 <input style="display: none;" name="thatUser" value="<%- someUser.name %>">
+                                 <button>Befriend</button>
+                              </form>
+                           </div>
+                        <%}%>
+                     <%})%>
+                  </div>
+               </div>
+               <div>
+                  <p>These people want to be your friend.</p><br>
+                  <%users.forEach(function(someUser) {%>
+                     <% if (user.friendInvitesRecived.includes(someUser.name)) { %>
+                        <div class="friend">
+                           <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
+                           <h2 class="name"><%=someUser.name%></h2>
+                           <form action="accept-friend-request" method="POST">
+                              <input style="display: none;" name="thisUser" value="<%- user.name %>">
+                              <input style="display: none;" name="thatUser" value="<%- someUser.name %>">
+                              <button>Accept</button>
+                           </form>
+                        </div>
+                     <%}%>
+                  <%})%>
+               </div>
+               <div>
+                  <p>You have asked these people to be your friend.</p><br>
+                  <%users.forEach(function(someUser) {%>
+                     <% if (user.friendInvitesSent.includes(someUser.name)) { %>
+                        <div class="friend">
+                           <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
+                           <h2 class="name"><%=someUser.name%></h2>
+                        </div>
+                     <%}%>
+                  <%})%>
+               </div>
+            </div>
+            <br>
             <div class="opening">
                <h1>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

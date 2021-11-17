@@ -17,6 +17,8 @@ app.use(express.static(__dirname + "/assets"));
 mongoose.Promise = global.Promise;
 mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_URL}`, { useUnifiedTopology: true, useNewUrlParser: true });
 
+mongoose.set("useFindAndModify", false);
+
 const connection = mongoose.connection
 
 connection.on('error', console.error.bind(console, 'Connection error: '));
@@ -26,6 +28,11 @@ var useDataSchema = new mongoose.Schema({
    email: String,
    passcode: String,
    avatar: String,
+   dateAccountStarted: Number,
+   dashcoins: Number,
+   friends: [],
+   friendInvitesSent: [],
+   friendInvitesRecived: [],
    gameSave: {
       plotStatus: {},
       produce: {},
@@ -52,10 +59,9 @@ function addNewUser(name, email, passcode) {
    else { addNow(); }
    function addNow() {
       if (namesList.includes(name)) { console.log("Choose a different name! (This one is taken!)"); return false; }
-      // else if (passcode.length !== 4) { console.log(passcode.length, "Passcode must be 4 numbers long!"); return false; }
       else if (parseInt(passcode) === NaN) { console.log("Passcode must contain only numbers!"); return false; }
       else {
-         var newUser = new UserData({ name: name, email: email, passcode: passcode });
+         var newUser = new UserData({ name: name, email: email, passcode: passcode, dateAccountStarted: Date.now() });
          newUser.save(function (err, newUser) {
             if (err) return console.error(err);
             else { console.log("You succesfully created your account!"); }
@@ -94,15 +100,13 @@ app.post("/play", (req, res) => {
    });
 });
 // Home page
-app.get("/", (req, res) => {
-   res.render("home", { user: signedInUser, UserData: UserData });
-});
+app.get("/", (req, res) => { goHome(res); });
 
 app.get("/sign-out", (req, res) => {
    signedIn = false;
    user = null;
    signedInUser = "(not signed in)";
-   res.render("home", { user: signedInUser, UserData: UserData });
+   goHome(res);
 });
 
 app.listen(port);
@@ -156,6 +160,62 @@ app.post("/choose-avatar", (req, res) => {
       if (err) return console.error(err);
       else {
          signedInUser = user;
-         res.render("home", { user: signedInUser, UserData: UserData });}
+         goHome(res);
+      }
    });
+});
+
+function goHome(res) {
+   UserData.find((err, users) => {
+      if (err) return console.error(err);
+      else { res.render("home", { user: signedInUser, UserData: UserData, users: users }); }
+   });
+}
+
+app.post("/send-friend-request", (req, res) => {
+   let thisUser = req.body.thisUser;
+   let thatUser = req.body.thatUser;
+   UserData.findOneAndUpdate(
+      { name: thisUser },
+      { $push: { friendInvitesSent: thatUser } },
+      { new: true },
+      (err, doc) => { 
+         if (err) return console.error(err);
+         else { console.log(doc); }
+      }
+   );
+   UserData.findOneAndUpdate(
+      { name: thatUser },
+      { $push: { friendInvitesRecived: thisUser } },
+      { new: true },
+      (err, doc) => { 
+         if (err) return console.error(err);
+         else { console.log(doc); }
+      }
+   );
+   goHome(res);
+});
+
+app.post("/accept-friend-request", (req, res) => {
+   let thisUser = req.body.thisUser;
+   let thatUser = req.body.thatUser;
+   UserData.findOneAndUpdate(
+      { name: thisUser },
+      { $push: { friends: thatUser }, $pull: { friendInvitesSent: thatUser, friendInvitesRecived: thatUser }, $inc: { dashcoins: 5 } },
+      { new: true },
+      (err, doc) => { 
+         if (err) return console.error(err);
+         else { console.log(doc); }
+      }
+   );
+   UserData.findOneAndUpdate(
+      { name: thatUser },
+      { $push: { friends: thisUser }, $pull: { friendInvitesSent: thisUser, friendInvitesRecived: thisUser }, $inc: { dashcoins: 5 } },
+      { new: true },
+      (err, doc) => { 
+         if (err) return console.error(err);
+         else { console.log(doc); }
+      }
+   );
+   goHome(res);
 });

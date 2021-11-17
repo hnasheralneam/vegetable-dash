@@ -19,7 +19,7 @@ body {
    <div class="content">
       <h2>Sign Up</h2>
       <form method="POST" action="/create-account" method="post">
-         <input class="input" type="text" name="name" value="" placeholder="Name" required><br><br>
+         <input class="input" type="text" name="name" value="" minlength="2" maxlength="16" placeholder="Name" required><br><br>
          <input class="input" type="email" name="emil" value="" placeholder="Email" required><br><br>
          <input class="input" type="password" name="pscd" value="" placeholder="Password" minlength="4" maxlength="4"  required><br><br>
          <input class="submit" type="submit" name="" value="Create Account">

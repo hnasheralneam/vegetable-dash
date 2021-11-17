@@ -25,7 +25,7 @@ function init() {
     // Game Loop
     setInterval(() => {
         operationsRunning.forEach((arr, index, obj) => {
-            if (Date.now >= arr[1]) {
+            if (Date.now() >= arr[1]) {
                 handleFinishedOperations(arr);
                 obj.splice(index, 1);
             }
@@ -46,7 +46,7 @@ function build_BasicHut() {
         resources.availableWorkers -= 2;
         resources.lumber -= 25;
         resources.straw -= 15;
-        let builtTime = Date.now() + 900000; // 15 minutes
+        let builtTime = Date.now() + 4000; // 900000 | 15 minutes
         operationsRunning.push(["construction_basicHut", builtTime]);
     }
 }
