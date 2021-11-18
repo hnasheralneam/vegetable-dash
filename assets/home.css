@@ -6,6 +6,9 @@ body {
    background-image: url("Images/Background/background.svg");
    background-size: 100vw 100vh;
 }
+
+/* #9900ff #00ff88 */
+
 .havatar {
    height: 12vh;
 }
@@ -165,4 +168,25 @@ a:hover {
 .friend .name {
    font-family: "Nunito";
    color: #eee;
+}
+
+button {
+   padding: .25vh .5vh;
+   background-color: #fff;
+   color: #006eff;
+   border: solid #006eff .3vh;
+   border-radius: .25vh;
+   font-family: "Nunito";
+   transition: .25s;
+}
+
+button:hover {
+   background-color: #006eff;
+   color: #fff;
+   border: solid #006eff .3vh;
+   transform: scale(1.05);
+}
+
+button:focus {
+   transform: scale(.95);
 }

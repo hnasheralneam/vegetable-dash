@@ -10,13 +10,13 @@
     <title>Document</title>
     <link rel="stylesheet" href="chat.css">
 </head>
-<body>
+<body  onmousemove="getCoords(event)">
     <% if (user !== "(not signed in)") { %>
         
       <div class="info">
          <div class="workerInfo">
-            <img class="infoImg" src="New Vegetable/worker.jpg">
-            <p class="workers"></p>
+            <img class="infoImg workers" src="New Vegetable/worker.jpg" onmouseenter="info(this)">
+            <p class=""></p>
             <p class="avalibleWorkers"></p>
          </div>
          <div class="resourceInfo">

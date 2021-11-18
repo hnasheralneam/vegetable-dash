@@ -164,6 +164,11 @@
 
 
 
+
+
+
+/* Farmgame */
+
 * {
     padding: 0;
     margin: 0;
@@ -198,7 +203,7 @@
     font-size: 5vh;
     font-weight: 600;
     color: #008cff;
-    transition: .25s;
+    transition: .09s;
 }
 
 .store h3:hover {
@@ -227,3 +232,88 @@
     border-radius: 2vh;
     filter: greyscale(100%) contrast(100000%);
 }
+
+.workBuildingItem {
+    height: 10vh;
+    width: 40%;
+    margin: .5vh;
+    border: solid #5cd4f8 .75vh;
+    border-radius: .25vh;
+}
+
+button {
+    padding: .75vh .5vh .75vh .5vh;
+    background-color: #ffffff80;
+    color: #b90000;
+    border: solid #b90000 .5vh;
+    border-radius: .25vh;
+    font-family: "Nunito";
+    font-size: 3vh;
+    transition: .15s;
+ }
+ 
+ button:hover {
+    background-color: #b90000;
+    color: #fff;
+    transform: scale(1.05);
+ }
+ 
+ button:active {
+    transform: scale(.95);
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /* Dynamic Hover */
+.dynamicHover {
+    background-color: #e9e9e9;
+    padding: .6vh 1vw;
+    font-family: "Nunito";
+    border-radius: 2vh;
+    font-size: 3.2vh;
+    color: #2b2b2b;
+    transition: opacity .1s;
+    opacity: 0;
+ }
+ 
+ .dynamicHoverDark {
+    background-color: #2b2b2b;
+    padding: .6vh 1vw;
+    font-family: "Nunito";
+    border-radius: 2vh;
+    font-size: 3.2vh;
+    color: #e9e9e9;
+    transition: opacity .1s;
+    opacity: 0;
+ }
+ 
