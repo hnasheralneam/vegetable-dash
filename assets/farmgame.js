@@ -1,10 +1,12 @@
+// Varibles
 const settings = {
     theme: "dark"
 }
 const resources = {
     workers: 5,
     availableWorkers: 5,
-    lumber: 25,
+    lumber: 75,
+    planks: 75,
     straw: 50
 }
 const buildings = {
@@ -14,9 +16,9 @@ const buildings = {
     hasWoodworkery: false,
     hasLumbercollectioncamp: false,
 }
-let working = [];
 const operationsRunning = [];
 
+// Init
 function init() {
     for (let i = 0; i < buildings.basicHuts; i++) {
         let newHut = document.createElement("IMG");
@@ -29,7 +31,7 @@ function init() {
         millDiv.classList.add("millDiv");
         millDiv.classList.add("workBuildingDiv");
         document.querySelector(".workBuildings").appendChild(millDiv);
-        createAndPlaceImg("Work Buildings/mill.png", ".millDiv", "building");
+        createAndPlaceImg("Work Buildings/mill.jpg", ".millDiv", "building");
         // Give nice hover
         millDiv.dataset.info = "Mill! (4 Workers)";
         millDiv.onmouseover = () => { info(millDiv); };
@@ -77,103 +79,117 @@ function init() {
     // Game Loop
     setInterval(() => {
         operationsRunning.forEach((arr, index, obj) => {
-            if (Date.now() >= arr[1]) {
-                handleFinishedOperations(arr);
-                obj.splice(index, 1);
+            switch (arr[0]) {
+                case  "construction":
+                    switch (arr[1]) {
+                        case  "basicHut":
+                            if (Date.now() >= arr[3]) {
+                                toConsole("Basic Hut Construction Complete!")
+                                handleFinishedOperations(arr);
+                                obj.splice(index, 1);
+                            }
+                    }
             }
+            // if (Date.now() >= arr[1]) {
+            //     handleFinishedOperations(arr);
+            //     obj.splice(index, 1);
+            // }
         });
         document.querySelector(".workers").dataset.info = `${resources.workers} Workers, ${resources.availableWorkers} Available`;
+        document.querySelector(".lumber").dataset.info = `${resources.lumber} Lumber`;
+        document.querySelector(".planks").dataset.info = `${resources.planks} Planks`;
     }, 500);
 }
-
 init();
 
+// Other other
+function handleFinishedOperations(arr) {
+    switch (arr[0]) {
+        case  "construction":
+            console.log(arr[2])
+            document.getElementById(arr[2]).remove();
+            switch (arr[1]) {
+                case  "basicHut":
+                    basicHutIsBuilt();
+            }
+    }
+}
+
+// Specific Functions
+function build_BasicHut() {
+    if (resources.availableWorkers >= 2 && resources.lumber >= 25 && resources.straw >= 15) {
+        resources.availableWorkers -= 2;
+        toConsole("- 2 Workers (Busy) <br> - 25 Planks <br> - 25 Straw", "loss")
+        resources.planks -= 25;
+        resources.straw -= 15;
+        let builtTime = Date.now() + 2000; // 900000 | 15 minutes
+        let thisId = uniqueId();
+        // operationsRunning.push(["construction_basicHut", builtTime]);
+        operationsRunning.push(["construction", "basicHut", thisId, builtTime]);
+        createAndPlaceImgWthHov("Passive Buildings/basic-hut.png", ".taskOccuring", "building", "Hut - using 2 workers, takes 15 minutes", thisId);
+    }
+    else {
+        toConsole("Not enough materials (Needs: 2 Workers, 25 Planks, and 25 Straw)", "loss");
+    }
+}
+function basicHutIsBuilt() {
+    resources.workers += 1;
+    resources.availableWorkers += 3;
+    buildings.basicHuts++;
+    toConsole("+ 2 Workers (Task Completed) <br> + 1 Worker <br> +1 Basic Hut", "gain")
+    createAndPlaceImg("Passive Buildings/basic-hut.png", ".passiveBuildings", "building");
+}
+
+// Create Elements
 function createAndPlaceImg(src, destination, cssClass) {
     let element = document.createElement("IMG");
     element.src = `New Vegetable/${src}`;
     element.classList.add(cssClass);
     document.querySelector(destination).appendChild(element);
 }
-function createAndPlaceImgWthHov(src, destination, cssClass, hovText) {
+function createAndPlaceImgWthHov(src, destination, cssClass, hovText, id) {
     let element = document.createElement("IMG");
     element.src = `New Vegetable/${src}`;
     element.dataset.info = hovText;
     element.onmouseover = () => { info(element); };
     element.classList.add(cssClass);
+    if (id) { element.id = id; }
     document.querySelector(destination).appendChild(element);
 }
-function build_BasicHut() {
-    if (resources.availableWorkers >= 2 && resources.lumber >= 25 && resources.straw >= 15) {
-        resources.availableWorkers -= 2;
-        resources.lumber -= 25;
-        resources.straw -= 15;
-        let builtTime = Date.now() + 900000; // 900000 | 15 minutes
-        operationsRunning.push(["construction_basicHut", builtTime]);
-        createAndPlaceImgWthHov("Passive Buildings/basic-hut.png", ".taskOccuring", "building", "Hut - using 2 workers, takes 15 minutes");
-    }
-}
-function handleFinishedOperations(arr) {
-    if (arr[0] === "construction_basicHut") { basicHutIsBuilt(); }
-}
-function basicHutIsBuilt() {
-    resources.workers += 1;
-    resources.availableWorkers += 3;
-    buildings.basicHuts++;
-    createAndPlaceImg("Passive Buildings/basic-hut.png", ".passiveBuildings", "building");
-    console.log("Basic Hut Built!");
-}
 
-function console(text) {
+// Other Functions
+function toConsole(text, color) {
     let newEntry = document.createElement("P");
     newEntry.innerHTML = text;
-    document.querySelector(".console").appendChild(newEntry);
+    switch (color) {
+        case "neutral":
+            newEntry.classList.add("consoleTextNeutral");
+            break;
+        case "loss":
+            newEntry.classList.add("consoleTextLoss");
+            break;
+        case "gain":
+            newEntry.classList.add("consoleTextGain");
+    }
+    document.querySelector(".console").prepend(newEntry);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const uniqueId = () => {
+    const dateString = Date.now().toString(36);
+    const randomness = Math.random().toString(36).substr(2);
+    return dateString + randomness;
+  };
 
 // Dynamic hover
-
 let dynamHov = document.createElement("SPAN");
 document.body.appendChild(dynamHov);
 dynamHov.style.position = "fixed";
 if (settings.theme === "light") { dynamHov.classList.add("dynamicHover"); }
 else { dynamHov.classList.add("dynamicHoverDark"); }
 
-var mouseX;
-var mouseY;
-var doThigsOnMousemoveList = [];
 function getCoords(e) {
-   mouseX = event.clientX;
-   mouseY = event.clientY;
-   dynamHov.style.top = `${mouseY}px`;
-   dynamHov.style.left = `${mouseX + 25}px`;
+   dynamHov.style.top = `${event.clientY}px`;
+   dynamHov.style.left = `${event.clientX + 25}px`;
 }
-
 function info(THIS) {
    dynamHov.textContent = THIS.dataset.info;
    dynamHov.style.opacity = "1";
