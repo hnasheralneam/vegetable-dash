@@ -14,12 +14,13 @@ const buildings = {
     hasWoodworkery: false,
     hasLumbercollectioncamp: false,
 }
+let working = [];
 const operationsRunning = [];
 
 function init() {
     for (let i = 0; i < buildings.basicHuts; i++) {
         let newHut = document.createElement("IMG");
-        newHut.src = "New Vegetable/hut.png";
+        newHut.src = "New Vegetable/Passive Buildings/basic-hut.png";
         newHut.classList.add("building");
         document.querySelector(".passiveBuildings").appendChild(newHut);
     }
@@ -93,6 +94,14 @@ function createAndPlaceImg(src, destination, cssClass) {
     element.classList.add(cssClass);
     document.querySelector(destination).appendChild(element);
 }
+function createAndPlaceImgWthHov(src, destination, cssClass, hovText) {
+    let element = document.createElement("IMG");
+    element.src = `New Vegetable/${src}`;
+    element.dataset.info = hovText;
+    element.onmouseover = () => { info(element); };
+    element.classList.add(cssClass);
+    document.querySelector(destination).appendChild(element);
+}
 function build_BasicHut() {
     if (resources.availableWorkers >= 2 && resources.lumber >= 25 && resources.straw >= 15) {
         resources.availableWorkers -= 2;
@@ -100,6 +109,7 @@ function build_BasicHut() {
         resources.straw -= 15;
         let builtTime = Date.now() + 900000; // 900000 | 15 minutes
         operationsRunning.push(["construction_basicHut", builtTime]);
+        createAndPlaceImgWthHov("Passive Buildings/basic-hut.png", ".taskOccuring", "building", "Hut - using 2 workers, takes 15 minutes");
     }
 }
 function handleFinishedOperations(arr) {
@@ -109,11 +119,15 @@ function basicHutIsBuilt() {
     resources.workers += 1;
     resources.availableWorkers += 3;
     buildings.basicHuts++;
-    createAndPlaceImg("hut.png", ".passiveBuildings", "building");
+    createAndPlaceImg("Passive Buildings/basic-hut.png", ".passiveBuildings", "building");
     console.log("Basic Hut Built!");
 }
 
-
+function console(text) {
+    let newEntry = document.createElement("P");
+    newEntry.innerHTML = text;
+    document.querySelector(".console").appendChild(newEntry);
+}
 
 
 
