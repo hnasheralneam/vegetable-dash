@@ -1,4 +1,7 @@
 // Varibles
+const player = {
+    points: 0,
+}
 const settings = {
     theme: "dark"
 }
@@ -7,16 +10,32 @@ const resources = {
     availableWorkers: 5,
     lumber: 75,
     planks: 75,
-    straw: 50
+    straw: 50,
+    wheat: 10,
+    wheatGrain: 25,
+    wheatGrainBuns: 0,
+    wheatGrainBagels: 0,
+    wheatGrainBreadloafs: 0,
+    wheatGrainBaguettes: 0
 }
 const buildings = {
     basicHuts: 5,
     hasMill: true,
+    millAvailable: false,
     hasBakery: true,
+    bakeryAvailable: false,
     hasWoodworkery: false,
+    woodworkeryAvailable: false,
     hasLumbercollectioncamp: false,
+    lumbercollectioncampAvailable: false
+
 }
 const operationsRunning = [];
+
+let bakery = document.createElement("DIV");
+let mill =  document.createElement("DIV");
+
+// Note: Create threshing floor, thresh 1 wheat for 2 straw and 1 wheatGrain
 
 // Init
 function init() {
@@ -27,52 +46,14 @@ function init() {
         document.querySelector(".passiveBuildings").appendChild(newHut);
     }
     if (buildings.hasMill) {
-        let millDiv = document.createElement("DIV");
-        millDiv.classList.add("millDiv");
-        millDiv.classList.add("workBuildingDiv");
-        document.querySelector(".workBuildings").appendChild(millDiv);
-        createAndPlaceImg("Work Buildings/mill.jpg", ".millDiv", "building");
-        // Give nice hover
-        millDiv.dataset.info = "Mill! (4 Workers)";
-        millDiv.onmouseover = () => { info(millDiv); };
+        createWorkBuilding("millAvailable", mill, "mill", "Mill! <br> (Needs 3 workers to operate)");
     }
     if (buildings.hasBakery) {
-        let bakeryDiv = document.createElement("DIV");
-        bakeryDiv.classList.add("bakeryDiv");
-        bakeryDiv.classList.add("workBuildingDiv");
-        document.querySelector(".workBuildings").appendChild(bakeryDiv);
-        createAndPlaceImg("Work Buildings/bakery.png", ".bakeryDiv", "building");
-        // Give nice hover
-        bakeryDiv.dataset.info = "Bakery! (2 Workers)";
-        bakeryDiv.onmouseover = () => { info(bakeryDiv); };
-        // Other Stuff
-        let bakeryItem1 = document.createElement("IMG");
-        bakeryItem1.src = `New Vegetable/bakery-bun.png`;
-        bakeryItem1.onclick = () => { bake("bun") };
-        bakeryItem1.title = "5 Min";
-        bakeryItem1.classList.add("workBuildingItem");
-        document.querySelector(".bakeryDiv").appendChild(bakeryItem1);
-        // 2
-        let bakeryItem2 = document.createElement("IMG");
-        bakeryItem2.src = `New Vegetable/bakery-bagel.png`;
-        bakeryItem2.onclick = () => { bake("bagel") };
-        bakeryItem2.title = "15 Min";
-        bakeryItem2.classList.add("workBuildingItem");
-        document.querySelector(".bakeryDiv").appendChild(bakeryItem2);
-        // 3
-        let bakeryItem3 = document.createElement("IMG");
-        bakeryItem3.src = `New Vegetable/bakery-breadloaf.png`;
-        bakeryItem3.onclick = () => { bake("breadloaf") };
-        bakeryItem3.title = "45 Min";
-        bakeryItem3.classList.add("workBuildingItem");
-        document.querySelector(".bakeryDiv").appendChild(bakeryItem3);
-        // 4
-        let bakeryItem4 = document.createElement("IMG");
-        bakeryItem4.src = `New Vegetable/bakery-bagette.png`;
-        bakeryItem4.onclick = () => { bake("bagette") };
-        bakeryItem4.title = "1 Hour 30 Min";
-        bakeryItem4.classList.add("workBuildingItem");
-        document.querySelector(".bakeryDiv").appendChild(bakeryItem4);
+        createWorkBuilding("bakeryAvailable", bakery, "bakery", "Bakery! <br> (Needs 2 workers to operate)");
+        createWorkBuildingItem("Bakery", "bun", "5 Min");
+        createWorkBuildingItem("Bakery", "bagel", "15 Min");
+        createWorkBuildingItem("Bakery", "breadloaf", "45 Min");
+        createWorkBuildingItem("Bakery", "baguette", "1 Hour 30 Min");
     }
     if (buildings.hasWoodworkery) { createAndPlaceImg("woodworkery.jpg", ".workBuildings", "building"); }
     if (buildings.hasLumbercollectioncamp) { createAndPlaceImg("lumbercollectioncamp.jpg", ".workBuildings", "building"); }
@@ -89,13 +70,40 @@ function init() {
                                 obj.splice(index, 1);
                             }
                     }
+                break;
+                case "baking":
+                    switch (arr[1]) {
+                        case  "bun":
+                            if (Date.now() >= arr[3]) {
+                                toConsole("Bun Baking Complete! <br> (Mmmm, that delicous scent)")
+                                handleFinishedOperations(arr);
+                                obj.splice(index, 1);
+                            }
+                        break;
+                        case "bagel":
+                            if (Date.now() >= arr[3]) {
+                                toConsole("Bagel Baking Complete!")
+                                handleFinishedOperations(arr);
+                                obj.splice(index, 1);
+                            }
+                        break;
+                        case "breadloaf":
+                            if (Date.now() >= arr[3]) {
+                                toConsole("Breadloaf Baking Complete!")
+                                handleFinishedOperations(arr);
+                                obj.splice(index, 1);
+                            }
+                        break;
+                        case "baguette":
+                            if (Date.now() >= arr[3]) {
+                                toConsole("Baguette Baking Complete!")
+                                handleFinishedOperations(arr);
+                                obj.splice(index, 1);
+                            }
+                    }
             }
-            // if (Date.now() >= arr[1]) {
-            //     handleFinishedOperations(arr);
-            //     obj.splice(index, 1);
-            // }
         });
-        document.querySelector(".workers").dataset.info = `${resources.workers} Workers, ${resources.availableWorkers} Available`;
+        document.querySelector(".workers").dataset.info = `${resources.workers} Workers <br> ${resources.availableWorkers} Available`;
         document.querySelector(".lumber").dataset.info = `${resources.lumber} Lumber`;
         document.querySelector(".planks").dataset.info = `${resources.planks} Planks`;
     }, 500);
@@ -106,16 +114,29 @@ init();
 function handleFinishedOperations(arr) {
     switch (arr[0]) {
         case  "construction":
-            console.log(arr[2])
             document.getElementById(arr[2]).remove();
             switch (arr[1]) {
-                case  "basicHut":
+                case "basicHut":
                     basicHutIsBuilt();
+            }
+        case "baking":
+            document.querySelector(".workBuildings").appendChild(bakery);
+            buildings.bakeryAvailable = true;
+            bakery.dataset.info = "Bakery! <br> (Needs 2 workers to operate)";
+            switch (arr[1]) {
+                case "bun": baked(arr[1]);
+                break;
+                case "bagel": baked(arr[1]);
+                break;
+                case "breadloaf": baked(arr[1]);
+                break;
+                case "baguette": baked(arr[1]);
             }
     }
 }
 
 // Specific Functions
+// Basic Hut
 function build_BasicHut() {
     if (resources.availableWorkers >= 2 && resources.lumber >= 25 && resources.straw >= 15) {
         resources.availableWorkers -= 2;
@@ -124,20 +145,113 @@ function build_BasicHut() {
         resources.straw -= 15;
         let builtTime = Date.now() + 2000; // 900000 | 15 minutes
         let thisId = uniqueId();
-        // operationsRunning.push(["construction_basicHut", builtTime]);
         operationsRunning.push(["construction", "basicHut", thisId, builtTime]);
-        createAndPlaceImgWthHov("Passive Buildings/basic-hut.png", ".taskOccuring", "building", "Hut - using 2 workers, takes 15 minutes", thisId);
+        createAndPlaceImgWthHov("Passive Buildings/basic-hut.png", ".taskOccuring", "building", "Basic Hut <br> Using 2 workers <br> Takes 15 minutes", thisId);
     }
     else {
-        toConsole("Not enough materials (Needs: 2 Workers, 25 Planks, and 25 Straw)", "loss");
+        toConsole("Not enough materials <br> (Needs: 2 Workers, 25 Planks, and 25 Straw)", "insufficient");
     }
 }
 function basicHutIsBuilt() {
     resources.workers += 1;
     resources.availableWorkers += 3;
     buildings.basicHuts++;
+    player.points += 25;
     toConsole("+ 2 Workers (Task Completed) <br> + 1 Worker <br> +1 Basic Hut", "gain")
+    toConsole("+ 25 points", "neutral")
     createAndPlaceImg("Passive Buildings/basic-hut.png", ".passiveBuildings", "building");
+}
+// Bakery
+function bake(item) {
+    switch (item) {
+        case "bun":
+            if (buildings.bakeryAvailable && resources.availableWorkers >= 2 && resources.wheatGrain >= 2) {
+                resources.availableWorkers -= 2;
+                resources.wheatGrain -= 2;
+                toConsole("- 2 Workers (Busy) <br> - 2 Wheat Grain", "loss")
+                let readyTime = Date.now() + 5000; // 150000 | 2.5 minutes
+                let thisId = uniqueId();
+                operationsRunning.push(["baking", "bun", thisId, readyTime]);
+                document.querySelector(".taskOccuring").appendChild(bakery);
+                buildings.bakeryAvailable = false;
+                bakery.dataset.info = "Baking Buns <br> Using 2 Workers <br> Takes 5 Minutes";
+            }
+            else { toConsole("Insufficient resources <br> Try again when you have 2 Workers avalible and 2 wheat grain.", "insufficient"); }
+            break;
+        case "bagel":
+            if (buildings.bakeryAvailable && resources.availableWorkers >= 2 && resources.wheatGrain >= 5) {
+                resources.availableWorkers -= 2;
+                resources.wheatGrain -= 5;
+                toConsole("- 2 Workers (Busy) <br> - 5 Wheat Grain", "loss")
+                let readyTime = Date.now() + 5000; // 150000 | 2.5 minutes
+                let thisId = uniqueId();
+                operationsRunning.push(["baking", "bagel", thisId, readyTime]);
+                let bakery = document.querySelector(".bakeryDiv");
+                document.querySelector(".taskOccuring").appendChild(bakery);
+                buildings.bakeryAvailable = false;
+                bakery.dataset.info = "Baking Bagels <br> Using 2 Workers <br> Takes 15 Minutes";
+            }
+            else { toConsole("Insufficient resources <br> Try again when you have 2 Workers avalible and 5 wheat grain.", "insufficient"); }
+            break;
+        case "breadloaf":
+            if (buildings.bakeryAvailable && resources.availableWorkers >= 2 && resources.wheatGrain >= 8) {
+                resources.availableWorkers -= 2;
+                resources.wheatGrain -= 8;
+                toConsole("- 2 Workers (Busy) <br> - 8 Wheat Grain", "loss")
+                let readyTime = Date.now() + 5000; // 150000 | 2.5 minutes
+                let thisId = uniqueId();
+                operationsRunning.push(["baking", "breadloaf", thisId, readyTime]);
+                let bakery = document.querySelector(".bakeryDiv");
+                document.querySelector(".taskOccuring").appendChild(bakery);
+                buildings.bakeryAvailable = false;
+                bakery.dataset.info = "Baking Breadloafs <br> Using 2 Workers <br> Takes 45 Minutes";
+            }
+            else { toConsole("Insufficient resources <br> Try again when you have 2 Workers avalible and 8 wheat grain.", "insufficient"); }
+            break;
+        case "baguette":
+            if (buildings.bakeryAvailable && resources.availableWorkers >= 2 && resources.wheatGrain >= 12) {
+                resources.availableWorkers -= 2;
+                resources.wheatGrain -= 12;
+                toConsole("- 2 Workers (Busy) <br> - 12 Wheat Grain", "loss")
+                let readyTime = Date.now() + 5000; // 150000 | 2.5 minutes
+                let thisId = uniqueId();
+                operationsRunning.push(["baking", "baguette", thisId, readyTime]);
+                let bakery = document.querySelector(".bakeryDiv");
+                document.querySelector(".taskOccuring").appendChild(bakery);
+                buildings.bakeryAvailable = false;
+                bakery.dataset.info = "Baking Baguettes <br> Using 2 Workers <br> Takes 90 Minutes";
+            }
+            else { toConsole("Insufficient resources <br> Try again when you have 2 Workers avalible and 12 wheat grain.", "insufficient"); }
+    }
+}
+function baked(item) {
+    resources.availableWorkers += 2;
+    toConsole("+ 2 Workers (Task Completed)", "gain");
+    switch (item) {
+        case "bun":
+            resources.wheatGrainBuns++;
+            player.points += 15;
+            toConsole("+ 1 Bun", "gain");
+            toConsole("+ 15 points", "neutral");
+            break;
+        case "bagel":
+            resources.wheatGrainBagels++;
+            player.points += 35;
+            toConsole("+ 1 Bagel", "gain");
+            toConsole("+ 35 points", "neutral");
+            break;
+        case "breadloaf":
+            resources.wheatGrainBreadloafs++;
+            player.points += 55;
+            toConsole("+ 1 Breadloaf", "gain");
+            toConsole("+ 55 points", "neutral");
+            break;
+        case "baguette":
+            resources.wheatGrainBaguette++;
+            player.points += 70;
+            toConsole("+ 1 Baguette", "gain");
+            toConsole("+ 70 points", "neutral");
+    }
 }
 
 // Create Elements
@@ -156,6 +270,24 @@ function createAndPlaceImgWthHov(src, destination, cssClass, hovText, id) {
     if (id) { element.id = id; }
     document.querySelector(destination).appendChild(element);
 }
+function createWorkBuildingItem(type, img, title) {
+    let item = document.createElement("IMG");
+    item.src = `New Vegetable/${type}/${img}.png`;
+    item.onclick = () => { bake(img); };
+    item.title = title;
+    item.classList.add("workBuildingItem");
+    document.querySelector(`.${type.toLowerCase()}Div`).appendChild(item);
+}
+function createWorkBuilding(makeAvalible, div, name, title) {
+    buildings[makeAvalible] = true;
+    let workBuilding = div;
+    workBuilding.classList.add(`${name}Div`);
+    workBuilding.classList.add("workBuildingDiv");
+    document.querySelector(".workBuildings").appendChild(workBuilding);
+    createAndPlaceImg(`Work Buildings/${name}.png`, `.${name}Div`, "building");
+    workBuilding.dataset.info = title;
+    workBuilding.onmouseover = () => { info(workBuilding); };
+}
 
 // Other Functions
 function toConsole(text, color) {
@@ -170,6 +302,9 @@ function toConsole(text, color) {
             break;
         case "gain":
             newEntry.classList.add("consoleTextGain");
+            break;
+        case "insufficient": 
+            newEntry.classList.add("consoleTextInsufficient");
     }
     document.querySelector(".console").prepend(newEntry);
 }
@@ -177,7 +312,7 @@ const uniqueId = () => {
     const dateString = Date.now().toString(36);
     const randomness = Math.random().toString(36).substr(2);
     return dateString + randomness;
-  };
+};
 
 // Dynamic hover
 let dynamHov = document.createElement("SPAN");
@@ -191,7 +326,7 @@ function getCoords(e) {
    dynamHov.style.left = `${event.clientX + 25}px`;
 }
 function info(THIS) {
-   dynamHov.textContent = THIS.dataset.info;
+   dynamHov.innerHTML = THIS.dataset.info;
    dynamHov.style.opacity = "1";
    THIS.onmouseleave = () => { dynamHov.style.opacity = "0"; }
 }
