@@ -33,14 +33,7 @@ var useDataSchema = new mongoose.Schema({
    friends: [],
    friendInvitesSent: [],
    friendInvitesRecived: [],
-   gameSave: {
-      plotStatus: {},
-      produce: {},
-      plots: {},
-      marketData: {},
-      settings: {},
-      taskList: {}
-   }
+   gameSave: {}
 });
 
 var namesList = [];
@@ -83,7 +76,7 @@ app.get("/vegetable-dash", (req, res) => {
    if (signedInUser !== "not signed in") { res.render("vegetable-dash", { signedInUser }); }
    else { res.render("signin", { error: { is: false } }); }
 });
-//Sign in
+// Sign in
 app.get("/sign-in", (req, res) => {
    if (!signedIn) { res.render("signin", { error: { is: false } }); }
    else { res.render("index", { userFrom: signedInUser }); }
@@ -177,7 +170,7 @@ app.post("/send-friend-request", (req, res) => {
    let thatUser = req.body.thatUser;
    UserData.findOneAndUpdate(
       { name: thisUser },
-      { $push: { friendInvitesSent: thatUser } },
+      { $addToSet: { friendInvitesSent: thatUser } },
       { new: true },
       (err, doc) => { 
          if (err) return console.error(err);
@@ -186,7 +179,7 @@ app.post("/send-friend-request", (req, res) => {
    );
    UserData.findOneAndUpdate(
       { name: thatUser },
-      { $push: { friendInvitesRecived: thisUser } },
+      { $addToSet: { friendInvitesRecived: thisUser } },
       { new: true },
       (err, doc) => { 
          if (err) return console.error(err);
@@ -218,4 +211,15 @@ app.post("/accept-friend-request", (req, res) => {
       }
    );
    goHome(res);
+});
+
+
+app.post("/save-vegetable-dash", (req, res) => {
+   let inputSave = JSON.parse(req.body.gamesave);
+   UserData.findOneAndUpdate(
+      { name: signedInUser.name },
+      { gameSave: inputSave },
+      { new: true },
+      (err, doc) => { if (err) { return console.error(err); } else {console.log("done saving")} }
+   );
 });

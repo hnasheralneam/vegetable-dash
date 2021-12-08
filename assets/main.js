@@ -22,21 +22,31 @@ Game Data
 
 console.log(`hi ${userData.name}`);
 
-window.addEventListener("beforeunload", function(e){
-   localStorage.setItem("plotStatus", JSON.stringify(plotStatus, replacer));
-   localStorage.setItem("produce", JSON.stringify(produce, replacer));
-   localStorage.setItem("plots", JSON.stringify(plots, replacer));
-   localStorage.setItem("marketData", JSON.stringify(marketData, replacer));
-   localStorage.setItem("settingData", JSON.stringify(settings, replacer));
-   localStorage.setItem("taskList", JSON.stringify(taskList, replacer));
-}, false);
+function save() {
+   let saveObject = {
+      plotStatus: plotStatus,
+      produce: produce,
+      plots: plots,
+      market: marketData,
+      settings: settings,
+      taskList: taskList
+   }
+   document.querySelector(".data-save").value = JSON.stringify(saveObject, replacer);
+   document.querySelector(".post-save").click();
+}
 
-var plotStatus = initPlotStatus;
-var produce = initProduce;
-plots = initPlots;
-marketData = initMarketData;
-var settings = initSettings;
-taskList = initTaskList;
+var plotStatus = userData.gameSave.plotStatus;
+var produce = userData.gameSave.produce;
+plots = userData.gameSave.plots;
+marketData = userData.gameSave.market;
+var settings = userData.gameSave.settings;
+taskList = userData.gameSave.taskList;
+
+
+
+
+
+
 
 settings.loadtime = findAvg(settings.loadtimes);
 
@@ -1242,14 +1252,6 @@ const replacer = (key, value) => {
 }
 
 let saveLoop = window.setInterval(function() { save(); }, 15000);
-function save() {
-   localStorage.setItem("plotStatus", JSON.stringify(plotStatus, replacer));
-   localStorage.setItem("produce", JSON.stringify(produce, replacer));
-   localStorage.setItem("plots", JSON.stringify(plots, replacer));
-   localStorage.setItem("marketData", JSON.stringify(marketData, replacer));
-   localStorage.setItem("settingData", JSON.stringify(settings, replacer));
-   localStorage.setItem("taskList", JSON.stringify(taskList, replacer));
-}
 
 if (settings.intro != "finished") {
    plotStatus = JSON.parse(localStorage.getItem("plotStatus"));
@@ -1265,21 +1267,14 @@ if (!settings || (settings.intro != "finished")) { runIntro(); }
 function restart() {
    let areYouSure = confirm("Are you SURE you want to restart? This will wipe all your progress!");
    let areYouReallySure = confirm("Are you REALLY SURE you want to restart? There is no going back!");
-   if (areYouSure === true && areYouReallySure === true) {
-      localStorage.setItem("plotStatus", JSON.stringify(initPlotStatus, replacer));
-      localStorage.setItem("produce", JSON.stringify(initProduce, replacer));
-      localStorage.setItem("plots", JSON.stringify(initPlots, replacer));
-      localStorage.setItem("marketData", JSON.stringify(initMarketData, replacer));
-      localStorage.setItem("settingData", JSON.stringify(initSettings, replacer));
-      localStorage.setItem("taskList", JSON.stringify(initTaskList, replacer));
-      plotStatus = JSON.parse(localStorage.getItem("plotStatus"));
-      produce = JSON.parse(localStorage.getItem("produce"));
-      plots = JSON.parse(localStorage.getItem("plots"));
-      marketData = JSON.parse(localStorage.getItem("marketData"));
-      settings = JSON.parse(localStorage.getItem("settingData"));
-      taskList = JSON.parse(localStorage.getItem("taskList"));
-      // Reload
-      location.reload();
+   if (areYouSure && areYouReallySure) {
+      plotStatus = initPlotStatus;
+      produce = initProduce;
+      plots = initPlots;
+      marketData = initMarketData;
+      settings = initSettings;
+      taskList = initTaskList;
+      setTimeout(() => { location.reload(); }, 5000)
    }
 }
 
@@ -1295,35 +1290,6 @@ for (key of initalPlotsKeys) { if (plots[key] === undefined) { plots[key] = init
 for (key of initalMarketDataKeys) { if (marketData[key] === undefined) { marketData[key] = initMarketData[key]; } }
 for (key of initalSettingsKeys) { if (settings[key] === undefined) { settings[key] = initSettings[key]; } }
 for (key of initalTaskListKeys) { if (taskList[key] === undefined) { taskList[key] = initTaskList[key]; } }
-
-// Import/Export Save
-setInterval(() => {
-   document.querySelector(".stringSave").textContent = reverseString(`${JSON.stringify(settings)}~${JSON.stringify(plotStatus)}~${JSON.stringify(produce)}~${JSON.stringify(plots)}~${JSON.stringify(marketData)}~${JSON.stringify(taskList)}`);
-}, 500);
-
-function exportSave() {
-   let text = document.querySelector(".stringSave").textContent;
-   let textArea = document.createElement("textarea");
-   textArea.value = text;
-   document.body.appendChild(textArea);
-   textArea.select();
-   document.execCommand("copy");
-   document.body.removeChild(textArea);
-}
-function importSave() {
-   let saveInput = prompt("where is your save?");
-   if (saveInput !== null) {
-      let imported = reverseString(saveInput).split('~');
-      settings = JSON.parse(imported[0]);
-      plotStatus = JSON.parse(imported[1]);
-      produce = JSON.parse(imported[2]);
-      plots = JSON.parse(imported[3]);
-      marketData = JSON.parse(imported[4]);
-      taskList = JSON.parse(imported[5]);
-   }
-   save();
-   location.reload();
-}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // NOT Save
