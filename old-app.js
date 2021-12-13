@@ -20,3 +20,6 @@ UserData.updateMany(
    { multi: true },
    (err, oth) => { if (err) return console.error(err); else { console.log(oth); } }
 );
+
+// Empty schema
+Chat.deleteMany({}, function (err) { if (err) { console.log(err) } else {console.log("success")} });

@@ -11,8 +11,10 @@
       <script src="https://squirrel-314.github.io/digit/main.js" charset="utf-8"></script>
       <link rel="shortcut icon" href="Images/Global Assets/logo.svg" type="image/x-icon">
       <link rel="stylesheet" href="styles.css">
+      <link rel="stylesheet" href="cornerchat.css">
       <title>Vegetable Dash!</title>
    </head>
+   <% if (user !== "(not signed in)") { %>
    <body ondragstart="return false;" onmousemove="getCoords(event)">
       <div class="cover">
          <div class="meter">
@@ -1460,19 +1462,56 @@
       </div>
       <script src="https://www.w3counter.com/tracker.js?id=134512"></script>
    </body>
-   <script src="https://www.w3counter.com/tracker.js?id=134512"></script>
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-   <% if (userFrom) { %>
-   <script>
-      var userDataWorking = '<%- JSON.stringify(userFrom) %>';
-      var userData = JSON.parse(userDataWorking);
-   </script>
+   <!-- Chat -->
+   <div class="chatbox">
+      <h3 class="title" onclick="if (document.querySelector('.chatbox').classList.contains('open')) { document.querySelector('.chatbox').classList.remove('open'); } else { document.querySelector('.chatbox').classList.add('open'); } ">Chat</h3>
+      <div class="messages">
+         <%foundItems.forEach(function(item) {%>
+            <% if (item.user == user.name) { %>
+               <div class="message message-right">
+                  <img title="<%=item.user%> " class="image-right" src=<%= `Avatars/${item.avatar}.png` %>>
+                  <div class="shape-right"></div>
+                  <p><%=item.input%></p>
+               </div>
+            <%} else { %>
+               <div class="message">
+                  <img title="<%=item.user%> " class="image" src=<%= `Avatars/${item.avatar}.png` %>>
+                  <div class="shape"></div>
+                  <p><%=item.input%></p>
+               </div>
+            <% } %>
+        <%})%>
+      </div>
+      <form action="chat-message" method="POST">
+         <input class="input" type="text" name="message" placeholder="Message..." required><br>
+         <button style="display: none;" class="chatbox-post" type="text">Post</button>
+     </form>
+   </div>
+   <!-- Other -->
+      <script>
+         var userDataWorking = '<%- JSON.stringify(user) %>';
+         var userData = JSON.parse(userDataWorking);
+         console.log(userData.gameSave)
+      </script>
+      <form action="save-vegetable-dash" method="POST" style="display: none;">
+         <input class="data-save" type="text" name="gamesave" required><br>
+         <button class="post-save" type="text">Post</button>
+      </form>
+      <script src="https://www.w3counter.com/tracker.js?id=140885"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="inital-varibles.js" charset="utf-8"></script>
+      <script src="tasks.js" charset="utf-8"></script>
+      <script src="main.js" charset="utf-8"></script>
+   <%} else { %>
+      <div class="not-signed-in">
+         <div class="not-signed-inner">
+            <h2 style="text-align: center;">Welcome to Vegetable Dash!</h2>
+            <h4 style="text-align: center;">You are not signed in</h4><br>
+            <div class="opening">
+               <p class="stylish-p">Do you have an account?</p><a href="/sign-in">Sign in!</a><br><br>
+               <p class="stylish-p">Don't have an account?</p><a href="/create-account">Create an account!</a>
+            </div>
+         </div>
+      </div>
    <% } %>
-   <form action="save-vegetable-dash" method="POST" style="display: none;">
-      <input class="data-save" type="text" name="gamesave" required><br>
-      <button class="post-save" type="text">Post</button>
-  </form>
-   <script src="inital-varibles.js" charset="utf-8"></script>
-   <script src="tasks.js" charset="utf-8"></script>
-   <script src="main.js" charset="utf-8"></script>
 </html>
