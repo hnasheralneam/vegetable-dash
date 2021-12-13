@@ -8,19 +8,22 @@
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <link rel="shortcut icon" href="Images/Global Assets/logo.svg" type="image/x-icon">
    <link rel="stylesheet" href="home.css">
+   <link rel="stylesheet" href="cornerchat.css">
    <title>Home</title>
 </head>
 <body>
+   <!-- If signed in -->
    <% if (user !== "(not signed in)") { %>
       <div class="signed-in">
          <div class="signed-inner">
+            <!-- About your account -->
             <h2 style="color: #fff; font-family: 'Nunito';">Welcome, you are signed in as <%- user.name %></h2><br>
             <div class="opening">
-               <img class="havatar yourAvatar" src=<%= `Avatars/${user.avatar}.png` %>>
-               <p class="playButton" style="display: inline;"><a href="/sign-in">Play!</a></p><br><br><br><br>
-               <p>Ready to leave?</p><a href="/sign-out">Sign out!</a>
+               <img class="yourAvatar" src=<%= `Avatars/${user.avatar}.png` %>>
+               <p class="playButton" style="display: inline;"><a href="/sign-in">Vegetable Dash!</a></p><br><br><br><br>
+               <p class="stylish-p">Ready to leave?</p><a href="/sign-out">Sign out!</a>
             </div>
-            <br>
+            <!-- Friends -->
             <div class="opening friends">
                <p>Your Friends</p><br>
                <%users.forEach(function(someUser) {%>
@@ -78,18 +81,14 @@
                   <%})%>
                </div>
             </div>
-            <br>
+            <!-- See new game -->
             <div class="opening">
-               <h1>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <a href="/chat">Chat</a>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               </h1>
+               <h1><a href="/chat">Farm Run (WARNING - Still in Alpha)</a></h1>
             </div>
-            <br>
-            <div class="opening">
+            <!-- Choose a diffrent avatar -->
+            <h3 class="title" onclick="if (document.querySelector('.chatbox').classList.contains('open')) { document.querySelector('.chatbox').classList.remove('open'); } else { document.querySelector('.chatbox').classList.add('open'); } ">Chat</h3>
+            <div class="opening"><p class="stylish-p">Pick a new avatar</p></div>
+            <div class="opening choose-new-avatar open">
                <form action="choose-avatar" method="POST">
                   <div>
                       <label><input type="radio" name="avatar" value="1" checked><img class="choose-avatar" src="Avatars/1.png"></label>
@@ -109,11 +108,37 @@
                   </div>
                   <button class="post-button" type="text">Pick</button>
               </form>
+              <br><br>
+               <p class="stylish-p">Avatar icons made by <a href="https://www.flaticon.com/authors/vitaly-gorbachev" title="Vitaly Gorbachev">Vitaly Gorbachev</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></p>
             </div>
-            <br><br>
-            <p>Avatar icons made by <a href="https://www.flaticon.com/authors/vitaly-gorbachev" title="Vitaly Gorbachev">Vitaly Gorbachev</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></p>
          </div>
       </div>
+      <!-- Chat -->
+      <div class="chatbox">
+         <h3 class="title" onclick="if (document.querySelector('.chatbox').classList.contains('open')) { document.querySelector('.chatbox').classList.remove('open'); } else { document.querySelector('.chatbox').classList.add('open'); } ">Chat</h3>
+         <div class="messages">
+            <%foundItems.forEach(function(item) {%>
+               <% if (item.user == user.name) { %>
+                  <div class="message message-right">
+                     <img title="<%=item.user%> " class="image-right" src=<%= `Avatars/${item.avatar}.png` %>>
+                     <div class="shape-right"></div>
+                     <p><%=item.input%></p>
+                  </div>
+               <%} else { %>
+                  <div class="message">
+                     <img title="<%=item.user%> " class="image" src=<%= `Avatars/${item.avatar}.png` %>>
+                     <div class="shape"></div>
+                     <p><%=item.input%></p>
+                  </div>
+               <% } %>
+           <%})%>
+         </div>
+         <form action="chat-message" method="POST">
+            <input class="input" type="text" name="message" placeholder="Message..." required><br>
+            <button style="display: none;" class="chatbox-post" type="text">Post</button>
+        </form>
+      </div>
+   <!-- If not signed in -->
    <%} else { %>
       <div class="not-signed-in">
                <div class="not-signed-inner">

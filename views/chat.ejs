@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="chat.css">
+    <link rel="stylesheet" href="cornerchat.css">
 </head>
 <body  onmousemove="getCoords(event)">
     <% if (user !== "(not signed in)") { %>
@@ -49,90 +50,30 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- <style media="screen">
-            * {
-               padding: 0;
-               margin: 0;
-               font-size: 0;
-            }
-            .land {
-               /* background-color: #279ce6;
-               height: 60vh;
-               width: 60vh; */
-               padding: 10vh;
-               box-sizing: content-box;
-               margin: 25vh 0 0 10vh;
-               transform: rotate(45deg) skew(-15deg, -15deg);
-            }
-            .plot-spot {
-               height: 20vh;
-               width: 20vh;
-               display: inline-block;
-               box-sizing: margin-box;
-               padding: 0;
-               margin: 0;
-               position: relative;
-               overflow: hidden;
-               border: solid red .1vh;
-               background-color: blueviolet;
-            }
-            .plot-spot-img {
-               height: 20vh; 
-               width: 20vh;
-               position: absolute;
-               bottom: 0;
-               left: 0;
-               width: 30vh;
-               pointer-events: none;
-               /* transform: rotate(-45deg); */
-               background-color: #000;
-            }
-            .construction-option {
-               font-size: 5vh;
-            }
-         </style>
-         <div class="land"></div>
-         <div class="construction-option" onclick="placeHand = 'empty'">Demolish</div>
-         <div class="construction-option" onclick="placeHand = 'grass'">Lawn</div>
-         <div class="construction-option" onclick="placeHand = 'house'">House</div>
-         <div class="construction-option" onclick="placeHand = 'longhouse'">Longhouse</div> -->
-
-
-
-
-
-
-        <!-- <div class="messageBox">
+      <div class="chatbox">
+         <h3 class="title" onclick="if (document.querySelector('.chatbox').classList.contains('open')) { document.querySelector('.chatbox').classList.remove('open'); } else { document.querySelector('.chatbox').classList.add('open'); } ">Chat</h3>
+         <div class="messages">
             <%foundItems.forEach(function(item) {%>
-                <div class="message">
-                    <div>
-                        <img class="avatar" src=<%= `Avatars/${item.avatar}.png` %>><br>
-                        <h2 class="chatter"><%=item.user%></h2>
-                    </div>
-                    <h2 class="post"><%=item.input%></h2> 
-                </div>
-            <%})%>
-        </div> -->
-        <!-- <div class="postBox">
-            <form action="chat-message" method="POST">
-                <input class="message-box" type="text" name="message" placeholder="Message..." required><br>
-                <button class="post-button" type="text">Post</button>
-            </form>
-        </div> -->
+               <% if (item.user == user.name) { %>
+                  <div class="message message-right">
+                     <img title="<%=item.user%> " class="image-right" src=<%= `Avatars/${item.avatar}.png` %>>
+                     <div class="shape-right"></div>
+                     <p><%=item.input%></p>
+                  </div>
+               <%} else { %>
+                  <div class="message">
+                     <img title="<%=item.user%> " class="image" src=<%= `Avatars/${item.avatar}.png` %>>
+                     <div class="shape"></div>
+                     <p><%=item.input%></p>
+                  </div>
+               <% } %>
+           <%})%>
+         </div>
+         <form action="chat-message" method="POST">
+            <input class="input" type="text" name="message" placeholder="Message..." required><br>
+            <button style="display: none;" class="chatbox-post" type="text">Post</button>
+        </form>
+      </div>
      <%} else { %>
         <div class="not-signed-in">
                  <div class="not-signed-inner">

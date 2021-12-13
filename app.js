@@ -136,8 +136,6 @@ app.post("/chat-message", (req, res) => {
          })
       }
    });
-
-   res.redirect("/chat");
 });
 
 
@@ -161,7 +159,12 @@ app.post("/choose-avatar", (req, res) => {
 function goHome(res) {
    UserData.find((err, users) => {
       if (err) return console.error(err);
-      else { res.render("home", { user: signedInUser, UserData: UserData, users: users }); }
+      else {
+         Chat.find(function(err, found) {
+            if (err) { console.log(err); }
+            else { res.render("home", { user: signedInUser, UserData: UserData, users: users, foundItems: found }); }
+         });
+      }
    });
 }
 

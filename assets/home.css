@@ -2,16 +2,27 @@
    padding: 0;
    margin: 0;
 }
+
 body {
    background-image: url("Images/Background/background.svg");
    background-size: 100vw 100vh;
 }
 
-/* #9900ff #00ff88 */
-
-.havatar {
-   height: 12vh;
+.opening {
+   background-color: rgba(255, 255, 255, 0.85);
+   margin: 1vh;
+   padding: 3vh 2vh 3vh 1vh;
+   display: inline-block;
+   width: 90%;
+   border-radius: 2.5vh;
 }
+
+/* About your account */
+.yourAvatar {
+   height: 12vh;
+   margin: 0 0 -4vh 2vh;
+}
+
 .playButton {
    font-size: 4vh;
    display: flex;
@@ -22,9 +33,7 @@ body {
    padding: 3vh 3vw;
    margin: 5vh;
 }
-.yourAvatar {
-   margin: 0 0 -4vh 2vh;
-}
+
 .playButton a {
    color: #367335;
    text-decoration: none;
@@ -32,19 +41,14 @@ body {
    font-family: "Nunito";
    background-color: rgba(138, 243, 249, 0);
 }
+
 .playButton a:hover {
    color: #214b21;
    text-decoration: underline;
    background-color: rgba(138, 243, 249, 0);
 }
-.opening {
-   background-color: rgba(255, 255, 255, 0.85);
-   margin: 1vh;
-   padding: 3vh 2vh 3vh 1vh;
-   display: inline-block;
-   border-radius: 2.5vh;
-}
-p {
+
+.stylish-p {
    margin: 5vh 1vw;
    display: inline;
    color: #333;
@@ -56,9 +60,7 @@ p {
    border-radius: .5vh;
 
 }
-form {
-   display: inline;
-}
+
 a {
    color: #fff;
    text-decoration: none;
