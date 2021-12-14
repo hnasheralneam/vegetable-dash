@@ -15,7 +15,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/assets"));
 
 mongoose.Promise = global.Promise;
-mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_URL}`, { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true });
 
 const connection = mongoose.connection
 
