@@ -25,7 +25,7 @@ mongoose.set("useFindAndModify", false);
 
 // Mongoose things
 mongoose.Promise = global.Promise;
-mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_URL}`, { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true });
 
 // System things
 connection.on('error', console.error.bind(console, 'Connection error: '));
