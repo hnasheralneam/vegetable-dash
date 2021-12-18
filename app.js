@@ -24,7 +24,7 @@ mongoose.set("useFindAndModify", false);
 
 // Mongoose things
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect("mongodb+srv://Squirrel:HgtSzuyB8ookIVHq@test-user-data.daqv1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { useUnifiedTopology: true, useNewUrlParser: true });
 
 // System things
 connection.on('error', console.error.bind(console, 'Connection error: '));
@@ -114,34 +114,34 @@ app.get("/chat", (req, res) => {
 
 
 // For video
-const server = require("http").Server(app);
-const { v4: uuidv4 } = require("uuid");
-const io = require("socket.io")(server, { cors: { origin: "*" } });
-const { ExpressPeerServer } = require("peer");
-const peerServer = ExpressPeerServer(server, { debug: true, });
+// const server = require("http").Server(app);
+// const { v4: uuidv4 } = require("uuid");
+// const io = require("socket.io")(server, { cors: { origin: "*" } });
+// const { ExpressPeerServer } = require("peer");
+// const peerServer = ExpressPeerServer(server, { debug: true, });
 
-app.use("/peerjs", peerServer);
-app.use(express.static("public"));
+// app.use("/peerjs", peerServer);
+// app.use(express.static("public"));
 
-app.get("/start-room", (req, res) => {
-   res.redirect(`/${uuidv4()}`);
-});
+// app.get("/start-room", (req, res) => {
+//    res.redirect(`/${uuidv4()}`);
+// });
 
-app.get("/:room", (req, res) => {
-   res.render("room", { roomId: req.params.room });
-});
+// app.get("/:room", (req, res) => {
+//    res.render("room", { roomId: req.params.room });
+// });
 
-io.on("connection", (socket) => {
-   socket.on("join-room", (roomId, userId, userName) => {
-      socket.join(roomId);
-      socket.to(roomId).broadcast.emit("user-connected", userId);
-      socket.on("message", (message) => {
-         io.to(roomId).emit("createMessage", message, userName);
-      });
-   });
-});
+// io.on("connection", (socket) => {
+//    socket.on("join-room", (roomId, userId, userName) => {
+//       socket.join(roomId);
+//       socket.to(roomId).broadcast.emit("user-connected", userId);
+//       socket.on("message", (message) => {
+//          io.to(roomId).emit("createMessage", message, userName);
+//       });
+//    });
+// });
 
-server.listen(process.env.PORT || 3000);
+// server.listen(process.env.PORT || 3000);
 
 
 
@@ -304,7 +304,7 @@ app.post("/save-vegetable-dash", (req, res) => {
 });
 
 // That's it
-// app.listen(port);
+app.listen(port);
 
 
 
