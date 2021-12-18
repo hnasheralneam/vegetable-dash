@@ -24,7 +24,7 @@ mongoose.set("useFindAndModify", false);
 
 // Mongoose things
 mongoose.Promise = global.Promise;
-mongoose.connect(`link here`, { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect(`hi`, { useUnifiedTopology: true, useNewUrlParser: true });
 
 // System things
 connection.on('error', console.error.bind(console, 'Connection error: '));
@@ -141,7 +141,7 @@ io.on("connection", (socket) => {
    });
 });
 
-server.listen(process.env.PORT || 3030);
+server.listen(process.env.PORT || 3000);
 
 
 
