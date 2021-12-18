@@ -99,3 +99,8 @@
   .chatbox .input:focus {
     outline: none;
   }
+
+  .chatbox .time {
+    font-size: 2vh;
+    color: #595959;
+  }

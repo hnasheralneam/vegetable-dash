@@ -2,7 +2,6 @@
 // Data
 ============= */
 // System variables
-require('dotenv').config();
 var express = require("express");
 var mongoose = require("mongoose");
 var bodyParser = require('body-parser');
@@ -25,7 +24,7 @@ mongoose.set("useFindAndModify", false);
 
 // Mongoose things
 mongoose.Promise = global.Promise;
-mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_URL}`, { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect(`link here`, { useUnifiedTopology: true, useNewUrlParser: true });
 
 // System things
 connection.on('error', console.error.bind(console, 'Connection error: '));
@@ -48,7 +47,7 @@ const chatSchema = new mongoose.Schema({
    input: String,
    user: String,
    avatar: Number,
-   datePosted: Array
+   datePosted: Object
 });
 
 const UserData = mongoose.model('UserData', useDataSchema);
@@ -104,6 +103,57 @@ app.get("/chat", (req, res) => {
    })
 });
 
+
+
+
+
+
+
+
+
+
+
+// For video
+const server = require("http").Server(app);
+const { v4: uuidv4 } = require("uuid");
+const io = require("socket.io")(server, { cors: { origin: "*" } });
+const { ExpressPeerServer } = require("peer");
+const peerServer = ExpressPeerServer(server, { debug: true, });
+
+app.use("/peerjs", peerServer);
+app.use(express.static("public"));
+
+app.get("/start-room", (req, res) => {
+   res.redirect(`/${uuidv4()}`);
+});
+
+app.get("/:room", (req, res) => {
+   res.render("room", { roomId: req.params.room });
+});
+
+io.on("connection", (socket) => {
+   socket.on("join-room", (roomId, userId, userName) => {
+      socket.join(roomId);
+      socket.to(roomId).broadcast.emit("user-connected", userId);
+      socket.on("message", (message) => {
+         io.to(roomId).emit("createMessage", message, userName);
+      });
+   });
+});
+
+server.listen(process.env.PORT || 3030);
+
+
+
+
+
+
+
+
+
+
+
+
 // Temporary landings
 app.get("/account-created", (req, res) => {
    res.send("You succesfully created your account!<br><a href='/'>Back to homepage</a>");
@@ -140,7 +190,7 @@ app.post("/chat-message", (req, res) => {
       input: req.body.message,
       user: signedInUser.name,
       avatar: signedInUser.avatar,
-      datePosted: [new Date(), Date.now()]
+      datePosted: new Date()
    });
    newChat.save(function(err){
       if (err) {
@@ -254,7 +304,7 @@ app.post("/save-vegetable-dash", (req, res) => {
 });
 
 // That's it
-app.listen(port);
+// app.listen(port);
 
 
 

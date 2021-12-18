@@ -1471,13 +1471,21 @@
                <div class="message message-right">
                   <img title="<%=item.user%> " class="image-right" src=<%= `Avatars/${item.avatar}.png` %>>
                   <div class="shape-right"></div>
-                  <p><%=item.input%></p>
+                  <p>
+                     <%=item.input%>
+                     <br>
+                     <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
+                  </p>
                </div>
             <%} else { %>
                <div class="message">
                   <img title="<%=item.user%> " class="image" src=<%= `Avatars/${item.avatar}.png` %>>
                   <div class="shape"></div>
-                  <p><%=item.input%></p>
+                  <p>
+                     <%=item.input%>
+                     <br>
+                     <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
+                  </p>
                </div>
             <% } %>
         <%})%>
