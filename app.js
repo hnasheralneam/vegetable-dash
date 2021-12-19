@@ -2,11 +2,11 @@
 // Data
 ============= */
 // System variables
-var express = require("express");
-var mongoose = require("mongoose");
-var bodyParser = require('body-parser');
-var app = express();
-var port = process.env.PORT || 3000;
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require('body-parser');
+const app = express();
+const port = process.env.PORT || 3000;
 const connection = mongoose.connection
 
 // My varibles
@@ -114,34 +114,51 @@ app.get("/chat", (req, res) => {
 
 
 // For video
-// const server = require("http").Server(app);
-// const { v4: uuidv4 } = require("uuid");
-// const io = require("socket.io")(server, { cors: { origin: "*" } });
-// const { ExpressPeerServer } = require("peer");
-// const peerServer = ExpressPeerServer(server, { debug: true, });
+const server = require("http").Server(app);
+const { v4: uuidv4 } = require("uuid");
+const io = require("socket.io")(server, { cors: { origin: "*" } });
+const { ExpressPeerServer } = require("peer");
+const peerServer = ExpressPeerServer(server, { debug: true, });
 
-// app.use("/peerjs", peerServer);
-// app.use(express.static("public"));
+app.use("/peerjs", peerServer);
+app.use(express.static("public"));
 
-// app.get("/start-room", (req, res) => {
-//    res.redirect(`/${uuidv4()}`);
-// });
+app.get("/start-video", (req, res) => {
+   res.redirect(`/video-chat/${uuidv4()}`);  
+});
 
-// app.get("/:room", (req, res) => {
-//    res.render("room", { roomId: req.params.room });
-// });
+app.get("/video-chat/:room", (req, res) => {
+   res.render("room", { roomId: req.params.room });
+});
 
-// io.on("connection", (socket) => {
-//    socket.on("join-room", (roomId, userId, userName) => {
-//       socket.join(roomId);
-//       socket.to(roomId).broadcast.emit("user-connected", userId);
-//       socket.on("message", (message) => {
-//          io.to(roomId).emit("createMessage", message, userName);
-//       });
-//    });
-// });
+io.on("connection", (socket) => {
+   socket.on("join-room", (roomId, userId, userName) => {
+      socket.join(roomId);
+      socket.broadcast.emit("user-connected", userId);
+      socket.on("message", (message) => {
+         io.to(roomId).emit("createMessage", message, userName);
+      });
+   });
+   socket.on("disconnect", (roomId, userId, userName) => {
+      socket.broadcast.emit("user-disconnected", userId);
+   });
+});
 
-// server.listen(process.env.PORT || 3000);
+server.listen(port);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -304,7 +321,7 @@ app.post("/save-vegetable-dash", (req, res) => {
 });
 
 // That's it
-app.listen(port);
+// app.listen(port);
 
 
 
