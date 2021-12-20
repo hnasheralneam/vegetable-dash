@@ -132,14 +132,16 @@ app.get("/video-chat/:room", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-   socket.on("join-room", (roomId, userId, userName) => {
+   let userId;
+   socket.on("join-room", (roomId, usrId, userName) => {
+      userId = usrId;
       socket.join(roomId);
       socket.broadcast.emit("user-connected", userId);
       socket.on("message", (message) => {
          io.to(roomId).emit("createMessage", message, userName);
       });
    });
-   socket.on("disconnect", (roomId, userId, userName) => {
+   socket.on("disconnect", () => {
       socket.broadcast.emit("user-disconnected", userId);
    });
 });

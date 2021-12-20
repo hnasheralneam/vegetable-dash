@@ -14,9 +14,25 @@ const user = prompt("Enter your name");
 
 
 
-
-
-
+// Other
+// Send
+// var myVariable = 'this is a test';
+// var conn = peer.connect('another-peers-id');
+// conn.on('open', function() {
+//     conn.send(myVariable);
+// });
+// // Recive
+// peer.on('connection', function(conn) {
+//     conn.on('data', function(data) {
+//         // Will print 'this is a test'
+//         console.log(data);
+//     });
+// });
+let conn;
+let peerId;
+peer.on("open", function(id) {
+    peerId = id;
+});
 
 
 
@@ -27,26 +43,62 @@ navigator.mediaDevices
 .getUserMedia({ audio: true, video: true, })
 .then((stream) => {
     myVideoStream = stream;
+    myVideo.classList.add(`usr-${peer.id}`);
     addVideoStream(myVideo, stream);
+
+
     peer.on("call", (call) => {
         call.answer(stream);
         const video = document.createElement("video");
-        video.classList.add("somthing");
+        video.classList.add(`usr-${peerId}`);
         call.on("stream", (userVideoStream) => {
             addVideoStream(video, userVideoStream);
         });
     });
+
+    // Send previous usernames
+    // peer.on('connection', function(conn) { console.log("hi", peer.id); });
+    // peer.connect(peer.id);
+
+    // if (conn) {
+    //     console.log("ahoy")
+    //     conn.on('open', function() {
+    //         conn.send('umm3!');
+            
+    //         conn.send('Hello!');
+    //         conn.on('data', function(data) {
+    //             console.log('Received', data);
+    //           });
+    //     });
+    // }
+
+    // Other users?
     socket.on("user-connected", (userId) => {
+        console.log(userId, "connect");
         connectToNewUser(userId, stream);
+        // setupDataConn(userId);
+    });
+    socket.on("user-disconnected", (userId) => {
+        console.log(userId, "disconnect");
+        disconnectUser(userId);
     });
 });
 
 function connectToNewUser(userId, stream) {
     const call = peer.call(userId, stream);
     const video = document.createElement("video");
+    video.classList.add(`usr-${userId}`);
     call.on("stream", (userVideoStream) => {
         addVideoStream(video, userVideoStream);
     });
+}
+
+function setupDataConn(userId) {
+    // conn = peer.connect(userId);
+}
+
+function disconnectUser(userId, stream) {
+    document.querySelector(`.usr-${userId}`).remove();
 }
 
 peer.on("open", (id) => {
