@@ -131,17 +131,26 @@ app.get("/video-chat/:room", (req, res) => {
    res.render("room", { roomId: req.params.room });
 });
 
+let listOfPeers = [];
+
+peerServer.on("connection", (data) => {
+   listOfPeers.push(data.id);
+});
+
 io.on("connection", (socket) => {
+   // socket.broadcast.emit("user-connected", socket.id);
    let userId;
    socket.on("join-room", (roomId, usrId, userName) => {
       userId = usrId;
       socket.join(roomId);
+      socket.emit("listOfPeers", listOfPeers);
       socket.broadcast.emit("user-connected", userId);
       socket.on("message", (message) => {
          io.to(roomId).emit("createMessage", message, userName);
       });
    });
    socket.on("disconnect", () => {
+      if (listOfPeers.indexOf(5) > -1) { listOfPeers.splice(listOfPeers.indexOf(userId), 1); }
       socket.broadcast.emit("user-disconnected", userId);
    });
 });
