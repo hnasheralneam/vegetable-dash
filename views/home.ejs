@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com">
    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Capriola&display=swap" rel="stylesheet">
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -30,7 +32,19 @@
             <p class="stylish-p" onclick="if (document.querySelector('.friends').classList.contains('open')) { document.querySelector('.friends').classList.remove('open'); } else { document.querySelector('.friends').classList.add('open'); } ">Friends</p>
             <!-- Choose a diffrent avatar -->
             <p class="stylish-p" onclick="if (document.querySelector('.choose-new-avatar').classList.contains('open')) { document.querySelector('.choose-new-avatar').classList.remove('open'); } else { document.querySelector('.choose-new-avatar').classList.add('open'); } ">Pick a new avatar</p>
+            <!-- Create a private chat -->
+            <p class="stylish-p" onclick="if (document.querySelector('.createChat').classList.contains('open')) { document.querySelector('.createChat').classList.remove('open'); } else { document.querySelector('.createChat').classList.add('open'); } ">Make a chat</p>
          </div>
+      </div>
+      <!-- Create new private chat -->
+      <div class="createChat">
+         <p class="title">Make a private chat</p><br>
+         <p class="p-tag">1. Name the chat</p>
+         <p class="p-tag">2. Choose who to invite</p>
+         <p class="p-tag">3. Create it!</p>
+         <button>Let's go!</button>
+         <button class="second-button" onclick="if (document.querySelector('.createChat').classList.contains('open')) { document.querySelector('.createChat').classList.remove('open'); } else { document.querySelector('.createChat').classList.add('open'); } ">Let's not!</button>
+         <button class="third-button">Let's stay!</button>
       </div>
       <!-- Friends -->
       <div class="friends">

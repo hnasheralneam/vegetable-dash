@@ -223,3 +223,77 @@ a:hover {
 .friend-button:focus {
    transform: scale(.95);
 }
+
+/* Private Chat */
+.createChat.open {
+   position: fixed;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   background-color: rgba(255, 255, 255, .95);
+   padding: 8vh 24vh;
+   text-align: center;
+   overflow: scroll;
+   /* transform: scale(1.5); */
+}
+
+.createChat .title {
+   font-family: "Capriola";
+   text-transform: uppercase;
+   font-size: 8vh;
+   margin-bottom: 3vh;
+   color: #8bf9c2;
+   text-shadow: .5vh .5vh #44a89b;
+}
+
+.createChat .p-tag {
+   font-family: "Capriola";
+   text-transform: uppercase;
+   font-size: 4vh;
+   margin-bottom: 2vh;
+   color: #64bbf5;
+   text-shadow: .2vh .2vh #2f6c8f;
+}
+
+.createChat button {
+   font-family: "Capriola";
+   text-transform: uppercase;
+   font-size: 4vh;
+   color: #fff;
+   background-color: #6466f5;
+   box-shadow: .5vh .5vh #6b2fcc;
+   border-radius: .75vh;
+   border: none;
+   outline: none;
+   padding: 1vh;
+   margin: 2vh;
+   display: inline-block;
+   transition: .2s linear;
+}
+
+.createChat button:hover {
+   transform: translate(-.5vh, -.5vh);
+   box-shadow: .5vh .5vh #6b2fcc,
+               1vh 1vh #6b2fcc;
+}
+
+.createChat .second-button {
+   background-color: #f56464;
+   box-shadow: .5vh .5vh #ad3b1e;
+}
+
+.createChat .second-button:hover {
+   box-shadow: .5vh .5vh #ad3b1e,
+               1vh 1vh #ad3b1e;
+}
+
+.createChat .third-button {
+   background-color: #57e452;
+   box-shadow: .5vh .5vh #109732;
+}
+
+.createChat .third-button:hover {
+   box-shadow: .5vh .5vh #109732,
+               1vh 1vh #109732;
+}
