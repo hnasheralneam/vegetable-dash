@@ -62,7 +62,16 @@ UserData.find((err, users) => {
    for (i = 0; i < users.length; i++) {
       if (!namesList.includes(users[i].name)) { namesList.push(users[i].name); }
    }
-}).then(item => { dataDone = true; })
+}).then(item => { dataDone = true; });
+
+setInterval(() => {
+   if (signedInUser != "(not signed in)") {
+      UserData.findOne({ name: signedInUser.name }, (err, user) => {
+         if (err) return console.error(err);
+         else { signedInUser = user; }
+      });
+   }
+}, 2500);
 
 /* =============
 // Post requests
@@ -321,14 +330,13 @@ app.post("/accept-friend-request", (req, res) => {
 
 // Save Vegetable Dash data - NEEDS FIXING
 app.post("/save-vegetable-dash", (req, res) => {
-   let inputSave = JSON.parse(req.body.gamesave);
+   let inputSave = req.body;
    UserData.findOneAndUpdate(
       { name: signedInUser.name },
       { gameSave: inputSave },
       { new: true },
-      function (err, doc) { if (err) { return console.error(err); } else { res.redirect("back"); } }
+      function (err, doc) { if (err) { return console.error(err); } else { res.send("Misson Success!"); } }
    );
-   
 });
 
 // That's it

@@ -31,8 +31,18 @@ function save() {
       settings: settings,
       taskList: taskList
    }
-   document.querySelector(".data-save").value = JSON.stringify(saveObject, replacer);
-   document.querySelector(".post-save").click();
+   let saveJSON = JSON.stringify(saveObject);
+   $.ajax({
+      type: "POST",
+      contentType: "application/json",
+      data: saveJSON,
+      url: "/save-vegetable-dash",
+   }).done(function(response){
+      // Misson Success!
+   }).fail(function(xhr, textStatus, errorThrown) {
+      console.log("ERROR: ", errorThrown);
+      return xhr.responseText;
+   });
 }
 
 var plotStatus = userData.gameSave.plotStatus;
@@ -41,12 +51,6 @@ plots = userData.gameSave.plots;
 marketData = userData.gameSave.market;
 var settings = userData.gameSave.settings;
 taskList = userData.gameSave.taskList;
-
-
-
-
-
-
 
 settings.loadtime = findAvg(settings.loadtimes);
 
@@ -1251,7 +1255,7 @@ const replacer = (key, value) => {
    else { return value; }
 }
 
-let saveLoop = window.setInterval(function() { save(); }, 15000);
+let saveLoop = window.setInterval(function() { save(); }, 5000);
 
 if (settings.intro != "finished") {
    plotStatus = JSON.parse(localStorage.getItem("plotStatus"));
