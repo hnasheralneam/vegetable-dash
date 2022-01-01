@@ -969,8 +969,8 @@
       </div>
       <!-- Command Panel/Bar -->
       <div class="command-panel">
-         <img onmouseover="info(this)" data-info="Market" onclick="showObj('.marketShadow'); settings.marketOpen = true;" class="commandBarImg" src="Images/Icons/market.svg">
-         <img onmouseover="info(this)" data-info="Settings" onclick="showObj('.settingShadow'); settings.settingsOpen = true;" class="commandBarImg" src="Images/Icons/settings.svg">
+         <img onmouseover="info(this)" data-info="Market" onclick="showObj('.marketShadow'); gameData.marketOpen = true;" class="commandBarImg" src="Images/Icons/market.svg">
+         <img onmouseover="info(this)" data-info="Settings" onclick="showObj('.settingShadow'); gameData.settingsOpen = true;" class="commandBarImg" src="Images/Icons/settings.svg">
          <label class="switch">
             <input type="checkbox" checked>
             <span class="slider" onmouseover="commandBar()"></span>
@@ -981,7 +981,7 @@
          <div class="market">
             <div class="marketVegetables">
                <div class="market-item">
-                  <button onclick="hideObj('.marketShadow'); settings.marketOpen = false;" class="hide-market">&#215;</button>
+                  <button onclick="hideObj('.marketShadow'); gameData.marketOpen = false;" class="hide-market">&#215;</button>
                   <div class="market-item-content special-market-item">Seeds: 0</div>
                </div>
                <div class="market-item">
@@ -1065,7 +1065,7 @@
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content blackMarketHome" onclick="showObj('.blackMarketShadow'); settings.blackMarketOpen = true;">
+               <div class="market-item-content blackMarketHome" onclick="showObj('.blackMarketShadow'); gameData.blackMarketOpen = true;">
                   <span style="font-size: 10vh; font-weight: 800; font-family: 'Nunito'">Black Market</span>
                </div>
             </div>
@@ -1089,7 +1089,7 @@
       <!-- Settings -->
       <div class="shadow settingShadow">
          <div class="modalContent settings">
-            <span onclick="hideObj('.settingShadow'); settings.settingsOpen = false;" class="closeModal">X</span>
+            <span onclick="hideObj('.settingShadow'); gameData.settingsOpen = false;" class="closeModal">X</span>
             <h1>Settings</h1>
             <button class="setting-button" onclick="restart()">Restart</button>
             <button class="setting-button theme-color" onclick="lightTheme()">Light</button>
@@ -1102,7 +1102,7 @@
       <!-- Black Market -->
       <div class="shadow blackMarketShadow">
          <div class="modalContent blackMarket">
-            <span onclick="hideObj('.blackMarketShadow'); settings.blackMarketOpen = false;" class="closeModal">X</span>
+            <span onclick="hideObj('.blackMarketShadow'); gameData.blackMarketOpen = false;" class="closeModal">X</span>
             <h3>Black Market</h3>
             <div class="doughnut-parent">
                <div class="more-info-tooltip more-info-tooltip-black">
@@ -1214,10 +1214,10 @@
             </div> -->
          </div>
          <!-- Help -->
-         <img onmouseover="info(this)" data-info="Help" class="help-center-img" onclick="showObj('.help-shadow'); settings.helpOpen = true;" src="Images/Icons/help.svg">
+         <img onmouseover="info(this)" data-info="Help" class="help-center-img" onclick="showObj('.help-shadow'); gameData.helpOpen = true;" src="Images/Icons/help.svg">
          <div class="shadow help-shadow">
             <div class="help">
-               <button onclick="hideObj('.help-shadow'); settings.helpOpen = false;" class="close depth-button blue closeModalHelp">×</button>
+               <button onclick="hideObj('.help-shadow'); gameData.helpOpen = false;" class="close depth-button blue closeModalHelp">×</button>
                <div class="help-subjects">
                   <div class="help-subjects-item help-subjects-item-center" onclick="scrollToSection('help-center')">Center</div>
                   <div class="help-subjects-item help-subjects-item-planting" onclick="scrollToSection('help-planting')">Planting</div>
