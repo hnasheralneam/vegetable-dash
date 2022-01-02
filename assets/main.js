@@ -122,6 +122,20 @@ function plantGrowing(veg) {
    else { return true; }
 }
 
+function plantStatus(checkfor, veg) {
+   switch (checkfor) {
+      case "g-or-e": // For fertilizer
+         if (["Ready", "Locked", "withered"].indexOf(gameData[`${veg}Status`]) + 1) { return false; }
+         else { return true; }
+      case "r-or-e": // For tend
+         if (["Ready", "Empty"].indexOf(gameData[`${veg}Status`]) + 1) { return true; }
+         else { return false; }
+      case "g": // ?
+         if (["Ready", "Empty", "Locked", "withered"].indexOf(gameData[`${veg}Status`]) + 1) { return false; }
+         else { return true; }
+   }
+}
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Weather
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -154,14 +168,14 @@ let updateWeather = window.setInterval(function() {
    if (gameData.weather.weather === "snowy" && gameData.weather.hasBeenPunished === false) {
       let unluckyVeg = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
       let amountLost = Math.floor(gameData[unluckyVeg] /= 3);
-      gameData[unluckyVeg] -= amountLost;
+      if (amountLost > 0) { gameData[unluckyVeg] -= amountLost; }
       callAlert(`It has snowed! You lost ${amountLost} ${unluckyVeg}!`);
       gameData.weather.hasBeenPunished = true;
    }
    if (gameData.weather.weather === "flood" && gameData.weather.hasBeenPunished === false) {
       let unluckyVeg = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
       let amountLost = Math.floor(gameData[unluckyVeg] /= 5);
-      gameData[unluckyVeg] -= amountLost;
+      if (amountLost > 0) { gameData[unluckyVeg] -= amountLost; }
       callAlert(`It has flooded! You lost ${amountLost} ${unluckyVeg}!`);
       gameData.weather.hasBeenPunished = true;
    }
@@ -399,7 +413,7 @@ function collectWeed(THIS) {
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Unlock gameData
+// Unlock Plots
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function showBuyPlot() {
@@ -959,14 +973,14 @@ aEL(77, toggleMarket); // Shift + M
 aEL(65, tendAll); // Shift + A
 
 function tendAll() {
-   if ("working" !== gameData["peas"]) { tend('peas'); }
-   if (gameData.cornStatus != "Locked" && "working" !== gameData["corn"]) { tend('corn'); }
-   if (gameData.strawberriesStatus != "Locked" && "working" !== gameData["strawberries"]) { tend('strawberries'); }
-   if (gameData.eggplantsStatus != "Locked" && "working" !== gameData["eggplants"]) { tend('eggplants'); }
-   if (gameData.pumpkinsStatus != "Locked" && "working" !== gameData["pumpkins"]) { tend('pumpkins'); }
-   if (gameData.cabbageStatus != "Locked" && "working" !== gameData["cabbage"]) { tend('cabbage'); }
-   if (gameData.dandelionStatus != "Locked" && "working" !== gameData["dandelion"]) { tend('dandelion'); }
-   if (gameData.rhubarbStatus != "Locked" && "working" !== gameData["rhubarb"]) { tend('rhubarb'); }
+   if (plantStatus("r-or-e", "peas")) { tend('peas'); }
+   if (plantStatus("r-or-e", "corn")) { tend('corn'); }
+   if (plantStatus("r-or-e", "strawberries")) { tend('strawberries'); }
+   if (plantStatus("r-or-e", "eggplants")) { tend('eggplants'); }
+   if (plantStatus("r-or-e", "pumpkins")) { tend('pumpkins'); }
+   if (plantStatus("r-or-e", "cabbage")) { tend('cabbage'); }
+   if (plantStatus("r-or-e", "dandelion")) { tend('dandelion'); }
+   if (plantStatus("r-or-e", "rhubarb")) { tend('rhubarb'); }
 }
 
 function taskBar(whatToDo) {
@@ -1126,58 +1140,57 @@ function fertilizeHover() {
    }
 }
 
-setInterval(() => {
+let cursorInterval = setInterval(() => {
    if (harvestCursor === "active" && mouseDown === 1) { mouseWasDown = true; }
    if (harvestCursor !== "active") { mouseWasDown = false; }
    if (mouseDown === 0 && mouseWasDown === true) { harvestDrag(); }
    if (plantCursor === "active" && mouseDown === 1) { plntMouseWasDown = true; }
    if (plantCursor !== "active") { plntMouseWasDown = false; }
    if (mouseDown === 0 && plntMouseWasDown === true) { plantDrag(); }
-}, 100)
-/*
+}, 100);
+
+// Harvest and plant drag
 $("#plot1").mouseenter(() => {
-   if (mouseDown === 1 && plantCursor === "active" && "working" !== gameData["peas"]) { tend('peas'); }
-   if (mouseDown === 1 && harvestCursor === "active" && Date.now() >= gameData["peasReady"]) { tend('peas'); }
+   if (mouseDown === 1 && plantCursor === "active" && plantStatus("r-or-e", "peas")) { tend('peas'); }
 });
 $("#plot2").mouseenter(() => {
-   if (mouseDown === 1 && plantCursor === "active" && gameData.cornStatus != "Locked" && "working" !== gameData["corn"]) { tend('corn'); }
-   if (mouseDown === 1 && harvestCursor === "active" && gameData.cornStatus != "Locked" && Date.now() >= gameData["cornReady"]) { tend('corn'); }
+   if (mouseDown === 1 && plantCursor === "active" && plantStatus("r-or-e", "corn")) { tend('corn'); }
 });
 $("#plot3").mouseenter(() => {
-   if (mouseDown === 1 && plantCursor === "active" && gameData.strawberriesStatus != "Locked" && "working" !== gameData["strawberries"]) { tend('strawberries'); }
-   if (mouseDown === 1 && harvestCursor === "active" && gameData.strawberriesStatus != "Locked" && Date.now() >= gameData["strawberriesReady"]) { tend('strawberries'); }
+   if (mouseDown === 1 && plantCursor === "active" && plantStatus("r-or-e", "strawberries")) { tend('strawberries'); }
 });
 $("#plot4").mouseenter(() => {
-   if (mouseDown === 1 && plantCursor === "active" && gameData.eggplantsStatus != "Locked" && "working" !== gameData["eggplants"]) { tend('eggplants'); }
-   if (mouseDown === 1 && harvestCursor === "active" && gameData.eggplantsStatus != "Locked" && Date.now() >= gameData["eggplantsReady"]) { tend('eggplants'); }
+   if (mouseDown === 1 && plantCursor === "active" && plantStatus("r-or-e", "eggplants")) { tend('eggplants'); }
 });
 $("#plot6").mouseenter(() => {
-   if (mouseDown === 1 && plantCursor === "active" && gameData.pumpkinsStatus != "Locked" && "working" !== gameData["pumpkins"]) { tend('pumpkins'); }
-   if (mouseDown === 1 && harvestCursor === "active" && gameData.pumpkinsStatus != "Locked" && Date.now() >= gameData["pumpkinsReady"]) { tend('pumpkins'); }
+   if (mouseDown === 1 && plantCursor === "active" && plantStatus("r-or-e", "pumpkins")) { tend('pumpkins'); }
 });
 $("#plot7").mouseenter(() => {
-   if (mouseDown === 1 && plantCursor === "active" && gameData.cabbageStatus != "Locked" && "working" !== gameData["cabbage"]) { tend('cabbage'); }
-   if (mouseDown === 1 && harvestCursor === "active" && gameData.cabbageStatus != "Locked" && Date.now() >= gameData["cabbageReady"]) { tend('cabbage'); }
+   if (mouseDown === 1 && plantCursor === "active" && plantStatus("r-or-e", "cabbage")) { tend('cabbage'); }
 });
 $("#plot8").mouseenter(() => {
-   if (mouseDown === 1 && plantCursor === "active" && gameData.dandelionStatus != "Locked" && "working" !== gameData["dandelion"]) { tend('dandelion'); }
-   if (mouseDown === 1 && harvestCursor === "active" && gameData.dandelionStatus != "Locked" && Date.now() >= gameData["dandelionReady"]) { tend('dandelion'); }
+   if (mouseDown === 1 && plantCursor === "active" && plantStatus("r-or-e", "dandelion")) { tend('dandelion'); }
 });
 $("#plot9").mouseenter(() => {
-   if (mouseDown === 1 && plantCursor === "active" && gameData.rhubarbStatus != "Locked" && "working" !== gameData["rhubarb"]) { tend('rhubarb'); }
-   if (mouseDown === 1 && harvestCursor === "active" && gameData.rhubarbStatus != "Locked" && Date.now() >= gameData["rhubarbReady"]) { tend('rhubarb'); }
+   if (mouseDown === 1 && plantCursor === "active" && plantStatus("r-or-e", "rhubarb")) { tend('rhubarb'); }
 });
-*/
-/*
-document.querySelector("#plot1").addEventListener("click", event => { if (fertilizerCursor === "active" && gameData.peasStatus != "Locked" || "Ready") { fertilize("peas"); fertilizeHover(); } });
-document.querySelector("#plot2").addEventListener("click", event => { if (fertilizerCursor === "active" && gameData.cornStatus != "Locked" || "Ready") { fertilize("corn"); fertilizeHover(); } });
-document.querySelector("#plot3").addEventListener("click", event => { if (fertilizerCursor === "active" && gameData.strawberriesStatus != "Locked" || "Ready") { fertilize("strawberries"); fertilizeHover(); } });
-document.querySelector("#plot4").addEventListener("click", event => { if (fertilizerCursor === "active" && gameData.eggplantsStatus != "Locked" || "Ready") { fertilize("eggplants"); fertilizeHover(); } });
-document.querySelector("#plot6").addEventListener("click", event => { if (fertilizerCursor === "active" && gameData.pumpkinsStatus != "Locked" || "Ready") { fertilize("pumpkins"); fertilizeHover(); } });
-document.querySelector("#plot7").addEventListener("click", event => { if (fertilizerCursor === "active" && gameData.cabbageStatus != "Locked" || "Ready") { fertilize("cabbage"); fertilizeHover(); } });
-document.querySelector("#plot8").addEventListener("click", event => { if (fertilizerCursor === "active" && gameData.dandelionStatus != "Locked" || "Ready") { fertilize("dandelion"); fertilizeHover(); } });
-document.querySelector("#plot9").addEventListener("click", event => { if (fertilizerCursor === "active" && gameData.rhubarbStatus != "Locked" || "Ready") { fertilize("rhubarb"); fertilizeHover(); } });
-*/
+
+// Fertilizer Cursor
+fertilizerListener(1, "peas");
+fertilizerListener(2, "corn");
+fertilizerListener(3, "strawberries");
+fertilizerListener(4, "eggplants");
+fertilizerListener(6, "pumpkins");
+fertilizerListener(7, "cabbage");
+fertilizerListener(8, "dandelion");
+fertilizerListener(9, "rhubarb");
+
+function fertilizerListener(plotNum, veg) {
+   document.querySelector(`#plot${plotNum}`).addEventListener("click", event => {
+      if (fertilizerCursor === "active" && plantStatus("g-or-e", veg)) { fertilize(veg); fertilizeHover(); }
+   });
+}
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Settings
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1230,10 +1243,6 @@ for (key of initalGameDataKeys) { if (gameData[key] === undefined) { gameData[ke
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // NOT Save
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-// Send to mobile
-// if (isMobile()) { document.location = "https://vegetable-dash-beta.herokuapp.com/mobile.html"; }
-// function isMobile() { return ('ontouchstart' in document.documentElement); }
 
 // Load
 if (Math.random() > .80) { document.querySelector(".meter").classList.add("red-load"); }
