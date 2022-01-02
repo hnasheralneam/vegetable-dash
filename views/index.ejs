@@ -11,8 +11,10 @@
       <script src="https://squirrel-314.github.io/digit/main.js" charset="utf-8"></script>
       <link rel="shortcut icon" href="Images/Global Assets/logo.svg" type="image/x-icon">
       <link rel="stylesheet" href="styles.css">
+      <link rel="stylesheet" href="cornerchat.css">
       <title>Vegetable Dash!</title>
    </head>
+   <% if (user !== "(not signed in)") { %>
    <body ondragstart="return false;" onmousemove="getCoords(event)">
       <div class="cover">
          <div class="meter">
@@ -967,8 +969,8 @@
       </div>
       <!-- Command Panel/Bar -->
       <div class="command-panel">
-         <img onmouseover="info(this)" data-info="Market" onclick="showObj('.marketShadow'); settings.marketOpen = true;" class="commandBarImg" src="Images/Icons/market.svg">
-         <img onmouseover="info(this)" data-info="Settings" onclick="showObj('.settingShadow'); settings.settingsOpen = true;" class="commandBarImg" src="Images/Icons/settings.svg">
+         <img onmouseover="info(this)" data-info="Market" onclick="showObj('.marketShadow'); gameData.marketOpen = true;" class="commandBarImg" src="Images/Icons/market.svg">
+         <img onmouseover="info(this)" data-info="Settings" onclick="showObj('.settingShadow'); gameData.settingsOpen = true;" class="commandBarImg" src="Images/Icons/settings.svg">
          <label class="switch">
             <input type="checkbox" checked>
             <span class="slider" onmouseover="commandBar()"></span>
@@ -979,7 +981,7 @@
          <div class="market">
             <div class="marketVegetables">
                <div class="market-item">
-                  <button onclick="hideObj('.marketShadow'); settings.marketOpen = false;" class="hide-market">&#215;</button>
+                  <button onclick="hideObj('.marketShadow'); gameData.marketOpen = false;" class="hide-market">&#215;</button>
                   <div class="market-item-content special-market-item">Seeds: 0</div>
                </div>
                <div class="market-item">
@@ -1063,7 +1065,7 @@
                </div>
             </div>
             <div class="market-item">
-               <div class="market-item-content blackMarketHome" onclick="showObj('.blackMarketShadow'); settings.blackMarketOpen = true;">
+               <div class="market-item-content blackMarketHome" onclick="showObj('.blackMarketShadow'); gameData.blackMarketOpen = true;">
                   <span style="font-size: 10vh; font-weight: 800; font-family: 'Nunito'">Black Market</span>
                </div>
             </div>
@@ -1087,7 +1089,7 @@
       <!-- Settings -->
       <div class="shadow settingShadow">
          <div class="modalContent settings">
-            <span onclick="hideObj('.settingShadow'); settings.settingsOpen = false;" class="closeModal">X</span>
+            <span onclick="hideObj('.settingShadow'); gameData.settingsOpen = false;" class="closeModal">X</span>
             <h1>Settings</h1>
             <button class="setting-button" onclick="restart()">Restart</button>
             <button class="setting-button theme-color" onclick="lightTheme()">Light</button>
@@ -1095,22 +1097,12 @@
             <button class="setting-button theme-color" onclick="darkTheme()">Dark</button>
             <button class="setting-button" onclick="togglePlay()">Music</button>
             <audio class="mozart" src="Audio/mozart.mp3"></audio>
-            <br>
-            <div class="import-export-tooltip">
-               <img onclick="importSave();" class="save-export-img" src="Images/Global Assets/import-save.svg">
-               <span class="import-export-tooltip-text">Import Save</span>
-            </div>
-            <div class="import-export-tooltip">
-               <img onclick="exportSave(); fadeTextAppear(event, `Save Copied to Clipboard!`, 'darkFadeText', '#00bade');" class="save-export-img" src="Images/Global Assets/export-save.svg">
-               <span class="import-export-tooltip-text">Export Save</span>
-            </div>
-            <p style="display: none;" class="stringSave"></p>
          </div>
       </div>
       <!-- Black Market -->
       <div class="shadow blackMarketShadow">
          <div class="modalContent blackMarket">
-            <span onclick="hideObj('.blackMarketShadow'); settings.blackMarketOpen = false;" class="closeModal">X</span>
+            <span onclick="hideObj('.blackMarketShadow'); gameData.blackMarketOpen = false;" class="closeModal">X</span>
             <h3>Black Market</h3>
             <div class="doughnut-parent">
                <div class="more-info-tooltip more-info-tooltip-black">
@@ -1174,11 +1166,58 @@
       </div>
       <!-- Other -->
       <div>
+         <div class="shadow test-shadow">
+            <div class="codeSampleHolder">
+               <div class="dark-code codeTest">
+                  <span class="js-function">function</span> <span class="js-varible">aNewFunction</span> { <br>
+                  &emsp;<span class="js-loopForIf">if</span> (<span class="js-varible">someNum</span> <span class="js-math">!==</span> <span class="num">39</span>) {<br>
+                  &emsp;&emsp;<span class="js-declaration">let</span> <span class="js-varible">someNum</span> <span class="js-math">=</span> <span class="num">27</span>;<br>
+                  &emsp;}<br>
+                  }
+               </div>
+               <div class="dark-code codeTest">
+                  <span class="js-function">function</span> <span class="js-varible">aNewFunction</span> { <br>
+                  &emsp;<span class="js-loopForIf">if</span> (<span class="js-varible">someNum</span> <span class="js-math">!==</span> <span class="num">39</span>) {<br>
+                  &emsp;&emsp;<span class="js-declaration">let</span> <span class="js-varible">someNum</span> <span class="js-math">=</span> <span class="num">27</span>;<br>
+                  &emsp;}<br>
+                  }
+               </div>
+               <div class="dark-code codeTest">
+                  <span class="js-function">function</span> <span class="js-varible">aNewFunction</span> { <br>
+                  &emsp;<span class="js-loopForIf">if</span> (<span class="js-varible">someNum</span> <span class="js-math">!==</span> <span class="num">39</span>) {<br>
+                  &emsp;&emsp;<span class="js-declaration">let</span> <span class="js-varible">someNum</span> <span class="js-math">=</span> <span class="num">27</span>;<br>
+                  &emsp;}<br>
+                  }
+               </div>
+               <div class="dark-code codeTest">
+                  <span class="js-function">function</span> <span class="js-varible">aNewFunction</span> { <br>
+                  &emsp;<span class="js-loopForIf">if</span> (<span class="js-varible">someNum</span> <span class="js-math">!==</span> <span class="num">39</span>) {<br>
+                  &emsp;&emsp;<span class="js-declaration">let</span> <span class="js-varible">someNum</span> <span class="js-math">=</span> <span class="num">27</span>;<br>
+                  &emsp;}<br>
+                  }
+               </div>
+               <div class="dark-code codeTest">
+                  <span class="js-function">function</span> <span class="js-varible">aNewFunction</span> { <br>
+                  &emsp;<span class="js-loopForIf">if</span> (<span class="js-varible">someNum</span> <span class="js-math">!==</span> <span class="num">39</span>) {<br>
+                  &emsp;&emsp;<span class="js-declaration">let</span> <span class="js-varible">someNum</span> <span class="js-math">=</span> <span class="num">27</span>;<br>
+                  &emsp;}<br>
+                  }
+               </div>
+            </div>
+            
+            <!-- <div class="light-code">
+               <span class="js-function">function</span> <span class="js-varible">aNewFunction</span> { <br>
+               &emsp;<span class="js-loopForIf">if</span> (<span class="js-varible">someNum</span> <span class="js-math">!==</span> <span class="num">39</span>) {<br>
+               &emsp;&emsp;<span class="js-declaration">let</span> <span class="js-varible">someNum</span> <span class="js-math">=</span> <span class="num">27</span>;<br>
+               &emsp;}<br>
+               }
+            </div> -->
+         </div>
          <!-- Help -->
-         <img onmouseover="info(this)" data-info="Help" class="help-center-img" onclick="showObj('.help-shadow'); settings.helpOpen = true;" src="Images/Icons/help.svg">
+         <img onmouseover="info(this)" data-info="Help" class="help-center-img" onclick="showObj('.help-shadow'); gameData.helpOpen = true;" src="Images/Icons/help.svg">
          <div class="shadow help-shadow">
             <div class="help">
-               <button onclick="hideObj('.help-shadow'); settings.helpOpen = false;" class="close depth-button blue closeModalHelp">×</button>
+               <button onclick="hideObj('.help-shadow'); gameData.helpOpen = false;" class="close depth-button blue closeModalHelp">×</button>
                <div class="help-subjects">
                   <div class="help-subjects-item help-subjects-item-center" onclick="scrollToSection('help-center')">Center</div>
                   <div class="help-subjects-item help-subjects-item-planting" onclick="scrollToSection('help-planting')">Planting</div>
@@ -1187,7 +1226,7 @@
                   <div class="help-subjects-item help-subjects-item-seeds" onclick="scrollToSection('help-seeds')">Seeds</div>
                   <div class="help-subjects-item help-subjects-item-market" onclick="scrollToSection('help-market')">Market</div>
                   <div class="help-subjects-item help-subjects-item-market-exchanges" onclick="scrollToSection('help-market-exchanges')">Market Exchanges</div>
-                  <div class="help-subjects-item" onclick="scrollToSection('help-black-market')">Black Market</div>
+                  <div class="help-subjects-item help-subjects-item-black-market" onclick="scrollToSection('help-black-market')">Black Market</div>
                   <div class="help-subjects-item help-subjects-item-market-resets" onclick="scrollToSection('help-market-resets')">Market Resets</div>
                   <div class="help-subjects-item help-subjects-item-fertilizer" onclick="scrollToSection('help-fertilizer')">Fertilizer</div>
                   <div class="help-subjects-item help-subjects-item-tasks" onclick="scrollToSection('help-tasks')">Tasks</div>
@@ -1205,29 +1244,30 @@
                   <div id="help-center">
                      <h1>Help Center</h1>
                      <p>This is an incomplete guide of Vegetable Dash. If any old or experienced players want to make changes or add new pages, email me here: thehillsidetownship@gmail.com</p>
+                     <p>hello?</p>
                   </div>
                   <div id="help-planting">
                      <h1>Planting</h1>
-                     <p>Just press the button that says grow, then use a rare and powerful skill called <em>patience</em>, and wait until it says <span onclick="scrollToSection('help-harvesting'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-harvesting').addClass('help-subjects-item-active');">harvest</span>.</p>
+                     <p>Just press the button that says grow, then use a rare and powerful skill called <em>patience</em>, and wait until it says <span onclick="hlpScrl('harvesting')">Harvest</span>.</p>
                      <img src="Images/Help/plant-harvest.gif" style="height: 50vh">
                   </div>
                   <div id="help-harvesting">
                      <h1>Harvesting</h1>
-                     <p>A button shall appear out of thin air, and written on it shall be that wonderful word: Harvest [Vegetable Name]. You want to press that button. By doing this, you shall gain 1 vegetable of that type and 1 seed. By harvesting there is a 5% chance of collecting a <span onclick="scrollToSection('help-market-resets'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market-resets').addClass('help-subjects-item-active');">Market Reset</span>, a 10% chance of collection 2 extra vegetables, and a 20% chance of collecting 5 extra <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span>.</p>
+                     <p>A button shall appear out of thin air, and written on it shall be that wonderful word: Harvest [Vegetable Name]. You want to press that button. By doing this, you shall gain 1 vegetable of that type and 1 seed. By harvesting there is a 5% chance of collecting a <span onclick="hlpScrl('market-resets')">Market Reset</span>, a 10% chance of collection 2 extra vegetables, and a 20% chance of collecting 5 extra <span onclick="hlpScrl('seeds')">Seeds</span>.</p>
                      <img src="Images/Help/plant-harvest.gif" style="height: 50vh">
                   </div>
                   <div id="help-plots">
                      <h1>Plots</h1>
-                     <p>Plots are where vegetables are grown. Each plot grows a certain type of vegetable. To unlock the next plot, hover over the large yellow lock and click 'purchase plot'. This shall cost <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span></p>
+                     <p>Plots are where vegetables are grown. Each plot grows a certain type of vegetable. To unlock the next plot, hover over the large yellow lock and click 'purchase plot'. This shall cost <span onclick="hlpScrl('seeds')">Seeds</span></p>
                      <img src="Images/Help/plots.png" style="height: 50vh">
                   </div>
                   <div id="help-seeds">
                      <h1>Seeds</h1>
-                     <p>In this wonderful utopia, seeds are the only currency, most carrots are purple, and the sky is always blue except the times when it is not. Most thing require seeds such as unlocking plots and exchanging in the <span onclick="scrollToSection('help-market'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market').addClass('help-subjects-item-active');">Market</span>. You can collect them by selling produce in the market or <span onclick="scrollToSection('help-harvesting'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-harvesting').addClass('help-subjects-item-active');">harvesting</span> vegetables.</p>
+                     <p>In this wonderful utopia, seeds are the only currency, most carrots are purple, and the sky is always blue except the times when it is not. Most thing require seeds such as unlocking plots and exchanging in the <span onclick="hlpScrl('market')">Market</span>. You can collect them by selling produce in the market or <span onclick="hlpScrl('harvesting')">Harvesting</span> vegetables.</p>
                   </div>
                   <div id="help-market">
                      <h1>Market</h1>
-                     <p>The market is a wonderful and bustling place filled with plenty of vegetables. It can be accessed by hovering over the bar in the bottom left corner then clicking the button with a shop icon. It show how much <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span> you have in the first box. The next box has a the amount of a certain type of vegetable you have, and you can sell 5 of them for an amount of <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span> or buy 5 for some <span onclick="scrollToSection('help-seeds'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-seeds').addClass('help-subjects-item-active');">seeds</span>. You can reset the price values with <span onclick="scrollToSection('help-market-resets'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market-resets').addClass('help-subjects-item-active');">Market Resets</span>. Holding Shift multiplies you order by 5, while holding Ctrl multiplies it tenfold.</p>
+                     <p>The market is a wonderful and bustling place filled with plenty of vegetables. It can be accessed by hovering over the bar in the bottom left corner then clicking the button with a shop icon. It show how much <span onclick="hlpScrl('seeds')">Seeds</span> you have in the first box. The next box has a the amount of a certain type of vegetable you have, and you can sell 5 of them for an amount of <span onclick="hlpScrl('seeds')">Seeds</span> or buy 5 for some <span onclick="hlpScrl('seeds')">Seeds</span>. You can reset the price values with <span onclick="hlpScrl('market-resets')">Market Resets</span>. Holding Shift multiplies you order by 5, while holding Ctrl multiplies it tenfold.</p>
                      <img src="Images/Help/market.png" style="height: 45vh">
                   </div>
                   <div id="help-market-exchanges">
@@ -1241,22 +1281,22 @@
                   </div>
                   <div id="help-market-resets">
                      <h1>Market Resets</h1>
-                     <p>Market resets can be found as the last item in the <span onclick="scrollToSection('help-market'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market').addClass('help-subjects-item-active');">Market</span>. By using one all of the values in the market are reset to what they began as, not the outrageous price they have become. There is a 1% chance of collecting one after each trade, and a 5% chance after each harvest. One is gained every time you unlock a plot.</p>
+                     <p>Market resets can be found as the last item in the <span onclick="hlpScrl('market')">Market</span>. By using one all of the values in the market are reset to what they began as, not the outrageous price they have become. There is a 1% chance of collecting one after each trade, and a 5% chance after each harvest. One is gained every time you unlock a plot.</p>
                      <img src="Images/Help/market-resets.png" style="height: 50vh">
                   </div>
                   <div id="help-fertilizer">
                      <h1>Fertilizer</h1>
-                     <p>Fertilizer is a useful item, that when used on a plant will make the plant instantly conclude growing and yield one extra of that vegetable. Fertilizer can be bought in the Black Market (coming soon), or earned from <span onclick="scrollToSection('help-tasks'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-tasks').addClass('help-subjects-item-active');">Tasks</span>.</p>
+                     <p>Fertilizer is a useful item, that when used on a plant will make the plant instantly conclude growing and yield one extra of that vegetable. Fertilizer can be bought in the <span onclick="hlpScrl('black-market')">Black Market</span>, or earned from <span onclick="hlpScrl('tasks')">Tasks</span>.</p>
                      <img src="Images/Help/fertilizer.gif" style="height: 50vh">
                   </div>
                   <div id="help-tasks">
                      <h1>Tasks</h1>
-                     <p>Tasks are small chores that <span onclick="scrollToSection('help-farmer-jebediah'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-jebidiah').addClass('help-subjects-item-active');">Farmer Jebediah</span>, <span onclick="scrollToSection('help-grandpa-jenkins'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-jenkins').addClass('help-subjects-item-active');">Grandpa Jenkins</span>, <span onclick="scrollToSection('help-grandma-josephine'); ; $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-josephine').addClass('help-subjects-item-active');">Grandma Josephine</span>, or special guests request that require you to do a task for them or pay some items. They give helpful rewards like <span onclick="scrollToSection('help-fertilizer'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-fertilizer').addClass('help-subjects-item-active');">Fertilizer</span> and <span onclick="scrollToSection('help-market-resets'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-market-resets').addClass('help-subjects-item-active');">Market Resets</span>.</p>
+                     <p>Tasks are small chores that <span onclick="hlpScrl('jebediah')">Farmer Jebediah</span>, <span onclick="hlpScrl('jenkins')">Grandpa Jenkins</span>, <span onclick="hlpScrl('josephine')">Grandma Josephine</span>, or special guests request that require you to do a task for them or pay some items. They give helpful rewards like <span onclick="hlpScrl('fertilizer')">Fertilizer</span> and <span onclick="hlpScrl('market-resests')">Market Resests</span>.</p>
                      <img src="Images/Help/tasks.png" style="height: 50vh">
                   </div>
                   <div id="help-weather">
                      <h1>Weather</h1>
-                     <p>Weather is a natural phenomenon that sometimes occurs, usuallyus  in the sky. It will effect your plants, sometimes positively and sometimes negatively. Keep a close eye on the weather in the bottom right corner! Next weather can be seen on the bottom right and last weather on the bottom left.</p>
+                     <p>Weather is a natural phenomenon that sometimes occurs, usually in the sky. It will effect your plants, sometimes positively and sometimes negatively. Keep a close eye on the weather in the bottom right corner! Next weather can be seen on the bottom right and last weather on the bottom left.</p>
                      <img src="Images/Help/weather.png" style="height: 50vh">
                   </div>
                   <div id="help-disasters">
@@ -1270,17 +1310,17 @@
                   </div>
                   <div id="help-farmer-jebediah">
                      <h1>Farmer Jebediah</h1>
-                     <p>Previous owner of the farm, you closest adviser. He gives many important <span onclick="scrollToSection('help-tasks'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-tasks').addClass('help-subjects-item-active');">Tasks</span>.</p>
+                     <p>Previous owner of the farm, you closest adviser. He gives many important <span onclick="hlpScrl('tasks')">Tasks</span>.</p>
                      <img src="Images/Tasks/farmer.svg" style="height: 50vh">
                   </div>
                   <div id="help-grandpa-jenkins">
                      <h1>Grandpa Jenkins</h1>
-                     <p>Guide on everything farming, bearer of the Bunny Slippers, and giver of <span onclick="scrollToSection('help-tasks'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-tasks').addClass('help-subjects-item-active');">Tasks</span>.</p>
+                     <p>Guide on everything farming, bearer of the Bunny Slippers, and giver of <span onclick="hlpScrl('tasks')">Tasks</span>.</p>
                      <img src="Images/Tasks/jenkins.png" style="height: 50vh">
                   </div>
                   <div id="help-grandma-josephine">
                      <h1>Grandma Josephine</h1>
-                     <p>Your personal economic adviser, and giver of <span onclick="scrollToSection('help-tasks'); $('.help-subjects-item-active').removeClass('help-subjects-item-active'); $('.help-subjects-item-tasks').addClass('help-subjects-item-active');">Tasks</span>.</p>
+                     <p>Your personal economic adviser, and giver of <span onclick="hlpScrl('tasks')">Tasks</span>.</p>
                      <img src="Images/Tasks/granny.png" style="height: 50vh">
                   </div>
                   <div id="help-plant-times">
@@ -1290,13 +1330,13 @@
                      <table>
                         <tr><th>Vegetable</th><th>Growing Time</th></tr>
                         <tr><td>Peas</td><td>10 Seconds</td></tr>
-                        <tr class="tm-tb tm-tb-co"><td>Corn</td><td>25 Seconds</td></tr>
-                        <tr class="tm-tb tm-tb-st"><td>Strawberries</td><td>2.5 Minutes</td></tr>
-                        <tr class="tm-tb tm-tb-eg"><td>Eggplant</td><td>15 Minutes</td></tr>
-                        <tr class="tm-tb tm-tb-pu"><td>Pumpkin</td><td>30 Minutes</td></tr>
-                        <tr class="tm-tb tm-tb-ca"><td>Cabbage</td><td>1 Hour</td></tr>
-                        <tr class="tm-tb tm-tb-da"><td>Dandelion</td><td>3 Hours</td></tr>
-                        <tr class="tm-tb tm-tb-rh"><td>Rhubarb</td><td>8 Hours</td></tr>
+                        <tr class="tm-tb tm-tb-co"><td>Corn</td><td>30 Seconds</td></tr>
+                        <tr class="tm-tb tm-tb-st"><td>Strawberries</td><td>1.5 Minutes</td></tr>
+                        <tr class="tm-tb tm-tb-eg"><td>Eggplant</td><td>5 Minutes</td></tr>
+                        <tr class="tm-tb tm-tb-pu"><td>Pumpkin</td><td>15 Minutes</td></tr>
+                        <tr class="tm-tb tm-tb-ca"><td>Cabbage</td><td>45 Minutes</td></tr>
+                        <tr class="tm-tb tm-tb-da"><td>Dandelion</td><td>2 Hours</td></tr>
+                        <tr class="tm-tb tm-tb-rh"><td>Rhubarb</td><td>6 Hours</td></tr>
                     </table>
                   </div>
                   <div id="help-shortcuts">
@@ -1417,20 +1457,68 @@
             <div class="vegAmount dandelionAmountQuick"><span id="dandelionBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/dandelion.png"><br></div>
             <div class="vegAmount rhubarbAmountQuick"><span id="rhubarbBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/rhubarb.png"><br></div>
          </div>
-         <div class="alert">Game Saved!</div>
+         <div class="alert-box"><div class="alert alert-cominin">Game Saved!</div></div>
          <span style="display: none;"><div class="fade-text">This text is fading</div></span>
       </div>
       <script src="https://www.w3counter.com/tracker.js?id=134512"></script>
    </body>
-   <script src="https://www.w3counter.com/tracker.js?id=134512"></script>
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-   <% if (userFrom) { %>
-   <script>
-      var userDataWorking = '<%- JSON.stringify(userFrom) %>';
-      var userData = JSON.parse(userDataWorking);
-   </script>
+   <!-- Chat -->
+   <div class="chatbox">
+      <h3 class="title" onclick="if (document.querySelector('.chatbox').classList.contains('open')) { document.querySelector('.chatbox').classList.remove('open'); } else { document.querySelector('.chatbox').classList.add('open'); } ">Chat</h3>
+      <div class="messages">
+         <%foundItems.forEach(function(item) {%>
+            <% if (item.user == user.name) { %>
+               <div class="message message-right">
+                  <img title="<%=item.user%> " class="image-right" src=<%= `Avatars/${item.avatar}.png` %>>
+                  <div class="shape-right"></div>
+                  <p>
+                     <%=item.input%>
+                     <br>
+                     <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
+                  </p>
+               </div>
+            <%} else { %>
+               <div class="message">
+                  <img title="<%=item.user%> " class="image" src=<%= `Avatars/${item.avatar}.png` %>>
+                  <div class="shape"></div>
+                  <p>
+                     <%=item.input%>
+                     <br>
+                     <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
+                  </p>
+               </div>
+            <% } %>
+        <%})%>
+      </div>
+      <form action="chat-message" method="POST">
+         <input class="input" type="text" name="message" placeholder="Message..." required><br>
+         <button style="display: none;" class="chatbox-post" type="text">Post</button>
+     </form>
+   </div>
+   <!-- Other -->
+      <script>
+         var userDataWorking = '<%- JSON.stringify(user) %>';
+         var userData = JSON.parse(userDataWorking);
+      </script>
+      <form action="save-vegetable-dash" method="POST" style="display: none;">
+         <input class="data-save" type="text" name="gamesave" required><br>
+         <button class="post-save" type="text">Post</button>
+      </form>
+      <script src="https://www.w3counter.com/tracker.js?id=140885"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="inital-varibles.js" charset="utf-8"></script>
+      <script src="tasks.js" charset="utf-8"></script>
+      <script src="main.js" charset="utf-8"></script>
+   <%} else { %>
+      <div class="not-signed-in">
+         <div class="not-signed-inner">
+            <h2 style="text-align: center;">Welcome to Vegetable Dash!</h2>
+            <h4 style="text-align: center;">You are not signed in</h4><br>
+            <div class="opening">
+               <p class="stylish-p">Do you have an account?</p><a href="/sign-in">Sign in!</a><br><br>
+               <p class="stylish-p">Don't have an account?</p><a href="/create-account">Create an account!</a>
+            </div>
+         </div>
+      </div>
    <% } %>
-   <script src="inital-varibles.js" charset="utf-8"></script>
-   <script src="tasks.js" charset="utf-8"></script>
-   <script src="main.js" charset="utf-8"></script>
 </html>

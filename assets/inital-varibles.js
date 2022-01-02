@@ -1,49 +1,39 @@
-let initPlotStatus = {
-    peas: "empty",
-    corn: "empty",
-    strawberries: "empty",
-    eggplants: "empty",
-    center: "empty",
-    pumpkins: "empty",
-    cabbage: "empty",
-    dandelion: "empty",
-    rhubarb: "empty",
-    peasTime: [3000, 6000, 10000],
-    cornTime: [6000, 12000, 25000],
-    strawberriesTime: [50000, 100000, 150000],
-    eggplantsTime: [300000, 600000, 900000],
-    pumpkinsTime: [600000, 1200000, 1800000],
-    cabbageTime: [1200000, 2400000, 3600000],
-    dandelionTime: [3600000, 7200000, 10800000],
-    rhubarbTime: [9600000, 18200000, 28800000],
-    // Grow Times
-    peasGrowing: Infinity,
-    peasFlowering: Infinity,
-    peasReady: Infinity,
-    cornGrowing: Infinity,
-    cornFlowering: Infinity,
-    cornReady: Infinity,
-    strawberriesGrowing: Infinity,
-    strawberriesFlowering: Infinity,
-    strawberriesReady: Infinity,
-    eggplantsGrowing: Infinity,
-    eggplantsFlowering: Infinity,
-    eggplantsReady: Infinity,
-    centerGrowing: Infinity,
-    centerFlowering: Infinity,
-    centerReady: Infinity,
-    pumpkinsGrowing: Infinity,
-    pumpkinsFlowering: Infinity,
-    pumpkinsReady: Infinity,
-    cabbageGrowing: Infinity,
-    cabbageFlowering: Infinity,
-    cabbageReady: Infinity,
-    dandelionGrowing: Infinity,
-    dandelionFlowering: Infinity,
-    dandelionReady: Infinity,
-    rhubarbGrowing: Infinity,
-    rhubarbFlowering: Infinity,
-    rhubarbReady: Infinity,
+/*
+A few states for vegetables
+1. "Ready" - your plant is ready
+2. (timestamp) - the moment your plant will be ready
+3. "Empty" - your plot is empty
+4. "Locked" - your plot is locked
+5. "withered" - your plants have been killed by frost
+*/
+
+let initGameData = {
+    peasStatus: "Empty",
+    cornStatus: "Locked",
+    strawberriesStatus: "Locked",
+    eggplantsStatus: "Locked",
+    centerStatus: "Locked",
+    pumpkinsStatus: "Locked",
+    cabbageStatus: "Locked",
+    dandelionStatus: "Locked",
+    rhubarbStatus: "Locked",
+    peasTime: [3500, 7000, 10000],
+    cornTime: [10000, 20000, 30000],
+    strawberriesTime: [30000, 60000, 90000],
+    eggplantsTime: [100000, 200000, 300000],
+    pumpkinsTime: [300000, 600000, 900000],
+    cabbageTime: [900000, 1800000, 2700000],
+    dandelionTime: [2400000, 4800000, 7200000],
+    rhubarbTime: [7200000, 14400000, 21600000],
+    // Harvest Rewards
+    peasRewards: 1,
+    cornRewards: 1,
+    strawberriesReward: 1,
+    eggplantReward: 1,
+    pumpkinsRewards: 1,
+    cabbageReward: 1,
+    dandelionReward: 1,
+    rhubarbReward: 1,
     // Center Plot
     centerStatus: "plant-ready",
     centerReadyTime: 0,
@@ -51,8 +41,7 @@ let initPlotStatus = {
     urlOne: "url(Images/Plots/plot.png)",
     urlTwo: "url(Images/Plots/plot.png)",
     urlThree: "url(Images/Plots/plot.png)",
- }
-let initProduce = {
+    // Produce
     peas: 0,
     corn: 0,
     strawberries: 0,
@@ -61,16 +50,15 @@ let initProduce = {
     cabbage: 0,
     dandelion: 0,
     rhubarb: 0,
- }
-let initPlots = {
+    // Plots
     price2: 150,
-    price3: 750,
-    price4: 3750,
+    price3: 500,
+    price4: 2000,
     price5: "Recive an extra plant!",
-    price6: 50000,
-    price7: 250000,
-    price8: 1000000,
-    price9: 8000000,
+    price6: 7500,
+    price7: 20000,
+    price8: 75000,
+    price9: 150000,
     peaplot: "unlocked",
     cornplot: "locked",
     strawberryplot: "locked",
@@ -80,13 +68,13 @@ let initPlots = {
     dandelionplot: "locked",
     rhubarbplot: "locked",
     centerplot: "locked",
- }
-let initMarketData = {
+    // Market Data
     seeds: 0,
     marketResets: 0,
     fertilizers: 0,
     doughnuts: 0,
     weedPieces: 0,
+    weedsLeft: 0,
     // Time (Where elese do I put it?)
     weedSeason: Date.now() + 1800000,
     disasterTime: 0,
@@ -96,18 +84,18 @@ let initMarketData = {
     sellPeas: 25,
     buyCorn: 75,
     sellCorn: 75,
-    buyStrawberries: 250,
-    sellStrawberries: 250,
+    buyStrawberries: 225,
+    sellStrawberries: 225,
     buyEggplants: 750,
     sellEggplants: 750,
-    buyPumpkins: 5000,
-    sellPumpkins: 5000,
-    buyCabbage: 25000,
-    sellCabbage: 25000,
-    buyDandelion: 100000,
-    sellDandelion: 100000,
-    buyRhubarb: 7500000,
-    sellRhubarb: 7500000,
+    buyPumpkins: 2250,
+    sellPumpkins: 2250,
+    buyCabbage: 6750,
+    sellCabbage: 6750,
+    buyDandelion: 18000,
+    sellDandelion: 18000,
+    buyRhubarb: 54000,
+    sellRhubarb: 54000,
     black: {
        name: 0,
        item: 0,
@@ -119,14 +107,14 @@ let initMarketData = {
        catchChance: .02,
     },
     exchangeMarket: {
-       peas: .2,
-       corn: .5,
-       strawberries: 6,
-       eggplants: 45,
+       peas: 1,
+       corn: 3,
+       strawberries: 9,
+       eggplants: 30,
        pumpkins: 90,
-       cabbage: 180,
-       dandelion: 440,
-       rhubarb: 1240,
+       cabbage: 270,
+       dandelion: 720,
+       rhubarb: 2160,
     },
     weather: {
        weather: "partlySunny",
@@ -146,9 +134,8 @@ let initMarketData = {
        // locusts: ["- all plants",],
        // birds: ["-10% - 15% of seeds",], // Scarecrow investment will reduce by 5%
        // flood: ["-20% stored veg"], // Irrigation investment will retract bad effects, make +1 produce
-    }
- }
-let initSettings = {
+    },
+    // Settings
     theme: "dark",
     intro: "unfinished",
     loadtimes: [1000],
@@ -156,9 +143,8 @@ let initSettings = {
     settingsOpen: false,
     marketOpen: false,
     blackMarketOpen: false,
-    tasksOpen: false
- }
-let initTaskList = {
+    tasksOpen: false,
+    // Tasks
     isInSave: true,
     taskBox1: "unoccupied",
     taskBox2: "unoccupied",

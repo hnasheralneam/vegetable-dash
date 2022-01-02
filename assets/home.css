@@ -2,13 +2,45 @@
    padding: 0;
    margin: 0;
 }
+
 body {
    background-image: url("Images/Background/background.svg");
    background-size: 100vw 100vh;
+   overflow: hidden;
 }
-.avatar {
+
+/* Universal */
+.opening {
+   background-color: rgba(255, 255, 255, 0.85);
+   margin: 1vh;
+   padding: 3vh 2vh 3vh 1vh;
+   display: inline-block;
+   width: 90%;
+   border-radius: 2.5vh;
+}
+
+a {
+   color: #fff;
+   text-decoration: none;
+   transition: .2s;
+   font-family: "Nunito";
+   background-color: rgba(138, 243, 249, 0.5);
+   padding: .5vh;
+   border-radius: .5vh;
+}
+
+a:hover {
+   color: #555;
+   text-decoration: underline;
+   background-color: rgba(138, 249, 232, 0.75);
+}
+
+/* About your account */
+.yourAvatar {
    height: 12vh;
+   margin: 0 0 -4vh 2vh;
 }
+
 .playButton {
    font-size: 4vh;
    display: flex;
@@ -19,9 +51,7 @@ body {
    padding: 3vh 3vw;
    margin: 5vh;
 }
-.yourAvatar {
-   margin: 0 0 -4vh 2vh;
-}
+
 .playButton a {
    color: #367335;
    text-decoration: none;
@@ -29,19 +59,14 @@ body {
    font-family: "Nunito";
    background-color: rgba(138, 243, 249, 0);
 }
+
 .playButton a:hover {
    color: #214b21;
    text-decoration: underline;
    background-color: rgba(138, 243, 249, 0);
 }
-.opening {
-   background-color: rgba(255, 255, 255, 0.85);
-   margin: 1vh;
-   padding: 3vh 2vh 3vh 1vh;
-   display: inline-block;
-   border-radius: 2.5vh;
-}
-p {
+
+.stylish-p {
    margin: 5vh 1vw;
    display: inline;
    color: #333;
@@ -51,25 +76,9 @@ p {
    background-color: rgba(53, 251, 166, 0.5);
    padding: .25vh;
    border-radius: .5vh;
+}
 
-}
-form {
-   display: inline;
-}
-a {
-   color: #fff;
-   text-decoration: none;
-   transition: .2s;
-   font-family: "Nunito";
-   background-color: rgba(138, 243, 249, 0.5);
-   padding: .5vh;
-   border-radius: .5vh;
-}
-a:hover {
-   color: #555;
-   text-decoration: underline;
-   background-color: rgba(138, 249, 232, 0.75);
-}
+/* Not signed in */
 .not-signed-in {
    position: fixed;
    height: 100vh;
@@ -78,6 +87,7 @@ a:hover {
    justify-content: center;
    align-items: center;
 }
+
 .not-signed-inner {
    background-color: #b97c2b;
    border: solid 2vh #583a13;
@@ -85,22 +95,205 @@ a:hover {
    border-radius: 2.5vh;
    transform: scale(1.5);
 }
+
+/* Signed in */
 .signed-in {
-   position: fixed;
-   height: 100vh;
-   width: 100vw;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-.signed-inner {
+   height: 60vh;
+   width: 60vw;
    background-color: rgba(185, 124, 43, 0.5);
    border: solid 2vh rgba(88, 58, 19, 0.5);
-   padding: 5vh;
+   margin: 18vh 19vw;
    border-radius: 2.5vh;
    transform: scale(1.5);
-   max-height: 50vh;
-   width: 55vw;
    overflow: auto;
    text-align: center;
+   box-sizing: margin-box;
+}
+
+/* Choose new avatar */
+.choose-new-avatar.open {
+   position: fixed;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   background-color: rgba(255, 255, 255, 0.9);
+   padding: 12vh;
+   text-align: center;
+   transform: scale(1.3);
+}
+
+.post-button {
+   background-color: #fff;
+   border: solid .8vh #ff0000;
+   color: #ff0000;
+   transition: .25s;
+   font-size: 5vh;
+   border-radius: .5vh;
+   padding: 2vh;
+   width: 20vw;
+}
+
+.post-button:hover {
+   background-color: #ff0000;
+   color: #fff;
+   outline: none;
+}
+
+.post-button:focus {
+   outline: none;
+}
+
+[type=radio] { 
+   position: absolute;
+   opacity: 0;
+   width: 0;
+   height: 0;
+}
+ 
+[type=radio]:checked + img {
+   outline: 1vh solid #f00;
+}
+
+.choose-avatar {
+   height: 10vh;
+   padding: 1vh;
+   margin: 1.2vh .8vh;
+   border-radius: 50%;
+   border: solid .8vh #73e2f1;
+}
+
+/* Friends */
+.friends.open {
+   position: fixed;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   background-color: rgba(255, 255, 255, 0.9);
+   padding: 12vh 24vh;
+   text-align: center;
+   overflow: scroll;
+   /* transform: scale(1.5); */
+}
+
+.avatar {
+   height: 12vh;
+   padding: 2vh;
+   background-color: #eee;
+   border-radius: 50%;
+   border: solid 1vh #73f173;
+   transition: .2s;
+}
+
+.avatar:hover {
+   box-shadow: 0 0 1vh #73f173;
+}
+
+.friend {
+   margin: .8vh;
+   padding: .5vh;
+   display: inline-block;
+   background-color: #6969697e;
+   border-radius: .5vh;
+}
+
+.friend .name {
+   font-family: "Nunito";
+   color: #eee;
+}
+
+.friend-button {
+   padding: .25vh .5vh;
+   background-color: #fff;
+   color: #006eff;
+   border: solid #006eff .3vh;
+   border-radius: .25vh;
+   font-family: "Nunito";
+   transition: .25s;
+}
+
+.friend-button:hover {
+   background-color: #006eff;
+   color: #fff;
+   border: solid #006eff .3vh;
+   transform: scale(1.05);
+}
+
+.friend-button:focus {
+   transform: scale(.95);
+}
+
+/* Private Chat */
+.createChat.open {
+   position: fixed;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   background-color: rgba(255, 255, 255, .95);
+   padding: 8vh 24vh;
+   text-align: center;
+   overflow: scroll;
+   /* transform: scale(1.5); */
+}
+
+.createChat .title {
+   font-family: "Capriola";
+   text-transform: uppercase;
+   font-size: 8vh;
+   margin-bottom: 3vh;
+   color: #8bf9c2;
+   text-shadow: .5vh .5vh #44a89b;
+}
+
+.createChat .p-tag {
+   font-family: "Capriola";
+   text-transform: uppercase;
+   font-size: 4vh;
+   margin-bottom: 2vh;
+   color: #64bbf5;
+   text-shadow: .2vh .2vh #2f6c8f;
+}
+
+.createChat button {
+   font-family: "Capriola";
+   text-transform: uppercase;
+   font-size: 4vh;
+   color: #fff;
+   background-color: #6466f5;
+   box-shadow: .5vh .5vh #6b2fcc;
+   border-radius: .75vh;
+   border: none;
+   outline: none;
+   padding: 1vh;
+   margin: 2vh;
+   display: inline-block;
+   transition: .2s linear;
+}
+
+.createChat button:hover {
+   transform: translate(-.5vh, -.5vh);
+   box-shadow: .5vh .5vh #6b2fcc,
+               1vh 1vh #6b2fcc;
+}
+
+.createChat .second-button {
+   background-color: #f56464;
+   box-shadow: .5vh .5vh #ad3b1e;
+}
+
+.createChat .second-button:hover {
+   box-shadow: .5vh .5vh #ad3b1e,
+               1vh 1vh #ad3b1e;
+}
+
+.createChat .third-button {
+   background-color: #57e452;
+   box-shadow: .5vh .5vh #109732;
+}
+
+.createChat .third-button:hover {
+   box-shadow: .5vh .5vh #109732,
+               1vh 1vh #109732;
 }

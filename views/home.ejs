@@ -1,57 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com">
    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Capriola&display=swap" rel="stylesheet">
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <link rel="shortcut icon" href="Images/Global Assets/logo.svg" type="image/x-icon">
    <link rel="stylesheet" href="home.css">
+   <link rel="stylesheet" href="cornerchat.css">
    <title>Home</title>
 </head>
 <body>
+   <!-- If signed in -->
    <% if (user !== "(not signed in)") { %>
       <div class="signed-in">
-         <div class="signed-inner">
-            <h2 style="color: #fff; font-family: 'Nunito';">Welcome, you are signed in as <%- user.name %></h2><br>
-            <div class="opening">
-               <img class="avatar yourAvatar" src=<%= `Avatars/${user.avatar}.png` %>>
-               <p class="playButton" style="display: inline;"><a href="/sign-in">Play!</a></p><br><br><br><br>
-               <p>Ready to leave?</p><a href="/sign-out">Sign out!</a>
-            </div>
-            <br>
-            <div class="opening">
-               <h4>Choose Avatar</h4><br>
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '1' }, { new: true }); %>;" src="Avatars/1.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '2' }, { new: true }); %>;" src="Avatars/2.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '3' }, { new: true }); %>;" src="Avatars/3.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '4' }, { new: true }); %>;" src="Avatars/4.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '5' }, { new: true }); %>;" src="Avatars/5.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '6' }, { new: true }); %>;" src="Avatars/6.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '7' }, { new: true }); %>;" src="Avatars/7.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '8' }, { new: true }); %>;" src="Avatars/8.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '9' }, { new: true }); %>;" src="Avatars/9.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '10' }, { new: true }); %>;" src="Avatars/10.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '11' }, { new: true }); %>;" src="Avatars/11.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '12' }, { new: true }); %>;" src="Avatars/12.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '13' }, { new: true }); %>;" src="Avatars/13.png">
-               <img class="avatar" onclick="<% UserData.findOneAndUpdate({ name: user.name }, { avatar: '14' }, { new: true }); %>;" src="Avatars/14.png">
-            </div>
-            <br><br>
-            <p>Avatar icons made by <a href="https://www.flaticon.com/authors/vitaly-gorbachev" title="Vitaly Gorbachev">Vitaly Gorbachev</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></p>
+         <!-- About your account -->
+         <h2 style="color: #fff; font-family: 'Nunito';">Welcome, you are signed in as <%- user.name %></h2><br>
+         <div class="opening">
+            <img class="yourAvatar" src=<%= `Avatars/${user.avatar}.png` %>>
+            <p class="playButton" style="display: inline;"><a href="/vegetable-dash">Vegetable Dash!</a></p><br><br><br><br>
+            <!-- Farm run -->
+            <h1><a href="/chat">Farm Run (WARNING - Still in Alpha)</a></h1><br><br>
+            <!-- Chat -->
+            <p class="stylish-p" onclick="if (document.querySelector('.chatbox').classList.contains('open')) { document.querySelector('.chatbox').classList.remove('open'); } else { document.querySelector('.chatbox').classList.add('open'); } ">Chat</p>
+            <!-- Sign out -->
+            <p class="stylish-p">Ready to leave?</p><a href="/sign-out">Sign out!</a>
+            <!-- Friends -->
+            <p class="stylish-p" onclick="if (document.querySelector('.friends').classList.contains('open')) { document.querySelector('.friends').classList.remove('open'); } else { document.querySelector('.friends').classList.add('open'); } ">Friends</p>
+            <!-- Choose a diffrent avatar -->
+            <p class="stylish-p" onclick="if (document.querySelector('.choose-new-avatar').classList.contains('open')) { document.querySelector('.choose-new-avatar').classList.remove('open'); } else { document.querySelector('.choose-new-avatar').classList.add('open'); } ">Pick a new avatar</p>
+            <!-- Create a private chat -->
+            <p class="stylish-p" onclick="if (document.querySelector('.createChat').classList.contains('open')) { document.querySelector('.createChat').classList.remove('open'); } else { document.querySelector('.createChat').classList.add('open'); } ">Make a chat</p>
          </div>
       </div>
+      <!-- Create new private chat -->
+      <div class="createChat">
+         <p class="title">Make a private chat</p><br>
+         <p class="p-tag">1. Name the chat</p>
+         <p class="p-tag">2. Choose who to invite (note - you can only invite friends)</p>
+         <p class="p-tag">3. Create it!</p>
+         <button>Let's go!</button>
+         <button class="second-button" onclick="if (document.querySelector('.createChat').classList.contains('open')) { document.querySelector('.createChat').classList.remove('open'); } else { document.querySelector('.createChat').classList.add('open'); } ">Let's not!</button>
+         <button class="third-button">Let's stay!</button>
+      </div>
+      <!-- Friends -->
+      <div class="friends">
+         <p>Your Friends</p><br>
+         <%users.forEach(function(someUser) {%>
+            <% if (user.friends.includes(someUser.name)) { %>
+               <div class="friend">
+                  <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
+                  <h2 class="name"><%=someUser.name%></h2>
+               </div>
+            <%}%>
+         <%})%>
+         <br><br>
+         <div>
+            <p>Find Friends!</p><br>
+            <div style="overflow: auto; white-space: nowrap; width: 50vw;">
+               <%users.forEach(function(someUser) {%>
+                  <% if (someUser.name !== user.name && !user.friends.includes(someUser.name) && !user.friendInvitesSent.includes(someUser.name) && !user.friendInvitesRecived.includes(someUser.name)) { %>
+                     <div class="friend">
+                        <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
+                        <h2 class="name"><%=someUser.name%></h2>
+                        <form action="send-friend-request" method="POST">
+                           <input style="display: none;" name="thisUser" value="<%- user.name %>">
+                           <input style="display: none;" name="thatUser" value="<%- someUser.name %>">
+                           <button class="friend-button">Befriend</button>
+                        </form>
+                     </div>
+                  <%}%>
+               <%})%>
+            </div>
+         </div>
+         <div>
+            <p>These people want to be your friend.</p><br>
+            <%users.forEach(function(someUser) {%>
+               <% if (user.friendInvitesRecived.includes(someUser.name)) { %>
+                  <div class="friend">
+                     <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
+                     <h2 class="name"><%=someUser.name%></h2>
+                     <form action="accept-friend-request" method="POST">
+                        <input style="display: none;" name="thisUser" value="<%- user.name %>">
+                        <input style="display: none;" name="thatUser" value="<%- someUser.name %>">
+                        <button class="friend-button">Accept</button>
+                     </form>
+                  </div>
+               <%}%>
+            <%})%>
+         </div>
+         <div>
+            <p>You have asked these people to be your friend.</p><br>
+            <%users.forEach(function(someUser) {%>
+               <% if (user.friendInvitesSent.includes(someUser.name)) { %>
+                  <div class="friend">
+                     <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
+                     <h2 class="name"><%=someUser.name%></h2>
+                  </div>
+               <%}%>
+            <%})%>
+         </div>
+         <p class="stylish-p" onclick="if (document.querySelector('.friends').classList.contains('open')) { document.querySelector('.friends').classList.remove('open'); } else { document.querySelector('.friends').classList.add('open'); } ">Go back</p>
+      </div>
+      <!-- Choose a diffrent avatar -->
+      <div class="choose-new-avatar">
+         <form action="choose-avatar" method="POST">
+            <div>
+                <label><input type="radio" name="avatar" value="1" checked><img class="choose-avatar" src="Avatars/1.png"></label>
+                <label><input type="radio" name="avatar" value="2"><img class="choose-avatar" src="Avatars/2.png"></label>
+                <label><input type="radio" name="avatar" value="3"><img class="choose-avatar" src="Avatars/3.png"></label>
+                <label><input type="radio" name="avatar" value="4"><img class="choose-avatar" src="Avatars/4.png"></label>
+                <label><input type="radio" name="avatar" value="5"><img class="choose-avatar" src="Avatars/5.png"></label>
+                <br>
+                <label><input type="radio" name="avatar" value="6"><img class="choose-avatar" src="Avatars/6.png"></label>
+                <label><input type="radio" name="avatar" value="7"><img class="choose-avatar" src="Avatars/7.png"></label>
+                <label><input type="radio" name="avatar" value="8"><img class="choose-avatar" src="Avatars/8.png"></label>
+                <label><input type="radio" name="avatar" value="9"><img class="choose-avatar" src="Avatars/9.png"></label>
+                <label><input type="radio" name="avatar" value="10"><img class="choose-avatar" src="Avatars/10.png"></label>
+                <br>
+                <label><input type="radio" name="avatar" value="11"><img class="choose-avatar" src="Avatars/11.png"></label>
+                <label><input type="radio" name="avatar" value="12"><img class="choose-avatar" src="Avatars/12.png"></label>
+                <label><input type="radio" name="avatar" value="13"><img class="choose-avatar" src="Avatars/13.png"></label>
+                <label><input type="radio" name="avatar" value="14"><img class="choose-avatar" src="Avatars/14.png"></label>    
+            </div>
+            <button class="post-button" type="text">Pick</button>
+        </form>
+        <br><br>
+        <p class="stylish-p" onclick="if (document.querySelector('.choose-new-avatar').classList.contains('open')) { document.querySelector('.choose-new-avatar').classList.remove('open'); } else { document.querySelector('.choose-new-avatar').classList.add('open'); } ">Leave without new avatar</p><br><br>
+        <p class="stylish-p">Avatar icons made by <a href="https://www.flaticon.com/authors/vitaly-gorbachev" title="Vitaly Gorbachev">Vitaly Gorbachev</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></p>
+      </div>
+      <!-- Chat -->
+      <div class="chatbox">
+         <h3 class="title" onclick="if (document.querySelector('.chatbox').classList.contains('open')) { document.querySelector('.chatbox').classList.remove('open'); } else { document.querySelector('.chatbox').classList.add('open'); } ">Chat</h3>
+         <div class="messages">
+            <%foundItems.forEach(function(item) {%>
+               <% if (item.user == user.name) { %>
+                  <div class="message message-right">
+                     <img title="<%=item.user%> " class="image-right" src=<%= `Avatars/${item.avatar}.png` %>>
+                     <div class="shape-right"></div>
+                     <p>
+                        <%=item.input%>
+                        <br>
+                        <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
+                     </p>
+                  </div>
+               <%} else { %>
+                  <div class="message">
+                     <img title="<%=item.user%> " class="image" src=<%= `Avatars/${item.avatar}.png` %>>
+                     <div class="shape"></div>
+                     <p>
+                        <%=item.input%>
+                        <br>
+                        <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
+                     </p>
+                  </div>
+               <% } %>
+           <%})%>
+         </div>
+         <form action="chat-message" method="POST">
+            <input class="input" type="text" name="message" placeholder="Message..." required><br>
+            <button style="display: none;" class="chatbox-post" type="text">Post</button>
+        </form>
+      </div>
+   <!-- If not signed in -->
    <%} else { %>
       <div class="not-signed-in">
-               <div class="not-signed-inner">
-                  <h2 style="text-align: center;">Welcome to Vegetable Dash!</h2>
-                  <h4 style="text-align: center;">You are not signed in</h4><br>
-                  <div class="opening">
-                     <p>Do you have an account?</p><a href="/sign-in">Sign in!</a><br><br>
-                     <p>Don't have an account?</p><a href="/create-account">Create an account!</a>
-                  </div>
-               </div>
+         <div class="not-signed-inner">
+            <h2 style="text-align: center;">Welcome to Vegetable Dash!</h2>
+            <h4 style="text-align: center;">You are not signed in</h4><br>
+            <div class="opening">
+               <p class="stylish-p">Do you have an account?</p><a href="/sign-in">Sign in!</a><br><br>
+               <p class="stylish-p">Don't have an account?</p><a href="/create-account">Create an account!</a>
+            </div>
+         </div>
       </div>
    <% } %>
 </body>

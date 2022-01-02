@@ -1,125 +1,282 @@
-require('dotenv').config();
-var express = require("express");
-var mongoose = require("mongoose");
-var bodyParser = require('body-parser');
-var app = express();
-var port = process.env.PORT || 3000;
-
-let signedIn = false;
-let signedInUser = "(not signed in)";
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.set("view engine", "ejs");
-
-app.use(express.static(__dirname + "/assets"));
-
-mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true });
-
+/* =============
+// Data
+============= */
+// System variables
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require('body-parser');
+const app = express();
+const port = process.env.PORT || 3000;
 const connection = mongoose.connection
 
+// My varibles
+let signedIn = false;
+let signedInUser = "(not signed in)";
+var namesList = [];
+var dataDone = false;
+
+// More system stuff
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/assets"));
+app.set("view engine", "ejs");
+mongoose.set("useFindAndModify", false);
+
+// Mongoose things
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true });
+const connection = mongoose.connection
+
+// System things
 connection.on('error', console.error.bind(console, 'Connection error: '));
 
-var chatSchema = new mongoose.Schema({
-   poster: String,
-   posterPicture: String,
-   post: String,
-});
-
-var useDataSchema = new mongoose.Schema({
+// Schemas
+const useDataSchema = new mongoose.Schema({
    name: String,
    email: String,
    passcode: String,
    avatar: String,
-   gameSave: {
-      plotStatus: {},
-      produce: {},
-      plots: {},
-      marketData: {},
-      settings: {},
-      taskList: {}
-   }
+   dateAccountStarted: Number,
+   dashcoins: Number,
+   friends: [],
+   friendInvitesSent: [],
+   friendInvitesRecived: [],
+   gameSave: {}
 });
 
-var namesList = [];
-var dataDone = false;
-var UserData = mongoose.model('UserData', useDataSchema);
-var ChatData = mongoose.model('ChatData', chatSchema);
+const chatSchema = new mongoose.Schema({
+   input: String,
+   user: String,
+   avatar: Number,
+   datePosted: Object
+});
 
-// ChatData.find((err, posts) => {
-//    if (err) return console.error(err);
-//    for (i = 0; i < posts.length; i++) { if (!namesList.includes(posts[i].post)) { namesList.push(posts[i].post);
-//    console.log(posts); } }
-// }).then(item => { dataDone = true; })
-//
-// // for (chatListLength) {
-// //    make chat element, show poster image with title of name
-// // }
+const UserData = mongoose.model('UserData', useDataSchema);
+const Chat = mongoose.model("Chat", chatSchema);
 
-
-// var newPost = new ChatData({ poster: "Squirrel", posterPicture: "squirrel", post: "Hello everyone! Hope you like my game!" });
-// newPost.save(function (err, newPost) {
-//    if (err) return console.error(err);
-//    else { console.log("Post succesful!"); }
-// });
+/* =============
+// Processing
+============= */
 
 UserData.find((err, users) => {
    if (err) return console.error(err);
    for (i = 0; i < users.length; i++) {
       if (!namesList.includes(users[i].name)) { namesList.push(users[i].name); }
    }
-}).then(item => { dataDone = true; })
+}).then(item => { dataDone = true; });
 
-function addNewUser(name, email, passcode) {
+setInterval(() => {
+   if (signedInUser != "(not signed in)") {
+      UserData.findOne({ name: signedInUser.name }, (err, user) => {
+         if (err) return console.error(err);
+         else { signedInUser = user; }
+      });
+   }
+}, 2500);
+
+/* =============
+// Post requests
+============= */
+
+// Final destanations
+app.get("/", (req, res) => {
+   UserData.find((err, users) => {
+      if (err) return console.error(err);
+      else {
+         Chat.find(function(err, found) {
+            if (err) { console.log(err); }
+            else { res.render("home", { user: signedInUser, UserData: UserData, users: users, foundItems: found }); }
+         });
+      }
+   });
+});
+
+app.get("/vegetable-dash", (req, res) => {
+   if (signedInUser !== "not signed in") {
+      UserData.find((err, users) => {
+         if (err) return console.error(err);
+         else {
+            Chat.find(function(err, found) {
+               if (err) { console.log(err); }
+               else { res.render("index", { user: signedInUser, UserData: UserData, users: users, foundItems: found }); }
+            });
+         }
+      });
+   }
+   else { res.render("signin", { error: { is: false } }); }
+});
+
+app.get("/chat", (req, res) => {
+   Chat.find(function(err, found) {
+      if (err) { console.log(err); }
+      else { res.render("chat", { user: signedInUser, UserData: UserData, foundItems: found }); }
+   })
+});
+
+
+
+
+
+
+
+
+
+
+
+// For video
+const server = require("http").Server(app);
+const { v4: uuidv4 } = require("uuid");
+const io = require("socket.io")(server, { cors: { origin: "*" } });
+const { ExpressPeerServer } = require("peer");
+const peerServer = ExpressPeerServer(server, { debug: true, });
+
+app.use("/peerjs", peerServer);
+app.use(express.static("public"));
+
+app.get("/start-video", (req, res) => {
+   res.redirect(`/video-chat/${uuidv4()}`);  
+});
+
+app.get("/video-chat/:room", (req, res) => {
+   res.render("room", { roomId: req.params.room });
+});
+
+let listOfPeers = [];
+
+peerServer.on("connection", (data) => {
+   listOfPeers.push(data.id);
+});
+
+io.on("connection", (socket) => {
+   // socket.broadcast.emit("user-connected", socket.id);
+   let userId;
+   socket.on("join-room", (roomId, usrId, userName) => {
+      userId = usrId;
+      socket.join(roomId);
+      socket.emit("listOfPeers", listOfPeers);
+      socket.broadcast.emit("user-connected", userId);
+      socket.on("message", (message) => {
+         io.to(roomId).emit("createMessage", message, userName);
+      });
+   });
+   socket.on("disconnect", () => {
+      if (listOfPeers.indexOf(5) > -1) { listOfPeers.splice(listOfPeers.indexOf(userId), 1); }
+      socket.broadcast.emit("user-disconnected", userId);
+   });
+});
+
+server.listen(port);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Temporary landings
+app.get("/account-created", (req, res) => {
+   res.send("You succesfully created your account!<br><a href='/'>Back to homepage</a>");
+});
+
+app.get("/create-account", (req, res) => {
+   res.render("signup");
+});
+
+app.get("/sign-in", (req, res) => {
+   if (!signedIn) { res.render("signin", { error: { is: false } }); }
+   else {
+      Chat.find(function(err, found) {
+         if (err) { console.log(err); }
+         else { res.redirect("/"); }
+      });
+   }
+});
+
+app.get("/sign-out", (req, res) => {
+   signedIn = false;
+   user = null;
+   signedInUser = "(not signed in)";
+   res.redirect("/");
+});
+
+/* =============
+// Redirect Requests
+============= */
+
+// Create chat message
+app.post("/chat-message", (req, res) => {
+   const newChat = new Chat({
+      input: req.body.message,
+      user: signedInUser.name,
+      avatar: signedInUser.avatar,
+      datePosted: new Date()
+   });
+   newChat.save(function(err){
+      if (err) {
+         console.log(err);
+      } else {
+         Chat.find(function(err, found) {
+            if (err) { console.log(err); }
+            else { res.redirect("back"); }
+         })
+      }
+   });
+});
+
+// Create account
+app.post("/create-account", (req, res) => {
    if (dataDone === false) { setTimeout(addNow, 250); }
    else { addNow(); }
    function addNow() {
-      if (namesList.includes(name)) { console.log("Choose a different name! (This one is taken!)"); return false; }
-      // else if (passcode.length !== 4) { console.log(passcode.length, "Passcode must be 4 numbers long!"); return false; }
-      else if (parseInt(passcode) === NaN) { console.log("Passcode must contain only numbers!"); return false; }
+      if (namesList.includes(req.body.name)) { console.log("Choose a different name! (This one is taken!)"); return false; }
+      else if (parseInt(req.body.pscd) === NaN) { console.log("Passcode must contain only numbers!"); return false; }
       else {
-         var newUser = new UserData({ name: name, email: email, passcode: passcode });
+         var newUser = new UserData({ name: req.body.name, email: req.body.emil, passcode: req.body.pscd, dateAccountStarted: Date.now() });
          newUser.save(function (err, newUser) {
             if (err) return console.error(err);
-            else { console.log("You succesfully created your account!"); }
          });
       }
    }
-}
-
-// UserData.updateMany(
-// { avatar: { $exists: false }},
-// { $set: { avatar: "squirrel" }},
-// { multi: true }
-// )
-//
-
-// let thang = UserData.findOneAndUpdate({ name: "Squirrel", avatar: "squirrel" }, { password: 0258 }, { new: true });
-
-// change password
-// let doc = await UserData.findOneAndUpdate({ name: "Squirrel", passcode: 0825 }, { password: 0258 }, { new: true });
-// force good accounts
-// UserData.findByIdAndRemove("612015dbdf91cf6ce81ef6ab", function (err) { if (err) { console.log(err) } });
-
-// Sign up
-app.get("/create-account", (req, res) => { res.render("signup"); });
-app.post("/create-account", (req, res) => {
-   addNewUser(req.body.name, req.body.emil, req.body.pscd);
    res.redirect("/account-created");
 });
-// Finished signing up
-app.get("/account-created", (req, res) => { res.send("You succesfully created your account!<br><a href='/'>Back to homepage</a>"); });
-// Other
-app.get("/vegetable-dash", (req, res) => {
-   if (signedInUser !== "not signed in") { res.render("vegetable-dash", { signedInUser }); }
-   else { res.render("signin", { error: { is: false } }); }
+
+// Update avatar
+app.post("/choose-avatar", (req, res) => {
+   UserData.findOneAndUpdate(
+      { name: signedInUser.name },
+      { avatar: req.body.avatar },
+      { new: true },
+      (err, doc) => { if (err) return console.error(err); }
+   );
+   UserData.findOne({ name: signedInUser.name }, (err, user) => {
+      if (err) return console.error(err);
+      else {
+         signedInUser = user;
+         res.redirect("/");
+      }
+   });
 });
-//Sign in
-app.get("/sign-in", (req, res) => {
-   if (!signedIn) { res.render("signin", { error: { is: false } }); }
-   else { res.render("index", { userFrom: signedInUser }); }
-});
+
+// IMPORTANT: This is sign in
 app.post("/play", (req, res) => {
    UserData.findOne({ name: req.body.name, email: req.body.emil, passcode: req.body.pscd }, (err, user) => {
       if (err) return console.error(err);
@@ -127,21 +284,67 @@ app.post("/play", (req, res) => {
       else if (user) {
          signedIn = true;
          signedInUser = user;
-         res.render("index", { userFrom: signedInUser });
+         Chat.find(function(err, found) {
+            if (err) { console.log(err); }
+            else { res.redirect("back"); }
+         });
       }
    });
 });
-// Home page
-app.get("/", (req, res) => {
-   // console.log(signedInUser);
-   res.render("home", { user: signedInUser, UserData: UserData });
+
+// Add new friends - NEEDS FIXING
+app.post("/send-friend-request", (req, res) => {
+   let thisUser = req.body.thisUser;
+   let thatUser = req.body.thatUser;
+   UserData.findOneAndUpdate(
+      { name: thisUser },
+      { $addToSet: { friendInvitesSent: thatUser } },
+      { new: true },
+      (err, doc) => {  if (err) return console.error(err); }
+   );
+   UserData.findOneAndUpdate(
+      { name: thatUser },
+      { $addToSet: { friendInvitesRecived: thisUser } },
+      { new: true },
+      (err, doc) => {  if (err) return console.error(err); }
+   );
+   res.redirect("/");
 });
 
-app.get("/sign-out", (req, res) => {
-   signedIn = false;
-   user = null;
-   signedInUser = "(not signed in)";
-   res.render("home", { user: signedInUser, UserData: UserData });
+app.post("/accept-friend-request", (req, res) => {
+   let thisUser = req.body.thisUser;
+   let thatUser = req.body.thatUser;
+   UserData.findOneAndUpdate(
+      { name: thisUser },
+      { $push: { friends: thatUser }, $pull: { friendInvitesSent: thatUser, friendInvitesRecived: thatUser }, $inc: { dashcoins: 5 } },
+      { new: true },
+      (err, doc) => {  if (err) return console.error(err); }
+   );
+   UserData.findOneAndUpdate(
+      { name: thatUser },
+      { $push: { friends: thisUser }, $pull: { friendInvitesSent: thisUser, friendInvitesRecived: thisUser }, $inc: { dashcoins: 5 } },
+      { new: true },
+      (err, doc) => {  if (err) return console.error(err); }
+   );
+   res.redirect("/");
 });
 
-app.listen(port);
+// Save Vegetable Dash data - NEEDS FIXING
+app.post("/save-vegetable-dash", (req, res) => {
+   let inputSave = req.body;
+   UserData.findOneAndUpdate(
+      { name: signedInUser.name },
+      { gameSave: inputSave },
+      { new: true },
+      function (err, doc) { if (err) { return console.error(err); } else { res.send("Misson Success!"); } }
+   );
+});
+
+// That's it
+// app.listen(port);
+
+
+
+// vegetable dash save
+// fix friends (if broken)
+// style friends modal
