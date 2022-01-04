@@ -15,7 +15,7 @@
       <title>Vegetable Dash!</title>
    </head>
    <% if (user !== "(not signed in)") { %>
-   <body ondragstart="return false;" onload="this.onmousemove='getCoords(event)'">
+   <body ondragstart="return false;" onmousemove="getCoords(event)">
       <div class="cover">
          <div class="meter">
            <span class="loading-progress" style="width: 0%"><span class="load-display">0%</span></span>
