@@ -271,7 +271,7 @@ function startTask(num, buttonTxt, buttonOnClick, infoTxt, taskGiver, taskGiverI
    document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", `javascript: ${buttonOnClick}` );
    document.querySelector(`.task-info-${num}`).textContent = infoTxt;
    document.querySelector(`.task-info-giver-${num}`).textContent = taskGiver;
-   $(`.task-info-img-${num}`).attr("src", taskGiverImg);
+   $(`.task-info-img-${num}`).attr("src", `Images/${taskGiverImg}`);
    gameData["taskBox" + num] = "occupied " + task;
 }
 function clearTask(num) {
@@ -301,16 +301,36 @@ function taskAlreadyUp(task) {
 }
 function checkTasks(task) { if (gameData[task] === "active") { gameData[task] = "ready"; } }
 function collectTaskReward(task) {
-   for (let i = 1; i <= tD.numOTasks; i++) { if (task === tD[`t${i}`]["n"]) { gameData[tD[`t${i}`]["rIT"]] += tD[`t${i}`]["rA"]; } }
+   for (let i = 1; i <= tD.numOTasks; i++) {
+      if (task === tD[`t${i}`]["name"]) {
+         gameData[tD[`t${i}`]["reward"]["item"]] += tD[`t${i}`]["reward"]["amount"];
+      }
+   }
    gameData[task] = "complete";
    clearTask(gameData[task + "Num"]);
 }
 function showTasks() {
    for (let i = 1; i <= tD.numOTasks; i++) {
-      if (ifCheck(tD[`t${i}`]["n"])) { setTask(tD[`t${i}`]["n"]); }
-      if (oldTaskCheck(tD[`t${i}`]["n"]) != false) {
-         if (gameData[tD[`t${i}`]["n"]] === "ready") { startTask(`${oldTaskCheck(tD[`t${i}`]["n"])}`, tD[`t${i}`]["cRT"], tD[`t${i}`]["cRC"], tD[`t${i}`]["rT"], tD[`t${i}`]["tG"], tD[`t${i}`]["tGI"], tD[`t${i}`]["n"]); }
-         else { startTask(`${oldTaskCheck(tD[`t${i}`]["n"])}`, tD[`t${i}`]["tD"], tD[`t${i}`]["tDC"], tD[`t${i}`]["nRT"], tD[`t${i}`]["tG"], tD[`t${i}`]["tGI"], tD[`t${i}`]["n"]); }
+      if (ifCheck(tD[`t${i}`]["name"])) { setTask(tD[`t${i}`]["name"]); }
+      if (oldTaskCheck(tD[`t${i}`]["name"]) != false) {
+         if (gameData[tD[`t${i}`]["name"]] === "ready") {
+            startTask(`${oldTaskCheck(tD[`t${i}`]["name"])}`,
+            tD[`t${i}`]["reward"]["text"],
+            tD[`t${i}`]["reward"]["code"],
+            tD[`t${i}`]["text"]["ready"],
+            tD[`t${i}`]["taskGiver"]["name"],
+            tD[`t${i}`]["taskGiver"]["image"],
+            tD[`t${i}`]["name"]);
+         }
+         else {
+            startTask(`${oldTaskCheck(tD[`t${i}`]["name"])}`,
+            tD[`t${i}`]["demand"]["text"],
+            tD[`t${i}`]["demand"]["code"],
+            tD[`t${i}`]["text"]["notReady"],
+            tD[`t${i}`]["taskGiver"]["name"],
+            tD[`t${i}`]["taskGiver"]["image"],
+            tD[`t${i}`]["name"]);
+         }
       }
    }
    function ifCheck(task) {
@@ -319,26 +339,30 @@ function showTasks() {
    }
 }
 function giveTasks() {
-   // This line should be repeated only for gameDatas
    if (gameData.pumpkinsStatus != "Locked") { gameData.bakeSale = "progressing"; }
    for (let i = 1; i <= tD.numOTasks; i++) {
-      if (checkIf(tD[`t${i}`]["n"], tD[`t${i}`]["c"])) { gameData[tD[`t${i}`]["n"]] = "active"; }
+      if (checkIf(tD[`t${i}`]["name"], tD[`t${i}`]["conditions"])) { gameData[tD[`t${i}`]["name"]] = "active"; }
    }
    function checkIf(name, conditions) {
-      let trueList = { is1: false, is2: false, is3: false }
+      let trueList = { is1: false, is2: false, is3: false, is4: false }
       if (gameData[name] != "complete" && gameData[name] != "ready") { trueList.is1 = true; }
-      if (conditions[0][0]) {
-         conditions[0][1][0] = tD;
-         if (gameData[conditions[0][1][0][conditions[0][1][1]][conditions[0][1][2]]] === "complete") { trueList.is2 = true; }
-      } else { trueList.is2 = true; }
-      if (conditions[1][0]) {
-         if (conditions[1][1][0] == "gameData") { conditions[1][1][0] = gameData; }
-         if (conditions[1][1][0] == "gameData") { conditions[1][1][0] = gameData; }
-         if (conditions[1][1][0] == "gameData") { conditions[1][1][0] = gameData; }
-         if (typeof conditions[1][2] === "number") { if (conditions[1][1][0][conditions[1][1][1]] >= conditions[1][2]) { trueList.is3 = true; } }
-         else { if (conditions[1][1][0][conditions[1][1][1]] === conditions[1][2]) { trueList.is3 = true; } }
-      } else { trueList.is3 = true; }
-      if (trueList.is1 && trueList.is2 && trueList.is3) { return true; }
+      if (conditions["c1"][0] !== false) {
+         let taskCheckingNumber = conditions["c1"][0];
+         let stateOfThatTask = gameData[tD[taskCheckingNumber]["name"]];
+         if (stateOfThatTask === "complete") { trueList.is2 = true; }
+      } else { trueList.is2 = false; }
+      if (conditions["c2"][0] !== "false") {
+         if (name == "seeBlackMarket") { console.log("hi") }
+         if (typeof conditions["c2"][1] === "number") {
+            if (gameData[conditions["c2"][0]] >= conditions["c2"][1]) { trueList.is3 = true; }
+         }
+         else if (gameData[conditions["c2"][0]] === conditions["c2"][1]) { trueList.is3 = true; }
+      } else { trueList.is3 = false; }
+      if (conditions["c3"][0] !== "false") {
+         if (gameData[conditions["c3"][0]] !== "Locked") { trueList.is4 = true; }
+      } else { trueList.is4 = false; }
+      if (name == "seeBlackMarket") { console.log(trueList) }
+      if (trueList.is1 && trueList.is2 && trueList.is3 && trueList.is4) { return true; }
       else { return false; }
    }
 }
@@ -640,7 +664,7 @@ function sellProduce(produceRequested, produceCase) {
       for (i = 0; i < 5; i++) { sell(); } marketLuck();
    }
    else if (gameData[produceRequested] >= 5) { sell(); marketLuck(); }
-   else { fadeTextAppear(event, `Not enough gameData`, false, "#de0000"); }
+   else { fadeTextAppear(event, `Not enough produce`, false, "#de0000"); }
    function sell() {
       gameData[produceRequested] -= 5;
       gameData.seeds += gameData["sell" + produceCase];
@@ -679,7 +703,7 @@ function acceptExchange() {
       gameData[costVeg.vegetable] -= Math.round(costVeg.amount);
       generateExchange();
    }
-   else { fadeTextAppear(event, `Not enough gameData`, false, "#de0000"); }
+   else { fadeTextAppear(event, `Not enough produce`, false, "#de0000"); }
 }
 
 // Black Market

@@ -166,7 +166,7 @@ let initGameData = {
     tryPoliceDoughnuts: "unreached",
     tryPoliceDoughnutsNum: 0,
     // Unlock Plots: Grandpa Jenkins
-    unlockThe_cornPlot:  "unreached",
+    unlockThe_cornPlot:  "active",
     unlockThe_cornPlotNum: 0,
     // Bake Sale: Grandma Josephine
     bakeSale: "awaiting",
