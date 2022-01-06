@@ -15,7 +15,7 @@
       <title>Vegetable Dash!</title>
    </head>
    <% if (user !== "(not signed in)") { %>
-   <body ondragstart="return false;" onmousemove="getCoords(event)">
+   <body ondragstart="return false;">
       <div class="cover">
          <div class="meter">
            <span class="loading-progress" style="width: 0%"><span class="load-display">0%</span></span>
@@ -38,7 +38,7 @@
             <img onclick="infoModal('Peas')" class="veg-icon" src="Images/Vegetables/pea.png">
             <div id="infoPeas" class="veg-info">
                <div class="modal-content">
-                  <button onclick="infoModal('Peas')" class="close depth-button green">×</button>
+                  <button onclick="infoModal('Peas')" class="close depth-button green">x</button>
                   <h4>Peas <img class="info-icon" src="Images/Vegetables/pea.png"></h4>
                   <p>Peas are a climbing vine in the legume family. <br> These pea plants take 10 seconds to grow.</p>
                   <div class="modal-market-prices">
@@ -65,7 +65,7 @@
                <img onclick="infoModal('Corn')" class="veg-icon" src="Images/Vegetables/corn.png">
                <div id="infoCorn" class="veg-info">
                   <div class="modal-content">
-                     <button onclick="infoModal('Corn')" class="close depth-button yellow">×</button>
+                     <button onclick="infoModal('Corn')" class="close depth-button yellow">x</button>
                      <h4>Corn <img class="info-icon" src="Images/Vegetables/corn.png"></h4>
                      <p>Corn, or maize, is a cereal grain originally grown 10,00 years ago in southern Mexico. <br> These corn plants take 25 seconds to grow.</p>
                      <div class="modal-market-prices">
@@ -75,15 +75,19 @@
                   </div>
                </div>
                <!-- Unlocked -->
-               <div id="infoUnlockedCorn" class="veg-info">
-                  <div class="modal-content modal-plot-unlocked">
-                     <button onclick="infoModal('UnlockedCorn'); location.reload();" class="close depth-button yellow">×</button>
-                     <h4>New Plot Unlocked!</h4>
-                     <p class="unlocked-text">Market Exchanges!</p>
-                     <p class="unlocked-text">+1 Market Reset!</p>
-                     <p class="unlocked-text">+ Corn Tasks!</p>
-                     <p class="unlocked-text">+ Growing Corn!</p>
-                     <p class="unlocked-text">+ Corn in Market!</p>
+               <div id="infoUnlockedCorn" class="plot-unlocked-modal">
+                  <div class="modal-content plot-unlocked-modal-inner">
+                     <button onclick="plotUnlockedModal('UnlockedCorn'); location.reload();" class="unlockedBtn">x</button>
+                     <h4>Corn Plot!</h4>
+                     <ul>
+                        <p>You unlocked:</p>
+                        <li>Market Exchanges!</li>
+                        <li>Corn Tasks!</li>
+                        <li>Corn in Market!</li>
+                        <br>
+                        <p>You earned:</p>
+                        <li>1 Market Reset!</li>
+                     </ul>
                   </div>
                </div>
             </div>
@@ -105,7 +109,7 @@
                <img onclick="infoModal('Strawberry')" class="veg-icon" src="Images/Vegetables/strawberry.png">
                <div id="infoStrawberry" class="veg-info">
                   <div class="modal-content">
-                     <button onclick="infoModal('Strawberry')" class="close depth-button red">×</button>
+                     <button onclick="infoModal('Strawberry')" class="close depth-button red">x</button>
                      <h4>Strawberries! <img class="info-icon" src="Images/Vegetables/strawberry.png"></h4>
                      <p>Strawberries are part of the genus Fragaria, native to North America. <br> These strawberries take 2.5 minutes to grow.</p>
                      <div class="modal-market-prices">
@@ -115,15 +119,19 @@
                   </div>
                </div>
                <!-- Unlocked -->
-               <div id="infoUnlockedStrawberry" class="veg-info">
-                  <div class="modal-content modal-plot-unlocked">
-                     <button onclick="infoModal('UnlockedStrawberry'); location.reload();" class="close depth-button red">×</button>
-                     <h4>New Plot Unlocked!</h4>
-                     <p class="unlocked-text">The Black Market!</p>
-                     <p class="unlocked-text">+1 Market Reset!</p>
-                     <p class="unlocked-text">+ Strawberry Tasks!</p>
-                     <p class="unlocked-text">+ Growing Strawberries!</p>
-                     <p class="unlocked-text">+ Strawberries in Market!</p>
+               <div id="infoUnlockedStrawberry" class="plot-unlocked-modal">
+                  <div class="modal-content plot-unlocked-modal-inner">
+                     <button onclick="plotUnlockedModal('UnlockedStrawberry'); location.reload();" class="unlockedBtn">x</button>
+                     <h4>Strawberry Plot!</h4>
+                     <ul>
+                        <p>You unlocked:</p>
+                        <li>The Black Market!</li>
+                        <li>Strawberry Tasks!</li>
+                        <li>Strawberry in Market!</li>
+                        <br>
+                        <p>You earned:</p>
+                        <li>1 Market Reset!</li>
+                     </ul>
                   </div>
                </div>
             </div>
@@ -145,7 +153,7 @@
                <img onclick="infoModal('Eggplant')" class="veg-icon" src="Images/Vegetables/eggplant.png">
                <div id="infoEggplant" class="veg-info">
                   <div class="modal-content">
-                     <button onclick="infoModal('Eggplant')" class="close depth-button purple">×</button>
+                     <button onclick="infoModal('Eggplant')" class="close depth-button purple">x</button>
                      <h4>Eggplant <img class="info-icon" src="Images/Vegetables/eggplant.png"></h4>
                      <p>Eggplants are a species in the Solanaceae, or nightshade family, and are thought to be native to India. <br> These eggplants take 15 minutes to grow.</p>
                      <div class="modal-market-prices">
@@ -155,14 +163,18 @@
                   </div>
                </div>
                <!-- Unlocked -->
-               <div id="infoUnlockedEggplant" class="veg-info">
-                  <div class="modal-content modal-plot-unlocked">
-                     <button onclick="infoModal('UnlockedEggplant'); location.reload();" class="close depth-button purple">×</button>
-                     <h4>New Plot Unlocked!</h4>
-                     <p class="unlocked-text">+1 Market Reset!</p>
-                     <p class="unlocked-text">+ Eggplant Tasks!</p>
-                     <p class="unlocked-text">+ Growing Eggplants!</p>
-                     <p class="unlocked-text">+ Eggplants in Market!</p>
+               <div id="infoUnlockedEggplant" class="plot-unlocked-modal">
+                  <div class="modal-content plot-unlocked-modal-inner">
+                     <button onclick="plotUnlockedModal('UnlockedEggplant'); location.reload();" class="unlockedBtn">x</button>
+                     <h4>Eggplant Plot!</h4>
+                     <ul>
+                        <p>You unlocked:</p>
+                        <li>Eggplant Tasks!</li>
+                        <li>Eggplant in Market!</li>
+                        <br>
+                        <p>You earned:</p>
+                        <li>1 Market Reset!</li>
+                     </ul>
                   </div>
                </div>
             </div>
@@ -182,7 +194,7 @@
                <img onclick="infoModal('Rainbow')" class="veg-icon" src="Images/Global Assets/rainbow-fruit.svg">
                <div id="infoRainbow" class="veg-info">
                   <div class="modal-content">
-                     <span onclick="infoModal('Rainbow')" class="close">×</span>
+                     <span onclick="infoModal('Rainbow')" class="close">x</span>
                      <h4>Rainbow Plot! <img class="info-icon" src="Images/Global Assets/rainbow-fruit.svg"></h4>
                      <p>You can plant anything in this plot! <br> 🎉 Yay! 🎉</p>
                   </div>
@@ -217,7 +229,7 @@
                <img onclick="infoModal('Pumpkins')" class="veg-icon" src="Images/Vegetables/pumpkin.svg">
                <div id="infoPumpkins" class="veg-info">
                   <div class="modal-content">
-                     <button onclick="infoModal('Pumpkins')" class="close depth-button orange">×</button>
+                     <button onclick="infoModal('Pumpkins')" class="close depth-button orange">x</button>
                      <h4>Pumpkins <img class="info-icon" src="Images/Vegetables/pumpkin.svg"></h4>
                      <p>Pumpkins, a round winter squash with yellow to orange smooth skin, are believed to originate in Mexico. <br> These Pumpkins take 30 minutes to grow.</p>
                      <div class="modal-market-prices">
@@ -227,14 +239,18 @@
                   </div>
                </div>
                <!-- Unlocked -->
-               <div id="infoUnlockedPumpkin" class="veg-info">
-                  <div class="modal-content modal-plot-unlocked">
-                     <button onclick="infoModal('UnlockedPumpkin'); location.reload();" class="close depth-button orange">×</button>
-                     <h4>New Plot Unlocked!</h4>
-                     <p class="unlocked-text">+1 Market Reset!</p>
-                     <p class="unlocked-text">+ Pumpkin Tasks!</p>
-                     <p class="unlocked-text">+ Growing Pumpkins!</p>
-                     <p class="unlocked-text">+ Pumpkins in Market!</p>
+               <div id="infoUnlockedPumpkins" class="plot-unlocked-modal">
+                  <div class="modal-content plot-unlocked-modal-inner">
+                     <button onclick="plotUnlockedModal('UnlockedPumpkins'); location.reload();" class="unlockedBtn">x</button>
+                     <h4>Pumpkins Plot!</h4>
+                     <ul>
+                        <p>You unlocked:</p>
+                        <li>Pumpkins Tasks!</li>
+                        <li>Pumpkins in Market!</li>
+                        <br>
+                        <p>You earned:</p>
+                        <li>1 Market Reset!</li>
+                     </ul>
                   </div>
                </div>
             </div>
@@ -256,7 +272,7 @@
                <img onclick="infoModal('Cabbage')" class="veg-icon" src="Images/Vegetables/cabbage.svg">
                <div id="infoCabbage" class="veg-info">
                   <div class="modal-content">
-                     <button onclick="infoModal('Cabbage')" class="close depth-button green">×</button>
+                     <button onclick="infoModal('Cabbage')" class="close depth-button green">x</button>
                      <h4>Cabbage <img class="info-icon" src="Images/Vegetables/cabbage.svg"></h4>
                      <p>A leafy vegetable <br> These Cabbage plants take 1 hour to grow.</p>
                      <div class="modal-market-prices">
@@ -266,14 +282,18 @@
                   </div>
                </div>
                <!-- Unlocked -->
-               <div id="infoUnlockedCabbage" class="veg-info">
-                  <div class="modal-content modal-plot-unlocked">
-                     <button onclick="infoModal('UnlockedCabbage'); location.reload();" class="close depth-button green">×</button>
-                     <h4>New Plot Unlocked!</h4>
-                     <p class="unlocked-text">+1 Market Reset!</p>
-                     <p class="unlocked-text">+ Cabbage Tasks!</p>
-                     <p class="unlocked-text">+ Growing Cabbages!</p>
-                     <p class="unlocked-text">+ Cabbages in Market!</p>
+               <div id="infoUnlockedCabbage" class="plot-unlocked-modal">
+                  <div class="modal-content plot-unlocked-modal-inner">
+                     <button onclick="plotUnlockedModal('UnlockedCabbage'); location.reload();" class="unlockedBtn">x</button>
+                     <h4>Cabbage Plot!</h4>
+                     <ul>
+                        <p>You unlocked:</p>
+                        <li>Cabbage Tasks!</li>
+                        <li>Cabbage in Market!</li>
+                        <br>
+                        <p>You earned:</p>
+                        <li>1 Market Reset!</li>
+                     </ul>
                   </div>
                </div>
             </div>
@@ -295,7 +315,7 @@
                <img onclick="infoModal('Dandelion')" class="veg-icon" src="Images/Vegetables/dandelion.png">
                <div id="infoDandelion" class="veg-info">
                   <div class="modal-content">
-                     <button onclick="infoModal('Dandelion')" class="close depth-button yellow">×</button>
+                     <button onclick="infoModal('Dandelion')" class="close depth-button yellow">x</button>
                      <h4>Dandelions! <img class="info-icon" src="Images/Vegetables/dandelion.png"></h4>
                      <p>These <strong>are</strong> vegetables, because the part eaten are the seeds and leaves, not the fruit. Of the Taraxacum family, the name dandelion come from the French dent-de-lion, which means 'lion's tooth'.<br> These dandelions take 3 hours to grow.</p>
                      <div class="modal-market-prices">
@@ -305,14 +325,18 @@
                   </div>
                </div>
                <!-- Unlocked -->
-               <div id="infoUnlockedDandelion" class="veg-info">
-                  <div class="modal-content modal-plot-unlocked">
-                     <button onclick="infoModal('UnlockedDandelion'); location.reload();" class="close depth-button yellow">×</button>
-                     <h4>New Plot Unlocked!</h4>
-                     <p class="unlocked-text">+1 Market Reset!</p>
-                     <p class="unlocked-text">+ Dandelion Tasks!</p>
-                     <p class="unlocked-text">+ Growing Dandelions!</p>
-                     <p class="unlocked-text">+ Dandelions in Market!</p>
+               <div id="infoUnlockedDandelion" class="plot-unlocked-modal">
+                  <div class="modal-content plot-unlocked-modal-inner">
+                     <button onclick="plotUnlockedModal('UnlockedDandelion'); location.reload();" class="unlockedBtn">x</button>
+                     <h4>Dandelion Plot!</h4>
+                     <ul>
+                        <p>You unlocked:</p>
+                        <li>Dandelion Tasks!</li>
+                        <li>Dandelion in Market!</li>
+                        <br>
+                        <p>You earned:</p>
+                        <li>1 Market Reset!</li>
+                     </ul>
                   </div>
                </div>
             </div>
@@ -334,7 +358,7 @@
                <img onclick="infoModal('Rhubarb')" class="veg-icon" src="Images/Vegetables/rhubarb.png">
                <div id="infoRhubarb" class="veg-info">
                   <div class="modal-content">
-                     <button onclick="infoModal('Rhubarb')" class="close depth-button red">×</button>
+                     <button onclick="infoModal('Rhubarb')" class="close depth-button red">x</button>
                      <h4>Rhubarb <img class="info-icon" src="Images/Vegetables/rhubarb.png"></h4>
                      <p>Don't eat the leaves. <br> They're poisonous. <br> These rhubarb plants take 8 hours to grow.</p>
                      <div class="modal-market-prices">
@@ -344,14 +368,18 @@
                   </div>
                </div>
                <!-- Unlocked -->
-               <div id="infoUnlockedRhubarb" class="veg-info">
-                  <div class="modal-content modal-plot-unlocked">
-                     <button onclick="infoModal('UnlockedRhubarb'); location.reload();" class="close depth-button red">×</button>
-                     <h4>New Plot Unlocked!</h4>
-                     <p class="unlocked-text">+1 Market Reset!</p>
-                     <p class="unlocked-text">+ Rhubarb Tasks!</p>
-                     <p class="unlocked-text">+ Growing Rhubarb!</p>
-                     <p class="unlocked-text">+ Rhubarb in Market!</p>
+               <div id="infoUnlockedRhubarb" class="plot-unlocked-modal">
+                  <div class="modal-content plot-unlocked-modal-inner">
+                     <button onclick="plotUnlockedModal('UnlockedRhubarb'); location.reload();" class="unlockedBtn">x</button>
+                     <h4>Rhubarb Plot!</h4>
+                     <ul>
+                        <p>You unlocked:</p>
+                        <li>Rhubarb Tasks!</li>
+                        <li>Rhubarb in Market!</li>
+                        <br>
+                        <p>You earned:</p>
+                        <li>1 Market Reset!</li>
+                     </ul>
                   </div>
                </div>
             </div>
@@ -981,7 +1009,6 @@
          <div class="market">
             <div class="marketVegetables">
                <div class="market-item">
-                  <button onclick="hideObj('.marketShadow'); gameData.marketOpen = false;" class="hide-market">&#215;</button>
                   <div class="market-item-content special-market-item">Seeds: 0</div>
                </div>
                <div class="market-item">
@@ -1085,6 +1112,7 @@
             </div>
             <br>
          </div>
+         <button onclick="hideObj('.marketShadow'); gameData.marketOpen = false;" class="close closeMarket">&#215;</button>
       </div>
       <!-- Settings -->
       <div class="shadow settingShadow">
@@ -1217,7 +1245,7 @@
          <img onmouseover="info(this)" data-info="Help" class="help-center-img" onclick="showObj('.help-shadow'); gameData.helpOpen = true;" src="Images/Icons/help.svg">
          <div class="shadow help-shadow">
             <div class="help">
-               <button onclick="hideObj('.help-shadow'); gameData.helpOpen = false;" class="close depth-button blue closeModalHelp">×</button>
+               <button onclick="hideObj('.help-shadow'); gameData.helpOpen = false;" class="close closeModalHelp">x</button>
                <div class="help-subjects">
                   <div class="help-subjects-item help-subjects-item-center" onclick="scrollToSection('help-center')">Center</div>
                   <div class="help-subjects-item help-subjects-item-planting" onclick="scrollToSection('help-planting')">Planting</div>

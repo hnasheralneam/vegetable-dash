@@ -317,16 +317,42 @@ Modals
    box-sizing: border-box;
    overflow: scroll;
 }
+
 .close {
-   float: right;
-   height: 8vh;
-   width: 8vh;
-   padding: .2vh;
+   position: absolute;
+   top: 4vh;
+   right: 6vh;
+   border: solid #f5b803 .8vh;
+   height: 10vh;
+   width: 10vh;
+   padding: 0;
    border-radius: 2vh;
-   width: 8vh;
-   transition: 0.2s;
+   color: #f5b803;
+   background-color: #fff;
+   font-size: 6vh;
+   font-family: "Nuntio", sans-serif;
+   box-shadow: 0 .75vh #f29103;
+   box-sizing: border-box;
+   transition: .2s;
 }
-.close:hover { transform: scale(1.05); }
+.close:hover {
+   background-color: #f5b803;
+   color: #fff;
+   box-shadow: 0 .25vh #f29103;
+   transform: translate(0, .5vh);
+}
+.close:active {
+   background-color: #f5b803;
+   color: #fff;
+   box-shadow: 0 0 #f29103;
+   transform: translate(0, .75vh);
+}
+
+.closeMarket {
+   top: .5vh;
+   right: .5vh;
+}
+ 
 .modal-market-prices {
    position: fixed;
    right: 0;
@@ -385,6 +411,93 @@ Modals
    cursor: pointer;
 }
 .closeModal:hover { text-shadow: 0 0 .5vh #444; }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+New Plot Modal (& Button)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.plot-unlocked-modal {
+   pointer-events: none;
+   opacity: 0;
+   position: fixed;
+   z-index: 1;
+   padding-top: 10vh;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.2);
+   transition: .6s;
+}
+
+.plot-unlocked-modal-inner {
+   width: 45vw;
+   height: 85vh;
+   margin: -5vh auto 0 auto;
+   padding: 2vh 2vh 2vh 12vh;
+   font-size: 6vh;
+   border-radius: .8vh;
+   background-color: #fefefe;
+   text-align: left;
+   font-family: "Roboto Condensed";
+   position: relative;
+   box-sizing: border-box;
+   overflow: scroll;
+   box-shadow: 0 1vh #eee;
+   transform: translate(0, -45vh) rotateX(90deg);
+   transition: .4s;
+   opacity: 0;
+}
+
+.plot-unlocked-modal:hover .plot-unlocked-modal-inner {
+   transform: translate(0, 0) rotateX(0);
+   opacity: 1;
+}
+
+.plot-unlocked-modal h4 {
+   margin-top: 3vh;
+   font-size: 7vh;
+   color: #222;
+   font-family: "Nunito";
+}
+
+.plot-unlocked-modal p {
+   font-size: 5vh;
+   color: #555;
+}
+
+.plot-unlocked-modal li {
+   font-size: 4vh;
+   color: #555;
+   line-height: 6vh;
+   list-style-type: "- ";
+}
+
+.unlockedBtn {
+   float: right;
+   padding: 0 .4vh 0 .4vh;
+   border: none;
+   margin: 2vh;
+   height: 10vh;
+   width: 10vh;
+   border-radius: 10vh;
+   color: #fff;
+   background-color: #f5b803;
+   font-size: 6vh;
+   font-family: sans-serif;
+   box-shadow: 0 .75vh #f29103;
+   transition: .25s;
+}
+ 
+.unlockedBtn:hover {
+   box-shadow: 0 1vh #f29103;
+   transform: translate(0, -.25vh);
+}
+ 
+.unlockedBtn:active {
+   box-shadow: 0 0 #f29103;
+   transform: translate(0, .75vh);
+}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Right Click Menu
@@ -708,34 +821,6 @@ Market & Black Market
 .more-info-tooltip:hover .tooltip-text {
    opacity: 1;
    pointer-events: auto;
-}
-.hide-market {
-   z-index: 50;
-   position: absolute;
-   top: 0;
-   right: 0;
-   height: 1vh;
-   width: 1vh;
-   font-family: "Nunito";
-   margin: 2vh;
-   border-radius: 1.5vh;
-   color: #fff;
-   font-size: 8vh;
-   transition: .3s;
-   box-shadow: 0 1vh #16CCF8;
-   border: solid 2vh #63E1FF;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-.hide-market:hover {
-   background-color: #63E1FF;
-   text-shadow: 0 0 .25vh #444;
-}
-.hide-market:active {
-   outline: none;
-   transform: translateY(.5vh);
-   box-shadow: 0 .5vh #16CCF8;
 }
 #market-reset-more-info { filter: invert(); }
 
@@ -1135,13 +1220,6 @@ Help
    transition: .25s;
 }
 .help-center-img:hover { transform: scale(1.05); }
-.closeModalHelp {
-   position: absolute;
-   top: 6vh;
-   right: 10vh;
-   transition: .5s;
-   cursor: pointer;
-}
 .help a {
    color: lightblue;
    text-decoration: none;
@@ -1418,24 +1496,6 @@ Other
    font-family: "Nunito";
    color: #f5f5f5;
    text-align: center;
-}
-
-/* New Plot Unlocked */
-.modal-plot-unlocked p {
-   text-align: left;
-   margin: 2vh 0 2vh 15%;
-   font-size: 10vh;
-   color: #555;
-   transform: translate(0, 25vh) scale(0);
-}
-body:hover .unlocked-text { animation: unlocked-text 1.5s forwards; }
-body:hover .unlocked-text:nth-last-child(1)  { animation-delay: 4.5s; }
-body:hover .unlocked-text:nth-last-child(2)  { animation-delay: 3s; }
-body:hover .unlocked-text:nth-last-child(3)  { animation-delay: 1.5s; }
-body:hover .unlocked-text:nth-last-child(4)  { animation-delay: 0; }
-@keyframes unlocked-text {
-   0% { transform: translate(0, 25vh) scale(0); }
-   100% { transform: translate(0, 0) scale(1); }
 }
 
 /* Time Left */

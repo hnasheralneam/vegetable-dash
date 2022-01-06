@@ -93,10 +93,12 @@ t4: {
    tDC: "if (produce.corn >= 45) { produce.corn -= 45; checkTasks('jebsGrilledCorn'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }",
    nRT: "I'm inviting some family over, and I want to serve corn on the cob. I'm going to need to get come corn. Could you get them for me?",
    rT: "What a wonderful time we all had! Did you like the food? My family did, and they sent you some gifts!",
-   cRT: "Collect 8 Market Resets",
-   cRC: "collectTaskReward('jebsGrilledCorn')",
-   rIT: "marketResets",
-   rA: 8,
+   reward: {
+      item: "marketResets",
+      amount: 8,
+      text: "Collect 8 Market Resets",
+      code: "collectTaskReward('jebsGrilledCorn')"
+   },
    conditions: {
       c1: [false],
       c2: [false],

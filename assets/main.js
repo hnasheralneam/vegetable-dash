@@ -56,6 +56,10 @@ function infoModal(veg) {
    if (document.querySelector(`#info${veg}`).style.opacity === "1") { hideObj(`#info${veg}`); }
    else { showObj(`#info${veg}`); }
 }
+function plotUnlockedModal(veg) {
+   if (document.querySelector(`#info${veg}`).style.opacity === "1") { hideObj(`#info${veg}`); }
+   else { showObj(`#info${veg}`); }
+}
 
 function tend(veg) {
    // Harvest
@@ -66,7 +70,7 @@ function tend(veg) {
       harvestLuck(capitalize(veg));
       showObj(`.${capitalize(veg)}`);
       if (gameData[veg]) { gameData[veg] += gameData[veg + "Reward"]; }
-      else { gameData[veg] = 1; }
+      else { gameData[veg] = gameData[veg + "Reward"]; }
       gameData[veg + "Reward"] = 1;
    }
    // Plant
@@ -84,7 +88,7 @@ function tend(veg) {
 function fertilize(veg) {
    if (gameData.fertilizers >= 1) {
       gameData.fertilizers -= 1;
-      gameData[veg + "Ready"] = 0;
+      gameData[veg + "Status"] = "Ready";
       gameData[veg + "Reward"]++;
       checkTasks("tryFertilizer");
    }
@@ -168,30 +172,29 @@ let updateWeather = window.setInterval(function() {
    if (gameData.weather.weather === "snowy" && gameData.weather.hasBeenPunished === false) {
       let unluckyVeg = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
       let amountLost = Math.floor(gameData[unluckyVeg] /= 3);
-      if (amountLost > 0) { gameData[unluckyVeg] -= amountLost; }
+      if (amountLost > 0) { gameData[unluckyVeg] - amountLost; }
       callAlert(`It has snowed! You lost ${amountLost} ${unluckyVeg}!`);
       gameData.weather.hasBeenPunished = true;
    }
    if (gameData.weather.weather === "flood" && gameData.weather.hasBeenPunished === false) {
       let unluckyVeg = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
       let amountLost = Math.floor(gameData[unluckyVeg] /= 5);
-      if (amountLost > 0) { gameData[unluckyVeg] -= amountLost; }
+      if (amountLost > 0) { gameData[unluckyVeg] - amountLost; }
       callAlert(`It has flooded! You lost ${amountLost} ${unluckyVeg}!`);
       gameData.weather.hasBeenPunished = true;
    }
    if (gameData.weather.weather === "frost" && gameData.weather.hasBeenPunished === false) {
-      if (gameData.peasReady != Infinity) { maybeLose("peas"); }
-      if (gameData.cornReady != Infinity) { maybeLose("corn"); }
-      if (gameData.strawberriesReady != Infinity) { maybeLose("strawberries"); }
-      if (gameData.eggplantsReady != Infinity) { maybeLose("eggplants"); }
-      if (gameData.pumpkinsReady != Infinity) { maybeLose("pumpkins"); }
-      if (gameData.cabbageReady != Infinity) { maybeLose("cabbage"); }
-      if (gameData.dandelionReady != Infinity) { maybeLose("dandelion"); }
-      if (gameData.rhubarbReady != Infinity) { maybeLose("rhubarb"); }
+      if (plantStatus("r-or-e", "peas") || plantStatus("g", "peas")) { maybeLose("peas"); }
+      if (plantStatus("r-or-e", "corn") || plantStatus("g", "corn")) { maybeLose("corn"); }
+      if (plantStatus("r-or-e", "strawberries") || plantStatus("g", "strawberries")) { maybeLose("strawberries"); }
+      if (plantStatus("r-or-e", "eggplants") || plantStatus("g", "eggplants")) { maybeLose("eggplants"); }
+      if (plantStatus("r-or-e", "pumpkins") || plantStatus("g", "pumpkins")) { maybeLose("pumpkins"); }
+      if (plantStatus("r-or-e", "cabbage") || plantStatus("g", "cabbage")) { maybeLose("cabbage"); }
+      if (plantStatus("r-or-e", "dandelion") || plantStatus("g", "dandelion")) { maybeLose("dandelion"); }
+      if (plantStatus("r-or-e", "rhubarb") || plantStatus("g", "rhubarb")) { maybeLose("rhubarb"); }
       function maybeLose(veg) {
          if (Math.random() > .5) {
-            gameData[veg + "Growing"] = gameData[veg + "Flowering"] = gameData[veg + "Ready"] = Infinity;
-            gameData[veg] = "withered";
+            gameData[veg + "Status"] = "withered";
             showObj(`.${capitalize(veg)}`);
          }
       }
@@ -352,7 +355,6 @@ function giveTasks() {
          if (stateOfThatTask === "complete") { trueList.is2 = true; }
       } else { trueList.is2 = false; }
       if (conditions["c2"][0] !== "false") {
-         if (name == "seeBlackMarket") { console.log("hi") }
          if (typeof conditions["c2"][1] === "number") {
             if (gameData[conditions["c2"][0]] >= conditions["c2"][1]) { trueList.is3 = true; }
          }
@@ -361,7 +363,6 @@ function giveTasks() {
       if (conditions["c3"][0] !== "false") {
          if (gameData[conditions["c3"][0]] !== "Locked") { trueList.is4 = true; }
       } else { trueList.is4 = false; }
-      if (name == "seeBlackMarket") { console.log(trueList) }
       if (trueList.is1 && trueList.is2 && trueList.is3 && trueList.is4) { return true; }
       else { return false; }
    }
@@ -404,7 +405,11 @@ function luckyRoll() {
    let amountLost = Math.floor(gameData[vegLost] /= 3);
    if (Math.random() < .08) {
       gameData[vegLost] -= amountLost;
-      callAlert(`A pirate has pillaged your gameData! You lost ${amountLost} of your ${vegLost}!`);
+      callAlert(`A pirate has pillaged your plots! You lost ${amountLost} of your ${vegLost}!`);
+    }
+    if (Math.random() < .02) {
+      gameData[vegLost] -= amountLost;
+      callAlert(`A hacker has hacked your account (not really)! You lost ${amountLost} of your ${vegLost}!`);
     }
 }
 let whenToLuck = window.setInterval(function() {
@@ -755,6 +760,8 @@ function feedPolice() {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Main Loop
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+document.body.addEventListener("mousemove", e => {getCoords(e); });
 
 let bgImgArr = [["lake-night", "lake-day"], ["mountian-night", "mountian-day"]];
 let bgImg = bgImgArr[Math.floor(Math.random() * bgImgArr.length)];
