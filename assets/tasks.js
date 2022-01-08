@@ -87,12 +87,18 @@ t3: {
 // jebsGrilledCorn
 t4: {
    name: "jebsGrilledCorn",
-   tG: "Farmer Jebediah",
-   tGI: "Tasks/farmer.svg",
-   tD: "Submit 45 Corn",
-   tDC: "if (produce.corn >= 45) { produce.corn -= 45; checkTasks('jebsGrilledCorn'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }",
-   nRT: "I'm inviting some family over, and I want to serve corn on the cob. I'm going to need to get come corn. Could you get them for me?",
-   rT: "What a wonderful time we all had! Did you like the food? My family did, and they sent you some gifts!",
+   taskGiver: {
+      name: "Farmer Jebediah",
+      image: "Tasks/farmer.svg",
+   },
+   demand: {
+      text: "Submit 45 Corn",
+      code: "if (produce.corn >= 45) { produce.corn -= 45; checkTasks('jebsGrilledCorn'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+   },
+   text: {
+      notReady: "I'm inviting some family over, and I want to serve corn on the cob. I'm going to need to get come corn. Could you get them for me?",
+      ready: "What a wonderful time we all had! Did you like the food? My family did, and they sent you some gifts!"
+   },
    reward: {
       item: "marketResets",
       amount: 8,
@@ -108,16 +114,24 @@ t4: {
 // josephinesDandelionSalad
 t5: {
    name: "josephinesDandelionSalad",
-   tG: "Grandma Josephine",
-   tGI: "Tasks/granny.png",
-   tD: "Submit 6 Dandelions",
-   tDC: "if (produce.dandelion >= 6) { produce.dandelion -= 6; checkTasks('josephinesDandelionSalad'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }",
-   nRT: "What an outrage! I have found that we have been losing profit to a competing company, Happy Place Farms! Their top product is lettuce salad, but I think we can do better! Introducing dandelion salad!",
-   rT: "Take that, Happy Place Farm! Our profits have increased by 20%, and their quarterly earnings fell by 35%! Hurrah for dandelion salad!",
-   cRT: "Collect 15,000 Seeds",
-   cRC: "collectTaskReward('josephinesDandelionSalad')",
-   rIT: "seeds",
-   rA: 15000,
+   taskGiver: {
+      name: "Grandma Josephine",
+      image: "Tasks/granny.png",
+   },
+   demand: {
+      text: "Submit 6 Dandelions",
+      code: "if (produce.dandelion >= 6) { produce.dandelion -= 6; checkTasks('josephinesDandelionSalad'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+   },
+   text: {
+      notReady: "What an outrage! I have found that we have been losing profit to a competing company, Happy Place Farms! Their top product is lettuce salad, but I think we can do better! Introducing; dandelion salad!",
+      ready: "Take that, Happy Place Farm! Our profits have increased by 20%, and their quarterly earnings fell by 35%! Hurrah for dandelion salad!"
+   },
+   reward: {
+      item: "seeds",
+      amount: 15000,
+      text: "Collect 15,000 Seeds",
+      code: "collectTaskReward('josephinesDandelionSalad')"
+   },
    conditions: {
       c1: [false],
       c2: [false],
@@ -127,37 +141,51 @@ t5: {
 // unlockThe_cornPlot
 t6: {
    name: "unlockThe_cornPlot",
-   tG: "Grandpa Jenkins",
-   tGI: "Tasks/jenkins.png",
-   tD: "Unlock the second plot",
-   tDC: "",
-   nRT: "You need to diversify your farm. Unlock the second plot for a new plant!",
-   rT: "Ooooh, look! It's corn! Whoopie!",
-   cRT: "Collect 1 Fertilizer",
-   cRC: "collectTaskReward('unlockThe_cornPlot')",
-   rIT: "fertilizers",
-   rA: 1,
+   taskGiver: {
+      name: "Grandpa Jenkins",
+      image: "Tasks/jenkins.png",
+   },
+   demand: {
+      text: "Unlock the second plot",
+      code: "return;"
+   },
+   text: {
+      notReady: "You need to diversify your farm. Unlock the second plot for a new plant!",
+      ready: "Ooooh, look! It's corn! Whoopie!"
+   },
+   reward: {
+      item: "fertilizers",
+      amount: 1,
+      text: "Collect 1 Fertilizer",
+      code: "collectTaskReward('unlockThe_cornPlot')"
+   },
    conditions: {
       c1: [false],
       c2: [false],
       c3: [false]
    }
-   // [[are there additon conditons, [gameData, [tasknumber], [taskname]]],
-   // [are there more conditions, [gamedata, [tasknumber], [taskname]]]]
 },
 // seeBlackMarket
 t7: {
    name: "seeBlackMarket",
-   tG: "Shade E. Charekter",
-   tGI: "Tasks/shade-e.svg",
-   tD: "Accept a Black Market offer",
-   tDC: "",
-   nRT: "My friend has an offer to make you, meet him in the dark alleyway behind the marketplace.",
-   rT: "Well done. Keep up the bad work.",
-   cRT: "Collect 5 Doughnuts",
-   cRC: "collectTaskReward('seeBlackMarket')",
-   rIT: "doughnuts",
-   rA: 5,
+   taskGiver: {
+      name: "Shade E. Charekter",
+      image: "Tasks/shade-e.svg",
+   },
+   demand: {
+      text: "Accept a Black Market offer",
+      code: "return;"
+   },
+   text: {
+      notReady: "My friend has an offer to make you, meet him in the dark alleyway behind the marketplace.",
+      ready: "Well done. Keep up the bad work."
+   },
+   reward: {
+      item: "doughnuts",
+      amount: 5,
+      text: "Collect 5 Doughnuts",
+      code: "collectTaskReward('seeBlackMarket')"
+   },
    conditions: {
       c1: ["t2"],
       c2: [false],
@@ -167,85 +195,136 @@ t7: {
 // tryPoliceDoughnuts
 t8: {
    name: "tryPoliceDoughnuts",
-   tG: "Shade E. Charekter",
-   tGI: "Tasks/shade-e.svg",
-   tD: "Use 1 Doughnut",
-   tDC: "",
-   nRT: "After accepting or declining a few offers, the police will get suspicious. Feed them doughnuts to satiate their wrath.",
-   rT: "Very good. Here, take some cash.",
-   cRT: "Collect 7,500 Seeds",
-   cRC: "collectTaskReward('tryPoliceDoughnuts')",
-   rIT: "seeds",
-   rA: 7500,
+   taskGiver: {
+      name: "Shade E. Charekter",
+      image: "Tasks/shade-e.svg",
+   },
+   demand: {
+      text: "Use 1 Doughnut",
+      code: "return;"
+   },
+   text: {
+      notReady: "After accepting or declining a few offers, the police will get suspicious. Feed them doughnuts to satiate their wrath.",
+      ready: "Very good. Here, take some cash."
+   },
+   reward: {
+      item: "seeds",
+      amount: 7500,
+      text: "Collect 7,500 Seeds",
+      code: "collectTaskReward('tryPoliceDoughnuts')"
+   },
    conditions: {
       c1: ["t7"],
       c2: [false],
       c3: [false]
    }
 },
-/*
 // bakeSale_cornBread
 t9: {
-   n: "bakeSale_cornBread",
-   tG: "Grandma Josephine",
-   tGI: "Tasks/granny.png",
-   tD: "Submit 20 Corn",
-   tDC: "if (produce.corn >= 20) { produce.corn -= 20; checkTasks('bakeSale_cornBread'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }",
-   nRT: "I have a wonderful lucrative idea! We can hold a bake sale with plenty of delicious foods! Let's start with cornbread, my personal faviorite!",
-   rT: "Just you wait! This bake sale is just beginning!",
-   cRT: "Collect 5 Seeds",
-   cRC: "collectTaskReward('bakeSale_cornBread')",
-   rIT: "seeds",
-   rA: 5,
-   conditions: [[false], [true, ["bakeSale"], "progressing"]]
+   name: "bakeSale_cornBread",
+   taskGiver: {
+      name: "Grandma Josephine",
+      image: "Tasks/granny.png",
+   },
+   demand: {
+      text: "Submit 20 Corn",
+      code: "if (produce.corn >= 20) { produce.corn -= 20; checkTasks('bakeSale_cornBread'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+   },
+   text: {
+      notReady: "I have a wonderful lucrative idea! We can hold a bake sale with plenty of delicious foods! Let's start with cornbread, my personal faviorite!",
+      ready: "Just you wait! This bake sale is just beginning!"
+   },
+   reward: {
+      item: "seeds",
+      amount: 5,
+      text: "Collect 5 Seeds",
+      code: "collectTaskReward('bakeSale_cornBread')"
+   },
+   conditions: {
+      c1: [false],
+      c2: ["bakeSale", "progressing"],
+      c3: [false]
+   }
 },
 // bakeSale_peaSnacks
 t10: {
-   n: "bakeSale_peaSnacks",
-   tG: "Grandma Josephine",
-   tGI: "Tasks/granny.png",
-   tD: "Submit 60 Peas",
-   tDC: "if (produce.peas >= 60) { produce.peas -= 60; checkTasks('bakeSale_peaSnacks'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }",
-   nRT: "Next, let's make some crunchy pea snacks!",
-   rT: "We may not have sold much yet, but we've barely started!",
-   cRT: "Collect 10 Seeds",
-   cRC: "collectTaskReward('bakeSale_peaSnacks')",
-   rIT: "seeds",
-   rA: 10,
+   name: "bakeSale_peaSnacks",
+   taskGiver: {
+      name: "Grandma Josephine",
+      image: "Tasks/granny.png",
+   },
+   demand: {
+      text: "Submit 60 Peas",
+      code: "if (produce.peas >= 60) { produce.peas -= 60; checkTasks('bakeSale_peaSnacks'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+   },
+   text: {
+      notReady: "Next, let's make some crunchy pea snacks!",
+      ready: "We may not have sold much yet, but we've barely started!"
+   },
+   reward: {
+      item: "seeds",
+      amount: 10,
+      text: "Collect 10 Seeds",
+      code: "collectTaskReward('bakeSale_peaSnacks')"
+   },
    conditions: {
-      c1: [true, "t9"],
-      c2: [false]
+      c1: ["t9"],
+      c2: [false],
+      c3: [false]
    }
 },
 // bakeSale_strawberryJam
 t11: {
-   n: "bakeSale_strawberryJam",
-   tG: "Grandma Josephine",
-   tGI: "Tasks/granny.png",
-   tD: "Submit 15 Strawberries",
-   tDC: "if (produce.strawberries >= 15) { produce.strawberries -= 15; checkTasks('bakeSale_strawberryJam'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }",
-   nRT: "Do you like spreading nice, sweet, jam on toast? I sure do, and so will our customers!",
-   rT: "Be patient, for great rewards come to those who wait!",
-   cRT: "Collect 15 Seeds",
-   cRC: "collectTaskReward('bakeSale_strawberryJam')",
-   rIT: "seeds",
-   rA: 15,
-   conditions: [[true, [["t10"]], [false]]
+   name: "bakeSale_strawberryJam",
+   taskGiver: {
+      name: "Grandma Josephine",
+      image: "Tasks/granny.png",
+   },
+   demand: {
+      text: "Submit 15 Strawberries",
+      code: "if (produce.strawberries >= 15) { produce.strawberries -= 15; checkTasks('bakeSale_strawberryJam'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+   },
+   text: {
+      notReady: "Do you like spreading nice, sweet, jam on toast? I sure do, and so will our customers!",
+      ready: "Be patient, for great rewards come to those who wait!"
+   },
+   reward: {
+      item: "seeds",
+      amount: 15,
+      text: "Collect 15 Seeds",
+      code: "collectTaskReward('bakeSale_strawberryJam')"
+   },
+   conditions: {
+      c1: ["t10"],
+      c2: [false],
+      c3: [false]
+   }
 },
 //bakeSale_pumpkinPie
 t12: {
-   n: "bakeSale_pumpkinPie",
-   tG: "Grandma Josephine",
-   tGI: "Tasks/granny.png",
-   tD: "Submit 10 Pumpkins",
-   tDC: "if (produce.pumpkins >= 10) { produce.pumpkins -= 10; checkTasks('bakeSale_pumpkinPie'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }",
-   nRT: "Not all pumpkin pies are great, but my recipe is! Let's make a few!",
-   rT: "Ha ha! Look at that, this bake sale sure was a success! Look at these profit margins!",
-   cRT: "Collect 75,000 Seeds",
-   cRC: "collectTaskReward('bakeSale_pumpkinPie')",
-   rIT: "seeds",
-   rA: 75000,
-   conditions: [[true, [["t11"]], [false]]
+   name: "bakeSale_pumpkinPie",
+   taskGiver: {
+      name: "Grandma Josephine",
+      image: "Tasks/granny.png",
+   },
+   demand: {
+      text: "Submit 10 Pimpkins",
+      code: "if (produce.pumpkins >= 10) { produce.pumpkins -= 10; checkTasks('bakeSale_pumpkinPie'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+   },
+   text: {
+      notReady: "Not all pumpkin pies are great, but my recipe is! Let's make a few!",
+      ready: "Ha ha! Look at that, this bake sale sure was a success! Look at these profit margins!"
+   },
+   reward: {
+      item: "seeds",
+      amount: 75000,
+      text: "Collect 75,000 Seeds",
+      code: "collectTaskReward('bakeSale_pumpkinPie')"
+   },
+   conditions: {
+      c1: ["t11"],
+      c2: [false],
+      c3: [false]
+   }
 }
-*/
 }

@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="cornerchat.css">
+<div class="chatbox">
+    <h3 class="title" onclick="if (document.querySelector('.chatbox').classList.contains('open')) { document.querySelector('.chatbox').classList.remove('open'); } else { document.querySelector('.chatbox').classList.add('open'); } ">Chat</h3>
+    <div class="messages">
+       <%foundItems.forEach(function(item) {%>
+          <% if (item.user == user.name) { %>
+             <div class="message message-right">
+                <img title="<%=item.user%> " class="image-right" src=<%= `Avatars/${item.avatar}.png` %>>
+                <div class="shape-right"></div>
+                <p>
+                   <%=item.input%>
+                   <br>
+                   <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
+                </p>
+             </div>
+          <%} else { %>
+             <div class="message">
+                <img title="<%=item.user%> " class="image" src=<%= `Avatars/${item.avatar}.png` %>>
+                <div class="shape"></div>
+                <p>
+                   <%=item.input%>
+                   <br>
+                   <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
+                </p>
+             </div>
+          <% } %>
+      <%})%>
+    </div>
+    <form action="chat-message" method="POST">
+       <input class="input" type="text" name="message" placeholder="Message..." required><br>
+       <button style="display: none;" class="chatbox-post" type="text">Post</button>
+   </form>
+</div>
