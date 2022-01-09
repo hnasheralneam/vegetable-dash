@@ -37,7 +37,7 @@
       </div>
       <!-- Create new private chat -->
       <div class="createChat">
-         <p class="title">Make a private chat</p><br>
+         <p class="big-title">Make a private chat</p><br>
          <p class="p-tag">1. Name the chat</p>
          <p class="p-tag">2. Choose who to invite (note - you can only invite friends)</p>
          <p class="p-tag">3. Create it!</p>
@@ -47,28 +47,32 @@
       </div>
       <!-- Friends -->
       <div class="friends">
-         <p>Your Friends</p><br>
-         <%users.forEach(function(someUser) {%>
-            <% if (user.friends.includes(someUser.name)) { %>
-               <div class="friend">
-                  <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
-                  <h2 class="name"><%=someUser.name%></h2>
-               </div>
-            <%}%>
-         <%})%>
+         <p class="big-title">Your Friends</p><br>
+         <div class="friendbox">
+            <%users.forEach(function(someUser, i) {%>
+               <% if (user.friends.includes(someUser.name)) { %>
+                  <div class="friend">
+                     <p class="num"><%=user.friends.indexOf(someUser.name) + 1%></p>
+                     <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
+                     <p class="name"><%=someUser.name%></p>
+                  </div>
+               <%}%>
+            <%})%>
+         </div>
          <br><br>
          <div>
-            <p>Find Friends!</p><br>
-            <div style="overflow: auto; white-space: nowrap; width: 50vw;">
-               <%users.forEach(function(someUser) {%>
+            <p class="big-title">Find Friends!</p><br>
+            <div class="friendbox">
+               <%users.forEach(function(someUser, i) {%>
                   <% if (someUser.name !== user.name && !user.friends.includes(someUser.name) && !user.friendInvitesSent.includes(someUser.name) && !user.friendInvitesRecived.includes(someUser.name)) { %>
                      <div class="friend">
+                        <p class="num"><%=i + 1%></p>
                         <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
-                        <h2 class="name"><%=someUser.name%></h2>
+                        <p class="name"><%=someUser.name%></p>
                         <form action="send-friend-request" method="POST">
                            <input style="display: none;" name="thisUser" value="<%- user.name %>">
                            <input style="display: none;" name="thatUser" value="<%- someUser.name %>">
-                           <button class="friend-button">Befriend</button>
+                           <button class="friend-btn">Befriend</button>
                         </form>
                      </div>
                   <%}%>
@@ -76,33 +80,39 @@
             </div>
          </div>
          <div>
-            <p>These people want to be your friend.</p><br>
-            <%users.forEach(function(someUser) {%>
-               <% if (user.friendInvitesRecived.includes(someUser.name)) { %>
-                  <div class="friend">
-                     <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
-                     <h2 class="name"><%=someUser.name%></h2>
-                     <form action="accept-friend-request" method="POST">
-                        <input style="display: none;" name="thisUser" value="<%- user.name %>">
-                        <input style="display: none;" name="thatUser" value="<%- someUser.name %>">
-                        <button class="friend-button">Accept</button>
-                     </form>
-                  </div>
-               <%}%>
-            <%})%>
+            <p class="big-title">These people want to be your friend.</p><br>
+            <div class="friendbox">
+               <%users.forEach(function(someUser, i) {%>
+                  <% if (user.friendInvitesRecived.includes(someUser.name)) { %>
+                     <div class="friend">
+                        <p class="num"><%=user.friendInvitesRecived.indexOf(someUser.name) + 1%></p>
+                        <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
+                        <p class="name"><%=someUser.name%></p>
+                        <form action="accept-friend-request" method="POST">
+                           <input style="display: none;" name="thisUser" value="<%- user.name %>">
+                           <input style="display: none;" name="thatUser" value="<%- someUser.name %>">
+                           <button class="friend-btn">Accept</button>
+                        </form>   
+                     </div>
+                  <%}%>
+               <%})%>
+            </div>
          </div>
          <div>
-            <p>You have asked these people to be your friend.</p><br>
-            <%users.forEach(function(someUser) {%>
-               <% if (user.friendInvitesSent.includes(someUser.name)) { %>
-                  <div class="friend">
-                     <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
-                     <h2 class="name"><%=someUser.name%></h2>
-                  </div>
-               <%}%>
-            <%})%>
+            <p class="big-title">You have asked these people to be your friend.</p><br>
+            <div class="friendbox">
+               <%users.forEach(function(someUser, i) {%>
+                  <% if (user.friendInvitesSent.includes(someUser.name)) { %>
+                     <div class="friend">
+                        <p class="num"><%=user.friendInvitesSent.indexOf(someUser.name) + 1%></p>
+                        <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
+                        <p class="name"><%=someUser.name%></p>
+                     </div>
+                  <%}%>
+               <%})%>
+            </div>
          </div>
-         <p class="stylish-p" onclick="if (document.querySelector('.friends').classList.contains('open')) { document.querySelector('.friends').classList.remove('open'); } else { document.querySelector('.friends').classList.add('open'); } ">Go back</p>
+         <p class="friend-btn" onclick="if (document.querySelector('.friends').classList.contains('open')) { document.querySelector('.friends').classList.remove('open'); } else { document.querySelector('.friends').classList.add('open'); } ">Go back</p>
       </div>
       <!-- Choose a diffrent avatar -->
       <div class="choose-new-avatar">

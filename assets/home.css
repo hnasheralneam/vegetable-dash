@@ -171,11 +171,15 @@ a:hover {
    bottom: 0;
    right: 0;
    background-color: rgba(255, 255, 255, 0.9);
-   padding: 12vh 24vh;
    text-align: center;
    overflow: scroll;
    /* transform: scale(1.5); */
 }
+
+
+
+
+
 
 .avatar {
    height: 12vh;
@@ -190,39 +194,116 @@ a:hover {
    box-shadow: 0 0 1vh #73f173;
 }
 
-.friend {
-   margin: .8vh;
-   padding: .5vh;
-   display: inline-block;
-   background-color: #6969697e;
-   border-radius: .5vh;
+
+
+
+
+
+
+
+
+
+.friendbox {
+   scroll-snap-type: x mandatory;
+   scroll-padding: 0 2vh;
+   width: 95vw;
+   margin: 2vh auto;
+   padding: 3vh;
+   background-color: #f5f5f5;
+   box-shadow: -.75vh -.75vh #f8f8f8,
+               .75vh .75vh #eee;
+   border-radius: 1vh;
+   overflow: auto;
+   white-space: nowrap;
 }
+
+.friend {
+  scroll-snap-align: start;
+  position: relative;
+  height: 40vh;
+  width: 18.75%;
+  text-align: center;
+  margin: .8vh .5vh;
+  padding: 1.75vh .75vh .75vh .75vh;
+  display: inline-block;
+  background-color: #eee;
+  border-radius: .5vh;
+  white-space: normal;
+  vertical-align: middle;
+  transition: .2s;
+  box-shadow: .5vh .5vh #d5d5d5;
+}
+
+.friend:hover {
+  background-color: #f1f1f1;
+  box-shadow: .5vh .5vh #e2e2e2;
+}
+
+.friend .num {
+   position: absolute;
+   top: 4vh; right: 3vh;
+   line-height: 0;
+   font-size: 6vh;
+   font-family: "Arvo", serif;
+   color: #64bbf5;
+   text-shadow: .2vh .2vh #2f6c8f;
+ }
 
 .friend .name {
-   font-family: "Nunito";
-   color: #eee;
+   font-family: "Capriola";
+   text-transform: uppercase;
+   font-weight: 900;
+   font-size: 4.5vh;
+   margin: -6vh .2vh .2vh .2vh;
+   color: #ffb600;
+   -webkit-text-stroke: .15vh #d49700;
+  transition: .2s;
 }
 
-.friend-button {
-   padding: .25vh .5vh;
-   background-color: #fff;
-   color: #006eff;
-   border: solid #006eff .3vh;
-   border-radius: .25vh;
-   font-family: "Nunito";
-   transition: .25s;
-}
-
-.friend-button:hover {
-   background-color: #006eff;
-   color: #fff;
-   border: solid #006eff .3vh;
+.friend:hover .name {
    transform: scale(1.05);
 }
 
-.friend-button:focus {
-   transform: scale(.95);
+.avatar {
+   height: 16vh;
+   padding: 2vh;
+   background-color: #eee;
+   border-radius: 50%;
+   border: solid 1vh #73f173;
+   transition: .2s;
 }
+
+.friend:hover .avatar {
+   box-shadow: inset 0 0 .5vh .2vh #aaa,
+               0 0 .5vh .2vh #73f173;
+}
+
+.friend-btn {
+   font-family: "Capriola";
+   text-transform: uppercase;
+   font-size: 4vh;
+   color: #fff;
+   background-color: #6466f5;
+   box-shadow: 0 .5vh #6b2fcc;
+   border-radius: .75vh;
+   border: none;
+   outline: none;
+   padding: 1vh;
+   margin: 2vh;
+   display: inline-block;
+   transition: .2s linear;
+}
+
+.friend-btn:hover {
+   transform: translate(0, -.25vh);
+   box-shadow: 0 .75vh #6b2fcc;
+}
+
+.friend-btn:active {
+   transform: translate(0, .5vh);
+   box-shadow: 0 0;
+}
+
 
 /* Private Chat */
 .createChat.open {
@@ -238,7 +319,7 @@ a:hover {
    /* transform: scale(1.5); */
 }
 
-.createChat .title {
+.big-title {
    font-family: "Capriola";
    text-transform: uppercase;
    font-size: 8vh;

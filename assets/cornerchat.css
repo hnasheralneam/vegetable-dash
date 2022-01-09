@@ -1,3 +1,86 @@
+/* * {
+	box-sizing: inherit;
+}
+
+.summary-title {
+  user-select: none;
+}
+
+.summary-title:hover {
+  cursor: pointer;
+}
+
+.summary-content {
+  border-top: 1px solid #e2e8f0;
+  cursor: default;
+  padding: 1em;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+
+summary {
+  list-style: none;
+  padding: 1em;
+
+  
+}
+
+summary:focus {
+  outline: none;
+}
+
+summary:hover .summary-chevron-up svg {
+  opacity: 1;
+}
+
+.summary-chevron-up svg {
+  opacity: 0.5;
+}
+
+details {
+	font-size: 1rem;
+	margin: 2vh auto;
+	width: 50%;
+	background: #ffffff;
+	border-radius: 8px;
+	position: relative;
+	width: 500px;
+	
+}
+
+.summary-chevron-up, .summary-chevron-down {
+		pointer-events: none;
+		position: absolute;
+		top: 0.75em;
+		right: 1em;
+		background: #ffffff;
+
+		
+	}
+
+  svg {
+    display: block;
+  }
+  summary::-webkit-details-marker {
+		display: none;
+	}
+
+
+
+
+
+
+ */
+
+
+
+
+
+
+
+
+
 .chatbox {
     position: fixed;
     bottom: 2vh;

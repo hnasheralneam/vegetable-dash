@@ -59,8 +59,10 @@ const Chat = mongoose.model("Chat", chatSchema);
 
 UserData.find((err, users) => {
    if (err) return console.error(err);
-   for (i = 0; i < users.length; i++) {
-      if (!namesList.includes(users[i].name)) { namesList.push(users[i].name); }
+   else {
+      for (i = 0; i < users.length; i++) {
+         if (!namesList.includes(users[i].name)) { namesList.push(users[i].name); }
+      }
    }
 }).then(item => { dataDone = true; });
 
@@ -71,7 +73,14 @@ setInterval(() => {
          else { signedInUser = user; }
       });
    }
-}, 2500);
+}, 1000);
+
+UserData.updateMany(
+   { friendInvitesSent: { $exists: true }},
+   { $set: { friendInvitesSent: [] }},
+   { multi: true },
+   (err, oth) => { if (err) return console.error(err); else { console.log(oth); } }
+);
 
 /* =============
 // Post requests
@@ -307,7 +316,7 @@ app.post("/send-friend-request", (req, res) => {
       { new: true },
       (err, doc) => {  if (err) return console.error(err); }
    );
-   res.redirect("/");
+   setTimeout(() => { res.redirect("/"); }, 1000);
 });
 
 app.post("/accept-friend-request", (req, res) => {
@@ -325,7 +334,7 @@ app.post("/accept-friend-request", (req, res) => {
       { new: true },
       (err, doc) => {  if (err) return console.error(err); }
    );
-   res.redirect("/");
+   setTimeout(() => { res.redirect("/"); }, 1000);
 });
 
 // Save Vegetable Dash data - NEEDS FIXING
