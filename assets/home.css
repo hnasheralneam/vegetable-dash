@@ -9,17 +9,58 @@ body {
    overflow: hidden;
 }
 
+a {
+   color: #222;
+   text-decoration: none;
+   font-family: "Nunito";
+   transition: .2s;
+}
+
+a:hover {
+   color: #000;
+}
+
+/* Some other stuff */
+.option-list {
+   background-color: #f8f8f8;
+   border-radius: 2vh;
+   margin: 2vh;
+   padding: 2vh;
+}
+
+.option-list .option {
+   display: block;
+   font-size: 2vh;
+   padding: 1vh;
+   margin: 2vh 1vh;
+   background-color: #f2f2f2;
+   border-radius: 2vh;
+   transition: .2s;
+}
+
+.option-list .option:hover {
+   background-color: #eee;
+}
+
+.option-list .option:active {
+   transform: scale(.95);
+}
+
 /* Universal */
+.body-parent {
+   display: grid;
+   grid-template-columns: auto auto;
+}
+
 .opening {
    background-color: rgba(255, 255, 255, 0.85);
-   margin: 1vh;
+   margin: 1vh auto;
    padding: 3vh 2vh 3vh 1vh;
-   display: inline-block;
    width: 90%;
    border-radius: 2.5vh;
 }
 
-a {
+.a {
    color: #fff;
    text-decoration: none;
    transition: .2s;
@@ -29,7 +70,7 @@ a {
    border-radius: .5vh;
 }
 
-a:hover {
+.a:hover {
    color: #555;
    text-decoration: underline;
    background-color: rgba(138, 249, 232, 0.75);

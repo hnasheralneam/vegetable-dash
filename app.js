@@ -75,13 +75,6 @@ setInterval(() => {
    }
 }, 1000);
 
-UserData.updateMany(
-   { friendInvitesSent: { $exists: true }},
-   { $set: { friendInvitesSent: [] }},
-   { multi: true },
-   (err, oth) => { if (err) return console.error(err); else { console.log(oth); } }
-);
-
 /* =============
 // Post requests
 ============= */
@@ -232,11 +225,12 @@ app.get("/sign-out", (req, res) => {
 
 // Create chat message
 app.post("/chat-message", (req, res) => {
+   let timePosted = new Date(req.body.time);
    const newChat = new Chat({
       input: req.body.message,
       user: signedInUser.name,
       avatar: signedInUser.avatar,
-      datePosted: new Date()
+      datePosted: timePosted
    });
    newChat.save(function(err){
       if (err) {
@@ -247,6 +241,31 @@ app.post("/chat-message", (req, res) => {
             else { res.redirect("back"); }
          })
       }
+   });
+}); 
+
+app.post("/edit-message", (req, res) => {
+   Chat.findByIdAndUpdate(
+      req.body.msgId,
+      { input: req.body.newMessage,
+         avatar: signedInUser.avatar },
+      { new: true },
+      (err, doc) => { if (err) return console.error(err); }
+   );
+   Chat.findOne({ name: signedInUser.name }, (err, doc) => {
+      if (err) return console.error(err);
+      else { res.redirect("/"); }
+   });
+});
+
+app.post("/delete-message", (req, res) => {
+   Chat.deleteOne(
+      { _id: req.body.msgId },
+      (err, doc) => { if (err) return console.error(err); }
+   );
+   Chat.findOne({ name: signedInUser.name }, (err, doc) => {
+      if (err) return console.error(err);
+      else { res.redirect("/"); }
    });
 });
 

@@ -1,189 +1,177 @@
-/* * {
-	box-sizing: inherit;
-}
-
-.summary-title {
-  user-select: none;
-}
-
-.summary-title:hover {
-  cursor: pointer;
-}
-
-.summary-content {
-  border-top: 1px solid #e2e8f0;
-  cursor: default;
-  padding: 1em;
-  font-weight: 300;
-  line-height: 1.5;
-}
-
-
-summary {
-  list-style: none;
-  padding: 1em;
-
-  
-}
-
-summary:focus {
-  outline: none;
-}
-
-summary:hover .summary-chevron-up svg {
-  opacity: 1;
-}
-
-.summary-chevron-up svg {
-  opacity: 0.5;
-}
-
-details {
-	font-size: 1rem;
-	margin: 2vh auto;
-	width: 50%;
-	background: #ffffff;
-	border-radius: 8px;
-	position: relative;
-	width: 500px;
-	
-}
-
-.summary-chevron-up, .summary-chevron-down {
-		pointer-events: none;
-		position: absolute;
-		top: 0.75em;
-		right: 1em;
-		background: #ffffff;
-
-		
-	}
-
-  svg {
-    display: block;
-  }
-  summary::-webkit-details-marker {
-		display: none;
-	}
-
-
-
-
-
-
- */
-
-
-
-
-
-
-
-
-
 .chatbox {
-    position: fixed;
-    bottom: 2vh;
-    right: 2vh;
-    height: 7vh;
-    width: 12vh;
-    background-color: #f5f5f5;
-    font-size: 4vh;
-    font-family: "Nunito";
-    color: #222;
-    border-radius: 1.5vh;
-    overflow: hidden;
-    transition: .2s;
-  }
+  position: fixed;
+  bottom: 2vh;
+  right: 2vh;
+  height: 7vh;
+  width: 7vh;
+  background-color: #f5f5f5;
+  font-size: 4vh;
+  font-family: "Nunito";
+  color: #222;
+  border-radius: 1.5vh;
+  overflow: hidden;
+  transition: .2s;
+}
 
- .chatbox.open {
-    height: 95vh;
-    width: 25vw;
-    overflow: auto;
-  }
+.chatbox.open {
+   height: 95vh;
+   width: 25vw;
+   overflow: auto;
+}
   
-  .chatbox .messages {
-    margin-bottom: 2vh;
-  }
+.chatbox .messages {
+   margin: 0 0 -4vh 0;
+}
   
-  .chatbox .message {
-    position: relative;
-    padding: 3vh;
-    max-width: 35vw;
-  }
+.chatbox .message {
+   position: relative;
+   padding: 3vh;
+   max-width: 35vw;
+}
   
-  .chatbox .image {
-    position: absolute;
-    top: -2.2vh;
-    left: -1.2vh;
-    height: 8vh;
-    width: 8vh;
-    border-radius: 100%;
-    background-color: sandybrown;
-    border: solid 2vh #f5f5f5
-  }
+.chatbox .image {
+   position: absolute;
+   top: -2.2vh;
+   left: -1.2vh;
+   height: 8vh;
+   width: 8vh;
+   border-radius: 100%;
+   background-color: sandybrown;
+   border: solid 2vh #f5f5f5
+}
   
-  .chatbox .image-right {
-    position: absolute;
-    top: -2.2vh;
-    right: -1.2vh;
-    height: 8vh;
-    width: 8vh;
-    border-radius: 100%;
-    background-color: sandybrown;
-    border: solid 2vh #f5f5f5
-  }
+.chatbox .image-right {
+   position: absolute;
+   top: -2.2vh;
+   right: -1.2vh;
+   height: 8vh;
+   width: 8vh;
+   border-radius: 100%;
+   background-color: sandybrown;
+   border: solid 2vh #f5f5f5
+}
   
-  .chatbox .shape {
-    shape-outside: circle(50%);
-    width: 12vh;
-    height: 9vh;
-    float: left;
-  }
+.chatbox .shape {
+   shape-outside: circle(50%);
+   width: 12vh;
+   height: 9vh;
+   float: left;
+}
   
-  .chatbox .shape-right {
-    shape-outside: circle(50%);
-    width: 12vh;
-    height: 9vh;
-    float: right;
-  }
+.chatbox .shape-right {
+   shape-outside: circle(50%);
+   width: 12vh;
+   height: 9vh;
+   float: right;
+}
   
-  .chatbox .message p {
-    font-size: 2.5vh;
-    background-color: #ddd;
-    border-radius: 2vh;
-    padding: 1.5vh;
-  }
+.chatbox .message .little-chat-box {
+   font-size: 2.5vh;
+   background-color: #ddd;
+   border-radius: 2vh;
+   padding: 1.5vh;
+}
   
-  .chatbox .message-right p {
-    font-size: 2.5vh;
-    background-color: #c3ddeb;
-    border-radius: 2vh;
-    padding: 1.5vh;
-  }
+.chatbox .message-right .little-chat-box {
+   font-size: 2.5vh;
+   background-color: #c3ddeb;
+   border-radius: 2vh;
+   padding: 1.5vh;
+}
   
-  .chatbox .title {
-    text-align: center;
-    padding-bottom: .5vh;
-    margin-top: .5vh;
-  }
+.chatbox .chat-title {
+   text-align: center;
+   padding-bottom: .5vh;
+   margin: .5vh;
+}
   
-  .chatbox .input {
-    position: sticky;
-    width: 25vw;
-    bottom: 0;
-    padding: 3vh;
-    font-size: 3vh;
-    background-color: #eee;
-    border: none;
-    box-sizing: border-box;
-  }
+.chatbox .input {
+   position: sticky;
+   width: 25vw;
+   bottom: 0;
+   padding: 3vh 10vh 3vh 3vh;
+   font-size: 3vh;
+   background-color: #eee;
+   border: none;
+   box-sizing: border-box;
+}
   
-  .chatbox .input:focus {
-    outline: none;
-  }
+.chatbox .input:focus {
+   outline: none;
+}
 
-  .chatbox .time {
-    font-size: 2vh;
-    color: #595959;
-  }
+.chatbox .time {
+   font-size: 2vh;
+   color: #595959;
+}
+
+/* Edit messages */
+.chat-edit-img {
+   position: absolute;
+   bottom: 4vh;
+   right: 4vh;
+   height: 3vh;
+   transition: .15s;
+}
+
+.chat-edit-img:hover {
+   transform: scale(1.25) translate(0, -.5vh);
+}
+
+.chat-edit-message {
+   min-height: 0;
+   max-height: 0;
+   overflow: hidden;
+   background-color: #f6f6f6;
+   border-radius: 1vh;
+   transition: .2s;
+}
+
+.chat-edit-message.open {
+   padding: 1.5vh;
+   min-height: 12vh;
+   max-height: 40vh;
+}
+
+.edit-message-input {
+   width: 100%;
+   padding: 1.5vh;
+   font-size: 2vh;
+   background-color: #eee;
+   border: none;
+   border-radius: 1vh;
+   box-sizing: border-box;
+}
+  
+.edit-message-input:focus {
+   outline: none;
+}
+
+.edit-message-btn {
+   width: 100%;
+   padding: 1.5vh;
+   font-size: 2vh;
+   background-color: #eee;
+   border: none;
+   border-radius: 1vh;
+   box-sizing: border-box;
+   transition: .2s;
+}
+
+.edit-message-btn:hover {
+   background-color: #ddd;
+   transform: scale(1.01);
+}
+
+/* Close chat image */
+.chat-close-img {
+   position: fixed;
+   right: 2.5vh;
+   bottom: 2.5vh;
+   height: 6vh;
+   transition: .2s;
+}
+
+.chatbox.open .chat-close-img {
+   height: 8.5vh;
+}

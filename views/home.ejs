@@ -17,22 +17,32 @@
    <% if (user !== "(not signed in)") { %>
       <div class="signed-in">
          <!-- About your account -->
+         <br>
          <h2 style="color: #fff; font-family: 'Nunito';">Welcome, you are signed in as <%- user.name %></h2><br>
-         <div class="opening">
-            <img class="yourAvatar" src=<%= `Avatars/${user.avatar}.png` %>>
-            <p class="playButton" style="display: inline;"><a href="/vegetable-dash">Vegetable Dash!</a></p><br><br><br><br>
-            <!-- Farm run -->
-            <h1><a href="/chat">Farm Run (WARNING - Still in Alpha)</a></h1><br><br>
-            <!-- Chat -->
-            <p class="stylish-p" onclick="if (document.querySelector('.chatbox').classList.contains('open')) { document.querySelector('.chatbox').classList.remove('open'); } else { document.querySelector('.chatbox').classList.add('open'); } ">Chat</p>
-            <!-- Sign out -->
-            <p class="stylish-p">Ready to leave?</p><a href="/sign-out">Sign out!</a>
-            <!-- Friends -->
-            <p class="stylish-p" onclick="if (document.querySelector('.friends').classList.contains('open')) { document.querySelector('.friends').classList.remove('open'); } else { document.querySelector('.friends').classList.add('open'); } ">Friends</p>
-            <!-- Choose a diffrent avatar -->
-            <p class="stylish-p" onclick="if (document.querySelector('.choose-new-avatar').classList.contains('open')) { document.querySelector('.choose-new-avatar').classList.remove('open'); } else { document.querySelector('.choose-new-avatar').classList.add('open'); } ">Pick a new avatar</p>
-            <!-- Create a private chat -->
-            <p class="stylish-p" onclick="if (document.querySelector('.createChat').classList.contains('open')) { document.querySelector('.createChat').classList.remove('open'); } else { document.querySelector('.createChat').classList.add('open'); } ">Make a chat</p>
+         <div class="body-parent">
+            <div class="opening">
+               <div>
+                  <img class="yourAvatar" src=<%= `Avatars/${user.avatar}.png` %>>
+                  <p class="playButton" style="display: inline;"><a class="a" href="/vegetable-dash">Vegetable Dash!</a></p><br><br><br><br>
+                  <!-- Farm run -->
+                  <h1><a class="a" href="/chat">Farm Run (Still in Alpha)</a></h1><br><br>
+                  <!-- Sign out -->
+                  <a class="a" href="/sign-out">Sign out</a>
+               </div>
+            </div>
+            <!-- Other -->
+            <div class="option-list">
+               <!-- Chat -->
+               <p class="stylish-p option" onclick="if (document.querySelector('.chatbox').classList.contains('open')) { document.querySelector('.chatbox').classList.remove('open'); } else { document.querySelector('.chatbox').classList.add('open'); } ">Chat</p>
+               <!-- Friends -->
+               <p class="stylish-p option" onclick="if (document.querySelector('.friends').classList.contains('open')) { document.querySelector('.friends').classList.remove('open'); } else { document.querySelector('.friends').classList.add('open'); } ">Friends</p>
+               <!-- Choose a diffrent avatar -->
+               <p class="stylish-p option" onclick="if (document.querySelector('.choose-new-avatar').classList.contains('open')) { document.querySelector('.choose-new-avatar').classList.remove('open'); } else { document.querySelector('.choose-new-avatar').classList.add('open'); } ">Change your avatar</p>
+               <!-- Create a private chat -->
+               <p class="stylish-p option" onclick="if (document.querySelector('.createChat').classList.contains('open')) { document.querySelector('.createChat').classList.remove('open'); } else { document.querySelector('.createChat').classList.add('open'); } ">Make a chat</p>
+               <!-- Sign out -->
+               <p class="option"><a href="/sign-out">Sign out</a></p>
+            </div>
          </div>
       </div>
       <!-- Create new private chat -->
@@ -139,7 +149,9 @@
         </form>
         <br><br>
         <p class="stylish-p" onclick="if (document.querySelector('.choose-new-avatar').classList.contains('open')) { document.querySelector('.choose-new-avatar').classList.remove('open'); } else { document.querySelector('.choose-new-avatar').classList.add('open'); } ">Leave without new avatar</p><br><br>
-        <p class="stylish-p">Avatar icons made by <a href="https://www.flaticon.com/authors/vitaly-gorbachev" title="Vitaly Gorbachev">Vitaly Gorbachev</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></p>
+        <p class="stylish-p">Avatar icons made by <a class="a" href="https://www.flaticon.com/authors/vitaly-gorbachev" title="Vitaly Gorbachev">Vitaly Gorbachev</a> from <a class="a" href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></p>
+        <a class="a" href="https://www.flaticon.com/free-icons/pencil" title="pencil icons">Chat pencil icon created by Freepik - Flaticon</a>
+        <a class="a" href="https://www.flaticon.com/free-icons/people" title="people icons">People icons created by Pixel perfect - Flaticon</a>
       </div>
       <!-- Chat -->
       <%- include("partials/miniChat"); %>
@@ -150,8 +162,8 @@
             <h2 style="text-align: center;">Welcome to Vegetable Dash!</h2>
             <h4 style="text-align: center;">You are not signed in</h4><br>
             <div class="opening">
-               <p class="stylish-p">Do you have an account?</p><a href="/sign-in">Sign in!</a><br><br>
-               <p class="stylish-p">Don't have an account?</p><a href="/create-account">Create an account!</a>
+               <p class="stylish-p">Do you have an account?</p><a class="a" href="/sign-in">Sign in!</a><br><br>
+               <p class="stylish-p">Don't have an account?</p><a class="a" href="/create-account">Create an account!</a>
             </div>
          </div>
       </div>

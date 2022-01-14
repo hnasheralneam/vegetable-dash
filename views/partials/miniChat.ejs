@@ -1,56 +1,69 @@
 <link rel="stylesheet" href="cornerchat.css">
 <div class="chatbox">
-    <h3 class="title" onclick="if (document.querySelector('.chatbox').classList.contains('open')) { document.querySelector('.chatbox').classList.remove('open'); } else { document.querySelector('.chatbox').classList.add('open'); } ">Chat</h3>
+   <br>
+    <h3 class="chat-title">Chat</h3>
     <div class="messages">
        <%foundItems.forEach(function(item) {%>
           <% if (item.user == user.name) { %>
             <!-- This user's messages -->
-             <div class="message message-right" data-id="<%=item._id%>">
-               
-               
-
-               <!-- <details>
-                  <summary>
-                     <span class="summary-title">Details element with custom arrow!</span>
-                     <div class="summary-chevron-up">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                     </div>
-                  </summary>
-               
-                  <div class="summary-content">Give me attention or face the wrath of my claws give me attention or face the wrath of my claws and pretend not to be evil cats go for world domination allways wanting food. Eat owner's food playing with balls of wool and meow and walk away, and bleghbleghvomit
-                     my furball really tie the room together. Cuddle no cuddle cuddle love scratch scratch cat</div>
-                  <div class="summary-chevron-down">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up"><polyline points="18 15 12 9 6 15"></polyline></svg>
-                     
-               </details> -->
-
-
-
-
-
-                <img title="<%=item.user%> " class="image-right" src=<%= `Avatars/${item.avatar}.png` %>>
-                <div class="shape-right"></div>
-                <p>
-                   <%=item.input%>
-                   <br>
-                   <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
-                </p>
-             </div>
+            <div class="message message-right" data-id="<%=item._id%>">
+               <img title="<%=item.user%> " class="image-right" src=<%= `Avatars/${item.avatar}.png` %>>
+               <div class="shape-right"></div>
+               <div class="little-chat-box">
+                  <%=item.input%>
+                  <br>
+                  <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
+                  <div class="chat-edit-message">
+                     <img class="chat-edit-img" src="Chat/pencil.png" onclick="
+                        if (this.parentNode.classList.contains('open')) {
+                           this.parentNode.classList.remove('open');
+                        }
+                        else { this.parentNode.classList.add('open'); }
+                     ">
+                     <form action="edit-message" method="POST">
+                        <input class="edit-message-input" type="text" name="newMessage" placeholder="New text..."><br>
+                        <input style="display: none;" type="text" name="msgId" value="<%=item._id%>"><br>
+                        <button class="edit-message-btn" type="text">Save</button>
+                     </form>
+                     <form action="delete-message" method="POST">
+                        <input style="display: none;" type="text" name="msgId" value="<%=item._id%>"><br>
+                        <button class="edit-message-btn" type="text">Delete Message</button>
+                     </form>
+                 </div>
+               </div>
+            </div>
           <%} else { %>
              <div class="message">
                 <img title="<%=item.user%> " class="image" src=<%= `Avatars/${item.avatar}.png` %>>
                 <div class="shape"></div>
-                <p>
+                <div class="little-chat-box">
                    <%=item.input%>
                    <br>
                    <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
-                </p>
+                </div>
              </div>
           <% } %>
       <%})%>
     </div>
     <form action="chat-message" method="POST">
-       <input class="input" type="text" name="message" placeholder="Message..." required><br>
-       <button style="display: none;" class="chatbox-post" type="text">Post</button>
+      <input style="display: none;" class="chat-posted-time" type="text" name="time"><br>
+      <input class="input" type="text" name="message" placeholder="Message..." required><br>
+      <button style="display: none;" class="chatbox-post" type="text">Post</button>
    </form>
+   <img class="chat-close-img" src="Chat/chat.png" onclick="if (document.querySelector('.chatbox').classList.contains('open')) { document.querySelector('.chatbox').classList.remove('open'); scrlToTop(); } else { document.querySelector('.chatbox').classList.add('open'); scrlToBottom(); }">
 </div>
+<script>
+function scrlToBottom() {
+   var objDiv = document.querySelector(".chatbox");
+   objDiv.scrollTop = objDiv.scrollHeight;
+}
+function scrlToTop() {
+   var objDiv = document.querySelector(".chatbox");
+   objDiv.scrollTop = 0;
+}
+
+setInterval(() => {
+   let timeNow = new Date();
+   document.querySelector(".chat-posted-time").value = timeNow.toString();
+}, 500);
+</script>
