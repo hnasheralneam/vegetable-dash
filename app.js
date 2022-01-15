@@ -4,7 +4,9 @@
 // System variables
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
+const nodemailer = require("nodemailer");
+const passport = require("passport");
 const app = express();
 const port = process.env.PORT || 3000;
 const connection = mongoose.connection;
@@ -12,8 +14,6 @@ const connection = mongoose.connection;
 // My varibles
 let signedIn = false;
 let signedInUser = "(not signed in)";
-var namesList = [];
-var dataDone = false;
 
 // More system stuff
 app.use(bodyParser.json());
@@ -25,6 +25,15 @@ mongoose.set("useFindAndModify", false);
 // Mongoose things
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true });
+
+// nodemailer things
+const transporter = nodemailer.createTransport({
+   service: "gmail",
+   auth: {
+      user: process.env.VD_EMAIL,
+      pass: process.env.VD_EMAIL_PASSCODE
+  }
+});
 
 // System things
 connection.on('error', console.error.bind(console, 'Connection error: '));
@@ -57,14 +66,18 @@ const Chat = mongoose.model("Chat", chatSchema);
 // Processing
 ============= */
 
-UserData.find((err, users) => {
-   if (err) return console.error(err);
-   else {
-      for (i = 0; i < users.length; i++) {
-         if (!namesList.includes(users[i].name)) { namesList.push(users[i].name); }
-      }
-   }
-}).then(item => { dataDone = true; });
+function sendEmail(title, text) {
+   var mailOptions = {
+      from: "vegetabledash@gmail.com",
+      to: "vegetabledash@gmail.com",
+      subject: title,
+      html: text
+   };
+   
+   transporter.sendMail(mailOptions, function(err, info){
+      if (err) { console.log(err); }
+   });
+}
 
 setInterval(() => {
    if (signedInUser != "(not signed in)") {
@@ -76,7 +89,7 @@ setInterval(() => {
 }, 1000);
 
 /* =============
-// Post requests
+// Get requests
 ============= */
 
 // Final destanations
@@ -104,7 +117,7 @@ app.get("/vegetable-dash", (req, res) => {
          }
       });
    }
-   else { res.render("signin", { error: { is: false } }); }
+   else { res.render("signin", { text: "Sign into your account!" }); }
 });
 
 app.get("/chat", (req, res) => {
@@ -114,17 +127,208 @@ app.get("/chat", (req, res) => {
    })
 });
 
+// Temporary landings
+app.get("/create-account", (req, res) => {
+   res.render("signup", { errText: "Create your account. WARNING: do not use your real name or a password from another account, for none of the data is encrypted." });
+});
 
+app.get("/sign-in", (req, res) => {
+   if (!signedIn) { res.render("signin", { text: "Sign into your account!" }); }
+   else { res.redirect("/"); }
+});
 
+app.get("/sign-out", (req, res) => {
+   signedIn = false;
+   user = null;
+   signedInUser = "(not signed in)";
+   res.redirect("/");
+});
 
+// OAuth
+// require("./auth");
 
+// app.get("/google-oauth", (req, res) => {
+//    res.send(`<a href='/auth/google'>Google OAuth</a><meta name="google-site-verification" content="wnFFHF-9s6G3yV40Rxw2rpe0qy-vjjfykZtuQIYWY6o" />`);
+// });
 
+// app.get('/auth/google',
+//   passport.authenticate('google', { scope:
+//       [ 'email', 'profile' ] }
+// ));
 
+// app.get( '/auth/google/callback',
+//     passport.authenticate( 'google', {
+//         successRedirect: '/auth/google/success',
+//         failureRedirect: '/auth/google/failure'
+// }));
 
+// app.get("/protected", (req, res) => {
+//    res.send("Hello!");
+// });
 
+/* =============
+// Account
+============= */
 
+// Create account
+app.post("/create-account", (req, res) => {
+   heyThere();
+   async function heyThere() {
+      // Check name and email
+      let isAlreadyUsedName = await UserData.findOne({ name: req.body.name });
+      if (isAlreadyUsedName) { res.render("signup", { errText: "Choose a different name! (This one is taken!)" }); }
+      let isAlreadyUsedEmil = await UserData.findOne({ name: req.body.emil });
+      if (isAlreadyUsedEmil) { res.render("signup", { errText: "Email is already used." }); }
+      // Create account
+      if (parseInt(req.body.pscd) === NaN) { console.log("Passcode must contain only numbers!"); return false; }
+      else {
+         const newUser = new UserData({
+            name: req.body.name,
+            email: req.body.emil,
+            passcode: req.body.pscd,
+            dateAccountStarted: Date.now()
+         });
+         newUser.save(function (err, newUser) { if (err) return console.error(err); });
+         // Send 'em an email
+         sendEmail("🎉 Congratulations! 🎉 You have successfully created your Vegetable Dash account!", "<h2>🎉 Congratulations! 🎉</h2><h4>You have successfully created your Vegetable Dash account!</h4><p>We just wanted to let you know that you created your Vegetable Dash account, and there were no errors in doing so. I will respect the power that I hold with your email and will not send promotional emails unless you want me to. The only other emails I will send shall be triggered by your actions on my site. Good Luck!</p><i>-Squirrel</i><p>vegetabledash@gmail.com</p>");
+         // Go home
+         res.redirect("/");
+      }
+   }
+});
 
-// For video
+// Sign in
+app.post("/signin", (req, res) => {
+   UserData.findOne({ name: req.body.name, email: req.body.emil, passcode: req.body.pscd }, (err, user) => {
+      if (err) return console.error(err);
+      if (!user) { res.render("signin", { text: "The data dosen't line up. Try again!" }); }
+      else if (user) {
+         signedIn = true;
+         signedInUser = user;
+         res.redirect("back");
+      }
+   });
+});
+
+// Update avatar
+app.post("/choose-avatar", (req, res) => {
+   UserData.findOneAndUpdate(
+      { name: signedInUser.name },
+      { avatar: req.body.avatar },
+      { new: true },
+      (err, doc) => { if (err) return console.error(err); }
+   );
+   UserData.findOne({ name: signedInUser.name }, (err, user) => {
+      if (err) return console.error(err);
+      else {
+         signedInUser = user;
+         res.redirect("/");
+      }
+   });
+});
+
+/* =============
+// Chat
+============= */
+
+app.post("/chat-message", (req, res) => {
+   let timePosted = new Date(req.body.time);
+   const newChat = new Chat({
+      input: req.body.message,
+      user: signedInUser.name,
+      avatar: signedInUser.avatar,
+      datePosted: timePosted
+   });
+   newChat.save(function(err){
+      if (err) {
+         console.log(err);
+      } else { res.redirect("back"); }
+   });
+}); 
+
+app.post("/edit-message", (req, res) => {
+   Chat.findByIdAndUpdate(
+      req.body.msgId,
+      { input: req.body.newMessage,
+         avatar: signedInUser.avatar },
+      { new: true },
+      (err, doc) => { if (err) return console.error(err); }
+   );
+   Chat.findOne({ name: signedInUser.name }, (err, doc) => {
+      if (err) return console.error(err);
+      else { res.redirect("/"); }
+   });
+});
+
+app.post("/delete-message", (req, res) => {
+   Chat.deleteOne(
+      { _id: req.body.msgId },
+      (err, doc) => { if (err) return console.error(err); }
+   );
+   Chat.findOne({ name: signedInUser.name }, (err, doc) => {
+      if (err) return console.error(err);
+      else { res.redirect("/"); }
+   });
+});
+
+/* =============
+// Friends
+============= */
+
+app.post("/send-friend-request", (req, res) => {
+   let thisUser = req.body.thisUser;
+   let thatUser = req.body.thatUser;
+   UserData.findOneAndUpdate(
+      { name: thisUser },
+      { $addToSet: { friendInvitesSent: thatUser } },
+      { new: true },
+      (err, doc) => {  if (err) return console.error(err); }
+   );
+   UserData.findOneAndUpdate(
+      { name: thatUser },
+      { $addToSet: { friendInvitesRecived: thisUser } },
+      { new: true },
+      (err, doc) => {  if (err) return console.error(err); }
+   );
+   setTimeout(() => { res.redirect("/"); }, 1000);
+});
+
+app.post("/accept-friend-request", (req, res) => {
+   let thisUser = req.body.thisUser;
+   let thatUser = req.body.thatUser;
+   UserData.findOneAndUpdate(
+      { name: thisUser },
+      { $push: { friends: thatUser }, $pull: { friendInvitesSent: thatUser, friendInvitesRecived: thatUser }, $inc: { dashcoins: 5 } },
+      { new: true },
+      (err, doc) => {  if (err) return console.error(err); }
+   );
+   UserData.findOneAndUpdate(
+      { name: thatUser },
+      { $push: { friends: thisUser }, $pull: { friendInvitesSent: thisUser, friendInvitesRecived: thisUser }, $inc: { dashcoins: 5 } },
+      { new: true },
+      (err, doc) => {  if (err) return console.error(err); }
+   );
+   setTimeout(() => { res.redirect("/"); }, 1000);
+});
+
+/* =============
+// Vegetable Dash Save
+============= */
+
+app.post("/save-vegetable-dash", (req, res) => {
+   let inputSave = req.body;
+   UserData.findOneAndUpdate(
+      { name: signedInUser.name },
+      { gameSave: inputSave },
+      { new: true },
+      function (err, doc) { if (err) { return console.error(err); } else { res.send("Misson Success!"); } }
+   );
+});
+
+/* =============
+// Video
+============= */
+
 const server = require("http").Server(app);
 const { v4: uuidv4 } = require("uuid");
 const io = require("socket.io")(server, { cors: { origin: "*" } });
@@ -167,211 +371,3 @@ io.on("connection", (socket) => {
 });
 
 server.listen(port);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Temporary landings
-app.get("/account-created", (req, res) => {
-   res.send("You succesfully created your account!<br><a href='/'>Back to homepage</a>");
-});
-
-app.get("/create-account", (req, res) => {
-   res.render("signup");
-});
-
-app.get("/sign-in", (req, res) => {
-   if (!signedIn) { res.render("signin", { error: { is: false } }); }
-   else {
-      Chat.find(function(err, found) {
-         if (err) { console.log(err); }
-         else { res.redirect("/"); }
-      });
-   }
-});
-
-app.get("/sign-out", (req, res) => {
-   signedIn = false;
-   user = null;
-   signedInUser = "(not signed in)";
-   res.redirect("/");
-});
-
-/* =============
-// Redirect Requests
-============= */
-
-// Create chat message
-app.post("/chat-message", (req, res) => {
-   let timePosted = new Date(req.body.time);
-   const newChat = new Chat({
-      input: req.body.message,
-      user: signedInUser.name,
-      avatar: signedInUser.avatar,
-      datePosted: timePosted
-   });
-   newChat.save(function(err){
-      if (err) {
-         console.log(err);
-      } else {
-         Chat.find(function(err, found) {
-            if (err) { console.log(err); }
-            else { res.redirect("back"); }
-         })
-      }
-   });
-}); 
-
-app.post("/edit-message", (req, res) => {
-   Chat.findByIdAndUpdate(
-      req.body.msgId,
-      { input: req.body.newMessage,
-         avatar: signedInUser.avatar },
-      { new: true },
-      (err, doc) => { if (err) return console.error(err); }
-   );
-   Chat.findOne({ name: signedInUser.name }, (err, doc) => {
-      if (err) return console.error(err);
-      else { res.redirect("/"); }
-   });
-});
-
-app.post("/delete-message", (req, res) => {
-   Chat.deleteOne(
-      { _id: req.body.msgId },
-      (err, doc) => { if (err) return console.error(err); }
-   );
-   Chat.findOne({ name: signedInUser.name }, (err, doc) => {
-      if (err) return console.error(err);
-      else { res.redirect("/"); }
-   });
-});
-
-// Create account
-app.post("/create-account", (req, res) => {
-   if (dataDone === false) { setTimeout(addNow, 250); }
-   else { addNow(); }
-   function addNow() {
-      if (namesList.includes(req.body.name)) { console.log("Choose a different name! (This one is taken!)"); return false; }
-      else if (parseInt(req.body.pscd) === NaN) { console.log("Passcode must contain only numbers!"); return false; }
-      else {
-         var newUser = new UserData({ name: req.body.name, email: req.body.emil, passcode: req.body.pscd, dateAccountStarted: Date.now() });
-         newUser.save(function (err, newUser) {
-            if (err) return console.error(err);
-         });
-      }
-   }
-   res.redirect("/account-created");
-});
-
-// Update avatar
-app.post("/choose-avatar", (req, res) => {
-   UserData.findOneAndUpdate(
-      { name: signedInUser.name },
-      { avatar: req.body.avatar },
-      { new: true },
-      (err, doc) => { if (err) return console.error(err); }
-   );
-   UserData.findOne({ name: signedInUser.name }, (err, user) => {
-      if (err) return console.error(err);
-      else {
-         signedInUser = user;
-         res.redirect("/");
-      }
-   });
-});
-
-// IMPORTANT: This is sign in
-app.post("/play", (req, res) => {
-   UserData.findOne({ name: req.body.name, email: req.body.emil, passcode: req.body.pscd }, (err, user) => {
-      if (err) return console.error(err);
-      if (!user) { res.render("signin", { error: { is: true, more: "The data dosen't line up. Try again!" } }); }
-      else if (user) {
-         signedIn = true;
-         signedInUser = user;
-         Chat.find(function(err, found) {
-            if (err) { console.log(err); }
-            else { res.redirect("back"); }
-         });
-      }
-   });
-});
-
-// Add new friends - NEEDS FIXING
-app.post("/send-friend-request", (req, res) => {
-   let thisUser = req.body.thisUser;
-   let thatUser = req.body.thatUser;
-   UserData.findOneAndUpdate(
-      { name: thisUser },
-      { $addToSet: { friendInvitesSent: thatUser } },
-      { new: true },
-      (err, doc) => {  if (err) return console.error(err); }
-   );
-   UserData.findOneAndUpdate(
-      { name: thatUser },
-      { $addToSet: { friendInvitesRecived: thisUser } },
-      { new: true },
-      (err, doc) => {  if (err) return console.error(err); }
-   );
-   setTimeout(() => { res.redirect("/"); }, 1000);
-});
-
-app.post("/accept-friend-request", (req, res) => {
-   let thisUser = req.body.thisUser;
-   let thatUser = req.body.thatUser;
-   UserData.findOneAndUpdate(
-      { name: thisUser },
-      { $push: { friends: thatUser }, $pull: { friendInvitesSent: thatUser, friendInvitesRecived: thatUser }, $inc: { dashcoins: 5 } },
-      { new: true },
-      (err, doc) => {  if (err) return console.error(err); }
-   );
-   UserData.findOneAndUpdate(
-      { name: thatUser },
-      { $push: { friends: thisUser }, $pull: { friendInvitesSent: thisUser, friendInvitesRecived: thisUser }, $inc: { dashcoins: 5 } },
-      { new: true },
-      (err, doc) => {  if (err) return console.error(err); }
-   );
-   setTimeout(() => { res.redirect("/"); }, 1000);
-});
-
-// Save Vegetable Dash data - NEEDS FIXING
-app.post("/save-vegetable-dash", (req, res) => {
-   let inputSave = req.body;
-   UserData.findOneAndUpdate(
-      { name: signedInUser.name },
-      { gameSave: inputSave },
-      { new: true },
-      function (err, doc) { if (err) { return console.error(err); } else { res.send("Misson Success!"); } }
-   );
-});
-
-// That's it
-// app.listen(port);
-
-
-
-// vegetable dash save
-// fix friends (if broken)
-// style friends modal

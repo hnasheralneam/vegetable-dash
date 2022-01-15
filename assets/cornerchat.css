@@ -1,3 +1,7 @@
+::-webkit-scrollbar {
+   display: none;
+}
+
 .chatbox {
   position: fixed;
   bottom: 2vh;

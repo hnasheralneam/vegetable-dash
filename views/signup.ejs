@@ -9,26 +9,18 @@
    <title>Create Account</title>
 </head>
 <style media="screen">
-body {
-   background-image: url("Images/Background/mountian-day.svg");
-   background-size: 100vw 130vh;
-   background-position: center;
-}
+body { background-image: url("Images/Background/mountian-day.svg"); }
 </style>
 <body>
    <div class="content">
       <h2>Sign Up</h2>
       <form method="POST" action="/create-account" method="post">
-         <input class="input" type="text" name="name" value="" minlength="2" maxlength="16" placeholder="Name" required><br><br>
-         <input class="input" type="email" name="emil" value="" placeholder="Email" required><br><br>
-         <input class="input" type="password" name="pscd" value="" placeholder="Password" minlength="4" maxlength="4"  required><br><br>
-         <input class="submit" type="submit" name="" value="Create Account">
+         <p><%= errText %></p>
+         <input class="input-text" type="text" name="name" minlength="2" maxlength="16" placeholder="Name" required>
+         <input class="input-text" type="email" name="emil" placeholder="Email" required>
+         <input class="input-text" type="password" name="pscd" placeholder="Password" minlength="4" maxlength="4" required>
+         <input class="input-submit" type="submit" name="" value="Create Account">
       </form>
    </div>
-   <body>
-      <style media="screen">
-      * { text-overflow: ellipsis; }
-      </style>
-</body>
 </body>
 </html>
