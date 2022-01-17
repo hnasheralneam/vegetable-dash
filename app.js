@@ -6,7 +6,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
-const passport = require("passport");
+const axios = require("axios")
 const app = express();
 const port = process.env.PORT || 3000;
 const connection = mongoose.connection;
@@ -14,6 +14,11 @@ const connection = mongoose.connection;
 // My varibles
 let signedIn = false;
 let signedInUser = "(not signed in)";
+
+// GitHub OAuth varibles
+let github_access_token = "";
+const githubClientId = process.env.GITHUB_CLIENT_ID;
+const githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
 
 // More system stuff
 app.use(bodyParser.json());
@@ -44,7 +49,9 @@ const useDataSchema = new mongoose.Schema({
    email: String,
    passcode: String,
    avatar: String,
-   dateAccountStarted: Number,
+   githubClientId: String,
+   dateAccountStarted: Date,
+   lastPlayed: Date,
    dashcoins: Number,
    friends: [],
    friendInvitesSent: [],
@@ -66,10 +73,10 @@ const Chat = mongoose.model("Chat", chatSchema);
 // Processing
 ============= */
 
-function sendEmail(title, text) {
+function sendEmail(title, text, recipient) {
    var mailOptions = {
       from: "vegetabledash@gmail.com",
-      to: "vegetabledash@gmail.com",
+      to: recipient,
       subject: title,
       html: text
    };
@@ -99,7 +106,7 @@ app.get("/", (req, res) => {
       else {
          Chat.find(function(err, found) {
             if (err) { console.log(err); }
-            else { res.render("home", { user: signedInUser, UserData: UserData, users: users, foundItems: found }); }
+            else { res.render("home", { user: signedInUser, UserData: UserData, users: users, foundItems: found, client_id: githubClientId }); }
          });
       }
    });
@@ -144,27 +151,49 @@ app.get("/sign-out", (req, res) => {
    res.redirect("/");
 });
 
-// OAuth
-// require("./auth");
+// GitHub OAuth
+app.get("/github/callback", (req, res) => {
+   const requestToken = req.query.code;
+   axios({
+      method: "post",
+      url: `https://github.com/login/oauth/access_token?client_id=${githubClientId}&client_secret=${githubClientSecret}&code=${requestToken}`,
+      headers: { accept: "application/json" }
+   }).then((response) => {
+      github_access_token = response.data.access_token;
+      checkGithub(response.data);
+      res.redirect("/");
+   });
+});
 
-// app.get("/google-oauth", (req, res) => {
-//    res.send(`<a href='/auth/google'>Google OAuth</a><meta name="google-site-verification" content="wnFFHF-9s6G3yV40Rxw2rpe0qy-vjjfykZtuQIYWY6o" />`);
-// });
+async function checkGithub(githubData) {
+   const ID = githubData.id;
+   let accountExists = await UserData.findOne({ githubClientId: ID });
+   if (accountExists) { signinGithub(ID); }
+   else { createAccountGithub(githubData); }
+}
 
-// app.get('/auth/google',
-//   passport.authenticate('google', { scope:
-//       [ 'email', 'profile' ] }
-// ));
+function signinGithub(githubId) {
+   UserData.findOne({ githubClientId: githubId }, (err, user) => {
+      if (err) return console.error(err);
+      else {
+         signedIn = true;
+         signedInUser = user;
+      }
+   });
+}
 
-// app.get( '/auth/google/callback',
-//     passport.authenticate( 'google', {
-//         successRedirect: '/auth/google/success',
-//         failureRedirect: '/auth/google/failure'
-// }));
-
-// app.get("/protected", (req, res) => {
-//    res.send("Hello!");
-// });
+function createAccountGithub(githubData) {
+   const newUser = new UserData({
+      name: githubData.login,
+      email: githubData.email,
+      passcode: false,
+      dateAccountStarted: Date.now(),
+      githubClientId: githubData.id
+   });
+   newUser.save(function (err, newUser) { if (err) return console.error(err); });
+   // Send 'em an email
+   sendEmail("🎉 Congratulations! 🎉 You have successfully created your Vegetable Dash account!", "<h2>🎉 Congratulations! 🎉</h2><h4>You have successfully created your Vegetable Dash account!</h4><p>We just wanted to let you know that you created your Vegetable Dash account, and there were no errors in doing so. I will respect the power that I hold with your email and will not send promotional emails unless you want me to. The only other emails I will send shall be triggered by your actions on my site. Good Luck!</p><i>-Squirrel</i><p>vegetabledash@gmail.com</p>", githubData.email);
+}
 
 /* =============
 // Account
@@ -177,22 +206,34 @@ app.post("/create-account", (req, res) => {
       // Check name and email
       let isAlreadyUsedName = await UserData.findOne({ name: req.body.name });
       if (isAlreadyUsedName) { res.render("signup", { errText: "Choose a different name! (This one is taken!)" }); }
-      let isAlreadyUsedEmil = await UserData.findOne({ name: req.body.emil });
-      if (isAlreadyUsedEmil) { res.render("signup", { errText: "Email is already used." }); }
-      // Create account
-      if (parseInt(req.body.pscd) === NaN) { console.log("Passcode must contain only numbers!"); return false; }
       else {
-         const newUser = new UserData({
-            name: req.body.name,
-            email: req.body.emil,
-            passcode: req.body.pscd,
-            dateAccountStarted: Date.now()
-         });
-         newUser.save(function (err, newUser) { if (err) return console.error(err); });
-         // Send 'em an email
-         sendEmail("🎉 Congratulations! 🎉 You have successfully created your Vegetable Dash account!", "<h2>🎉 Congratulations! 🎉</h2><h4>You have successfully created your Vegetable Dash account!</h4><p>We just wanted to let you know that you created your Vegetable Dash account, and there were no errors in doing so. I will respect the power that I hold with your email and will not send promotional emails unless you want me to. The only other emails I will send shall be triggered by your actions on my site. Good Luck!</p><i>-Squirrel</i><p>vegetabledash@gmail.com</p>");
-         // Go home
-         res.redirect("/");
+         let isAlreadyUsedEmil = await UserData.findOne({ name: req.body.emil });
+         if (isAlreadyUsedEmil) { res.render("signup", { errText: "Email is already used." }); }
+         else {
+            // Create account
+            if (parseInt(req.body.pscd) === NaN) { console.log("Passcode must contain only numbers!"); return false; }
+            else {
+               const newUser = new UserData({
+                  name: req.body.name,
+                  email: req.body.emil,
+                  passcode: req.body.pscd,
+                  dateAccountStarted: Date.now(),
+                  githubClientId: "false"
+               });
+               newUser.save(function (err, newUser) { if (err) return console.error(err); });
+               // Send 'em an email
+               sendEmail("🎉 Congratulations! 🎉 You have successfully created your Vegetable Dash account!", "<h2>🎉 Congratulations! 🎉</h2><h4>You have successfully created your Vegetable Dash account!</h4><p>We just wanted to let you know that you created your Vegetable Dash account (${req.body.name}), and there were no errors in doing so. I will respect the power that I hold with your email and will not send promotional emails unless you want me to. The only other emails I will send shall be triggered by your actions on my site. Good Luck!</p><i>-Squirrel</i><p>vegetabledash@gmail.com</p>", req.body.emil);
+               // Sign in and go home
+               UserData.findOne({ name: req.body.name, email: req.body.emil, passcode: req.body.pscd }, (err, user) => {
+                  if (err) return console.error(err);
+                  else {
+                     signedIn = true;
+                     signedInUser = user;
+                     res.redirect("back");
+                  }
+               });            
+            }
+         }
       }
    }
 });
