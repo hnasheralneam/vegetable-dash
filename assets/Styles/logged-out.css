@@ -1,0 +1,100 @@
+/* 
+Main theme color: #ED5D5D // red, for fun, exitement, and apples
+seconary color: #00CC66 // green, for plants
+also considered orange or yellow
+make a simple logo with color
+*/
+/* General */
+* {
+   padding: 0;
+   margin: 0;
+}
+
+body {
+   height: 100%;
+}
+
+.page {
+   display: grid;
+   grid-template-columns: auto auto;
+}
+
+/* Menubar */
+.menubar {
+   height: 100vh;
+   width: 25vw;
+   padding: 2vh;
+   background-color: #f8f8f8;
+   box-sizing: border-box;
+   overflow: scroll;
+}
+
+.menu-logo {
+   display: inline-block;
+   width: 80%;
+   margin: 0 10%;
+}
+
+.menu-username {
+   display: block;
+   margin: 2vh 1vh;
+   padding: 2vh;
+   text-align: center;
+   font-family: "Nunito";
+   font-size: 3vh;
+   color: #333;
+   background-color: #f2f2f2;
+   border-radius: 2vh;
+   font-weight: 600;
+}
+
+.menu-option {
+   display: block;
+   margin: 2vh 1vh;
+   padding: 2vh;
+   text-align: center;
+   font-family: "Nunito";
+   font-size: 3vh;
+   border-radius: 1vh;
+   color: #ED5D5D;
+   background-color: transparent;
+   border: solid .5vh #ED5D5D;
+   box-shadow: 0 0 .2vh #762E2E;
+   transition: .2s;
+}
+
+.menu-option:hover {
+   color: #fff;
+   background-color: #ED5D5D;
+   border: solid .5vh transparent;
+}
+
+.menu-option:active {
+   transform: scale(.95);
+}
+
+.menu-option a {
+   color: #ED5D5D;
+   text-decoration: none;
+}
+
+.menu-option:hover a {
+   color: #fff;
+}
+
+.github {
+   color: #333;
+   background-color: transparent;
+   border: solid .5vh #333;
+}
+
+.github:hover {
+   color: #fff;
+   background-color: #333;
+   border: solid .5vh transparent;
+}
+
+.github a {
+   color: #333;
+   text-decoration: none;
+}

@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="Styles/logged-out.css">
+<div class="page">
+   <div class="menubar">
+      <img class="menu-logo" src="https://raw.githubusercontent.com/Squirrel-314/vegetable-dash/6350bdf2e9a47f1dc38f5f7b0077850877563f8d/assets/Images/Global%20Assets/logo.svg" alt="Vegetable Dash">
+      <div class="menu-username">
+         <p>Menu</p>
+      </div>
+      <p class="menu-option signin"><a href="/sign-in">Sign in!</a></p>
+      <p class="menu-option signup"><a href="/create-account">Create an account!</a></p>
+      <div class="menu-username">
+         <p>Social Login</p>
+      </div>
+      <p class="menu-option github"><a href="https://github.com/login/oauth/authorize?client_id=<%= client_id %>"><span class="fa fa-github"></span> Github</a></p>
+   </div>
+   <%- include("gameNews"); %>
+</div>
+<div class="noticeboard">
+   <div class="page-notice warning">
+      <span class="remove" onclick="this.parentNode.remove()">x</span>
+      <p class="heading">Warning!</p>
+      <p class="text">You're not signed in. Without an account, you cannot play Vegetable Dash. I'm really sorry.</p>
+   </div>
+</div>

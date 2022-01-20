@@ -1,0 +1,176 @@
+.content {
+   display: grid;
+   grid-template: 
+   "a a a b b"
+   "a a a d d"
+   "c c c d d"
+   "c c c d d"
+   "e e e e e";
+   height: 100vh;
+   width: 75vw;
+   padding: 2vh;
+   box-sizing: border-box;
+   overflow: scroll;
+}
+
+.content div:nth-child(1) { grid-area: a; }
+.content div:nth-child(2) { grid-area: b; }
+.content div:nth-child(3) { grid-area: c; }
+.content div:nth-child(4) { grid-area: d; }
+.content div:nth-child(5) { grid-area: e; }
+
+.content div {
+   position: relative;
+   padding: 2vh;
+   background-color: #fff;
+   border-radius: 1vh;
+}
+
+.content-div {
+   margin: 1.5vh;
+   box-shadow: 0 0 .5vh #ccc;
+}
+
+.content-div::after {
+   content: "";
+   position: absolute;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   height: 2vh;
+   background-color: #00CC66;
+   border-radius: 0 0 1vh 1vh;
+}
+
+/* Shared Styles */
+.information {
+   margin: 3vh 2vh 2vh 2vh;
+   font-size: 3vh;
+   font-family: "Nunito", sans-serif;
+   color: #222;
+   line-height: 250%;
+}
+
+/* Upcoming */
+.upcoming {
+   line-height: 250%;
+}
+
+.upcoming .title {
+   text-align: center;
+   text-transform: uppercase;
+   font-size: 4vh;
+   font-family: "Capriola", sans-serif;
+}
+
+.upcoming-div {
+   margin: .5vh;
+   box-shadow: 0 0 .2vh #ddd;
+}
+
+.upcoming .date {
+   color: #555;
+   font-style: italic;
+   font-size: 3vh;
+   font-family: "Nunito", sans-serif;
+}
+
+.upcoming .event {
+   font-size: 3vh;
+   font-family: "Nunito", sans-serif;
+}
+
+/* Game News */
+.game-news .head {
+   padding: 6vh 0;
+   background-image: url("https://bit.ly/3IeJ3vg");
+   background-size: cover;
+}
+
+.game-news .title {
+   text-align: center;
+   text-transform: uppercase;
+   font-size: 5vh;
+   font-family: "Capriola", sans-serif;
+   color: #76E5FE;
+   text-shadow: .1vh .1vh #52C7E2,
+                .2vh .2vh #52C7E2,
+                .3vh .3vh #52C7E2;
+}
+
+.game-news .date {
+   text-align: center;
+   text-transform: uppercase;
+   font-style: italic;
+   font-size: 3vh;
+   font-family: "Nunito", sans-serif;
+   font-weight: 700;
+   color: #7EF472;
+   text-shadow: .1vh .1vh #69E45C,
+                .2vh .2vh #69E45C;
+}
+
+.game-news .information {
+   line-height: 225%;
+}
+
+
+/* Vegetable World News */
+.veg-world-news .head {
+   padding: 10vh 0;
+   background-image: url("https://www.oxfordwebstudio.com/user/pages/06.da-li-znate/sta-je-css/sta-je-css.png");
+   background-size: cover;
+}
+
+.veg-world-news .title {
+   text-align: center;
+   text-transform: uppercase;
+   font-size: 5vh;
+   font-family: "Capriola", sans-serif;
+   color: #B465EE;
+   text-shadow: .1vh .1vh #9B43DB,
+                .2vh .2vh #9B43DB,
+                .3vh .3vh #9B43DB;
+}
+
+.veg-world-news .date {
+   text-align: center;
+   text-transform: uppercase;
+   font-style: italic;
+   font-size: 3vh;
+   font-family: "Nunito", sans-serif;
+   font-weight: 700;
+   color: #7EF472;
+   text-shadow: .1vh .1vh #69E45C,
+                .2vh .2vh #69E45C;
+}
+
+/* Version */
+.version .head {
+   padding: 10vh 0;
+   background-image: url("https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/c458ea9e-b50c-43cf-9bcb-996b135d8790/mongodb-intro-opt.jpg");
+   background-size: cover;
+}
+
+.version .title {
+   text-align: center;
+   text-transform: uppercase;
+   font-size: 5vh;
+   font-family: "Capriola", sans-serif;
+   color: #B465EE;
+   text-shadow: .1vh .1vh #9B43DB,
+                .2vh .2vh #9B43DB,
+                .3vh .3vh #9B43DB;
+}
+
+.version .date {
+   text-align: center;
+   text-transform: uppercase;
+   font-style: italic;
+   font-size: 3vh;
+   font-family: "Nunito", sans-serif;
+   font-weight: 700;
+   color: #7EF472;
+   text-shadow: .1vh .1vh #69E45C,
+                .2vh .2vh #69E45C;
+}

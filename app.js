@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
 const axios = require("axios")
+const { v4: uuidv4 } = require('uuid');
 const app = express();
 const port = process.env.PORT || 3000;
 const connection = mongoose.connection;
@@ -45,6 +46,7 @@ connection.on('error', console.error.bind(console, 'Connection error: '));
 
 // Schemas
 const useDataSchema = new mongoose.Schema({
+   userCode: String,
    name: String,
    email: String,
    passcode: String,
@@ -184,6 +186,7 @@ function signinGithub(githubId) {
 
 function createAccountGithub(githubData) {
    const newUser = new UserData({
+      userCode: uuidv4(),
       name: githubData.login,
       email: githubData.email,
       passcode: false,
@@ -214,6 +217,7 @@ app.post("/create-account", (req, res) => {
             if (parseInt(req.body.pscd) === NaN) { console.log("Passcode must contain only numbers!"); return false; }
             else {
                const newUser = new UserData({
+                  userCode: uuidv4(),
                   name: req.body.name,
                   email: req.body.emil,
                   passcode: req.body.pscd,
@@ -320,13 +324,13 @@ app.post("/send-friend-request", (req, res) => {
    let thisUser = req.body.thisUser;
    let thatUser = req.body.thatUser;
    UserData.findOneAndUpdate(
-      { name: thisUser },
+      { userCode: thisUser },
       { $addToSet: { friendInvitesSent: thatUser } },
       { new: true },
       (err, doc) => {  if (err) return console.error(err); }
    );
    UserData.findOneAndUpdate(
-      { name: thatUser },
+      { userCode: thatUser },
       { $addToSet: { friendInvitesRecived: thisUser } },
       { new: true },
       (err, doc) => {  if (err) return console.error(err); }
@@ -338,13 +342,13 @@ app.post("/accept-friend-request", (req, res) => {
    let thisUser = req.body.thisUser;
    let thatUser = req.body.thatUser;
    UserData.findOneAndUpdate(
-      { name: thisUser },
+      { userCode: thisUser },
       { $push: { friends: thatUser }, $pull: { friendInvitesSent: thatUser, friendInvitesRecived: thatUser }, $inc: { dashcoins: 5 } },
       { new: true },
       (err, doc) => {  if (err) return console.error(err); }
    );
    UserData.findOneAndUpdate(
-      { name: thatUser },
+      { userCode: thatUser },
       { $push: { friends: thisUser }, $pull: { friendInvitesSent: thisUser, friendInvitesRecived: thisUser }, $inc: { dashcoins: 5 } },
       { new: true },
       (err, doc) => {  if (err) return console.error(err); }
@@ -371,7 +375,6 @@ app.post("/save-vegetable-dash", (req, res) => {
 ============= */
 
 const server = require("http").Server(app);
-const { v4: uuidv4 } = require("uuid");
 const io = require("socket.io")(server, { cors: { origin: "*" } });
 const { ExpressPeerServer } = require("peer");
 const peerServer = ExpressPeerServer(server, { debug: true, });

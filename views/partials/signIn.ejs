@@ -1,0 +1,57 @@
+<!-- For when I include it inline -->
+<link rel="shortcut icon" href="Images/Global Assets/logo.svg" type="image/x-icon">
+<link rel="stylesheet" href="Styles/noticeboard-windows.css">
+<link rel="stylesheet" href="signin.css">
+<button onclick="toggleWindow('signin')">i=hi</button>
+<div class="tab-window-backdrop window-signin">
+   <div class="tab-window">
+      <div class="tab-bar">
+         <div class="tab tab-signin tab-signin-signin active-tab" onclick="scrollToSection('signin', 'signin')">Sign In</div>
+         <div class="tab tab-signin tab-signin-signup" onclick="scrollToSection('signin', 'signup')">Create Account</div>
+         <span class="window-close" onclick="toggleWindow('signin')">x</span>
+      </div>
+      <div class="tab-pages">
+         <div class="page" id="page-signin-signin">
+            <h1>Sign In</h1>
+            <p>Nothing here yet!</p>
+         </div>
+         <div class="page" id="page-signin-signup">
+            <h1>Create an Account</h1>
+            <p>Nothing here yet!</p>
+         </div>
+      </div>
+
+      <h2>Sign In</h2>
+      <p><%= text %></p>
+      <form method="POST" action="/signin" method="post">
+         <input class="input-text" type="text" name="name" placeholder="Name" required><br>
+         <input class="input-text" type="email" name="emil" placeholder="Email" required><br>
+         <input class="input-text pin" type="password" name="pscd" placeholder="Password" required><br>
+         <input class="input-submit" type="submit" value="Enter Account">
+      </form>
+   </div>
+</div>
+<style media="screen">
+   #page-signin-signin { background-image: url("Images/Background/lake-day.svg"); }
+</style>
+<script>
+   function scrollToSection(window, id) {
+      document.querySelector(`#page-${window}-${id}`).scrollIntoView();
+      document.querySelectorAll(`.active-tab.tab-${window}`)[0].classList.remove("active-tab");
+      document.querySelector(`.tab-${window}-${id}`).classList.add("active-tab");
+   }
+
+   function toggleWindow(id) {
+      let thisWindow = document.querySelector(`.window-${id}`);
+      if (thisWindow.style.opacity == "1") {
+         thisWindow.style.opacity = "0";
+         thisWindow.style.pointerEvents = "none";
+         thisWindow.style.zIndex = "-1000";
+      }
+      else {
+         thisWindow.style.opacity = "1";
+         thisWindow.style.pointerEvents = "auto";
+         thisWindow.style.zIndex = "1000";
+      }
+   }
+</script>   

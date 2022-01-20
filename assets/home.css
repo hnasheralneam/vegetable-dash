@@ -1,63 +1,142 @@
+/* 
+Main theme color: #ED5D5D // red, for fun, exitement, and apples
+seconary color: #00CC66 // green, for plants
+also considered orange or yellow
+make a simple logo with color
+*/
+/* General */
 * {
    padding: 0;
    margin: 0;
 }
 
 body {
-   background-image: url("Images/Background/background.svg");
-   background-size: 100vw 100vh;
-   overflow: hidden;
+   height: 100%;
 }
 
-a {
-   color: #222;
-   text-decoration: none;
-   font-family: "Nunito";
-   transition: .2s;
-}
-
-a:hover {
-   color: #000;
-}
-
-/* Some other stuff */
-.option-list {
-   background-color: #f8f8f8;
-   border-radius: 2vh;
-   margin: 2vh;
-   padding: 2vh;
-}
-
-.option-list .option {
-   display: block;
-   font-size: 2vh;
-   padding: 1vh;
-   margin: 2vh 1vh;
-   background-color: #f2f2f2;
-   border-radius: 2vh;
-   transition: .2s;
-}
-
-.option-list .option:hover {
-   background-color: #eee;
-}
-
-.option-list .option:active {
-   transform: scale(.95);
-}
-
-/* Universal */
-.body-parent {
+.page {
    display: grid;
    grid-template-columns: auto auto;
 }
 
-.opening {
-   background-color: rgba(255, 255, 255, 0.85);
-   margin: 1vh auto;
-   padding: 3vh 2vh 3vh 1vh;
-   width: 90%;
-   border-radius: 2.5vh;
+/* Menubar */
+.menubar {
+   height: 100vh;
+   width: 25vw;
+   padding: 2vh;
+   background-color: #f8f8f8;
+   box-sizing: border-box;
+   overflow: scroll;
+}
+
+.menu-logo {
+   display: inline-block;
+   width: 45%;
+}
+
+.menu-userimg {
+   display: inline-block;
+   width: 45%;
+}
+
+.menu-username {
+   display: block;
+   margin: 2vh 1vh;
+   padding: 2vh;
+   text-align: center;
+   font-family: "Nunito";
+   font-size: 3vh;
+   color: #333;
+   background-color: #f2f2f2;
+   border-radius: 2vh;
+   font-weight: 600;
+}
+
+.play {
+   display: block;
+   margin: 1.25vh 1vh;
+   padding: 2vh 1vh 2vh 1vh;
+   text-align: center;
+   font-family: "Nunito";
+   font-size: 3.5vh;
+   color: #fff;
+   background-color: #00CC66;
+   border-radius: .5vh;
+   font-weight: 500;
+   box-shadow: 0 .2vh #00a653;
+   transition: .2s;
+}
+
+.play:hover {
+   box-shadow: 0 .4vh #00a653;
+   transform: translate(0, -.2vh);
+}
+
+.play:active {
+   box-shadow: none;
+   transform: translate(0, .2vh);
+}
+
+.play a {
+   color: #fff;
+   text-decoration: none;
+}
+
+.menu-option {
+   display: block;
+   margin: 2vh 1vh;
+   padding: 2vh;
+   text-align: center;
+   font-family: "Nunito";
+   font-size: 3vh;
+   border-radius: 1vh;
+   color: #ED5D5D;
+   background-color: transparent;
+   border: solid .5vh #ED5D5D;
+   box-shadow: 0 0 .2vh #762E2E;
+   transition: .2s;
+}
+
+.menu-option:hover {
+   color: #fff;
+   background-color: #ED5D5D;
+   border: solid .5vh transparent;
+}
+
+.menu-option:active {
+   transform: scale(.95);
+}
+
+.menu-option a {
+   color: #ED5D5D;
+   text-decoration: none;
+}
+
+.menu-option:hover a {
+   color: #fff;
+}
+
+/* General (Old) */
+.big-title {
+   text-align: center;
+   font-family: "Capriola";
+   text-transform: uppercase;
+   font-size: 8vh;
+   margin-bottom: 3vh;
+   color: #8bf9c2;
+   text-shadow: .5vh .5vh #44a89b;
+}
+
+.stylish-p {
+   margin: 5vh 1vw;
+   display: inline;
+   color: #333;
+   text-decoration: none;
+   transition: .2s;
+   font-family: "Nunito";
+   background-color: rgba(53, 251, 166, 0.5);
+   padding: .25vh;
+   border-radius: .5vh;
 }
 
 .a {
@@ -76,94 +155,7 @@ a:hover {
    background-color: rgba(138, 249, 232, 0.75);
 }
 
-/* About your account */
-.yourAvatar {
-   height: 12vh;
-   margin: 0 0 -4vh 2vh;
-}
-
-.playButton {
-   font-size: 4vh;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   background-color: #ffb100;
-   border-radius: 2vh;
-   padding: 3vh 3vw;
-   margin: 5vh;
-}
-
-.playButton a {
-   color: #367335;
-   text-decoration: none;
-   transition: .2s;
-   font-family: "Nunito";
-   background-color: rgba(138, 243, 249, 0);
-}
-
-.playButton a:hover {
-   color: #214b21;
-   text-decoration: underline;
-   background-color: rgba(138, 243, 249, 0);
-}
-
-.stylish-p {
-   margin: 5vh 1vw;
-   display: inline;
-   color: #333;
-   text-decoration: none;
-   transition: .2s;
-   font-family: "Nunito";
-   background-color: rgba(53, 251, 166, 0.5);
-   padding: .25vh;
-   border-radius: .5vh;
-}
-
-/* Not signed in */
-.not-signed-in {
-   position: fixed;
-   height: 100vh;
-   width: 100vw;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-
-.not-signed-inner {
-   background-color: #b97c2b;
-   border: solid 2vh #583a13;
-   padding: 5vh;
-   border-radius: 2.5vh;
-   transform: scale(1.5);
-}
-
-/* Signed in */
-.signed-in {
-   height: 60vh;
-   width: 60vw;
-   background-color: rgba(185, 124, 43, 0.5);
-   border: solid 2vh rgba(88, 58, 19, 0.5);
-   margin: 18vh 19vw;
-   border-radius: 2.5vh;
-   transform: scale(1.5);
-   overflow: auto;
-   text-align: center;
-   box-sizing: margin-box;
-}
-
 /* Choose new avatar */
-.choose-new-avatar.open {
-   position: fixed;
-   top: 0;
-   left: 0;
-   bottom: 0;
-   right: 0;
-   background-color: rgba(255, 255, 255, 0.9);
-   padding: 12vh;
-   text-align: center;
-   transform: scale(1.3);
-}
-
 .post-button {
    background-color: #fff;
    border: solid .8vh #ff0000;
@@ -205,45 +197,6 @@ a:hover {
 }
 
 /* Friends */
-.friends.open {
-   position: fixed;
-   top: 0;
-   left: 0;
-   bottom: 0;
-   right: 0;
-   background-color: rgba(255, 255, 255, 0.9);
-   text-align: center;
-   overflow: scroll;
-   /* transform: scale(1.5); */
-}
-
-
-
-
-
-
-.avatar {
-   height: 12vh;
-   padding: 2vh;
-   background-color: #eee;
-   border-radius: 50%;
-   border: solid 1vh #73f173;
-   transition: .2s;
-}
-
-.avatar:hover {
-   box-shadow: 0 0 1vh #73f173;
-}
-
-
-
-
-
-
-
-
-
-
 .friendbox {
    scroll-snap-type: x mandatory;
    scroll-padding: 0 2vh;
@@ -306,6 +259,19 @@ a:hover {
 }
 
 .avatar {
+   height: 12vh;
+   padding: 2vh;
+   background-color: #eee;
+   border-radius: 50%;
+   border: solid 1vh #73f173;
+   transition: .2s;
+}
+
+.avatar:hover {
+   box-shadow: 0 0 1vh #73f173;
+}
+
+.avatar {
    height: 16vh;
    padding: 2vh;
    background-color: #eee;
@@ -345,35 +311,11 @@ a:hover {
    box-shadow: 0 0;
 }
 
-
 /* Private Chat */
-.createChat.open {
-   position: fixed;
-   top: 0;
-   left: 0;
-   bottom: 0;
-   right: 0;
-   background-color: rgba(255, 255, 255, .95);
-   padding: 8vh 24vh;
-   text-align: center;
-   overflow: scroll;
-   /* transform: scale(1.5); */
-}
-
-.big-title {
-   font-family: "Capriola";
-   text-transform: uppercase;
-   font-size: 8vh;
-   margin-bottom: 3vh;
-   color: #8bf9c2;
-   text-shadow: .5vh .5vh #44a89b;
-}
-
 .createChat .p-tag {
    font-family: "Capriola";
    text-transform: uppercase;
    font-size: 4vh;
-   margin-bottom: 2vh;
    color: #64bbf5;
    text-shadow: .2vh .2vh #2f6c8f;
 }
@@ -398,24 +340,4 @@ a:hover {
    transform: translate(-.5vh, -.5vh);
    box-shadow: .5vh .5vh #6b2fcc,
                1vh 1vh #6b2fcc;
-}
-
-.createChat .second-button {
-   background-color: #f56464;
-   box-shadow: .5vh .5vh #ad3b1e;
-}
-
-.createChat .second-button:hover {
-   box-shadow: .5vh .5vh #ad3b1e,
-               1vh 1vh #ad3b1e;
-}
-
-.createChat .third-button {
-   background-color: #57e452;
-   box-shadow: .5vh .5vh #109732;
-}
-
-.createChat .third-button:hover {
-   box-shadow: .5vh .5vh #109732,
-               1vh 1vh #109732;
 }

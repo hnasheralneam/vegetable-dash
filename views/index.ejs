@@ -1506,15 +1506,6 @@
       <script src="tasks.js" charset="utf-8"></script>
       <script src="main.js" charset="utf-8"></script>
    <%} else { %>
-      <div class="not-signed-in">
-         <div class="not-signed-inner">
-            <h2 style="text-align: center;">Welcome to Vegetable Dash!</h2>
-            <h4 style="text-align: center;">You are not signed in</h4><br>
-            <div class="opening">
-               <p class="stylish-p">Do you have an account?</p><a href="/sign-in">Sign in!</a><br><br>
-               <p class="stylish-p">Don't have an account?</p><a href="/create-account">Create an account!</a>
-            </div>
-         </div>
-      </div>
+      <%- include("partials/loggedOut"); %>
    <% } %>
 </html>
