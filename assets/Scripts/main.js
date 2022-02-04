@@ -1167,7 +1167,7 @@ aEL(77, toggleMarket); // Shift + M
 aEL(65, tendAll); // Shift + A
 
 // Quick double click menu
-var mouseX, mouseY, pressCount = 0;
+let pressCount = 0;
 let quickInformation = "closed";
 let quickInfoMenu = document.querySelector(".qIM");
 document.addEventListener("keyup", function(event) {
