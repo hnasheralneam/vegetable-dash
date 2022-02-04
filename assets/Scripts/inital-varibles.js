@@ -179,3 +179,4 @@ let initGameData = {
     bakeSale_pumpkinPie: "unreached",
     bakeSale_pumpkinPieNum: 0,
  }
+ 

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="cornerchat.css">
+<link rel="stylesheet" href="Styles/cornerchat.css">
 <div class="chatbox">
    <br>
     <h3 class="chat-title">Chat</h3>
@@ -12,7 +12,9 @@
                <div class="little-chat-box">
                   <%=item.input%>
                   <br>
-                  <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
+                  <% if (item.datePosted) { %>
+                     <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
+                  <% } %>
                   <div class="chat-edit-message">
                      <img class="chat-edit-img" src="Chat/pencil.png" onclick="
                         if (this.parentNode.classList.contains('open')) {
@@ -39,8 +41,10 @@
                 <div class="little-chat-box">
                    <%=item.input%>
                    <br>
-                   <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
-                </div>
+                   <% if (item.datePosted) { %>
+                     <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
+                     <% } %>
+                   </div>
              </div>
           <% } %>
       <%})%>

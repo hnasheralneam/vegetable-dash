@@ -128,8 +128,9 @@ body {
 }
 
 .stylish-p {
+   text-align: center;
    margin: 5vh 1vw;
-   display: inline;
+   display: inline-block;
    color: #333;
    text-decoration: none;
    transition: .2s;
@@ -140,12 +141,16 @@ body {
 }
 
 .a {
+   display: inline-block;
+   text-align: center;
    color: #fff;
    text-decoration: none;
    transition: .2s;
    font-family: "Nunito";
    background-color: rgba(138, 243, 249, 0.5);
    padding: .5vh;
+   margin: 1.5vh 2vh;
+   font-size: 3vh;
    border-radius: .5vh;
 }
 
@@ -164,7 +169,8 @@ body {
    font-size: 5vh;
    border-radius: .5vh;
    padding: 2vh;
-   width: 20vw;
+   width: 80vw;
+   margin: 2vh 10vw;
 }
 
 .post-button:hover {
@@ -182,6 +188,7 @@ body {
    opacity: 0;
    width: 0;
    height: 0;
+   transition: .2s;
 }
  
 [type=radio]:checked + img {
@@ -189,11 +196,18 @@ body {
 }
 
 .choose-avatar {
-   height: 10vh;
+   height: 15vh;
    padding: 1vh;
    margin: 1.2vh .8vh;
    border-radius: 50%;
    border: solid .8vh #73e2f1;
+}
+
+.choose-avatar-parent {
+   width: 100vw;
+   white-space: initial;
+   padding: 4vw;
+   box-sizing: border-box;
 }
 
 /* Friends */

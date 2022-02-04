@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="Styles/alert.css">
+<div class="alert-box"><div class="alert alert-cominin">Game Saved!</div></div>
+<script>
+// Call alert
+function callAlert(text) {
+   // Isn't it just great copying the code from other projects?
+   let alert = document.querySelector(".alert").cloneNode(true);
+   document.querySelector(".alert-box").insertBefore(alert, document.querySelector(".alert-box").firstChild);
+   alert.style.display = "block";
+   alert.textContent = text;
+   setTimeout(alertAnimation => { alert.classList.add('alertAnimation'); }, 6000);
+   setTimeout(removeAnimation => { alert.classList.remove('alertAnimation');  alert.remove(); }, 7000);
+}
+</script>

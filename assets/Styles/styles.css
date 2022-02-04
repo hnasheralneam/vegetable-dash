@@ -58,16 +58,16 @@ summary:focus { outline: none; }
 .blue:active { box-shadow: 0 1vh #16CCF8; }
 .purple:active { box-shadow: 0 1vh #4B20C8; }
 
-/* Dynamic Hover */
-.dynamicHover {
+ /* Dynamic Hover */
+ .dynamicHover {
    background-color: #e9e9e9;
    padding: .6vh 1vw;
    font-family: "Nunito";
    border-radius: 2vh;
    font-size: 3.2vh;
    color: #2b2b2b;
-   /* transition: opacity .1s;
-   opacity: 0; */
+   transition: opacity .1s;
+   opacity: 0;
 }
 
 .dynamicHoverDark {
@@ -77,8 +77,8 @@ summary:focus { outline: none; }
    border-radius: 2vh;
    font-size: 3.2vh;
    color: #e9e9e9;
-   /* transition: opacity .1s;
-   opacity: 0; */
+   transition: opacity .1s;
+   opacity: 0;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -189,7 +189,7 @@ Farmland & Plots
    "auto auto auto";
 }
 .plot {
-   background-image: url("Images/Plots/plot.png");
+   background-image: url("../Images/Plots/plot.png");
    background-size: cover;
    margin: .35vh;
    border-radius: 1vh;
@@ -275,7 +275,7 @@ Farmland & Plots
    opacity: 1;
    pointer-events: auto;
 }
-.removing-lock { content: url("Images/Lock/lock.gif"); }
+.removing-lock { content: url("../Images/Lock/lock.gif"); }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Modals
@@ -653,12 +653,12 @@ Market & Black Market
    bottom: 2.5vh;
    left: 2.5vh;
    border-radius: 5vh;
-   background-image: url("Images/Market/bustling.png");
+   background-image: url("../Images/Market/bustling.png");
    background-size: cover;
    background-color: #262626;
    text-align: center;
    font-family: "Roboto Condensed";
-   cursor: url('Images/Cursors/money.png'), auto;
+   cursor: url('../Images/Cursors/money.png'), auto;
    overflow: scroll;
    transition: 0.8s;
 }
@@ -843,7 +843,7 @@ Market & Black Market
 }
 .exchange-market-item { width: 30vw; }
 .blackMarketHome {
-   background-image: url("Images/Market/black-market.png");
+   background-image: url("../Images/Market/black-market.png");
    background-size: cover;
    background-position: center;
 }
@@ -853,7 +853,7 @@ Market & Black Market
    margin: 0;
    box-shadow: inset 2vh 2vh 6vh #000,
                inset -2vh -2vh 6vh #000;
-   background-image: url("Images/Market/black-market.png");
+   background-image: url("../Images/Market/black-market.png");
    background-size: cover;
    background-position: center;
 }
@@ -1109,7 +1109,7 @@ Settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .settings {
-   cursor: url('Images/Cursors/chisel.png'), auto;
+   cursor: url('../Images/Cursors/chisel.png'), auto;
 }
 
 .setting-button {
@@ -1290,7 +1290,7 @@ Tasks
    position: relative;
    padding: 6vh 2vh;
    font-size: 2.2vh;
-   background-image: url("Images/Tasks/sticky-note.png");
+   background-image: url("../Images/Tasks/sticky-note.png");
    background-size: cover;
    overflow: scroll;
    transition: 0.5s;
@@ -1334,7 +1334,7 @@ Festival
    transition: 0.8s;
    box-sizing: border-box;
    padding: 8vh 0;
-   background-image: url("Images/Festival/background.png");
+   background-image: url("../Images/Festival/background.png");
    background-size: 100vw 100vh;
    background-color: #31d3f0;
    text-align: center;
@@ -1344,7 +1344,7 @@ Festival
 }
 .festival-land { width: 100%; }
 .festival-land button {
-   background-image: url("Images/Festival/shiny-metal.jpg");
+   background-image: url("../Images/Festival/shiny-metal.jpg");
    background-size: contain;
 }
 .festival-plot-image {
@@ -1595,7 +1595,7 @@ tr:nth-child(even) { background-color: #eee; }
    display: flex;
    justify-content: center;
    text-align: center;
-   background-image: url("Images/Background/background.png") !important;
+   background-image: url("../Images/Background/background.png") !important;
    background-size: cover;
 }
 
@@ -1668,10 +1668,10 @@ tr:nth-child(even) { background-color: #eee; }
 .darkFadeText { color: #505050; }
 
 .aTaskIsReady {
-   height: 10vh;
+   height: 16vh;
    position: absolute;
-   top: 8vh;
-   right: -55vh;
+   top: 6vh;
+   right: -20vh;
    z-index: 1000000;
    transition: .5s;
    opacity: 0;

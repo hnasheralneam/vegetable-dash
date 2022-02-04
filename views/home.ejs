@@ -8,8 +8,9 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    <link rel="shortcut icon" href="Images/Global Assets/logo.svg" type="image/x-icon">
-   <link rel="stylesheet" href="home.css">
+   <link rel="stylesheet" href="Styles/home.css">
    <link rel="stylesheet" href="Styles/noticeboard-windows.css">
    <title>Home</title>
 </head>
@@ -149,31 +150,33 @@
                <div class="page" id="page-account-general">
                   <h1>General</h1>
                   <p>At the moment, it is not possible to change your account information. It would be easy to implement, but unless intrest is shown, I won't invest the time. Also, if you really want, I could easily make it so that if you signed it with GitHub, it uses your profile image. I don't have much online storage space, so you can't upload pictures here. Maybe I'll do it so you can use an external link. Maybe I won't. :)</p>
+                  <form id="change-account-info-form" action="change-account-info" method="POST">
+                     <input class="input-text" value="<%= user.name %>" type="text" name="name" placeholder="Name" required><br>
+                     <input class="input-text" value="<%= user.email %>" type="email" name="emil" placeholder="Email" required><br>            
+                     <input class="post-button" value="Update Account" type="submit">
+                  </form>
                </div>
                <div class="page" id="page-account-avatar">
                   <h1>Avatar</h1>
                   <p>Change your avatar!</p>
-                  <form action="choose-avatar" method="POST">
-                     <div>
+                  <form id="chooseAvatarForm" action="choose-avatar" method="POST">
+                     <div class="choose-avatar-parent">
                         <label><input type="radio" name="avatar" value="1" checked><img class="choose-avatar" src="Avatars/1.png"></label>
                         <label><input type="radio" name="avatar" value="2"><img class="choose-avatar" src="Avatars/2.png"></label>
                         <label><input type="radio" name="avatar" value="3"><img class="choose-avatar" src="Avatars/3.png"></label>
                         <label><input type="radio" name="avatar" value="4"><img class="choose-avatar" src="Avatars/4.png"></label>
                         <label><input type="radio" name="avatar" value="5"><img class="choose-avatar" src="Avatars/5.png"></label>
-                        <br>
                         <label><input type="radio" name="avatar" value="6"><img class="choose-avatar" src="Avatars/6.png"></label>
                         <label><input type="radio" name="avatar" value="7"><img class="choose-avatar" src="Avatars/7.png"></label>
                         <label><input type="radio" name="avatar" value="8"><img class="choose-avatar" src="Avatars/8.png"></label>
                         <label><input type="radio" name="avatar" value="9"><img class="choose-avatar" src="Avatars/9.png"></label>
                         <label><input type="radio" name="avatar" value="10"><img class="choose-avatar" src="Avatars/10.png"></label>
-                        <br>
                         <label><input type="radio" name="avatar" value="11"><img class="choose-avatar" src="Avatars/11.png"></label>
                         <label><input type="radio" name="avatar" value="12"><img class="choose-avatar" src="Avatars/12.png"></label>
                         <label><input type="radio" name="avatar" value="13"><img class="choose-avatar" src="Avatars/13.png"></label>
                         <label><input type="radio" name="avatar" value="14"><img class="choose-avatar" src="Avatars/14.png"></label>    
                      </div>
                      <input class="post-button" value="Pick" type="submit">
-                     <button class="post-button" type="text">Pick</button>
                   </form>
                   <p class="stylish-p">Avatar icons made by <a class="a" href="https://www.flaticon.com/authors/vitaly-gorbachev" title="Vitaly Gorbachev">Vitaly Gorbachev</a> from <a class="a" href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></p><br>
                   <a class="a" href="https://www.flaticon.com/free-icons/pencil" title="pencil icons">Chat pencil icon created by Freepik - Flaticon</a><br>
@@ -198,12 +201,14 @@
       </div>
       <!-- Noticeboard -->
       <div class="noticeboard">
-         <div class="page-notice upgrade">
+         <!-- <div class="page-notice upgrade">
             <span class="remove" onclick="this.parentNode.remove()">x</span>
             <p class="heading">UPDATED! 🎉</p>
             <p class="text">This site has been updated! It's awsomer now! Yay! If you like it, bookmark it! This is your favorite website now! :)</p>
-         </div>
+         </div> -->
       </div>
+      <!-- Alert -->
+      <%- include("partials/alert"); %>
       <!-- Chat -->
       <%- include("partials/miniChat"); %>
    <!-- If not signed in -->
@@ -211,6 +216,7 @@
       <%- include("partials/loggedOut"); %>
    <% } %>
 </body>
+<script src="Scripts/home.js"></script>
 <script>
 function scrollToSection(window, id) {
    document.querySelector(`#page-${window}-${id}`).scrollIntoView();

@@ -89,7 +89,7 @@ function sendEmail(title, text, recipient) {
 }
 
 setInterval(() => {
-   if (signedInUser != "(not signed in)") {
+   if (signedInUser != "(not signed in)" && signedInUser) {
       UserData.findOne({ name: signedInUser.name }, (err, user) => {
          if (err) return console.error(err);
          else { signedInUser = user; }
@@ -230,11 +230,7 @@ app.post("/create-account", (req, res) => {
                // Sign in and go home
                UserData.findOne({ name: req.body.name, email: req.body.emil, passcode: req.body.pscd }, (err, user) => {
                   if (err) return console.error(err);
-                  else {
-                     signedIn = true;
-                     signedInUser = user;
-                     res.redirect("back");
-                  }
+                  else { res.redirect("/"); }
                });            
             }
          }
@@ -261,15 +257,37 @@ app.post("/choose-avatar", (req, res) => {
       { name: signedInUser.name },
       { avatar: req.body.avatar },
       { new: true },
-      (err, doc) => { if (err) return console.error(err); }
-   );
-   UserData.findOne({ name: signedInUser.name }, (err, user) => {
-      if (err) return console.error(err);
-      else {
-         signedInUser = user;
-         res.redirect("/");
+      (err, doc) => {
+         if (err) return console.error(err);
+         else { return doc; }
       }
-   });
+   );
+});
+
+// Update account info
+app.post("/change-account-info", (req, res) => {
+   return heyThere();
+   async function heyThere() {
+      // Check name and email
+      let isAlreadyUsedName = await UserData.findOne({ name: req.body.name });
+      if (isAlreadyUsedName) { res.render("signup", { errText: "Choose a different name! (This one is taken!)" }); }
+      else {
+         let isAlreadyUsedEmil = await UserData.findOne({ name: req.body.emil });
+         if (isAlreadyUsedEmil) { res.render("signup", { errText: "Email is already used." }); }
+         else {
+            UserData.findOneAndUpdate(
+               { name: signedInUser.name },
+               { avatar: req.body.avatar },
+               { new: true },
+               (err, doc) => {
+                  if (err) return console.error(err);
+                  else { return doc; }
+               }
+            );
+            sendEmail("✉️ Email & Name Updated! ✉️", "<h2>✉️ Email & Name Updated! ✉️</h2><h4>You have successfully updated your Vegetable Dash account!</h4><p>I just wanted to let you know that your account info has just been changed. If it wasn't you who did it, your account has been comprimised, but you probably won't be getting this email, because the email was changed. Just wanted to let you know! </p><i>-Squirrel</i><p>vegetabledash@gmail.com</p>", req.body.emil);
+         }
+      }
+   }
 });
 
 /* =============

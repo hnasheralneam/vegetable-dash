@@ -51,3 +51,21 @@ UserData.find((err, users) => {
       console.log(user.userCode + ": " + user.name)
    }) }
 });
+
+
+
+
+// ???
+function ajaxPost(saveData, url) {
+   $.ajax({
+      type: "POST",
+      contentType: "application/json",
+      data: saveData,
+      url: url,
+   }).done(function(response) {
+      // Misson Success!
+   }).fail(function(xhr, textStatus, errorThrown) {
+      console.log("ERROR: ", errorThrown);
+      return { response: xhr.responseText, error: errorThrown };
+   });
+}
