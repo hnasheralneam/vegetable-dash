@@ -7,7 +7,47 @@ A few states for vegetables
 5. "withered" - your plants have been killed by frost
 */
 
+// Just values, not saved ot account
+let gameInfo = {
+   // Growing times
+   peasTime: [3500, 7000, 10000],
+   cornTime: [10000, 20000, 30000],
+   strawberriesTime: [30000, 60000, 90000],
+   eggplantsTime: [100000, 200000, 300000],
+   pumpkinsTime: [300000, 600000, 900000],
+   cabbageTime: [900000, 1800000, 2700000],
+   dandelionTime: [2400000, 4800000, 7200000],
+   rhubarbTime: [7200000, 14400000, 21600000],
+   // Plot prices
+   price2: 150,
+   price3: 500,
+   price4: 2000,
+   price5: "Recive an extra plant!",
+   price6: 7500,
+   price7: 20000,
+   price8: 75000,
+   price9: 150000,
+   // URLs
+   peasURLs: ["Peas/growing.png", "Peas/flowering.png", "Peas/fruiting.png"],
+   cornURLs: ["growing.png", "Corn/growing.png", "Corn/fruiting.png"],
+   strawberriesURLs: ["Strawberry/growing.png", "Strawberry/flowering.png", "Strawberry/fruiting.png"],
+   eggplantsURLs: ["Eggplant/growing.png", "Eggplant/flowering.png", "Eggplant/fruiting.png"],
+   pumpkinsURLs: ["growing.png", "Pumpkin/growing.png", "Pumpkin/fruiting.png"],
+   cabbageURLs: ["growing.png", "Cabbage/growing.png", "Cabbage/fruiting.png"],
+   dandelionURLs: ["Dandelion/flowering.png", "Dandelion/flowering.png", "Dandelion/fruiting.png"],
+   rhubarbURLs: ["growing.png", "Rhubarb/growing.png", "Rhubarb/fruiting.png"]
+}
+
+// This is saved
 let initGameData = {
+   // IMPORTANT
+   coins: 0,
+   seeds: 0,
+   genes: 0,
+   // Plots
+   plantSeeds: ["peas"],
+   plots: [],
+   // Plants
     peasStatus: "Empty",
     cornStatus: "Locked",
     strawberriesStatus: "Locked",
@@ -17,14 +57,6 @@ let initGameData = {
     cabbageStatus: "Locked",
     dandelionStatus: "Locked",
     rhubarbStatus: "Locked",
-    peasTime: [3500, 7000, 10000],
-    cornTime: [10000, 20000, 30000],
-    strawberriesTime: [30000, 60000, 90000],
-    eggplantsTime: [100000, 200000, 300000],
-    pumpkinsTime: [300000, 600000, 900000],
-    cabbageTime: [900000, 1800000, 2700000],
-    dandelionTime: [2400000, 4800000, 7200000],
-    rhubarbTime: [7200000, 14400000, 21600000],
     // Harvest Rewards
     peasRewards: 1,
     cornRewards: 1,
@@ -34,13 +66,6 @@ let initGameData = {
     cabbageReward: 1,
     dandelionReward: 1,
     rhubarbReward: 1,
-    // Center Plot
-    centerStatus: "plant-ready",
-    centerReadyTime: 0,
-    centerHarvest: 0,
-    urlOne: "url(Images/Plots/plot.png)",
-    urlTwo: "url(Images/Plots/plot.png)",
-    urlThree: "url(Images/Plots/plot.png)",
     // Produce
     peas: 0,
     corn: 0,
@@ -51,14 +76,6 @@ let initGameData = {
     dandelion: 0,
     rhubarb: 0,
     // Plots
-    price2: 150,
-    price3: 500,
-    price4: 2000,
-    price5: "Recive an extra plant!",
-    price6: 7500,
-    price7: 20000,
-    price8: 75000,
-    price9: 150000,
     peaplot: "unlocked",
     cornplot: "locked",
     strawberryplot: "locked",
@@ -69,7 +86,6 @@ let initGameData = {
     rhubarbplot: "locked",
     centerplot: "locked",
     // Market Data
-    seeds: 0,
     marketResets: 0,
     fertilizers: 0,
     doughnuts: 0,
@@ -116,26 +132,13 @@ let initGameData = {
        dandelion: 720,
        rhubarb: 2160,
     },
-    weather: {
-       weather: "partlySunny",
-       lastWeather: "",
-       nextWeather: "",
-       sunny: false,
-       rainy: false,
-       partlySunny: false,
-       partlyCloudy: false,
-       snowy: false,
-       cloudy: false,
-       frost: false,
-       flood: false,
-       marketResetBonus: 0,
-       hasBeenPunished: true,
-       // heatwave: ["depends", "?"],
-       // locusts: ["- all plants",],
-       // birds: ["-10% - 15% of seeds",], // Scarecrow investment will reduce by 5%
-       // flood: ["-20% stored veg"], // Irrigation investment will retract bad effects, make +1 produce
-    },
-    // Settings
+   // Weather
+    weather: "partlySunny",
+    lastWeather: "",
+    nextWeather: "",
+    marketResetBonus: 0,
+    hasBeenPunished: true,
+   // Settings
     theme: "dark",
     intro: "unfinished",
     loadtimes: [1000],
@@ -144,6 +147,7 @@ let initGameData = {
     marketOpen: false,
     blackMarketOpen: false,
     tasksOpen: false,
+    shopOpen: false,
     // Tasks
     isInSave: true,
     taskBox1: "unoccupied",

@@ -3,18 +3,22 @@
    <head>
       <script type="text/javascript">var timerStart = Date.now();</script>
       <meta charset="utf-8">
-      <!-- Google Fonts -->
-      <div>
-         <link rel="preconnect" href="https://fonts.gstatic.com">
-         <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
-         <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">   
-      </div>
       <!-- My number shortener library -->
       <script src="https://squirrel-314.github.io/digit/main.js" charset="utf-8"></script>
       <link rel="shortcut icon" href="Images/Global Assets/logo.svg" type="image/x-icon">
       <link rel="stylesheet" href="Styles/styles.css">
+      <link rel="stylesheet" href="Styles/noticeboard-windows.css">
       <title>Vegetable Dash!</title>
+      <!-- Google Fonts -->
+      <div>
+         <link rel="preconnect" href="https://fonts.gstatic.com">
+         <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+         <link rel="preconnect" href="https://fonts.googleapis.com">
+         <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+         <link href="https://fonts.googleapis.com/css2?family=Capriola&display=swap" rel="stylesheet">
+            </div>
+      <!-- Favicon donsn't work when div is above it -->
    </head>
    <% if (user !== "(not signed in)") { %>
    <body ondragstart="return false;">
@@ -34,21 +38,9 @@
                <span class="peas-time-left">00:00:00</span>
                <img src="Images/Icons/clock.svg">
             </div>
+            <img class="veg-icon" src="Images/Vegetables/peas.png">
             <!-- Special -->
             <img class="quest-arrow plant-quest-arrow" src="Images/Tasks/arrow.png">
-            <!-- Modal -->
-            <img onclick="infoModal('Peas')" class="veg-icon" src="Images/Vegetables/pea.png">
-            <div id="infoPeas" class="veg-info">
-               <div class="modal-content">
-                  <button onclick="infoModal('Peas')" class="close depth-button green">x</button>
-                  <h4>Peas <img class="info-icon" src="Images/Vegetables/pea.png"></h4>
-                  <p>Peas are a climbing vine in the legume family. <br> These pea plants take 10 seconds to grow.</p>
-                  <div class="modal-market-prices">
-                     <div class="modalPeasPriceBuy"></div>
-                     <div class="modalPeasPriceSell"></div>
-                  </div>
-               </div>
-            </div>
          </div>
          <!-- Corn Plot -->
          <div class="plot" id="plot2">
@@ -63,19 +55,7 @@
                   <span class="corn-time-left">00:00:00</span>
                   <img src="Images/Icons/clock.svg">
                </div>
-               <!-- Modal -->
-               <img onclick="infoModal('Corn')" class="veg-icon" src="Images/Vegetables/corn.png">
-               <div id="infoCorn" class="veg-info">
-                  <div class="modal-content">
-                     <button onclick="infoModal('Corn')" class="close depth-button yellow">x</button>
-                     <h4>Corn <img class="info-icon" src="Images/Vegetables/corn.png"></h4>
-                     <p>Corn, or maize, is a cereal grain originally grown 10,00 years ago in southern Mexico. <br> These corn plants take 25 seconds to grow.</p>
-                     <div class="modal-market-prices">
-                        <div class="modalCornPriceBuy">Buy For</div>
-                        <div class="modalCornPriceSell">Sell For</div>
-                     </div>
-                  </div>
-               </div>
+               <img class="veg-icon" src="Images/Vegetables/corn.png">
                <!-- Unlocked -->
                <div id="infoUnlockedCorn" class="plot-unlocked-modal">
                   <div class="modal-content plot-unlocked-modal-inner">
@@ -107,19 +87,7 @@
                   <span class="strawberries-time-left">00:00:00</span>
                   <img src="Images/Icons/clock.svg">
                </div>
-               <!-- Info -->
-               <img onclick="infoModal('Strawberry')" class="veg-icon" src="Images/Vegetables/strawberry.png">
-               <div id="infoStrawberry" class="veg-info">
-                  <div class="modal-content">
-                     <button onclick="infoModal('Strawberry')" class="close depth-button red">x</button>
-                     <h4>Strawberries! <img class="info-icon" src="Images/Vegetables/strawberry.png"></h4>
-                     <p>Strawberries are part of the genus Fragaria, native to North America. <br> These strawberries take 2.5 minutes to grow.</p>
-                     <div class="modal-market-prices">
-                        <div class="modalStrawberriesPriceBuy">Buy For</div>
-                        <div class="modalStrawberriesPriceSell">Sell For</div>
-                     </div>
-                  </div>
-               </div>
+               <img class="veg-icon" src="Images/Vegetables/strawberry.png">
                <!-- Unlocked -->
                <div id="infoUnlockedStrawberry" class="plot-unlocked-modal">
                   <div class="modal-content plot-unlocked-modal-inner">
@@ -151,19 +119,7 @@
                   <span class="eggplants-time-left">00:00:00</span>
                   <img src="Images/Icons/clock.svg">
                </div>
-               <!-- Info -->
-               <img onclick="infoModal('Eggplant')" class="veg-icon" src="Images/Vegetables/eggplant.png">
-               <div id="infoEggplant" class="veg-info">
-                  <div class="modal-content">
-                     <button onclick="infoModal('Eggplant')" class="close depth-button purple">x</button>
-                     <h4>Eggplant <img class="info-icon" src="Images/Vegetables/eggplant.png"></h4>
-                     <p>Eggplants are a species in the Solanaceae, or nightshade family, and are thought to be native to India. <br> These eggplants take 15 minutes to grow.</p>
-                     <div class="modal-market-prices">
-                        <div class="modalEggplantsPriceBuy">Buy For</div>
-                        <div class="modalEggplantsPriceSell">Sell For</div>
-                     </div>
-                  </div>
-               </div>
+               <img class="veg-icon" src="Images/Vegetables/eggplant.png">
                <!-- Unlocked -->
                <div id="infoUnlockedEggplant" class="plot-unlocked-modal">
                   <div class="modal-content plot-unlocked-modal-inner">
@@ -182,38 +138,18 @@
             </div>
          </div>
          <!-- Center Plot -->
-         <div class="plot" id="plot5">
-            <div class="lock-tooltip" id="lockedDiv5">
-               <img id="lock5" class="locked" src="Images/Lock/lock.svg">
-               <span class="tooltiptext" id="lock5Text">This plot is locked <br> Purchase all other plots to unlock<br><br></span>
+         <!-- <div class="plot" id="plot5">
+            <div class="countdown time-left">
+               <span class="time-left-5">00:00:00</span>
+               <img src="Images/Icons/clock.svg">
             </div>
-            <div class="open-plot" id="openPlot5">
-               <div class="countdown time-left">
-                  <span class="center-time-left">00:00:00</span>
-                  <img src="Images/Icons/clock.svg">
-               </div>
-               <!-- Center Info -->
-               <img onclick="infoModal('Rainbow')" class="veg-icon" src="Images/Global Assets/rainbow-fruit.svg">
-               <div id="infoRainbow" class="veg-info">
-                  <div class="modal-content">
-                     <span onclick="infoModal('Rainbow')" class="close">x</span>
-                     <h4>Rainbow Plot! <img class="info-icon" src="Images/Global Assets/rainbow-fruit.svg"></h4>
-                     <p>You can plant anything in this plot! <br> 🎉 Yay! 🎉</p>
-                  </div>
-               </div>
-               <img onclick="if (document.getElementById('shop1').style.height === '100%') {document.getElementById('shop1').style.height = '0'} else {document.getElementById('shop1').style.height = '100%'}" class="almanac" src="Images/Global Assets/almanac.png">
-               <ul class="shop-window" id="shop1">
-                  <li><img onclick="tendCenter('peas', 3000, 6000, 10000, 'Peas/growing.png', 'Peas/flowering.png', 'Peas/fruiting.png')" class="store-icon" src="Images/Vegetables/pea.png"></li>
-                  <li><img onclick="tendCenter('corn', 6000, 12000, 25000, 'growing.png', 'Corn/growing.png', 'Corn/fruiting.png')" class="store-icon" src="Images/Vegetables/corn.png"></li>
-                  <li><img onclick="tendCenter('strawberries', 50000, 100000, 150000, 'Strawberry/growing.png', 'Strawberry/flowering.png', 'Strawberry/fruiting.png')" class="store-icon" src="Images/Vegetables/strawberry.png"></li>
-                  <li><img onclick="tendCenter('eggplants', 300000, 600000, 900000, 'Eggplant/growing.png', 'Eggplant/flowering.png', 'Eggplant/fruiting.png')" class="store-icon" src="Images/Vegetables/eggplant.png"></li>
-                  <li><img onclick="tendCenter('pumpkins', 600000, 1200000, 1800000, 'growing.png', 'Pumpkin/growing.png', 'Pumpkin/fruiting.png')" class="store-icon" src="Images/Vegetables/pumpkin.svg"></li>
-                  <li><img onclick="tendCenter('cabbage', 1200000, 2400000, 3600000, 'growing.png', 'Cabbage/growing.png', 'Cabbage/fruiting.png')" class="store-icon" src="Images/Vegetables/cabbage.svg"></li>
-                  <li><img onclick="tendCenter('dandelion', 3600000, 7200000, 10800000, 'Dandelion/flowering.png', 'Dandelion/flowering.png', 'Dandelion/fruiting.png')" class="store-icon" src="Images/Vegetables/dandelion.png"></li>
-                  <li><img onclick="tendCenter('rhubarb', 9600000, 18200000, 28800000, 'growing.png', 'Rhubarb/growing.png', 'Rhubarb/fruiting.png')" class="store-icon" src="Images/Vegetables/rhubarb.png"></li>
-               </ul>
-            </div>
-         </div>
+            <img class="veg-icon" src="Images/Global Assets/rainbow-fruit.svg">
+            <img onclick="if (document.getElementById('shop5').style.height === '95%') {document.getElementById('shop5').style.height = '0'} else {document.getElementById('shop5').style.height = '95%'}" class="almanac" src="Images/Global Assets/almanac.png">
+            <ul class="shop-window" id="shop5">
+               <li><img onclick="tendTo(5, 'peas')" class="store-icon" src="Images/Vegetables/peas.png"></li>
+               <li><img onclick="tendTo(5, 'corn')" class="store-icon" src="Images/Vegetables/corn.png"></li>
+            </ul>
+         </div> -->
          <!-- Pumpkin Plot -->
          <div class="plot" id="plot6">
             <div class="lock-tooltip" id="lockedDiv6">
@@ -227,19 +163,7 @@
                   <span class="pumpkins-time-left">00:00:00</span>
                   <img src="Images/Icons/clock.svg">
                </div>
-               <!-- Info -->
-               <img onclick="infoModal('Pumpkins')" class="veg-icon" src="Images/Vegetables/pumpkin.svg">
-               <div id="infoPumpkins" class="veg-info">
-                  <div class="modal-content">
-                     <button onclick="infoModal('Pumpkins')" class="close depth-button orange">x</button>
-                     <h4>Pumpkins <img class="info-icon" src="Images/Vegetables/pumpkin.svg"></h4>
-                     <p>Pumpkins, a round winter squash with yellow to orange smooth skin, are believed to originate in Mexico. <br> These Pumpkins take 30 minutes to grow.</p>
-                     <div class="modal-market-prices">
-                        <div class="modalPumpkinsPriceBuy">Buy For</div>
-                        <div class="modalPumpkinsPriceSell">Sell For</div>
-                     </div>
-                  </div>
-               </div>
+               <img class="veg-icon" src="Images/Vegetables/pumpkin.svg">
                <!-- Unlocked -->
                <div id="infoUnlockedPumpkins" class="plot-unlocked-modal">
                   <div class="modal-content plot-unlocked-modal-inner">
@@ -270,19 +194,7 @@
                   <span class="cabbage-time-left">00:00:00</span>
                   <img src="Images/Icons/clock.svg">
                </div>
-               <!-- Information -->
-               <img onclick="infoModal('Cabbage')" class="veg-icon" src="Images/Vegetables/cabbage.svg">
-               <div id="infoCabbage" class="veg-info">
-                  <div class="modal-content">
-                     <button onclick="infoModal('Cabbage')" class="close depth-button green">x</button>
-                     <h4>Cabbage <img class="info-icon" src="Images/Vegetables/cabbage.svg"></h4>
-                     <p>A leafy vegetable <br> These Cabbage plants take 1 hour to grow.</p>
-                     <div class="modal-market-prices">
-                        <div class="modalCabbagePriceBuy">Buy For</div>
-                        <div class="modalCabbagePriceSell">Sell For</div>
-                     </div>
-                  </div>
-               </div>
+               <img class="veg-icon" src="Images/Vegetables/cabbage.svg">
                <!-- Unlocked -->
                <div id="infoUnlockedCabbage" class="plot-unlocked-modal">
                   <div class="modal-content plot-unlocked-modal-inner">
@@ -313,19 +225,7 @@
                   <span class="dandelion-time-left">00:00:00</span>
                   <img src="Images/Icons/clock.svg">
                </div>
-               <!-- Info -->
-               <img onclick="infoModal('Dandelion')" class="veg-icon" src="Images/Vegetables/dandelion.png">
-               <div id="infoDandelion" class="veg-info">
-                  <div class="modal-content">
-                     <button onclick="infoModal('Dandelion')" class="close depth-button yellow">x</button>
-                     <h4>Dandelions! <img class="info-icon" src="Images/Vegetables/dandelion.png"></h4>
-                     <p>These <strong>are</strong> vegetables, because the part eaten are the seeds and leaves, not the fruit. Of the Taraxacum family, the name dandelion come from the French dent-de-lion, which means 'lion's tooth'.<br> These dandelions take 3 hours to grow.</p>
-                     <div class="modal-market-prices">
-                        <div class="modalDandelionPriceBuy">Buy For</div>
-                        <div class="modalDandelionPriceSell">Sell For</div>
-                     </div>
-                  </div>
-               </div>
+               <img class="veg-icon" src="Images/Vegetables/dandelion.png">
                <!-- Unlocked -->
                <div id="infoUnlockedDandelion" class="plot-unlocked-modal">
                   <div class="modal-content plot-unlocked-modal-inner">
@@ -356,19 +256,7 @@
                   <span class="rhubarb-time-left">00:00:00</span>
                   <img src="Images/Icons/clock.svg">
                </div>
-               <!-- Information -->
-               <img onclick="infoModal('Rhubarb')" class="veg-icon" src="Images/Vegetables/rhubarb.png">
-               <div id="infoRhubarb" class="veg-info">
-                  <div class="modal-content">
-                     <button onclick="infoModal('Rhubarb')" class="close depth-button red">x</button>
-                     <h4>Rhubarb <img class="info-icon" src="Images/Vegetables/rhubarb.png"></h4>
-                     <p>Don't eat the leaves. <br> They're poisonous. <br> These rhubarb plants take 8 hours to grow.</p>
-                     <div class="modal-market-prices">
-                        <div class="modalRhubarbPriceBuy">Buy For</div>
-                        <div class="modalRhubarbPriceSell">Sell For</div>
-                     </div>
-                  </div>
-               </div>
+               <img class="veg-icon" src="Images/Vegetables/rhubarb.png">
                <!-- Unlocked -->
                <div id="infoUnlockedRhubarb" class="plot-unlocked-modal">
                   <div class="modal-content plot-unlocked-modal-inner">
@@ -394,7 +282,7 @@
             <span class="tooltip-text tooltip-text-produce">
                <span class="seeds">0</span><br>
                <div class="vegAmount doughnutsAmount"><span id="doughnuts">0</span> <img class="produce-image" src="Images/Market/doughnut.png"><br></div>
-               <div class="vegAmount peasAmount"><span id="peaBushels">0</span> <img class="produce-image" src="Images/Vegetables/pea.png"><br></div>
+               <div class="vegAmount peasAmount"><span id="peaBushels">0</span> <img class="produce-image" src="Images/Vegetables/peas.png"><br></div>
                <div class="vegAmount cornAmount"><span id="cornBushels">0</span> <img class="produce-image" src="Images/Vegetables/corn.png"><br></div>
                <div class="vegAmount strawberriesAmount"><span id="strawberryBushels">0</span> <img class="produce-image" src="Images/Vegetables/strawberry.png"><br></div>
                <div class="vegAmount eggplantsAmount"><span id="eggplantBushels">0</span> <img class="produce-image" src="Images/Vegetables/eggplant.png"><br></div>
@@ -465,20 +353,14 @@
       <div class="command-panel">
          <img onmouseover="info(this)" data-info="Market" onclick="showObj('.marketShadow'); gameData.marketOpen = true;" class="commandBarImg" src="Images/Icons/market.svg">
          <img onmouseover="info(this)" data-info="Settings" onclick="showObj('.settingShadow'); gameData.settingsOpen = true;" class="commandBarImg" src="Images/Icons/settings.svg">
-         <label class="switch">
-            <input type="checkbox" checked>
-            <span class="slider" onmouseover="commandBar()"></span>
-         </label>
+         <img onmouseover="info(this)" data-info="Shop" onclick="toggleWindow('shop'); gameData.shopOpen = true;" class="commandBarImg" src="Images/Icons/market.svg">
       </div>
       <!-- Market -->
       <div class="marketShadow">
          <div class="market">
             <div class="marketVegetables">
                <div class="market-item">
-                  <div class="market-item-content special-market-item">Seeds: 0</div>
-               </div>
-               <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/pea.png"><span class="peas-market-item"></span> </div>
+                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/peas.png"><span class="peas-market-item"></span> </div>
                   <div class="buy-sell">
                      <span class="market-item-buy" onclick="buyProduce('peas', 'Peas')">Buy</span>
                      <span class="market-item-sell"  onclick="sellProduce('peas', 'Peas')">Sell</span>
@@ -615,98 +497,26 @@
             </div>
          </div>
       </div>
-      <!-- Festival -->
-      <div class="festival">
-         <span onclick="hideObj('.festival')" class="closeModal">X</span>
-         <h4>The Vegetable Festival!</h4>
-         <!-- Advertisment -->
-         <!-- Grill -->
-         <!-- Transport -->
-         <!-- Jam -->
-         <!-- Oven -->
-         <!-- <div class="festival-plot" id="fstvl-1">
-            <img class="festival-plot-image" src="Images/Festival/grill.png">
-            <span class="festival-ahh-perspective">
-               <button class="btn" id="grillCorn" onclick="proccess('peas', 2000, 5000)">Grill Corn! <img class="festival-gears" src="Images/Festival/gears.gif"></button>
-               <button class="btn" onclick="harvest('Peas')">Collect!</button>
-            </span>
-         </div>
-         <div class="festival-plot" id="fstvl-2">
-            <img class="festival-plot-image" src="Images/Festival/jam-machine.png">
-            <div class="lock-tooltip">
-               <img class="festival-locked" src="Images/Festival/lock.png">
-               <span class="tooltiptext">This plot is locked <br> Pay 150 Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(2)">Purchase Plot</button></span>
+      <!-- Shop -->
+      <div class="tab-window-backdrop window-shop">
+         <div class="tab-window">
+            <div class="tab-bar">
+               <div class="tab tab-shop tab-shop-seeds active-tab" onclick="scrollToSection('shop', 'seeds')">Friends</div>
+               <div class="tab tab-shop tab-shop-plots" onclick="scrollToSection('shop', 'plots')">Requests</div>
+               <span class="window-close" onclick="toggleWindow('shop'); gameData.shopOpen = false;">x</span>
+            </div>
+            <div class="tab-pages">
+               <div class="page" id="page-shop-seeds">
+                  <h1 class="big-title">Your Friends</h1>
+               </div>
+               <div class="page" id="page-shop-plots">
+                  <h1 class="big-title">Invites Sent</h1>
+               </div>
             </div>
          </div>
-         <div class="festival-plot" id="fstvl-3">
-            <img class="festival-plot-image" src="Images/Festival/pie-oven.png">
-            <div class="lock-tooltip">
-               <img class="festival-locked" src="Images/Festival/lock.png">
-               <span class="tooltiptext">This plot is locked <br> Purchase the previous plot to unlock</span>
-            </div>
-         </div>
-         <div class="festival-plot" id="fstvl-4">
-            <div class="lock-tooltip">
-               <img class="festival-locked" src="Images/Festival/lock.png">
-               <span class="tooltiptext">This plot is locked <br> Purchase the previous plot to unlock</span>
-            </div>
-         </div>
-         <div class="festival-plot" id="fstvl-5">
-            <div class="lock-tooltip">
-               <img class="festival-locked" src="Images/Festival/lock.png">
-               <span class="tooltiptext"><br>This plot is locked <br> Purchase all other plots to unlock<br><br></span>
-            </div>
-         </div> -->
       </div>
       <!-- Other -->
       <div>
-         <div class="shadow test-shadow">
-            <div class="codeSampleHolder">
-               <div class="dark-code codeTest">
-                  <span class="js-function">function</span> <span class="js-varible">aNewFunction</span> { <br>
-                  &emsp;<span class="js-loopForIf">if</span> (<span class="js-varible">someNum</span> <span class="js-math">!==</span> <span class="num">39</span>) {<br>
-                  &emsp;&emsp;<span class="js-declaration">let</span> <span class="js-varible">someNum</span> <span class="js-math">=</span> <span class="num">27</span>;<br>
-                  &emsp;}<br>
-                  }
-               </div>
-               <div class="dark-code codeTest">
-                  <span class="js-function">function</span> <span class="js-varible">aNewFunction</span> { <br>
-                  &emsp;<span class="js-loopForIf">if</span> (<span class="js-varible">someNum</span> <span class="js-math">!==</span> <span class="num">39</span>) {<br>
-                  &emsp;&emsp;<span class="js-declaration">let</span> <span class="js-varible">someNum</span> <span class="js-math">=</span> <span class="num">27</span>;<br>
-                  &emsp;}<br>
-                  }
-               </div>
-               <div class="dark-code codeTest">
-                  <span class="js-function">function</span> <span class="js-varible">aNewFunction</span> { <br>
-                  &emsp;<span class="js-loopForIf">if</span> (<span class="js-varible">someNum</span> <span class="js-math">!==</span> <span class="num">39</span>) {<br>
-                  &emsp;&emsp;<span class="js-declaration">let</span> <span class="js-varible">someNum</span> <span class="js-math">=</span> <span class="num">27</span>;<br>
-                  &emsp;}<br>
-                  }
-               </div>
-               <div class="dark-code codeTest">
-                  <span class="js-function">function</span> <span class="js-varible">aNewFunction</span> { <br>
-                  &emsp;<span class="js-loopForIf">if</span> (<span class="js-varible">someNum</span> <span class="js-math">!==</span> <span class="num">39</span>) {<br>
-                  &emsp;&emsp;<span class="js-declaration">let</span> <span class="js-varible">someNum</span> <span class="js-math">=</span> <span class="num">27</span>;<br>
-                  &emsp;}<br>
-                  }
-               </div>
-               <div class="dark-code codeTest">
-                  <span class="js-function">function</span> <span class="js-varible">aNewFunction</span> { <br>
-                  &emsp;<span class="js-loopForIf">if</span> (<span class="js-varible">someNum</span> <span class="js-math">!==</span> <span class="num">39</span>) {<br>
-                  &emsp;&emsp;<span class="js-declaration">let</span> <span class="js-varible">someNum</span> <span class="js-math">=</span> <span class="num">27</span>;<br>
-                  &emsp;}<br>
-                  }
-               </div>
-            </div>
-            
-            <!-- <div class="light-code">
-               <span class="js-function">function</span> <span class="js-varible">aNewFunction</span> { <br>
-               &emsp;<span class="js-loopForIf">if</span> (<span class="js-varible">someNum</span> <span class="js-math">!==</span> <span class="num">39</span>) {<br>
-               &emsp;&emsp;<span class="js-declaration">let</span> <span class="js-varible">someNum</span> <span class="js-math">=</span> <span class="num">27</span>;<br>
-               &emsp;}<br>
-               }
-            </div> -->
-         </div>
          <!-- Help -->
          <img onmouseover="info(this)" data-info="Help" class="help-center-img" onclick="showObj('.help-shadow'); gameData.helpOpen = true;" src="Images/Icons/help.svg">
          <div class="shadow help-shadow">
@@ -931,7 +741,14 @@
                </div>
             </div>
          </div>
-         <div id="menu">
+         <div class="main-values">
+            <img src="New/coin.png">
+            <p class="main-value main-values-coins"></p>
+            <p class="main-value main-values-seeds"></p>
+            <img src="New/dna.png">
+            <p class="main-value main-values-genes"></p>
+         </div>
+            <div id="menu">
             <li class="menu-links"><a href="https://meetsquirrel.github.io">Who's Squirrel?</a></li>
             <li class="menu-links"><a href="https://squirrel-314.github.io">Gold Rush!</a></li>
             <hr>
@@ -942,7 +759,7 @@
          <div class="qIM">
             <span class="seedsQuick">0</span><br>
             <div class="vegAmount doughnutsAmountQuick"><span id="doughnutsQuick">0</span> <img class="produce-image" src="Images/Market/doughnut.png"><br></div>
-            <div class="vegAmount peasAmountQuick"><span id="peaBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/pea.png"><br></div>
+            <div class="vegAmount peasAmountQuick"><span id="peaBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/peas.png"><br></div>
             <div class="vegAmount cornAmountQuick"><span id="cornBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/corn.png"><br></div>
             <div class="vegAmount strawberriesAmountQuick"><span id="strawberryBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/strawberry.png"><br></div>
             <div class="vegAmount eggplantsAmountQuick"><span id="eggplantBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/eggplant.png"><br></div>
@@ -954,7 +771,6 @@
          <div class="alert-box"><div class="alert alert-cominin">Game Saved!</div></div>
          <span style="display: none;"><div class="fade-text">This text is fading</div></span>
       </div>
-      <script src="https://www.w3counter.com/tracker.js?id=134512"></script>
    </body>
    <!-- Chat -->
    <%- include("partials/miniChat"); %>
@@ -967,11 +783,32 @@
          <input class="data-save" type="text" name="gamesave" required><br>
          <button class="post-save" type="text">Post</button>
       </form>
-      <script src="https://www.w3counter.com/tracker.js?id=140885"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="Scripts/inital-varibles.js" charset="utf-8"></script>
       <script src="Scripts/tasks.js" charset="utf-8"></script>
       <script src="Scripts/main.js" charset="utf-8"></script>
+      <script src="Scripts/check-signin-status.js"></script>
+      <script>
+         function scrollToSection(window, id) {
+            document.querySelector(`#page-${window}-${id}`).scrollIntoView();
+            document.querySelectorAll(`.active-tab.tab-${window}`)[0].classList.remove("active-tab");
+            document.querySelector(`.tab-${window}-${id}`).classList.add("active-tab");
+         }
+         
+         function toggleWindow(id) {
+            let thisWindow = document.querySelector(`.window-${id}`);
+            if (thisWindow.style.opacity == "1") {
+               thisWindow.style.opacity = "0";
+               thisWindow.style.pointerEvents = "none";
+               thisWindow.style.zIndex = "-1000";
+            }
+            else {
+               thisWindow.style.opacity = "1";
+               thisWindow.style.pointerEvents = "auto";
+               thisWindow.style.zIndex = "1000";
+            }
+         }
+      </script>
    <%} else { %>
       <%- include("partials/loggedOut"); %>
    <% } %>

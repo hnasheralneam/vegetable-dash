@@ -1,38 +1,49 @@
+/*
+Hey! I've commented all the code with explanitory tips, if it's missing somthing, please let me know!
+*/
 /* =============
 // Data
 ============= */
-// System variables
+// System variables (These are basically JS libraries)
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
 const axios = require("axios")
 const { v4: uuidv4 } = require('uuid');
+
+// Start an express app. Express makes it easier to route things
 const app = express();
+// Choose the port it's running on. This checks if there's an enviroment variable (production), and if not, runs it on localhost 3000
 const port = process.env.PORT || 3000;
+// This starts mongoose, the library we're using to connect to the MongoDB database. It makes it easier to fetch and save data.
 const connection = mongoose.connection;
 
-// My varibles
+// This will be changed later when the user signs in
 let signedIn = false;
 let signedInUser = "(not signed in)";
 
-// GitHub OAuth varibles
+// GitHub OAuth varibles, for creating an account or signing in with GitHub
 let github_access_token = "";
 const githubClientId = process.env.GITHUB_CLIENT_ID;
 const githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
 
-// More system stuff
+// This basically sets and starts all the libraries
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+// This sets the base filepath for assets to /assets. It can be changed to anything
 app.use(express.static(__dirname + "/assets"));
+// Ejs is the view engine, it lets use use system varibles in html
 app.set("view engine", "ejs");
 mongoose.set("useFindAndModify", false);
 
 // Mongoose things
 mongoose.Promise = global.Promise;
+// Acutally connect to the database with the connection link. You'll need to create a user on the database so you'll get access
 mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true });
 
 // nodemailer things
+// What this does is setup the mailer, so we can email people when they sign up. Eventually we'll use this to send change password emails
 const transporter = nodemailer.createTransport({
    service: "gmail",
    auth: {
@@ -45,6 +56,7 @@ const transporter = nodemailer.createTransport({
 connection.on('error', console.error.bind(console, 'Connection error: '));
 
 // Schemas
+// These are the basic datasets. Anything being saved to Mongo must be in schema format. If you're adding a value, add it here then run some code from oldapp.js to set it for all old users
 const useDataSchema = new mongoose.Schema({
    userCode: String,
    name: String,
@@ -68,6 +80,7 @@ const chatSchema = new mongoose.Schema({
    datePosted: Object
 });
 
+// Set the schemas
 const UserData = mongoose.model('UserData', useDataSchema);
 const Chat = mongoose.model("Chat", chatSchema);
 
@@ -75,6 +88,7 @@ const Chat = mongoose.model("Chat", chatSchema);
 // Processing
 ============= */
 
+// The send email function, just to clean things up
 function sendEmail(title, text, recipient) {
    var mailOptions = {
       from: "vegetabledash@gmail.com",
@@ -88,6 +102,7 @@ function sendEmail(title, text, recipient) {
    });
 }
 
+// a loop to make sure someone's signed in
 setInterval(() => {
    if (signedInUser != "(not signed in)" && signedInUser) {
       UserData.findOne({ name: signedInUser.name }, (err, user) => {
@@ -97,31 +112,47 @@ setInterval(() => {
    }
 }, 1000);
 
+// This needs to be fixed, what it should do is kick a user out if there not signed in
+// app.get("/is-signed-in", (req, res) => {
+//    if (signedInUser == "(not signed in)") { res.send([false, "Not signed in!"]); }
+//    else { res.send([true, "It's all right!"]); }
+// });
+
 /* =============
 // Get requests
 ============= */
 
-// Final destanations
+// If someone in the browser types a /,  it's go to the homepage
 app.get("/", (req, res) => {
+   // This is how to get data from Mongo
    UserData.find((err, users) => {
+      // You have to handle errors
       if (err) return console.error(err);
+      // And if it works
       else {
+         // Find the chat data
          Chat.find(function(err, found) {
             if (err) { console.log(err); }
-            else { res.render("home", { user: signedInUser, UserData: UserData, users: users, foundItems: found, client_id: githubClientId }); }
+            else {
+               // Because we set the view engine as ejs, this will render the home.ejs file in the view foler
+               // The second input is an object with the variables we'll send to the page
+               res.render("home", { user: signedInUser, UserData: UserData, users: users, foundItems: found, client_id: githubClientId });
+            }
          });
       }
    });
 });
 
+// Gets requests from /vegetable-dash
 app.get("/vegetable-dash", (req, res) => {
+   // If the user is signed in, go to the index file
    if (signedInUser !== "not signed in") {
       UserData.find((err, users) => {
          if (err) return console.error(err);
          else {
             Chat.find(function(err, found) {
                if (err) { console.log(err); }
-               else { res.render("index", { user: signedInUser, UserData: UserData, users: users, foundItems: found }); }
+               else { res.render("index", { user: signedInUser, UserData: UserData, users: users, foundItems: found, client_id: githubClientId }); }
             });
          }
       });
@@ -129,24 +160,29 @@ app.get("/vegetable-dash", (req, res) => {
    else { res.render("signin", { text: "Sign into your account!" }); }
 });
 
+// /chat in the searchbar
 app.get("/chat", (req, res) => {
+   // This is not an actuall page, it's just an expirement.
    Chat.find(function(err, found) {
       if (err) { console.log(err); }
-      else { res.render("chat", { user: signedInUser, UserData: UserData, foundItems: found }); }
+      else { res.render("chat", { user: signedInUser, UserData: UserData, foundItems: found, client_id: githubClientId }); }
    })
 });
 
 // Temporary landings
 app.get("/create-account", (req, res) => {
+   // Err text will be displayed on the page. It's called errtext because we'll be sending any errers to the same place
    res.render("signup", { errText: "Create your account. WARNING: do not use your real name or a password from another account, for none of the data is encrypted." });
 });
 
 app.get("/sign-in", (req, res) => {
+   // If you're already signed in, redirect to the homepage
    if (!signedIn) { res.render("signin", { text: "Sign into your account!" }); }
    else { res.redirect("/"); }
 });
 
 app.get("/sign-out", (req, res) => {
+   // This is not an actuall page, because it immediatly send you back
    signedIn = false;
    user = null;
    signedInUser = "(not signed in)";
@@ -155,6 +191,7 @@ app.get("/sign-out", (req, res) => {
 
 // GitHub OAuth
 app.get("/github/callback", (req, res) => {
+   // Using the axios library, sign into or create an account with GitHub
    const requestToken = req.query.code;
    axios({
       method: "post",
@@ -204,6 +241,7 @@ function createAccountGithub(githubData) {
 
 // Create account
 app.post("/create-account", (req, res) => {
+   // This is so it'll run asynchronous
    heyThere();
    async function heyThere() {
       // Check name and email
@@ -392,6 +430,7 @@ app.post("/save-vegetable-dash", (req, res) => {
 // Video
 ============= */
 
+// All this stuff is experimental, I'm just testing it, so I don't fully understand it. I did only start developing like 2 years ago
 const server = require("http").Server(app);
 const io = require("socket.io")(server, { cors: { origin: "*" } });
 const { ExpressPeerServer } = require("peer");
@@ -432,4 +471,5 @@ io.on("connection", (socket) => {
    });
 });
 
+// This is what actually starts the server
 server.listen(port);

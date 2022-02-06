@@ -21,7 +21,6 @@ if (location.hostname === "squirrel-314.github.io") {
 
 // Declare the varibles
 let mouseX, mouseY, dynamHov, restarter, gameData;
-let openTaskHov, openTaskUnHov = [];
 let randomWeatherNum = (Math.random()).toFixed(2);
 let vegetablesOwned = ["peas"];
 let offerVeg = { vegetable: null, worth: null, amount: null, totalVal: null };
@@ -57,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function init() {
    // Order is kinda important, ex. DynamHov depends on whatTheme
+   initPlots();
    openPanels();
    whatTheme();
    saveSetup();
@@ -114,6 +114,7 @@ function openPanels() {
    if (gameData.marketOpen) { showObj('.marketShadow'); }
    if (gameData.blackMarketOpen) { showObj('.marketShadow'); showObj('.blackMarketShadow'); gameData.marketOpen = true; }
    if (gameData.tasksOpen) { taskBar("close"); }
+   if (gameData.shopOpen) { toggleWindow('shop'); }
 }
 function cursorInit() {
    vegetablesOwned.forEach((veg, i) => {
@@ -176,9 +177,12 @@ function save() {
       data: saveJSON,
       url: "/save-vegetable-dash",
    }).done(function(response) {
-      if (restarter === true) { location.reload() }
+      if (restarter === true) {
+         setTimeout(() => { location.reload() }, 250)
+      }
    }).fail(function(xhr, textStatus, errorThrown) {
       console.log("ERROR: ", errorThrown);
+      location.reload();
       return xhr.responseText;
    });
 }
@@ -210,6 +214,7 @@ function runLoops() {
       showTasks();
       updateMarket();
       checkMarket();
+      updateMainValues();
    }, 500);
 }
 
@@ -217,35 +222,20 @@ function mainLoop() {
    const hours = new Date().getHours();
    if (hours > 6 && hours < 20) { document.body.style.backgroundImage = `url('../Images/Background/${bgImg[1]}.svg')`; }
    else { document.body.style.backgroundImage = `url('../Images/Background/${bgImg[0]}.svg')`; }
-   updateMdlPrices("Corn");
-   updateMdlPrices("Peas");
-   updateMdlPrices("Strawberries");
-   updateMdlPrices("Eggplants");
-   updateMdlPrices("Pumpkins");
-   updateMdlPrices("Cabbage");
-   updateMdlPrices("Dandelion");
-   updateMdlPrices("Rhubarb");
-   function updateMdlPrices(veg) {
-      document.querySelector(`.modal${veg}PriceBuy`).textContent = `Buy For ${toWord(gameData[`buy${veg}`], "short")}`;
-      document.querySelector(`.modal${veg}PriceSell`).textContent = `Sell For ${toWord(gameData[`sell${veg}`], "short")}`;
-   }
    document.querySelector(".police-chance").textContent = (gameData.black.catchChance).toFixed(2);
    document.querySelector(".seeds").textContent = `${toWord(gameData.seeds, "short")} Seeds`;
    document.querySelector(".seedsQuick").textContent = `${toWord(gameData.seeds)} Seeds`;
    document.querySelector("#doughnuts").textContent = `${toWord(gameData.doughnuts, "short")} Doughnuts`;
    document.querySelector("#fertilizer").textContent = `${Math.round(gameData.fertilizers)} Fertilizers Click + Place to apply`;
    if (gameData.peasStatus != "Locked") {
-      revealgameDataQwk("#peaBushelsQuick", "peas");
       revealgameData("#peaBushels", "peas");
       !vegetablesOwned.includes("peas") ? vegetablesOwned.push("peas") : null;
    } if (gameData.cornStatus != "Locked") {
-      revealgameDataQwk("#cornBushelsQuick", "corn");
       revealgameData("#cornBushels", "corn");
       checkTasks("unlockThe_cornPlot");
       document.querySelector(".tm-tb-co").style.opacity = "1";
       !vegetablesOwned.includes("corn") ? vegetablesOwned.push("corn") : null;
    } if (gameData.strawberriesStatus != "Locked") {
-      revealgameDataQwk("#strawberryBushelsQuick", "strawberries");
       revealgameData("#strawberryBushels", "strawberries");
       document.querySelector(`.doughnutsAmount`).style.display = "block";
       document.querySelector(`#doughnuts`).textContent = `${toWord(gameData.doughnuts, "short")} Doughnuts`;
@@ -254,56 +244,51 @@ function mainLoop() {
       document.querySelector(".tm-tb-st").style.opacity = "1";
       !vegetablesOwned.includes("strawberries") ? vegetablesOwned.push("strawberries") : null;
    } if (gameData.eggplantsStatus != "Locked") {
-      revealgameDataQwk("#eggplantBushelsQuick", "eggplants");
       revealgameData("#eggplantBushels", "eggplants");
       document.querySelector(".tm-tb-eg").style.opacity = "1";
       !vegetablesOwned.includes("eggplants") ? vegetablesOwned.push("eggplants") : null;
    } if (gameData.pumpkinsStatus != "Locked") {
-      revealgameDataQwk("#pumpkinBushelsQuick", "pumpkins");
       revealgameData("#pumpkinBushels", "pumpkins");
       document.querySelector(".tm-tb-pu").style.opacity = "1";
       !vegetablesOwned.includes("pumpkins") ? vegetablesOwned.push("pumpkins") : null;
    } if (gameData.cabbageStatus != "Locked") {
-      revealgameDataQwk("#cabbageBushelsQuick", "cabbage");
       revealgameData("#cabbageBushels", "cabbage");
       document.querySelector(".tm-tb-ca").style.opacity = "1";
       !vegetablesOwned.includes("cabbage") ? vegetablesOwned.push("cabbage") : null;
    } if (gameData.dandelionStatus != "Locked") {
-      revealgameDataQwk("#dandelionBushelsQuick", "dandelion");
       revealgameData("#dandelionBushels", "dandelion");
       document.querySelector(".tm-tb-da").style.opacity = "1";
       !vegetablesOwned.includes("dandelion") ? vegetablesOwned.push("dandelion") : null;
    } if (gameData.rhubarbStatus != "Locked") {
-      revealgameDataQwk("#rhubarbBushelsQuick", "rhubarb");
       revealgameData("#rhubarbBushels", "rhubarb");
       document.querySelector(".tm-tb-rh").style.opacity = "1";
       !vegetablesOwned.includes("rhubarb") ? vegetablesOwned.push("rhubarb") : null;
    }
    function revealgameData(id, veg) {
       document.querySelector(`.${veg}Amount`).style.display = "block";
-      document.querySelector(id).textContent = `${toWord(gameData[veg], "short")} Bushels of ${capitalize(veg)}`; }
-   function revealgameDataQwk(id, veg) {
+      document.querySelector(id).textContent = `${toWord(gameData[veg], "short")} Bushels of ${capitalize(veg)}`;
       document.querySelector(`.${veg}AmountQuick`).style.display = "block";
-      document.querySelector(id).textContent = `${toWord(gameData[veg], "short")} Bushels of ${capitalize(veg)}`; }
+      document.querySelector(`${id}Quick`).textContent = `${toWord(gameData[veg], "short")} Bushels of ${capitalize(veg)}`;
+   }
 }
 function weatherEffects() {
-   if (gameData.weather.weather === "sunny") { gameData.weather.marketResetBonus = 0.03; }
-   else { gameData.weather.marketResetBonus = 0; }
-   if (gameData.weather.weather === "snowy" && gameData.weather.hasBeenPunished === false) {
+   if (gameData.weather === "sunny") { gameData.marketResetBonus = 0.03; }
+   else { gameData.marketResetBonus = 0; }
+   if (gameData.weather === "snowy" && gameData.hasBeenPunished === false) {
       let unluckyVeg = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
       let amountLost = Math.floor(gameData[unluckyVeg] /= 3);
       if (amountLost > 0) { gameData[unluckyVeg] - amountLost; }
       callAlert(`It has snowed! You lost ${amountLost} ${unluckyVeg}!`);
-      gameData.weather.hasBeenPunished = true;
+      gameData.hasBeenPunished = true;
    }
-   if (gameData.weather.weather === "flood" && gameData.weather.hasBeenPunished === false) {
+   if (gameData.weather === "flood" && gameData.hasBeenPunished === false) {
       let unluckyVeg = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
       let amountLost = Math.floor(gameData[unluckyVeg] /= 5);
       if (amountLost > 0) { gameData[unluckyVeg] - amountLost; }
       callAlert(`It has flooded! You lost ${amountLost} ${unluckyVeg}!`);
-      gameData.weather.hasBeenPunished = true;
+      gameData.hasBeenPunished = true;
    }
-   if (gameData.weather.weather === "frost" && gameData.weather.hasBeenPunished === false) {
+   if (gameData.weather === "frost" && gameData.hasBeenPunished === false) {
       if (plantStatus("r-or-e", "peas") || plantStatus("g", "peas")) { maybeLose("peas"); }
       if (plantStatus("r-or-e", "corn") || plantStatus("g", "corn")) { maybeLose("corn"); }
       if (plantStatus("r-or-e", "strawberries") || plantStatus("g", "strawberries")) { maybeLose("strawberries"); }
@@ -318,40 +303,40 @@ function weatherEffects() {
             showObj(`.${capitalize(veg)}`);
          }
       }
-      gameData.weather.hasBeenPunished = true;
+      gameData.hasBeenPunished = true;
    }
    // Choose next weathertime
    if (Date.now() >= gameData.newWeatherTime) {
-      gameData.weather.lastWeather = gameData.weather.weather;
-      gameData.weather.weather = gameData.weather.nextWeather;
+      gameData.lastWeather = gameData.weather;
+      gameData.weather = gameData.nextWeather;
       chooseWeather();
       gameData.newWeatherTime = Date.now() + 360000; // 6 Minutes (360000)
    }
    // Update Display
-   if (gameData.weather.weather === "sunny") { changeWeatherDisplay("Sunny", "Benefits: +3% market reset harvest chance", "sunny.svg"); }
-   if (gameData.weather.weather === "rainy") { changeWeatherDisplay("Rainy", "Benefits: +1 gameData", "rain.svg"); }
-   if (gameData.weather.weather === "partlyCloudy") { changeWeatherDisplay("Partly Cloudy", "Effects: None", "overcast.svg"); }
-   if (gameData.weather.weather === "partlySunny") { changeWeatherDisplay("Partly Sunny", "Effects: None", "partly-cloudy.svg"); }
-   if (gameData.weather.weather === "snowy") { changeWeatherDisplay("Snowy", "Detriments: -33% of a stored vegetable", "snow.svg"); }
-   if (gameData.weather.weather === "cloudy") { changeWeatherDisplay("Cloudy", "Detriments: +25% growing time", "cloudy.svg"); }
-   if (gameData.weather.weather === "frost") { changeWeatherDisplay("Frost", "Detriments: 50% chance plants will wither", "frost.svg"); }
-   if (gameData.weather.weather === "flood") { changeWeatherDisplay("Flooding", "Detriments: -20% of a stored vegetable", "flood.svg"); }
-   if (gameData.weather.lastWeather === "sunny") { lastWeather("sunny.svg"); }
-   if (gameData.weather.lastWeather === "rainy") { lastWeather("rain.svg"); }
-   if (gameData.weather.lastWeather === "partlyCloudy") { lastWeather("overcast.svg"); }
-   if (gameData.weather.lastWeather === "partlySunny") { lastWeather("partly-cloudy.svg"); }
-   if (gameData.weather.lastWeather === "snowy") { lastWeather("snow.svg"); }
-   if (gameData.weather.lastWeather === "cloudy") { lastWeather("cloudy.svg"); }
-   if (gameData.weather.lastWeather === "frost") { lastWeather("frost.svg"); }
-   if (gameData.weather.lastWeather === "flood") { lastWeather("flood.svg"); }
-   if (gameData.weather.nextWeather === "sunny") { nextWeather("sunny.svg"); }
-   if (gameData.weather.nextWeather === "rainy") { nextWeather("rain.svg"); }
-   if (gameData.weather.nextWeather === "partlyCloudy") { nextWeather("overcast.svg"); }
-   if (gameData.weather.nextWeather === "partlySunny") { nextWeather("partly-cloudy.svg"); }
-   if (gameData.weather.nextWeather === "snowy") { nextWeather("snow.svg"); }
-   if (gameData.weather.nextWeather === "cloudy") { nextWeather("cloudy.svg"); }
-   if (gameData.weather.nextWeather === "frost") { nextWeather("frost.svg"); }
-   if (gameData.weather.nextWeather === "flood") { nextWeather("flood.svg"); }
+   if (gameData.weather === "sunny") { changeWeatherDisplay("Sunny", "Benefits: +3% market reset harvest chance", "sunny.svg"); }
+   if (gameData.weather === "rainy") { changeWeatherDisplay("Rainy", "Benefits: +1 produce", "rain.svg"); }
+   if (gameData.weather === "partlyCloudy") { changeWeatherDisplay("Partly Cloudy", "Effects: None", "overcast.svg"); }
+   if (gameData.weather === "partlySunny") { changeWeatherDisplay("Partly Sunny", "Effects: None", "partly-cloudy.svg"); }
+   if (gameData.weather === "snowy") { changeWeatherDisplay("Snowy", "Detriments: -33% of a stored vegetable", "snow.svg"); }
+   if (gameData.weather === "cloudy") { changeWeatherDisplay("Cloudy", "Detriments: +25% growing time", "cloudy.svg"); }
+   if (gameData.weather === "frost") { changeWeatherDisplay("Frost", "Detriments: 50% chance plants will wither", "frost.svg"); }
+   if (gameData.weather === "flood") { changeWeatherDisplay("Flooding", "Detriments: -20% of a stored vegetable", "flood.svg"); }
+   if (gameData.lastWeather === "sunny") { lastWeather("sunny.svg"); }
+   if (gameData.lastWeather === "rainy") { lastWeather("rain.svg"); }
+   if (gameData.lastWeather === "partlyCloudy") { lastWeather("overcast.svg"); }
+   if (gameData.lastWeather === "partlySunny") { lastWeather("partly-cloudy.svg"); }
+   if (gameData.lastWeather === "snowy") { lastWeather("snow.svg"); }
+   if (gameData.lastWeather === "cloudy") { lastWeather("cloudy.svg"); }
+   if (gameData.lastWeather === "frost") { lastWeather("frost.svg"); }
+   if (gameData.lastWeather === "flood") { lastWeather("flood.svg"); }
+   if (gameData.nextWeather === "sunny") { nextWeather("sunny.svg"); }
+   if (gameData.nextWeather === "rainy") { nextWeather("rain.svg"); }
+   if (gameData.nextWeather === "partlyCloudy") { nextWeather("overcast.svg"); }
+   if (gameData.nextWeather === "partlySunny") { nextWeather("partly-cloudy.svg"); }
+   if (gameData.nextWeather === "snowy") { nextWeather("snow.svg"); }
+   if (gameData.nextWeather === "cloudy") { nextWeather("cloudy.svg"); }
+   if (gameData.nextWeather === "frost") { nextWeather("frost.svg"); }
+   if (gameData.nextWeather === "flood") { nextWeather("flood.svg"); }
    function lastWeather(url) { document.querySelector(".weather-last").style.background = `url("Images/Weather/${url}") no-repeat center center / contain`; }
    function nextWeather(url) { document.querySelector(".weather-next").style.background = `url("Images/Weather/${url}") no-repeat center center / contain`; }
    function changeWeatherDisplay(weather, text, url) {
@@ -390,6 +375,11 @@ function checkForTasks() {
       else { return false; }
    }
    function isTrue(array) { let result = false; for (let i = 0; i < array.length; i++) { if (array[i] === true) { return true; } } }
+}
+function updateMainValues() {
+   document.querySelector(".main-values-coins").textContent = `${Math.round(gameData.coins)} Coins`;
+   document.querySelector(".main-values-seeds").textContent = `${Math.round(gameData.seeds)} Seeds`;
+   document.querySelector(".main-values-genes").textContent = `${Math.round(gameData.genes)} Genes`;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -472,16 +462,15 @@ function findAvg(array) {
 
 function checkMarket() {
    let marketItem = document.getElementsByClassName("market-item");
-   marketItem[0].style.display = "block";
-   marketItem[11].style.display = "block";
-   if (gameData.peasStatus != "Locked") { marketItem[1].style.display = "block"; }
-   if (gameData.cornStatus != "Locked") { marketItem[2].style.display = "block"; marketItem[9].style.display = "block"; }
-   if (gameData.strawberriesStatus != "Locked") { marketItem[3].style.display = "block"; marketItem[10].style.display = "block"; }
-   if (gameData.eggplantsStatus != "Locked") { marketItem[4].style.display = "block"; }
-   if (gameData.pumpkinsStatus != "Locked") { marketItem[5].style.display = "block"; }
-   if (gameData.cabbageStatus != "Locked") { marketItem[6].style.display = "block"; }
-   if (gameData.dandelionStatus != "Locked") { marketItem[7].style.display = "block"; }
-   if (gameData.rhubarbStatus != "Locked") { marketItem[8].style.display = "block"; }
+   marketItem[10].style.display = "block";
+   if (gameData.peasStatus != "Locked") { marketItem[0].style.display = "block"; }
+   if (gameData.cornStatus != "Locked") { marketItem[1].style.display = "block"; marketItem[9].style.display = "block"; }
+   if (gameData.strawberriesStatus != "Locked") { marketItem[2].style.display = "block"; marketItem[10].style.display = "block"; }
+   if (gameData.eggplantsStatus != "Locked") { marketItem[3].style.display = "block"; }
+   if (gameData.pumpkinsStatus != "Locked") { marketItem[4].style.display = "block"; }
+   if (gameData.cabbageStatus != "Locked") { marketItem[5].style.display = "block"; }
+   if (gameData.dandelionStatus != "Locked") { marketItem[6].style.display = "block"; }
+   if (gameData.rhubarbStatus != "Locked") { marketItem[7].style.display = "block"; }
 }
 function updateMarket() {
    display("Peas");
@@ -497,7 +486,6 @@ function updateMarket() {
       Buy for ${toWord(gameData["buy" + veg], "short")}
       Sell for ${toWord(gameData["sell" + veg], "short")} \r\n \r\n`;
    }
-   document.querySelector(".special-market-item").textContent = `Seeds: ${toWord(gameData.seeds, "long")}`;
    document.querySelector(".reset-market-item").textContent = `You have ${gameData.marketResets} Market Resets`;
 }
 function resetMarketValues() {
@@ -525,17 +513,17 @@ function resetMarketValues() {
 
 // Buy & Sell Vegetables
 function buyProduce(produceRequested, produceCase) {
-   if (event.ctrlKey && gameData.seeds >= calcInflation(10)) {
+   if (event.ctrlKey && gameData.coins >= calcInflation(10)) {
       for (i = 0; i < 10; i++) { buy(); } marketLuck();
    }
-   else if (event.shiftKey && gameData.seeds >= calcInflation(5)) {
+   else if (event.shiftKey && gameData.coins >= calcInflation(5)) {
       for (i = 0; i < 5; i++) { buy(); } marketLuck();
    }
-   else if (gameData.seeds >= gameData["buy" + produceCase]) { buy(); marketLuck(); }
-   else { fadeTextAppear(event, `Not enough seeds`, false, "#de0000"); }
+   else if (gameData.coins >= gameData["buy" + produceCase]) { buy(); marketLuck(); }
+   else { fadeTextAppear(event, `Not enough coins`, false, "#de0000"); }
    function buy() {
       gameData[produceRequested] += 5;
-      gameData.seeds -= gameData["buy" + produceCase];
+      gameData.coins -= Math.round(gameData["buy" + produceCase]);
       gameData["buy" + produceCase] *= 1.08;
       gameData["sell" + produceCase] *= 1.02;
    }
@@ -557,7 +545,7 @@ function sellProduce(produceRequested, produceCase) {
    else { fadeTextAppear(event, `Not enough produce`, false, "#de0000"); }
    function sell() {
       gameData[produceRequested] -= 5;
-      gameData.seeds += gameData["sell" + produceCase];
+      gameData.coins += Math.round(gameData["sell" + produceCase]);
       gameData["buy" + produceCase] *= 0.98;
       gameData["sell" + produceCase] *= 0.92;
    }
@@ -770,15 +758,15 @@ function weatherChance(min, max) {
 }
 function chooseWeather() {
    randomWeatherNum = (Math.random()).toFixed(2);
-   if (weatherChance(0, .15) === true) { gameData.weather.nextWeather = "sunny"; }
-   if (weatherChance(.15, .30) === true) { gameData.weather.nextWeather = "rainy"; }
-   if (weatherChance(.30, .55) === true) { gameData.weather.nextWeather = "partlySunny"; }
-   if (weatherChance(.55, .80) === true) { gameData.weather.nextWeather = "partlyCloudy"; }
-   if (weatherChance(.80, .85) === true) { gameData.weather.nextWeather = "snowy"; }
-   if (weatherChance(.85, .93) === true) { gameData.weather.nextWeather = "cloudy"; }
-   if (weatherChance(.93, .95) === true) { gameData.weather.nextWeather = "frost"; }
-   if (weatherChance(.95, 1.01) === true) { gameData.weather.nextWeather = "flood"; }
-   if (gameData.weather.weather === "snowy" || "frost" || "flood") { gameData.weather.hasBeenPunished = false; }
+   if (weatherChance(0, .15) === true) { gameData.nextWeather = "sunny"; }
+   if (weatherChance(.15, .30) === true) { gameData.nextWeather = "rainy"; }
+   if (weatherChance(.30, .55) === true) { gameData.nextWeather = "partlySunny"; }
+   if (weatherChance(.55, .80) === true) { gameData.nextWeather = "partlyCloudy"; }
+   if (weatherChance(.80, .85) === true) { gameData.nextWeather = "snowy"; }
+   if (weatherChance(.85, .93) === true) { gameData.nextWeather = "cloudy"; }
+   if (weatherChance(.93, .95) === true) { gameData.nextWeather = "frost"; }
+   if (weatherChance(.95, 1.01) === true) { gameData.nextWeather = "flood"; }
+   if (gameData.weather === "snowy" || "frost" || "flood") { gameData.hasBeenPunished = false; }
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -791,10 +779,10 @@ function harvestLuck(veg) {
       fadeTextAppear(event, `You collected 5 \n extra seeds!`, "vegLuck", "#00de88");
    }
    if (Math.random() < 0.10) {
-      gameData[veg.toLowerCase()] += 2;
-      fadeTextAppear(event, `This was a good crop! You collected \n 2 extra ${veg}!`, "vegLuck", "#00de88");
+      gameData[veg] += 2;
+      fadeTextAppear(event, `This was a good crop! You collected \n 2 extra ${capitalize(veg)}!`, "vegLuck", "#00de88");
    }
-   if (Math.random() < (0.05 + gameData.weather.marketResetBonus)) {
+   if (Math.random() < (0.05 + gameData.marketResetBonus)) {
       gameData.marketResets++;
       fadeTextAppear(event, `You collected a market \n reset! You now have ${gameData.marketResets}`, "vegLuck", "#00de88");
    }
@@ -854,18 +842,18 @@ function collectWeed(THIS) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function showBuyPlot() {
-   if (gameData.cornStatus != "Locked") { openLock("corn", 2); document.getElementById("lock3Text").innerHTML = `This plot is locked <br> Pay ${toWord(gameData.price3, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(3)">Purchase Plot</button>`; }
-   if (gameData.strawberriesStatus != "Locked") { openLock("strawberry", 3); document.getElementById("lock4Text").innerHTML = `This plot is locked <br> Pay ${toWord(gameData.price4, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(4)">Purchase Plot</button>`; }
-   if (gameData.eggplantsStatus != "Locked") { openLock("eggplant", 4); document.getElementById("lock6Text").innerHTML = `This plot is locked <br> Pay ${toWord(gameData.price6, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(6)">Purchase Plot</button>`; }
-   if (gameData.pumpkinsStatus != "Locked") { openLock("pumpkin", 6); document.getElementById("lock7Text").innerHTML = `This plot is locked <br> Pay ${toWord(gameData.price7, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(7)">Purchase Plot</button>`; }
-   if (gameData.cabbageStatus != "Locked") { openLock("cabbage", 7); document.getElementById("lock8Text").innerHTML = `This plot is locked <br> Pay ${toWord(gameData.price8, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(8)">Purchase Plot</button>`; }
-   if (gameData.dandelionStatus != "Locked") { openLock("dandelion", 8); document.getElementById("lock9Text").innerHTML = `This plot is locked <br> Pay ${toWord(gameData.price9, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(9)">Purchase Plot</button>`; }
+   if (gameData.cornStatus != "Locked") { openLock("corn", 2); document.getElementById("lock3Text").innerHTML = `This plot is locked <br> Pay ${toWord(gameInfo.price3, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(3)">Purchase Plot</button>`; }
+   if (gameData.strawberriesStatus != "Locked") { openLock("strawberry", 3); document.getElementById("lock4Text").innerHTML = `This plot is locked <br> Pay ${toWord(gameInfo.price4, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(4)">Purchase Plot</button>`; }
+   if (gameData.eggplantsStatus != "Locked") { openLock("eggplant", 4); document.getElementById("lock6Text").innerHTML = `This plot is locked <br> Pay ${toWord(gameInfo.price6, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(6)">Purchase Plot</button>`; }
+   if (gameData.pumpkinsStatus != "Locked") { openLock("pumpkin", 6); document.getElementById("lock7Text").innerHTML = `This plot is locked <br> Pay ${toWord(gameInfo.price7, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(7)">Purchase Plot</button>`; }
+   if (gameData.cabbageStatus != "Locked") { openLock("cabbage", 7); document.getElementById("lock8Text").innerHTML = `This plot is locked <br> Pay ${toWord(gameInfo.price8, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(8)">Purchase Plot</button>`; }
+   if (gameData.dandelionStatus != "Locked") { openLock("dandelion", 8); document.getElementById("lock9Text").innerHTML = `This plot is locked <br> Pay ${toWord(gameInfo.price9, "short")} Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(9)">Purchase Plot</button>`; }
    if (gameData.rhubarbStatus != "Locked") { openLock("rhubarb", 9); document.getElementById("lock5Text").innerHTML = "Coming <br> Soon!"; }
 }
 function unlockPlot(plotNum) {
    let number = plotNum;
-   if (gameData.seeds >= gameData["price" + plotNum]) {
-      gameData.seeds -= gameData["price" + plotNum];
+   if (gameData.seeds >= gameInfo["price" + plotNum]) {
+      gameData.seeds -= gameInfo["price" + plotNum];
       gameData.marketResets++;
       if (number == "2") { setTimeout(() => { openLock("corn", 2); infoModal('UnlockedCorn'); }, 2500); document.getElementById("lock2").classList.add("removing-lock"); }
       if (number == "3") { setTimeout(() => { openLock("strawberries", 3); infoModal('UnlockedStrawberry'); }, 2500); document.getElementById("lock3").classList.add("removing-lock"); }
@@ -925,10 +913,17 @@ function whatTheme() {
    else if (gameData.theme === "random") { randTheme(); }
    else { darkTheme(); }
 }
-function darkTheme() { document.querySelector(".toolbar").style.backgroundColor = "#111"; gameData.theme = "dark"; }
-function randTheme() { document.querySelector(".toolbar").style.backgroundColor = genColor(); gameData.theme = "random"; }
-function lightTheme() { document.querySelector(".toolbar").style.backgroundColor = "#f5f5f5"; gameData.theme = "light"; }
+function darkTheme() {
+   document.querySelector(".toolbar").style.backgroundColor = "#111"; gameData.theme = "dark";
+}
+function randTheme() {
+   document.querySelector(".toolbar").style.backgroundColor = genColor(); gameData.theme = "random";
+}
+function lightTheme() {
+   document.querySelector(".toolbar").style.backgroundColor = "#f5f5f5"; gameData.theme = "light";
+}
 
+// RESTART
 function restart() {
    let areYouSure = confirm("Are you SURE you want to restart? This will wipe all your progress!");
    if (areYouSure) {
@@ -949,6 +944,7 @@ function runIntro() {
    gameData = initGameData;
    gameData.intro = "finished";
    gameData.disasterTime = Date.now() + 480000;
+   gameData.plots.push(new Plot("Empty", "peas"));
    showObj(".welcome");
    chooseWeather();
    blackMarketValues();
@@ -993,7 +989,7 @@ function intro() {
    function sidebar() {
       if (introData.gameDataBar === false) {
          $(".intro-img").attr("src", "Images/Tasks/farmer.svg");
-         introText.textContent = "This toolbar shows the amount of gameData you have, holds the fertilizer for growing plants quickly, and the sickle for harvesting.";
+         introText.textContent = "This toolbar shows the amount of produce you have, holds the fertilizer for growing plants quickly, and the sickle for harvesting.";
          document.querySelector(".toolbar").style.zIndex = "100";
          introData.gameDataBar = true;
       }
@@ -1091,40 +1087,24 @@ $('.help-subjects-item').click(function () {
 });
 
 // Task Effect
+let openTaskHov = [];
+let openTaskUnHov = [];
 function taskHover(num) {
    clearTimeout(openTaskHov[num]);
    clearTimeout(openTaskUnHov[num]);
    openTaskHov[num] = setTimeout(() => {
-      document.querySelector(`.task-block-${num}`).style.position = 'absolute';
-      document.querySelector(`.task-block-${num}`).style.transform = 'scale(2)';
-      document.querySelector(`.task-block-${num}`).style.top = '18vh';
-      document.querySelector(`.task-block-${num}`).style.left = '18vh';
-      document.querySelector(`.task-block-${num}`).style.right = '18vh';
-      document.querySelector(`.task-block-${num}`).style.width = '40vh';
-      document.querySelector(`.task-block-${num}`).style.height = '40vh';
-      document.querySelector(`.task-block-${num}`).style.zIndex = '1';
+      document.querySelector(`.task-block-${num}`).classList.add("task-block-active");
    }, 750);
 }
 function taskUnHover(num) {
    clearTimeout(openTaskHov[num]);
    clearTimeout(openTaskUnHov[num]);
    openTaskUnHov[num] = setTimeout(() => {
-      document.querySelector(`.task-block-${num}`).style.position = 'relative';
-      document.querySelector(`.task-block-${num}`).style.transform = 'scale(1)';
-      document.querySelector(`.task-block-${num}`).style.top = '0';
-      document.querySelector(`.task-block-${num}`).style.left = 'auto';
-      document.querySelector(`.task-block-${num}`).style.right = 'auto';
-      document.querySelector(`.task-block-${num}`).style.width = '92%';
-      document.querySelector(`.task-block-${num}`).style.height = '37vh';
-      document.querySelector(`.task-block-${num}`).style.zIndex = '0';
+      document.querySelector(`.task-block-${num}`).classList.remove("task-block-active");
    }, 250);
 }
 
 // Modals
-function infoModal(veg) {
-   if (document.querySelector(`#info${veg}`).style.opacity === "1") { hideObj(`#info${veg}`); }
-   else { showObj(`#info${veg}`); }
-}
 function plotUnlockedModal(veg) {
    if (document.querySelector(`#info${veg}`).style.opacity === "1") { hideObj(`#info${veg}`); }
    else { showObj(`#info${veg}`); }
@@ -1243,7 +1223,7 @@ function tend(veg) {
       gameData[`${veg}Status`] = "Empty";
       document.querySelector(`.${capitalize(veg)}`).textContent = `Grow ${capitalize(veg)}!`;
       gameData.seeds++;
-      harvestLuck(capitalize(veg));
+      harvestLuck(veg);
       showObj(`.${capitalize(veg)}`);
       if (!Number.isFinite(gameData[veg + "Reward"])) { gameData[veg + "Reward"] = 1; }
       gameData[veg] += gameData[veg + "Reward"];
@@ -1252,13 +1232,13 @@ function tend(veg) {
    // Plant
    else {
       let currentTime = Date.now();
-      let harvestTime = gameData[`${veg}Time`][2] / 4;
-      if (gameData.weather.weather === "cloudy") { harvestTime = gameData[`${veg}Time`][2] + harvestTime; }
-      else { harvestTime = gameData[`${veg}Time`][2]; }
+      let harvestTime = gameInfo[`${veg}Time`][2] / 4;
+      if (gameData.weather === "cloudy") { harvestTime = gameInfo[`${veg}Time`][2] + harvestTime; }
+      else { harvestTime = gameInfo[`${veg}Time`][2]; }
       gameData[`${veg}Status`] = currentTime + harvestTime;
       timeLeft(veg.toLowerCase());
       hideObj(`.${capitalize(veg)}`);
-      if (gameData.weather.weather === "rainy") { gameData[veg + "Reward"]++; }
+      if (gameData.weather === "rainy") { gameData[veg + "Reward"]++; }
    }
 }
 function fertilize(veg) {
@@ -1287,8 +1267,8 @@ function plantLoop(veg, pltNumber, urlOne, urlTwo, urlThree) {
          timeLeft(veg);
          let progressTime = gameData[`${veg}Status`] - Date.now();
          let readyTime = Math.round(progressTime / 1000) * 1000;
-         let checkTimeOne = gameData[`${veg}Status`] - gameData[`${veg}Time`][0];
-         let checkTimeTwo = gameData[`${veg}Status`] - gameData[`${veg}Time`][1];
+         let checkTimeOne = gameData[`${veg}Status`] - gameInfo[`${veg}Time`][0];
+         let checkTimeTwo = gameData[`${veg}Status`] - gameInfo[`${veg}Time`][1];
          if (Date.now() >= gameData[`${veg}Status`]) { gameData[`${veg}Status`] = "Ready"; }
          else if (Date.now() >= checkTimeOne) { plotImg.backgroundImage = `url(Images/Plots/${urlTwo})`; }
          else if (Date.now() >= checkTimeTwo) { plotImg.backgroundImage = `url(Images/Plots/${urlOne})`; }
@@ -1313,3 +1293,184 @@ function plantStatus(checkfor, veg) {
          else { return true; }
    }
 }
+
+class Plot {
+   constructor(state, plant) {
+      this.status = state;
+      this.plant = plant;
+      this.bushels = 1;
+      // Traits - coming, SOOOOOOOOON!
+      // this.firstBoon;
+      // this.secndBoon;
+      // this.thirdBoon;
+   }
+   getState() {
+      if (this.status == "Ready") { return "Ready"; }
+      if (this.status == "Empty") { return "Empty"; }
+      if (this.status == "withered") { return "withered"; }
+   }
+   isGrowing() {
+      if (["Ready", "Empty", "withered"].includes(this.status)) { return false; }
+      else { return true; }
+}
+   harvestReady() {
+      if (this.status == "Ready") { return true; }
+      else { return false; }
+   }
+}
+
+function initPlots() {
+   gameData.plots.forEach((val, i, arr) => {
+      let array = arr.shift();
+      gameData.plots.push(new Plot(array.status, array.plant, array.bushels));
+   });
+   gameData.plots.forEach((val, i) => {
+      let index = i;
+      let plotBody = document.createElement("DIV");
+      plotBody.classList.add("plot");
+      plotBody.id = `plot${i}`;
+      let tendBtn = document.createElement("BUTTON");
+      tendBtn.classList.add(`btn${i}`, "btn");
+      tendBtn.onclick = () => { tendTo(index, val.plant); }
+      tendBtn.textContent = "Grow " + val.plant + "!";
+      let countdown = document.createElement("DIV");
+      countdown.classList.add("countdown", "time-left");
+      let timeLeft = document.createElement("SPAN");
+      timeLeft.classList.add(`time-left-${i}`);
+      let timeImg = document.createElement("IMG");
+      timeImg.src = "Images/Icons/clock.svg";
+      let plantImg = document.createElement("IMG");
+      plantImg.src = `Images/Vegetables/${val.plant}.png`;
+      plantImg.classList.add("veg-icon");
+      let almanacBtn = document.createElement("BUTTON");
+      almanacBtn.classList.add("almanacBtn", `almanac${i}`);
+      almanacBtn.onclick = function() {
+         if (document.getElementById(`shop${i}`).style.height === "95%") {
+            document.getElementById(`shop${i}`).style.height = "0";
+         } else {
+            document.getElementById(`shop${i}`).style.height = "95%";
+         }
+      };
+      let almanac = document.createElement("IMG");
+      almanac.src = "Images/Global Assets/almanac.png";
+      almanac.classList.add("almanac");
+      let shop = document.createElement("UL");
+      shop.classList.add("shop-window");
+      shop.id = `shop${i}`;
+      gameData.plantSeeds.forEach((value) => {
+         let listItem = document.createElement("LI");
+         let listImg = document.createElement("IMG");
+         listImg.classList.add("store-icon");
+         listImg.src = `Images/Vegetables/${value}.png`;
+         listImg.onclick = function() { tendTo(index, value); };
+         shop.appendChild(listItem);
+         listItem.appendChild(listImg);
+      });
+      document.querySelector(".land").appendChild(plotBody);
+      plotBody.appendChild(countdown);
+      countdown.appendChild(timeLeft);
+      countdown.appendChild(timeImg);
+      plotBody.appendChild(plantImg);
+      plotBody.appendChild(almanacBtn);
+      almanacBtn.appendChild(almanac);
+      plotBody.appendChild(tendBtn);
+      plotBody.appendChild(shop);
+      if (gameData.plots[i].isGrowing()) { plantGrowthLoop(i); }
+   });   
+}
+
+function tendTo(pos, veg) {
+   document.getElementById(`shop${pos}`).style.height = "0";
+   document.querySelector(`.almanac${pos}`).disabled = true;
+   // Harvest
+   if (gameData.plots[pos].harvestReady()) {
+      document.querySelector(`.almanac${pos}`).disabled = false;
+      gameData.plots[pos].status = "Empty";
+      gameData.seeds++;
+      // Chances
+      harvestLuck(veg);
+      // Decide how much to add (if statment to prevent NaN on first time)
+      if (!Number.isFinite(gameData.plots[pos].bushels)) { gameData.plots[pos].bushels = 1; }
+      gameData[veg] += gameData.plots[pos].bushels;
+      gameData.plots[pos].bushels = 1;
+      // Styles
+      document.querySelector(`.btn${pos}`).textContent = `Plant ${veg}!`;
+      document.querySelector(`#plot${pos}`).style.backgroundImage = "url(Images/Plots/plot.png)";
+   }
+   // Plant
+   else {
+      gameData.plots[pos].plant = veg;
+      let currentTime = Date.now();
+      let harvestTime = gameInfo[`${veg}Time`][2] / 4;
+      if (gameData.weather === "cloudy") { harvestTime = gameInfo[`${veg}Time`][2] + harvestTime; }
+      else { harvestTime = gameInfo[`${veg}Time`][2]; }
+      gameData.plots[pos].status = currentTime + harvestTime;
+      if (gameData.weather === "rainy") { gameData.plots[pos].bushels++; }
+      plantCountdown(pos);
+      plantGrowthLoop(pos);
+   }
+}
+
+function plantCountdown(i) {
+   if (!gameData.plots[i].isGrowing()) { return; }
+   let countDown = document.querySelector(`.time-left-${i}`);
+   let endTime = gameData.plots[i].status;
+   let secondsLeftms;
+   secondsLeftms = endTime - Date.now();
+   let secondsLeft = Math.round(secondsLeftms / 1000);
+   let hours = Math.floor(secondsLeft / 3600);
+   let minutes = Math.floor(secondsLeft / 60) - (hours * 60);
+   let seconds = secondsLeft % 60;
+   if (secondsLeft < 0) { countDown.textContent = `00:00:00`; return; }
+   if (hours < 10) { hours = `0${hours}`; }
+   if (minutes < 10) { minutes = `0${minutes}`; }
+   if (seconds < 10) { seconds = `0${seconds}`; }
+   countDown.textContent = `${hours}:${minutes}:${seconds}`;
+}
+
+function plantGrowthLoop(plotIndex) {
+   let plant = gameData.plots[plotIndex].plant;
+   let urls = gameInfo[plant + "URLs"];
+   let plotImg = document.querySelector(`#plot${plotIndex}`).style;
+   let buttton = document.querySelector(`.btn${plotIndex}`);
+   let growthLoop = setInterval(() => {
+      if (gameData.plots[plotIndex].status == "Ready") {
+         // Button
+         showObj(`.btn${plotIndex}`);
+         // Image and end loop
+         plotImg.backgroundImage = `url(Images/Plots/${urls[2]})`;
+         clearInterval(growthLoop);
+         return;
+      }
+      // Changes images depening on odd state
+      if (gameData.plots[plotIndex].status == "Empty") { plotImg.backgroundImage = "url(Images/Plots/plot.png)"; }
+      if (gameData.plots[plotIndex].status == "withered") { plotImg.backgroundImage = `url(Images/Plots/withered.png)`; }
+      // If the plant is growing
+      if (gameData.plots[plotIndex].isGrowing()) {
+         // Update time
+         plantCountdown(plotIndex);
+         // Check what third of growth the plant is is
+         let checkTimeOne = gameData.plots[plotIndex].status - gameInfo[`${plant}Time`][0];
+         let checkTimeTwo = gameData.plots[plotIndex].status - gameInfo[`${plant}Time`][1];
+         // Check if it's ready 
+         if (Date.now() >= gameData.plots[plotIndex].status) { gameData.plots[plotIndex].status = "Ready"; }
+         // Otherwise, display the images
+         else if (Date.now() >= checkTimeOne) { plotImg.backgroundImage = `url(Images/Plots/${urls[1]})`; }
+         else if (Date.now() >= checkTimeTwo) { plotImg.backgroundImage = `url(Images/Plots/${urls[0]})`; }
+         else { plotImg.backgroundImage = "url(Images/Plots/plot.png)"; }
+      }
+   }, 1000);
+   // Button
+   buttton.textContent = `Harvest ${plant}!`;
+   hideObj(`.btn${plotIndex}`);
+}
+
+
+// Fertilizer
+// Harvest/plant all
+// Buy plots and seeds in store
+// Image changes if plant changes
+
+// Gene labs?
+// Chat task system
+// Get capriola font on mainpage
