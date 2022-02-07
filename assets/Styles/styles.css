@@ -958,6 +958,16 @@ Command Panel
    box-shadow: 0 0 .5vh #cb9e00;
 }
 
+.big-title {
+   text-align: center;
+   font-family: "Capriola";
+   text-transform: uppercase;
+   font-size: 8vh;
+   margin-bottom: 3vh;
+   color: #8bf9c2;
+   text-shadow: .5vh .5vh #44a89b;
+}
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Alert
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -1686,3 +1696,28 @@ tr:nth-child(even) { background-color: #eee; }
 @keyframes shownhide2 { 0% { opacity: 0; } 7% { opacity: 0; } 14% { opacity: .5; } 21% { opacity: 1; } 28% { opacity: .5; } 35% { opacity: 0; } 42% { opacity: 0; } 49% { opacity: 0; } 56% { opacity: 0; } 63% { opacity: 0; } 70% { opacity: 0; } 77% { opacity: 1; } 84% { opacity: 0; } 91% { opacity: 0; } 100% { opacity: 0; } }
 @keyframes shownhide3 { 0% { opacity: 0; } 7% { opacity: 0; } 14% { opacity: 0; } 21% { opacity: 0; } 28% { opacity: .5; } 35% { opacity: 1; } 42% { opacity: .5; } 49% { opacity: 0; } 56% { opacity: .5; } 63% { opacity: 1; } 70% { opacity: .5; } 77% { opacity: 0; } 84% { opacity: 0; } 91% { opacity: 0; } 100% { opacity: 0; } }
 @keyframes shownhide4 { 0% { opacity: 0; } 7% { opacity: 0; } 14% { opacity: 0; } 21% { opacity: 0; } 28% { opacity: 0; } 35% { opacity: 0; } 42% { opacity: .5; } 49% { opacity: 1; } 56% { opacity: .5; } 63% { opacity: 0; } 70% { opacity: 0; } 77% { opacity: 0; } 84% { opacity: 0; } 91% { opacity: 0; } 100% { opacity: 0; } }
+
+/* Shop */
+.buy-plots-seeds {
+   display: none;
+   margin: 2vh;
+   padding: 2vh;
+   background-color: #fff;
+   border-radius: 1vh;
+   box-shadow: 0 0 .4vh #bbb;
+}
+
+.buy-plots-seeds img {
+   display: block;
+   height: 20vh;
+   background-color: #f5f5f5;
+   border-radius: .5vh;
+}
+
+.buy-plots-seeds button {
+   background-color: #fff;
+   color: #222;
+   border: none;
+   border-radius: .5vh;
+   box-shadow: 0 0 .5vh .3vh #9bff98;
+}

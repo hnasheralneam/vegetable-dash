@@ -9,15 +9,20 @@
       <link rel="stylesheet" href="Styles/styles.css">
       <link rel="stylesheet" href="Styles/noticeboard-windows.css">
       <title>Vegetable Dash!</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="Scripts/inital-varibles.js" charset="utf-8"></script>
+      <script src="Scripts/tasks.js" charset="utf-8"></script>
       <!-- Google Fonts -->
       <div>
          <link rel="preconnect" href="https://fonts.gstatic.com">
          <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
          <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+         
          <link rel="preconnect" href="https://fonts.googleapis.com">
+         <link rel="preconnect" href="https://fonts.gstatic.com">
          <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
          <link href="https://fonts.googleapis.com/css2?family=Capriola&display=swap" rel="stylesheet">
-            </div>
+      </div>
       <!-- Favicon donsn't work when div is above it -->
    </head>
    <% if (user !== "(not signed in)") { %>
@@ -30,250 +35,6 @@
       <!-- Land and Plots -->
       <div class="land">
          <img onclick="collectWeed(this)" class="weed" src="Images/Global Assets/weed.svg">
-         <!-- Pea Plot -->
-         <div class="plot" id="plot1">
-            <button class="Peas btn" onclick="tend('peas')">Grow Peas!</button>
-            <!-- Countdown -->
-            <div class="countdown peas-countdown time-left">
-               <span class="peas-time-left">00:00:00</span>
-               <img src="Images/Icons/clock.svg">
-            </div>
-            <img class="veg-icon" src="Images/Vegetables/peas.png">
-            <!-- Special -->
-            <img class="quest-arrow plant-quest-arrow" src="Images/Tasks/arrow.png">
-         </div>
-         <!-- Corn Plot -->
-         <div class="plot" id="plot2">
-            <div class="lock-tooltip" id="lockedDiv2">
-               <img id="lock2" class="locked" src="Images/Lock/lock.svg">
-               <span class="tooltiptext">This plot is locked <br> Pay 150 Seeds to unlock <br> <button class="purchase-plot" onclick="unlockPlot(2)">Purchase Plot</button></span>
-            </div>
-            <div class="open-plot" id="openPlot2">
-               <button class="Corn btn" onclick="tend('corn')">Grow Corn!</button>
-               <!-- Countdown -->
-               <div class="countdown time-left">
-                  <span class="corn-time-left">00:00:00</span>
-                  <img src="Images/Icons/clock.svg">
-               </div>
-               <img class="veg-icon" src="Images/Vegetables/corn.png">
-               <!-- Unlocked -->
-               <div id="infoUnlockedCorn" class="plot-unlocked-modal">
-                  <div class="modal-content plot-unlocked-modal-inner">
-                     <button onclick="plotUnlockedModal('UnlockedCorn'); location.reload();" class="unlockedBtn">x</button>
-                     <h4>Corn Plot!</h4>
-                     <ul>
-                        <p>You unlocked:</p>
-                        <li>Market Exchanges!</li>
-                        <li>Corn Tasks!</li>
-                        <li>Corn in Market!</li>
-                        <br>
-                        <p>You earned:</p>
-                        <li>1 Market Reset!</li>
-                     </ul>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <!-- Strawberry Plot -->
-         <div class="plot" id="plot3">
-            <div class="lock-tooltip" id="lockedDiv3">
-               <img id="lock3" class="locked" src="Images/Lock/lock.svg">
-               <span class="tooltiptext" id="lock3Text">This plot is locked <br> Purchase the previous plot to unlock</span>
-            </div>
-            <div class="open-plot" id="openPlot3">
-               <button class="Strawberries btn" onclick="tend('strawberries')">Grow Strawberries!</button>
-               <!-- Countdown -->
-               <div class="countdown time-left">
-                  <span class="strawberries-time-left">00:00:00</span>
-                  <img src="Images/Icons/clock.svg">
-               </div>
-               <img class="veg-icon" src="Images/Vegetables/strawberry.png">
-               <!-- Unlocked -->
-               <div id="infoUnlockedStrawberry" class="plot-unlocked-modal">
-                  <div class="modal-content plot-unlocked-modal-inner">
-                     <button onclick="plotUnlockedModal('UnlockedStrawberry'); location.reload();" class="unlockedBtn">x</button>
-                     <h4>Strawberry Plot!</h4>
-                     <ul>
-                        <p>You unlocked:</p>
-                        <li>The Black Market!</li>
-                        <li>Strawberry Tasks!</li>
-                        <li>Strawberry in Market!</li>
-                        <br>
-                        <p>You earned:</p>
-                        <li>1 Market Reset!</li>
-                     </ul>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <!-- Eggplant Plot -->
-         <div class="plot" id="plot4">
-            <div class="lock-tooltip" id="lockedDiv4">
-               <img id="lock4" class="locked" src="Images/Lock/lock.svg">
-               <span class="tooltiptext" id="lock4Text">This plot is locked <br> Purchase the previous plot to unlock</span>
-            </div>
-            <div class="open-plot" id="openPlot4">
-               <button class="Eggplants btn" onclick="tend('eggplants')">Grow Eggplants!</button>
-               <!-- Countdown -->
-               <div class="countdown time-left">
-                  <span class="eggplants-time-left">00:00:00</span>
-                  <img src="Images/Icons/clock.svg">
-               </div>
-               <img class="veg-icon" src="Images/Vegetables/eggplant.png">
-               <!-- Unlocked -->
-               <div id="infoUnlockedEggplant" class="plot-unlocked-modal">
-                  <div class="modal-content plot-unlocked-modal-inner">
-                     <button onclick="plotUnlockedModal('UnlockedEggplant'); location.reload();" class="unlockedBtn">x</button>
-                     <h4>Eggplant Plot!</h4>
-                     <ul>
-                        <p>You unlocked:</p>
-                        <li>Eggplant Tasks!</li>
-                        <li>Eggplant in Market!</li>
-                        <br>
-                        <p>You earned:</p>
-                        <li>1 Market Reset!</li>
-                     </ul>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <!-- Center Plot -->
-         <!-- <div class="plot" id="plot5">
-            <div class="countdown time-left">
-               <span class="time-left-5">00:00:00</span>
-               <img src="Images/Icons/clock.svg">
-            </div>
-            <img class="veg-icon" src="Images/Global Assets/rainbow-fruit.svg">
-            <img onclick="if (document.getElementById('shop5').style.height === '95%') {document.getElementById('shop5').style.height = '0'} else {document.getElementById('shop5').style.height = '95%'}" class="almanac" src="Images/Global Assets/almanac.png">
-            <ul class="shop-window" id="shop5">
-               <li><img onclick="tendTo(5, 'peas')" class="store-icon" src="Images/Vegetables/peas.png"></li>
-               <li><img onclick="tendTo(5, 'corn')" class="store-icon" src="Images/Vegetables/corn.png"></li>
-            </ul>
-         </div> -->
-         <!-- Pumpkin Plot -->
-         <div class="plot" id="plot6">
-            <div class="lock-tooltip" id="lockedDiv6">
-               <img id="lock6" class="locked" src="Images/Lock/lock.svg">
-               <span class="tooltiptext" id="lock6Text">This plot is locked <br> Purchase the previous plot to unlock</span>
-            </div>
-            <div class="open-plot" id="openPlot6">
-               <button class="Pumpkins btn" onclick="tend('pumpkins')">Grow Pumpkins!</button>
-               <!-- Countdown -->
-               <div class="countdown time-left">
-                  <span class="pumpkins-time-left">00:00:00</span>
-                  <img src="Images/Icons/clock.svg">
-               </div>
-               <img class="veg-icon" src="Images/Vegetables/pumpkin.svg">
-               <!-- Unlocked -->
-               <div id="infoUnlockedPumpkins" class="plot-unlocked-modal">
-                  <div class="modal-content plot-unlocked-modal-inner">
-                     <button onclick="plotUnlockedModal('UnlockedPumpkins'); location.reload();" class="unlockedBtn">x</button>
-                     <h4>Pumpkins Plot!</h4>
-                     <ul>
-                        <p>You unlocked:</p>
-                        <li>Pumpkins Tasks!</li>
-                        <li>Pumpkins in Market!</li>
-                        <br>
-                        <p>You earned:</p>
-                        <li>1 Market Reset!</li>
-                     </ul>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <!-- Cabbage Plot -->
-         <div class="plot" id="plot7">
-            <div class="lock-tooltip" id="lockedDiv7">
-               <img id="lock7" class="locked" src="Images/Lock/lock.svg">
-               <span class="tooltiptext" id="lock7Text">This plot is locked <br> Purchase the previous plot to unlock<br></span>
-            </div>
-            <div class="open-plot" id="openPlot7">
-               <button class="Cabbage btn" onclick="tend('cabbage')">Grow Cabbage!</button>
-               <!-- Countdown -->
-               <div class="countdown time-left">
-                  <span class="cabbage-time-left">00:00:00</span>
-                  <img src="Images/Icons/clock.svg">
-               </div>
-               <img class="veg-icon" src="Images/Vegetables/cabbage.svg">
-               <!-- Unlocked -->
-               <div id="infoUnlockedCabbage" class="plot-unlocked-modal">
-                  <div class="modal-content plot-unlocked-modal-inner">
-                     <button onclick="plotUnlockedModal('UnlockedCabbage'); location.reload();" class="unlockedBtn">x</button>
-                     <h4>Cabbage Plot!</h4>
-                     <ul>
-                        <p>You unlocked:</p>
-                        <li>Cabbage Tasks!</li>
-                        <li>Cabbage in Market!</li>
-                        <br>
-                        <p>You earned:</p>
-                        <li>1 Market Reset!</li>
-                     </ul>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <!-- Dandelion Plot -->
-         <div class="plot" id="plot8">
-            <div class="lock-tooltip" id="lockedDiv8">
-               <img id="lock8" class="locked" src="Images/Lock/lock.svg">
-               <span class="tooltiptext" id="lock8Text">This plot is locked <br> Purchase the previous plot to unlock</span>
-            </div>
-            <div class="open-plot" id="openPlot8">
-               <button class="Dandelion btn" onclick="tend('dandelion')">Grow Dandelion!</button>
-               <!-- Countdown -->
-               <div class="countdown time-left">
-                  <span class="dandelion-time-left">00:00:00</span>
-                  <img src="Images/Icons/clock.svg">
-               </div>
-               <img class="veg-icon" src="Images/Vegetables/dandelion.png">
-               <!-- Unlocked -->
-               <div id="infoUnlockedDandelion" class="plot-unlocked-modal">
-                  <div class="modal-content plot-unlocked-modal-inner">
-                     <button onclick="plotUnlockedModal('UnlockedDandelion'); location.reload();" class="unlockedBtn">x</button>
-                     <h4>Dandelion Plot!</h4>
-                     <ul>
-                        <p>You unlocked:</p>
-                        <li>Dandelion Tasks!</li>
-                        <li>Dandelion in Market!</li>
-                        <br>
-                        <p>You earned:</p>
-                        <li>1 Market Reset!</li>
-                     </ul>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <!-- Rhubarb Plot -->
-         <div class="plot" id="plot9">
-            <div class="lock-tooltip" id="lockedDiv9">
-               <img id="lock9" class="locked" src="Images/Lock/lock.svg">
-               <span class="tooltiptext" id="lock9Text">This plot is locked <br> Purchase the previous plot to unlock<br></span>
-            </div>
-            <div class="open-plot" id="openPlot9">
-               <button class="Rhubarb btn" onclick="tend('rhubarb')">Grow Rhubarb!</button>
-               <!-- Countdown -->
-               <div class="countdown time-left">
-                  <span class="rhubarb-time-left">00:00:00</span>
-                  <img src="Images/Icons/clock.svg">
-               </div>
-               <img class="veg-icon" src="Images/Vegetables/rhubarb.png">
-               <!-- Unlocked -->
-               <div id="infoUnlockedRhubarb" class="plot-unlocked-modal">
-                  <div class="modal-content plot-unlocked-modal-inner">
-                     <button onclick="plotUnlockedModal('UnlockedRhubarb'); location.reload();" class="unlockedBtn">x</button>
-                     <h4>Rhubarb Plot!</h4>
-                     <ul>
-                        <p>You unlocked:</p>
-                        <li>Rhubarb Tasks!</li>
-                        <li>Rhubarb in Market!</li>
-                        <br>
-                        <p>You earned:</p>
-                        <li>1 Market Reset!</li>
-                     </ul>
-                  </div>
-               </div>
-            </div>
-         </div>
       </div>
       <!-- Toolbar -->
       <div class="toolbar">
@@ -284,8 +45,8 @@
                <div class="vegAmount doughnutsAmount"><span id="doughnuts">0</span> <img class="produce-image" src="Images/Market/doughnut.png"><br></div>
                <div class="vegAmount peasAmount"><span id="peaBushels">0</span> <img class="produce-image" src="Images/Vegetables/peas.png"><br></div>
                <div class="vegAmount cornAmount"><span id="cornBushels">0</span> <img class="produce-image" src="Images/Vegetables/corn.png"><br></div>
-               <div class="vegAmount strawberriesAmount"><span id="strawberryBushels">0</span> <img class="produce-image" src="Images/Vegetables/strawberry.png"><br></div>
-               <div class="vegAmount eggplantsAmount"><span id="eggplantBushels">0</span> <img class="produce-image" src="Images/Vegetables/eggplant.png"><br></div>
+               <div class="vegAmount strawberriesAmount"><span id="strawberryBushels">0</span> <img class="produce-image" src="Images/Vegetables/strawberries.png"><br></div>
+               <div class="vegAmount eggplantsAmount"><span id="eggplantBushels">0</span> <img class="produce-image" src="Images/Vegetables/eggplants.png"><br></div>
                <div class="vegAmount pumpkinsAmount"><span id="pumpkinBushels">0</span> <img class="produce-image" src="Images/Vegetables/pumpkin.svg"><br></div>
                <div class="vegAmount cabbageAmount"><span id="cabbageBushels">0</span> <img class="produce-image" src="Images/Vegetables/cabbage.svg"><br></div>
                <div class="vegAmount dandelionAmount"><span id="dandelionBushels">0</span> <img class="produce-image" src="Images/Vegetables/dandelion.png"><br></div>
@@ -374,14 +135,14 @@
                   </div>
                </div>
                <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/strawberry.png"><span class="strawberries-market-item"></span></div>
+                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/strawberries.png"><span class="strawberries-market-item"></span></div>
                   <div class="buy-sell">
                      <span class="market-item-buy" onclick="buyProduce('strawberries', 'Strawberries')">Buy</span>
                      <span class="market-item-sell"  onclick="sellProduce('strawberries', 'Strawberries')">Sell</span>
                   </div>
                </div>
                <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/eggplant.png"><span class="eggplants-market-item"></span></div>
+                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/eggplants.png"><span class="eggplants-market-item"></span></div>
                   <div class="buy-sell">
                      <span class="market-item-buy" onclick="buyProduce('eggplants', 'Eggplants')">Buy</span>
                      <span class="market-item-sell"  onclick="sellProduce('eggplants', 'Eggplants')">Sell</span>
@@ -501,16 +262,24 @@
       <div class="tab-window-backdrop window-shop">
          <div class="tab-window">
             <div class="tab-bar">
-               <div class="tab tab-shop tab-shop-seeds active-tab" onclick="scrollToSection('shop', 'seeds')">Friends</div>
-               <div class="tab tab-shop tab-shop-plots" onclick="scrollToSection('shop', 'plots')">Requests</div>
+               <div class="tab tab-shop tab-shop-seeds active-tab" onclick="scrollToSection('shop', 'seeds')">Seeds</div>
+               <div class="tab tab-shop tab-shop-plots" onclick="scrollToSection('shop', 'plots')">Plots</div>
                <span class="window-close" onclick="toggleWindow('shop'); gameData.shopOpen = false;">x</span>
             </div>
             <div class="tab-pages">
                <div class="page" id="page-shop-seeds">
-                  <h1 class="big-title">Your Friends</h1>
+                  <h1 class="big-title">Purchase New Plants</h1>
+                  <div class="buy-plots-seeds">
+                     <img class="buy-seeds-image">
+                     <button class="buy-seeds-button"></button>
+                  </div>
                </div>
                <div class="page" id="page-shop-plots">
-                  <h1 class="big-title">Invites Sent</h1>
+                  <h1 class="big-title">Purchase New Plots</h1>
+                  <div class="buy-plots-seeds">
+                     <img class="buy-plots-image">
+                     <button class="buy-plots-button"></button>
+                  </div>
                </div>
             </div>
          </div>
@@ -761,8 +530,8 @@
             <div class="vegAmount doughnutsAmountQuick"><span id="doughnutsQuick">0</span> <img class="produce-image" src="Images/Market/doughnut.png"><br></div>
             <div class="vegAmount peasAmountQuick"><span id="peaBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/peas.png"><br></div>
             <div class="vegAmount cornAmountQuick"><span id="cornBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/corn.png"><br></div>
-            <div class="vegAmount strawberriesAmountQuick"><span id="strawberryBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/strawberry.png"><br></div>
-            <div class="vegAmount eggplantsAmountQuick"><span id="eggplantBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/eggplant.png"><br></div>
+            <div class="vegAmount strawberriesAmountQuick"><span id="strawberryBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/strawberries.png"><br></div>
+            <div class="vegAmount eggplantsAmountQuick"><span id="eggplantBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/eggplants.png"><br></div>
             <div class="vegAmount pumpkinsAmountQuick"><span id="pumpkinBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/pumpkin.svg"><br></div>
             <div class="vegAmount cabbageAmountQuick"><span id="cabbageBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/cabbage.svg"><br></div>
             <div class="vegAmount dandelionAmountQuick"><span id="dandelionBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/dandelion.png"><br></div>
@@ -783,9 +552,6 @@
          <input class="data-save" type="text" name="gamesave" required><br>
          <button class="post-save" type="text">Post</button>
       </form>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <script src="Scripts/inital-varibles.js" charset="utf-8"></script>
-      <script src="Scripts/tasks.js" charset="utf-8"></script>
       <script src="Scripts/main.js" charset="utf-8"></script>
       <script src="Scripts/check-signin-status.js"></script>
       <script>

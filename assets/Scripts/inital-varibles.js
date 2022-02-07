@@ -18,15 +18,14 @@ let gameInfo = {
    cabbageTime: [900000, 1800000, 2700000],
    dandelionTime: [2400000, 4800000, 7200000],
    rhubarbTime: [7200000, 14400000, 21600000],
-   // Plot prices
-   price2: 150,
-   price3: 500,
-   price4: 2000,
-   price5: "Recive an extra plant!",
-   price6: 7500,
-   price7: 20000,
-   price8: 75000,
-   price9: 150000,
+   // Seed prices
+   cornSeeds: 150,
+   strawberriesSeeds: 500,
+   eggplantsSeeds: 2000,
+   pumpkinsSeeds: 7500,
+   cabbageSeeds: 20000,
+   dandelionSeeds: 75000,
+   rhubarbSeeds: 150000,
    // URLs
    peasURLs: ["Peas/growing.png", "Peas/flowering.png", "Peas/fruiting.png"],
    cornURLs: ["growing.png", "Corn/growing.png", "Corn/fruiting.png"],
@@ -47,6 +46,9 @@ let initGameData = {
    // Plots
    plantSeeds: ["peas"],
    plots: [],
+   // Plot prices
+   plotPrices: [500, 1000, 5000, 10000, 25000, 50000, 100000, 150000],
+   plotPlants: ["corn", "strawberries", "eggplants", "pumpkins", "cabbage", "dandelion", "rhubarb"],
    // Plants
     peasStatus: "Empty",
     cornStatus: "Locked",
