@@ -1,0 +1,171 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Introduction Styles
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.introDarkShadow {
+   opacity: 0;
+   pointer-events: none;
+   position: fixed;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   background-color: rgba(25, 0, 0, 0.8);
+   transition: 2.5s;
+}
+.intro-container {
+   position: fixed;
+   bottom: 2vh;
+   left: 2.5vh;
+   right: 2.5vh;
+   height: 30vh;
+   background-color: #f5f5f5;
+   border-radius: 5vh;
+   font-family: "Nunito";
+   letter-spacing: -0.04vh;
+   display: grid;
+   grid-template-columns: auto auto auto auto;
+   transition: 2.5s;
+}
+.intro-img {
+   height: 25vh;
+   margin: 1.5vh;
+   transition: .5s;
+}
+.intro-divide {
+   height: 25vh;
+   width: 5vh;
+   margin: 1.5vh;
+   transition: .5s;
+}
+.intro-text {
+   font-size: 2.5vw;
+   margin: 1.5vh;
+   transition: .5s;
+}
+.intro-nxt-btn {
+   margin-top: 16vh;
+   margin-right: 5vh;
+   background-color: #7962b6;
+   height: 10vh;
+   width: 15vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   color: #fff;
+   font-size: 10vh;
+   border-radius: 25vh;
+   transition: .5s;
+}
+.intro-nxt-btn:hover {
+   box-shadow: 0 0 3vh #262626,
+               inset 1vh 0 4vh .8vh rgba(255, 255, 255, 0.5);
+}
+.quest-arrow {
+   height: 40vh;
+   z-index: 1;
+   animation: quest-arrow-nudge 3s infinite;
+   display: none;
+}
+.plant-quest-arrow {
+   position: absolute;
+   right: -135%;
+}
+@keyframes quest-arrow-nudge {
+   0% { margin-right: 0; }
+   20% { margin-right: -8px; }
+   40% { margin-right: -2px; }
+   55% { margin-right: -8px; }
+   70% { margin-right: 0; }
+   100% { margin-right: 0; }
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Welcome
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.welcome {
+   position: fixed;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   transition: 2s;
+   box-shadow: inset 0 -5vh 30vh 10vh #000;
+   backdrop-filter: sepia(.8);
+   font-family: "Nunito";
+   color: #fff;
+}
+.welcome-content {
+   width: 100%;
+   height: 100%;
+   border-radius: 5vh;
+   text-align: center;
+}
+.welcome-content h1 {
+   font-size: 8vh;
+   margin: 8vh 2vh 2vh 2vh;
+   font-weight: 400;
+}
+.welcome-content h2 {
+   font-size: 6vh;
+   font-weight: 200;
+   margin: 0 20vh;
+}
+.welcome-btn-one, .welcome-btn-two {
+   text-transform: uppercase;
+   height: 100vh;
+   width: 50vh;
+   transition: .5s;
+   border: none;
+   top: 0;
+   bottom: 0;
+   position: absolute;
+   padding: 6vh;
+   font-size: 3vh;
+   color: #eee;
+}
+.welcome-btn-one {
+   left: 0;
+   background-color: rgb(86, 12, 99, .5);
+   clip-path: circle(50% at 0% 50%);
+   text-align: left;
+
+}
+.welcome-btn-two {
+   right: 0;
+   background-color: rgb(57, 217, 118, .5);
+   clip-path: circle(50% at 100% 50%);
+   text-align: right;
+}
+.welcome-btn-one:hover {
+   background-color: rgb(86, 12, 99, .8);
+   font-size: 6vh;
+   color: #fff;
+   border: none;
+}
+.welcome-btn-two:hover {
+   background-color: rgb(57, 217, 118, .8);
+   font-size: 6vh;
+   color: #fff;
+   border: none;
+}
+.welcome-content div {
+   position: absolute;
+   bottom: 2vh;
+   font-size: 3vh;
+}
+.welcome-content a { color: #3aade8; }
+.wlcm-choice {
+   font-size: 4vh;
+   width: 40vh;
+   margin: 6vh auto;
+   background-color: rgba(150, 138, 80, 0.5);
+   box-shadow: 0 0 5vh rgba(150, 138, 80);
+   border-radius: 5vh;
+   transition: .2s;
+}
+.wlcm-choice:hover { transform: scale(1.05); }

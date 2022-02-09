@@ -1,0 +1,128 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Help
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.help-shadow {
+   position: fixed;
+   height: 100vh;
+   width: 100vw;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   backdrop-filter: blur(.5vh);
+   background-color: rgb(0, 0, 0, .5)
+}
+.help {
+   height: 100%;
+   width: 100%;
+   background-color: #f5f5f5;
+   display: grid;
+   grid-template-columns: 30% 70%;
+   overflow: hidden;
+}
+.help-subjects { overflow: scroll; }
+.help-subjects-item {
+   background-color: #f97590;
+   font-family: sans-serif;
+   width: 60%;
+   font-size: 4vh;
+   padding: 4vh 2vh;
+   margin-bottom: .2vh;
+   color: #fff;
+   transition: .2s;
+}
+.help-subjects-item:first-child { background-color: #03fca5; }
+.help-subjects-item-active { filter: hue-rotate(180deg); }
+.help-subjects-item:last-child {
+   background-color: #6ee8ff;
+   margin: 0;
+}
+.help-subjects-item:hover {
+   transform: scale(1.2) translateX(5vh);
+   box-shadow: 0 0 2vh #000;
+   border-radius: .5vh;
+}
+.help-information {
+   padding: 2vh 20vh 0 5vh;
+   overflow: hidden;
+   scroll-behavior: smooth;
+}
+.help-information div {
+   height: 85vh;
+   width: 100%;
+   position: relative;
+   margin-bottom: 10vh;
+   overflow: auto;
+}
+.help-information h1 {
+   font-family: "Nunito";
+   text-align: center;
+   font-size: 8vh;
+}
+.help-information p {
+   font-size: 3.5vh;
+}
+.help img {
+   position: absolute;
+   bottom: 0;
+   right: 0;
+}
+.help-information span {
+   color: #ccc;
+   font-family: "Nunito";
+   text-decoration: underline;
+}
+.help-center-img {
+   height: 8vh;
+   position: fixed;
+   top: 2vh;
+   left: 2vh;
+   transition: .25s;
+}
+.help-center-img:hover { transform: scale(1.05); }
+.help a {
+   color: lightblue;
+   text-decoration: none;
+   position: relative;
+}
+.help .no-link:after { display: none; }
+.help a:after {
+   content: "";
+   display: block;
+   height: .2vh;
+   left: 50%;
+   position: absolute;
+   background: lightblue;
+   transition: all .2s;
+   width: 0;
+}
+.help a:hover:after {
+   width: 100%;
+   left: 0;
+}
+
+#help-about-copyright {
+   font-size: 3vh;
+   font-weight: 300;
+   overflow-y: scroll;
+}
+
+table {
+   border-collapse: collapse;
+   width: 100%;
+   font-size: 2.5vh;
+   table-layout: fixed;
+}
+td, th {
+   border: .2vh solid #eee;
+   border-radius: .2vh;
+   padding: .5vh;
+   width: 25%;
+   color: #666;
+}
+td { font-weight: 100; }
+th { color: #aaa; }
+tr:nth-child(even) { background-color: #eee; }
+.tm-tb { opacity: 0; }

@@ -12,7 +12,7 @@ Static Functions
 // Run Immediately on Load
 //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// These functions are run when the hame loads, making it easier to find bugs
+// These functions are run when the game loads, making it easier to find bugs
 
 // Sent to new site
 if (location.hostname === "squirrel-314.github.io") {
@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
    gameData = userData.gameSave;
    if (gameData == undefined || null) {
       $(".cover").hide();
+      $("head").append('<link rel="stylesheet" type="text/css" href="Styles/Vegetable Dash/intro.css">');
       runIntro();
    }
    else {
@@ -212,6 +213,7 @@ function runLoops() {
       incidents();
       checkForTasks();
       mainLoop();
+      vegetableCheck();
    }, 1000);
    let hundremMSLoop = setInterval(function() {
       weatherEffects();
@@ -238,48 +240,41 @@ function mainLoop() {
    document.querySelector(".seedsQuick").textContent = `${toWord(gameData.seeds)} Seeds`;
    document.querySelector("#doughnuts").textContent = `${toWord(gameData.doughnuts, "short")} Doughnuts`;
    document.querySelector("#fertilizer").textContent = `${Math.round(gameData.fertilizers)} Fertilizers Click + Place to apply`;
+}
+function vegetableCheck() {
    if (seedOwned("peas")) {
-      revealgameData("#peaBushels", "peas");
+      updateDisplay("peas");
       !vegetablesOwned.includes("peas") ? vegetablesOwned.push("peas") : null;
    } if (seedOwned("corn")) {
-      revealgameData("#cornBushels", "corn");
+      updateDisplay("corn");
       checkTasks("unlockThe_cornPlot");
       document.querySelector(".tm-tb-co").style.opacity = "1";
       !vegetablesOwned.includes("corn") ? vegetablesOwned.push("corn") : null;
    } if (seedOwned("strawberries")) {
-      revealgameData("#strawberryBushels", "strawberries");
-      document.querySelector(`.doughnutsAmount`).style.display = "block";
-      document.querySelector(`#doughnuts`).textContent = `${toWord(gameData.doughnuts, "short")} Doughnuts`;
-      document.querySelector(`.doughnutsAmountQuick`).style.display = "block";
-      document.querySelector(`#doughnutsQuick`).textContent = `${toWord(gameData.doughnuts, "short")} Doughnuts`;
+      updateDisplay("strawberries");
+      updateDisplay("doughnuts");
       document.querySelector(".tm-tb-st").style.opacity = "1";
       !vegetablesOwned.includes("strawberries") ? vegetablesOwned.push("strawberries") : null;
    } if (seedOwned("eggplants")) {
-      revealgameData("#eggplantBushels", "eggplants");
+      updateDisplay("eggplants");
       document.querySelector(".tm-tb-eg").style.opacity = "1";
       !vegetablesOwned.includes("eggplants") ? vegetablesOwned.push("eggplants") : null;
    } if (seedOwned("pumpkins")) {
-      revealgameData("#pumpkinBushels", "pumpkins");
+      updateDisplay("pumpkins");
       document.querySelector(".tm-tb-pu").style.opacity = "1";
       !vegetablesOwned.includes("pumpkins") ? vegetablesOwned.push("pumpkins") : null;
    } if (seedOwned("cabbage")) {
-      revealgameData("#cabbageBushels", "cabbage");
+      updateDisplay("cabbage");
       document.querySelector(".tm-tb-ca").style.opacity = "1";
       !vegetablesOwned.includes("cabbage") ? vegetablesOwned.push("cabbage") : null;
    } if (seedOwned("dandelion")) {
-      revealgameData("#dandelionBushels", "dandelion");
+      updateDisplay("dandelion");
       document.querySelector(".tm-tb-da").style.opacity = "1";
       !vegetablesOwned.includes("dandelion") ? vegetablesOwned.push("dandelion") : null;
    } if (seedOwned("rhubarb")) {
-      revealgameData("#rhubarbBushels", "rhubarb");
+      updateDisplay("rhubarb");
       document.querySelector(".tm-tb-rh").style.opacity = "1";
       !vegetablesOwned.includes("rhubarb") ? vegetablesOwned.push("rhubarb") : null;
-   }
-   function revealgameData(id, veg) {
-      document.querySelector(`.${veg}Amount`).style.display = "block";
-      document.querySelector(id).textContent = `${toWord(gameData[veg], "short")} Bushels of ${capitalize(veg)}`;
-      document.querySelector(`.${veg}AmountQuick`).style.display = "block";
-      document.querySelector(`${id}Quick`).textContent = `${toWord(gameData[veg], "short")} Bushels of ${capitalize(veg)}`;
    }
 }
 function weatherEffects() {
@@ -384,6 +379,16 @@ function updateMainValues() {
    document.querySelector(".main-values-seeds").textContent = `${Math.round(gameData.seeds)} Seeds`;
    document.querySelector(".main-values-genes").textContent = `${Math.round(gameData.genes)} Genes`;
 }
+function updateDisplay(veg) {
+   let displayParents = document.querySelectorAll(`.${veg}Display`);
+   displayParents.forEach((val, i, arr) => {
+      document.querySelectorAll(`.${veg}Display`)[i].style.display = "block";
+   });
+   let displays = document.querySelectorAll(`.${veg}`);
+   displays.forEach((val, i, arr) => {
+      document.querySelectorAll(`.${veg}`)[i].textContent = `${toWord(gameData[veg], "short")} Bushels of ${capitalize(veg)}`;
+   });
+}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
@@ -471,8 +476,8 @@ function checkMarket() {
    let marketItem = document.getElementsByClassName("market-item");
    marketItem[10].style.display = "block";
    marketItem[0].style.display = "block";
-   if (seedOwned("corn")) { marketItem[1].style.display = "block"; marketItem[9].style.display = "block"; }
-   if (seedOwned("strawberries")) { marketItem[2].style.display = "block"; marketItem[10].style.display = "block"; }
+   if (seedOwned("corn")) { marketItem[1].style.display = "block"; marketItem[8].style.display = "block"; }
+   if (seedOwned("strawberries")) { marketItem[2].style.display = "block"; marketItem[9].style.display = "block"; }
    if (seedOwned("eggplants")) { marketItem[3].style.display = "block"; }
    if (seedOwned("pumpkins")) { marketItem[4].style.display = "block"; }
    if (seedOwned("cabbage")) { marketItem[5].style.display = "block"; }
@@ -519,7 +524,8 @@ function resetMarketValues() {
 }
 
 // Buy & Sell Vegetables
-function buyProduce(produceRequested, produceCase) {
+function buyProduce(produce) {
+   let produceCase = capitalize(produce);
    if (event.ctrlKey && gameData.coins >= calcInflation(10)) {
       for (i = 0; i < 10; i++) { buy(); } marketLuck();
    }
@@ -529,7 +535,7 @@ function buyProduce(produceRequested, produceCase) {
    else if (gameData.coins >= gameData["buy" + produceCase]) { buy(); marketLuck(); }
    else { fadeTextAppear(event, `Not enough coins`, false, "#de0000"); }
    function buy() {
-      gameData[produceRequested] += 5;
+      gameData[produce] += 5;
       gameData.coins -= Math.round(gameData["buy" + produceCase]);
       gameData["buy" + produceCase] *= 1.08;
       gameData["sell" + produceCase] *= 1.02;
@@ -541,17 +547,18 @@ function buyProduce(produceRequested, produceCase) {
       return totalPrice;
    }
 }
-function sellProduce(produceRequested, produceCase) {
-   if (event.ctrlKey && gameData[produceRequested] >= 50) {
+function sellProduce(produce) {
+   let produceCase = capitalize(produce);
+   if (event.ctrlKey && gameData[produce] >= 50) {
       for (i = 0; i < 10; i++) { sell(); } marketLuck();
    }
-   else if (event.shiftKey && gameData[produceRequested] >= 25) {
+   else if (event.shiftKey && gameData[produce] >= 25) {
       for (i = 0; i < 5; i++) { sell(); } marketLuck();
    }
-   else if (gameData[produceRequested] >= 5) { sell(); marketLuck(); }
+   else if (gameData[produce] >= 5) { sell(); marketLuck(); }
    else { fadeTextAppear(event, `Not enough produce`, false, "#de0000"); }
    function sell() {
-      gameData[produceRequested] -= 5;
+      gameData[produce] -= 5;
       gameData.coins += Math.round(gameData["sell" + produceCase]);
       gameData["buy" + produceCase] *= 0.98;
       gameData["sell" + produceCase] *= 0.92;
@@ -792,6 +799,11 @@ function harvestLuck(veg) {
    if (Math.random() < (0.05 + gameData.marketResetBonus)) {
       gameData.marketResets++;
       fadeTextAppear(event, `You collected a market \n reset! You now have ${gameData.marketResets}`, "vegLuck", "#00de88");
+   }
+   if (Math.random() < 0.30) {
+      let luckDNA = random(1, 4);
+      gameData.genes += luckDNA;
+      fadeTextAppear(event, `You collected ${luckDNA} DNA!`, "vegLuck", "#00de88");
    }
 }
 function marketLuck() {

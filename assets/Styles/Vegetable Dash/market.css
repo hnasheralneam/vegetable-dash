@@ -1,0 +1,327 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Market
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.marketShadow {
+   opacity: 0;
+   pointer-events: none;
+   position: fixed;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   z-index: 1;
+   background-color: rgba(25, 0, 0, 0.8);
+   backdrop-filter: blur(.5vh);
+   transition: 0.8s;
+}
+.market {
+   position: absolute;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   background-image: url("/Images/Market/bustling.png");
+   background-size: cover;
+   background-color: #262626;
+   text-align: center;
+   font-family: "Roboto Condensed";
+   cursor: url('/Images/Cursors/money.png'), auto;
+   overflow: scroll;
+   transition: 0.8s;
+}
+.marketVegetables {
+   display: grid;
+   grid-template-columns: 33.33333% 33.33333% 33.33333%;
+}
+.market-item {
+   display: none;
+   height: 45vh;
+   width: 95%;
+   margin: 2vh auto;
+   border-radius: 2vh;
+   transition: 0.2s;
+   font-size: 5vh;
+   background-color: #f5f5f5;
+   box-shadow: .2vh .2vh #ddd,
+               .4vh .4vh #ddd;
+   opacity: 0.95;
+   position: relative;
+   overflow: hidden;
+}
+.market-item-content {
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   white-space: pre-line;
+   transition: 0.2s;
+}
+.buy-sell {
+   position: absolute;
+   left: 35%;
+   bottom: 3vh;
+   height: 10vh;
+   width: 30%;
+   border-radius: 2vh;
+   overflow: hidden;
+   transition: 0.2s;
+}
+.accept-deny {
+   position: absolute;
+   left: 25%;
+   bottom: 3vh;
+   height: 10vh;
+   width: 50%;
+   border-radius: 5vh;
+   overflow: hidden;
+   transition: 0.2s;
+}
+.buy-sell:hover { box-shadow: 0 0 .5vh #262626; }
+.market-item-buy {
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   background-color: #ACF39D;
+   height: 5vh;
+   width: 100%;
+   transition: 0.2s;
+   font-size: 4vh;
+}
+.market-item-sell {
+   float: bottom;
+   position: absolute;
+   left: 0;
+   background-color: #F76B62;
+   height: 5vh;
+   width: 100%;
+   transition: 0.2s;
+   font-size: 4vh;
+}
+.market-item-buy:hover { background-color: #8EE27C; }
+.market-item-sell:hover { background-color: #F24236; }
+.market-item:hover {
+   opacity: 0.98;
+   box-shadow: .2vh .2vh #ddd,
+               .4vh .4vh #ddd,
+               .4vh .4vh 2vh #ddd,
+               inset 0 0 1vh #ddd;
+}
+.market-hover {
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 100%;
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   text-align: center;
+   color: #fff;
+   transition: all 0.5s;
+   transform: translateY(100%);
+}
+.market-hover h1 {
+   text-transform: uppercase;
+   font-size: 8vh;
+}
+.market-hover p {
+   font-size: 4vh;
+   padding: 0 6vh;
+   display: inline;
+}
+.market-item:hover .market-hover {
+   background-color: rgba(0, 0, 0, 0.6);
+   transform: translateY(0);
+}
+.use-market-reset-button {
+   padding: 2vh;
+   font-size: 3vh;
+   border-radius: 1vh;
+   border: solid .4vh rgb(0, 0, 0, .2);
+   background-color: #ffd700;
+   font-family: "Roboto Condensed";
+   color: #343cb9;
+   font-weight: 600;
+   position: absolute;
+   bottom: 4vh;
+   right: 4vh;
+}
+.market-veg-img {
+   height: 10vh;
+   position: absolute;
+   top: 4vh;
+   left: 4vh;
+}
+.more-info-tooltip {
+   position: absolute;
+   right: 15vh;
+   bottom: 2.5vh;
+}
+.more-info-tooltip img { height: 9vh; margin-bottom: 1vh; }
+.more-info-tooltip .tooltip-text {
+   position: absolute;
+   opacity: 0;
+   pointer-events: none;
+   min-height: 10vh;
+   width: 300%;
+   background-color: #eee;
+   text-align: center;
+   border-radius: 2vh;
+   box-sizing: border-box;
+   padding: 1vh;
+   box-shadow: 0 0 2vh #ddd;
+   font-size: 3vh;
+   color: #262626;
+   left: -100%;
+   bottom: 110%;
+   transition: .8s;
+   transition-delay: .2s;
+}
+.more-info-tooltip .tooltip-text::after {
+   content: "";
+   position: absolute;
+   left: 44%;
+   top: 105%;
+   margin-top: -2vh;
+   border-width: 2vh;
+   border-style: solid;
+   border-color: #eee transparent transparent transparent;
+}
+.more-info-tooltip:hover .tooltip-text {
+   opacity: 1;
+   pointer-events: auto;
+}
+#market-reset-more-info { filter: invert(); }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Black Market
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.blackMarketShadow { overflow: hidden; }
+.blackMarketHome {
+   background-image: url("/Images/Market/black-market.png");
+   background-size: cover;
+   background-position: center;
+}
+.blackMarket {
+   min-height: 100%;
+   border-radius: 0;
+   margin: 0;
+   box-shadow: inset 2vh 2vh 6vh #000,
+               inset -2vh -2vh 6vh #000;
+   background-image: url("/Images/Market/black-market.png");
+   background-size: cover;
+   background-position: center;
+}
+.black-doughnut { height: 12vh; }
+.doughnut-parent {
+   position: absolute;
+   top: 5vh;
+   left: 25vh;
+   height: 12vh;
+   width: 12vh;
+}
+.more-info-tooltip-black {
+   position: relative;
+   padding: 1vh;
+   display: inline-block;
+}
+.more-info-tooltip-black .tooltip-text {
+   width: 25vh;
+   height: 26vh;
+   left: -50%;
+   top: 92%;
+   z-index: 1000;
+}
+.more-info-tooltip-black .tooltip-text::after {
+   left: 44%;
+   top: -6%;
+   border-color: transparent transparent #eee transparent;
+}
+.black-accept-deny {
+   left: 0;
+   bottom: 0;
+   height: 20vh;
+   width: 100%;
+   border-radius: 0;
+}
+.black-buy {
+   opacity: .8;
+   background-color: #0fd20e;
+   height: 10vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   transition: .5s;
+}
+.black-sell {
+   opacity: .8;
+   background-color: #da2d13;
+   height: 10vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   transition: .5s;
+}
+.black-buy:hover { background-color: #02993e; opacity: 1; }
+.black-sell:hover { background-color: #911300; opacity: 1; }
+.blackMarketOffer {
+   position: absolute;
+   bottom: 20vh;
+   width: 100%;
+   height: 60vh;
+   background-color: #eee;
+   opacity: .8;
+   display: grid;
+   grid-template-columns: 33.33333% 33.33333% 33.33333%;
+}
+.bmo-seller, .bmo-offer, .bmo-price { font-size: 12vh; }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Market Exchanges
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.market-exchange-content {
+   padding-bottom: 5vh;
+   display: grid;
+   grid-template-columns: 33.33333% 33.33333% 33.33333%;
+}
+.exchange-market-item { width: 30vw; }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Shop
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.buy-plots-seeds {
+   display: none;
+   margin: 2vh;
+   padding: 2vh;
+   background-color: #fff;
+   border-radius: 1vh;
+   box-shadow: 0 0 .4vh #bbb;
+}
+
+.buy-plots-seeds img {
+   display: block;
+   height: 20vh;
+   background-color: #f5f5f5;
+   border-radius: .5vh;
+}
+
+.buy-plots-seeds button {
+   background-color: #fff;
+   color: #222;
+   border: none;
+   border-radius: .5vh;
+   box-shadow: 0 0 .5vh .3vh #9bff98;
+}

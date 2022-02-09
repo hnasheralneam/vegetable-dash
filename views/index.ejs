@@ -6,9 +6,16 @@
       <!-- My number shortener library -->
       <script src="https://squirrel-314.github.io/digit/main.js" charset="utf-8"></script>
       <link rel="shortcut icon" href="Images/Global Assets/logo.svg" type="image/x-icon">
-      <link rel="stylesheet" href="Styles/styles.css">
-      <link rel="stylesheet" href="Styles/noticeboard-windows.css">
       <title>Vegetable Dash!</title>
+      <!-- Styles -->
+      <link rel="stylesheet" href="Styles/Vegetable Dash/main.css">
+      <link rel="stylesheet" href="Styles/noticeboard-windows.css">
+      <!-- More styles -->
+      <link rel="stylesheet" href="Styles/Vegetable Dash/market.css">
+      <link rel="stylesheet" href="Styles/Vegetable Dash/tasks.css">
+      <link rel="stylesheet" href="Styles/Vegetable Dash/help.css">
+      <link rel="stylesheet" href="Styles/Vegetable Dash/misc.css">
+      <!-- Scripts -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="Scripts/inital-varibles.js" charset="utf-8"></script>
       <script src="Scripts/tasks.js" charset="utf-8"></script>
@@ -42,15 +49,42 @@
             <img class="toolbar-img" src="Images/Icons/barrel.svg">
             <span class="tooltip-text tooltip-text-produce">
                <span class="seeds">0</span><br>
-               <div class="vegAmount doughnutsAmount"><span id="doughnuts">0</span> <img class="produce-image" src="Images/Market/doughnut.png"><br></div>
-               <div class="vegAmount peasAmount"><span id="peaBushels">0</span> <img class="produce-image" src="Images/Vegetables/peas.png"><br></div>
-               <div class="vegAmount cornAmount"><span id="cornBushels">0</span> <img class="produce-image" src="Images/Vegetables/corn.png"><br></div>
-               <div class="vegAmount strawberriesAmount"><span id="strawberryBushels">0</span> <img class="produce-image" src="Images/Vegetables/strawberries.png"><br></div>
-               <div class="vegAmount eggplantsAmount"><span id="eggplantBushels">0</span> <img class="produce-image" src="Images/Vegetables/eggplants.png"><br></div>
-               <div class="vegAmount pumpkinsAmount"><span id="pumpkinBushels">0</span> <img class="produce-image" src="Images/Vegetables/pumpkin.svg"><br></div>
-               <div class="vegAmount cabbageAmount"><span id="cabbageBushels">0</span> <img class="produce-image" src="Images/Vegetables/cabbage.svg"><br></div>
-               <div class="vegAmount dandelionAmount"><span id="dandelionBushels">0</span> <img class="produce-image" src="Images/Vegetables/dandelion.png"><br></div>
-               <div class="vegAmount rhubarbAmount"><span id="rhubarbBushels">0</span> <img class="produce-image" src="Images/Vegetables/rhubarb.png"><br></div>
+               <div class="vegAmount doughnutsAmount">
+                  <span id="doughnuts">0</span>
+                  <img class="produce-image" src="Images/Market/doughnut.png"><br>
+               </div>
+               <div class="vegAmount peasDisplay">
+                  <span class="peas" id="peaBushels">0</span>
+                  <img class="produce-image" src="Images/Vegetables/peas.png"><br>
+               </div>
+               <div class="vegAmount cornDisplay">
+                  <span class="corn" id="cornBushels">0</span>
+                  <img class="produce-image" src="Images/Vegetables/corn.png"><br>
+               </div>
+               <div class="vegAmount strawberriesDisplay">
+                  <span class="strawberries" id="strawberryBushels">0</span>
+                  <img class="produce-image" src="Images/Vegetables/strawberries.png"><br>
+               </div>
+               <div class="vegAmount eggplantsDisplay">
+                  <span class="eggplants" id="eggplantBushels">0</span>
+                  <img class="produce-image" src="Images/Vegetables/eggplants.png"><br>
+               </div>
+               <div class="vegAmount pumpkinsDisplay">
+                  <span class="pumpkins" id="pumpkinBushels">0</span>
+                  <img class="produce-image" src="Images/Vegetables/pumpkin.svg"><br>
+               </div>
+               <div class="vegAmount cabbageDisplay">
+                  <span class="cabbage" id="cabbageBushels">0</span>
+                  <img class="produce-image" src="Images/Vegetables/cabbage.svg"><br>
+               </div>
+               <div class="vegAmount dandelionDisplay">
+                  <span class="dandelion" id="dandelionBushels">0</span>
+                  <img class="produce-image" src="Images/Vegetables/dandelion.png"><br>
+               </div>
+               <div class="vegAmount rhubarbDisplay">
+                  <span class="rhubarb" id="rhubarbBushels">0</span>
+                  <img class="produce-image" src="Images/Vegetables/rhubarb.png"><br>
+               </div>
             </span>
          </div>
          <div class="produce-tooltip produce-tooltip-fertilizer">
@@ -121,59 +155,83 @@
          <div class="market">
             <div class="marketVegetables">
                <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/peas.png"><span class="peas-market-item"></span> </div>
+                  <div class="market-item-content">
+                     <img class="market-veg-img" src="Images/Vegetables/peas.png">
+                     <span class="peas-market-item"></span>
+                  </div>
                   <div class="buy-sell">
-                     <span class="market-item-buy" onclick="buyProduce('peas', 'Peas')">Buy</span>
-                     <span class="market-item-sell"  onclick="sellProduce('peas', 'Peas')">Sell</span>
+                     <span class="market-item-buy" onclick="buyProduce('peas')">Buy</span>
+                     <span class="market-item-sell"  onclick="sellProduce('peas')">Sell</span>
                   </div>
                </div>
                <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/corn.png"><span class="corn-market-item"></span></div>
+                  <div class="market-item-content">
+                     <img class="market-veg-img" src="Images/Vegetables/corn.png">
+                     <span class="corn-market-item"></span>
+                  </div>
                   <div class="buy-sell">
-                     <span class="market-item-buy" onclick="buyProduce('corn', 'Corn')">Buy</span>
-                     <span class="market-item-sell"  onclick="sellProduce('corn', 'Corn')">Sell</span>
+                     <span class="market-item-buy" onclick="buyProduce('corn')">Buy</span>
+                     <span class="market-item-sell"  onclick="sellProduce('corn')">Sell</span>
                   </div>
                </div>
                <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/strawberries.png"><span class="strawberries-market-item"></span></div>
+                  <div class="market-item-content">
+                     <img class="market-veg-img" src="Images/Vegetables/strawberries.png">
+                     <span class="strawberries-market-item"></span>
+                  </div>
                   <div class="buy-sell">
-                     <span class="market-item-buy" onclick="buyProduce('strawberries', 'Strawberries')">Buy</span>
-                     <span class="market-item-sell"  onclick="sellProduce('strawberries', 'Strawberries')">Sell</span>
+                     <span class="market-item-buy" onclick="buyProduce('strawberries')">Buy</span>
+                     <span class="market-item-sell"  onclick="sellProduce('strawberries')">Sell</span>
                   </div>
                </div>
                <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/eggplants.png"><span class="eggplants-market-item"></span></div>
+                  <div class="market-item-content">
+                     <img class="market-veg-img" src="Images/Vegetables/eggplants.png">
+                     <span class="eggplants-market-item"></span>
+                  </div>
                   <div class="buy-sell">
-                     <span class="market-item-buy" onclick="buyProduce('eggplants', 'Eggplants')">Buy</span>
-                     <span class="market-item-sell"  onclick="sellProduce('eggplants', 'Eggplants')">Sell</span>
+                     <span class="market-item-buy" onclick="buyProduce('eggplants')">Buy</span>
+                     <span class="market-item-sell"  onclick="sellProduce('eggplants')">Sell</span>
                   </div>
                </div>
                <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/pumpkin.svg"><span class="pumpkins-market-item"></span></div>
+                  <div class="market-item-content">
+                     <img class="market-veg-img" src="Images/Vegetables/pumpkin.svg">
+                     <span class="pumpkins-market-item"></span>
+                  </div>
                   <div class="buy-sell">
-                     <span class="market-item-buy" onclick="buyProduce('pumpkins', 'Pumpkins')">Buy</span>
-                     <span class="market-item-sell"  onclick="sellProduce('pumpkins', 'Pumpkins')">Sell</span>
+                     <span class="market-item-buy" onclick="buyProduce('pumpkins')">Buy</span>
+                     <span class="market-item-sell"  onclick="sellProduce('pumpkins')">Sell</span>
                   </div>
                </div>
                <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/cabbage.svg"><span class="cabbage-market-item"></span></div>
+                  <div class="market-item-content">
+                     <img class="market-veg-img" src="Images/Vegetables/cabbage.svg">
+                     <span class="cabbage-market-item"></span>
+                  </div>
                   <div class="buy-sell">
-                     <span class="market-item-buy" onclick="buyProduce('cabbage', 'Cabbage')">Buy</span>
-                     <span class="market-item-sell"  onclick="sellProduce('cabbage', 'Cabbage')">Sell</span>
+                     <span class="market-item-buy" onclick="buyProduce('cabbage')">Buy</span>
+                     <span class="market-item-sell"  onclick="sellProduce('cabbage')">Sell</span>
                   </div>
                </div>
                <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/dandelion.png"><span class="dandelion-market-item"></span></div>
+                  <div class="market-item-content">
+                     <img class="market-veg-img" src="Images/Vegetables/dandelion.png">
+                     <span class="dandelion-market-item"></span>
+                  </div>
                   <div class="buy-sell">
-                     <span class="market-item-buy" onclick="buyProduce('dandelion', 'Dandelion')">Buy</span>
-                     <span class="market-item-sell"  onclick="sellProduce('dandelion', 'Dandelion')">Sell</span>
+                     <span class="market-item-buy" onclick="buyProduce('dandelion')">Buy</span>
+                     <span class="market-item-sell"  onclick="sellProduce('dandelion')">Sell</span>
                   </div>
                </div>
                <div class="market-item">
-                  <div class="market-item-content"><img class="market-veg-img" src="Images/Vegetables/rhubarb.png"><span class="rhubarb-market-item"></span></div>
+                  <div class="market-item-content">
+                     <img class="market-veg-img" src="Images/Vegetables/rhubarb.png">
+                     <span class="rhubarb-market-item"></span>
+                  </div>
                   <div class="buy-sell">
-                     <span class="market-item-buy" onclick="buyProduce('rhubarb', 'Rhubarb')">Buy</span>
-                     <span class="market-item-sell"  onclick="sellProduce('rhubarb', 'Rhubarb')">Sell</span>
+                     <span class="market-item-buy" onclick="buyProduce('rhubarb')">Buy</span>
+                     <span class="market-item-sell"  onclick="sellProduce('rhubarb')">Sell</span>
                   </div>
                </div>
             </div>
@@ -527,15 +585,42 @@
          </div>
          <div class="qIM">
             <span class="seedsQuick">0</span><br>
-            <div class="vegAmount doughnutsAmountQuick"><span id="doughnutsQuick">0</span> <img class="produce-image" src="Images/Market/doughnut.png"><br></div>
-            <div class="vegAmount peasAmountQuick"><span id="peaBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/peas.png"><br></div>
-            <div class="vegAmount cornAmountQuick"><span id="cornBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/corn.png"><br></div>
-            <div class="vegAmount strawberriesAmountQuick"><span id="strawberryBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/strawberries.png"><br></div>
-            <div class="vegAmount eggplantsAmountQuick"><span id="eggplantBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/eggplants.png"><br></div>
-            <div class="vegAmount pumpkinsAmountQuick"><span id="pumpkinBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/pumpkin.svg"><br></div>
-            <div class="vegAmount cabbageAmountQuick"><span id="cabbageBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/cabbage.svg"><br></div>
-            <div class="vegAmount dandelionAmountQuick"><span id="dandelionBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/dandelion.png"><br></div>
-            <div class="vegAmount rhubarbAmountQuick"><span id="rhubarbBushelsQuick">0</span> <img class="produce-image" src="Images/Vegetables/rhubarb.png"><br></div>
+            <div class="vegAmount doughnutsDisplay">
+               <span class="doughnuts">0</span>
+               <img class="produce-image" src="Images/Market/doughnut.png"><br>
+            </div>
+            <div class="vegAmount peasDisplay">
+               <span class="peas">0</span>
+               <img class="produce-image" src="Images/Vegetables/peas.png"><br>
+            </div>
+            <div class="vegAmount cornDisplay">
+               <span class="corn">0</span>
+               <img class="produce-image" src="Images/Vegetables/corn.png"><br>
+            </div>
+            <div class="vegAmount strawberriesDisplay">
+               <span class="strawberries">0</span>
+               <img class="produce-image" src="Images/Vegetables/strawberries.png"><br>
+            </div>
+            <div class="vegAmount eggplantsDisplay">
+               <span class="eggplants">0</span>
+               <img class="produce-image" src="Images/Vegetables/eggplants.png"><br>
+            </div>
+            <div class="vegAmount pumpkinsDisplay">
+               <span class="pumpkins">0</span>
+               <img class="produce-image" src="Images/Vegetables/pumpkin.svg"><br>
+            </div>
+            <div class="vegAmount cabbageDisplay">
+               <span class="cabbage">0</span>
+               <img class="produce-image" src="Images/Vegetables/cabbage.svg"><br>
+            </div>
+            <div class="vegAmount dandelionDisplay">
+               <span class="dandelion">0</span>
+               <img class="produce-image" src="Images/Vegetables/dandelion.png"><br>
+            </div>
+            <div class="vegAmount rhubarbDisplay">
+               <span class="rhubarb">0</span>
+               <img class="produce-image" src="Images/Vegetables/rhubarb.png"><br>
+            </div>
          </div>
          <div class="alert-box"><div class="alert alert-cominin">Game Saved!</div></div>
          <span style="display: none;"><div class="fade-text">This text is fading</div></span>
