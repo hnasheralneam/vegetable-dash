@@ -115,6 +115,7 @@ function openPanels() {
    if (gameData.blackMarketOpen) { showObj('.marketShadow'); showObj('.blackMarketShadow'); gameData.marketOpen = true; }
    if (gameData.tasksOpen) { taskBar("close"); }
    if (gameData.shopOpen) { toggleWindow('shop'); }
+   if (gameData.genelabOpen) { toggleWindow('genelab'); }
 }
 function cursorInit() {
    setInterval(() => {

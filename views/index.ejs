@@ -149,6 +149,7 @@
          <img onmouseover="info(this)" data-info="Market" onclick="showObj('.marketShadow'); gameData.marketOpen = true;" class="commandBarImg" src="Images/Icons/market.svg">
          <img onmouseover="info(this)" data-info="Settings" onclick="showObj('.settingShadow'); gameData.settingsOpen = true;" class="commandBarImg" src="Images/Icons/settings.svg">
          <img onmouseover="info(this)" data-info="Shop" onclick="toggleWindow('shop'); gameData.shopOpen = true;" class="commandBarImg" src="Images/Icons/market.svg">
+         <img onmouseover="info(this)" data-info="Hybridization Lab" onclick="toggleWindow('genelab'); gameData.genelabOpen = true;" class="commandBarImg" src="New/dna.png">
       </div>
       <!-- Market -->
       <div class="marketShadow">
@@ -342,6 +343,8 @@
             </div>
          </div>
       </div>
+      <!-- Gene lab -->
+      <%- include("partials/genelab"); %>
       <!-- Other -->
       <div>
          <!-- Help -->
@@ -575,7 +578,7 @@
             <img src="New/dna.png">
             <p class="main-value main-values-genes"></p>
          </div>
-            <div id="menu">
+         <div id="menu">
             <li class="menu-links"><a href="https://meetsquirrel.github.io">Who's Squirrel?</a></li>
             <li class="menu-links"><a href="https://squirrel-314.github.io">Gold Rush!</a></li>
             <hr>

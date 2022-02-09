@@ -150,6 +150,7 @@ let initGameData = {
     blackMarketOpen: false,
     tasksOpen: false,
     shopOpen: false,
+    genelabOpen: false,
     // Tasks
     isInSave: true,
     taskBox1: "unoccupied",

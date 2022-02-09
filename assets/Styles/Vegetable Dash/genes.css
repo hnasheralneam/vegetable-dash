@@ -1,0 +1,132 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Other
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Tree
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+body {
+   font-family: Calibri, Segoe, "Segoe UI", "Gill Sans", "Gill Sans MT", sans-serif;
+}
+
+.window-genelab .page {
+   background-color: #103878;
+}
+
+.window-genelab .tab-bar {
+   background-color: #042457;
+}
+
+.window-genelab .tab {
+   color: #f5f5f5;
+   background-color: #103878;
+}
+
+.trait {
+   padding: 1vh;
+   display: inline-block;
+   margin: -1vh .5vh .5vh .5vh;
+   background-color: #f8f8f850;
+   border-radius: 1.5vh;
+   display: inline-grid;
+   grid-template-columns: auto auto;
+}
+
+.trait-img-parent {
+   display: inline-block;
+   height: 35vh;
+   width: 35vh;
+   background-image: url("/New/ring.png");
+   background-size: 35vh;
+   border-radius: 100%;
+}
+
+.trait-img {
+   margin: 7.5vh;
+   height: 20vh;
+   border-radius: 100%;
+}
+
+.trait-name {
+   display: inline-block;
+}
+
+
+
+ /* It's supposed to look like a tree diagram */
+ .tree, .tree ul, .tree li {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+   position: relative;
+ }
+ 
+ .tree {
+   margin: 0 0 1em;
+   text-align: center;
+ }
+ .tree, .tree ul {
+   display: table;
+ }
+ .tree ul {
+   width: 100%;
+ }
+.tree li {
+   display: table-cell;
+   padding: .5em 0;
+   vertical-align: top;
+}
+/* _________ */
+.tree li:before {
+   outline: solid .5vh #fff;
+   content: "";
+   left: 0;
+   position: absolute;
+   right: 0;
+   top: 0;
+}
+.tree li:first-child:before { left: 50%; }
+.tree li:last-child:before { right: 50%; }
+ 
+.tree span {
+   border: solid .1em #fff;
+   border-radius: .2em;
+   display: inline-block;
+   margin: 0 .2em .5em;
+   padding: .2em .5em;
+   position: relative;
+}
+ 
+/* | */
+.tree ul:before,
+.tree .trait:before,
+.tree span:before {
+   outline: solid .5vh #fff;
+   content: "";
+   height: .5vh;
+   left: 50%;
+   position: absolute;
+}
+.tree ul:before {
+   top: -.5em;
+}
+.tree .trait:before,
+.tree span:before {
+   top: -.5em;
+}
+ 
+ /* The root node doesn't connect upwards */
+.tree > li { margin-top: 0; }
+.tree > li:before,
+.tree > li:after,
+.tree > li > .trait:before,
+.tree > li > span:before {
+   outline: none;
+}
