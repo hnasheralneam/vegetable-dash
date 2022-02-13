@@ -1,28 +1,85 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Color theme
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 ::-webkit-scrollbar {
    display: none;
 }
 
-.chatbox {
-  position: fixed;
-  bottom: 2vh;
-  right: 2vh;
-  height: 7vh;
-  width: 7vh;
-  background-color: #f5f5f5;
-  font-size: 4vh;
-  font-family: "Nunito";
-  color: #222;
-  border-radius: 1.5vh;
-  overflow: hidden;
-  transition: .2s;
+/* Light root */
+:root {
+   --txt-color: #222;
+   --bg-color: #fff;
+   --msg-bg-color: #f6f6f6;
+   --msg-othr-bg: #FFFCF4;
+   --msg-your-bg: #E1FFF3;
+   --img-bg: #f4a460;
 }
 
-.chatbox.open {
-   height: 95vh;
-   width: 25vw;
-   overflow: auto;
+/* Dark root */
+:root {
+   --txt-color: #f8f8f8;
+   --bg-color: #222;
+   --msg-bg-color: #111;
+   --msg-othr-bg: #523C00;
+   --msg-your-bg: #004328;
 }
-  
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Actuall Chatbox
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.chatbox {
+   position: fixed;
+   bottom: .3vh;
+   right: .3vh;
+   height: 7vh;
+   width: 7vh;
+   background-color: var(--bg-color);
+   font-size: 4vh;
+   font-family: "Nunito";
+   color: var(--txt-color);
+   box-shadow: 0 0 .3vh #00000020;
+   border-radius: 100% 0 0 0;
+   overflow: hidden;
+   transition: .2s;
+ }
+ 
+ .chatbox.open {
+    height: 99.4vh;
+    width: 30vw;
+    overflow: auto;
+    border-radius: .5vh;
+ }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Menubar
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.chatbox .chat-menubar {
+   position: sticky;
+   top: 0;
+   left: 0;
+   right: 0;
+   pointer-events: none;
+   height: 10vh;
+   width: 100%;
+   background-color: var(--msg-bg-color);
+   z-index: 2;
+}
+ 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Other
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 .chatbox .messages {
    margin: 0 0 -4vh 0;
 }
@@ -33,15 +90,15 @@
    max-width: 35vw;
 }
   
-.chatbox .image {
+.message .image {
    position: absolute;
    top: -2.2vh;
    left: -1.2vh;
    height: 8vh;
    width: 8vh;
    border-radius: 100%;
-   background-color: sandybrown;
-   border: solid 2vh #f5f5f5
+   background-color: var(--img-bg);
+   border: solid 2vh var(--bg-color);
 }
   
 .chatbox .image-right {
@@ -51,8 +108,8 @@
    height: 8vh;
    width: 8vh;
    border-radius: 100%;
-   background-color: sandybrown;
-   border: solid 2vh #f5f5f5
+   background-color: var(--img-bg);
+   border: solid 2vh var(--bg-color);
 }
   
 .chatbox .shape {
@@ -71,14 +128,14 @@
   
 .chatbox .message .little-chat-box {
    font-size: 2.5vh;
-   background-color: #ddd;
+   background-color: var(--msg-othr-bg);
    border-radius: 2vh;
    padding: 1.5vh;
 }
   
 .chatbox .message-right .little-chat-box {
    font-size: 2.5vh;
-   background-color: #c3ddeb;
+   background-color: var(--msg-your-bg);
    border-radius: 2vh;
    padding: 1.5vh;
 }
@@ -95,7 +152,8 @@
    bottom: 0;
    padding: 3vh 10vh 3vh 3vh;
    font-size: 3vh;
-   background-color: #eee;
+   color: var(--txt-color);
+   background-color: var(--msg-bg-color);
    border: none;
    box-sizing: border-box;
 }
@@ -106,10 +164,20 @@
 
 .chatbox .time {
    font-size: 2vh;
-   color: #595959;
+   color: #6A6C6E;
 }
 
-/* Edit messages */
+/*
+D7FFEF
+BAFFE4
+*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Edit Messages
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 .chat-edit-img {
    position: absolute;
    bottom: 4vh;
@@ -151,11 +219,15 @@
    outline: none;
 }
 
+.edit-msg-btns {
+   display: grid;
+   grid-template-columns: auto auto;
+}
+
 .edit-message-btn {
-   width: 100%;
+   display: inline;
    padding: 1.5vh;
    font-size: 2vh;
-   background-color: #eee;
    border: none;
    border-radius: 1vh;
    box-sizing: border-box;
@@ -167,15 +239,40 @@
    transform: scale(1.01);
 }
 
-/* Close chat image */
+.edit-message-btn.save-msg {
+   width: 60%;
+   background-color: #eee;
+}
+
+.edit-message-btn.delete-msg {
+   width: 20%;
+   background-color: #e25050;
+}
+
+.edit-message-btn.delete-msg span {
+   color: #f8f8f8;
+}
+
+.edit-message-btn.delete-msg:hover {
+   background-color: #c22d2d;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Toggle Image
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 .chat-close-img {
    position: fixed;
-   right: 2.5vh;
-   bottom: 2.5vh;
-   height: 6vh;
+   right: 0;
+   bottom: 0;
+   height: 7vh;
+   border-radius: 100% 0 0 0;
    transition: .2s;
 }
 
 .chatbox.open .chat-close-img {
    height: 8.5vh;
+   border-radius: 0;
 }

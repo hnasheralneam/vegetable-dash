@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="Styles/partials-signin.css">
+<div class="signup-modal">
+   <div class="signup-modal-inner">
+      <h2>Sign Up</h2>
+      <p class="signup-text">Hello, and Welcome!</p>
+      <form method="POST" action="/create-account" method="post" id="signup-from-homepage">
+         <input class="input-text" type="text" name="name" minlength="2" maxlength="16" placeholder="Name" required>
+         <input class="input-text" type="email" name="emil" placeholder="Email" required>
+         <input class="input-text" type="password" name="pscd" placeholder="Password" minlength="4" maxlength="4" required>
+         <input class="input-submit menu-option" type="submit" name="" value="Create Account">
+      </form>
+      <br>
+      <p class="menu-option" onclick="document.querySelector('.signin-modal').style.display = 'flex'; document.querySelector('.signup-modal').style.display = 'none'">Already have an account? Sign in!</p>
+   </div>
+</div>
+<script>
+$("#signup-from-homepage").submit(function(event) {
+   event.preventDefault();
+   $.post("/create-account", {
+      name: this.name.value,
+      emil: this.emil.value,
+      pscd: this.pscd.value
+   }).done(function(data) {
+      document.querySelector(".signup-text").textContent = data;
+      if (data == "Successful signup!") { location.reload(); }
+   });
+});
+</script>

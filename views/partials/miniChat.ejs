@@ -1,16 +1,22 @@
+<script src="https://malsup.github.io/jquery.form.js"></script> 
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
 <link rel="stylesheet" href="Styles/cornerchat.css">
 <div class="chatbox">
+   <!-- Menubar -->
+   <div class="chat-menubar">
+      <p>hi</p>
+   </div>
    <br>
-    <h3 class="chat-title">Chat</h3>
-    <div class="messages">
-       <%foundItems.forEach(function(item) {%>
-          <% if (item.user == user.name) { %>
+   <h3 class="chat-title">Chat</h3>
+   <div class="messages">
+      <%foundItems.forEach(function(item) {%>
+         <% if (item.user == user.name) { %>
             <!-- This user's messages -->
             <div class="message message-right" data-id="<%=item._id%>">
                <img title="<%=item.user%> " class="image-right" src=<%= `Avatars/${item.avatar}.png` %>>
                <div class="shape-right"></div>
                <div class="little-chat-box">
-                  <%=item.input%>
+                  <span class="chat-text"><%=item.input%></span>
                   <br>
                   <% if (item.datePosted) { %>
                      <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
@@ -22,52 +28,43 @@
                         }
                         else { this.parentNode.classList.add('open'); }
                      ">
-                     <form action="edit-message" method="POST">
-                        <input class="edit-message-input" type="text" name="newMessage" placeholder="New text..."><br>
-                        <input style="display: none;" type="text" name="msgId" value="<%=item._id%>"><br>
-                        <button class="edit-message-btn" type="text">Save</button>
-                     </form>
-                     <form action="delete-message" method="POST">
-                        <input style="display: none;" type="text" name="msgId" value="<%=item._id%>"><br>
-                        <button class="edit-message-btn" type="text">Delete Message</button>
-                     </form>
-                 </div>
+                     <div class="edit-msg-btns">
+                        <form action="edit-message" method="POST">
+                           <input class="edit-message-input" type="text" name="newMessage" placeholder="New text..."><br>
+                           <input style="display: none;" type="text" name="msgId" value="<%=item._id%>"><br>
+                           <button class="edit-message-btn save-msg" type="text">Save</button>
+                        </form>
+                        <form action="delete-message" class="delete-msg" method="POST">
+                           <input style="display: none;" type="text" name="msgId" value="<%=item._id%>"><br>
+                           <button class="edit-message-btn delete-msg" type="text">
+                              <span class="material-icons-round">delete_outline</span>
+                           </button>
+                        </form>
+                     </div>
+                  </div>
                </div>
             </div>
-          <%} else { %>
-             <div class="message">
-                <img title="<%=item.user%> " class="image" src=<%= `Avatars/${item.avatar}.png` %>>
-                <div class="shape"></div>
-                <div class="little-chat-box">
-                   <%=item.input%>
-                   <br>
-                   <% if (item.datePosted) { %>
-                     <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
+            <!-- Here are the messages by other people -->
+            <%} else { %>
+               <div class="message">
+                  <img title="<%=item.user%>" class="image" src=<%= `Avatars/${item.avatar}.png` %>>
+                  <div class="shape"></div>
+                  <div class="little-chat-box">
+                     <%=item.input%>
+                     <br>
+                     <% if (item.datePosted) { %>
+                        <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
                      <% } %>
-                   </div>
-             </div>
-          <% } %>
-      <%})%>
-    </div>
-    <form action="chat-message" method="POST">
-      <input style="display: none;" class="chat-posted-time" type="text" name="time"><br>
+                  </div>
+               </div>
+            <% } %>
+      <%});%>
+   </div>
+   <form action="chat-message" method="POST" id="post-chat-msg">
+      <input style="display: none;" class="chat-posted-time" type="date" name="time"><br>
       <input class="input" type="text" name="message" placeholder="Message..." required><br>
       <button style="display: none;" class="chatbox-post" type="text">Post</button>
    </form>
-   <img class="chat-close-img" src="Chat/chat.png" onclick="if (document.querySelector('.chatbox').classList.contains('open')) { document.querySelector('.chatbox').classList.remove('open'); scrlToTop(); } else { document.querySelector('.chatbox').classList.add('open'); scrlToBottom(); }">
+   <img class="chat-close-img" src="Chat/chat.png" onclick="toggleChat()">
 </div>
-<script>
-function scrlToBottom() {
-   var objDiv = document.querySelector(".chatbox");
-   objDiv.scrollTop = objDiv.scrollHeight;
-}
-function scrlToTop() {
-   var objDiv = document.querySelector(".chatbox");
-   objDiv.scrollTop = 0;
-}
-
-setInterval(() => {
-   let timeNow = new Date();
-   document.querySelector(".chat-posted-time").value = timeNow.toString();
-}, 500);
-</script>
+<script src="Scripts/miniChat.js"></script>

@@ -122,6 +122,17 @@ setInterval(() => {
 // Get requests
 ============= */
 
+// Public user pages
+app.get("/users/:username", (req, res) => {
+   UserData.findOne({ name: req.params.username }, (err, user) => {
+      if (err) { console.error(err); }
+      else if (user == null) { res.render("no-such-user"); }
+      else { res.render("user-profile", { user: user, name: user.name }); }
+   });
+ });
+ 
+ 
+
 // If someone in the browser types a /,  it's go to the homepage
 app.get("/", (req, res) => {
    // This is how to get data from Mongo
@@ -173,12 +184,6 @@ app.get("/chat", (req, res) => {
 app.get("/create-account", (req, res) => {
    // Err text will be displayed on the page. It's called errtext because we'll be sending any errers to the same place
    res.render("signup", { errText: "Create your account. WARNING: do not use your real name or a password from another account, for none of the data is encrypted." });
-});
-
-app.get("/sign-in", (req, res) => {
-   // If you're already signed in, redirect to the homepage
-   if (!signedIn) { res.render("signin", { text: "Sign into your account!" }); }
-   else { res.redirect("/"); }
 });
 
 app.get("/sign-out", (req, res) => {
@@ -246,13 +251,13 @@ app.post("/create-account", (req, res) => {
    async function heyThere() {
       // Check name and email
       let isAlreadyUsedName = await UserData.findOne({ name: req.body.name });
-      if (isAlreadyUsedName) { res.render("signup", { errText: "Choose a different name! (This one is taken!)" }); }
+      if (isAlreadyUsedName) { res.send("Choose a different name! (This one is taken!)"); }
       else {
-         let isAlreadyUsedEmil = await UserData.findOne({ name: req.body.emil });
-         if (isAlreadyUsedEmil) { res.render("signup", { errText: "Email is already used." }); }
+         let isAlreadyUsedEmil = await UserData.findOne({ email: req.body.emil });
+         if (isAlreadyUsedEmil) { res.send("This email is already used!"); }
          else {
             // Create account
-            if (parseInt(req.body.pscd) === NaN) { console.log("Passcode must contain only numbers!"); return false; }
+            if (parseInt(req.body.pscd) === NaN) { res.send("Passcode must contain only numbers!"); return false; }
             else {
                const newUser = new UserData({
                   userCode: uuidv4(),
@@ -268,8 +273,8 @@ app.post("/create-account", (req, res) => {
                // Sign in and go home
                UserData.findOne({ name: req.body.name, email: req.body.emil, passcode: req.body.pscd }, (err, user) => {
                   if (err) return console.error(err);
-                  else { res.redirect("/"); }
-               });            
+                  else { res.send("Successful signup!"); }
+               });
             }
          }
       }
@@ -280,11 +285,11 @@ app.post("/create-account", (req, res) => {
 app.post("/signin", (req, res) => {
    UserData.findOne({ name: req.body.name, email: req.body.emil, passcode: req.body.pscd }, (err, user) => {
       if (err) return console.error(err);
-      if (!user) { res.render("signin", { text: "The data dosen't line up. Try again!" }); }
+      if (!user) { res.send("The data dosen't line up. Try again!"); }
       else if (user) {
          signedIn = true;
          signedInUser = user;
-         res.redirect("back");
+         res.send("Successful signin!");
       }
    });
 });
@@ -333,17 +338,16 @@ app.post("/change-account-info", (req, res) => {
 ============= */
 
 app.post("/chat-message", (req, res) => {
-   let timePosted = new Date(req.body.time);
+   let timePosted = new Date(req.body.datePosted);
    const newChat = new Chat({
-      input: req.body.message,
+      input: req.body.input,
       user: signedInUser.name,
       avatar: signedInUser.avatar,
       datePosted: timePosted
    });
-   newChat.save(function(err){
-      if (err) {
-         console.log(err);
-      } else { res.redirect("back"); }
+   newChat.save((err, result) => {
+      if (err) { console.log(err); }
+      else { res.send(result); return result; }
    });
 }); 
 
@@ -369,6 +373,7 @@ app.post("/delete-message", (req, res) => {
    Chat.findOne({ name: signedInUser.name }, (err, doc) => {
       if (err) return console.error(err);
       else { res.redirect("/"); }
+      // else { res.send(doc); return doc; }
    });
 });
 
@@ -469,6 +474,11 @@ io.on("connection", (socket) => {
       if (listOfPeers.indexOf(5) > -1) { listOfPeers.splice(listOfPeers.indexOf(userId), 1); }
       socket.broadcast.emit("user-disconnected", userId);
    });
+});
+
+// Get all lost requests
+app.get("*", (req, res) => {
+   res.render("page-not-found");
 });
 
 // This is what actually starts the server
