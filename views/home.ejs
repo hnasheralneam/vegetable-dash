@@ -121,20 +121,20 @@
             </div>
          </div>
       </div>
-      <div class="tab-window-backdrop window-chats"  >
+      <div class="tab-window-backdrop window-chats">
          <div class="tab-window">
             <div class="tab-bar">
-               <div class="tab tab-chats tab-chats-private active-tab" onclick="scrollToSection('chats','private')">Private Chats</div>
+               <div class="tab tab-chats tab-chats-private active-tab" onclick="scrollToSection('chats', 'private')">Private Chats</div>
                <span class="window-close" onclick="toggleWindow('chats')">x</span>
             </div>
             <div class="tab-pages">
                <div id="page-chats-private" class="createChat page">
                   <p class="big-title">Make a private chat</p><br>
-                  <p>(Feature currently unavalible)</p>
-                  <p class="p-tag">1. Name the chat</p>
-                  <p class="p-tag">2. Choose who to invite (note - you can only invite friends)</p>
-                  <p class="p-tag">3. Create it!</p>
-                  <button>Let's go!</button>
+                  <form action="/new-chat" method="POST">
+                     <p class="p-tag">1. Name the chat (can't chage later yet)</p>
+                     <input type="text" name="name" value="Example name">
+                     <input class="post-button" value="Create!" type="submit">
+                  </form>
                </div>
             </div>
          </div>
@@ -180,7 +180,8 @@
                   </form>
                   <p class="stylish-p">Avatar icons made by <a class="a" href="https://www.flaticon.com/authors/vitaly-gorbachev" title="Vitaly Gorbachev">Vitaly Gorbachev</a> from <a class="a" href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></p><br>
                   <a class="a" href="https://www.flaticon.com/free-icons/pencil" title="pencil icons">Chat pencil icon created by Freepik - Flaticon</a><br>
-                  <a class="a" href="https://www.flaticon.com/free-icons/people" title="people icons">People icons created by Pixel perfect - Flaticon</a>          
+                  <a class="a" href="https://www.flaticon.com/free-icons/people" title="people icons">People icons created by Pixel perfect - Flaticon</a>
+                  <a href="https://www.flaticon.com/free-icons/speech-bubble" title="speech bubble icons">Speech bubble icons created by Freepik - Flaticon</a>   
                </div>
             </div>
          </div>

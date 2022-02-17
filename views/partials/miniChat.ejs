@@ -4,9 +4,47 @@
 <div class="chatbox">
    <!-- Menubar -->
    <div class="chat-menubar">
-      <p>hi</p>
+      <img class="chat-close-img" src="Chat/speech-bubble.png" onclick="toggleChat()" title="double-click c to toggle">
+      <span class="material-icons-round chat-menu-icon" onclick="window.location = '/start-video'">videocam</span>
+      <span class="material-icons-round chat-menu-icon">settings</span>
+      <span class="material-icons-round chat-menu-icon">group</span>
+      <span class="material-icons-round chat-menu-icon" onclick="toggleChatMenu()">loop</span>
    </div>
+
+   <!-- Messages and stuff -->
    <br>
+   <!-- Template -->
+   <div class="template-parent">
+      <div class="message message-right">
+         <img title="" class="image-right">
+         <div class="shape-right"></div>
+         <div class="little-chat-box">
+            <span class="chat-text"></span>
+            <br>
+            <span class="time"></span>
+            <div class="chat-edit-message">
+               <img class="chat-edit-img" src="Chat/pencil.png" onclick="
+               if (this.parentNode.classList.contains('open')) {
+                  this.parentNode.classList.remove('open');
+               } else { this.parentNode.classList.add('open'); }
+               ">
+               <div class="edit-msg-btns">
+                  <form action="edit-message" method="POST">
+                     <input class="edit-message-input" type="text" name="newMessage" placeholder="New text..."><br>
+                     <input style="display: none;" type="text" name="msgId" value=""><br>
+                     <button class="edit-message-btn save-msg" type="text">Save</button>
+                  </form>
+                  <form class="remove-msg" action="delete-message" method="POST">
+                     <input class="msgIdDel" style="display: none;" type="text" name="msgId" value=""><br>
+                     <button class="edit-message-btn delete-msg" type="text">
+                        <span class="material-icons-round">delete_outline</span>
+                     </button>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
    <h3 class="chat-title">Chat</h3>
    <div class="messages">
       <%foundItems.forEach(function(item) {%>
@@ -34,7 +72,7 @@
                            <input style="display: none;" type="text" name="msgId" value="<%=item._id%>"><br>
                            <button class="edit-message-btn save-msg" type="text">Save</button>
                         </form>
-                        <form action="delete-message" class="delete-msg" method="POST">
+                        <form class="remove-msg" action="delete-message" method="POST">
                            <input style="display: none;" type="text" name="msgId" value="<%=item._id%>"><br>
                            <button class="edit-message-btn delete-msg" type="text">
                               <span class="material-icons-round">delete_outline</span>
@@ -65,6 +103,15 @@
       <input class="input" type="text" name="message" placeholder="Message..." required><br>
       <button style="display: none;" class="chatbox-post" type="text">Post</button>
    </form>
-   <img class="chat-close-img" src="Chat/chat.png" onclick="toggleChat()">
+
+   <!-- Switch chat -->
+   <div class="menu-switchchat">
+      <%chats.forEach(function(obj) {%>
+         <% if (user.chats.includes(obj.code)) { %>
+            <p><%= obj.code %> : <%= obj.name %></p>
+         <% } %>
+      <%});%>
+   </div>
+
 </div>
 <script src="Scripts/miniChat.js"></script>

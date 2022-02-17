@@ -19,13 +19,13 @@
 }
 
 /* Dark root */
-:root {
+/* :root {
    --txt-color: #f8f8f8;
    --bg-color: #222;
    --msg-bg-color: #111;
    --msg-othr-bg: #523C00;
    --msg-your-bg: #004328;
-}
+} */
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
@@ -35,26 +35,50 @@
 
 .chatbox {
    position: fixed;
-   bottom: .3vh;
-   right: .3vh;
-   height: 7vh;
-   width: 7vh;
+   bottom: 0;
+   right: 0;
+   height: 10vh;
+   width: 10vh;
    background-color: var(--bg-color);
    font-size: 4vh;
    font-family: "Nunito";
    color: var(--txt-color);
    box-shadow: 0 0 .3vh #00000020;
-   border-radius: 100% 0 0 0;
+   border-radius: 2vh;
    overflow: hidden;
    transition: .2s;
- }
+}
  
- .chatbox.open {
-    height: 99.4vh;
-    width: 30vw;
-    overflow: auto;
-    border-radius: .5vh;
- }
+.chatbox.open {
+   height: 100vh;
+   width: 30vw;
+   overflow: auto;
+   border-radius: 0;
+}
+
+.chat-menu-icon {
+   float: right;
+   margin: 2vh 1vh;
+   font-size: 6vh;
+   line-height: 1;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Menu: switchchat
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.menu-switchchat {
+   position: absolute;
+   top: 0;
+   left: 100%;
+   height: 100%;
+   width: 100%;
+   padding: 10vh 2vh;
+   background-color: #fefefe;
+   z-index: -1.5;
+}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
@@ -67,11 +91,16 @@
    top: 0;
    left: 0;
    right: 0;
-   pointer-events: none;
    height: 10vh;
    width: 100%;
    background-color: var(--msg-bg-color);
    z-index: 2;
+}
+
+/* Toggle Image */
+.chat-close-img {
+   margin: 1vh;
+   height: 8vh;
 }
  
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -79,6 +108,8 @@
 // Other
 //
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.template-parent { display: none; }
 
 .chatbox .messages {
    margin: 0 0 -4vh 0;
@@ -145,10 +176,26 @@
    padding-bottom: .5vh;
    margin: .5vh;
 }
-  
+
+.chatbox .time {
+   font-size: 2vh;
+   color: #6A6C6E;
+}
+
+/*
+D7FFEF
+BAFFE4
+*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Post message
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 .chatbox .input {
    position: sticky;
-   width: 25vw;
+   width: 30vw;
    bottom: 0;
    padding: 3vh 10vh 3vh 3vh;
    font-size: 3vh;
@@ -161,16 +208,6 @@
 .chatbox .input:focus {
    outline: none;
 }
-
-.chatbox .time {
-   font-size: 2vh;
-   color: #6A6C6E;
-}
-
-/*
-D7FFEF
-BAFFE4
-*/
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
@@ -255,24 +292,4 @@ BAFFE4
 
 .edit-message-btn.delete-msg:hover {
    background-color: #c22d2d;
-}
-
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//
-// Toggle Image
-//
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-.chat-close-img {
-   position: fixed;
-   right: 0;
-   bottom: 0;
-   height: 7vh;
-   border-radius: 100% 0 0 0;
-   transition: .2s;
-}
-
-.chatbox.open .chat-close-img {
-   height: 8.5vh;
-   border-radius: 0;
 }
