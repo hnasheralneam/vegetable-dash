@@ -20,7 +20,7 @@
       <div class="page">
          <div class="menubar">
             <img class="menu-logo" src="https://raw.githubusercontent.com/Squirrel-314/vegetable-dash/6350bdf2e9a47f1dc38f5f7b0077850877563f8d/assets/Images/Global%20Assets/logo.svg" alt="Vegetable Dash">
-            <img class="menu-userimg" alt="Your avatar" src=<%= `Avatars/${user.avatar}.png` %>>
+            <img class="menu-userimg" alt="Your avatar" src=<%= `Images/Avatars/${user.avatar}.png` %>>
             <div class="menu-username">
                <p>Welcome, <%- user.name %></p>
             </div>
@@ -56,7 +56,7 @@
                         <% if (user.friends.includes(someUser.userCode)) { %>
                            <div class="friend">
                               <p class="num"><%=user.friends.indexOf(someUser.userCode) + 1%></p>
-                              <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
+                              <img class="avatar" src=<%= `Images/Avatars/${someUser.avatar}.png` %>><br>
                               <p class="name"><%=someUser.name%></p>
                            </div>
                         <%}%>
@@ -71,7 +71,7 @@
                         <% if (user.friendInvitesSent.includes(someUser.userCode)) { %>
                            <div class="friend">
                               <p class="num"><%=user.friendInvitesSent.indexOf(someUser.userCode) + 1%></p>
-                              <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
+                              <img class="avatar" src=<%= `Images/Avatars/${someUser.avatar}.png` %>><br>
                               <p class="name"><%=someUser.name%></p>
                            </div>
                         <%}%>
@@ -86,7 +86,7 @@
                         <% if (user.friendInvitesRecived.includes(someUser.userCode)) { %>
                            <div class="friend">
                               <p class="num"><%=user.friendInvitesRecived.indexOf(someUser.userCode) + 1%></p>
-                              <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
+                              <img class="avatar" src=<%= `Images/Avatars/${someUser.avatar}.png` %>><br>
                               <p class="name"><%=someUser.name%></p>
                               <form action="accept-friend-request" method="POST">
                                  <input style="display: none;" name="thisUser" value="<%- user.userCode %>">
@@ -106,7 +106,7 @@
                         <% if (someUser.userCode !== user.userCode && !user.friends.includes(someUser.userCode) && !user.friendInvitesSent.includes(someUser.userCode) && !user.friendInvitesRecived.includes(someUser.userCode)) { %>
                            <div class="friend">
                               <p class="num"><%=i + 1%></p>
-                              <img class="avatar" src=<%= `Avatars/${someUser.avatar}.png` %>><br>
+                              <img class="avatar" src=<%= `Images/Avatars/${someUser.avatar}.png` %>><br>
                               <p class="name"><%=someUser.name%></p>
                               <form action="send-friend-request" method="POST">
                                  <input style="display: none;" name="thisUser" value="<%- user.userCode %>">
@@ -161,20 +161,20 @@
                   <p>Change your avatar!</p>
                   <form id="chooseAvatarForm" action="choose-avatar" method="POST">
                      <div class="choose-avatar-parent">
-                        <label><input type="radio" name="avatar" value="1" checked><img class="choose-avatar" src="Avatars/1.png"></label>
-                        <label><input type="radio" name="avatar" value="2"><img class="choose-avatar" src="Avatars/2.png"></label>
-                        <label><input type="radio" name="avatar" value="3"><img class="choose-avatar" src="Avatars/3.png"></label>
-                        <label><input type="radio" name="avatar" value="4"><img class="choose-avatar" src="Avatars/4.png"></label>
-                        <label><input type="radio" name="avatar" value="5"><img class="choose-avatar" src="Avatars/5.png"></label>
-                        <label><input type="radio" name="avatar" value="6"><img class="choose-avatar" src="Avatars/6.png"></label>
-                        <label><input type="radio" name="avatar" value="7"><img class="choose-avatar" src="Avatars/7.png"></label>
-                        <label><input type="radio" name="avatar" value="8"><img class="choose-avatar" src="Avatars/8.png"></label>
-                        <label><input type="radio" name="avatar" value="9"><img class="choose-avatar" src="Avatars/9.png"></label>
-                        <label><input type="radio" name="avatar" value="10"><img class="choose-avatar" src="Avatars/10.png"></label>
-                        <label><input type="radio" name="avatar" value="11"><img class="choose-avatar" src="Avatars/11.png"></label>
-                        <label><input type="radio" name="avatar" value="12"><img class="choose-avatar" src="Avatars/12.png"></label>
-                        <label><input type="radio" name="avatar" value="13"><img class="choose-avatar" src="Avatars/13.png"></label>
-                        <label><input type="radio" name="avatar" value="14"><img class="choose-avatar" src="Avatars/14.png"></label>    
+                        <label><input type="radio" name="avatar" value="1" checked><img class="choose-avatar" src="Images/Avatars/1.png"></label>
+                        <label><input type="radio" name="avatar" value="2"><img class="choose-avatar" src="Images/Avatars/2.png"></label>
+                        <label><input type="radio" name="avatar" value="3"><img class="choose-avatar" src="Images/Avatars/3.png"></label>
+                        <label><input type="radio" name="avatar" value="4"><img class="choose-avatar" src="Images/Avatars/4.png"></label>
+                        <label><input type="radio" name="avatar" value="5"><img class="choose-avatar" src="Images/Avatars/5.png"></label>
+                        <label><input type="radio" name="avatar" value="6"><img class="choose-avatar" src="Images/Avatars/6.png"></label>
+                        <label><input type="radio" name="avatar" value="7"><img class="choose-avatar" src="Images/Avatars/7.png"></label>
+                        <label><input type="radio" name="avatar" value="8"><img class="choose-avatar" src="Images/Avatars/8.png"></label>
+                        <label><input type="radio" name="avatar" value="9"><img class="choose-avatar" src="Images/Avatars/9.png"></label>
+                        <label><input type="radio" name="avatar" value="10"><img class="choose-avatar" src="Images/Avatars/10.png"></label>
+                        <label><input type="radio" name="avatar" value="11"><img class="choose-avatar" src="Images/Avatars/11.png"></label>
+                        <label><input type="radio" name="avatar" value="12"><img class="choose-avatar" src="Images/Avatars/12.png"></label>
+                        <label><input type="radio" name="avatar" value="13"><img class="choose-avatar" src="Images/Avatars/13.png"></label>
+                        <label><input type="radio" name="avatar" value="14"><img class="choose-avatar" src="Images/Avatars/14.png"></label>    
                      </div>
                      <input class="post-button" value="Pick" type="submit">
                   </form>

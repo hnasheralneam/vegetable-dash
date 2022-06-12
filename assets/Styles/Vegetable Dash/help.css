@@ -74,14 +74,6 @@
    font-family: "Nunito";
    text-decoration: underline;
 }
-.help-center-img {
-   height: 8vh;
-   position: fixed;
-   top: 2vh;
-   left: 2vh;
-   transition: .25s;
-}
-.help-center-img:hover { transform: scale(1.05); }
 .help a {
    color: lightblue;
    text-decoration: none;

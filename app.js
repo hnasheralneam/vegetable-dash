@@ -5,6 +5,7 @@ Hey! I've commented all the code with explanitory tips, if it's missing somthing
 // Data
 ============= */
 // System variables (These are basically JS libraries)
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -15,7 +16,7 @@ const { v4: uuidv4 } = require('uuid');
 // Start an express app. Express makes it easier to route things
 const app = express();
 // Choose the port it's running on. This checks if there's an enviroment variable (production), and if not, runs it on localhost 3000
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 // This starts mongoose, the library we're using to connect to the MongoDB database. It makes it easier to fetch and save data.
 const connection = mongoose.connection;
 
@@ -153,6 +154,11 @@ function getNewpageData() {
 // Get requests
 ============= */
 
+async function letsGoTo(RES, page) {
+   let returnedData = await getNewpageData();
+   RES.render(page, returnedData);
+}
+
 // Public user pages
 app.get("/users/:username", (req, res) => {
    UserData.findOne({ name: req.params.username }, (err, user) => {
@@ -166,17 +172,13 @@ app.get("/users/:username", (req, res) => {
 app.get("/", (req, res) => {
    // Because we set the view engine as ejs, this will render the home.ejs file in the view foler
    // The second input is an object with the variables we'll send to the page
-   letsGo();
-   async function letsGo() {
-      let returnedData = await getNewpageData();
-      res.render("home", returnedData);
-   }
+   letsGoTo(res, "home");
 });
 
 // Gets requests from /vegetable-dash
 app.get("/vegetable-dash", (req, res) => {
    // If the user is signed in, go to the index file
-   if (signedInUser !== "not signed in") { res.render("index", getNewpageData()); }
+   if (signedInUser !== "not signed in") { letsGoTo(res, "index"); }
    else { res.redirect("/"); }
 });
 
@@ -325,7 +327,7 @@ app.post("/change-account-info", (req, res) => {
                (err, doc) => {
                   if (err) return console.error(err);
                   else {
-                     sendEmail("✉️ Email & Name Updated! ✉️", "<h2>✉️ Email & Name Updated! ✉️</h2><h4>You have successfully updated your Vegetable Dash account!</h4><p>I just wanted to let you know that your account info has just been changed. If it wasn't you who did it, your account has been comprimised, but you probably won't be getting this email, because the email was changed. Just wanted to let you know! </p><i>-Squirrel</i><p>vegetabledash@gmail.com</p>", req.body.emil);
+                     sendEmail("🎉 Email & Name Updated! 🎉", "<h2>✉️ Email & Name Updated! ✉️</h2><h4>You have successfully updated your Vegetable Dash account!</h4><p>I just wanted to let you know that your account info has just been changed. If it wasn't you who did it, your account has been comprimised, but you probably won't be getting this email, because the email was changed. Just wanted to let you know! </p><i>-Squirrel</i><p>vegetabledash@gmail.com</p>", req.body.emil);
                      return doc;
                   }
                }
@@ -442,6 +444,22 @@ app.post("/accept-friend-request", (req, res) => {
 /* =============
 // Vegetable Dash Save
 ============= */
+
+app.get('/getdata', function(req, res) {
+   UserData.find((err, users) => {
+      if (err) { console.error(err); }
+      else {
+         users.forEach(user => {
+            if (user.name === signedInUser.name) {
+               res.json({
+                  dataParcel: user.gameSave
+               });
+            }
+         });
+      }
+   });
+   
+});
 
 app.post("/save-vegetable-dash", (req, res) => {
    let inputSave = req.body;

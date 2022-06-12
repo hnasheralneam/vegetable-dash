@@ -33,7 +33,7 @@ function addChatMessage(msgData) {
    newMessage.dataset.id = msgData._id;
    newMessage.querySelector(".chat-text").textContent = msgData.input;
    newMessage.querySelector(".image-right").title = msgData.user;
-   newMessage.querySelector(".image-right").src = `Avatars/${msgData.avatar}.png`;
+   newMessage.querySelector(".image-right").src = `Images/Avatars/${msgData.avatar}.png`;
    newMessage.querySelector(".msgIdDel").value = msgData._id;
    let now = new Date();
    newMessage.querySelector(".time").textContent = `${now.getHours()}:${now.getMinutes()} on ${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
@@ -87,13 +87,13 @@ function toggleChatMenu() {
 //
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-let pressCount = 0;
+let thisPressCount = 0;
 document.addEventListener("keyup", function(event) {
    if (event.key === "c") {
-      pressCount++;
+      thisPressCount++;
       setTimeout(() => {
-         if (pressCount >= 2) { toggleChat();console.log("hi"); }
-         pressCount = 0;
+         if (thisPressCount >= 2) { toggleChat();console.log("hi"); }
+         thisPressCount = 0;
       }, 250);
    }
 });

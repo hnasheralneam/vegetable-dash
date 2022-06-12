@@ -4,7 +4,7 @@
 <div class="chatbox">
    <!-- Menubar -->
    <div class="chat-menubar">
-      <img class="chat-close-img" src="Chat/speech-bubble.png" onclick="toggleChat()" title="double-click c to toggle">
+      <img class="chat-close-img" src="Images/Chat/speech-bubble.png" onclick="toggleChat()" title="double-click c to toggle">
       <span class="material-icons-round chat-menu-icon" onclick="window.location = '/start-video'">videocam</span>
       <span class="material-icons-round chat-menu-icon">settings</span>
       <span class="material-icons-round chat-menu-icon">group</span>
@@ -23,7 +23,7 @@
             <br>
             <span class="time"></span>
             <div class="chat-edit-message">
-               <img class="chat-edit-img" src="Chat/pencil.png" onclick="
+               <img class="chat-edit-img" src="Images/Chat/pencil.png" onclick="
                if (this.parentNode.classList.contains('open')) {
                   this.parentNode.classList.remove('open');
                } else { this.parentNode.classList.add('open'); }
@@ -51,7 +51,7 @@
          <% if (item.user == user.name) { %>
             <!-- This user's messages -->
             <div class="message message-right" data-id="<%=item._id%>">
-               <img title="<%=item.user%> " class="image-right" src=<%= `Avatars/${item.avatar}.png` %>>
+               <img title="<%=item.user%> " class="image-right" src=<%= `Images/Avatars/${item.avatar}.png` %>>
                <div class="shape-right"></div>
                <div class="little-chat-box">
                   <span class="chat-text"><%=item.input%></span>
@@ -60,7 +60,7 @@
                      <span class="time"><%=`${item.datePosted.getHours()}:${item.datePosted.getMinutes()} on ${item.datePosted.getDate()}/${item.datePosted.getMonth()+1}/${item.datePosted.getFullYear()}`%></span>
                   <% } %>
                   <div class="chat-edit-message">
-                     <img class="chat-edit-img" src="Chat/pencil.png" onclick="
+                     <img class="chat-edit-img" src="Images/Chat/pencil.png" onclick="
                         if (this.parentNode.classList.contains('open')) {
                            this.parentNode.classList.remove('open');
                         }
@@ -85,7 +85,7 @@
             <!-- Here are the messages by other people -->
             <%} else { %>
                <div class="message">
-                  <img title="<%=item.user%>" class="image" src=<%= `Avatars/${item.avatar}.png` %>>
+                  <img title="<%=item.user%>" class="image" src=<%= `Images/Avatars/${item.avatar}.png` %>>
                   <div class="shape"></div>
                   <div class="little-chat-box">
                      <%=item.input%>

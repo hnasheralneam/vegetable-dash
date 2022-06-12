@@ -39,6 +39,15 @@
            <span class="loading-progress" style="width: 0%"><span class="load-display">0%</span></span>
          </div>
       </div>
+      <!-- Central Command -->
+      <div class="cntrl-cmnd">
+         <img onmouseover="info(this)" data-info="Help" onclick="showObj('.help-shadow'); gameData.helpOpen = true;" src="Images/Icons/help.svg">
+         <img onmouseover="info(this)" data-info="Tasks" onclick="taskBar('close')" src="Images/New/tasks.png">
+         <img onmouseover="info(this)" data-info="Market" onclick="showObj('.marketShadow'); gameData.marketOpen = true;" class="commandBarImg" src="Images/Icons/market.svg">
+         <img onmouseover="info(this)" data-info="Shop" onclick="toggleWindow('shop'); gameData.shopOpen = true;" class="commandBarImg" src="Images/Icons/market.svg">
+         <img onmouseover="info(this)" data-info="Hybridization Lab" onclick="toggleWindow('genelab'); gameData.genelabOpen = true;" class="commandBarImg" src="Images/New/dna.png">
+         <img onmouseover="info(this)" data-info="Settings" onclick="showObj('.settingShadow'); gameData.settingsOpen = true;" class="commandBarImg" src="Images/Icons/settings.svg">
+      </div>
       <!-- Land and Plots -->
       <div class="land">
          <img onclick="collectWeed(this)" class="weed" src="Images/Global Assets/weed.svg">
@@ -99,7 +108,6 @@
       <!-- Tasks -->
       <div class="tasks">
          <div class="taskShadow" onclick="taskBar('open');"></div>
-         <img class="task-ribbon" src="Images/Tasks/ribbon.svg" onclick="taskBar('close')">
          <img class="aTaskIsReady" src="Images/Animations/task-complete.gif">
          <div class="taskContent">
             <div class="task-block-parent">
@@ -143,13 +151,6 @@
                </div>
             </div>
          </div>
-      </div>
-      <!-- Command Panel/Bar -->
-      <div class="command-panel">
-         <img onmouseover="info(this)" data-info="Market" onclick="showObj('.marketShadow'); gameData.marketOpen = true;" class="commandBarImg" src="Images/Icons/market.svg">
-         <img onmouseover="info(this)" data-info="Settings" onclick="showObj('.settingShadow'); gameData.settingsOpen = true;" class="commandBarImg" src="Images/Icons/settings.svg">
-         <img onmouseover="info(this)" data-info="Shop" onclick="toggleWindow('shop'); gameData.shopOpen = true;" class="commandBarImg" src="Images/Icons/market.svg">
-         <img onmouseover="info(this)" data-info="Hybridization Lab" onclick="toggleWindow('genelab'); gameData.genelabOpen = true;" class="commandBarImg" src="New/dna.png">
       </div>
       <!-- Market -->
       <div class="marketShadow">
@@ -291,8 +292,6 @@
             <button class="setting-button theme-color" onclick="lightTheme()">Light</button>
             <button class="setting-button theme-color" onclick="randTheme()">Random</button>
             <button class="setting-button theme-color" onclick="darkTheme()">Dark</button>
-            <button class="setting-button" onclick="togglePlay()">Music</button>
-            <audio class="mozart" src="Audio/mozart.mp3"></audio>
          </div>
       </div>
       <!-- Black Market -->
@@ -348,7 +347,6 @@
       <!-- Other -->
       <div>
          <!-- Help -->
-         <img onmouseover="info(this)" data-info="Help" class="help-center-img" onclick="showObj('.help-shadow'); gameData.helpOpen = true;" src="Images/Icons/help.svg">
          <div class="shadow help-shadow">
             <div class="help">
                <button onclick="hideObj('.help-shadow'); gameData.helpOpen = false;" class="close closeModalHelp">x</button>
@@ -572,10 +570,10 @@
             </div>
          </div>
          <div class="main-values">
-            <img src="New/coin.png">
+            <img src="Images/New/coin.png">
             <p class="main-value main-values-coins"></p>
             <p class="main-value main-values-seeds"></p>
-            <img src="New/dna.png">
+            <img src="Images/New/dna.png">
             <p class="main-value main-values-genes"></p>
          </div>
          <div id="menu">
@@ -635,6 +633,16 @@
       <script>
          var userDataWorking = '<%- JSON.stringify(user) %>';
          var userData = JSON.parse(userDataWorking);
+         var gameData = userData.gameSave;
+         $.ajax({
+            url: "/getdata",
+            type: 'GET',
+            dataType: 'json', // added data type
+            success: function(res) {
+               console.log(res.dataParcel);
+            }
+         });
+         setInterval(()=>{console.log(userData.gameSave)}, 1000);
       </script>
       <form action="save-vegetable-dash" method="POST" style="display: none;">
          <input class="data-save" type="text" name="gamesave" required><br>

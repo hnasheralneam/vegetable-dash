@@ -11,7 +11,7 @@ $("#chooseAvatarForm").submit(function(event) {
    });
 
    posting.done(function(data) {
-      document.querySelector(".menu-userimg").src = `Avatars/${term}.png`;
+      document.querySelector(".menu-userimg").src = `Images/Avatars/${term}.png`;
       callAlert("You successfully changed your avatar!");
    });
 });

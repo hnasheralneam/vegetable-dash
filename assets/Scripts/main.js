@@ -20,7 +20,7 @@ if (location.hostname === "squirrel-314.github.io") {
 }
 
 // Declare the varibles
-let mouseX, mouseY, dynamHov, restarter, gameData;
+let mouseX, mouseY, dynamHov, restarter;
 let randomWeatherNum = (Math.random()).toFixed(2);
 let vegetablesOwned = ["peas"];
 let offerVeg = { vegetable: null, worth: null, amount: null, totalVal: null };
@@ -41,19 +41,21 @@ for (i = 1; i <= 4; i++) { hideObj(`.task-info-button-${i}`); }
 let bgImgArr = [["lake-night", "lake-day"], ["mountian-night", "mountian-day"]];
 let bgImg = bgImgArr[Math.floor(Math.random() * bgImgArr.length)];
 
-document.addEventListener("DOMContentLoaded", function() {
-   gameData = userData.gameSave;
-   if (gameData == undefined || null) {
-      $(".cover").hide();
-      $("head").append('<link rel="stylesheet" type="text/css" href="Styles/Vegetable Dash/intro.css">');
-      runIntro();
+document.onreadystatechange = function () {
+   if (document.readyState === "interactive") {
+      gameData = userData.gameSave;
+      if (gameData == undefined || null) {
+         $(".cover").hide();
+         $("head").append('<link rel="stylesheet" type="text/css" href="Styles/Vegetable Dash/intro.css">');
+         runIntro();
+      }
+      else {
+         if (gameData.intro == "unfinished") { runIntro(); }
+         loadingbar();
+         console.log(`hi ${userData.name}`);
+      }
    }
-   else {
-      if (gameData.intro == "unfinished") { runIntro(); }
-      loadingbar();
-      console.log(`hi ${userData.name}`);
-   }
-});
+}
 
 function init() {
    // Order is kinda important, ex. DynamHov depends on whatTheme
@@ -82,15 +84,17 @@ function loadingbar() {
    else if (Math.random() > .20) { document.querySelector(".meter").classList.add("green-load"); }
    else if (Math.random() > .10) { document.querySelector(".meter").classList.add("blue-load"); }
    else { document.querySelector(".meter").classList.add("purple-load"); }
-   
-   window.addEventListener('load', (event) => {
-      gameData.loadtimes.push(Date.now() - timerStart);
-      clearInterval(loadbar);
-      document.querySelector(".loading-progress").style.width = "100%";
-      document.querySelector(".load-display").textContent = "100%";
-      setTimeout(() => { $(".cover").hide(); }, 750);
-      init();
-   });
+
+   document.onreadystatechange = function () {
+      if (document.readyState === "complete") {
+         gameData.loadtimes.push(Date.now() - timerStart);
+         clearInterval(loadbar);
+         document.querySelector(".loading-progress").style.width = "100%";
+         document.querySelector(".load-display").textContent = "100%";
+         setTimeout(() => { $(".cover").hide(); }, 750);
+         init();
+      }
+   }
    
    let everytime = gameData.loadtime / 100;
    let loadProgress = 0;
@@ -182,16 +186,18 @@ function setupShop() {
 
 // Save's up here just 'cause it's important (I know that grammer isn't proper, but neither is this executive decision)
 function save() {
-   let saveObject = gameData;
-   let saveJSON = JSON.stringify(saveObject);
+   console.log(gameData);
+   
+   let saveJSON = JSON.stringify(gameData);
    $.ajax({
       type: "POST",
       contentType: "application/json",
       data: saveJSON,
       url: "/save-vegetable-dash",
    }).done(function(response) {
+      console.log(response);
       if (restarter === true) {
-         setTimeout(() => { location.reload() }, 250)
+         setTimeout(() => { location.reload() }, 250);
       }
    }).fail(function(xhr, textStatus, errorThrown) {
       console.log("ERROR: ", errorThrown);
@@ -209,7 +215,7 @@ function save() {
 
 function runLoops() {
    let oneSecondLoop = setInterval(() => {
-      save();
+      // save();
       displayWeatherTimeLeft();
       incidents();
       checkForTasks();
@@ -886,12 +892,6 @@ function fertilizeHover() {
 // Settings
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-// Music
-function togglePlay() {
-   let myAudio = document.querySelector(".mozart");
-   return myAudio.paused ? myAudio.play() : myAudio.pause();
-}
-
 // Theme
 function whatTheme() {
    if (gameData.theme === "dark") { darkTheme(); }
@@ -1013,7 +1013,6 @@ function intro() {
          $(".intro-img").attr("src", "Images/Tasks/farmer.svg");
          introText.textContent = "This little ribbon opens to show Tasks, where you can get rewards for doing chores around the farm.";
          introBlock.style.bottom = "2vh";
-         document.querySelector(".command-panel").style.zIndex = "0";
          document.querySelector(".tasks").style.zIndex = "9999";
          introData.tasks = true;
       }
@@ -1024,7 +1023,6 @@ function intro() {
          $(".intro-img").attr("src", "Images/Tasks/farmer.svg");
          introText.textContent = "That's it! If you need more help, just check out the small help icon in the top left corner. Be sure to check out the shortcuts section for helpful tips!";
          document.querySelector(".tasks").style.zIndex = "0";
-         document.querySelector(".help-center-img").style.zIndex = "9999";
          introData.help = true;
       }
       else { location.reload(); }
@@ -1094,15 +1092,15 @@ function plotUnlockedModal(veg) {
    else { showObj(`#info${veg}`); }
 }
 
-// Right Click Menu
+// Context Menu
 function contextMenu() {
-   document.addEventListener('contextmenu', function(e) {
+   document.addEventListener("contextmenu", function(e) {
       let posX = e.clientX;
       let posY = e.clientY;
       menu(posX, posY);
       e.preventDefault();
    }, false);
-   document.addEventListener('click', function(e) {
+   document.addEventListener("click", function(e) {
       rightClickMenu.display = "none";
    }, false);
 }
