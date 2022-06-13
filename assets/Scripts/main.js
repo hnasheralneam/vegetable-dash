@@ -20,7 +20,7 @@ if (location.hostname === "squirrel-314.github.io") {
 }
 
 // Declare the varibles
-let mouseX, mouseY, dynamHov, restarter;
+let mouseX, mouseY, dynamHov, reloader;
 let randomWeatherNum = (Math.random()).toFixed(2);
 let vegetablesOwned = ["peas"];
 let offerVeg = { vegetable: null, worth: null, amount: null, totalVal: null };
@@ -42,18 +42,27 @@ let bgImgArr = [["lake-night", "lake-day"], ["mountian-night", "mountian-day"]];
 let bgImg = bgImgArr[Math.floor(Math.random() * bgImgArr.length)];
 
 document.onreadystatechange = function () {
-   if (document.readyState === "interactive") {
-      gameData = userData.gameSave;
-      if (gameData == undefined || null) {
-         $(".cover").hide();
-         $("head").append('<link rel="stylesheet" type="text/css" href="Styles/Vegetable Dash/intro.css">');
-         runIntro();
-      }
-      else {
-         if (gameData.intro == "unfinished") { runIntro(); }
+   switch (document.readyState) {
+      case "interactive":
          loadingbar();
-         console.log(`hi ${userData.name}`);
-      }
+         break;
+      case "complete":
+         let startCheckup = setInterval(() => { if (start) { goAhead(); clearInterval(startCheckup); } }, 1000);         
+         function goAhead() {
+            if (gameData == undefined || gameData == null || gameData.intro !== "finished") {
+               reloader = false;
+               $("head").append('<link rel="stylesheet" type="text/css" href="Styles/Vegetable Dash/intro.css">');
+               runIntro();
+            }
+            console.log(`hi ${playerName}`);
+            gameData.loadtimes.push(Date.now() - timerStart);
+            clearInterval(loadbar);
+            document.querySelector(".loading-progress").style.width = "100%";
+            document.querySelector(".load-display").textContent = "100%";
+            setTimeout(() => { $(".cover").hide(); }, 500);
+            init();
+         }
+         break;
    }
 }
 
@@ -77,6 +86,7 @@ function init() {
    for (let i = 0; i < gameData.weedsLeft; i++) { addWeed(true); }
 }
 
+let loadbar;
 function loadingbar() {
    if (Math.random() > .80) { document.querySelector(".meter").classList.add("red-load"); }
    else if (Math.random() > .60) { document.querySelector(".meter").classList.add("orange-load"); }
@@ -84,21 +94,10 @@ function loadingbar() {
    else if (Math.random() > .20) { document.querySelector(".meter").classList.add("green-load"); }
    else if (Math.random() > .10) { document.querySelector(".meter").classList.add("blue-load"); }
    else { document.querySelector(".meter").classList.add("purple-load"); }
-
-   document.onreadystatechange = function () {
-      if (document.readyState === "complete") {
-         gameData.loadtimes.push(Date.now() - timerStart);
-         clearInterval(loadbar);
-         document.querySelector(".loading-progress").style.width = "100%";
-         document.querySelector(".load-display").textContent = "100%";
-         setTimeout(() => { $(".cover").hide(); }, 750);
-         init();
-      }
-   }
    
    let everytime = gameData.loadtime / 100;
    let loadProgress = 0;
-   let loadbar = setInterval(() => {
+   loadbar = setInterval(() => {
       loadProgress += 3;
       document.querySelector(".loading-progress").style.width = loadProgress + "%";
       document.querySelector(".load-display").textContent = loadProgress + "%";
@@ -164,7 +163,7 @@ function setupShop() {
             let plant = gameData.plotPlants.shift();
             gameData.coins -= gameInfo[plant + "Seeds"];
             gameData.plantSeeds.push(plant);
-            restarter = true;
+            reloader = true;
             save();
          }
       };   
@@ -177,7 +176,7 @@ function setupShop() {
          if (gameData.coins >= gameData.plotPrices[0]) {
             gameData.coins -= gameData.plotPrices.shift();
             gameData.plots.push(new Plot("Empty", gameData.plantSeeds[gameData.plantSeeds.length - 1]));
-            restarter = true;
+            reloader = true;
             save();
          }
       };
@@ -186,8 +185,6 @@ function setupShop() {
 
 // Save's up here just 'cause it's important (I know that grammer isn't proper, but neither is this executive decision)
 function save() {
-   console.log(gameData);
-   
    let saveJSON = JSON.stringify(gameData);
    $.ajax({
       type: "POST",
@@ -195,10 +192,7 @@ function save() {
       data: saveJSON,
       url: "/save-vegetable-dash",
    }).done(function(response) {
-      console.log(response);
-      if (restarter === true) {
-         setTimeout(() => { location.reload() }, 250);
-      }
+      if (reloader === true) { location.reload(); }
    }).fail(function(xhr, textStatus, errorThrown) {
       console.log("ERROR: ", errorThrown);
       location.reload();
@@ -215,7 +209,7 @@ function save() {
 
 function runLoops() {
    let oneSecondLoop = setInterval(() => {
-      // save();
+      save();
       displayWeatherTimeLeft();
       incidents();
       checkForTasks();
@@ -441,7 +435,6 @@ function genColor() {
    return color;
 }
 function callAlert(text) {
-   // Isn't it just great copying the code from other projects?
    let alert = document.querySelector(".alert").cloneNode(true);
    document.querySelector(".alert-box").insertBefore(alert, document.querySelector(".alert-box").firstChild);
    alert.style.display = "block";
@@ -540,7 +533,7 @@ function buyProduce(produce) {
       for (i = 0; i < 5; i++) { buy(); } marketLuck();
    }
    else if (gameData.coins >= gameData["buy" + produceCase]) { buy(); marketLuck(); }
-   else { fadeTextAppear(event, `Not enough coins`, false, "#de0000"); }
+   else { fadeTextAppear(`Not enough coins`, false, "#de0000"); }
    function buy() {
       gameData[produce] += 5;
       gameData.coins -= Math.round(gameData["buy" + produceCase]);
@@ -563,7 +556,7 @@ function sellProduce(produce) {
       for (i = 0; i < 5; i++) { sell(); } marketLuck();
    }
    else if (gameData[produce] >= 5) { sell(); marketLuck(); }
-   else { fadeTextAppear(event, `Not enough produce`, false, "#de0000"); }
+   else { fadeTextAppear(`Not enough produce`, false, "#de0000"); }
    function sell() {
       gameData[produce] -= 5;
       gameData.coins += Math.round(gameData["sell" + produceCase]);
@@ -600,7 +593,7 @@ function acceptExchange() {
       gameData[costVeg.vegetable] -= Math.round(costVeg.amount);
       generateExchange();
    }
-   else { fadeTextAppear(event, `Not enough produce`, false, "#de0000"); }
+   else { fadeTextAppear(`Not enough produce`, false, "#de0000"); }
 }
 
 // Black Market
@@ -631,7 +624,7 @@ function accept() {
       if (gameData.black.item === "Doughnuts") { gameData.doughnuts += gameData.black.quantity; }
       checkTasks("seeBlackMarket");
    }
-   else { fadeTextAppear(event, `Not enough seeds`, false, "#de0000"); }
+   else { fadeTextAppear(`Not enough seeds`, false, "#de0000"); }
 }
 function deny() {
    blackMarketValues();
@@ -643,10 +636,10 @@ function feedPolice() {
    if (gameData.doughnuts >= 1) {
       gameData.doughnuts -= 1;
       gameData.black.catchChance = .02;
-      fadeTextAppear(event, `-1 Doughnut`, false, "#de0000");
+      fadeTextAppear(`-1 Doughnut`, false, "#de0000");
       checkTasks("tryPoliceDoughnuts");
    }
-   else { fadeTextAppear(event, `Not enough doughnuts`, false, "#de0000"); }
+   else { fadeTextAppear(`Not enough doughnuts`, false, "#de0000"); }
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -797,20 +790,20 @@ function chooseWeather() {
 function harvestLuck(veg) {
    if (Math.random() < 0.20) {
       gameData.seeds += 5;
-      fadeTextAppear(event, `You collected 5 \n extra seeds!`, "vegLuck", "#00de88");
+      fadeTextAppear(`You collected 5 \n extra seeds while harvesting you ${veg}s!`, "vegLuck", "#00de88");
    }
    if (Math.random() < 0.10) {
       gameData[veg] += 2;
-      fadeTextAppear(event, `This was a good crop! You collected \n 2 extra ${capitalize(veg)}!`, "vegLuck", "#00de88");
+      fadeTextAppear(`This was a good ${veg} crop! You collected \n 2 extra ${capitalize(veg)}!`, "vegLuck", "#00de88");
    }
    if (Math.random() < (0.05 + gameData.marketResetBonus)) {
       gameData.marketResets++;
-      fadeTextAppear(event, `You collected a market \n reset! You now have ${gameData.marketResets}`, "vegLuck", "#00de88");
+      fadeTextAppear(`You collected a market \n reset  while harvesting you ${veg}s! You now have ${gameData.marketResets}`, "vegLuck", "#00de88");
    }
    if (Math.random() < 0.30) {
       let luckDNA = random(1, 4);
       gameData.genes += luckDNA;
-      fadeTextAppear(event, `You collected ${luckDNA} DNA!`, "vegLuck", "#00de88");
+      fadeTextAppear(`You collected ${luckDNA} DNA while harvesting you ${veg}s!`, "vegLuck", "#00de88");
    }
 }
 function marketLuck() {
@@ -916,7 +909,7 @@ function restart() {
       let areYouReallySure = confirm("Are you REALLY SURE you want to restart? There is no going back!");
       if (areYouReallySure) {
          gameData = initGameData;
-         restarter = true;
+         reloader = true;
          save();
       }
    }
@@ -928,7 +921,6 @@ function restart() {
 
 function runIntro() {
    gameData = initGameData;
-   gameData.intro = "finished";
    gameData.disasterTime = Date.now() + 480000;
    gameData.plots.push(new Plot("Empty", "peas"));
    showObj(".welcome");
@@ -944,88 +936,68 @@ function goIntro() {
    intro();
 }
 function intro() {
-   let introShadow = document.querySelector(".introDarkShadow");
-   let qstRibbon = document.getElementById("questRibbon");
-   let introBlock = document.querySelector(".intro-container");
-   let introImg = document.querySelector(".intro-img");
    let introText = document.querySelector(".intro-text");
    if (introData.hello === false) { introData.hello = true; }
-   else { meetGrapms(); }
-   function meetGrapms() {
+   else {
       if (introData.meetGramps === false) {
          $(".intro-img").attr("src", "Images/Tasks/jenkins.png");
-         introText.textContent = "Hi! I'm gramps. That's Grandpa Jenkins to you. I'm here ta teach you farmin', the good ol' way!";
+         introText.textContent = "Hi! I'm gramps. That's Grandpa Jenkins to you. My son, Farmer Jebidiah, wants me to teach you how to run a farm. Let's begin!";
          introData.meetGramps = true;
+      } else {
+         if (introData.planting === false) {
+            introText.textContent = "Farmin' is as easy as anything nowadays, with all this modern technology. Just press that little almanac button, choose your seed, and when it's done, press Harvest!";
+            document.getElementById("plot0").style.zIndex = "100000";
+            introData.planting = true;
+         } else {
+            if (introData.gameDataBar === false) {
+               $(".intro-img").attr("src", "Images/Tasks/farmer.svg");
+               introText.textContent = "This toolbar shows the amount of produce you have, holds the fertilizer for growing plants quickly, and the sickle for harvesting.";
+               document.getElementById("plot0").style.zIndex = "0";
+               document.querySelector(".toolbar").style.zIndex = "100000";
+               introData.gameDataBar = true;
+            } else {
+               if (introData.weather === false) {
+                  $(".intro-img").attr("src", "Images/Tasks/jenkins.png");
+                  introText.textContent = "Keep an eye on the weather, because it will affect you plants! Sometimes it will help, while other times it could ruin your crop!";
+                  document.querySelector(".toolbar").style.zIndex = "0";
+                  document.querySelector(".weather-short").style.zIndex = "100000";
+                  introData.weather = true;
+               } else {
+                  if (introData.meetGran === false) {
+                     $(".intro-img").attr("src", "Images/Tasks/granny.png");
+                     introText.textContent = "Nice to meet you! I'm Grandma Josephine, and I'll teach you the economics of running a farm.";
+                     document.querySelector(".weather-short").style.zIndex = "0";
+                     introData.meetGran = true;
+                  } else {
+                     if (introData.market === false) {
+                        introText.textContent = "This is the market, were you can gain coins by selling produce, which are useful for many things, like opening more plots.";
+                        showObj(".marketShadow"); gameData.marketOpen = true;
+                        introData.market = true;
+                     }
+                     else {
+                        if (introData.tasks === false) {
+                           $(".intro-img").attr("src", "Images/Tasks/farmer.svg");
+                           introText.textContent = "This is your tasklist, where you can get rewards for doing chores around the farm.";
+                           hideObj(".marketShadow"); gameData.marketOpen = false;
+                           taskBar("close");
+                           introData.tasks = true;
+                        }
+                        else {
+                           if (introData.help === false) {
+                              $(".intro-img").attr("src", "Images/Tasks/farmer.svg");
+                              introText.textContent = "That's it! If you need more help, just check out the small help icon in the top left corner. Be sure to check out the shortcuts section for helpful tips!";
+                              document.querySelector(".tasks").style.zIndex = "0";
+                              taskBar("open");
+                              introData.help = true;
+                           }
+                           else { location.reload(); }
+                        }
+                     }
+                  }
+               }
+            }
+         }
       }
-      else { planting(); }
-   }
-   function planting() {
-      if (introData.planting === false) {
-         introText.textContent = "Farmin' is as easy as anything nowadays, with all this modern technology. Just press Grow Peas, and when it's done, press Harvest Peas!";
-         document.querySelector(".plant-quest-arrow").style.display = "block";
-         document.getElementById("plot1").style.zIndex = "100";
-         introData.planting = true;
-      }
-      else {
-         document.querySelector(".plant-quest-arrow").style.display = "none";
-         document.getElementById("plot1").style.zIndex = "0";
-         sidebar();
-      }
-   }
-   function sidebar() {
-      if (introData.gameDataBar === false) {
-         $(".intro-img").attr("src", "Images/Tasks/farmer.svg");
-         introText.textContent = "This toolbar shows the amount of produce you have, holds the fertilizer for growing plants quickly, and the sickle for harvesting.";
-         document.querySelector(".toolbar").style.zIndex = "100";
-         introData.gameDataBar = true;
-      }
-      else { weather(); }
-   }
-   function weather() {
-      if (introData.weather === false) {
-         $(".intro-img").attr("src", "Images/Tasks/jenkins.png");
-         introText.textContent = "Keep an eye on the weather, because it will affect you plants! Sometimes it will help, while other times it could ruin your crop!";
-       document.querySelector(".toolbar").style.zIndex = "0";
-         document.querySelector(".weather-short").style.zIndex = "9999";
-         introData.weather = true;
-      }
-      else { meetGran(); }
-   }
-   function meetGran() {
-      if (introData.meetGran === false) {
-         $(".intro-img").attr("src", "Images/Tasks/granny.png");
-         introText.textContent = "Nice to meet you. I'm Grandma Josephine, and I'm here to teach you economics.";
-       document.querySelector(".weather-short").style.zIndex = "0";
-         introData.meetGran = true;
-      }
-      else { market(); }
-   }
-   function market() {
-      if (introData.market === false) {
-         introText.textContent = "This is the market, were you can gain seeds by selling gameData, which are useful for many things, like opening more gameData.";
-         introBlock.style.bottom = "20vh";
-         introData.market = true;
-      }
-      else { tasks(); }
-   }
-   function tasks() {
-      if (introData.tasks === false) {
-         $(".intro-img").attr("src", "Images/Tasks/farmer.svg");
-         introText.textContent = "This little ribbon opens to show Tasks, where you can get rewards for doing chores around the farm.";
-         introBlock.style.bottom = "2vh";
-         document.querySelector(".tasks").style.zIndex = "9999";
-         introData.tasks = true;
-      }
-      else { help(); }
-   }
-   function help() {
-      if (introData.help === false) {
-         $(".intro-img").attr("src", "Images/Tasks/farmer.svg");
-         introText.textContent = "That's it! If you need more help, just check out the small help icon in the top left corner. Be sure to check out the shortcuts section for helpful tips!";
-         document.querySelector(".tasks").style.zIndex = "0";
-         introData.help = true;
-      }
-      else { location.reload(); }
    }
 }
 
@@ -1049,18 +1021,17 @@ function getCoords(e) {
    dynamHov.style.top = `${event.clientY}px`;
    dynamHov.style.left = `${event.clientX + 25}px`;
 }
-function fadeTextAppear(e, txt, extraClass, txtColor) {
+function fadeTextAppear(txt, extraClass, txtColor) {
    let fadeText = document.querySelector(".fade-text").cloneNode();
-   fadeText.id = "fadeTextNew";
    fadeText.textContent = txt;
    document.querySelector("body").appendChild(fadeText);
    if (extraClass != false) { fadeText.classList.add(extraClass); }
    if (txtColor) {
       fadeText.style.color = txtColor;
-      fadeText.style.textShadow = `0 0 .5vh ${txtColor}`;
+      fadeText.style.textShadow = `0 0 .2vh ${txtColor}`;
    }
-   fadeText.style.left = `${(window.Event) ? e.mouseX : event.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft)}px`;
-   fadeText.style.top = `${(window.Event) ? e.mouseY : event.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop)}px`;
+   fadeText.style.left = `${mouseX}px`;
+   fadeText.style.top = `${mouseY}px`;
 }
 
 $('.help-subjects-item').click(function () {

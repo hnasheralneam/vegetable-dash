@@ -43,10 +43,10 @@
       <div class="cntrl-cmnd">
          <img onmouseover="info(this)" data-info="Help" onclick="showObj('.help-shadow'); gameData.helpOpen = true;" src="Images/Icons/help.svg">
          <img onmouseover="info(this)" data-info="Tasks" onclick="taskBar('close')" src="Images/New/tasks.png">
-         <img onmouseover="info(this)" data-info="Market" onclick="showObj('.marketShadow'); gameData.marketOpen = true;" class="commandBarImg" src="Images/Icons/market.svg">
-         <img onmouseover="info(this)" data-info="Shop" onclick="toggleWindow('shop'); gameData.shopOpen = true;" class="commandBarImg" src="Images/Icons/market.svg">
-         <img onmouseover="info(this)" data-info="Hybridization Lab" onclick="toggleWindow('genelab'); gameData.genelabOpen = true;" class="commandBarImg" src="Images/New/dna.png">
-         <img onmouseover="info(this)" data-info="Settings" onclick="showObj('.settingShadow'); gameData.settingsOpen = true;" class="commandBarImg" src="Images/Icons/settings.svg">
+         <img onmouseover="info(this)" data-info="Market" onclick="showObj('.marketShadow'); gameData.marketOpen = true;" src="Images/Icons/market.svg">
+         <img onmouseover="info(this)" data-info="Shop" onclick="toggleWindow('shop'); gameData.shopOpen = true;" src="Images/Icons/market.svg">
+         <img onmouseover="info(this)" data-info="Hybridization Lab" onclick="toggleWindow('genelab'); gameData.genelabOpen = true;" src="Images/New/dna.png">
+         <img onmouseover="info(this)" data-info="Settings" onclick="showObj('.settingShadow'); gameData.settingsOpen = true;" src="Images/Icons/settings.svg">
       </div>
       <!-- Land and Plots -->
       <div class="land">
@@ -288,10 +288,10 @@
          <div class="modalContent settings">
             <span onclick="hideObj('.settingShadow'); gameData.settingsOpen = false;" class="closeModal">X</span>
             <h1>Settings</h1>
-            <button class="setting-button" onclick="restart()">Restart</button>
-            <button class="setting-button theme-color" onclick="lightTheme()">Light</button>
-            <button class="setting-button theme-color" onclick="randTheme()">Random</button>
-            <button class="setting-button theme-color" onclick="darkTheme()">Dark</button>
+            <button class="setting-button" onclick="restart()">Restart</button><br>
+            <button class="setting-button theme-clr" onclick="lightTheme()">Light Theme</button>
+            <button class="setting-button theme-clr" onclick="randTheme()">Random Theme</button>
+            <button class="setting-button theme-clr" onclick="darkTheme()">Dark Theme</button>
          </div>
       </div>
       <!-- Black Market -->
@@ -548,27 +548,6 @@
             <div onmouseover="info(this)" data-info="Next Weather" class="weather-next"></div>
          </div>
          <!-- Various -->
-         <div class="introDarkShadow">
-            <div class="intro-container">
-               <img class="intro-img" src="Images/Tasks/farmer.svg">
-               <img class="intro-divide" src="Images/Tasks/gold-separator.png">
-               <p class="intro-text">Greetings. I am Farmer Jebediah, and I will be showing you around the farm.</p>
-               <span onclick="intro()" class="intro-nxt-btn">&#10230;</span>
-            </div>
-         </div>
-         <div class="welcome">
-            <div class="welcome-content">
-               <h1>Welcome to Vegetable Dash!</h1>
-               <p class="wlcm-choice">Take a short tour, or figure it out on your own: The choice is your, and keep in mind you can check the Help Center (top left corner) at any time.</p>
-               <button class="welcome-btn-one" onclick="goIntro()">Take  <br> a quick <br>  tour</button>
-               <button class="welcome-btn-two" onclick="hideObj('.welcome')">Start <br> straight <br> away</button>
-
-               <div>
-                  <p>Questions? Comments? Suggestions? Having trouble? Please contact <a href="mailto:thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a></p>
-                  <p>Disclaimer: While the game may be called Vegetable Dash, some plants may not be botanical vegetables, such as peas and corn.</p>
-               </div>
-            </div>
-         </div>
          <div class="main-values">
             <img src="Images/New/coin.png">
             <p class="main-value main-values-coins"></p>
@@ -625,6 +604,27 @@
          </div>
          <div class="alert-box"><div class="alert alert-cominin">Game Saved!</div></div>
          <span style="display: none;"><div class="fade-text">This text is fading</div></span>
+         <div class="introDarkShadow">
+            <div class="intro-container">
+               <img class="intro-img" src="Images/Tasks/farmer.svg">
+               <img class="intro-divide" src="Images/Tasks/gold-separator.png">
+               <p class="intro-text">Hello there! I'm Farmer Jebediah, and I have a favor to ask. I just got this new piece of land, and I was hoping you could work it.</p>
+               <span onclick="intro()" class="intro-nxt-btn">&#10230;</span>
+            </div>
+         </div>
+         <!-- Welcome -->
+         <div class="welcome">
+            <div class="welcome-content">
+               <h1>Welcome to Vegetable Dash!</h1>
+               <p class="wlcm-choice">Take a short tour, or figure it out on your own: The choice is your, and keep in mind you can check the Help Center (top left corner) at any time.</p>
+               <button class="welcome-btn-one" onclick="goIntro(); gameData.intro = 'finished';">Take  <br> a quick <br>  tour</button>
+               <button class="welcome-btn-two" onclick="hideObj('.welcome'); gameData.intro = 'finished';">Start <br> straight <br> away</button>
+               <div>
+                  <p>Questions? Comments? Suggestions? Having trouble? Please contact <a href="mailto:thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a></p>
+                  <p>Disclaimer: While the game may be called Vegetable Dash, some plants may not be botanical vegetables, such as peas and corn.</p>
+               </div>
+            </div>
+         </div>
       </div>
    </body>
    <!-- Chat -->
@@ -632,17 +632,18 @@
    <!-- Other -->
       <script>
          var userDataWorking = '<%- JSON.stringify(user) %>';
-         var userData = JSON.parse(userDataWorking);
-         var gameData = userData.gameSave;
+         var playerName = JSON.parse(userDataWorking).name;
+         var gameData = { intro: "not started" };
+         var start = false;
          $.ajax({
             url: "/getdata",
             type: 'GET',
             dataType: 'json', // added data type
             success: function(res) {
-               console.log(res.dataParcel);
+               start = true;
+               gameData = res.dataParcel;
             }
          });
-         setInterval(()=>{console.log(userData.gameSave)}, 1000);
       </script>
       <form action="save-vegetable-dash" method="POST" style="display: none;">
          <input class="data-save" type="text" name="gamesave" required><br>

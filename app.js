@@ -16,7 +16,7 @@ const { v4: uuidv4 } = require('uuid');
 // Start an express app. Express makes it easier to route things
 const app = express();
 // Choose the port it's running on. This checks if there's an enviroment variable (production), and if not, runs it on localhost 3000
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 // This starts mongoose, the library we're using to connect to the MongoDB database. It makes it easier to fetch and save data.
 const connection = mongoose.connection;
 

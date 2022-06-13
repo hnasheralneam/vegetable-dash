@@ -29,7 +29,8 @@
    width: 60%;
    font-size: 4vh;
    padding: 4vh 2vh;
-   margin-bottom: .2vh;
+   margin: .4vh;
+   border-radius: .75vh;
    color: #fff;
    transition: .2s;
 }
@@ -40,9 +41,8 @@
    margin: 0;
 }
 .help-subjects-item:hover {
-   transform: scale(1.2) translateX(5vh);
-   box-shadow: 0 0 2vh #000;
-   border-radius: .5vh;
+   transform: translateX(3vh);
+   border-radius: 1.5vh 3.5vh 3.5vh 1.5vh;
 }
 .help-information {
    padding: 2vh 20vh 0 5vh;

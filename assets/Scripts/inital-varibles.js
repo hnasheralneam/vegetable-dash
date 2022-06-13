@@ -142,7 +142,7 @@ let initGameData = {
     hasBeenPunished: true,
    // Settings
     theme: "dark",
-    intro: "unfinished",
+    intro: "not started",
     loadtimes: [1000],
     helpOpen: false,
     settingsOpen: false,
