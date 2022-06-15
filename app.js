@@ -182,12 +182,6 @@ app.get("/vegetable-dash", (req, res) => {
    else { res.redirect("/"); }
 });
 
-// /chat in the searchbar
-app.get("/chat", (req, res) => {
-   // This is not an actuall page, it's just an expirement.
-   res.render("chat", getNewpageData());
-});
-
 // Temporary landings
 app.get("/sign-out", (req, res) => {
    // This is not an actuall page, because it immediatly send you back
@@ -338,7 +332,7 @@ app.post("/change-account-info", (req, res) => {
 });
 
 /* =============
-// Chatsssssss
+// Chats
 ============= */
 
 app.post("/new-chat", (req, res) => {
@@ -382,13 +376,13 @@ app.post("/edit-message", (req, res) => {
    Chat.findByIdAndUpdate(
       req.body.msgId,
       { input: req.body.newMessage,
-         avatar: signedInUser.avatar },
+        avatar: signedInUser.avatar },
       { new: true },
       (err, doc) => { if (err) return console.error(err); }
    );
    Chat.findOne({ name: signedInUser.name }, (err, doc) => {
       if (err) return console.error(err);
-      else { res.redirect("/"); }
+      else { res.send("Edited Successfully."); }
    });
 });
 

@@ -1,6 +1,6 @@
 {
   "name": "vegetable-dash",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "A farming game",
   "main": "app.js",
   "scripts": {
@@ -43,9 +43,10 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.13",
+    "heroku-cli": "^6.15.31"
   },
   "engines": {
-    "node": "16.x"
+    "node": ">=18.x"
   }
 }

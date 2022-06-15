@@ -44,7 +44,7 @@
    font-family: "Nunito";
    color: var(--txt-color);
    box-shadow: 0 0 .3vh #00000020;
-   border-radius: 2vh;
+   border-radius: 2vh 0 0 0;
    overflow: hidden;
    transition: .2s;
 }
@@ -59,9 +59,19 @@
 .chat-menu-icon {
    float: right;
    margin: 2vh 1vh;
+   /* background: linear-gradient(to bottom right, #FFF45A, #FF9C5A); */
+   /* background: linear-gradient(to bottom right, #5AFFF3, #5AC7FF); */
+   /* background: linear-gradient(to bottom right, #5aff86, #5ae9ff); */
+   /* background: linear-gradient(to bottom right, #94ff5a, #68ff5a); */
+   /* background: linear-gradient(to bottom right, #a25aff, #e15aff); */
+   background: linear-gradient(to bottom right, #ffa45a, #ff705a);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color:transparent;
+   background-clip: text;
    font-size: 6vh;
    line-height: 1;
 }
+
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
@@ -72,12 +82,13 @@
 .menu-switchchat {
    position: absolute;
    top: 0;
-   left: 100%;
-   height: 100%;
-   width: 100%;
+   right: 30vw;
+   height: 80vh;
+   width: 29vw;
    padding: 10vh 2vh;
    background-color: #fefefe;
-   z-index: -1.5;
+   overflow: auto;
+   transition: .2s;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -112,7 +123,7 @@
 .template-parent { display: none; }
 
 .chatbox .messages {
-   margin: 0 0 -4vh 0;
+   margin: 0 0 10vh 0;
 }
   
 .chatbox .message {
@@ -193,11 +204,14 @@ BAFFE4
 //
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-.chatbox .input {
-   position: sticky;
-   width: 30vw;
+#post-chat-msg {
+   position: fixed;
    bottom: 0;
-   padding: 3vh 10vh 3vh 3vh;
+}
+
+.chatbox .input {
+   width: 30vw;
+   padding: 3vh;
    font-size: 3vh;
    color: var(--txt-color);
    background-color: var(--msg-bg-color);
@@ -228,10 +242,11 @@ BAFFE4
 }
 
 .chat-edit-message {
+   width: calc(100% - 3vh); /* 3vh is the width of the message */
    min-height: 0;
    max-height: 0;
    overflow: hidden;
-   background-color: #f6f6f6;
+   background-color: #fcfcfc;
    border-radius: 1vh;
    transition: .2s;
 }
@@ -242,54 +257,77 @@ BAFFE4
    max-height: 40vh;
 }
 
+.change-msg {
+   margin: 0;
+}
+
+.remove-msg {
+   padding: 0;
+}
+
 .edit-message-input {
    width: 100%;
    padding: 1.5vh;
-   font-size: 2vh;
-   background-color: #eee;
+   font-size: 2.5vh;
+   background-color: #f6f6f6;
    border: none;
    border-radius: 1vh;
+   font-family: "Nunito", sans-serif;
+   resize: none;
    box-sizing: border-box;
+   margin-bottom: -3vh;
 }
   
-.edit-message-input:focus {
-   outline: none;
-}
+.edit-message-input:focus { outline: none; }
 
-.edit-msg-btns {
+.edit-msg {
+   width: 100%;
    display: grid;
    grid-template-columns: auto auto;
 }
 
-.edit-message-btn {
-   display: inline;
+.edit-msg button {
    padding: 1.5vh;
-   font-size: 2vh;
    border: none;
    border-radius: 1vh;
-   box-sizing: border-box;
    transition: .2s;
 }
 
-.edit-message-btn:hover {
-   background-color: #ddd;
-   transform: scale(1.01);
+.edit-msg button:hover { background-color: #ddd; }
+
+.edit-msg .save-msg {
+   width: 100%;
+   font-size: 2.5vh;
+   background-color: #f6f6f6;
 }
 
-.edit-message-btn.save-msg {
-   width: 60%;
-   background-color: #eee;
+.edit-msg .delete-msg span {
+   color: #f8f8f8;
+   font-size: 8vh;
 }
 
-.edit-message-btn.delete-msg {
-   width: 20%;
+.edit-msg .delete-msg {
+   margin: -3vh 0 0 2vh;
+   height: calc(100% - 1vh);
    background-color: #e25050;
 }
 
-.edit-message-btn.delete-msg span {
-   color: #f8f8f8;
-}
+.edit-msg .delete-msg:hover { background-color: #c22d2d; }
 
-.edit-message-btn.delete-msg:hover {
-   background-color: #c22d2d;
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Dynamic hover
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.dynamicHover {
+   background-color: #fff;
+   padding: .6vh 1vw;
+   font-family: "Nunito";
+   border-radius: 2vh;
+   font-size: 3.2vh;
+   color: #2b2b2b;
+   transition: opacity .1s;
+   opacity: 0;
+   box-shadow: 0 0 .2vh #eee;
 }

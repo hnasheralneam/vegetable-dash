@@ -561,7 +561,7 @@
             <hr>
             <li class="menu-links"><a href="https://github.com/Squirrel-314/vegetable-dash">GitHub</a></li>
             <li><a href="mailto: thehillsidetownship@gmail.com">Support</a></li>
-            <li>Version: 0.1.2</li>
+            <li>Version: 0.1.4</li>
          </div>
          <div class="qIM">
             <span class="seedsQuick">0</span><br>
@@ -631,7 +631,7 @@
    <%- include("partials/miniChat"); %>
    <!-- Other -->
       <script>
-         var userDataWorking = '<%- JSON.stringify(user) %>';
+         var userDataWorking = `<%- JSON.stringify(user) %>`;
          var playerName = JSON.parse(userDataWorking).name;
          var gameData = { intro: "not started" };
          var start = false;

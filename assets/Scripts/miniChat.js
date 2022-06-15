@@ -4,16 +4,33 @@
 //
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-document.querySelectorAll(".message-right").forEach((obj, i, arr) => {
-   document.querySelectorAll(".remove-msg")[i].onsubmit = function(event) {
-      event.preventDefault();
-      $.post("/delete-message", {
-         msgId: this.msgId.value
-      }).done(function(data) {
-         obj.remove();
-      });
-   }
-});
+init();
+function init() {
+   // Deleting messages
+   document.querySelectorAll(".message-right").forEach((obj, i, arr) => {
+      document.querySelectorAll(".remove-msg")[i].onsubmit = function(event) {
+         event.preventDefault();
+         $.post("/delete-message", {
+            msgId: this.msgId.value
+         }).done(function() { obj.remove(); });
+      }
+   });
+   // Editing messages
+   document.querySelectorAll(".message-right").forEach((obj, i, arr) => {
+      document.querySelectorAll(".change-msg")[i].onsubmit = function(event) {
+         let message = this.newMessage.value;
+         event.preventDefault();
+         $.post("/edit-message", {
+            msgId: this.msgId.value,
+            newMessage: message
+         }).done(function(data) {
+            document.querySelectorAll(".chat-text")[i].textContent = message;
+            document.querySelectorAll(".chat-edit-img")[i].click();
+         });
+      }
+   });
+   document.querySelector(".messages").appendChild(document.getElementById("post-chat-msg"));
+}
 
 $("#post-chat-msg").submit(function(event) {
    if (this.message.value != "") {
@@ -21,16 +38,16 @@ $("#post-chat-msg").submit(function(event) {
       $.post("/chat-message", {
          input: this.message.value,
          datePosted: new Date()
-      }).done(function(data) {
-         addChatMessage(data);
-      });
+      }).done(function(data) { addChatMessage(data); });
    }
 });
 
 function addChatMessage(msgData) {
    document.querySelector(".input").value = "";
-   let newMessage = document.querySelectorAll(".message-right")[0].cloneNode(true);
+   let newMessage = document.querySelector(".message-right-template").cloneNode(true);
    newMessage.dataset.id = msgData._id;
+   newMessage.querySelector(".chat-text-template").classList.add("chat-text");
+   newMessage.querySelector(".chat-text-template").classList.remove("chat-text-template");
    newMessage.querySelector(".chat-text").textContent = msgData.input;
    newMessage.querySelector(".image-right").title = msgData.user;
    newMessage.querySelector(".image-right").src = `Images/Avatars/${msgData.avatar}.png`;
@@ -38,15 +55,16 @@ function addChatMessage(msgData) {
    let now = new Date();
    newMessage.querySelector(".time").textContent = `${now.getHours()}:${now.getMinutes()} on ${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
    document.querySelector(".messages").appendChild(newMessage);
-   console.log(newMessage)
-}
-
-function editChatMessage(msgData) {
-   let msgEl = document.querySelector(`[data-id='${msgData._id}']`);
-   // console.log(msgEl, msgData._id);
-   // document.querySelectorAll(".message").forEach((data) => {
-   //    console.log(data.dataset);
-   // });
+   // Removing template
+   newMessage.classList.add("message-right");
+   newMessage.classList.remove("message-right-template");
+   newMessage.querySelector(".chat-edit-img-template").classList.add("chat-edit-img");
+   newMessage.querySelector(".chat-edit-img-template").classList.remove("chat-edit-img-template");
+   newMessage.querySelector(".change-msg-template").classList.add("change-msg");
+   newMessage.querySelector(".change-msg-template").classList.remove("change-msg-template");
+   newMessage.querySelector(".remove-msg-template").classList.add("remove-msg");
+   newMessage.querySelector(".remove-msg-template").classList.remove("remove-msg-template");
+   init();
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -77,8 +95,14 @@ function toggleChat() {
 
 function toggleChatMenu() {
    let switchMenu = document.querySelector(".menu-switchchat");
-   if (switchMenu.style.left == "100%") { switchMenu.style.left = "0"; }
-   else { switchMenu.style.left = "100%"; }
+   if (switchMenu.style.right == "0vw") {
+      document.querySelector(".messages").style.display = "block";
+      switchMenu.style.right = "30vw";
+   }
+   else {
+      document.querySelector(".messages").style.display = "none";
+      switchMenu.style.right = "0vw";
+   }
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -92,8 +116,40 @@ document.addEventListener("keyup", function(event) {
    if (event.key === "c") {
       thisPressCount++;
       setTimeout(() => {
-         if (thisPressCount >= 2) { toggleChat();console.log("hi"); }
+         if (thisPressCount >= 2) { toggleChat(); }
          thisPressCount = 0;
       }, 250);
    }
 });
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Dynamic hover
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+let mouseX, mouseY;
+
+document.onreadystatechange = function () {
+   if (document.readyState === "complete") {
+      document.addEventListener("mousemove", e => { getCoords(e); });
+   }
+}
+
+function getCoords(e) {
+   mouseX = event.clientX;
+   mouseY = event.clientY;
+   dynamHov.style.top = `${event.clientY}px`;
+   dynamHov.style.left = `${event.clientX + 25}px`;
+}
+
+var dynamHov = document.createElement("SPAN");
+document.body.appendChild(dynamHov);
+dynamHov.style.position = "fixed";
+dynamHov.classList.add("dynamicHover");
+
+function info(THIS) {
+   dynamHov.textContent = THIS.dataset.info;
+   dynamHov.style.opacity = "1";
+   THIS.onmouseleave = () => { dynamHov.style.opacity = "0"; }
+}

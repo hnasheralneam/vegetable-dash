@@ -20,7 +20,7 @@ if (location.hostname === "squirrel-314.github.io") {
 }
 
 // Declare the varibles
-let mouseX, mouseY, dynamHov, reloader;
+let reloader;
 let randomWeatherNum = (Math.random()).toFixed(2);
 let vegetablesOwned = ["peas"];
 let offerVeg = { vegetable: null, worth: null, amount: null, totalVal: null };
@@ -790,20 +790,20 @@ function chooseWeather() {
 function harvestLuck(veg) {
    if (Math.random() < 0.20) {
       gameData.seeds += 5;
-      fadeTextAppear(`You collected 5 \n extra seeds while harvesting you ${veg}s!`, "vegLuck", "#00de88");
+      fadeTextAppear(`You ${veg} harvest yeilded 5 \n seeds!`, "vegLuck", "#00de88");
    }
    if (Math.random() < 0.10) {
       gameData[veg] += 2;
-      fadeTextAppear(`This was a good ${veg} crop! You collected \n 2 extra ${capitalize(veg)}!`, "vegLuck", "#00de88");
+      fadeTextAppear(`A bumper crop! You collected \n 2 extra ${capitalize(veg)}!`, "vegLuck", "#00de88");
    }
    if (Math.random() < (0.05 + gameData.marketResetBonus)) {
       gameData.marketResets++;
-      fadeTextAppear(`You collected a market \n reset  while harvesting you ${veg}s! You now have ${gameData.marketResets}`, "vegLuck", "#00de88");
+      fadeTextAppear(`You found a market \n reset (${gameData.marketResets} total) while harvesting your ${veg} plot!`, "vegLuck", "#00de88");
    }
    if (Math.random() < 0.30) {
       let luckDNA = random(1, 4);
       gameData.genes += luckDNA;
-      fadeTextAppear(`You collected ${luckDNA} DNA while harvesting you ${veg}s!`, "vegLuck", "#00de88");
+      fadeTextAppear(`You extracted ${luckDNA} DNA while harvesting you ${veg} plot!`, "vegLuck", "#00de88");
    }
 }
 function marketLuck() {
@@ -1015,12 +1015,6 @@ function info(THIS) {
 // General
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function getCoords(e) {
-   mouseX = event.clientX;
-   mouseY = event.clientY;
-   dynamHov.style.top = `${event.clientY}px`;
-   dynamHov.style.left = `${event.clientX + 25}px`;
-}
 function fadeTextAppear(txt, extraClass, txtColor) {
    let fadeText = document.querySelector(".fade-text").cloneNode();
    fadeText.textContent = txt;
@@ -1112,8 +1106,8 @@ document.addEventListener("keyup", function(event) {
                quickInfoMenu.style.display = "block";
                quickInformation = "opened";
                var updateMovingInfo = setInterval(() => {
-                  quickInfoMenu.style.top = `${mouseY}px`;
-                  quickInfoMenu.style.left = `${mouseX}px`;
+                  quickInfoMenu.style.top = `${mouseY + 15}px`;
+                  quickInfoMenu.style.left = `${mouseX + 15}px`;
                }, 50);
             } else {
                quickInfoMenu.style.display = "none";

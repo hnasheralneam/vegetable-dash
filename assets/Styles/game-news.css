@@ -2,7 +2,8 @@
    display: grid;
    grid-template: 
    "a a a b b"
-   "a a a d d"
+   "f f f b b"
+   "f f f d d"
    "c c c d d"
    "c c c d d"
    "e e e e e";
@@ -14,10 +15,11 @@
 }
 
 .content div:nth-child(1) { grid-area: a; }
+.content div:nth-child(3) { grid-area: f; }
 .content div:nth-child(2) { grid-area: b; }
-.content div:nth-child(3) { grid-area: c; }
-.content div:nth-child(4) { grid-area: d; }
-.content div:nth-child(5) { grid-area: e; }
+.content div:nth-child(4) { grid-area: c; }
+.content div:nth-child(5) { grid-area: d; }
+.content div:nth-child(6) { grid-area: e; }
 
 .content div {
    position: relative;
