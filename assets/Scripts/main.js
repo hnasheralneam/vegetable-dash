@@ -237,10 +237,8 @@ function mainLoop() {
    if (hours > 6 && hours < 20) { document.body.style.backgroundImage = `url('../Images/Background/${bgImg[1]}.svg')`; }
    else { document.body.style.backgroundImage = `url('../Images/Background/${bgImg[0]}.svg')`; }
    document.querySelector(".police-chance").textContent = (gameData.black.catchChance).toFixed(2);
-   document.querySelector(".seeds").textContent = `${toWord(gameData.seeds, "short")} Seeds`;
-   document.querySelector(".seedsQuick").textContent = `${toWord(gameData.seeds)} Seeds`;
    document.querySelector("#doughnuts").textContent = `${toWord(gameData.doughnuts, "short")} Doughnuts`;
-   document.querySelector("#fertilizer").textContent = `${Math.round(gameData.fertilizers)} Fertilizers Click + Place to apply`;
+   document.querySelector("#fertilizer").dataset.info = `${Math.round(gameData.fertilizers)} bags of Fertilizers <br> Click + Place to apply`;
 }
 function vegetableCheck() {
    if (seedOwned("peas")) {
@@ -377,7 +375,6 @@ function checkForTasks() {
 }
 function updateMainValues() {
    document.querySelector(".main-values-coins").textContent = `${Math.round(gameData.coins)} Coins`;
-   document.querySelector(".main-values-seeds").textContent = `${Math.round(gameData.seeds)} Seeds`;
    document.querySelector(".main-values-genes").textContent = `${Math.round(gameData.genes)} Genes`;
 }
 function updateDisplay(veg) {
@@ -411,11 +408,6 @@ function scrollToSection(id) { document.getElementById(id).scrollIntoView(); }
 function reverseString(str) {
    let splitString = str.split("");
    return splitString.reverse().join("");
-}
-function hlpScrl(id) {
-   document.querySelector(`#help-${id}`).scrollIntoView();
-   $('.help-subjects-item-active').removeClass('help-subjects-item-active');
-   $(`.help-subjects-item-${id}`).addClass('help-subjects-item-active');
 }
 function hideObj(objId) {
    document.querySelector(objId).style.opacity = "0";
@@ -498,7 +490,7 @@ function updateMarket() {
       Buy for ${toWord(gameData["buy" + veg], "short")}
       Sell for ${toWord(gameData["sell" + veg], "short")} \r\n \r\n`;
    }
-   document.querySelector(".reset-market-item").textContent = `You have ${gameData.marketResets} Market Resets`;
+   document.querySelector(".market-resets").textContent = `You have ${gameData.marketResets}`;
 }
 function resetMarketValues() {
    if (gameData.marketResets > 0) {
@@ -613,8 +605,8 @@ function newBlackOffer() {
    document.querySelector(".blackMarket").style.backgroundColor = genColor();
 }
 function accept() {
-   if (gameData.seeds >= gameData.black.cost) {
-      gameData.seeds -= gameData.black.cost;
+   if (gameData.coins >= gameData.black.cost) {
+      gameData.coins -= gameData.black.cost;
       blackMarketValues();
       blackMarketLuck();
       newBlackOffer();
@@ -624,7 +616,7 @@ function accept() {
       if (gameData.black.item === "Doughnuts") { gameData.doughnuts += gameData.black.quantity; }
       checkTasks("seeBlackMarket");
    }
-   else { fadeTextAppear(`Not enough seeds`, false, "#de0000"); }
+   else { fadeTextAppear(`Not enough coins`, false, "#de0000"); }
 }
 function deny() {
    blackMarketValues();
@@ -788,10 +780,6 @@ function chooseWeather() {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function harvestLuck(veg) {
-   if (Math.random() < 0.20) {
-      gameData.seeds += 5;
-      fadeTextAppear(`You ${veg} harvest yeilded 5 \n seeds!`, "vegLuck", "#00de88");
-   }
    if (Math.random() < 0.10) {
       gameData[veg] += 2;
       fadeTextAppear(`A bumper crop! You collected \n 2 extra ${capitalize(veg)}!`, "vegLuck", "#00de88");
@@ -814,8 +802,8 @@ function marketLuck() {
 }
 function blackMarketLuck() {
    if (Math.random() < gameData.black.catchChance) {
-      callAlert("The police caught you! You were fined 6000 Seeds");
-      gameData.seeds -= 6000;
+      callAlert("The police caught you! You were fined 6000 coins");
+      gameData.coins -= 6000;
    }
 }
 function luckyRoll() {
@@ -1204,64 +1192,44 @@ function initPlots() {
       let index = i;
       let plotBody = document.createElement("DIV");
       plotBody.classList.add("plot");
-      plotBody.id = `plot${i}`;
-      let tendBtn = document.createElement("BUTTON");
-      tendBtn.classList.add(`btn${i}`, "btn");
-      tendBtn.onclick = () => { tendTo(index, val.plant); }
-      tendBtn.textContent = "Grow " + val.plant + "!";
-      let countdown = document.createElement("DIV");
-      countdown.classList.add("countdown", "time-left");
-      let timeLeft = document.createElement("SPAN");
-      timeLeft.classList.add(`time-left-${i}`);
-      let timeImg = document.createElement("IMG");
-      timeImg.src = "Images/Icons/clock.svg";
-      let plantImg = document.createElement("IMG");
-      plantImg.src = `Images/Vegetables/${val.plant}.png`;
-      plantImg.classList.add("veg-icon", `plant-icon-${i}`);
-      let almanacBtn = document.createElement("BUTTON");
-      almanacBtn.classList.add("almanacBtn", `almanac${i}`);
-      almanacBtn.onclick = function() {
-         if (document.getElementById(`shop${i}`).style.height === "95%") {
-            document.getElementById(`shop${i}`).style.height = "0";
-         } else {
-            document.getElementById(`shop${i}`).style.height = "95%";
-         }
-      };
-      let almanac = document.createElement("IMG");
-      almanac.src = "Images/Global Assets/almanac.png";
-      almanac.classList.add("almanac");
-      let shop = document.createElement("UL");
-      shop.classList.add("shop-window");
-      shop.id = `shop${i}`;
+      plotBody.id = `plot${index}`;
+      document.querySelector(".land").appendChild(plotBody);
+
+      plotBody.innerHTML = `
+      <div class="countdown time-left">
+         <span class="time-left-${index}">00:01:19</span>
+         <img src="Images/Icons/clock.svg">
+      </div>
+      <img src="Images/Vegetables/${val.plant}.png" class="veg-icon plant-icon-${index}">
+      <button class="almanacBtn almanac${index}" onclick="if (document.getElementById("shop${index}").style.height === "95%") { document.getElementById("shop${index}").style.height = "0"; } else { document.getElementById("shop${index}").style.height = "95%"; }">
+         <img src="Images/Global Assets/almanac.png" class="almanac">
+      </button>
+      <button class="btn${index} btn" onclick="tendTo(${index}, ${val.plant})">Grow ${val.plant}!</button>
+      <ul class="shop-window" id="shop${index}"></ul>
+      `;
+
       gameData.plantSeeds.forEach((value) => {
          let listItem = document.createElement("LI");
          let listImg = document.createElement("IMG");
          listImg.classList.add("store-icon");
          listImg.src = `Images/Vegetables/${value}.png`;
-         listImg.onclick = function() { tendTo(index, value); };
-         shop.appendChild(listItem);
+         listImg.onclick = () => { tendTo(index, value); };
          listItem.appendChild(listImg);
+         plotBody.querySelector(".shop-window").appendChild(listItem);
       });
-      document.querySelector(".land").appendChild(plotBody);
-      plotBody.appendChild(countdown);
-      countdown.appendChild(timeLeft);
-      countdown.appendChild(timeImg);
-      plotBody.appendChild(plantImg);
-      plotBody.appendChild(almanacBtn);
-      almanacBtn.appendChild(almanac);
-      plotBody.appendChild(tendBtn);
-      plotBody.appendChild(shop);
-      if (gameData.plots[i].isGrowing() || gameData.plots[i].status == "Ready") {
-         plantGrowthLoop(i);
-         document.querySelector(`.almanac${i}`).disabled = true;
+      if (gameData.plots[index].isGrowing() || gameData.plots[index].status == "Ready") {
+         plantGrowthLoop(index);
+         document.querySelector(`.almanac${index}`).disabled = true;
       }
    });
+
    gameData.plots.forEach((val, i, arr) => {
       gameData.plots[i].onChange(() => {
          document.querySelector(`.plant-icon-${i}`).src = `Images/Vegetables/${val.plant}.png`;
       });
    });
 }
+
 function tendTo(pos, veg) {
    document.getElementById(`shop${pos}`).style.height = "0";
    document.querySelector(`.almanac${pos}`).disabled = true;
@@ -1269,7 +1237,6 @@ function tendTo(pos, veg) {
    if (gameData.plots[pos].harvestReady()) {
       document.querySelector(`.almanac${pos}`).disabled = false;
       gameData.plots[pos].status = "Empty";
-      gameData.seeds++;
       // Chances
       harvestLuck(veg);
       // Decide how much to add (if statment to prevent NaN on first time)
@@ -1293,6 +1260,7 @@ function tendTo(pos, veg) {
       plantGrowthLoop(pos);
    }
 }
+
 function plantCountdown(i) {
    if (!gameData.plots[i].isGrowing()) { return; }
    let countDown = document.querySelector(`.time-left-${i}`);
@@ -1309,6 +1277,7 @@ function plantCountdown(i) {
    if (seconds < 10) { seconds = `0${seconds}`; }
    countDown.textContent = `${hours}:${minutes}:${seconds}`;
 }
+
 function plantGrowthLoop(plotIndex) {
    let plant = gameData.plots[plotIndex].plant;
    let urls = gameInfo[plant + "URLs"];
@@ -1348,3 +1317,45 @@ function plantGrowthLoop(plotIndex) {
 
 // Gene labs?
 // Chat task system
+
+
+
+
+
+
+
+
+
+
+
+
+
+for (i = 1; i < 6; i++) {
+   let progressbar = document.createElement("DIV");
+   progressbar.innerHTML = `
+      <div class="plant-progress plant-progress-${i}">
+         <span class="plant-progress-view-${i}">
+            <span><p class="plant-progress-text-${i}">0%</p></span>
+         </span>
+      </div>
+   `;
+   document.querySelector(".BM-menu").appendChild(progressbar);
+
+   let ourNum = i;
+   let loadProgress = { lp0: 1 };
+   let loadbar = { lb0: null }
+   loadProgress[`lp${ourNum}`] = 0;
+   loadbar[`lb${ourNum}`] = setInterval(() => {
+      loadProgress[`lp${ourNum}`] += 1;
+      document.querySelector(`.plant-progress-view-${ourNum}`).style.width = loadProgress[`lp${ourNum}`] + "%";
+      document.querySelector(`.plant-progress-text-${ourNum}`).textContent = loadProgress[`lp${ourNum}`] + "%";
+      if (loadProgress[`lp${ourNum}`] == 100) { clearInterval(loadbar[`lb${ourNum}`]); }
+   }, 20);
+
+   $(`.plant-progress-view-${ourNum} > span`).each(function () {
+      $(this)
+      .data("origWidth", $(this).width())
+      .width(0)
+      .animate( { width: $(this).data("origWidth") }, 1 );
+   });
+}

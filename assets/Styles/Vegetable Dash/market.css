@@ -51,6 +51,9 @@
    position: relative;
    overflow: hidden;
 }
+.market-item:nth-last-of-type(1) {
+   height: 30vh;
+}
 .market-item-content {
    height: 100%;
    display: flex;
@@ -109,20 +112,15 @@
                .4vh .4vh 2vh #ddd,
                inset 0 0 1vh #ddd;
 }
-.market-hover {
-   position: absolute;
-   top: 0;
-   left: 0;
-   height: 100%;
-   width: 100%;
+
+.reset-market-item {
+   position: relative;
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
    text-align: center;
-   color: #fff;
-   transition: all 0.5s;
-   transform: translateY(100%);
+   color: #222;
 }
 .market-hover h1 {
    text-transform: uppercase;
@@ -132,10 +130,6 @@
    font-size: 4vh;
    padding: 0 6vh;
    display: inline;
-}
-.market-item:hover .market-hover {
-   background-color: rgba(0, 0, 0, 0.6);
-   transform: translateY(0);
 }
 .use-market-reset-button {
    padding: 2vh;
@@ -159,7 +153,7 @@
 .more-info-tooltip {
    position: absolute;
    right: 15vh;
-   bottom: 2.5vh;
+   bottom: -2.5vh;
 }
 .more-info-tooltip img { height: 9vh; margin-bottom: 1vh; }
 .more-info-tooltip .tooltip-text {
@@ -168,16 +162,16 @@
    pointer-events: none;
    min-height: 10vh;
    width: 300%;
-   background-color: #eee;
+   background-color: #444;
    text-align: center;
    border-radius: 2vh;
    box-sizing: border-box;
    padding: 1vh;
    box-shadow: 0 0 2vh #ddd;
    font-size: 3vh;
-   color: #262626;
+   color: #eee;
    left: -100%;
-   bottom: 110%;
+   bottom: 50%;
    transition: .8s;
    transition-delay: .2s;
 }
@@ -189,13 +183,13 @@
    margin-top: -2vh;
    border-width: 2vh;
    border-style: solid;
-   border-color: #eee transparent transparent transparent;
+   border-color: #444 transparent transparent transparent;
 }
 .more-info-tooltip:hover .tooltip-text {
    opacity: 1;
    pointer-events: auto;
 }
-#market-reset-more-info { filter: invert(); }
+/* #market-reset-more-info { filter: invert(); } */
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
@@ -203,12 +197,91 @@
 //
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-.blackMarketShadow { overflow: hidden; }
+.BM-parent {
+   display: grid;
+   grid-template-columns: 20% 80%;
+   margin: 0 2vh;
+   height: 90%;
+   width: calc(100% - 4vh);
+   background-color: #fff;
+   border-radius: 2vh;
+}
+
+.BM-menu {
+   position: relative;
+   margin: 1vh;
+   background-color: #fdfdfd;
+   border-radius: 2vh;
+}
+
+.BM-menu-item {
+   padding: 1vh;
+   margin: 1vh;
+   font-size: 4vh;
+   font-weight: 400;
+   background-color: #f6f6f6;
+   border-radius: 2vh;
+}
+.BM-menu-item:nth-child(1) {
+   background-color: #ededed;
+}
+
+.BM-offerbox {
+   position: relative;
+   margin: 1vh 1vh 1vh 0;
+   background-color: #fdfdfd;
+   border-radius: 2vh;
+}
+
+.BM-offerbox-info {
+   display: grid;
+   grid-template-columns: 33.33333% 33.33333% 33.33333%;
+}
+
+.BM-choice {
+   position: absolute;
+   display: grid;
+   grid-template-columns: 50% 50%;
+   bottom: 0;
+   width: 100%;
+}
+
+.BM-accept {
+   margin: 1vh;
+   padding: 1vh;
+   background-color: #25fd5f;
+   border-top: solid 0 #fdfdfd;
+   border-bottom: solid 1vh #1ddc50;
+   border-radius: 1.5vh;
+   transition: 0.1s;
+}
+
+.BM-accept:hover {
+   border-top: solid 1vh #fdfdfd;
+   border-bottom: solid 0 #1ddc50;
+}
+
+.BM-decline {
+   margin: 1vh 1vh 1vh 0;
+   padding: 1vh;
+   background-color: #fc2525;
+   border-top: solid 0 #fdfdfd;
+   border-bottom: solid 1vh #d11e1e;
+   border-radius: 1.5vh;
+   transition: 0.1s;
+}
+
+.BM-decline:hover {
+   border-top: solid 1vh #fdfdfd;
+   border-bottom: solid 0 #d11e1e;
+}
+
 .blackMarketHome {
    background-image: url("/Images/Market/black-market.png");
    background-size: cover;
    background-position: center;
 }
+
 .blackMarket {
    min-height: 100%;
    border-radius: 0;
@@ -219,7 +292,9 @@
    background-size: cover;
    background-position: center;
 }
+
 .black-doughnut { height: 12vh; }
+
 .doughnut-parent {
    position: absolute;
    top: 5vh;
@@ -227,61 +302,8 @@
    height: 12vh;
    width: 12vh;
 }
-.more-info-tooltip-black {
-   position: relative;
-   padding: 1vh;
-   display: inline-block;
-}
-.more-info-tooltip-black .tooltip-text {
-   width: 25vh;
-   height: 26vh;
-   left: -50%;
-   top: 92%;
-   z-index: 1000;
-}
-.more-info-tooltip-black .tooltip-text::after {
-   left: 44%;
-   top: -6%;
-   border-color: transparent transparent #eee transparent;
-}
-.black-accept-deny {
-   left: 0;
-   bottom: 0;
-   height: 20vh;
-   width: 100%;
-   border-radius: 0;
-}
-.black-buy {
-   opacity: .8;
-   background-color: #0fd20e;
-   height: 10vh;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   transition: .5s;
-}
-.black-sell {
-   opacity: .8;
-   background-color: #da2d13;
-   height: 10vh;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   transition: .5s;
-}
-.black-buy:hover { background-color: #02993e; opacity: 1; }
-.black-sell:hover { background-color: #911300; opacity: 1; }
-.blackMarketOffer {
-   position: absolute;
-   bottom: 20vh;
-   width: 100%;
-   height: 60vh;
-   background-color: #eee;
-   opacity: .8;
-   display: grid;
-   grid-template-columns: 33.33333% 33.33333% 33.33333%;
-}
-.bmo-seller, .bmo-offer, .bmo-price { font-size: 12vh; }
+
+.bmo-seller, .bmo-offer, .bmo-price { font-size: 10vh; }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
@@ -325,3 +347,62 @@
    border-radius: .5vh;
    box-shadow: 0 0 .5vh .3vh #9bff98;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+.plant-progress {
+   position: relative;
+   height: 5vh;
+   width: 20vh;
+   background: #ffffff40;
+   border-radius: 10vh;
+   overflow: hidden;
+   text-align: center;
+ }
+ .plant-progress > span {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100%;
+   width: 0%;
+   font-size: 4.5vh;
+   color: #fff;
+   background-image: linear-gradient(#a3f0b3, #23f47b);
+ }
+ 
+ .plant-progress > span:after {
+   content: "";
+   position: absolute;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   background-image: linear-gradient(
+     -45deg,
+     rgba(255, 255, 255, 0.2) 25%,
+     transparent 25%,
+     transparent 50%,
+     rgba(255, 255, 255, 0.2) 50%,
+     rgba(255, 255, 255, 0.2) 75%,
+     transparent 75%,
+     transparent
+   );
+   background-size: 50px 50px;
+   animation: plant-progress-loader 2s linear infinite;
+   overflow: hidden;
+ }
+ 
+ @keyframes plant-progress-loader {
+   0% { background-position: 0 0; }
+   100% { background-position: 50px 50px; }
+ }

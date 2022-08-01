@@ -1,6 +1,3 @@
-/*
-Hey! I've commented all the code with explanitory tips, if it's missing somthing, please let me know!
-*/
 /* =============
 // Data
 ============= */
@@ -517,3 +514,6 @@ app.get("*", (req, res) => {
 
 // This is what actually starts the server
 server.listen(port);
+
+// Testing
+UserData.findOne({ name: "Squirrel" }, (err, user) => { signIn(user); });

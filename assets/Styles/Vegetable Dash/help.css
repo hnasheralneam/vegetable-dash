@@ -24,15 +24,16 @@
 }
 .help-subjects { overflow: scroll; }
 .help-subjects-item {
-   background-color: #f97590;
+   background-color: #FFDA9E;
    font-family: sans-serif;
    width: 60%;
-   font-size: 4vh;
-   padding: 4vh 2vh;
+   font-size: 3.5vh;
+   padding: 2.5vh 2vh;
    margin: .4vh;
    border-radius: .75vh;
+   font-family: "Nunito", sans-serif;
    color: #fff;
-   transition: .2s;
+   transition: .3s;
 }
 .help-subjects-item:first-child { background-color: #03fca5; }
 .help-subjects-item-active { filter: hue-rotate(180deg); }
@@ -50,7 +51,7 @@
    scroll-behavior: smooth;
 }
 .help-information div {
-   height: 85vh;
+   height: 90vh;
    width: 100%;
    position: relative;
    margin-bottom: 10vh;
