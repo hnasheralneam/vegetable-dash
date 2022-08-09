@@ -467,14 +467,14 @@ function seedOwned(veg) {
 function checkMarket() {
    let marketItem = document.getElementsByClassName("market-item");
    marketItem[10].style.display = "block";
-   marketItem[0].style.display = "block";
-   if (seedOwned("corn")) { marketItem[1].style.display = "block"; marketItem[8].style.display = "block"; }
-   if (seedOwned("strawberries")) { marketItem[2].style.display = "block"; marketItem[9].style.display = "block"; }
-   if (seedOwned("eggplants")) { marketItem[3].style.display = "block"; }
-   if (seedOwned("pumpkins")) { marketItem[4].style.display = "block"; }
-   if (seedOwned("cabbage")) { marketItem[5].style.display = "block"; }
-   if (seedOwned("dandelion")) { marketItem[6].style.display = "block"; }
-   if (seedOwned("rhubarb")) { marketItem[7].style.display = "block"; }
+   marketItem[0].style.display = "inline-block";
+   if (seedOwned("corn")) { marketItem[1].style.display = "inline-block"; marketItem[8].style.display = "block"; }
+   if (seedOwned("strawberries")) { marketItem[2].style.display = "inline-block"; marketItem[9].style.display = "block"; }
+   if (seedOwned("eggplants")) { marketItem[3].style.display = "inline-block"; }
+   if (seedOwned("pumpkins")) { marketItem[4].style.display = "inline-block"; }
+   if (seedOwned("cabbage")) { marketItem[5].style.display = "inline-block"; }
+   if (seedOwned("dandelion")) { marketItem[6].style.display = "inline-block"; }
+   if (seedOwned("rhubarb")) { marketItem[7].style.display = "inline-block"; }
 }
 function updateMarket() {
    display("Peas");
@@ -486,9 +486,10 @@ function updateMarket() {
    display("Dandelion");
    display("Rhubarb");
    function display(veg) {
-      document.querySelector(`.${veg.toLowerCase()}-market-item`).textContent = `${veg}: ${toWord(gameData[veg.toLowerCase()])}
-      Buy for ${toWord(gameData["buy" + veg], "short")}
-      Sell for ${toWord(gameData["sell" + veg], "short")} \r\n \r\n`;
+      document.querySelector(`.${veg.toLowerCase()}-market-item`).textContent = `${veg} \r\n ${toWord(gameData[veg.toLowerCase()])}`;
+      document.querySelector(`.${veg.toLowerCase()}-buy`).dataset.info = `Buy for ${toWord(gameData["buy" + veg], "short")}`;
+      document.querySelector(`.${veg.toLowerCase()}-sell`).dataset.info = `Sell for ${toWord(gameData["sell" + veg], "short")}`;
+
    }
    document.querySelector(".market-resets").textContent = `You have ${gameData.marketResets}`;
 }
