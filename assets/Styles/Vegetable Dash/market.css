@@ -360,10 +360,41 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .plant-progress {
-   position: relative;
+   position: absolute;
+   top: 1vh;
    height: 5vh;
-   width: 20vh;
+   width: calc(100% - 2vh);
    background: #ffffff40;
    border-radius: 10vh;
    overflow: hidden;
@@ -375,7 +406,8 @@
    align-items: center;
    height: 100%;
    width: 0%;
-   font-size: 4.5vh;
+   font-family: "Nunito", sans-serif;
+   font-size: 3.5vh;
    color: #fff;
    background-image: linear-gradient(#a3f0b3, #23f47b);
  }

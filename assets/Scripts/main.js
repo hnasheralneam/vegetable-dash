@@ -1195,13 +1195,19 @@ function initPlots() {
       plotBody.id = `plot${index}`;
       document.querySelector(".land").appendChild(plotBody);
 
+      ourNum = i;
       plotBody.innerHTML = `
+      <div class="plant-progress plant-progress-${i}">
+         <span class="plant-progress-view-${i}">
+            <span><p class="plant-progress-text-${i}">0%</p></span>
+         </span>
+      </div>
       <div class="countdown time-left">
          <span class="time-left-${index}">00:01:19</span>
          <img src="Images/Icons/clock.svg">
       </div>
       <img src="Images/Vegetables/${val.plant}.png" class="veg-icon plant-icon-${index}">
-      <button class="almanacBtn almanac${index}" onclick="if (document.getElementById("shop${index}").style.height === "95%") { document.getElementById("shop${index}").style.height = "0"; } else { document.getElementById("shop${index}").style.height = "95%"; }">
+      <button class="almanacBtn almanac${index}" onclick="toggleAlmanac()">
          <img src="Images/Global Assets/almanac.png" class="almanac">
       </button>
       <button class="btn${index} btn" onclick="tendTo(${index}, ${val.plant})">Grow ${val.plant}!</button>
@@ -1228,6 +1234,34 @@ function initPlots() {
          document.querySelector(`.plant-icon-${i}`).src = `Images/Vegetables/${val.plant}.png`;
       });
    });
+
+
+
+   var ourNum;
+   let loadProgress = { lp0: 1 };
+   let loadbar = { lb0: null }
+   loadProgress[`lp${ourNum}`] = 0;
+   loadbar[`lb${ourNum}`] = setInterval(() => {
+      loadProgress[`lp${ourNum}`] += 1;
+      document.querySelector(`.plant-progress-view-${ourNum}`).style.width = loadProgress[`lp${ourNum}`] + "%";
+      document.querySelector(`.plant-progress-text-${ourNum}`).textContent = loadProgress[`lp${ourNum}`] + "%";
+      if (loadProgress[`lp${ourNum}`] == 100) { clearInterval(loadbar[`lb${ourNum}`]); }
+   }, 20);
+
+   $(`.plant-progress-view-${ourNum} > span`).each(function () {
+      $(this)
+      .data("origWidth", $(this).width())
+      .width(0)
+      .animate( { width: $(this).data("origWidth") }, 1 );
+   });
+}
+
+function toggleAlmanac() {
+   if (document.getElementById("shop${index}").style.height === "95%") {
+      document.getElementById("shop${index}").style.height = "0";
+   } else {
+      document.getElementById("shop${index}").style.height = "95%";
+   }
 }
 
 function tendTo(pos, veg) {
@@ -1330,32 +1364,32 @@ function plantGrowthLoop(plotIndex) {
 
 
 
-for (i = 1; i < 6; i++) {
-   let progressbar = document.createElement("DIV");
-   progressbar.innerHTML = `
-      <div class="plant-progress plant-progress-${i}">
-         <span class="plant-progress-view-${i}">
-            <span><p class="plant-progress-text-${i}">0%</p></span>
-         </span>
-      </div>
-   `;
-   document.querySelector(".BM-menu").appendChild(progressbar);
+// for (i = 1; i < 6; i++) {
+//    let progressbar = document.createElement("DIV");
+//    progressbar.innerHTML = `
+//       <div class="plant-progress plant-progress-${i}">
+//          <span class="plant-progress-view-${i}">
+//             <span><p class="plant-progress-text-${i}">0%</p></span>
+//          </span>
+//       </div>
+//    `;
+//    document.querySelector(".BM-menu").appendChild(progressbar);
 
-   let ourNum = i;
-   let loadProgress = { lp0: 1 };
-   let loadbar = { lb0: null }
-   loadProgress[`lp${ourNum}`] = 0;
-   loadbar[`lb${ourNum}`] = setInterval(() => {
-      loadProgress[`lp${ourNum}`] += 1;
-      document.querySelector(`.plant-progress-view-${ourNum}`).style.width = loadProgress[`lp${ourNum}`] + "%";
-      document.querySelector(`.plant-progress-text-${ourNum}`).textContent = loadProgress[`lp${ourNum}`] + "%";
-      if (loadProgress[`lp${ourNum}`] == 100) { clearInterval(loadbar[`lb${ourNum}`]); }
-   }, 20);
+//    let ourNum = i;
+//    let loadProgress = { lp0: 1 };
+//    let loadbar = { lb0: null }
+//    loadProgress[`lp${ourNum}`] = 0;
+//    loadbar[`lb${ourNum}`] = setInterval(() => {
+//       loadProgress[`lp${ourNum}`] += 1;
+//       document.querySelector(`.plant-progress-view-${ourNum}`).style.width = loadProgress[`lp${ourNum}`] + "%";
+//       document.querySelector(`.plant-progress-text-${ourNum}`).textContent = loadProgress[`lp${ourNum}`] + "%";
+//       if (loadProgress[`lp${ourNum}`] == 100) { clearInterval(loadbar[`lb${ourNum}`]); }
+//    }, 20);
 
-   $(`.plant-progress-view-${ourNum} > span`).each(function () {
-      $(this)
-      .data("origWidth", $(this).width())
-      .width(0)
-      .animate( { width: $(this).data("origWidth") }, 1 );
-   });
-}
+//    $(`.plant-progress-view-${ourNum} > span`).each(function () {
+//       $(this)
+//       .data("origWidth", $(this).width())
+//       .width(0)
+//       .animate( { width: $(this).data("origWidth") }, 1 );
+//    });
+// }
