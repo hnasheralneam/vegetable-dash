@@ -293,6 +293,11 @@
    width: 100%;
 }
 
+.BM-menu-bottom {
+   position: absolute;
+   bottom: 0vh;
+}
+
 .BM-accept {
    margin: 1vh;
    padding: 1vh;
@@ -340,7 +345,16 @@
    background-position: center;
 }
 
-.black-doughnut { height: 12vh; }
+.BM-doughnuts {
+   height: 10vh;
+   position: relative;
+}
+
+.black-doughnut {
+   position: absolute;
+   left: 1vh;
+   height: 10vh;
+}
 
 .doughnut-parent {
    position: absolute;
