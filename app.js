@@ -24,7 +24,8 @@ mongoose.set("useFindAndModify", false);
 
 // Mongoose things
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true });
+// ACK TEXT PASSWORD
+mongoose.connect("mongodb+srv://Squirrel:nCCJ0sQuQQ5qhGsn@test-user-data.daqv1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { useUnifiedTopology: true, useNewUrlParser: true });
 
 // System things
 connection.on('error', console.error.bind(console, 'Connection error: '));
