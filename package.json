@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Squirrel-314/vegetable-dash.git"
+    "url": "git+https://github.com/editorrust/vegetable-dash.git"
   },
   "keywords": [
     "farming",
@@ -18,12 +18,12 @@
     "javascript",
     "browser"
   ],
-  "author": "Squirrel",
+  "author": "Editor Rust",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Squirrel-314/vegetable-dash/issues"
+    "url": "https://github.com/editorrust/vegetable-dash/issues"
   },
-  "homepage": "https://github.com/Squirrel-314/vegetable-dash#readme",
+  "homepage": "https://github.com/editorrust/vegetable-dash#readme",
   "dependencies": {
     "axios": "^0.24.0",
     "bcryptjs": "^2.4.3",

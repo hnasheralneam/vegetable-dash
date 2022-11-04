@@ -228,7 +228,7 @@ function createAccountGithub(githubData) {
    });
    newUser.save(function (err, newUser) { if (err) return console.error(err); });
    // Send 'em an email
-   sendEmail("🎉 Congratulations! 🎉 You have successfully created your Vegetable Dash account!", "<h2>🎉 Congratulations! 🎉</h2><h4>You have successfully created your Vegetable Dash account!</h4><p>We just wanted to let you know that you created your Vegetable Dash account, and there were no errors in doing so. I will respect the power that I hold with your email and will not send promotional emails unless you want me to. The only other emails I will send shall be triggered by your actions on my site. Good Luck!</p><i>-Squirrel</i><p>vegetabledash@gmail.com</p>", githubData.email);
+   sendEmail("🎉 Congratulations! 🎉 You have successfully created your Vegetable Dash account!", "<h2>🎉 Congratulations! 🎉</h2><h4>You have successfully created your Vegetable Dash account!</h4><p>We just wanted to let you know that you created your Vegetable Dash account, and there were no errors in doing so. I will respect the power that I hold with your email and will not send promotional emails unless you want me to. The only other emails I will send shall be triggered by your actions on my site. Good Luck!</p><i>-Editor Rust</i><p>vegetabledash@gmail.com</p>", githubData.email);
 }
 
 /* =============
@@ -260,7 +260,7 @@ app.post("/create-account", (req, res) => {
                });
                newUser.save(function (err, newUser) { if (err) return console.error(err); });
                // Send 'em an email
-               sendEmail("🎉 Congratulations! 🎉 You have successfully created your Vegetable Dash account!", "<h2>🎉 Congratulations! 🎉</h2><h4>You have successfully created your Vegetable Dash account!</h4><p>We just wanted to let you know that you created your Vegetable Dash account (${req.body.name}), and there were no errors in doing so. I will respect the power that I hold with your email and will not send promotional emails unless you want me to. The only other emails I will send shall be triggered by your actions on my site. Good Luck!</p><i>-Squirrel</i><p>vegetabledash@gmail.com</p>", req.body.emil);
+               sendEmail("🎉 Congratulations! 🎉 You have successfully created your Vegetable Dash account!", "<h2>🎉 Congratulations! 🎉</h2><h4>You have successfully created your Vegetable Dash account!</h4><p>We just wanted to let you know that you created your Vegetable Dash account (${req.body.name}), and there were no errors in doing so. I will respect the power that I hold with your email and will not send promotional emails unless you want me to. The only other emails I will send shall be triggered by your actions on my site. Good Luck!</p><i>-Editor Rust</i><p>vegetabledash@gmail.com</p>", req.body.emil);
                // Sign in and go home
                UserData.findOne({ name: req.body.name, email: req.body.emil, passcode: req.body.pscd }, (err, user) => {
                   if (err) return console.error(err);
@@ -318,7 +318,7 @@ app.post("/change-account-info", (req, res) => {
                (err, doc) => {
                   if (err) return console.error(err);
                   else {
-                     sendEmail("🎉 Email & Name Updated! 🎉", "<h2>✉️ Email & Name Updated! ✉️</h2><h4>You have successfully updated your Vegetable Dash account!</h4><p>I just wanted to let you know that your account info has just been changed. If it wasn't you who did it, your account has been comprimised, but you probably won't be getting this email, because the email was changed. Just wanted to let you know! </p><i>-Squirrel</i><p>vegetabledash@gmail.com</p>", req.body.emil);
+                     sendEmail("🎉 Email & Name Updated! 🎉", "<h2>✉️ Email & Name Updated! ✉️</h2><h4>You have successfully updated your Vegetable Dash account!</h4><p>I just wanted to let you know that your account info has just been changed. If it wasn't you who did it, your account has been comprimised, but you probably won't be getting this email, because the email was changed. Just wanted to let you know! </p><i>-Editor Rust</i><p>vegetabledash@gmail.com</p>", req.body.emil);
                      return doc;
                   }
                }
