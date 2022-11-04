@@ -1,4 +1,4 @@
-/* Copyright Janurary 1st 2021 by Squirrel
+/* Copyright November 4th 2022 by Editor Rust
 ~~~~~~~~~~~~~~~~~
 TABLE OF CONTENTS
 ~~~~~~~~~~~~~~~~~
@@ -1277,7 +1277,7 @@ $(".meter > span").each(function () {
 });
 
 // Sent to new site
-if (location.hostname === "squirrel-314.github.io") { window.location.href = `https://vegetable-dash.herokuapp.com`; }
+if (location.hostname === "editorrust.github.io") { window.location.href = `https://vegetabledash.cyclic.app`; }
 
 // Dynamic hover
 var hover;
