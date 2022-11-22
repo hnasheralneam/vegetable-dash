@@ -1,4 +1,4 @@
-/* Copyright Janurary 1st 2021 by Squirrel
+/* Copyright November 4th 2021 by Editor Rust
 ~~~~~~~~~~~~~~~~~
 TABLE OF CONTENTS
 ~~~~~~~~~~~~~~~~~
@@ -15,8 +15,8 @@ Static Functions
 // These functions are run when the game loads, making it easier to find bugs
 
 // Sent to new site
-if (location.hostname === "squirrel-314.github.io") {
-   window.location.href = `https://vegetable-dash-beta.herokuapp.com`;
+if (location.hostname === "editorrust.github.io") {
+   window.location.href = `https://vegetable-dash.cyclic.app`;
 }
 
 // Declare the varibles
