@@ -43,7 +43,7 @@ body {
    display: inline-block;
    height: 35vh;
    width: 35vh;
-   background-image: url("/Images/New/ring.png");
+   background-image: url("../Images/New/ring.png");
    background-size: 35vh;
    border-radius: 100%;
 }

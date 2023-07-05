@@ -23,12 +23,12 @@
    right: 0;
    bottom: 0;
    left: 0;
-   background-image: url("/Images/Market/bustling.png");
+   background-image: url("../Images/Market/bustling.png");
    background-size: cover;
    background-color: #262626;
    text-align: center;
    font-family: "Roboto Condensed";
-   cursor: url('/Images/Cursors/money.png'), auto;
+   cursor: url("../Images/Cursors/money.png"), auto;
    overflow: scroll;
    transition: 0.8s;
 }
@@ -52,7 +52,7 @@
    margin: 2vh .5vh;
    background-color: #f5f5f540;
    background-size: 40vh 45vh;
-   background-image: url("/Images/Market/market-stall.png");
+   background-image: url("../Images/Market/market-stall.png");
 }
 
 .market-item:nth-last-of-type(1) {
@@ -329,7 +329,7 @@
 }
 
 .blackMarketHome {
-   background-image: url("/Images/Market/black-market.png");
+   background-image: url("../Images/Market/black-market.png");
    background-size: cover;
    background-position: center;
 }
@@ -340,7 +340,7 @@
    margin: 0;
    box-shadow: inset 2vh 2vh 6vh #000,
                inset -2vh -2vh 6vh #000;
-   background-image: url("/Images/Market/black-market.png");
+   background-image: url("../Images/Market/black-market.png");
    background-size: cover;
    background-position: center;
 }

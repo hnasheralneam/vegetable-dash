@@ -197,7 +197,7 @@ summary:focus { outline: none; }
    "auto auto auto";
 }
 .plot {
-   background-image: url("/Images/Plots/plot.png");
+   background-image: url("../Images/Plots/plot.png");
    background-size: cover;
    margin: .35vh;
    border-radius: 1vh;
@@ -734,7 +734,7 @@ summary:focus { outline: none; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .settings {
-   cursor: url("/Images/Cursors/chisel.png"), auto;
+   cursor: url("../Images/Cursors/chisel.png"), auto;
 }
 
 .setting-button {

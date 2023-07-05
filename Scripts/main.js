@@ -13,11 +13,10 @@ Static Functions
 //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // These functions are run when the game loads, making it easier to find bugs
-
-// Sent to new site
-if (location.hostname === "editorrust.github.io") {
-   window.location.href = `https://vegetable-dash.cyclic.app`;
-}
+var playerName = "bro";
+var start = false;
+gameData = localStorage.getItem("vegetabledashsave");
+// gameData.intro = "not started";
 
 // Declare the varibles
 let reloader;
@@ -42,20 +41,22 @@ let bgImgArr = [["lake-night", "lake-day"], ["mountian-night", "mountian-day"]];
 let bgImg = bgImgArr[Math.floor(Math.random() * bgImgArr.length)];
 
 document.onreadystatechange = function () {
+   console.log(document.readyState);
    switch (document.readyState) {
       case "interactive":
          loadingbar();
          break;
       case "complete":
-         let startCheckup = setInterval(() => { if (start) { goAhead(); clearInterval(startCheckup); } }, 1000);         
+         console.log("complete");
+         goAhead();
          function goAhead() {
             if (gameData == undefined || gameData == null || gameData.intro !== "finished") {
                reloader = false;
-               $("head").append('<link rel="stylesheet" type="text/css" href="Styles/Vegetable Dash/intro.css">');
+               $("head").append('<link rel="stylesheet" type="text/css" href="Styles/intro.css">');
                runIntro();
             }
+            
             console.log(`hi ${playerName}`);
-            gameData.loadtimes.push(Date.now() - timerStart);
             clearInterval(loadbar);
             document.querySelector(".loading-progress").style.width = "100%";
             document.querySelector(".load-display").textContent = "100%";
@@ -95,7 +96,7 @@ function loadingbar() {
    else if (Math.random() > .10) { document.querySelector(".meter").classList.add("blue-load"); }
    else { document.querySelector(".meter").classList.add("purple-load"); }
    
-   let everytime = gameData.loadtime / 100;
+   let everytime = 2222 / 100;
    let loadProgress = 0;
    loadbar = setInterval(() => {
       loadProgress += 3;
@@ -170,7 +171,7 @@ function setupShop() {
    }
    if (gameData.plots.length <= 9) {
       document.querySelectorAll(".buy-plots-seeds")[1].style.display = "inline-block";
-      document.querySelector(".buy-plots-image").src = "Images/Plots/plot.png";
+      document.querySelector(".buy-plots-image").src = "./Images/Plots/plot.png";
       document.querySelector(".buy-plots-button").textContent = `Buy a new plot for ${gameData.plotPrices[0]}`;
       document.querySelector(".buy-plots-button").onclick = () => {
          if (gameData.coins >= gameData.plotPrices[0]) {
@@ -186,18 +187,7 @@ function setupShop() {
 // Save's up here just 'cause it's important (I know that grammer isn't proper, but neither is this executive decision)
 function save() {
    let saveJSON = JSON.stringify(gameData);
-   $.ajax({
-      type: "POST",
-      contentType: "application/json",
-      data: saveJSON,
-      url: "/save-vegetable-dash",
-   }).done(function(response) {
-      if (reloader === true) { location.reload(); }
-   }).fail(function(xhr, textStatus, errorThrown) {
-      console.log("ERROR: ", errorThrown);
-      location.reload();
-      return xhr.responseText;
-   });
+   localStorage.setItem("vegetabledashsave", saveJSON);
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -205,7 +195,7 @@ function save() {
 // Loops
 //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// These are the loops, so useful but always causing trouble
+// These are the loops, so useful but always causing trouble. Maybe make less of them?
 
 function runLoops() {
    let oneSecondLoop = setInterval(() => {
@@ -234,8 +224,8 @@ function runLoops() {
 
 function mainLoop() {
    const hours = new Date().getHours();
-   if (hours > 6 && hours < 20) { document.body.style.backgroundImage = `url('../Images/Background/${bgImg[1]}.svg')`; }
-   else { document.body.style.backgroundImage = `url('../Images/Background/${bgImg[0]}.svg')`; }
+   if (hours > 6 && hours < 20) { document.body.style.backgroundImage = `url('./Images/Background/${bgImg[1]}.svg')`; }
+   else { document.body.style.backgroundImage = `url('./Images/Background/${bgImg[0]}.svg')`; }
    document.querySelector(".police-chance").textContent = (gameData.black.catchChance).toFixed(2);
    document.querySelector("#doughnuts").textContent = `${toWord(gameData.doughnuts, "short")} Doughnuts`;
    document.querySelector("#fertilizer").dataset.info = `${Math.round(gameData.fertilizers)} bags of Fertilizers <br> Click + Place to apply`;
@@ -1208,10 +1198,10 @@ function initPlots() {
          <img src="Images/Icons/clock.svg">
       </div>
       <img src="Images/Vegetables/${val.plant}.png" class="veg-icon plant-icon-${index}">
-      <button class="almanacBtn almanac${index}" onclick="toggleAlmanac()">
+      <button class="almanacBtn almanac${index}" onclick="toggleAlmanac(${index})">
          <img src="Images/Global Assets/almanac.png" class="almanac">
       </button>
-      <button class="btn${index} btn" onclick="tendTo(${index}, ${val.plant})">Grow ${val.plant}!</button>
+      <button class="btn${index} btn" onclick="tendTo(${index}, '${val.plant}')">Grow ${val.plant}!</button>
       <ul class="shop-window" id="shop${index}"></ul>
       `;
 
@@ -1257,11 +1247,11 @@ function initPlots() {
    });
 }
 
-function toggleAlmanac() {
-   if (document.getElementById("shop${index}").style.height === "95%") {
-      document.getElementById("shop${index}").style.height = "0";
+function toggleAlmanac(index) {
+   if (document.getElementById(`shop${index}`).style.height === "95%") {
+      document.getElementById(`shop${index}`).style.height = "0";
    } else {
-      document.getElementById("shop${index}").style.height = "95%";
+      document.getElementById(`shop${index}`).style.height = "95%";
    }
 }
 
@@ -1359,7 +1349,40 @@ function plantGrowthLoop(plotIndex) {
 
 
 
+// Dynamic hover
+var hover;
+var mouseX;
+var mouseY;
+var doThigsOnMousemoveList = [];
+function getCoords(e) {
+   mouseX = event.clientX;
+   mouseY = event.clientY;
+   if (doThigsOnMousemoveList.length >= 1) {
+      for (i = 0; i < doThigsOnMousemoveList.length; i++) {
+         let thsFunction = window[doThigsOnMousemoveList[i]];
+         thsFunction();
+      }
+   }
+}
 
+function info(THIS) {
+   let parent = THIS.parentElement;
+   hover = document.createElement("span");
+   hover.textContent = THIS.dataset.info;
+   hover.style.position = "fixed";
+   if (gameData.theme === "light") { hover.classList.add("dynamicHover"); }
+   else { hover.classList.add("dynamicHoverDark"); }
+   doThigsOnMousemoveList.push("moveInfoHover");
+   parent.appendChild(hover);
+   // setTimeout(() => { hover.style.opacity = "1" }, 100);
+   THIS.addEventListener("mouseleave", doThis);
+   function doThis() { hover.remove(); doThigsOnMousemoveList.splice(doThigsOnMousemoveList.indexOf("moveInfoHover"), 1); THIS.removeEventListener("mouseleave", doThis); }
+   // hover.style.opacity = "0"; setTimeout(() => { hover.remove(); }, 100);
+}
+function moveInfoHover() {
+   hover.style.top = `${mouseY}px`;
+   hover.style.left = `${mouseX + 25}px`;
+}
 
 
 
