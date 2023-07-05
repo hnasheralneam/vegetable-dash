@@ -1,44 +1,34 @@
 /* =============
 // Data
 ============= */
-// System variables (These are basically JS libraries)
-require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
 const axios = require("axios")
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require("uuid");
 
-// Start an express app. Express makes it easier to route things
 const app = express();
-// Choose the port it's running on. This checks if there's an enviroment variable (production), and if not, runs it on localhost 3000
 const port = process.env.PORT || 3000;
-// This starts mongoose, the library we're using to connect to the MongoDB database. It makes it easier to fetch and save data.
 const connection = mongoose.connection;
 
-// This will be changed later when the user signs in
 let signedIn = false;
 let signedInUser = "(not signed in)";
 
-// GitHub OAuth varibles, for creating an account or signing in with GitHub
 let github_access_token = "";
 const githubClientId = process.env.GITHUB_CLIENT_ID;
 const githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
 
-// This basically sets and starts all the libraries
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// This sets the base filepath for assets to /assets. It can be changed to anything
 app.use(express.static(__dirname + "/assets"));
-// Ejs is the view engine, it lets use use system varibles in html
 app.set("view engine", "ejs");
 mongoose.set("useFindAndModify", false);
 
 // Mongoose things
 mongoose.Promise = global.Promise;
 // Acutally connect to the database with the connection link. You'll need to create a user on the database so you'll get access
-mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect("mongodb+srv://Squirrel:nCCJ0sQuQQ5qhGsn@test-user-data.daqv1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { useUnifiedTopology: true, useNewUrlParser: true });
 
 // nodemailer things
 // What this does is setup the mailer, so we can email people when they sign up. Eventually we'll use this to send change password emails
