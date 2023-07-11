@@ -59,7 +59,7 @@ function initPlots() {
          <span class="time-left-${index}"></span>
          <img src="Images/Icons/clock.svg">
       </div>
-      <img src="Images/Vegetables/${val.plant}.png" class="veg-icon" src="Images/Vegetables/${val.plant}.png">
+      <img src="Images/Vegetables/${val.plant}.png" class="veg-icon plant-icon-${index}" src="Images/Vegetables/${val.plant}.png">
       <button class="almanacBtn almanac${index}" onclick="toggleAlmanac(${index})">
          <img src="Images/Global Assets/almanac.png" class="almanac">
       </button>
@@ -134,6 +134,7 @@ function tendTo(pos, veg) {
       if (gameData.weather === "rainy") { gameData.plots[pos].bushels++; }
       plantCountdown(pos);
       plantGrowthLoop(pos);
+      document.querySelector(`.plant-icon-${pos}`).src = `Images/Vegetables/${veg}.png`;
    }
 }
 

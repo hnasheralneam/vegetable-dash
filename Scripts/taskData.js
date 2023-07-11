@@ -12,7 +12,7 @@ t1: {
    },
    demand: {
       text: "Submit 25 Peas",
-      code: "if (gameData.peas >= 25) { gameData.peas -= 25; checkTasks('jebsPeaSalad'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+      code: "if (gameData.peas >= 25) { gameData.peas -= 25; checkTasks('jebsPeaSalad'); } else { fadeTextAppear(event, `Not enough produce - you need ${25 - gameData.peas} more`, false, '#de0000'); }"
    },
    text: {
       notReady: "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?",

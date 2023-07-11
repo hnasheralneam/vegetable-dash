@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
+      <!-- Page metadata -->
       <meta name="description" content="Vegetable Dash, a fun farming game with bright pictures and bright futures!">
-      <script src="https://editorrust.github.io/digit/main.js"></script>
       <link rel="shortcut icon" href="Images/Global Assets/logo.svg" type="image/x-icon">
       <title>Vegetable Dash</title>
+      <!-- Libraries -->
+      <script src="https://editorrust.github.io/digit/main.js"></script>
       <!-- Styles -->
       <link rel="stylesheet" href="Styles/rootstyles.css">
       <link rel="stylesheet" href="Styles/main.css">
@@ -58,8 +60,8 @@
       <div class="main-values">
          <img src="Images/New/coin.png">
          <p class="main-value main-values-coins"></p>
-         <img src="Images/New/dna.png">
-         <p class="main-value main-values-genes"></p>
+         <img src="Images/New/dna.png" style="display: none">
+         <p class="main-value main-values-genes" style="display: none"></p>
       </div>
       <!-- Produce count -->
       <div class="toolbar">
@@ -155,6 +157,7 @@
       <!-- Market -->
       <div class="shadow marketShadow">
          <div class="market">
+            <h2 class="market-disclaimer">Bushels are sold in batches of 5</h2>
             <div class="marketVegetables">
                <div class="market-item">
                   <div class="market-item-content">

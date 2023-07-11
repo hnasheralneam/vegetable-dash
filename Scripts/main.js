@@ -170,7 +170,7 @@ function setupShop() {
    if (gameData.plantSeeds.length < 8) {
       document.querySelectorAll(".buy-plots-seeds")[0].style.display = "inline-block";
       document.querySelector(".buy-seeds-image").src = `Images/Vegetables/${gameData.plotPlants[0]}.png`;
-      document.querySelector(".buy-seeds-button").textContent = `Buy ${gameData.plotPlants[0]} seeds for ${gameInfo[gameData.plotPlants[0] + "Seeds"]} coins!`;
+      document.querySelector(".buy-seeds-button").textContent = `Buy ${gameData.plotPlants[0]} seeds for ${toWord(gameInfo[gameData.plotPlants[0] + "Seeds"])} coins!`;
       document.querySelector(".buy-seeds-button").onclick = () => {
          if (gameData.coins >= gameInfo[gameData.plotPlants[0] + "Seeds"]) {
             let plant = gameData.plotPlants.shift();
@@ -184,7 +184,7 @@ function setupShop() {
    if (gameData.plots.length <= 9) {
       document.querySelectorAll(".buy-plots-seeds")[1].style.display = "inline-block";
       document.querySelector(".buy-plots-image").src = "./Images/Plots/plot.png";
-      document.querySelector(".buy-plots-button").textContent = `Buy a new plot for ${gameData.plotPrices[0]} coins!`;
+      document.querySelector(".buy-plots-button").textContent = `Buy a new plot for ${toWord(gameData.plotPrices[0])} coins!`;
       document.querySelector(".buy-plots-button").onclick = () => {
          if (gameData.coins >= gameData.plotPrices[0]) {
             gameData.coins -= gameData.plotPrices.shift();
@@ -368,8 +368,8 @@ function checkForTasks() {
    function isTrue(array) { let result = false; for (let i = 0; i < array.length; i++) { if (array[i] === true) { return true; } } }
 }
 function updateMainValues() {
-   document.querySelector(".main-values-coins").textContent = `${Math.round(gameData.coins)} Coins`;
-   document.querySelector(".main-values-genes").textContent = `${Math.round(gameData.genes)} Genes`;
+   document.querySelector(".main-values-coins").textContent = `${toWord(gameData.coins)} Coins`;
+   document.querySelector(".main-values-genes").textContent = `${toWord(gameData.genes)} Genes`;
 }
 function updateDisplay(veg) {
    let displayParents = document.querySelectorAll(`.${veg}Display`);
@@ -743,6 +743,7 @@ function fertilize(i, veg) {
       gameData.plots[i].status = "Ready";
       gameData.plots[i].bushels++;
       checkTasks("tryFertilizer");
+      document.querySelector(`.time-left-${i}`).textContent = "00:00:00";
    }
 }
 

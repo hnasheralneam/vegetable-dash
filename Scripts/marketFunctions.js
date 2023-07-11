@@ -64,7 +64,7 @@ function buyProduce(produce) {
       for (i = 0; i < 5; i++) { buy(); } marketLuck();
    }
    else if (gameData.coins >= gameData["buy" + produceCase]) { buy(); marketLuck(); }
-   else { fadeTextAppear(`Not enough coins`, false, "#de0000"); }
+   else { fadeTextAppear(`Not enough coins - you need ${toWord(gameData["buy" + produceCase] - gameData.coins)} more`, false, "#de0000"); }
    function buy() {
       gameData[produce] += 5;
       gameData.coins -= Math.round(gameData["buy" + produceCase]);
@@ -88,7 +88,7 @@ function sellProduce(produce) {
       for (i = 0; i < 5; i++) { sell(); } marketLuck();
    }
    else if (gameData[produce] >= 5) { sell(); marketLuck(); }
-   else { fadeTextAppear(`Not enough produce`, false, "#de0000"); }
+   else { fadeTextAppear(`Not enough produce - you need ${5 - gameData[produce]} more`, false, "#de0000"); }
    function sell() {
       gameData[produce] -= 5;
       gameData.coins += Math.round(gameData["sell" + produceCase]);
@@ -115,10 +115,10 @@ function generateExchange() {
    costVeg.amount = Math.round(offerVeg.totalVal / costVeg.worth);
    document.querySelector(".market-exchange").style.backgroundColor = genColor();
    document.querySelector(".exchange-merchant").textContent = `${merchantName}`;
-   document.querySelector(".exchange-offer").textContent = `${Math.round(offerVeg.amount)} ${offerVeg.vegetable}`;
-   document.querySelector(".exchange-demand").textContent = `${Math.round(costVeg.amount)} ${costVeg.vegetable}`;
-   if (Math.round(offerVeg.amount) === 0) { generateExchange(); }
-   if (Math.round(costVeg.amount) === 0) { generateExchange(); }
+   document.querySelector(".exchange-offer").textContent = `${toWord(offerVeg.amount)} ${offerVeg.vegetable}`;
+   document.querySelector(".exchange-demand").textContent = `${toWord(costVeg.amount)} ${costVeg.vegetable}`;
+   if (offerVeg.amount === 0) { generateExchange(); }
+   if (costVeg.amount === 0) { generateExchange(); }
 }
 function acceptExchange() {
    if (gameData[costVeg.vegetable] >= costVeg.amount) {
@@ -126,7 +126,7 @@ function acceptExchange() {
       gameData[costVeg.vegetable] -= Math.round(costVeg.amount);
       generateExchange();
    }
-   else { fadeTextAppear(`Not enough produce`, false, "#de0000"); }
+   else { fadeTextAppear(`Not enough produce -  you need ${costVeg.amount - gameData[costVeg.vegetable]} more`, false, "#de0000"); }
 }
 
 // Black Market
@@ -157,7 +157,7 @@ function accept() {
       if (gameData.black.item === "Doughnuts") { gameData.doughnuts += gameData.black.quantity; }
       checkTasks("seeBlackMarket");
    }
-   else { fadeTextAppear(`Not enough coins`, false, "#de0000"); }
+   else { fadeTextAppear(`Not enough coins - you need ${toWord(gameData.black.cost - gameData.coins)} more`, false, "#de0000"); }
 }
 function deny() {
    blackMarketValues();
@@ -172,5 +172,5 @@ function feedPolice() {
       fadeTextAppear(`-1 Doughnut`, false, "#de0000");
       checkTasks("tryPoliceDoughnuts");
    }
-   else { fadeTextAppear(`Not enough doughnuts`, false, "#de0000"); }
+   else { fadeTextAppear(`Not enough doughnuts -  you have none`, false, "#de0000"); }
 }

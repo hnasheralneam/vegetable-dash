@@ -223,7 +223,13 @@
    opacity: 1;
    pointer-events: auto;
 }
-/* #market-reset-more-info { filter: invert(); } */
+
+.market-disclaimer {
+   margin: 7vh 0 2vh 0;
+   color: #fff;
+   font-size: 6vh;
+   text-shadow: 0 0 2vh #22222288;
+}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
