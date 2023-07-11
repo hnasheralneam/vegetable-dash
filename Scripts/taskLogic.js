@@ -20,7 +20,7 @@ function startTask(num, buttonTxt, buttonOnClick, infoTxt, taskGiver, taskGiverI
    document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", `javascript: ${buttonOnClick}` );
    document.querySelector(`.task-info-${num}`).textContent = infoTxt;
    document.querySelector(`.task-info-giver-${num}`).textContent = taskGiver;
-   $(`.task-info-img-${num}`).attr("src", `Images/${taskGiverImg}`);
+   document.querySelector(`.task-info-img-${num}`).src = `Images/${taskGiverImg}`;
    gameData["taskBox" + num] = "occupied " + task;
 }
 function clearTask(num) {
@@ -29,7 +29,7 @@ function clearTask(num) {
    document.querySelector(`.task-info-button-${num}`).setAttribute( "onClick", "javascript: " );
    document.querySelector(`.task-info-${num}`).textContent = "";
    document.querySelector(`.task-info-giver-${num}`).textContent = "";
-   $(`.task-info-img-${num}`).attr("src", "");
+   document.querySelector(`.task-info-img-${num}`).src = "";
    gameData["taskBox" + num] = "unoccupied";
 }
 function oldTaskCheck(task) {

@@ -6,21 +6,33 @@
 //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-let ready = false;
 var start = false;
 
-let saveCheck = JSON.parse(localStorage.getItem("vegetabledashsave"));
-if ((saveCheck == "restarted") || (Object.is(saveCheck, null))) {
-   gameData = initGameData;
-   // !! Start setup !!
-   document.querySelector("head").append(`<link rel="stylesheet" type="text/css" href="Styles/intro.css">`);
-   runIntro();
-   ready = true;
-}
-else {
-   // Sets data object to save
-   gameData = JSON.parse(localStorage.getItem("vegetabledashsave"));
-   ready = true;
+function loadSave() {
+   let saveCheck = JSON.parse(localStorage.getItem("vegetabledashsave"));
+   if ((saveCheck == "restarted") || (Object.is(saveCheck, null))) {
+      console.log("Starting new game...");
+      gameData = initGameData;
+
+      // !! Start setup !!
+      const link = document.createElement("link");
+      link.href = "Styles/intro.css";
+      link.rel = "stylesheet";
+      document.head.appendChild(link);
+
+      gameData = initGameData;
+      gameData.disasterTime = Date.now() + 480000;
+      gameData.plots.push(new Plot("Empty", "peas"));
+   
+      init();
+      runIntro();
+   }
+   else {
+      console.log("Loading save...");
+      // Sets data object to save
+      gameData = JSON.parse(localStorage.getItem("vegetabledashsave"));
+      init();
+   }
 }
 
 // Declare the varibles
@@ -46,11 +58,6 @@ for (i = 1; i <= 4; i++) { hideObj(`.task-info-button-${i}`); }
 let bgImgArr = [["lake-night", "lake-day"], ["mountian-night", "mountian-day"]];
 let bgImg = bgImgArr[Math.floor(Math.random() * bgImgArr.length)];
 
-
-
-
-
-
 document.onreadystatechange = function () {
    switch (document.readyState) {
       case "interactive":
@@ -67,13 +74,8 @@ document.onreadystatechange = function () {
             document.querySelector(".loading-progress").style.width = "100%";
             document.querySelector(".load-display").textContent = "100%";
             document.querySelector(".cover").remove();
-            let cherkLoop = setInterval(() => {
-               if (ready) {
-                  clearInterval(cherkLoop);
-                  init();
-               }
-            }, 100);
          }
+         loadSave();
          break;
    }
 }
@@ -139,7 +141,7 @@ function cursorInit() {
          document.querySelector(`#plot${i}`).addEventListener("click", event => {
             if (fertilizerCursor === "active" && arr[i].isGrowing()) { fertilize(i, veg); fertilizeHover(); }
          });
-         $(`#plot${i}`).mouseenter(() => {
+         document.querySelector(`#plot${i}`).addEventListener("mouseenter", event => {
             if (mouseDown === 1 && tendCursor === "active" && !arr[i].isGrowing()) { tendTo(i, veg); }
          });
       });
@@ -608,93 +610,6 @@ function restart() {
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Tour
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-function runIntro() {
-   gameData = initGameData;
-   gameData.disasterTime = Date.now() + 480000;
-   gameData.plots.push(new Plot("Empty", "peas"));
-   showObj(".welcome");
-   chooseWeather();
-   blackMarketValues();
-   newBlackOffer();
-   save();
-}
-function goIntro() {
-   introData = { hello: false, meetGramps: false, planting: false, gameDataBar: false, meetGran: false, market: false, tasks: false, weather: false, help: false, }
-   hideObj(".welcome");
-   showObj(".introDarkShadow");
-   intro();
-}
-function intro() {
-   let introText = document.querySelector(".intro-text");
-   if (introData.hello === false) { introData.hello = true; }
-   else {
-      if (introData.meetGramps === false) {
-         $(".intro-img").attr("src", "Images/Tasks/jenkins.svg");
-         introText.textContent = "Hi! I'm gramps. That's Grandpa Jenkins to you. My son, Farmer Jebidiah, wants me to teach you how to run a farm. Let's begin!";
-         introData.meetGramps = true;
-      } else {
-         if (introData.planting === false) {
-            introText.textContent = "Farmin' is as easy as anything nowadays, with all this modern technology. Just press that little almanac button, choose your seed, and when it's done, press Harvest!";
-            document.getElementById("plot0").style.zIndex = "100000";
-            introData.planting = true;
-         } else {
-            if (introData.gameDataBar === false) {
-               $(".intro-img").attr("src", "Images/Tasks/farmer.svg");
-               introText.textContent = "This toolbar shows the amount of produce you have, holds the fertilizer for growing plants quickly, and the sickle for harvesting.";
-               document.getElementById("plot0").style.zIndex = "0";
-               document.querySelector(".toolbar").style.zIndex = "100000";
-               introData.gameDataBar = true;
-            } else {
-               if (introData.weather === false) {
-                  $(".intro-img").attr("src", "Images/Tasks/jenkins.svg");
-                  introText.textContent = "Keep an eye on the weather, because it will affect you plants! Sometimes it will help, while other times it could ruin your crop!";
-                  document.querySelector(".toolbar").style.zIndex = "0";
-                  document.querySelector(".weather-short").style.zIndex = "100000";
-                  introData.weather = true;
-               } else {
-                  if (introData.meetGran === false) {
-                     $(".intro-img").attr("src", "Images/Tasks/granny.png");
-                     introText.textContent = "Nice to meet you! I'm Grandma Josephine, and I'll teach you the economics of running a farm.";
-                     document.querySelector(".weather-short").style.zIndex = "0";
-                     introData.meetGran = true;
-                  } else {
-                     if (introData.market === false) {
-                        introText.textContent = "This is the market, were you can gain coins by selling produce, which are useful for many things, like opening more plots.";
-                        showObj(".marketShadow"); gameData.marketOpen = true;
-                        introData.market = true;
-                     }
-                     else {
-                        if (introData.tasks === false) {
-                           $(".intro-img").attr("src", "Images/Tasks/farmer.svg");
-                           introText.textContent = "This is your tasklist, where you can get rewards for doing chores around the farm.";
-                           hideObj(".marketShadow"); gameData.marketOpen = false;
-                           taskBar("close");
-                           introData.tasks = true;
-                        }
-                        else {
-                           if (introData.help === false) {
-                              $(".intro-img").attr("src", "Images/Tasks/farmer.svg");
-                              introText.textContent = "That's it! If you need more help, just check out the small help icon in the top left corner. Be sure to check out the shortcuts section for helpful tips!";
-                              document.querySelector(".tasks").style.zIndex = "0";
-                              taskBar("open");
-                              introData.help = true;
-                           }
-                           else { location.reload(); }
-                        }
-                     }
-                  }
-               }
-            }
-         }
-      }
-   }
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // General
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -838,8 +753,14 @@ function fertilize(i, veg) {
 var dynamHov = document.querySelector(".dynamic-hover");
 function info(THIS) {
    dynamHov.innerHTML = THIS.dataset.info;
+   let updateHovText = setInterval(() => {
+      dynamHov.innerHTML = THIS.dataset.info;
+   }, 200);
    dynamHov.style.opacity = "1";
-   THIS.onmouseleave = () => { dynamHov.style.opacity = "0"; }
+   THIS.onmouseleave = () => {
+      dynamHov.style.opacity = "0";
+      clearInterval(updateHovText);
+   }
 }
 
 // Dynamic hover
