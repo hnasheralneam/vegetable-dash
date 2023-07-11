@@ -18,15 +18,17 @@ body {
 ::selection { display: none;}
 ::-webkit-scrollbar { display: none; }
 
-/* TO SORT */
+
 .farmtools {
    position: absolute;
    padding: 1vh;
    right: 2vh;
    bottom: 2vh;
-   border-radius: 1.5vh;
-   background-color: #483d33;
-   border-right: solid .75vh #2e2721;
+   background-color: var(--background-blurbox-color);
+   backdrop-filter: blur(5vh);
+   border-radius: var(--border-radius);
+   box-shadow: 0 0 .5em #22222244;
+   z-index: 1;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -41,7 +43,7 @@ body {
    left: 0;
    width: 13vh;
    height: 100%;
-   background-color: #ffffff30;
+   background-color: var(--background-blurbox-color);
    backdrop-filter: blur(5vh);
 }
 
@@ -50,13 +52,17 @@ body {
    height: 8vh;
    padding: 1.5vh;
    margin: 1vh;
-   transition: 0.2s;
+   transition: .2s;
 }
 
-.cntrl-cmnd img:nth-last-child(1) {
+#settings-icon {
    position: absolute;
    bottom: 0;
    transform: rotate(90deg);
+}
+
+#settings-icon:hover {
+   transform: rotate(0deg) scale(1.05);
 }
 
 .cntrl-cmnd img:hover, .slider:hover {
@@ -75,7 +81,7 @@ button {
    margin: 1vh;
    font-family: sans-serif;
    cursor: inherit;
-   transition: transform 150ms ease;
+   transition: .2s;
 }
 button:focus { outline: none; }
 button:active { transform: scale(0.99); }
@@ -86,10 +92,10 @@ summary:focus { outline: none; }
    margin: 2vh;
    padding: 8vh;
    border: none;
-   border-radius: 5vh;
+   border-radius: var(--border-radius);
    color: #fff;
    font-size: 5vh;
-   transition: .15s;
+   transition: .2s;
 }
 .depth-button:active {
    outline: none;
@@ -116,7 +122,7 @@ summary:focus { outline: none; }
 //
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-.dynamicHover, .dynamicHoverDark {
+.dynamicHover {
    z-index: 10000;
    padding: .6vh 1vw;
    font-family: "Nunito";
@@ -124,16 +130,8 @@ summary:focus { outline: none; }
    font-size: 3.2vh;
    transition: opacity .1s;
    opacity: 0;
-}
-
-.dynamicHover {
-   background-color: #e9e9e9;
-   color: #2b2b2b;
-}
-
-.dynamicHoverDark {
-   background-color: #2b2b2b;
-   color: #e9e9e9;
+   background-color: var(--theme-color);
+   color: var(--text-color);
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -148,8 +146,8 @@ summary:focus { outline: none; }
    left: 30vw;
    width: 40vw;
    padding: 1.5vh;
-   background-color: #f5f5f5;
-   border-radius: 1.5vh;
+   background-color: var(--theme-color);
+   border-radius: 0 0 var(--border-radius) var(--border-radius);
    text-align: center;
    z-index: 200;
    opacity: .8;
@@ -159,6 +157,7 @@ summary:focus { outline: none; }
 .main-values:hover {
    top: 2vh;
    opacity: 1;
+   border-radius: var(--border-radius);
 }
 
 .main-value {
@@ -167,7 +166,7 @@ summary:focus { outline: none; }
    text-align: center;
    font-size: 3.2vh;
    font-family: "Nunito";
-   color: #222;
+   color: var(--text-color);
 }
 
 .main-values img {
@@ -188,8 +187,8 @@ summary:focus { outline: none; }
    margin: 2vh auto;
    padding: .6vh;
    background-color: rgb(0, 0, 0, .3);
-   border-radius: 1vh;
-   transition: 0.5s;
+   border-radius: var(--border-radius);
+   transition: .5s;
    display: grid;
    grid-template-areas:
    "auto auto auto"
@@ -200,14 +199,12 @@ summary:focus { outline: none; }
    background-image: url("../Images/Plots/plot.png");
    background-size: cover;
    margin: .35vh;
-   border-radius: 1vh;
+   border-radius: var(--border-radius);
    display: flex;
    justify-content: center;
    align-items: center;
-   transition: 2s;
+   transition: .2s;
    position: relative;
-   min-height: 14vw;
-   min-width: 14vw;
 }
 .open-plot { display: none; }
 #openPlot5 { display: block; }
@@ -217,7 +214,7 @@ summary:focus { outline: none; }
    font-size: 2.8vh;
    height: 20vh;
    width: 20vh;
-   transition: .3s;
+   transition: .2s;
    border-radius: 50%;
    border: solid .5vh rgb(100, 149, 237, .3);
    background: none;
@@ -241,17 +238,13 @@ summary:focus { outline: none; }
    position: absolute;
    top: .5vh;
    left: .5vh;
+   transition: .1s;
 }
-.purchase-plot {
-   padding: 2vh;
-   margin: 0;
-   background-color: #533805;
-   border: solid .4vh #ba7900;
-   border-radius: .4vh;
-   color: #fff;
-   transition: 0.5s;
+
+.veg-icon:hover {
+   filter: drop-shadow(0 0 .2vh #36280088);
+   transform: scale(1.1);
 }
-.purchase-plot:hover { box-shadow: 0 0 2vh #f5f5f5; }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
@@ -261,37 +254,30 @@ summary:focus { outline: none; }
 
 .close {
    position: absolute;
-   top: 4vh;
-   right: 6vh;
+   top: 0;
+   right: 0;
+   margin: .3em;
    border: solid #f5b803 .8vh;
-   height: 10vh;
-   width: 10vh;
+   height: 1.35em;
+   width: 1.35em;
    padding: 0;
-   border-radius: 2vh;
+   border-radius: 50%;
    color: #f5b803;
    background-color: #fff;
    font-size: 6vh;
    font-family: "Nuntio", sans-serif;
-   box-shadow: 0 .75vh #f29103;
    box-sizing: border-box;
    transition: .2s;
 }
 .close:hover {
    background-color: #f5b803;
    color: #fff;
-   box-shadow: 0 .25vh #f29103;
-   transform: translate(0, .5vh);
+   transform: scale(1.1);
 }
 .close:active {
    background-color: #f5b803;
    color: #fff;
-   box-shadow: 0 0 #f29103;
-   transform: translate(0, .75vh);
-}
-
-.closeMarket {
-   top: .5vh;
-   right: .5vh;
+   transform: scale(1);
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -308,31 +294,20 @@ summary:focus { outline: none; }
    top: 0;
    width: 100%;
    height: 100%;
-   background-color: rgba(25, 0, 0, 0.8);
-   backdrop-filter: blur(5px);
-   overflow: scroll;
-   transition: 0.8s;
-   box-sizing: border-box;
+   z-index: 1;
+   transition: .3s;
 }
+
 .modalContent {
    height: 100%;
    padding: 8vh 0;
-   background-color: #f5f5f5;
    text-align: center;
    font-size: 8vh;
    font-family: "Nunito";
-   transition: 0.6s;
+   transition: .3s;
    position: relative;
    box-sizing: border-box;
 }
-.closeModal {
-   position: absolute;
-   top: 3vh;
-   right: 5vh;
-   transition: .25s;
-   cursor: pointer;
-}
-.closeModal:hover { text-shadow: 0 0 .5vh #444; }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
@@ -346,7 +321,7 @@ summary:focus { outline: none; }
    z-index: 100;
    display: none;
    background: #fff;
-   border-radius: 1vh;
+   border-radius: var(--border-radius);
 }
 
 #menu li {
@@ -355,8 +330,8 @@ summary:focus { outline: none; }
    padding: 1.5vh 4vh;
    font-family: Nunito;
    font-size: 3.2vh;
-   border-radius: 1vh;
-   transition: 0.3s;
+   border-radius: var(--border-radius);
+   transition: .2s;
 }
 
 #menu li:hover {
@@ -385,11 +360,11 @@ summary:focus { outline: none; }
    position: fixed;
    z-index: 9999;
    display: none;
-   font-family: Nunito;
+   font-family: "Nunito";
    font-size: 3vh;
-   background: #fff;
-   color: #222;
-   border-radius: 1vh;
+   background-color: var(--theme-color);
+   color: var(--text-color);
+   border-radius: var(--border-radius);
    padding: 4vh;
 }
 
@@ -434,9 +409,12 @@ summary:focus { outline: none; }
    position: absolute;
    top: 2vh;
    right: 2vh;
-   border-radius: 2vh;
+   background-color: var(--background-blurbox-color);
+   backdrop-filter: blur(5vh);
+   border-radius: var(--border-radius);
+   box-shadow: 0 0 .5em #22222244;
    padding: 1vh 3vh;
-   transition: 0.5s;
+   transition: .2s;
    font-family: "Nunito";
 }
 .produce-tooltip {
@@ -458,17 +436,17 @@ summary:focus { outline: none; }
    opacity: 0;
    pointer-events: none;
    width: 20vh;
-   height: 12vh;
-   background-color: #f5f5f5;
+   min-height: 12vh;
+   background-color: var(--theme-color);
    text-align: center;
-   border-radius: 2vh;
+   border-radius: var(--border-radius);
    padding: .5vh 0;
    font-size: 3vh;
-   color: #262626;
+   color: var(--text-color);
    top: -1vh;
-   right: 95%;
+   right: 120%;
    z-index: 1;
-   transition: .6s;
+   transition: .3s;
    transition-delay: .2s;
 }
 .produce-tooltip .tooltip-text-produce {
@@ -484,7 +462,7 @@ summary:focus { outline: none; }
    margin-top: -1vh;
    border-width: 1vh;
    border-style: solid;
-   border-color: transparent transparent transparent #eee;
+   border-color: transparent transparent transparent var(--theme-color);
 }
 .produce-tooltip .tooltip-text-produce::after { top: 7vh; }
 .produce-tooltip:hover .tooltip-text {
@@ -496,6 +474,13 @@ summary:focus { outline: none; }
    height: 8vh;
    width: 8vh;
    margin: .75vh;
+   filter: drop-shadow(0 0 .2vh #36280088);
+   transition: .15s;
+}
+
+.farmtool-img:hover {
+   filter: drop-shadow(0 0 .4vh #362800);
+   transform: scale(1.1);
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -512,11 +497,18 @@ summary:focus { outline: none; }
    outline: none;
    border: none;
    padding: 0;
+   transition: .2s;
 }
-.almanacBtn:active { transform: scale(1); }
+
 .almanac {
    height: 8vh;
 }
+
+.almanac:hover {
+   filter: drop-shadow(0 0 .2vh #362800);
+   transform: scale(1.1);
+}
+
 .shop-window {
    position: absolute;
    top: 2.5%;
@@ -524,7 +516,6 @@ summary:focus { outline: none; }
    bottom: 2.5%;
    height: 0;
    width: 8vh;
-   border-radius: 1vh;
    text-align: center;
    background-color: #f5f5f5;
    list-style-type: none;
@@ -544,47 +535,6 @@ summary:focus { outline: none; }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Fade text
-//
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-.fade-text {
-   max-width: 40vh;
-   position: fixed;
-   top: -100%;
-   right: -100%;
-   z-index: 9999;
-   pointer-events: none;
-   font-family: "Nunito";
-   text-align: center;
-   white-space: pre-wrap;
-   font-size: 3vh;
-   color: #fff;
-   border-radius: 1vh;
-   text-shadow: 0 0 1vh #f5f5f5;
-   opacity: 0;
-   transform: translateY(10vh) scale(.85);
-   animation: fade-text 6s forwards;
-}
-.vegLuck:nth-last-child(2) { margin-top: 10vh; }
-.vegLuck:nth-last-child(1) { margin-top: 20vh; }
-@keyframes fade-text {
-   0% {
-      opacity: 0;
-      transform: translateY(10vh) scale(.85);
-   }
-   30%, 40% {
-      opacity: 1;
-      transform: translateY(0) scale(1.05);
-   }
-   90%, 100% {
-      opacity: 0;
-      transform: translateY(-10vh) scale(1);
-   }
-}
-
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//
 // Weather
 //
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -597,7 +547,7 @@ summary:focus { outline: none; }
    top: 19vh;
    background-color: rgb(59, 74, 167, .9);
    border: solid .5vh rgb(42, 50, 102, .9);
-   border-radius: 2vh;
+   border-radius: var(--border-radius);
    overflow: hidden;
    overflow: scroll;
    display: grid;
@@ -605,7 +555,7 @@ summary:focus { outline: none; }
    "a b"
    "d d"
    "c c";
-   transition: .75s;
+   transition: .6s;
    transition-delay: .3s;
 }
 .weather-short:hover {
@@ -655,8 +605,9 @@ summary:focus { outline: none; }
    height: 5vh;
    margin: .5vh;
    position: sticky;
+   opacity: .7;
 }
-.time-left:hover img {
+.plot:hover .time-left img {
    height: 0;
    width: 0;
 }
@@ -664,32 +615,31 @@ summary:focus { outline: none; }
    position: absolute;
    right: .5vh;
    bottom: .5vh;
-   border: outset .7vh rgba(225, 225, 225, 0.75);
+   border: outset .7vh var(--background-blurbox-color);
    padding: .1vh;
-   border-radius: 1.5vh;
+   border-radius: var(--border-radius);
    height: 5vh;
    width: 5vh;
    display: flex;
    justify-content: center;
    align-items: center;
-   background-color: rgba(225, 225, 225, 0.75);
-   color: #333;
+   background-color: var(--background-blurbox-color);
+   color: var(--text-color);
    font-family: "Nunito";
    font-size: 0;
    overflow: scroll;
-   opacity: .8;
    transition: .2s;
-   transition: width .3s, opacity .2s;
+   transition: width .3s;
    transform: scale(.9);
-   mix-blend-mode: luminosity;
+   backdrop-filter: blur(5vh);
 }
-.time-left:hover {
+.plot:hover .time-left {
    width: 12vh;
    font-size: 2.5vh;
-   opacity: 1;
    transform: scale(1);
-   border: outset .7vh rgba(245, 245, 245, 0.75);
-   background-color: rgba(245, 245, 245, 0.75);
+   border: outset .7vh var(--background-blurbox-color);
+   background-color: var(--background-blurbox-color);
+   z-index: 4;
 }
 
 
@@ -734,19 +684,17 @@ summary:focus { outline: none; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .settings {
-   cursor: url("../Images/Cursors/chisel.png"), auto;
+   background-color: var(--theme-color);
+   color: var(--text-color);
 }
 
 .setting-button {
-   border-radius: 1.5vh;
+   border-radius: var(--border-radius);
    padding: 3vh 6vh;
    margin: .5vh auto;
    width: 35vw;
-   box-shadow: 0 0 .5vh #bbb;
-   background-color: #d9d9d9;
    border: none;
    font-size: 4vh;
-   color: #074f67;
    display: inline;
    font-family: "Nunito";
 }

@@ -115,7 +115,7 @@
    color: #eee;
    font-family: "Nunito";
    line-height: 110%;
-   border-radius: 3vh;
+   border-radius: var(--border-radius);
    transition: .5s;
 }
 
@@ -165,7 +165,7 @@
    line-height: 6vh;
    color: #222;
    background-color: #f8f8f8;
-   border-radius: 3vh;
+   border-radius: var(--border-radius);
    transition: .2s;
 }
 

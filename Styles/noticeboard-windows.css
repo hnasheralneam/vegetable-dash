@@ -74,6 +74,7 @@
    justify-content: center;
    align-items: center;
    background-color: rgb(0, 0, 0, .5);
+   transition: .3s;
 }
 
 .tab-window {
@@ -107,7 +108,7 @@
 .tab {
    position: relative;
    display: inline-block;
-   padding: 2vh 3vh 1.5vh 3vh;
+   padding: 3vh 3vh 1.5vh 3vh;
    margin: 1vh .5vh;
    width: 25vh;
    text-align: center;
@@ -115,7 +116,7 @@
    font-family: sans-serif;
    font-size: 4vh;
    color: #222;
-   border-radius: 1vh;
+   border-radius: var(--border-radius);
    box-shadow: 0 0 .2vh #00000020;
    font-family: "Nunito", sans-serif;
    transition: .2s;
@@ -127,19 +128,19 @@
    left: 0;
    right: 0;
    top: 0;
-   height: 1vh;
+   height: 2.5vh;
    background-color: #00CC66;
-   border-radius: 1vh 1vh 0 0;
+   border-radius: var(--border-radius) var(--border-radius) 0 0;
    transition: .15s;
 }
 
 .active-tab {
    transform: translate(0, 1.05vh);
-   border-radius: 1vh 1vh 0 0;
+   border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
 .active-tab::before {
-   height: 1.2vh;
+   height: 3vh;
    background-color: #ED5D5D;
 }
 

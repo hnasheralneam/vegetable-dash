@@ -62,7 +62,7 @@ t3: {
    name: "tryFertilizer",
    taskGiver: {
       name: "Grandpa Jenkins",
-      image: "Tasks/jenkins.png",
+      image: "Tasks/jenkins.svg",
    },
    demand: {
       text: "Use 1 Fertilizer",
@@ -143,7 +143,7 @@ t6: {
    name: "unlockThe_cornPlot",
    taskGiver: {
       name: "Grandpa Jenkins",
-      image: "Tasks/jenkins.png",
+      image: "Tasks/jenkins.svg",
    },
    demand: {
       text: "Unlock the second plot",

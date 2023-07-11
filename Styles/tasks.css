@@ -11,7 +11,7 @@
    height: 100vh;
    width: 80vh;
    background-color: #f9f9f9;
-   border-radius: 2vh;
+   border-radius: var(--border-radius);
    z-index: .9;
    transition: .8s;
    z-index: 1;
@@ -75,7 +75,7 @@
    left: 2vh;
    margin: .2vh;
    padding: 1vh 2vh;
-   border-radius: 1vh;
+   border-radius: var(--border-radius);
    font-size: 2vh;
 }
 
