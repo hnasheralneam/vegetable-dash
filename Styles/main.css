@@ -123,7 +123,7 @@ summary:focus { outline: none; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 .dynamicHover {
-   z-index: 10000;
+   z-index: 100;
    padding: .6vh 1vw;
    font-family: "Nunito";
    border-radius: 2vh;
@@ -149,7 +149,7 @@ summary:focus { outline: none; }
    background-color: var(--theme-color);
    border-radius: 0 0 var(--border-radius) var(--border-radius);
    text-align: center;
-   z-index: 200;
+   z-index: 90;
    opacity: .8;
    transition: .2s;
 }
@@ -358,7 +358,7 @@ summary:focus { outline: none; }
 
 .qIM {
    position: fixed;
-   z-index: 9999;
+   z-index: 90;
    display: none;
    font-family: "Nunito";
    font-size: 3vh;

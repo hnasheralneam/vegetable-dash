@@ -25,15 +25,6 @@ class Plot {
       if (this.status == "Ready") { return true; }
       else { return false; }
    }
-   onChange(func) {
-      let oldPlant = this.plant;
-      setInterval(() => {
-         if (oldPlant != this.plant) {
-            func();
-            oldPlant = this.plant;
-         }
-      }, 500);
-   }
 }
 
 function initPlots() {
@@ -50,11 +41,11 @@ function initPlots() {
 
       ourNum = i;
       plotBody.innerHTML = `
-      <div class="plant-progress plant-progress-${i}">
+      <!-- <div class="plant-progress plant-progress-${i}">
          <span class="plant-progress-view plant-progress-view-${i}">
             <span><p class="plant-progress-text plant-progress-text-${i}">0%</p></span>
          </span>
-      </div>
+      </div> -->
       <div class="countdown time-left">
          <span class="time-left-${index}"></span>
          <img src="Images/Icons/clock.svg">
@@ -83,18 +74,18 @@ function initPlots() {
    });
 
 
-   const spanElements = document.querySelectorAll(`.plant-progress-view`);
-   const textElements = document.querySelectorAll(`.plant-progress-text`);
+   // const spanElements = document.querySelectorAll(`.plant-progress-view`);
+   // const textElements = document.querySelectorAll(`.plant-progress-text`);
 
-   for (let i = 0; i < spanElements.length; i++) {
-      let loadProgress = 0;
-      let thisPageloadbar = setInterval(() => {
-         loadProgress += 1;
-         spanElements[i].style.width = loadProgress + "%";
-         textElements[i].textContent = loadProgress + "%";
-         if (loadProgress >= 100) { clearInterval(thisPageloadbar); }
-      }, 30);
-   }
+   // for (let i = 0; i < spanElements.length; i++) {
+   //    let loadProgress = 0;
+   //    let thisPageloadbar = setInterval(() => {
+   //       loadProgress += 1;
+   //       spanElements[i].style.width = loadProgress + "%";
+   //       textElements[i].textContent = loadProgress + "%";
+   //       if (loadProgress >= 100) { clearInterval(thisPageloadbar); }
+   //    }, 30);
+   // }
 }
 
 function toggleAlmanac(index) {
@@ -117,6 +108,7 @@ function tendTo(pos, veg) {
       // Decide how much to add (if statment to prevent NaN on first time)
       if (!Number.isFinite(gameData.plots[pos].bushels)) { gameData.plots[pos].bushels = 1; }
       gameData[veg] += gameData.plots[pos].bushels;
+      updateVeg(veg);
       gameData.plots[pos].bushels = 1;
       // Styles
       document.querySelector(`.btn${pos}`).textContent = `Plant ${veg}!`;

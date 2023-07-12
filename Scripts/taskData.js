@@ -12,7 +12,7 @@ t1: {
    },
    demand: {
       text: "Submit 25 Peas",
-      code: "if (gameData.peas >= 25) { gameData.peas -= 25; checkTasks('jebsPeaSalad'); } else { fadeTextAppear(event, `Not enough produce - you need ${25 - gameData.peas} more`, false, '#de0000'); }"
+      code: "if (gameData.peas >= 25) { gameData.peas -= 25; updateVeg('peas'); checkTasks('jebsPeaSalad'); } else { fadeTextAppear(event, `Not enough produce - you need ${25 - gameData.peas} more`, false, '#de0000'); }"
    },
    text: {
       notReady: "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?",
@@ -43,12 +43,12 @@ t2: {
    },
    text: {
       notReady: "Have I told you about market resets yet? They can reset all of the prices in the market! Why don't you use one now?",
-      ready: "Thank you for completing that small task for me! Here, take some seeds!"
+      ready: "Thank you for completing that small task for me! Here, take some coins!"
    },
    reward: {
-      item: "seeds",
+      item: "coins",
       amount: 250,
-      text: "Collect 250 Seeds",
+      text: "Collect 250 Coins",
       code: "collectTaskReward('useMarketResets')"
    },
    conditions: {
@@ -93,7 +93,7 @@ t4: {
    },
    demand: {
       text: "Submit 45 Corn",
-      code: "if (produce.corn >= 45) { produce.corn -= 45; checkTasks('jebsGrilledCorn'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+      code: "if (gameData.corn >= 45) { gameData.corn -= 45; updateVeg('corn'); checkTasks('jebsGrilledCorn'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
    },
    text: {
       notReady: "I'm inviting some family over, and I want to serve corn on the cob. I'm going to need to get come corn. Could you get them for me?",
@@ -108,7 +108,7 @@ t4: {
    conditions: {
       c1: [false],
       c2: [false],
-      c3: ["cornStatus"]
+      c3: ["corn"]
    }
 },
 // josephinesDandelionSalad
@@ -120,22 +120,22 @@ t5: {
    },
    demand: {
       text: "Submit 6 Dandelions",
-      code: "if (produce.dandelion >= 6) { produce.dandelion -= 6; checkTasks('josephinesDandelionSalad'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+      code: "if (gameData.dandelion >= 6) { gameData.dandelion -= 6; updateVeg('dandelion'); checkTasks('josephinesDandelionSalad'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
    },
    text: {
       notReady: "What an outrage! I have found that we have been losing profit to a competing company, Happy Place Farms! Their top product is lettuce salad, but I think we can do better! Introducing; dandelion salad!",
       ready: "Take that, Happy Place Farm! Our profits have increased by 20%, and their quarterly earnings fell by 35%! Hurrah for dandelion salad!"
    },
    reward: {
-      item: "seeds",
+      item: "coins",
       amount: 15000,
-      text: "Collect 15,000 Seeds",
+      text: "Collect 15,000 Coins",
       code: "collectTaskReward('josephinesDandelionSalad')"
    },
    conditions: {
       c1: [false],
       c2: [false],
-      c3: ["dandelionStatus"]
+      c3: ["dandelion"]
    }
 },
 // unlockThe_cornPlot
@@ -189,7 +189,7 @@ t7: {
    conditions: {
       c1: ["t2"],
       c2: [false],
-      c3: ["strawberriesStatus"]
+      c3: ["strawberries"]
    }
 },
 // tryPoliceDoughnuts
@@ -208,9 +208,9 @@ t8: {
       ready: "Very good. Here, take some cash."
    },
    reward: {
-      item: "seeds",
+      item: "coins",
       amount: 7500,
-      text: "Collect 7,500 Seeds",
+      text: "Collect 7,500 Coins",
       code: "collectTaskReward('tryPoliceDoughnuts')"
    },
    conditions: {
@@ -228,16 +228,16 @@ t9: {
    },
    demand: {
       text: "Submit 20 Corn",
-      code: "if (produce.corn >= 20) { produce.corn -= 20; checkTasks('bakeSale_cornBread'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+      code: "if (gameData.corn >= 20) { gameData.corn -= 20; updateVeg('corn'); checkTasks('bakeSale_cornBread'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
    },
    text: {
       notReady: "I have a wonderful lucrative idea! We can hold a bake sale with plenty of delicious foods! Let's start with cornbread, my personal faviorite!",
       ready: "Just you wait! This bake sale is just beginning!"
    },
    reward: {
-      item: "seeds",
+      item: "coins",
       amount: 5,
-      text: "Collect 5 Seeds",
+      text: "Collect 5 Coins",
       code: "collectTaskReward('bakeSale_cornBread')"
    },
    conditions: {
@@ -255,16 +255,16 @@ t10: {
    },
    demand: {
       text: "Submit 60 Peas",
-      code: "if (produce.peas >= 60) { produce.peas -= 60; checkTasks('bakeSale_peaSnacks'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+      code: "if (gameData.peas >= 60) { gameData.peas -= 60; updateVeg('peas'); checkTasks('bakeSale_peaSnacks'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
    },
    text: {
       notReady: "Next, let's make some crunchy pea snacks!",
       ready: "We may not have sold much yet, but we've barely started!"
    },
    reward: {
-      item: "seeds",
+      item: "coins",
       amount: 10,
-      text: "Collect 10 Seeds",
+      text: "Collect 10 Coins",
       code: "collectTaskReward('bakeSale_peaSnacks')"
    },
    conditions: {
@@ -282,16 +282,16 @@ t11: {
    },
    demand: {
       text: "Submit 15 Strawberries",
-      code: "if (produce.strawberries >= 15) { produce.strawberries -= 15; checkTasks('bakeSale_strawberryJam'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+      code: "if (gameData.strawberries >= 15) { gameData.strawberries -= 15; updateVeg('strawberries'); checkTasks('bakeSale_strawberryJam'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
    },
    text: {
       notReady: "Do you like spreading nice, sweet, jam on toast? I sure do, and so will our customers!",
       ready: "Be patient, for great rewards come to those who wait!"
    },
    reward: {
-      item: "seeds",
+      item: "coins",
       amount: 15,
-      text: "Collect 15 Seeds",
+      text: "Collect 15 Coins",
       code: "collectTaskReward('bakeSale_strawberryJam')"
    },
    conditions: {
@@ -309,16 +309,16 @@ t12: {
    },
    demand: {
       text: "Submit 10 Pimpkins",
-      code: "if (produce.pumpkins >= 10) { produce.pumpkins -= 10; checkTasks('bakeSale_pumpkinPie'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+      code: "if (gameData.pumpkins >= 10) { gameData.pumpkins -= 10; updateVeg('pumpkins'); checkTasks('bakeSale_pumpkinPie'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
    },
    text: {
       notReady: "Not all pumpkin pies are great, but my recipe is! Let's make a few!",
       ready: "Ha ha! Look at that, this bake sale sure was a success! Look at these profit margins!"
    },
    reward: {
-      item: "seeds",
+      item: "coins",
       amount: 75000,
-      text: "Collect 75,000 Seeds",
+      text: "Collect 75,000 Coins",
       code: "collectTaskReward('bakeSale_pumpkinPie')"
    },
    conditions: {

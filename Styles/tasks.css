@@ -84,7 +84,7 @@
    position: absolute;
    top: 6vh;
    right: -20vh;
-   z-index: 1000000;
+   z-index: 30;
    transition: .5s;
    opacity: 0;
    pointer-events: none;

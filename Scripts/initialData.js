@@ -39,27 +39,19 @@ let gameInfo = {
 
 // This is saved
 let initGameData = {
-   // IMPORTANT
+   // Main
    coins: 0,
-   seeds: 0,
    genes: 0,
+
    // Plots
    plantSeeds: ["peas"],
    plots: [],
+
    // Plot prices
    plotPrices: [500, 1000, 5000, 10000, 25000, 50000, 100000, 150000],
    plotPlants: ["corn", "strawberries", "eggplants", "pumpkins", "cabbage", "dandelion", "rhubarb"],
-   // Plants
-   peasStatus: "Empty",
-   cornStatus: "Locked",
-   strawberriesStatus: "Locked",
-   eggplantsStatus: "Locked",
-   centerStatus: "Locked",
-   pumpkinsStatus: "Locked",
-   cabbageStatus: "Locked",
-   dandelionStatus: "Locked",
-   rhubarbStatus: "Locked",
-   // Harvest Rewards
+
+   // Harvest yield
    peasRewards: 1,
    cornRewards: 1,
    strawberriesReward: 1,
@@ -68,6 +60,7 @@ let initGameData = {
    cabbageReward: 1,
    dandelionReward: 1,
    rhubarbReward: 1,
+
    // Produce
    peas: 0,
    corn: 0,
@@ -77,26 +70,19 @@ let initGameData = {
    cabbage: 0,
    dandelion: 0,
    rhubarb: 0,
-   // Plots
-   peaplot: "unlocked",
-   cornplot: "locked",
-   strawberryplot: "locked",
-   eggplantplot: "locked",
-   pumpkinplot: "locked",
-   cabbageplot: "locked",
-   dandelionplot: "locked",
-   rhubarbplot: "locked",
-   centerplot: "locked",
+
    // Market Data
    marketResets: 0,
    fertilizers: 0,
    doughnuts: 0,
    weedPieces: 0,
    weedsLeft: 0,
-   // Time (Where elese do I put it?)
+
+   // Time
    weedSeason: Date.now() + 1800000,
    disasterTime: 0,
    newWeatherTime: 0,
+
    // Vegetable prices
    buyPeas: 25,
    sellPeas: 25,
@@ -114,6 +100,8 @@ let initGameData = {
    sellDandelion: 18000,
    buyRhubarb: 54000,
    sellRhubarb: 54000,
+
+   // Markets
    black: {
       name: 0,
       item: 0,
@@ -134,24 +122,24 @@ let initGameData = {
       dandelion: 720,
       rhubarb: 2160,
    },
+
    // Weather
    weather: "partlySunny",
    lastWeather: "",
    nextWeather: "",
    marketResetBonus: 0,
    hasBeenPunished: true,
+
    // Settings
    theme: "dark",
-   intro: "not started",
-   loadtimes: [1000],
    settingsOpen: false,
    marketOpen: false,
    blackMarketOpen: false,
    tasksOpen: false,
    shopOpen: false,
    genelabOpen: false,
+
    // Tasks
-   isInSave: true,
    taskBox1: "unoccupied",
    taskBox2: "unoccupied",
    taskBox3: "unoccupied",

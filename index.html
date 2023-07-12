@@ -5,6 +5,8 @@
       <meta name="description" content="Vegetable Dash, a fun farming game with bright pictures and bright futures!">
       <link rel="shortcut icon" href="Images/Global Assets/logo.svg" type="image/x-icon">
       <title>Vegetable Dash</title>
+      <!-- Viewport -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- Libraries -->
       <script src="https://editorrust.github.io/digit/main.js"></script>
       <!-- Styles -->
@@ -18,7 +20,7 @@
       <!-- Theme color -->
       <meta name="theme-color" content="#ff605d">
       <!-- Scripts -->
-      <script src="Scripts/inital-varibles.js"></script>
+      <script src="Scripts/initialData.js"></script>
       <script src="Scripts/taskData.js"></script>
       <!-- Google Fonts -->
       <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -50,7 +52,9 @@
       <div class="land">
          <img onclick="collectWeed(this)" class="weed" src="Images/Global Assets/weed.svg">
          <!-- Farm tools -->
-         <div class="plant-harvest-luck"></div>
+         <div class="plant-harvest-luck">
+            <span style="display: none;"><div class="fade-text">This text is fading</div></span>
+         </div>
          <div class="farmtools">
             <img class="farmtool-img" id="fertilizer" onclick="fertilizeHover()" src="Images/Global Assets/fertilizer.svg" onmouseover="info(this)" data-info="Hold + Drag to harvest">
             <img class="farmtool-img" onclick="tendDrag()" src="Images/Global Assets/sickle.svg" onmouseover="info(this)" data-info="Hold + Drag to harvest">
@@ -272,11 +276,8 @@
                <div class="market-item-content reset-market-item">
                   <h1>Market Resets</h1>
                   <p>Reset all market buy and sell values. (<span class="market-resets"></span>)</p>
+                  <p class="market-reset-about-text">There is a 1% chance of collecting one after each trade, and a 5% chance after each harvest.</p>
                   <button onclick="resetMarketValues()" class="use-market-reset-button">Use</button>
-                  <div class="more-info-tooltip">
-                     <img src="Images/Global Assets/more-info.svg" id="market-reset-more-info">
-                     <span class="tooltip-text">There is a 1% chance of collecting one after each trade, and a 5% chance after each harvest.</span>
-                  </div>
                </div>
             </div>
             <br>
@@ -487,128 +488,105 @@
       </div>
    </div>
       </div> -->
-<!-- 
-Here's some things to do:
-- fix tree design
-- only show tab if plant is unlocked
-- lina tasks
-- lina chat system
-- integrate trait benifits
-- upgrade traits (takes time)
-- images
+      <!--
+         Here's some things to do:
+         - fix tree design
+         - only show tab if plant is unlocked
+         - lina tasks
+         - lina chat system
+         - integrate trait benifits
+         - upgrade traits (takes time)
+         - images
+      -->
 
-When all this is complete, make a new update!
- -->
-      <!-- Other -->
-      <div>
-         
-         <!-- Weather -->
-         <div class="weather-short">
-            <div class="weather-img"></div>
-            <h6 class="weather-name"></h6>
-            <p class="weather-description"></p>
-            <p class="weather-time">Time</p>
-            <div onmouseover="info(this)" data-info="Last Weather" class="weather-last"></div>
-            <div onmouseover="info(this)" data-info="Next Weather" class="weather-next"></div>
+      <!-- Weather -->
+      <div class="weather-short">
+         <div class="weather-img"></div>
+         <h6 class="weather-name"></h6>
+         <p class="weather-description"></p>
+         <p class="weather-time">Time</p>
+         <div onmouseover="info(this)" data-info="Last Weather" class="weather-last"></div>
+         <div onmouseover="info(this)" data-info="Next Weather" class="weather-next"></div>
+      </div>
+      <!-- Context menu -->
+      <div id="menu">
+         <li class="menu-links"><a href="https://editorrust.github.io">About Editor Rust</a></li>
+         <li class="menu-links"><a href="https://editorrust.github.io/gold-rush/">Gold Rush!</a></li>
+         <hr>
+         <li class="menu-links"><a href="https://github.com/editorrust/vegetable-dash">GitHub</a></li>
+         <li><a href="mailto:editorrust@gmail.com">Support</a></li>
+         <li>Version: 0.1.4</li>
+      </div>
+      <!-- Quick info menu -->
+      <div class="qIM">
+         <div class="vegAmount doughnutsDisplay">
+            <span class="doughnuts">0</span>
+            <img class="produce-image" src="Images/Market/doughnut.png"><br>
          </div>
-         <!-- Various -->
-         <div id="menu">
-            <li class="menu-links"><a href="https://editorrust.github.io">About Editor Rust</a></li>
-            <li class="menu-links"><a href="https://editorrust.github.io/gold-rush/">Gold Rush!</a></li>
-            <hr>
-            <li class="menu-links"><a href="https://github.com/editorrust/vegetable-dash">GitHub</a></li>
-            <li><a href="mailto:editorrust@gmail.com">Support</a></li>
-            <li>Version: 0.1.4</li>
+         <div class="vegAmount peasDisplay">
+            <span class="peas">0</span>
+            <img class="produce-image" src="Images/Vegetables/peas.png"><br>
          </div>
-         <div class="qIM">
-            <div class="vegAmount doughnutsDisplay">
-               <span class="doughnuts">0</span>
-               <img class="produce-image" src="Images/Market/doughnut.png"><br>
-            </div>
-            <div class="vegAmount peasDisplay">
-               <span class="peas">0</span>
-               <img class="produce-image" src="Images/Vegetables/peas.png"><br>
-            </div>
-            <div class="vegAmount cornDisplay">
-               <span class="corn">0</span>
-               <img class="produce-image" src="Images/Vegetables/corn.png"><br>
-            </div>
-            <div class="vegAmount strawberriesDisplay">
-               <span class="strawberries">0</span>
-               <img class="produce-image" src="Images/Vegetables/strawberries.png"><br>
-            </div>
-            <div class="vegAmount eggplantsDisplay">
-               <span class="eggplants">0</span>
-               <img class="produce-image" src="Images/Vegetables/eggplants.png"><br>
-            </div>
-            <div class="vegAmount pumpkinsDisplay">
-               <span class="pumpkins">0</span>
-               <img class="produce-image" src="Images/Vegetables/pumpkin.svg"><br>
-            </div>
-            <div class="vegAmount cabbageDisplay">
-               <span class="cabbage">0</span>
-               <img class="produce-image" src="Images/Vegetables/cabbage.svg"><br>
-            </div>
-            <div class="vegAmount dandelionDisplay">
-               <span class="dandelion">0</span>
-               <img class="produce-image" src="Images/Vegetables/dandelion.png"><br>
-            </div>
-            <div class="vegAmount rhubarbDisplay">
-               <span class="rhubarb">0</span>
-               <img class="produce-image" src="Images/Vegetables/rhubarb.png"><br>
-            </div>
+         <div class="vegAmount cornDisplay">
+            <span class="corn">0</span>
+            <img class="produce-image" src="Images/Vegetables/corn.png"><br>
          </div>
-         <div class="alert-box"><div class="alert alert-cominin">Game Saved!</div></div>
-         <span style="display: none;"><div class="fade-text">This text is fading</div></span>
-         <div class="introDarkShadow">
-            <div class="intro-container">
-               <img class="intro-img" src="Images/Tasks/farmer.svg">
-               <img class="intro-divide" src="Images/Tasks/gold-separator.png">
-               <p class="intro-text">Hello there! I'm Farmer Jebediah, and I have a favor to ask. I just got this new piece of land, and I was hoping you could work it.</p>
-               <span onclick="intro()" class="intro-nxt-btn">&#10230;</span>
-            </div>
+         <div class="vegAmount strawberriesDisplay">
+            <span class="strawberries">0</span>
+            <img class="produce-image" src="Images/Vegetables/strawberries.png"><br>
          </div>
-         <!-- Welcome -->
-         <div class="welcome">
-            <div class="welcome-content">
-               <h1>Welcome to Vegetable Dash!</h1>
-               <p class="wlcm-choice">Take a short tour, or figure it out on your own: The choice is your, and keep in mind you can check the Help Center (top left corner) at any time.</p>
-               <button class="welcome-btn-one" onclick="goIntro(); gameData.intro = 'finished';">Take  <br> a quick <br>  tour</button>
-               <button class="welcome-btn-two" onclick="hideObj('.welcome'); gameData.intro = 'finished';">Start <br> straight <br> away</button>
-               <div>
-                  <p>Questions? Comments? Suggestions? Having trouble? Please contact <a href="mailto:thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a></p>
-                  <p>Disclaimer: While the game may be called Vegetable Dash, some plants may not be botanical vegetables, such as peas and corn.</p>
-               </div>
+         <div class="vegAmount eggplantsDisplay">
+            <span class="eggplants">0</span>
+            <img class="produce-image" src="Images/Vegetables/eggplants.png"><br>
+         </div>
+         <div class="vegAmount pumpkinsDisplay">
+            <span class="pumpkins">0</span>
+            <img class="produce-image" src="Images/Vegetables/pumpkin.svg"><br>
+         </div>
+         <div class="vegAmount cabbageDisplay">
+            <span class="cabbage">0</span>
+            <img class="produce-image" src="Images/Vegetables/cabbage.svg"><br>
+         </div>
+         <div class="vegAmount dandelionDisplay">
+            <span class="dandelion">0</span>
+            <img class="produce-image" src="Images/Vegetables/dandelion.png"><br>
+         </div>
+         <div class="vegAmount rhubarbDisplay">
+            <span class="rhubarb">0</span>
+            <img class="produce-image" src="Images/Vegetables/rhubarb.png"><br>
+         </div>
+      </div>
+      <!-- Notifications -->
+      <div class="alert-box"><div class="alert alert-cominin">Game Saved!</div></div>
+      <!-- Intro content -->
+      <div class="introDarkShadow">
+         <div class="intro-container">
+            <img class="intro-img" src="Images/Tasks/farmer.svg">
+            <img class="intro-divide" src="Images/Tasks/gold-separator.png">
+            <p class="intro-text">Hello there! I'm Farmer Jebediah, and I have a favor to ask. I just got this new piece of land, and I was hoping you could work it.</p>
+            <span onclick="intro()" class="intro-nxt-btn">&#10230;</span>
+         </div>
+      </div>
+      <!-- Intro page -->
+      <div class="welcome">
+         <div class="welcome-content">
+            <h1>Welcome to Vegetable Dash!</h1>
+            <p class="wlcm-choice">Take a short tour, or figure it out on your own: The choice is your, and keep in mind you can check the Help Center (top left corner) at any time.</p>
+            <button class="welcome-btn-one" onclick="goIntro();">Take  <br> a quick <br>  tour</button>
+            <button class="welcome-btn-two" onclick="hideObj('.welcome');">Start <br> straight <br> away</button>
+            <div>
+               <p>Questions? Comments? Suggestions? Having trouble? Please contact <a href="mailto:thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a></p>
+               <p>Disclaimer: While the game may be called Vegetable Dash, some plants may not be botanical vegetables, such as peas and corn.</p>
             </div>
          </div>
       </div>
    </body>
-      <script src="https://www.w3counter.com/tracker.js?id=149765"></script>
+   <script src="https://www.w3counter.com/tracker.js?id=149765"></script>
 
-      <script src="Scripts/main.js"></script>
-      <script src="Scripts/marketFunctions.js"></script>
-      <script src="Scripts/growthLogic.js"></script>
-      <script src="Scripts/taskLogic.js"></script>
-      <script src="Scripts/introLogic.js"></script>
-      <script>
-         function scrollToShopSection(window, id) {
-            document.querySelector(`#page-${window}-${id}`).scrollIntoView();
-            document.querySelectorAll(`.active-tab.tab-${window}`)[0].classList.remove("active-tab");
-            document.querySelector(`.tab-${window}-${id}`).classList.add("active-tab");
-         }
-         
-         function toggleWindow(id) {
-            let thisWindow = document.querySelector(`.window-${id}`);
-            if (thisWindow.style.opacity == "1") {
-               thisWindow.style.opacity = "0";
-               thisWindow.style.pointerEvents = "none";
-               thisWindow.style.zIndex = "-1000";
-            }
-            else {
-               thisWindow.style.opacity = "1";
-               thisWindow.style.pointerEvents = "auto";
-               thisWindow.style.zIndex = "1000";
-            }
-         }
-      </script>
+   <script src="Scripts/main.js"></script>
+   <script src="Scripts/updateDisplay.js"></script>
+   <script src="Scripts/marketLogic.js"></script>
+   <script src="Scripts/growthLogic.js"></script>
+   <script src="Scripts/taskLogic.js"></script>
+   <script src="Scripts/introLogic.js"></script>
 </html>

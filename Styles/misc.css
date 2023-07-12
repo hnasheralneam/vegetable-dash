@@ -7,6 +7,7 @@
 .alert-box {
    z-index: 20;
    position: fixed;
+   pointer-events: none;
    top: 0;
    bottom: 0;
    right: 0;
@@ -17,6 +18,7 @@
 }
 
 .alert {
+   pointer-events: all;
    display: none;
    min-height: 10vh;
    width: 40vh;
@@ -63,7 +65,7 @@
    bottom: 0;
    right: 0;
    left: 0;
-   z-index: 1000;
+   z-index: 110;
    display: flex;
    justify-content: center;
    text-align: center;

@@ -14,26 +14,11 @@ function checkMarket() {
    if (seedOwned("dandelion")) { marketItem[6].style.display = "inline-block"; }
    if (seedOwned("rhubarb")) { marketItem[7].style.display = "inline-block"; }
 }
-function updateMarket() {
-   display("Peas");
-   display("Corn");
-   display("Strawberries");
-   display("Eggplants");
-   display("Pumpkins");
-   display("Cabbage");
-   display("Dandelion");
-   display("Rhubarb");
-   function display(veg) {
-      document.querySelector(`.${veg.toLowerCase()}-market-item`).textContent = `${veg} \r\n ${toWord(gameData[veg.toLowerCase()])}`;
-      document.querySelector(`.${veg.toLowerCase()}-buy`).dataset.info = `Buy for ${toWord(gameData["buy" + veg], "short")}`;
-      document.querySelector(`.${veg.toLowerCase()}-sell`).dataset.info = `Sell for ${toWord(gameData["sell" + veg], "short")}`;
 
-   }
-   document.querySelector(".market-resets").textContent = `You have ${gameData.marketResets}`;
-}
 function resetMarketValues() {
    if (gameData.marketResets > 0) {
       gameData.marketResets--;
+      updateMarketResets();
       gameData.buyPeas = 25;
       gameData.sellPeas = 25;
       gameData.buyCorn = 75;
@@ -51,6 +36,7 @@ function resetMarketValues() {
       gameData.buyRhubarb = 7500000;
       gameData.sellRhubarb = 7500000;
       checkTasks("useMarketResets");
+      updateMarketSalePrices();
    }
 }
 
@@ -67,7 +53,9 @@ function buyProduce(produce) {
    else { fadeTextAppear(`Not enough coins - you need ${toWord(gameData["buy" + produceCase] - gameData.coins)} more`, false, "#de0000"); }
    function buy() {
       gameData[produce] += 5;
+      updateVeg(produce);
       gameData.coins -= Math.round(gameData["buy" + produceCase]);
+      updateCoins();
       gameData["buy" + produceCase] *= 1.08;
       gameData["sell" + produceCase] *= 1.02;
    }
@@ -77,7 +65,7 @@ function buyProduce(produce) {
       for (i = 1; i < times; i++) { totalPrice += fakeBuy; fakeBuy *= 1.08; }
       return totalPrice;
    }
-   updateMarket();
+   updateMarketSalePrices();
 }
 function sellProduce(produce) {
    let produceCase = capitalize(produce);
@@ -91,11 +79,13 @@ function sellProduce(produce) {
    else { fadeTextAppear(`Not enough produce - you need ${5 - gameData[produce]} more`, false, "#de0000"); }
    function sell() {
       gameData[produce] -= 5;
+      updateVeg(produce);
       gameData.coins += Math.round(gameData["sell" + produceCase]);
+      updateCoins();
       gameData["buy" + produceCase] *= 0.98;
       gameData["sell" + produceCase] *= 0.92;
    }
-   updateMarket();
+   updateMarketSalePrices();
 }
 
 // Market Exchanges
@@ -124,6 +114,8 @@ function acceptExchange() {
    if (gameData[costVeg.vegetable] >= costVeg.amount) {
       gameData[offerVeg.vegetable] += Math.round(offerVeg.amount);
       gameData[costVeg.vegetable] -= Math.round(costVeg.amount);
+      updateVeg(offerVeg.vegetable);
+      updateVeg(costVeg.vegetable);
       generateExchange();
    }
    else { fadeTextAppear(`Not enough produce -  you need ${costVeg.amount - gameData[costVeg.vegetable]} more`, false, "#de0000"); }
@@ -148,13 +140,24 @@ function newBlackOffer() {
 function accept() {
    if (gameData.coins >= gameData.black.cost) {
       gameData.coins -= gameData.black.cost;
+      updateCoins();
       blackMarketValues();
       blackMarketLuck();
       newBlackOffer();
       gameData.black.catchChance += .01;
-      if (gameData.black.item === "Market Resets") { gameData.marketResets += gameData.black.quantity; }
-      if (gameData.black.item === "Fertilizer") { gameData.fertilizers += gameData.black.quantity; }
-      if (gameData.black.item === "Doughnuts") { gameData.doughnuts += gameData.black.quantity; }
+      updatePoliceChance();
+      if (gameData.black.item === "Market Resets") {
+         gameData.marketResets += gameData.black.quantity;
+         updateMarketResets();
+      }
+      if (gameData.black.item === "Fertilizer") {
+         gameData.fertilizers += gameData.black.quantity;
+         updateFertilizer();
+      }
+      if (gameData.black.item === "Doughnuts") {
+         gameData.doughnuts += gameData.black.quantity;
+         updateDoughnuts();
+      }
       checkTasks("seeBlackMarket");
    }
    else { fadeTextAppear(`Not enough coins - you need ${toWord(gameData.black.cost - gameData.coins)} more`, false, "#de0000"); }
@@ -164,11 +167,14 @@ function deny() {
    blackMarketLuck();
    newBlackOffer();
    gameData.black.catchChance += .01;
+   updatePoliceChance();
 }
 function feedPolice() {
    if (gameData.doughnuts >= 1) {
       gameData.doughnuts -= 1;
+      updateDoughnuts();
       gameData.black.catchChance = .02;
+      updatePoliceChance();
       fadeTextAppear(`-1 Doughnut`, false, "#de0000");
       checkTasks("tryPoliceDoughnuts");
    }

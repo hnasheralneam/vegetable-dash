@@ -53,6 +53,10 @@ function collectTaskReward(task) {
    for (let i = 1; i <= tD.numOTasks; i++) {
       if (task === tD[`t${i}`]["name"]) {
          gameData[tD[`t${i}`]["reward"]["item"]] += tD[`t${i}`]["reward"]["amount"];
+         updateDoughnuts();
+         updateFertilizer();
+         updateMarketResets();
+         updateCoins();
       }
    }
    gameData[task] = "complete";
