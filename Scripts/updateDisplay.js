@@ -1,5 +1,7 @@
 // Update all
-function setupDisplay() {
+function initDisplay() {
+   updateWeatherDisplay();
+
    updateFertilizer();
    updateDoughnuts();
    updatePoliceChance();
@@ -7,7 +9,6 @@ function setupDisplay() {
    updateMarketSalePrices();
    updateCoins();
    updateGenes();
-   updateBgImgTheme();
    updateVegetables();
 }
 
@@ -53,9 +54,8 @@ function updateFertilizer() {
 
 // Black Market
 function updateDoughnuts() {
-   document.querySelector("#doughnuts").textContent = `${toWord(gameData.doughnuts, "short")} Doughnuts`;
-   document.querySelector(".doughnutsDisplay").style.display = "block";
-   document.querySelector(".doughnuts").textContent = `${toWord(gameData["doughnuts"])} Doughnuts`;
+   document.querySelector(".doughnuts").textContent = `${toWord(gameData.doughnuts)} Doughnuts`;
+   document.querySelector(".doughnuts-in-bm").textContent = `${toWord(gameData.doughnuts)} Doughnuts`;
 }
 
 function updatePoliceChance() {
@@ -68,9 +68,9 @@ function updateMarketResets() {
 }
 
 function updateMarketSalePrices() {
-   vegetablesOwned.forEach(veg => {
-      document.querySelector(`.${veg.toLowerCase()}-buy`).dataset.info = `Buy for ${toWord(Math.round(gameData["buy" + capitalize(veg)]), "short")}`;
-      document.querySelector(`.${veg.toLowerCase()}-sell`).dataset.info = `Sell for ${toWord(Math.round(gameData["sell" + capitalize(veg)]), "short")}`;
+   gameData.plantSeeds.forEach(veg => {
+      document.querySelector(`.${veg.toLowerCase()}-buy`).dataset.info = `Buy for ${toWord(Math.round(gameData["vegCost"][veg]["buy"]), "short")}`;
+      document.querySelector(`.${veg.toLowerCase()}-sell`).dataset.info = `Sell for ${toWord(Math.round(gameData["vegCost"][veg]["sell"]), "short")}`;
    });
 }
 
@@ -84,18 +84,9 @@ function updateGenes() {
    document.querySelector(".main-values-genes").textContent = `${toWord(gameData.genes)} Genes`;
 }
 
-// Background image
-function updateBgImgTheme() {
-   const hours = new Date().getHours();
-   if (hours > 6 && hours < 20) { document.body.style.backgroundImage = `url('Images/Background/${bgImg[1]}.svg')`; }
-   else { document.body.style.backgroundImage = `url('Images/Background/${bgImg[0]}.svg')`; }
-}
-
 // Vegetable amounts
 function updateVegetables() {
-   // changes because of few things - disasters, and tasks
-
-   vegetablesOwned.forEach(veg => {
+   gameData.plantSeeds.forEach(veg => {
       updateVeg(veg);
    });
 }

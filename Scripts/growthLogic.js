@@ -52,7 +52,7 @@ function initPlots() {
       </div>
       <img src="Images/Vegetables/${val.plant}.png" class="veg-icon plant-icon-${index}" src="Images/Vegetables/${val.plant}.png">
       <button class="almanacBtn almanac${index}" onclick="toggleAlmanac(${index})">
-         <img src="Images/Global Assets/almanac.png" class="almanac">
+         <img src="Images/General/almanac.png" class="almanac">
       </button>
       <button class="btn${index} btn" onclick="tendTo(${index}, '${val.plant}')">Grow ${val.plant}!</button>
       <ul class="shop-window" id="shop${index}"></ul>
@@ -105,7 +105,7 @@ function tendTo(pos, veg) {
       gameData.plots[pos].status = "Empty";
       // Chances
       harvestLuck(veg);
-      // Decide how much to add (if statment to prevent NaN on first time)
+      // Decide yield (if statment to prevent NaN on first time)
       if (!Number.isFinite(gameData.plots[pos].bushels)) { gameData.plots[pos].bushels = 1; }
       gameData[veg] += gameData.plots[pos].bushels;
       updateVeg(veg);

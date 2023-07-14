@@ -149,7 +149,7 @@ summary:focus { outline: none; }
    background-color: var(--theme-color);
    border-radius: 0 0 var(--border-radius) var(--border-radius);
    text-align: center;
-   z-index: 90;
+   z-index: 1100;
    opacity: .8;
    transition: .2s;
 }
@@ -307,6 +307,7 @@ summary:focus { outline: none; }
    transition: .3s;
    position: relative;
    box-sizing: border-box;
+   overflow: scroll;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -689,6 +690,7 @@ summary:focus { outline: none; }
 .settings {
    background-color: var(--theme-color);
    color: var(--text-color);
+   font-size: 2em;
 }
 
 .setting-button {
@@ -697,7 +699,7 @@ summary:focus { outline: none; }
    margin: .5vh auto;
    width: 35vw;
    border: none;
-   font-size: 4vh;
+   font-size: 3vh;
    display: inline;
    font-family: "Nunito";
 }
@@ -707,3 +709,18 @@ summary:focus { outline: none; }
    background-color: #dfdfdf;
 }
 .setting-button:active { transform: scale(0.95); }
+
+.import-export {
+   display: grid;
+   grid-template-columns: 50% 50%;
+   margin: 15vh 0;
+}
+
+.import-export img {
+   height: 20vh;
+}
+
+.version-info {
+   margin: 0 10vh;
+   text-align: left;
+}

@@ -7,37 +7,6 @@ A few states for vegetables
 5. "withered" - your plants have been killed by frost
 */
 
-// Just values, not saved ot account
-let gameInfo = {
-   // Growing times
-   peasTime: [3500, 7000, 10000],
-   cornTime: [10000, 20000, 30000],
-   strawberriesTime: [30000, 60000, 90000],
-   eggplantsTime: [100000, 200000, 300000],
-   pumpkinsTime: [300000, 600000, 900000],
-   cabbageTime: [900000, 1800000, 2700000],
-   dandelionTime: [2400000, 4800000, 7200000],
-   rhubarbTime: [7200000, 14400000, 21600000],
-   // Seed prices
-   cornSeeds: 150,
-   strawberriesSeeds: 500,
-   eggplantsSeeds: 2000,
-   pumpkinsSeeds: 7500,
-   cabbageSeeds: 20000,
-   dandelionSeeds: 75000,
-   rhubarbSeeds: 150000,
-   // URLs
-   peasURLs: ["Peas/growing.png", "Peas/flowering.png", "Peas/fruiting.png"],
-   cornURLs: ["growing.png", "Corn/growing.png", "Corn/fruiting.png"],
-   strawberriesURLs: ["Strawberry/growing.png", "Strawberry/flowering.png", "Strawberry/fruiting.png"],
-   eggplantsURLs: ["Eggplant/growing.png", "Eggplant/flowering.png", "Eggplant/fruiting.png"],
-   pumpkinsURLs: ["growing.png", "Pumpkin/growing.png", "Pumpkin/fruiting.png"],
-   cabbageURLs: ["growing.png", "Cabbage/growing.png", "Cabbage/fruiting.png"],
-   dandelionURLs: ["Dandelion/flowering.png", "Dandelion/flowering.png", "Dandelion/fruiting.png"],
-   rhubarbURLs: ["growing.png", "Rhubarb/growing.png", "Rhubarb/fruiting.png"]
-}
-
-// This is saved
 let initGameData = {
    // Main
    coins: 0,
@@ -47,19 +16,9 @@ let initGameData = {
    plantSeeds: ["peas"],
    plots: [],
 
-   // Plot prices
+   // Plot and seed prices
    plotPrices: [500, 1000, 5000, 10000, 25000, 50000, 100000, 150000],
    plotPlants: ["corn", "strawberries", "eggplants", "pumpkins", "cabbage", "dandelion", "rhubarb"],
-
-   // Harvest yield
-   peasRewards: 1,
-   cornRewards: 1,
-   strawberriesReward: 1,
-   eggplantReward: 1,
-   pumpkinsRewards: 1,
-   cabbageReward: 1,
-   dandelionReward: 1,
-   rhubarbReward: 1,
 
    // Produce
    peas: 0,
@@ -84,22 +43,40 @@ let initGameData = {
    newWeatherTime: 0,
 
    // Vegetable prices
-   buyPeas: 25,
-   sellPeas: 25,
-   buyCorn: 75,
-   sellCorn: 75,
-   buyStrawberries: 225,
-   sellStrawberries: 225,
-   buyEggplants: 750,
-   sellEggplants: 750,
-   buyPumpkins: 2250,
-   sellPumpkins: 2250,
-   buyCabbage: 6750,
-   sellCabbage: 6750,
-   buyDandelion: 18000,
-   sellDandelion: 18000,
-   buyRhubarb: 54000,
-   sellRhubarb: 54000,
+   vegCost: {
+      peas: {
+         buy: 25,
+         sell: 25
+      },
+      corn: {
+         buy: 75,
+         sell: 75
+      },
+      strawberries: {
+         buy: 250,
+         sell: 250
+      },
+      eggplants: {
+         buy: 750,
+         sell: 750
+      },
+      pumpkins: {
+         buy: 2250,
+         sell: 2250
+      },
+      cabbage: {
+         buy: 6750,
+         sell: 6750
+      },
+      dandelion: {
+         buy: 18000,
+         sell: 18000
+      },
+      rhubarb: {
+         buy: 54000,
+         sell: 54000
+      }
+   },
 
    // Markets
    black: {
@@ -132,12 +109,14 @@ let initGameData = {
 
    // Settings
    theme: "dark",
-   settingsOpen: false,
-   marketOpen: false,
-   blackMarketOpen: false,
-   tasksOpen: false,
-   shopOpen: false,
-   genelabOpen: false,
+   panels: {
+      settings: false,
+      market: false,
+      blackMarket: false,
+      tasks: false,
+      shop: false,
+      genelab: false
+   },
 
    // Tasks
    taskBox1: "unoccupied",

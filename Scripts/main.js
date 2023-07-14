@@ -1,15 +1,12 @@
-/* Copyright July 12th 2023 by Editor Rust */
+/* Copyright July 13th 2023 by Editor Rust */
 /* Version 0.1.4 */
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Main
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-var start = false;
-
 function loadSave() {
    let saveCheck = JSON.parse(localStorage.getItem("vegetabledashsave"));
    if ((saveCheck == "restarted") || (Object.is(saveCheck, null))) {
-      console.log("Starting new game...");
       gameData = initGameData;
 
       // !! Start setup !!
@@ -22,12 +19,11 @@ function loadSave() {
       gameData = initGameData;
       gameData.disasterTime = Date.now() + 480000;
       gameData.plots.push(new Plot("Empty", "peas"));
-   
+
       init();
       runIntro();
    }
    else {
-      console.log("Loading save...");
       // Sets data object to save
       gameData = JSON.parse(localStorage.getItem("vegetabledashsave"));
       init();
@@ -36,17 +32,24 @@ function loadSave() {
 
 // Declare the varibles
 let randomWeatherNum = (Math.random()).toFixed(2);
-let vegetablesOwned = ["peas"];
 let offerVeg = { vegetable: null, worth: null, amount: null, totalVal: null };
 let costVeg = { vegetable: null, worth: null, amount: null, totalVal: null };
 let rightClickMenu = document.querySelector("#menu").style;
+
+let dynamHov = document.querySelector(".dynamic-hover");
+
+
+let hover;
+let mouseX;
+let mouseY;
+
 
 // Active cursor varibles
 let mouseDown = 0;
 document.body.onmousedown = function() { mouseDown = 1; }
 document.body.onmouseup = function() { mouseDown = 0; }
-var mouseWasDown = false;
-var plntMouseWasDown = false;
+let mouseWasDown = false;
+let plntMouseWasDown = false;
 let tendCursor = "not active";
 let fertilizerCursor = "not active";
 
@@ -73,33 +76,6 @@ document.onreadystatechange = function () {
    }
 }
 
-function init() {
-   initPlots();
-   openPanels();
-   whatTheme();
-   saveSetup();
-   setupDynamHov();
-   cursorInit();
-   vegetableCheck();
-   checkMarket();
-   generateExchange();
-   runLoops();
-   contextMenu();
-   setupShop();
-   weatherEffects();
-   updateWeatherDisplay();
-   setupDisplay();
-   // Get coords
-   document.addEventListener("mousemove", e => { getCoords(e); });
-   // Add old weeds
-   for (let i = 0; i < gameData.weedsLeft; i++) { addWeed(true); }
-
-   // Make plots bigger if there are only a few
-   if (gameData.plots.length <= 4) {
-      document.querySelector(".land").style.gridTemplateAreas = "'auto auto' 'auto auto'";
-   }
-}
-
 let pageloadbar;
 function loadingbar() {
    if (Math.random() > .80) { document.querySelector(".meter").classList.add("red-load"); }
@@ -108,7 +84,7 @@ function loadingbar() {
    else if (Math.random() > .20) { document.querySelector(".meter").classList.add("green-load"); }
    else if (Math.random() > .10) { document.querySelector(".meter").classList.add("blue-load"); }
    else { document.querySelector(".meter").classList.add("purple-load"); }
-   
+
    let loadProgress = 0;
    pageloadbar = setInterval(() => {
       loadProgress += 2;
@@ -117,15 +93,81 @@ function loadingbar() {
       if (loadProgress >= 100) { clearInterval(pageloadbar); }
    }, 30);
 }
-function openPanels() {
-   if (gameData.settingsOpen) { showObj('.settingShadow'); }
-   if (gameData.marketOpen) { showObj('.marketShadow'); }
-   if (gameData.blackMarketOpen) { showObj('.marketShadow'); showObj('.blackMarketShadow'); gameData.marketOpen = true; }
-   if (gameData.tasksOpen) { taskBar("close"); }
-   if (gameData.shopOpen) { toggleWindow('shop'); }
-   if (gameData.genelabOpen) { toggleWindow('genelab'); }
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Init
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+function init() {
+   // Creates plot elements
+   initPlots();
+   // Open saved panels
+   initPanels();
+   // Set theme from save
+   initTheme();
+   // Creates hover element
+   initDynamHov();
+   // Adds event listeners
+   initTendAndFertilizeCursors();
+   // Displays market stalls for owned seeds
+   initMarketStalls();
+   // Starts save and other loops
+   initLoops();
+   // Sets up context menu
+   initContextMenu();
+   // Sets up items avalible in shop
+   initShop();
+   // Sets all display values
+   initDisplay();
+
+   // Displays black market values
+   displayBlackMarketValues();
+
+   // Implements effects of current weather
+   weatherEffects();
+   // Creates a market exchange
+   generateExchange();
+
+   // Make plots bigger if there are only a few
+   initPlotSize();
+
+
+   // Add old weeds
+   for (let i = 0; i < gameData.weedsLeft; i++) { addWeed(true); }
+
+   // Show doughnuts in quick info menu if strawberries are unlocked
+   if (seedOwned("strawberries")) {
+      document.querySelector(".doughnutsDisplay").style.display = "block";
+   }
+
+   // Adds new game data to old saves
+   for (const [key, value] of Object.entries(initGameData)) {
+      if (typeof gameData[key] == "undefined") gameData[key] = value;
+   }
 }
-function cursorInit() {
+
+function initPanels() {
+   if (gameData.panels.settings) { showObj('.settingShadow'); }
+   if (gameData.panels.market) { showObj('.marketShadow'); }
+   if (gameData.panels.blackMarket) { showObj('.marketShadow'); showObj('.blackMarketShadow'); gameData.panels.market = true; }
+   if (gameData.panels.tasks) { taskBar("close"); }
+   if (gameData.panels.shop) { toggleWindow('shop'); }
+   if (gameData.panels.genelab) { toggleWindow('genelab'); }
+}
+
+function initTheme() {
+   if (gameData.theme === "light") { lightTheme(); }
+   else { darkTheme(); }
+}
+
+function initDynamHov() {
+   dynamHov = document.createElement("SPAN");
+   document.body.appendChild(dynamHov);
+   dynamHov.style.position = "fixed";
+   dynamHov.classList.add("dynamicHover");
+}
+
+function initTendAndFertilizeCursors() {
    gameData.plots.forEach((val, i, arr) => {
       let veg = val.plant;
       document.querySelector(`#plot${i}`).addEventListener("click", event => {
@@ -136,26 +178,24 @@ function cursorInit() {
       });
    });
 }
-function setupDynamHov() {
-   dynamHov = document.createElement("SPAN");
-   document.body.appendChild(dynamHov);
-   dynamHov.style.position = "fixed";
-   dynamHov.classList.add("dynamicHover");
-}
-function saveSetup() {
-   // For keeping Infinity the same after saving
-   const replacer = (key, value) => {
-      if (value instanceof Function) { return value.toString(); }
-      else if (value === NaN) { return 'NaN'; }
-      else if (value === Infinity) { return 'Infinity'; }
-      else if (typeof value === 'undefined') { return 'undefined'; }
-      else { return value; }
-   }
 
-   const initalGameDataKeys = Object.keys(initGameData);
-   for (key of initalGameDataKeys) { if (gameData[key] === undefined) { gameData[key] = initGameData[key]; } }
+function initContextMenu() {
+   document.addEventListener("contextmenu", function(e) {
+      let posX = e.clientX;
+      let posY = e.clientY;
+
+      rightClickMenu.top = posY + "px";
+      rightClickMenu.left = posX + "px";
+      rightClickMenu.display = "block";
+
+      e.preventDefault();
+   }, false);
+   document.addEventListener("click", function(e) {
+      rightClickMenu.display = "none";
+   }, false);
 }
-function setupShop() {
+
+function initShop() {
    if (gameData.plantSeeds.length < 8) {
       document.querySelectorAll(".buy-plots-seeds")[0].style.display = "inline-block";
       document.querySelector(".buy-seeds-image").src = `Images/Vegetables/${gameData.plotPlants[0]}.png`;
@@ -169,7 +209,7 @@ function setupShop() {
             save();
             location.reload();
          }
-      };   
+      };
    }
    if (gameData.plots.length < 9) {
       document.querySelectorAll(".buy-plots-seeds")[1].style.display = "inline-block";
@@ -187,9 +227,14 @@ function setupShop() {
    }
 }
 
-// Saves the game
-function save() {
-   localStorage.setItem("vegetabledashsave", JSON.stringify(gameData));
+function initPlotSize() {
+   if (gameData.plots.length <= 4) {
+      if (gameData.plots.length === 1) {
+         document.querySelector(".land").style.gridTemplateAreas = "'auto'";
+      } else {
+         document.querySelector(".land").style.gridTemplateAreas = "'auto auto' 'auto auto'";
+      }
+   }
 }
 
 
@@ -197,7 +242,7 @@ function save() {
 // Loops
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function runLoops() {
+function initLoops() {
    let oneSecondLoop = setInterval(() => {
       save();
       weatherCheck();
@@ -218,6 +263,9 @@ function runLoops() {
    }, 100);
 }
 
+function save() {
+   localStorage.setItem("vegetabledashsave", JSON.stringify(gameData));
+}
 
 function weatherCheck() {
    // Choose next weathertime
@@ -235,6 +283,12 @@ function weatherCheck() {
    document.querySelector(".weather-time").textContent = `Next Weather: ${minutes}:${seconds}`;
 }
 
+function updateBgImgTheme() {
+   const hours = new Date().getHours();
+   if (hours > 6 && hours < 20) { document.body.style.backgroundImage = `url('Images/Background/${bgImg[1]}.svg')`; }
+   else { document.body.style.backgroundImage = `url('Images/Background/${bgImg[0]}.svg')`; }
+}
+
 function incidents() {
    // Disaster Time!
    if (Date.now() >= gameData.disasterTime) {
@@ -246,7 +300,7 @@ function incidents() {
       let myRand = Math.random();
       if (myRand <= .80) { addWeed(); }
       gameData.weedSeason = Date.now() + 1800000;
-   }  
+   }
 }
 
 function checkForTasks() {
@@ -262,165 +316,6 @@ function checkForTasks() {
       else { return false; }
    }
    function isTrue(array) { let result = false; for (let i = 0; i < array.length; i++) { if (array[i] === true) { return true; } } }
-}
-
-// Runs only once
-function vegetableCheck() {
-   if (seedOwned("peas") && !vegetablesOwned.includes("peas")) { vegetablesOwned.push("peas"); }
-   if (seedOwned("corn")) {
-      checkTasks("unlockThe_cornPlot");
-      !vegetablesOwned.includes("corn") ? vegetablesOwned.push("corn") : null;
-   } if (seedOwned("strawberries")) {
-      !vegetablesOwned.includes("strawberries") ? vegetablesOwned.push("strawberries") : null;
-   } if (seedOwned("eggplants")) {
-      !vegetablesOwned.includes("eggplants") ? vegetablesOwned.push("eggplants") : null;
-   } if (seedOwned("pumpkins")) {
-      !vegetablesOwned.includes("pumpkins") ? vegetablesOwned.push("pumpkins") : null;
-   } if (seedOwned("cabbage")) {
-      !vegetablesOwned.includes("cabbage") ? vegetablesOwned.push("cabbage") : null;
-   } if (seedOwned("dandelion")) {
-      !vegetablesOwned.includes("dandelion") ? vegetablesOwned.push("dandelion") : null;
-   } if (seedOwned("rhubarb")) {
-      !vegetablesOwned.includes("rhubarb") ? vegetablesOwned.push("rhubarb") : null;
-   }
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Helpful Functions
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-function diff(n, x) { return n / x; }
-function capitalize(string) { return string.charAt(0).toUpperCase() + string.slice(1); }
-function commas(num) { return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
-function random(min, max) { return Math.floor(Math.random() * (max - min + 1) + min); }
-function scrollToSection(id) { document.getElementById(id).scrollIntoView(); }
-function reverseString(str) {
-   let splitString = str.split("");
-   return splitString.reverse().join("");
-}
-function hideObj(objId) {
-   document.querySelector(objId).style.opacity = "0";
-   document.querySelector(objId).style.pointerEvents = "none";
-   document.querySelector(objId).style.zIndex = "0";
-}
-function showObj(objId) {
-   document.querySelector(objId).style.opacity = "1";
-   document.querySelector(objId).style.pointerEvents = "auto";
-   document.querySelector(objId).style.zIndex = "1";
-}
-function genColor() {
-   function rand(min, max) { let randomNum = Math.random() * (max - min) + min; return Math.round(randomNum); }
-   let hex = ['a', 'b', 'c', 'd', 'e', 'f', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-   let color = '#';
-   for (let i = 0; i < 6; i++) { let index = rand(0, 15); color += hex[index]; }
-   return color;
-}
-function notify(text) {
-   let alert = document.querySelector(".alert").cloneNode(true);
-   document.querySelector(".alert-box").insertBefore(alert, document.querySelector(".alert-box").firstChild);
-   alert.style.display = "block";
-   alert.textContent = text;
-   let removeAnimation = setTimeout(alertAnimation => { alert.classList.add("alertAnimation"); }, 6000);
-   let removeElement = setTimeout(removeAnimation => { alert.classList.remove("alertAnimation"); alert.remove(); }, 7000);
-   alert.onclick = () => {
-      alert.classList.add("alertAnimation");
-      setTimeout(removeAnimation => { alert.remove(); }, 1000);
-      clearTimeout(removeAnimation);
-      clearTimeout(removeElement);
-   };
-}
-function scrollToShopSection(window, id) {
-   document.querySelector(`#page-${window}-${id}`).scrollIntoView();
-   document.querySelectorAll(`.active-tab.tab-${window}`)[0].classList.remove("active-tab");
-   document.querySelector(`.tab-${window}-${id}`).classList.add("active-tab");
-}
-function toggleWindow(id) {
-   let thisWindow = document.querySelector(`.window-${id}`);
-   if (thisWindow.style.opacity == "1") {
-      thisWindow.style.opacity = "0";
-      thisWindow.style.pointerEvents = "none";
-      thisWindow.style.zIndex = "-1000";
-   }
-   else {
-      thisWindow.style.opacity = "1";
-      thisWindow.style.pointerEvents = "auto";
-      thisWindow.style.zIndex = "1000";
-   }
-}
-
-
-function findAvg(array) {
-   let total = 0;
-   for(let i = 0; i < array.length; i++) { total += array[i]; }
-   return total / array.length;
-}
-function seedOwned(veg) {
-   if (gameData.plantSeeds.includes(veg)) { return true; }
-   else { return false; }
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Weather
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-function weatherChance(min, max) {
-   let value = {};
-   for (i = min; i < max; i += .01) {
-      if (randomWeatherNum === i.toFixed(2)) { value[i] = true; }
-      else { value[i.toFixed(2)] = false; }
-   }
-   return !Object.keys(value).every((k) => !value[k]);
-}
-
-function chooseWeather() {
-   randomWeatherNum = (Math.random()).toFixed(2);
-   if (weatherChance(0, .15) === true) { gameData.nextWeather = "sunny"; }
-   if (weatherChance(.15, .30) === true) { gameData.nextWeather = "rainy"; }
-   if (weatherChance(.30, .55) === true) { gameData.nextWeather = "partlySunny"; }
-   if (weatherChance(.55, .80) === true) { gameData.nextWeather = "partlyCloudy"; }
-   if (weatherChance(.80, .85) === true) { gameData.nextWeather = "snowy"; }
-   if (weatherChance(.85, .93) === true) { gameData.nextWeather = "cloudy"; }
-   if (weatherChance(.93, .95) === true) { gameData.nextWeather = "frost"; }
-   if (weatherChance(.95, 1.01) === true) { gameData.nextWeather = "flood"; }
-   if (gameData.weather === "snowy" || "frost" || "flood") { gameData.hasBeenPunished = false; }
-   weatherEffects();
-   updateWeatherDisplay();
-}
-
-function weatherEffects() {
-   if (gameData.weather === "sunny") { gameData.marketResetBonus = 0.03; }
-   else { gameData.marketResetBonus = 0; }
-   if (gameData.weather === "snowy" && gameData.hasBeenPunished === false) {
-      let unluckyVeg = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
-      let amountLost = Math.floor(gameData[unluckyVeg] / 3);
-      if (amountLost > 0) {
-         gameData[unluckyVeg] - amountLost;
-         updateVeg(unluckyVeg);
-      }
-      notify(`It has snowed! You lost ${amountLost} ${unluckyVeg}!`);
-      gameData.hasBeenPunished = true;
-   }
-   if (gameData.weather === "flood" && gameData.hasBeenPunished === false) {
-      let unluckyVeg = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
-      let amountLost = Math.floor(gameData[unluckyVeg] / 5);
-      if (amountLost > 0) {
-         gameData[unluckyVeg] - amountLost;
-         updateVeg(unluckyVeg);
-      }
-      notify(`It has flooded! You lost ${amountLost} ${unluckyVeg}!`);
-      gameData.hasBeenPunished = true;
-   }
-   if (gameData.weather === "frost" && gameData.hasBeenPunished === false) {
-      gameData.plots.forEach((val, i, arr) => {
-         if (arr[i].isGrowing() && Math.random() > .5) {
-            arr[i].status = "withered";
-            showObj(`.btn${i}`);
-         }
-      });
-      gameData.hasBeenPunished = true;
-   }
 }
 
 
@@ -443,7 +338,7 @@ function harvestLuck(veg) {
       let luckDNA = random(1, 4);
       gameData.genes += luckDNA;
       updateGenes();
-      fadeTextAppear(`You extracted ${luckDNA} genes while harvesting!`, "#00de88");
+      // fadeTextAppear(`You extracted ${luckDNA} genes while harvesting!`, "#00de88");
    }
 }
 function marketLuck() {
@@ -461,7 +356,7 @@ function blackMarketLuck() {
    }
 }
 function luckyRoll() {
-   let vegLost = vegetablesOwned[Math.floor(Math.random() * vegetablesOwned.length)];
+   let vegLost = gameData.plantSeeds[Math.floor(Math.random() * gameData.plantSeeds.length)];
    let amountLost = Math.floor(gameData[vegLost] / 3);
    if (Math.random() < .08) {
       gameData[vegLost] -= amountLost;
@@ -481,8 +376,8 @@ function addWeed(check) {
    let weedBoxWidth = document.querySelector(".land").clientWidth;
    let weed = document.querySelector(".weed").cloneNode();
    document.querySelector(".land").appendChild(weed);
-   var randomtop = (Math.floor(Math.random() * weedBoxHeight) - 25);
-   var randomleft = (Math.floor(Math.random() * weedBoxWidth) - 25);
+   let randomtop = (Math.floor(Math.random() * weedBoxHeight) - 25);
+   let randomleft = (Math.floor(Math.random() * weedBoxWidth) - 25);
    weed.style.transform = "scale(1)";
    weed.style.top = `${randomtop}px`;
    weed.style.left = `${randomleft}px`;
@@ -527,16 +422,24 @@ function fertilizeHover() {
    }
 }
 
+// Get coords
+document.addEventListener("mousemove", (e) => {
+   mouseX = e.clientX;
+   mouseY = e.clientY;
+   dynamHov.style.left = mouseX + 15 + "px";
+   dynamHov.style.top = mouseY + "px";
+   if (quickInformation === "opened") {
+      quickInfoMenu.style.left = mouseX + 15 + "px";
+      quickInfoMenu.style.top = mouseY + "px";
+   }
+});
+
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Settings
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 // Theme
-function whatTheme() {
-   if (gameData.theme === "light") { lightTheme(); }
-   else { darkTheme(); }
-}
 function darkTheme() {
    document.documentElement.style.setProperty("--background-blurbox-color", "#00000088"); gameData.theme = "dark";
    document.documentElement.style.setProperty("--theme-color", "#2b2b2b"); gameData.theme = "dark";
@@ -548,7 +451,7 @@ function lightTheme() {
    document.documentElement.style.setProperty("--text-color", "#2b2b2b"); gameData.theme = "light";
 }
 
-// RESTART
+// Restart
 function restart() {
    let areYouSure = confirm("Are you SURE you want to restart? This will wipe all your progress!");
    if (areYouSure) {
@@ -561,54 +464,24 @@ function restart() {
    }
 }
 
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// General
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-function fadeTextAppear(txt, txtColor) {
-   let newText = document.createElement("P");
-   newText.textContent = txt;
-   newText.classList.add("plant-luck-text");
-   document.querySelector(".plant-harvest-luck").appendChild(newText);
-   newText.style.color = txtColor;
-   setTimeout(() => { newText.remove(); }, 6000);
+function exportData() {
+   let textboxElement = document.querySelector(".exportdata");
+   textboxElement.value = JSON.stringify(gameData);
+   textboxElement.select();
+   textboxElement.setSelectionRange(0, 99999); // For mobile
+   navigator.clipboard.writeText(textboxElement.value);
+   notify("Copied save data to clipboard!");
 }
 
-// Task Effect
-let openTaskHov = [];
-let openTaskUnHov = [];
-function taskHover(num) {
-   clearTimeout(openTaskHov[num]);
-   clearTimeout(openTaskUnHov[num]);
-   openTaskHov[num] = setTimeout(() => {
-      document.querySelector(`.task-block-${num}`).classList.add("task-block-active");
-   }, 750);
-}
-function taskUnHover(num) {
-   clearTimeout(openTaskHov[num]);
-   clearTimeout(openTaskUnHov[num]);
-   openTaskUnHov[num] = setTimeout(() => {
-      document.querySelector(`.task-block-${num}`).classList.remove("task-block-active");
-   }, 250);
-}
-
-// Context Menu
-function contextMenu() {
-   document.addEventListener("contextmenu", function(e) {
-      let posX = e.clientX;
-      let posY = e.clientY;
-      menu(posX, posY);
-      e.preventDefault();
-   }, false);
-   document.addEventListener("click", function(e) {
-      rightClickMenu.display = "none";
-   }, false);
-}
-function menu(x, y) {
-   rightClickMenu.top = y + "px";
-   rightClickMenu.left = x + "px";
-   rightClickMenu.display = "block";
+function importData() {
+   if (confirm("This will delete your current save! Do you want to continue?")) {
+       if (confirm("You can't undo this!")) {
+           let inputedData = prompt("Enter your save...");
+           gameData = JSON.parse(inputedData);
+           save();
+           location.reload();
+       }
+   }
 }
 
 
@@ -663,12 +536,12 @@ function taskBar(whatToDo) {
    if (whatToDo === "close") {
       document.querySelector(".tasks").style.left = "0";
       document.querySelector(".taskShadow").style.display = "block";
-      gameData.tasksOpen = true;
+      gameData.panels.tasks = true;
    }
    else if (whatToDo === "open") {
       document.querySelector(".tasks").style.left = "-80vh";
       document.querySelector(".taskShadow").style.display = "none";
-      gameData.tasksOpen = false;
+      gameData.panels.tasks = false;
    }
 }
 function settingModal() {
@@ -688,38 +561,5 @@ function fertilize(i, veg) {
       gameData.plots[i].bushels++;
       checkTasks("tryFertilizer");
       document.querySelector(`.time-left-${i}`).textContent = "00:00:00";
-   }
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Dynamic hover
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-var dynamHov = document.querySelector(".dynamic-hover");
-function info(THIS) {
-   dynamHov.innerHTML = THIS.dataset.info;
-   let updateHovText = setInterval(() => {
-      dynamHov.innerHTML = THIS.dataset.info;
-   }, 200);
-   dynamHov.style.opacity = "1";
-   THIS.onmouseleave = () => {
-      dynamHov.style.opacity = "0";
-      clearInterval(updateHovText);
-   }
-}
-
-// Dynamic hover
-var hover;
-var mouseX;
-var mouseY;
-function getCoords(e) {
-   mouseX = e.clientX;
-   mouseY = e.clientY;
-   dynamHov.style.left = mouseX + 15 + "px";
-   dynamHov.style.top = mouseY + "px";
-   if (quickInformation === "opened") {
-      quickInfoMenu.style.left = mouseX + 15 + "px";
-      quickInfoMenu.style.top = mouseY + "px";
    }
 }

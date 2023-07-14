@@ -2,7 +2,7 @@
 // Market
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function checkMarket() {
+function initMarketStalls() {
    let marketItem = document.getElementsByClassName("market-item");
    marketItem[10].style.display = "block";
    marketItem[0].style.display = "inline-block";
@@ -19,48 +19,32 @@ function resetMarketValues() {
    if (gameData.marketResets > 0) {
       gameData.marketResets--;
       updateMarketResets();
-      gameData.buyPeas = 25;
-      gameData.sellPeas = 25;
-      gameData.buyCorn = 75;
-      gameData.sellCorn = 75;
-      gameData.buyStrawberries = 250;
-      gameData.sellStrawberries = 250;
-      gameData.buyEggplants = 750;
-      gameData.sellEggplants = 750;
-      gameData.buyPumpkins = 5000;
-      gameData.sellPumpkins = 5000;
-      gameData.buyCabbage = 25000;
-      gameData.sellCabbage = 25000;
-      gameData.buyDandelion = 100000;
-      gameData.sellDandelion = 100000;
-      gameData.buyRhubarb = 7500000;
-      gameData.sellRhubarb = 7500000;
-      checkTasks("useMarketResets");
+      gameData.vegCost = initGameData.vegCost;
       updateMarketSalePrices();
+      checkTasks("useMarketResets");
    }
 }
 
 // Buy & Sell Vegetables
 function buyProduce(produce) {
-   let produceCase = capitalize(produce);
    if (event.ctrlKey && gameData.coins >= calcInflation(10)) {
       for (i = 0; i < 10; i++) { buy(); } marketLuck();
    }
    else if (event.shiftKey && gameData.coins >= calcInflation(5)) {
       for (i = 0; i < 5; i++) { buy(); } marketLuck();
    }
-   else if (gameData.coins >= gameData["buy" + produceCase]) { buy(); marketLuck(); }
-   else { fadeTextAppear(`Not enough coins - you need ${toWord(gameData["buy" + produceCase] - gameData.coins)} more`, false, "#de0000"); }
+   else if (gameData.coins >= gameData["vegCost"][produce]["buy"]) { buy(); marketLuck(); }
+   else { fadeTextAppear(`Not enough coins - you need ${toWord(gameData["vegCost"][produce]["buy"] - gameData.coins)} more`, false, "#de0000"); }
    function buy() {
       gameData[produce] += 5;
       updateVeg(produce);
-      gameData.coins -= Math.round(gameData["buy" + produceCase]);
+      gameData.coins -= Math.round(gameData["vegCost"][produce]["buy"]);
       updateCoins();
-      gameData["buy" + produceCase] *= 1.08;
-      gameData["sell" + produceCase] *= 1.02;
+      gameData["vegCost"][produce]["buy"] *= 1.08;
+      gameData["vegCost"][produce]["sell"] *= 1.02;
    }
    function calcInflation(times) {
-      let fakeBuy = gameData["buy" + produceCase];
+      let fakeBuy = gameData["vegCost"][produce]["buy"];
       let totalPrice = 0;
       for (i = 1; i < times; i++) { totalPrice += fakeBuy; fakeBuy *= 1.08; }
       return totalPrice;
@@ -68,7 +52,6 @@ function buyProduce(produce) {
    updateMarketSalePrices();
 }
 function sellProduce(produce) {
-   let produceCase = capitalize(produce);
    if (event.ctrlKey && gameData[produce] >= 50) {
       for (i = 0; i < 10; i++) { sell(); } marketLuck();
    }
@@ -80,10 +63,10 @@ function sellProduce(produce) {
    function sell() {
       gameData[produce] -= 5;
       updateVeg(produce);
-      gameData.coins += Math.round(gameData["sell" + produceCase]);
+      gameData.coins += Math.round(gameData["vegCost"][produce]["sell"]);
       updateCoins();
-      gameData["buy" + produceCase] *= 0.98;
-      gameData["sell" + produceCase] *= 0.92;
+      gameData["vegCost"][produce]["buy"] *= 0.98;
+      gameData["vegCost"][produce]["sell"] *= 0.92;
    }
    updateMarketSalePrices();
 }
@@ -92,7 +75,7 @@ function sellProduce(produce) {
 function generateExchange() {
    let merchantNames = ["Ramesh Devi", "Zhang Wei", "Emmanuel Abara", "Kim Nguyen", "John Smith", "Muhammad Khan", "David Smith", "Achariya Sok", "Aleksandr Ivanov", "Mary Smith", "José Silva", "Oliver Gruber", "James Wang", "Kenji Satō"];
    let merchantName = merchantNames[Math.floor(Math.random() * merchantNames.length)];
-   let vegOwnedExchange = vegetablesOwned;
+   let vegOwnedExchange = gameData.plantSeeds;
    let x = vegOwnedExchange[Math.floor(Math.random() * vegOwnedExchange.length)];
    vegOwnedExchange = vegOwnedExchange.filter(e => e !== `${x}`);
    let n = vegOwnedExchange[Math.floor(Math.random() * vegOwnedExchange.length)];
@@ -122,7 +105,7 @@ function acceptExchange() {
 }
 
 // Black Market
-function blackMarketValues() {
+function generateBlackMarketDeal() {
    gameData.black.name = ["Clearly Badd", "Hereto Steale", "Heinous Krime", "Elig L. Felonie", "Sheeft E. Karacter", "Abad Deel", "Stolin Goods"][Math.floor(Math.random() * 7)];
    gameData.black.item = ["Market Resets", "Fertilizer", "Doughnuts"][Math.floor(Math.random() * 3)];
    gameData.black.quantity = random(1, 5);
@@ -131,19 +114,18 @@ function blackMarketValues() {
    if (gameData.black.item === "Doughnuts") { gameData.black.worth = gameData.black.doughnuts; }
    gameData.black.cost = gameData.black.worth * gameData.black.quantity;
 }
-function newBlackOffer() {
+function displayBlackMarketValues() {
    document.querySelector(".bmo-seller").textContent = gameData.black.name;
    document.querySelector(".bmo-offer").textContent = gameData.black.quantity + " " + gameData.black.item;
    document.querySelector(".bmo-price").textContent = toWord(gameData.black.cost);
-   document.querySelector(".blackMarket").style.backgroundColor = genColor();
 }
 function accept() {
    if (gameData.coins >= gameData.black.cost) {
       gameData.coins -= gameData.black.cost;
       updateCoins();
-      blackMarketValues();
+      generateBlackMarketDeal();
       blackMarketLuck();
-      newBlackOffer();
+      displayBlackMarketValues();
       gameData.black.catchChance += .01;
       updatePoliceChance();
       if (gameData.black.item === "Market Resets") {
@@ -163,9 +145,9 @@ function accept() {
    else { fadeTextAppear(`Not enough coins - you need ${toWord(gameData.black.cost - gameData.coins)} more`, false, "#de0000"); }
 }
 function deny() {
-   blackMarketValues();
+   generateBlackMarketDeal();
    blackMarketLuck();
-   newBlackOffer();
+   displayBlackMarketValues();
    gameData.black.catchChance += .01;
    updatePoliceChance();
 }

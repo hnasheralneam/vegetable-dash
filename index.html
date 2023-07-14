@@ -3,7 +3,7 @@
    <head>
       <!-- Page metadata -->
       <meta name="description" content="Vegetable Dash, a fun farming game with bright pictures and bright futures!">
-      <link rel="shortcut icon" href="Images/Global Assets/logo.svg" type="image/x-icon">
+      <link rel="shortcut icon" href="Images/General/logo.svg" type="image/x-icon">
       <title>Vegetable Dash</title>
       <!-- Viewport -->
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,9 +19,10 @@
       <link rel="stylesheet" href="Styles/misc.css">
       <!-- Theme color -->
       <meta name="theme-color" content="#ff605d">
-      <!-- Scripts -->
-      <script src="Scripts/initialData.js"></script>
-      <script src="Scripts/taskData.js"></script>
+      <!-- Varibles -->
+      <script src="Data/initialData.js"></script>
+      <script src="Data/gameInfo.js"></script>
+      <script src="Data/taskData.js"></script>
       <!-- Google Fonts -->
       <link rel="preconnect" href="https://fonts.gstatic.com">
       <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
@@ -43,21 +44,21 @@
       <div class="cntrl-cmnd">
          <a href="docs/index.html" target="_blank"><img onmouseover="info(this)" data-info="Help" src="Images/Icons/help.svg"></a>
          <img onmouseover="info(this)" data-info="Tasks" onclick="taskBar('close')" src="Images/New/tasks.png">
-         <img onmouseover="info(this)" data-info="Market" onclick="showObj('.marketShadow'); gameData.marketOpen = true;" src="Images/Icons/market.svg">
-         <img onmouseover="info(this)" data-info="Shop" onclick="toggleWindow('shop'); gameData.shopOpen = true;" src="Images/Icons/shop.png">
-         <!-- <img onmouseover="info(this)" data-info="Hybridization Lab" onclick="toggleWindow('genelab'); gameData.genelabOpen = true;" src="Images/New/dna.png"> -->
-         <img onmouseover="info(this)" data-info="Settings" onclick="showObj('.settingShadow'); gameData.settingsOpen = true;" src="Images/Icons/settings.svg" id="settings-icon">
+         <img onmouseover="info(this)" data-info="Market" onclick="showObj('.marketShadow'); gameData.panels.market = true;" src="Images/Icons/market.svg">
+         <img onmouseover="info(this)" data-info="Shop" onclick="toggleWindow('shop'); gameData.panels.shop = true;" src="Images/Icons/shop.png">
+         <!-- <img onmouseover="info(this)" data-info="Hybridization Lab" onclick="toggleWindow('genelab'); gameData.panels.genelab = true;" src="Images/New/dna.png"> -->
+         <img onmouseover="info(this)" data-info="Settings" onclick="showObj('.settingShadow'); gameData.panels.settings = true;" src="Images/Icons/settings.svg" id="settings-icon">
       </div>
       <!-- Land and Plots -->
       <div class="land">
-         <img onclick="collectWeed(this)" class="weed" src="Images/Global Assets/weed.svg">
+         <img onclick="collectWeed(this)" class="weed" src="Images/General/weed.svg">
          <!-- Farm tools -->
          <div class="plant-harvest-luck">
             <span style="display: none;"><div class="fade-text">This text is fading</div></span>
          </div>
          <div class="farmtools">
-            <img class="farmtool-img" id="fertilizer" onclick="fertilizeHover()" src="Images/Global Assets/fertilizer.svg" onmouseover="info(this)" data-info="Hold + Drag to harvest">
-            <img class="farmtool-img" onclick="tendDrag()" src="Images/Global Assets/sickle.svg" onmouseover="info(this)" data-info="Hold + Drag to harvest">
+            <img class="farmtool-img" id="fertilizer" onclick="fertilizeHover()" src="Images/General/fertilizer.svg" onmouseover="info(this)" data-info="Hold + Drag to harvest">
+            <img class="farmtool-img" onclick="tendDrag()" src="Images/General/sickle.svg" onmouseover="info(this)" data-info="Hold + Drag to harvest">
          </div>
       </div>
       <!-- Top amount thing -->
@@ -72,10 +73,6 @@
          <div class="produce-tooltip produce-tooltip-barrel">
             <img class="toolbar-img" src="Images/Icons/barrel.svg">
             <span class="tooltip-text tooltip-text-produce">
-               <div class="vegAmount doughnutsAmount">
-                  <span id="doughnuts">0</span>
-                  <img class="produce-image" src="Images/Market/doughnut.png"><br>
-               </div>
                <div class="vegAmount peasDisplay">
                   <span class="peas" id="peaBushels">0</span>
                   <img class="produce-image" src="Images/Vegetables/peas.png"><br>
@@ -268,7 +265,7 @@
                </div>
             </div>
             <div class="market-item market-lasters">
-               <div class="market-item-content blackMarketHome" onclick="showObj('.blackMarketShadow'); gameData.blackMarketOpen = true;">
+               <div class="market-item-content blackMarketHome" onclick="showObj('.blackMarketShadow'); gameData.panels.blackMarket = true;">
                   <span style="font-size: 10vh; font-weight: 800; font-family: 'Nunito'">Black Market</span>
                </div>
             </div>
@@ -282,29 +279,60 @@
             </div>
             <br>
          </div>
-         <button onclick="hideObj('.marketShadow'); gameData.marketOpen = false;" class="close closeMarket">&#215;</button>
+         <button onclick="hideObj('.marketShadow'); gameData.panels.market = false;" class="close closeMarket">&#215;</button>
       </div>
       <!-- Settings -->
       <div class="shadow settingShadow">
          <div class="modalContent settings">
-            <span onclick="hideObj('.settingShadow'); gameData.settingsOpen = false;" class="close">&#215;</span>
+            <span onclick="hideObj('.settingShadow'); gameData.panels.settings = false;" class="close">&#215;</span>
             <h1>Settings</h1>
             <button class="setting-button" onclick="restart()">Restart</button><br>
             <button class="setting-button theme-clr" onclick="lightTheme()">Light Theme</button>
             <button class="setting-button theme-clr" onclick="darkTheme()">Dark Theme</button>
+
+
+            <div class="import-export">
+               <div onclick="exportData()">
+                  <img src="Images/General/export-save.svg" alt="Import">
+                  <h2>EXPORT SAVE</h2>
+                  <p>So you can save it or use it somewhere else</p>
+                  <textarea style="display: none;" class="exportdata"></textarea>
+               </div>
+               <div onclick="importData()">
+                  <img src="Images/General/import-save.svg" alt="Import">
+                  <h2>IMPORT SAVE</h2>
+                  <p>Bring in one of your saves, wiping your current one</p>
+               </div>
+            </div>
+            <br><br>
+            <div class="version-info">
+               <h4>Version 0.1.4</h4>
+               <p>patch 6 - Import/export, Fixes</p>
+               <p>patch 5 - Huge performance improvements, bug fixes</p>
+               <p>patch 4 - UI improvements, UX fixes</p>
+               <p>patch 3 - Icons</p>
+               <p>patch 2 - Fixed first load and restart</p>
+               <p>patch 1 - Bug fixes, backend improvements</p>
+               <br>
+               <p>last updated -> July 13 2023</p>
+            </div>
          </div>
       </div>
       <!-- Black Market -->
       <div class="shadow blackMarketShadow">
          <div class="modalContent blackMarket">
-            <span onclick="hideObj('.blackMarketShadow'); gameData.blackMarketOpen = false;" class="close">&#215;</span>
+            <span onclick="hideObj('.blackMarketShadow'); gameData.panels.blackMarket = false;" class="close">&#215;</span>
             <h3>Black Market</h3>
             <div class="BM-parent">
                <div class="BM-menu">
-                  <p class="BM-menu-item">Offers</p>
-                  <p class="BM-menu-item" style="color: #666">Selling: <br> <i>Coming Soon!</i></p>
+                  <!-- <p class="BM-menu-item">Offers</p> -->
+                  <!-- <p class="BM-menu-item" style="color: #666">Selling: <br> <i>Coming Soon!</i></p> -->
+                  <p class="doughnuts-in-bm"></p>
+                  <div class="BM-menu-item BM-doughnuts"  onclick="feedPolice()">
+                     <img class="black-doughnut" src="Images/Market/doughnut.png">
+                     <p>Use Doughnut</p>
+                  </div>
                   <div class="BM-menu-bottom">
-                     <p class="BM-menu-item BM-doughnuts"><img onclick="feedPolice();" class="black-doughnut" src="Images/Market/doughnut.png">use</p>
                      <p class="BM-menu-item" style="font-size: 3vh"><i>Tip:</i> Doughnuts reset the chance that the police will catch you. Current Chance: <span class="police-chance"></span></p>   
                   </div>
                </div>
@@ -328,7 +356,7 @@
             <div class="tab-bar">
                <div class="tab tab-shop tab-shop-seeds active-tab" onclick="scrollToShopSection('shop', 'seeds')">Seeds</div>
                <div class="tab tab-shop tab-shop-plots" onclick="scrollToShopSection('shop', 'plots')">Plots</div>
-               <span class="window-close" onclick="toggleWindow('shop'); gameData.shopOpen = false;">x</span>
+               <span class="window-close" onclick="toggleWindow('shop'); gameData.panels.shop = false;">x</span>
             </div>
             <div class="tab-pages">
                <div class="page" id="page-shop-seeds">
@@ -355,7 +383,7 @@
       <div class="tab-bar">
          <div class="tab tab-genelab tab-genelab-peas active-tab" onclick="scrollToSection('genelab', 'peas')">Peas</div>
          <div class="tab tab-genelab tab-genelab-corn" onclick="scrollToSection('genelab', 'corn')">Corn</div>
-         <span class="window-close" onclick="toggleWindow('genelab'); gameData.genelabOpen = false;">x</span>
+         <span class="window-close" onclick="toggleWindow('genelab'); gameData.panels.genelab = false;">x</span>
       </div>
       <div class="tab-pages">
          <div class="page" id="page-genelab-peas">
@@ -515,7 +543,7 @@
          <hr>
          <li class="menu-links"><a href="https://github.com/editorrust/vegetable-dash">GitHub</a></li>
          <li><a href="mailto:editorrust@gmail.com">Support</a></li>
-         <li>Version: 0.1.4</li>
+         <li>Version 0.1.4</li>
       </div>
       <!-- Quick info menu -->
       <div class="qIM">
@@ -575,18 +603,24 @@
             <button class="welcome-btn-one" onclick="goIntro();">Take  <br> a quick <br>  tour</button>
             <button class="welcome-btn-two" onclick="hideObj('.welcome');">Start <br> straight <br> away</button>
             <div>
-               <p>Questions? Comments? Suggestions? Having trouble? Please contact <a href="mailto:thehillsidetownship@gmail.com">thehillsidetownship@gmail.com</a></p>
+               <p>Questions? Comments? Suggestions? Having trouble? Please contact <a href="mailto:editorrust@gmail.com">editorrust@gmail.com</a></p>
                <p>Disclaimer: While the game may be called Vegetable Dash, some plants may not be botanical vegetables, such as peas and corn.</p>
             </div>
          </div>
       </div>
    </body>
-   <script src="https://www.w3counter.com/tracker.js?id=149765"></script>
+   <script src="Scripts/helpfulFunctions.js"></script>
 
    <script src="Scripts/main.js"></script>
+
    <script src="Scripts/updateDisplay.js"></script>
+
    <script src="Scripts/marketLogic.js"></script>
    <script src="Scripts/growthLogic.js"></script>
    <script src="Scripts/taskLogic.js"></script>
    <script src="Scripts/introLogic.js"></script>
+   <script src="Scripts/weatherLogic.js"></script>
+
+   <!-- Visiter counter -->
+   <script src="https://www.w3counter.com/tracker.js?id=149765"></script>
 </html>

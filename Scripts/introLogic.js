@@ -1,14 +1,12 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Tour
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function runTheIntro() {
-   console.log('The intro has been run');
- }
+
 function runIntro() {
    showObj(".welcome");
    chooseWeather();
-   blackMarketValues();
-   newBlackOffer();
+   generateBlackMarketDeal();
+   displayBlackMarketValues();
    save();
 }
 function goIntro() {
@@ -28,19 +26,21 @@ function intro() {
       } else {
          if (introData.planting === false) {
             introText.textContent = "Farmin' is as easy as anything nowadays, with all this modern technology. Just press that little almanac button, choose your seed, and when it's done, press Harvest!";
-            document.getElementById("plot0").style.zIndex = "100000";
+            document.querySelector(".land").style.gridTemplateAreas = "'auto auto' 'auto auto'";
+            document.getElementById("plot0").style.zIndex = "3";
             introData.planting = true;
          } else {
+            document.querySelector(".land").style.gridTemplateAreas = "'auto'";
             if (introData.gameDataBar === false) {
                document.querySelector(".intro-img").src = "Images/Tasks/farmer.svg";
-               introText.textContent = "This toolbar shows the amount of produce you have.";
+               introText.textContent = "This toolbar, which you can see if you hover the barrel, shows the amount of produce you have. Check up on it regularly to see if you have enough to sell!";
                document.getElementById("plot0").style.zIndex = "0";
                document.querySelector(".toolbar").style.zIndex = "100000";
                introData.gameDataBar = true;
             } else {
                if (introData.weather === false) {
                   document.querySelector(".intro-img").src = "Images/Tasks/jenkins.svg";
-                  introText.textContent = "Keep an eye on the weather, because it will affect you plants! Sometimes it will help, while other times it could ruin your crop!";
+                  introText.textContent = "Keep an eye on the weather, because it will affect your crops. Sometimes it will help, while other times it could ruin your crop!";
                   document.querySelector(".toolbar").style.zIndex = "0";
                   document.querySelector(".weather-short").style.zIndex = "100000";
                   introData.weather = true;
@@ -52,22 +52,22 @@ function intro() {
                      introData.meetGran = true;
                   } else {
                      if (introData.market === false) {
-                        introText.textContent = "This is the market, were you can gain coins by selling produce, which are useful for many things, like opening more plots.";
-                        showObj(".marketShadow"); gameData.marketOpen = true;
+                        introText.textContent = "This is the market, were you can gain coins by selling produce. Coins are useful for many things, like buying new plots or seeds, which you can find in the store..";
+                        showObj(".marketShadow"); gameData.panels.market = true;
                         introData.market = true;
                      }
                      else {
                         if (introData.tasks === false) {
                            document.querySelector(".intro-img").src = "Images/Tasks/farmer.svg";
-                           introText.textContent = "This is your tasklist, where you can get rewards for doing chores around the farm.";
-                           hideObj(".marketShadow"); gameData.marketOpen = false;
+                           introText.textContent = "This is your tasklist, where you can get rewards for doing chores around the farm. My family will guide you until you know the ropes.";
+                           hideObj(".marketShadow"); gameData.panels.market = false;
                            taskBar("close");
                            introData.tasks = true;
                         }
                         else {
                            if (introData.help === false) {
                               document.querySelector(".intro-img").src = "Images/Tasks/farmer.svg";
-                              introText.textContent = "That's it! If you need more help, just check out the small help icon in the top left corner. Be sure to check out the shortcuts section for helpful tips!";
+                              introText.textContent = "That's it! If you need more help, just check out the life ring icon in the top left corner. Be sure to check out the shortcuts section for helpful tips. Have fun, and good luck!";
                               document.querySelector(".tasks").style.zIndex = "0";
                               taskBar("open");
                               introData.help = true;

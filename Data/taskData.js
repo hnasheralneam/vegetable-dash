@@ -1,6 +1,6 @@
 let tD;
 
-var rawTaskData = {
+let rawTaskData = {
 numOTasks: 7, // Real number: 12
 listOfTasks: ["jebsPeaSalad", "useMarketResets", "tryFertilizer", "jebsGrilledCorn", "josephinesDandelionSalad", "unlockThe_cornPlot", "seeBlackMarket", "tryPoliceDoughnuts", "bakeSale_cornBread", "bakeSale_peaSnacks", "bakeSale_strawberryJam", "bakeSale_pumpkinPie"],
 // jebsPeaSalad

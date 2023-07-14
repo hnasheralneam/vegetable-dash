@@ -42,10 +42,10 @@
    background-image: url("../Images/Market/market-stall.png");
 }
 
-.market-item:nth-last-of-type(1) {
+/* .market-item:nth-last-of-type(1) {
    background-color: #f5f5f5;
    height: 30vh;
-}
+} */
 
 .marketVegetables .market-item-content {
    height: 12vh;
@@ -295,28 +295,31 @@
    background-image: url("../Images/Market/black-market.png");
    background-size: cover;
    background-position: center;
+   background-color: var(--theme-color);
 }
 
 .BM-doughnuts {
-   height: 10vh;
    position: relative;
+   text-align: center;
+   font-size: 2.8vh;
+   transition: .2s;
+}
+
+.BM-doughnuts:hover {
+   transform: scale(1.1);
+   box-shadow: 0 0 .5vh #22222244;
 }
 
 .black-doughnut {
-   position: absolute;
-   left: 1vh;
-   height: 10vh;
-}
-
-.doughnut-parent {
-   position: absolute;
-   top: 5vh;
-   left: 25vh;
-   height: 12vh;
-   width: 12vh;
+   height: 8vh;
 }
 
 .bmo-seller, .bmo-offer, .bmo-price { font-size: 10vh; }
+
+.doughnuts-in-bm {
+   font-size: 3vh;
+   padding: 3vh .5vh;
+}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
