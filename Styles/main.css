@@ -162,7 +162,7 @@ summary:focus { outline: none; }
 
 .main-value {
    display: inline-block;
-   width: 20vh;
+   /* width: 20vh; */
    text-align: center;
    font-size: 3.2vh;
    font-family: "Nunito";
@@ -492,8 +492,8 @@ summary:focus { outline: none; }
 
 .almanacBtn {
    position: absolute;
-   bottom: .5vh;
-   left: .5vh;
+   bottom: .3vh;
+   left: .3vh;
    background-color: transparent;
    outline: none;
    border: none;
@@ -502,7 +502,7 @@ summary:focus { outline: none; }
 }
 
 .almanac {
-   height: 8vh;
+   height: 6.5vh;
 }
 
 .almanac:hover {

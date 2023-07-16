@@ -43,11 +43,11 @@
       <!-- Central Command -->
       <div class="cntrl-cmnd">
          <a href="docs/index.html" target="_blank"><img onmouseover="info(this)" data-info="Help" src="Images/Icons/help.svg"></a>
-         <img onmouseover="info(this)" data-info="Tasks" onclick="taskBar('close')" src="Images/New/tasks.png">
-         <img onmouseover="info(this)" data-info="Market" onclick="showObj('.marketShadow'); gameData.panels.market = true;" src="Images/Icons/market.svg">
-         <img onmouseover="info(this)" data-info="Shop" onclick="toggleWindow('shop'); gameData.panels.shop = true;" src="Images/Icons/shop.png">
+         <img onmouseover="info(this)" data-info="Tasks" onclick="if (sidebarOntop) closeAllPanels(); taskBar('close')" src="Images/New/tasks.png">
+         <img onmouseover="info(this)" data-info="Market" onclick="if (sidebarOntop) closeAllPanels(); showObj('.marketShadow'); gameData.panels.market = true;" src="Images/Icons/market.svg">
+         <img onmouseover="info(this)" data-info="Shop" onclick="if (sidebarOntop) closeAllPanels(); toggleWindow('shop'); gameData.panels.shop = true;" src="Images/Icons/shop.png">
          <!-- <img onmouseover="info(this)" data-info="Hybridization Lab" onclick="toggleWindow('genelab'); gameData.panels.genelab = true;" src="Images/New/dna.png"> -->
-         <img onmouseover="info(this)" data-info="Settings" onclick="showObj('.settingShadow'); gameData.panels.settings = true;" src="Images/Icons/settings.svg" id="settings-icon">
+         <img onmouseover="info(this)" data-info="Settings" onclick="if (sidebarOntop) closeAllPanels(); showObj('.settingShadow'); gameData.panels.settings = true;" src="Images/Icons/settings.svg" id="settings-icon">
       </div>
       <!-- Land and Plots -->
       <div class="land">
@@ -289,6 +289,8 @@
             <button class="setting-button" onclick="restart()">Restart</button><br>
             <button class="setting-button theme-clr" onclick="lightTheme()">Light Theme</button>
             <button class="setting-button theme-clr" onclick="darkTheme()">Dark Theme</button>
+            <br>
+            <button onclick="gameData.plantLoadingBars = !gameData.plantLoadingBars; this.textContent = `Plant loading bars ${gameData.plantLoadingBars ? 'on' : 'off'} - click to toggle, reload to see effect`">Toggle plant loading bars (reload to see effect)</button>
 
 
             <div class="import-export">

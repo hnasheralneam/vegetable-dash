@@ -36,7 +36,7 @@ let offerVeg = { vegetable: null, worth: null, amount: null, totalVal: null };
 let costVeg = { vegetable: null, worth: null, amount: null, totalVal: null };
 let rightClickMenu = document.querySelector("#menu").style;
 
-let dynamHov = document.querySelector(".dynamic-hover");
+var dynamHov = document.querySelector(".dynamic-hover");
 
 
 let hover;
@@ -199,7 +199,12 @@ function initShop() {
    if (gameData.plantSeeds.length < 8) {
       document.querySelectorAll(".buy-plots-seeds")[0].style.display = "inline-block";
       document.querySelector(".buy-seeds-image").src = `Images/Vegetables/${gameData.plotPlants[0]}.png`;
-      document.querySelector(".buy-seeds-button").textContent = `Buy ${gameData.plotPlants[0]} seeds for ${toWord(gameInfo[gameData.plotPlants[0] + "Seeds"])} coins!`;
+      document.querySelector(".buy-seeds-button").innerHTML = `
+         <div>
+            <h3>Buy ${gameData.plotPlants[0]} seeds for ${toWord(gameInfo[gameData.plotPlants[0] + "Seeds"])} coins!</h3>
+            <i>Sells for ${toWord(gameData.vegCost[gameData.plotPlants[0]]["sell"])} coins</i><br>
+            <i>Grows in ${formatTime(gameInfo[gameData.plotPlants[0] + "Time"][2])}</i>
+      `;
       document.querySelector(".buy-seeds-button").onclick = () => {
          if (gameData.coins >= gameInfo[gameData.plotPlants[0] + "Seeds"]) {
             let plant = gameData.plotPlants.shift();
@@ -426,8 +431,10 @@ function fertilizeHover() {
 document.addEventListener("mousemove", (e) => {
    mouseX = e.clientX;
    mouseY = e.clientY;
-   dynamHov.style.left = mouseX + 15 + "px";
-   dynamHov.style.top = mouseY + "px";
+   if (dynamHov) {
+      dynamHov.style.left = mouseX + 15 + "px";
+      dynamHov.style.top = mouseY + "px";   
+   }
    if (quickInformation === "opened") {
       quickInfoMenu.style.left = mouseX + 15 + "px";
       quickInfoMenu.style.top = mouseY + "px";
@@ -496,12 +503,13 @@ function aEL(key, func) {
 }
 
 // Update changes for users!!!
-aEL(84, taskBar); // Shift + Q
+aEL(81, taskBar); // Shift + Q
 aEL(83, settingModal); // Shift + S
 aEL(80, tendDrag); // Shift + T
 aEL(70, fertilizeHover); // Shift + F
 aEL(77, toggleMarket); // Shift + M
 aEL(65, tendAll); // Shift + A
+aEL(66, toggleSidebar); // Shift + B
 
 // Quick double click menu
 let pressCount = 0;
@@ -544,13 +552,22 @@ function taskBar(whatToDo) {
       gameData.panels.tasks = false;
    }
 }
+
 function settingModal() {
    if (document.querySelector(".settingShadow").style.opacity === "0") { showObj(".settingShadow"); }
    else { hideObj(".settingShadow"); }
 }
+
 function toggleMarket() {
    if (document.querySelector(".marketShadow").style.opacity === "0") { showObj(".marketShadow"); }
    else { hideObj(".marketShadow"); }
+}
+
+let sidebarOntop = false;
+function toggleSidebar() {
+   let cntrlCmnd = document.querySelector(".cntrl-cmnd");
+   if (cntrlCmnd.style.zIndex === "1001") { cntrlCmnd.style.zIndex = "1"; sidebarOntop = false; }
+   else { cntrlCmnd.style.zIndex = "1001"; sidebarOntop = true; }
 }
 
 function fertilize(i, veg) {
@@ -561,5 +578,22 @@ function fertilize(i, veg) {
       gameData.plots[i].bushels++;
       checkTasks("tryFertilizer");
       document.querySelector(`.time-left-${i}`).textContent = "00:00:00";
+      if (gameData.plantLoadingBars) {
+         document.querySelector(`.plant-progress-view-${i}`).style.width = "100%";
+         document.querySelector(`.plant-progress-text-${i}`).textContent =  "Ready!";
+      }
    }
+}
+
+function closeAllPanels() {
+   hideObj(".settingShadow");
+   hideObj(".marketShadow");
+   hideObj(".blackMarketShadow");
+   if (gameData.panels.shop) toggleWindow("shop");
+   taskBar("open");
+   gameData.panels.settings = false;
+   gameData.panels.market = false;
+   gameData.panels.blackMarket = false;
+   gameData.panels.shop = false;
+   gameData.panels.tasks = false;
 }

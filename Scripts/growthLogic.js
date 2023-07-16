@@ -41,11 +41,13 @@ function initPlots() {
 
       ourNum = i;
       plotBody.innerHTML = `
-      <!-- <div class="plant-progress plant-progress-${i}">
+      ${gameData.plantLoadingBars ?
+         `<div class="plant-progress plant-progress-${i}">
          <span class="plant-progress-view plant-progress-view-${i}">
-            <span><p class="plant-progress-text plant-progress-text-${i}">0%</p></span>
+            <span><p class="plant-progress-text plant-progress-text-${i}">Empty</p></span>
          </span>
-      </div> -->
+      </div>`
+      : ""}
       <div class="countdown time-left">
          <span class="time-left-${index}"></span>
          <img src="Images/Icons/clock.svg">
@@ -63,6 +65,8 @@ function initPlots() {
          let listImg = document.createElement("IMG");
          listImg.classList.add("store-icon");
          listImg.src = `Images/Vegetables/${value}.png`;
+         listImg.dataset.info = `Grows in ${formatTime(gameInfo[value + "Time"][2])}`;
+         listImg.onmouseover = () => { info(listImg); };
          listImg.onclick = () => { tendTo(index, value); };
          listItem.appendChild(listImg);
          plotBody.querySelector(".shop-window").appendChild(listItem);
@@ -70,22 +74,9 @@ function initPlots() {
       if (gameData.plots[index].isGrowing() || gameData.plots[index].status == "Ready") {
          plantGrowthLoop(index);
          document.querySelector(`.almanac${index}`).disabled = true;
+         if (gameData.plantLoadingBars) updatePlantLoadBar(index);
       }
    });
-
-
-   // const spanElements = document.querySelectorAll(`.plant-progress-view`);
-   // const textElements = document.querySelectorAll(`.plant-progress-text`);
-
-   // for (let i = 0; i < spanElements.length; i++) {
-   //    let loadProgress = 0;
-   //    let thisPageloadbar = setInterval(() => {
-   //       loadProgress += 1;
-   //       spanElements[i].style.width = loadProgress + "%";
-   //       textElements[i].textContent = loadProgress + "%";
-   //       if (loadProgress >= 100) { clearInterval(thisPageloadbar); }
-   //    }, 30);
-   // }
 }
 
 function toggleAlmanac(index) {
@@ -113,6 +104,11 @@ function tendTo(pos, veg) {
       // Styles
       document.querySelector(`.btn${pos}`).textContent = `Plant ${veg}!`;
       document.querySelector(`#plot${pos}`).style.backgroundImage = "url(Images/Plots/plot.png)";
+      // Clear load bar
+      if (gameData.plantLoadingBars) {
+         document.querySelector(`.plant-progress-view-${pos}`).style.width = "0%";
+         document.querySelector(`.plant-progress-text-${pos}`).textContent =  "Empty";
+      }
    }
    // Plant
    else {
@@ -127,6 +123,8 @@ function tendTo(pos, veg) {
       plantCountdown(pos);
       plantGrowthLoop(pos);
       document.querySelector(`.plant-icon-${pos}`).src = `Images/Vegetables/${veg}.png`;
+      // Start load bar
+      if (gameData.plantLoadingBars) updatePlantLoadBar(pos);
    }
 }
 
@@ -136,15 +134,20 @@ function plantCountdown(i) {
    let endTime = gameData.plots[i].status;
    let secondsLeftms;
    secondsLeftms = endTime - Date.now();
-   let secondsLeft = Math.round(secondsLeftms / 1000);
+   let formattedTime = formatPlantTime(secondsLeftms);
+   countDown.textContent = formattedTime;
+}
+
+function formatPlantTime(time) {
+   let secondsLeft = Math.round(time / 1000);
    let hours = Math.floor(secondsLeft / 3600);
    let minutes = Math.floor(secondsLeft / 60) - (hours * 60);
    let seconds = secondsLeft % 60;
-   if (secondsLeft < 0) { countDown.textContent = `00:00:00`; return; }
+   if (secondsLeft < 0) { return `00:00:00`; }
    if (hours < 10) { hours = `0${hours}`; }
    if (minutes < 10) { minutes = `0${minutes}`; }
    if (seconds < 10) { seconds = `0${seconds}`; }
-   countDown.textContent = `${hours}:${minutes}:${seconds}`;
+   return `${hours}:${minutes}:${seconds}`;
 }
 
 function plantGrowthLoop(plotIndex) {
@@ -161,7 +164,7 @@ function plantGrowthLoop(plotIndex) {
          clearInterval(growthLoop);
          return;
       }
-      // Changes images depening on odd state
+      // Changes images depending on plot status
       if (gameData.plots[plotIndex].status == "Empty") { plotImg.backgroundImage = "url(Images/Plots/plot.png)"; }
       if (gameData.plots[plotIndex].status == "withered") { plotImg.backgroundImage = `url(Images/Plots/withered.png)`; }
       // If the plant is growing
@@ -182,4 +185,45 @@ function plantGrowthLoop(plotIndex) {
    // Button
    buttton.textContent = `Harvest ${plant}!`;
    hideObj(`.btn${plotIndex}`);
+}
+
+function updatePlantLoadBar(plotIndex) {
+   const progressEl = document.querySelector(`.plant-progress-view-${plotIndex}`);
+   const percentEl = document.querySelector(`.plant-progress-text-${plotIndex}`);
+
+
+   if (gameData.plots[plotIndex].status == "Ready") {
+      let loadProgress = 100;
+      progressEl.style.width = loadProgress + "%";
+      percentEl.textContent = "Ready!";
+   }
+   else if (typeof gameData.plots[plotIndex].status == "number") {
+      let growthTime = gameInfo[`${gameData.plots[plotIndex].plant}Time`][2];
+      let finishTime = gameData.plots[plotIndex].status;
+      let percentThrough = calcPercentThroughGrowth(growthTime, finishTime);
+      let interval = growthTime / 100;
+
+      progressEl.style.width = percentThrough + "%";
+      percentEl.textContent = percentThrough + "%";
+
+      let updateLoadBar = setInterval(() => {
+         percentThrough = calcPercentThroughGrowth(growthTime, finishTime);
+
+         progressEl.style.width = percentThrough + "%";
+         percentEl.textContent = percentThrough + "%";
+
+         if (percentThrough >= 100) {
+            percentEl.textContent = "Ready!";
+            console.log("clear");
+            clearInterval(updateLoadBar);
+         }
+      }, interval);
+   }
+}
+
+function calcPercentThroughGrowth(total, current) {
+   let now = Date.now();
+   let timeLeft = current - now;
+   let percent = (timeLeft / total) * 100;
+   return 100 - Math.round(percent);
 }

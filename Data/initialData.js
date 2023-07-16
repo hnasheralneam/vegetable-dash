@@ -109,6 +109,7 @@ let initGameData = {
 
    // Settings
    theme: "dark",
+   plantLoadingBars: false,
    panels: {
       settings: false,
       market: false,

@@ -64,6 +64,28 @@ function seedOwned(veg) {
    else { return false; }
 }
 
+function formatTime(time) {
+   let diffMs = time;
+   let seconds = Math.floor(diffMs / 1000) % 60;
+   let hours = Math.floor((diffMs % 86400000) / 3600000);
+   let minutes = Math.floor(((diffMs % 86400000) % 3600000) / 60000);
+   
+   if (hours == 0 && minutes == 0) {
+      return `${seconds} ${seconds == 1 ? "second" : "seconds"}`;
+   }
+   else if (hours == 0) {
+      if (seconds == 0) {
+         return `${minutes} ${minutes == 1 ? "minute" : "minutes"}`;
+      }
+      else {
+         return `${minutes} ${minutes == 1 ? "minute" : "minutes"} and ${seconds} ${seconds == 1 ? "second" : "seconds"}`;
+      }
+   }
+   else {
+      return `${hours} ${hours == 1 ? "hour" : "hours"}, ${minutes} ${minutes == 1 ? "minute" : "minutes"}, and ${seconds} ${seconds == 1 ? "second" : "seconds"}`;
+   }
+}
+
 
 // Task hover effect
 // Task Effect
