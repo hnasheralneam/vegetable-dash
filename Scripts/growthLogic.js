@@ -188,37 +188,47 @@ function plantGrowthLoop(plotIndex) {
 }
 
 function updatePlantLoadBar(plotIndex) {
-   const progressEl = document.querySelector(`.plant-progress-view-${plotIndex}`);
-   const percentEl = document.querySelector(`.plant-progress-text-${plotIndex}`);
-
-
    if (gameData.plots[plotIndex].status == "Ready") {
-      let loadProgress = 100;
-      progressEl.style.width = loadProgress + "%";
-      percentEl.textContent = "Ready!";
+      setLoadbarAsDone(plotIndex);
    }
    else if (typeof gameData.plots[plotIndex].status == "number") {
       let growthTime = gameInfo[`${gameData.plots[plotIndex].plant}Time`][2];
-      let finishTime = gameData.plots[plotIndex].status;
-      let percentThrough = calcPercentThroughGrowth(growthTime, finishTime);
       let interval = growthTime / 100;
 
-      progressEl.style.width = percentThrough + "%";
-      percentEl.textContent = percentThrough + "%";
+      updateLoadbar(plotIndex);
 
-      let updateLoadBar = setInterval(() => {
-         percentThrough = calcPercentThroughGrowth(growthTime, finishTime);
+      let updateLoadBarLoop = setInterval(() => {
+         let percentThrough = updateLoadbar(plotIndex);
 
-         progressEl.style.width = percentThrough + "%";
-         percentEl.textContent = percentThrough + "%";
-
-         if (percentThrough >= 100) {
-            percentEl.textContent = "Ready!";
-            console.log("clear");
-            clearInterval(updateLoadBar);
+         if (percentThrough >= 100 || gameData.plots[plotIndex].status == "Ready") {
+            setLoadbarAsDone(plotIndex);
+            clearInterval(updateLoadBarLoop);
          }
       }, interval);
    }
+}
+
+
+function updateLoadbar(plotIndex) {
+   const progressEl = document.querySelector(`.plant-progress-view-${plotIndex}`);
+   const percentEl = document.querySelector(`.plant-progress-text-${plotIndex}`);
+
+   let growthTime = gameInfo[`${gameData.plots[plotIndex].plant}Time`][2];
+   let finishTime = gameData.plots[plotIndex].status;
+   percentThrough = calcPercentThroughGrowth(growthTime, finishTime);
+
+   progressEl.style.width = percentThrough + "%";
+   percentEl.textContent = percentThrough + "%";
+
+   return percentThrough;
+}
+
+function setLoadbarAsDone(plotIndex) {
+   const progressEl = document.querySelector(`.plant-progress-view-${plotIndex}`);
+   const percentEl = document.querySelector(`.plant-progress-text-${plotIndex}`);
+
+   progressEl.style.width = "100%";
+   percentEl.textContent = "Ready!";
 }
 
 function calcPercentThroughGrowth(total, current) {

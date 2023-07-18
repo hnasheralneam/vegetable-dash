@@ -203,7 +203,7 @@ summary:focus { outline: none; }
    display: flex;
    justify-content: center;
    align-items: center;
-   transition: .2s;
+   /* transition: .2s; */
    position: relative;
 }
 .open-plot { display: none; }
@@ -563,7 +563,7 @@ summary:focus { outline: none; }
    transition-delay: .3s;
 }
 .weather-short:hover {
-   height: 45vh;
+   height: 50vh;
    width: 35vh;
 }
 .weather-short .weather-img {

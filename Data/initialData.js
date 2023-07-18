@@ -45,12 +45,12 @@ let initGameData = {
    // Vegetable prices
    vegCost: {
       peas: {
-         buy: 25,
-         sell: 25
+         buy: 30,
+         sell: 30
       },
       corn: {
-         buy: 75,
-         sell: 75
+         buy: 80,
+         sell: 80
       },
       strawberries: {
          buy: 250,
@@ -73,8 +73,8 @@ let initGameData = {
          sell: 18000
       },
       rhubarb: {
-         buy: 54000,
-         sell: 54000
+         buy: 50000,
+         sell: 50000
       }
    },
 

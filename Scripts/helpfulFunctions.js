@@ -82,7 +82,15 @@ function formatTime(time) {
       }
    }
    else {
-      return `${hours} ${hours == 1 ? "hour" : "hours"}, ${minutes} ${minutes == 1 ? "minute" : "minutes"}, and ${seconds} ${seconds == 1 ? "second" : "seconds"}`;
+      if (minutes == 0) {
+         return `${hours} ${hours == 1 ? "hour" : "hours"}`;
+      }
+      else if (minutes != 0 && seconds == 0) {
+         return `${hours} ${hours == 1 ? "hour" : "hours"}, ${minutes} ${minutes == 1 ? "minute" : "minutes"}`;
+      }
+      else {
+         return `${hours} ${hours == 1 ? "hour" : "hours"}, ${minutes} ${minutes == 1 ? "minute" : "minutes"}, and ${seconds} ${seconds == 1 ? "second" : "seconds"}`;
+      }
    }
 }
 

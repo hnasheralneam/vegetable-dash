@@ -171,7 +171,7 @@ function initTendAndFertilizeCursors() {
    gameData.plots.forEach((val, i, arr) => {
       let veg = val.plant;
       document.querySelector(`#plot${i}`).addEventListener("click", event => {
-         if (fertilizerCursor === "active" && arr[i].isGrowing()) { fertilize(i, veg); fertilizeHover(); }
+         if (fertilizerCursor === "active" && arr[i].isGrowing()) { fertilize(i); fertilizeHover(); }
       });
       document.querySelector(`#plot${i}`).addEventListener("mouseenter", event => {
          if (mouseDown === 1 && tendCursor === "active" && !arr[i].isGrowing()) { tendTo(i, veg); }
@@ -214,6 +214,7 @@ function initShop() {
             save();
             location.reload();
          }
+         else { fadeTextAppear(`Not enough coins - you need ${toWord(gameInfo[gameData.plotPlants[0] + "Seeds"] - gameData.coins)} more`, "#de0000"); }
       };
    }
    if (gameData.plots.length < 9) {
@@ -228,6 +229,7 @@ function initShop() {
             save();
             location.reload();
          }
+         else { fadeTextAppear(`Not enough coins - you need ${toWord(gameData.plotPrices[0] - gameData.coins)} more`, "#de0000"); }
       };
    }
 }
@@ -570,18 +572,20 @@ function toggleSidebar() {
    else { cntrlCmnd.style.zIndex = "1001"; sidebarOntop = true; }
 }
 
-function fertilize(i, veg) {
+function fertilize(i) {
    if (gameData.fertilizers >= 1) {
       gameData.fertilizers -= 1;
       updateFertilizer();
-      gameData.plots[i].status = "Ready";
-      gameData.plots[i].bushels++;
-      checkTasks("tryFertilizer");
-      document.querySelector(`.time-left-${i}`).textContent = "00:00:00";
+
+      gameData.plots[i].status = gameData.plots[i].status -= (30 * 60000); // 30 Minutes
+
       if (gameData.plantLoadingBars) {
-         document.querySelector(`.plant-progress-view-${i}`).style.width = "100%";
-         document.querySelector(`.plant-progress-text-${i}`).textContent =  "Ready!";
+         if (gameData.plots[i].status <= Date.now()) setLoadbarAsDone(i);
+         else updateLoadbar(i);
       }
+
+      gameData.plots[i].bushels *= 2;
+      checkTasks("tryFertilizer");
    }
 }
 

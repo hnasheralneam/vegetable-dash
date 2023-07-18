@@ -32,18 +32,19 @@ function weatherEffects() {
    if (gameData.weather === "snowy" && gameData.hasBeenPunished === false) {
       let unluckyVeg = gameData.plantSeeds[Math.floor(Math.random() * gameData.plantSeeds.length)];
       let amountLost = Math.floor(gameData[unluckyVeg] / 3);
+      console.log(amountLost);
       if (amountLost > 0) {
-         gameData[unluckyVeg] - amountLost;
+         gameData[unluckyVeg] -= amountLost;
          updateVeg(unluckyVeg);
+         notify(`It has snowed! You lost ${amountLost} ${unluckyVeg}!`);
+         gameData.hasBeenPunished = true;
       }
-      notify(`It has snowed! You lost ${amountLost} ${unluckyVeg}!`);
-      gameData.hasBeenPunished = true;
    }
    if (gameData.weather === "flood" && gameData.hasBeenPunished === false) {
       let unluckyVeg = gameData.plantSeeds[Math.floor(Math.random() * gameData.plantSeeds.length)];
       let amountLost = Math.floor(gameData[unluckyVeg] / 5);
       if (amountLost > 0) {
-         gameData[unluckyVeg] - amountLost;
+         gameData[unluckyVeg] -= amountLost;
          updateVeg(unluckyVeg);
       }
       notify(`It has flooded! You lost ${amountLost} ${unluckyVeg}!`);

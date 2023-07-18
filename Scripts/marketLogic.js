@@ -3,23 +3,46 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function initMarketStalls() {
-   let marketItem = document.getElementsByClassName("market-item");
-   marketItem[10].style.display = "block";
-   marketItem[0].style.display = "inline-block";
-   if (seedOwned("corn")) { marketItem[1].style.display = "inline-block"; marketItem[8].style.display = "block"; }
-   if (seedOwned("strawberries")) { marketItem[2].style.display = "inline-block"; marketItem[9].style.display = "block"; }
-   if (seedOwned("eggplants")) { marketItem[3].style.display = "inline-block"; }
-   if (seedOwned("pumpkins")) { marketItem[4].style.display = "inline-block"; }
-   if (seedOwned("cabbage")) { marketItem[5].style.display = "inline-block"; }
-   if (seedOwned("dandelion")) { marketItem[6].style.display = "inline-block"; }
-   if (seedOwned("rhubarb")) { marketItem[7].style.display = "inline-block"; }
+   document.querySelector(".market-resets-stall").style.display = "block";
+   createStall("peas");
+   if (seedOwned("corn")) {
+      document.querySelector(".market-exchange-stall").style.display = "block";
+      createStall("corn");
+   }
+   if (seedOwned("strawberries")) {
+      document.querySelector(".market-bm-stall").style.display = "block";
+      createStall("strawberries");
+   }
+   if (seedOwned("eggplants")) { createStall("eggplants"); }
+   if (seedOwned("pumpkins")) { createStall("pumpkins"); }
+   if (seedOwned("cabbage")) { createStall("cabbage"); }
+   if (seedOwned("dandelion")) { createStall("dandelion"); }
+   if (seedOwned("rhubarb")) { createStall("rhubarb"); }
+
+   function createStall(veg) {
+      let stallEl = document.createElement("div");
+      stallEl.classList.add("market-item");
+      stallEl.style.display = "inline-block";
+      stallEl.innerHTML = `
+         <div class="market-item-content">
+            <img class="market-veg-img" src="Images/Vegetables/${veg}.png">
+            <span class="${veg}-market-item"></span>
+         </div>
+         <div class="buy-sell">
+            <span class="${veg}-buy market-item-buy" onmouseover="info(this)" data-info="" onclick="buyProduce('${veg}')">Buy</span>
+            <span class="${veg}-sell market-item-sell" onmouseover="info(this)" data-info="" onclick="sellProduce('${veg}')">Sell</span>
+         </div>
+      `;
+      document.querySelector(".marketVegetables").append(stallEl);
+   }
 }
 
 function resetMarketValues() {
    if (gameData.marketResets > 0) {
       gameData.marketResets--;
       updateMarketResets();
-      gameData.vegCost = initGameData.vegCost;
+      gameData.vegCost = JSON.parse(JSON.stringify(initGameData.vegCost));
+      notify("Market prices have been reset!");
       updateMarketSalePrices();
       checkTasks("useMarketResets");
    }
@@ -34,7 +57,7 @@ function buyProduce(produce) {
       for (i = 0; i < 5; i++) { buy(); } marketLuck();
    }
    else if (gameData.coins >= gameData["vegCost"][produce]["buy"]) { buy(); marketLuck(); }
-   else { fadeTextAppear(`Not enough coins - you need ${toWord(gameData["vegCost"][produce]["buy"] - gameData.coins)} more`, false, "#de0000"); }
+   else { fadeTextAppear(`Not enough coins - you need ${toWord(gameData["vegCost"][produce]["buy"] - gameData.coins)} more`, "#de0000"); }
    function buy() {
       gameData[produce] += 5;
       updateVeg(produce);
@@ -59,7 +82,7 @@ function sellProduce(produce) {
       for (i = 0; i < 5; i++) { sell(); } marketLuck();
    }
    else if (gameData[produce] >= 5) { sell(); marketLuck(); }
-   else { fadeTextAppear(`Not enough produce - you need ${5 - gameData[produce]} more`, false, "#de0000"); }
+   else { fadeTextAppear(`Not enough produce - you need ${5 - gameData[produce]} more`, "#de0000"); }
    function sell() {
       gameData[produce] -= 5;
       updateVeg(produce);
@@ -101,7 +124,7 @@ function acceptExchange() {
       updateVeg(costVeg.vegetable);
       generateExchange();
    }
-   else { fadeTextAppear(`Not enough produce -  you need ${costVeg.amount - gameData[costVeg.vegetable]} more`, false, "#de0000"); }
+   else { fadeTextAppear(`Not enough produce -  you need ${costVeg.amount - gameData[costVeg.vegetable]} more`, "#de0000"); }
 }
 
 // Black Market
@@ -142,7 +165,7 @@ function accept() {
       }
       checkTasks("seeBlackMarket");
    }
-   else { fadeTextAppear(`Not enough coins - you need ${toWord(gameData.black.cost - gameData.coins)} more`, false, "#de0000"); }
+   else { fadeTextAppear(`Not enough coins - you need ${toWord(gameData.black.cost - gameData.coins)} more`, "#de0000"); }
 }
 function deny() {
    generateBlackMarketDeal();
@@ -160,5 +183,5 @@ function feedPolice() {
       fadeTextAppear(`-1 Doughnut`, false, "#de0000");
       checkTasks("tryPoliceDoughnuts");
    }
-   else { fadeTextAppear(`Not enough doughnuts -  you have none`, false, "#de0000"); }
+   else { fadeTextAppear(`Not enough doughnuts -  you have none`, "#de0000"); }
 }

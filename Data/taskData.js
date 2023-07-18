@@ -12,7 +12,7 @@ t1: {
    },
    demand: {
       text: "Submit 25 Peas",
-      code: "if (gameData.peas >= 25) { gameData.peas -= 25; updateVeg('peas'); checkTasks('jebsPeaSalad'); } else { fadeTextAppear(event, `Not enough produce - you need ${25 - gameData.peas} more`, false, '#de0000'); }"
+      code: "if (gameData.peas >= 25) { gameData.peas -= 25; updateVeg('peas'); checkTasks('jebsPeaSalad'); } else { fadeTextAppear(event, `Not enough produce - you need ${25 - gameData.peas} more`, '#de0000'); }"
    },
    text: {
       notReady: "I plan on making a nice, big salad, and I'll need some fresh produce for it. Could you do me a favor and get some peas for me?",
@@ -69,7 +69,7 @@ t3: {
       code: "return;"
    },
    text: {
-      notReady: "Your plants look like they could do with some help. Why don't you use some fertilizer? It'll double the crop yeild and finish the growing instantly!",
+      notReady: "Your plants look like they could do with some help. Why don't you use some fertilizer? It'll double the crop yeild and take 30 minutes off the growing time!",
       ready: "Wow, just look at those plants grow! Here, take these, I've had them lying about for years!"
    },
    reward: {
@@ -93,7 +93,7 @@ t4: {
    },
    demand: {
       text: "Submit 45 Corn",
-      code: "if (gameData.corn >= 45) { gameData.corn -= 45; updateVeg('corn'); checkTasks('jebsGrilledCorn'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+      code: "if (gameData.corn >= 45) { gameData.corn -= 45; updateVeg('corn'); checkTasks('jebsGrilledCorn'); } else { fadeTextAppear(event, 'Not enough produce', '#de0000'); }"
    },
    text: {
       notReady: "I'm inviting some family over, and I want to serve corn on the cob. I'm going to need to get come corn. Could you get them for me?",
@@ -120,7 +120,7 @@ t5: {
    },
    demand: {
       text: "Submit 6 Dandelions",
-      code: "if (gameData.dandelion >= 6) { gameData.dandelion -= 6; updateVeg('dandelion'); checkTasks('josephinesDandelionSalad'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+      code: "if (gameData.dandelion >= 6) { gameData.dandelion -= 6; updateVeg('dandelion'); checkTasks('josephinesDandelionSalad'); } else { fadeTextAppear(event, 'Not enough produce', '#de0000'); }"
    },
    text: {
       notReady: "What an outrage! I have found that we have been losing profit to a competing company, Happy Place Farms! Their top product is lettuce salad, but I think we can do better! Introducing; dandelion salad!",
@@ -228,7 +228,7 @@ t9: {
    },
    demand: {
       text: "Submit 20 Corn",
-      code: "if (gameData.corn >= 20) { gameData.corn -= 20; updateVeg('corn'); checkTasks('bakeSale_cornBread'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+      code: "if (gameData.corn >= 20) { gameData.corn -= 20; updateVeg('corn'); checkTasks('bakeSale_cornBread'); } else { fadeTextAppear(event, 'Not enough produce', '#de0000'); }"
    },
    text: {
       notReady: "I have a wonderful lucrative idea! We can hold a bake sale with plenty of delicious foods! Let's start with cornbread, my personal faviorite!",
@@ -255,7 +255,7 @@ t10: {
    },
    demand: {
       text: "Submit 60 Peas",
-      code: "if (gameData.peas >= 60) { gameData.peas -= 60; updateVeg('peas'); checkTasks('bakeSale_peaSnacks'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+      code: "if (gameData.peas >= 60) { gameData.peas -= 60; updateVeg('peas'); checkTasks('bakeSale_peaSnacks'); } else { fadeTextAppear(event, 'Not enough produce', '#de0000'); }"
    },
    text: {
       notReady: "Next, let's make some crunchy pea snacks!",
@@ -282,7 +282,7 @@ t11: {
    },
    demand: {
       text: "Submit 15 Strawberries",
-      code: "if (gameData.strawberries >= 15) { gameData.strawberries -= 15; updateVeg('strawberries'); checkTasks('bakeSale_strawberryJam'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+      code: "if (gameData.strawberries >= 15) { gameData.strawberries -= 15; updateVeg('strawberries'); checkTasks('bakeSale_strawberryJam'); } else { fadeTextAppear(event, 'Not enough produce', '#de0000'); }"
    },
    text: {
       notReady: "Do you like spreading nice, sweet, jam on toast? I sure do, and so will our customers!",
@@ -309,7 +309,7 @@ t12: {
    },
    demand: {
       text: "Submit 10 Pimpkins",
-      code: "if (gameData.pumpkins >= 10) { gameData.pumpkins -= 10; updateVeg('pumpkins'); checkTasks('bakeSale_pumpkinPie'); } else { fadeTextAppear(event, 'Not enough produce', false, '#de0000'); }"
+      code: "if (gameData.pumpkins >= 10) { gameData.pumpkins -= 10; updateVeg('pumpkins'); checkTasks('bakeSale_pumpkinPie'); } else { fadeTextAppear(event, 'Not enough produce', '#de0000'); }"
    },
    text: {
       notReady: "Not all pumpkin pies are great, but my recipe is! Let's make a few!",

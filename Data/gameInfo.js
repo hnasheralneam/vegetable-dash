@@ -7,7 +7,7 @@ let gameInfo = {
    pumpkinsTime: [300000, 600000, 900000],
    cabbageTime: [900000, 1800000, 2700000],
    dandelionTime: [2400000, 4800000, 7200000],
-   rhubarbTime: [7200000, 14400000, 21600000],
+   rhubarbTime: [4800000, 9600000, 14400000],
    // Seed prices
    cornSeeds: 150,
    strawberriesSeeds: 500,

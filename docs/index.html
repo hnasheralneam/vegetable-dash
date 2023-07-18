@@ -21,8 +21,9 @@
          <div class="help-subjects-item hsi-planting" onclick="hlpScrl('planting')">Planting</div>
          <div class="help-subjects-item hsi-harvesting" onclick="hlpScrl('harvesting')">Harvesting</div>
          <div class="help-subjects-item hsi-plots" onclick="hlpScrl('plots')">Plots</div>
-         <div class="help-subjects-item hsi-seeds" onclick="hlpScrl('seeds')">Seeds</div>
+         <div class="help-subjects-item hsi-coins" onclick="hlpScrl('coins')">Coins</div>
          <div class="help-subjects-item hsi-market" onclick="hlpScrl('market')">Market</div>
+         <div class="help-subjects-item hsi-shop" onclick="hlpScrl('shop')">Shop</div>
          <div class="help-subjects-item hsi-market-exchanges" onclick="hlpScrl('market-exchanges')">Market Exchanges</div>
          <div class="help-subjects-item hsi-black-market" onclick="hlpScrl('black-market')">Black Market</div>
          <div class="help-subjects-item hsi-market-resets" onclick="hlpScrl('market-resets')">Market Resets</div>
@@ -34,7 +35,6 @@
          <div class="help-subjects-item hsi-farmer-jebediah" onclick="hlpScrl('farmer-jebediah')">Farmer Jebediah</div>
          <div class="help-subjects-item hsi-grandpa-jenkins" onclick="hlpScrl('grandpa-jenkins')">Grandpa Jenkins</div>
          <div class="help-subjects-item hsi-grandma-josephine" onclick="hlpScrl('grandma-josephine')">Grandma Josephine</div>
-         <div class="help-subjects-item hsi-plant-times" onclick="hlpScrl('plant-times')">Plant Times</div>
          <div class="help-subjects-item hsi-shortcuts" onclick="hlpScrl('shortcuts')">Shortcuts</div>
          <div class="help-subjects-item hsi-about-copyright" onclick="hlpScrl('about-copyright')">About & Copyright</div>
       </div>
@@ -42,49 +42,57 @@
          <div id="help-center">
             <h1>Help Center</h1>
             <p>This is an incomplete guide of Vegetable Dash. If anyone wants to make changes or add new pages, email me at editorrust@gmail.com</p>
-            <p>hello?</p>
          </div>
          <div id="help-planting">
             <h1>Planting</h1>
-            <p>Just press the button that says grow, then use a rare and powerful skill called <em>patience</em>, and wait until it says <span onclick="hlpScrl('harvesting')">Harvest</span>.</p>
+            <p>Just press the button that says "Grow [plant]", then use a rare and powerful skill called <em>patience</em>, and wait until it says "<span onclick="hlpScrl('harvesting')">Harvest</span> [plant]".</p>
             <img src="../Images/Help/plant-harvest.gif" style="height: 50vh">
          </div>
          <div id="help-harvesting">
             <h1>Harvesting</h1>
-            <p>A button shall appear out of thin air, and written on it shall be that wonderful word: Harvest [Vegetable Name]. You want to press that button. By doing this, you shall gain 1 vegetable of that type and 1 seed. By harvesting there is a 5% chance of collecting a <span onclick="hlpScrl('market-resets')">Market Reset</span>, a 10% chance of collection 2 extra vegetables, and a 20% chance of collecting 5 extra <span onclick="hlpScrl('seeds')">Seeds</span>.</p>
+            <p>A button shall appear out of thin air, and written on it shall be that wonderful word: "Harvest [plant]"". You want to press that button. By doing this, you shall gain 1 vegetable of that type. By harvesting there is a 5% chance of collecting a <span onclick="hlpScrl('market-resets')">Market Reset</span> and a 10% chance of collection 2 extra vegetables.</p>
             <img src="../Images/Help/plant-harvest.gif" style="height: 50vh">
          </div>
          <div id="help-plots">
             <h1>Plots</h1>
-            <p>Plots are where vegetables are grown. Each plot grows a certain type of vegetable. To unlock the next plot, hover over the large yellow lock and click 'purchase plot'. This shall cost <span onclick="hlpScrl('seeds')">Seeds</span></p>
+            <p>Plots are where vegetables are grown. Any plot can grow any type of vegetable. You can select the type of vegetable when the plot is empty by clicking on the farmer's alamanac in the bottom left corner. You can buy new plots with <span onclick="hlpScrl('coins')">Coins</span> in the <span onclick="hlpScrl('shop')">Shop</span>.</p>
             <img src="../Images/Help/plots.png" style="height: 50vh">
          </div>
-         <div id="help-seeds">
-            <h1>Seeds</h1>
-            <p>In this wonderful utopia, seeds are the only currency, most carrots are purple, and the sky is always blue except the times when it is not. Most thing require seeds such as unlocking plots and exchanging in the <span onclick="hlpScrl('market')">Market</span>. You can collect them by selling produce in the market or <span onclick="hlpScrl('harvesting')">Harvesting</span> vegetables.</p>
+         <div id="help-coins">
+            <h1>Coins</h1>
+            <p>In this wonderful utopia, coins are the only currency, most carrots are purple, and the sky is always blue except the times when it is not. Many things require the use of coins, such as buying plots, plant seeds, and buying produce in the <span onclick="hlpScrl('market')">Market</span>. You can collect coins by selling produce in the Market.</p>
          </div>
          <div id="help-market">
             <h1>Market</h1>
-            <p>The market is a wonderful and bustling place filled with plenty of vegetables. It can be accessed by hovering over the bar in the bottom left corner then clicking the button with a shop icon. It show how much <span onclick="hlpScrl('seeds')">Seeds</span> you have in the first box. The next box has a the amount of a certain type of vegetable you have, and you can sell 5 of them for an amount of <span onclick="hlpScrl('seeds')">Seeds</span> or buy 5 for some <span onclick="hlpScrl('seeds')">Seeds</span>. You can reset the price values with <span onclick="hlpScrl('market-resets')">Market Resets</span>. Holding Shift multiplies you order by 5, while holding Ctrl multiplies it tenfold.</p>
+            <p>
+               The market is a wonderful and bustling place filled with plenty of vegetables. It can be found by clicking the shop icon in the left sidebar. It contains stalls for each of the vegetables you own, with the amount of each vegetable and how much <span onclick="hlpScrl('coins')">Coins</span> they will sell or be bought for. Vegetables are sold and bought in batches of 5!
+               <br>
+               You can reset all market costs back to their original values with <span onclick="hlpScrl('market-resets')">Market Resets</span>.
+               <br>
+               Holding Shift multiplies you order by 5 (sell 25 buy 25), while holding Ctrl multiplies it tenfold (sell 50 buy 50).</p>
             <img src="../Images/Help/market.png" style="height: 45vh">
+         </div>
+         <div id="help-shop">
+            <h1>Shop</h1>
+            <p>In the shop, you can buy plant seeds and new plots!</p>
          </div>
          <div id="help-market-exchanges">
             <h1>Market Exchanges</h1>
-            <p>To be found in the market is a place where many traders come to show their goods, the market exchanges corner. For an amount of one vegetable, you can get a set amount of another, no seeds required.</p>
+            <p>To be found in the market is a place where many traders come to show their goods, the market exchanges corner. For an amount of one vegetable, you can get a set amount of another, no Coins required.</p>
             <img src="../Images/Help/market-exchanges.png" style="height: 26vh">
          </div>
          <div id="help-black-market">
             <h1>Black Market</h1>
-            <p>The black market is a wonderful and bustling place filled with plenty of illegal items. It located at an undisclosed location. For an amount of <span onclick="hlpScrl('help-seeds')">seeds</span> you can purchase illegal items such as <span onclick="hlpScrl('help-market-resets')">Market Resets</span>. But watch out! There is a 2% chance that the police will catch you and make you pay a terrible fine! To make matter worse, when you make a trade, the chance goes up by 1%.</p>
+            <p>The black market is a wonderful and bustling place filled with plenty of illegal items. It located at an undisclosed location. For an amount of <span onclick="hlpScrl('help-coins')">Coins</span> you can purchase illegal items such as <span onclick="hlpScrl('help-market-resets')">Market Resets</span>. But watch out! There is a 2% chance that the police will catch you and make you pay a terrible fine! To make matter worse, when you make a trade, the chance goes up by 1%.</p>
          </div>
          <div id="help-market-resets">
             <h1>Market Resets</h1>
-            <p>Market resets can be found as the last item in the <span onclick="hlpScrl('market')">Market</span>. By using one all of the values in the market are reset to what they began as, not the outrageous price they have become. There is a 1% chance of collecting one after each trade, and a 5% chance after each harvest. One is gained every time you unlock a plot.</p>
+            <p>Market resets can be found as the last item in the <span onclick="hlpScrl('market')">Market</span>. Using one vill reset all of the values in the market to what they began as, not the outrageous price they have become. There is a 1% chance of collecting one after each trade, and a 5% chance after each harvest.</p>
             <img src="../Images/Help/market-resets.png" style="height: 50vh">
          </div>
          <div id="help-fertilizer">
             <h1>Fertilizer</h1>
-            <p>Fertilizer is a useful item, that when used on a plant will make the plant instantly conclude growing and yield one extra of that vegetable. Fertilizer can be bought in the <span onclick="hlpScrl('black-market')">Black Market</span>, or earned from <span onclick="hlpScrl('tasks')">Tasks</span>.</p>
+            <p>Fertilizer is a useful item, that when used on a plant will take 30 minutes off the growth time and double the yeild. Fertilizer can be bought in the <span onclick="hlpScrl('black-market')">Black Market</span>, or earned from <span onclick="hlpScrl('tasks')">Tasks</span>.</p>
             <img src="../Images/Help/fertilizer.gif" style="height: 50vh">
          </div>
          <div id="help-tasks">
@@ -99,8 +107,8 @@
          </div>
          <div id="help-disasters">
             <h1>Disasters</h1>
-            <p>Disasters occur every once in a while, a chance of them occurring happening every eight minutes. This could result in losing crops, seeds spoiling, and other undesirable happenings.</p>
-            <img src="../Images/Help/disasters.png" style="height: 50vh">
+            <p>Disasters occur every once in a while, a chance of them occurring happening every eight minutes. This could result in losing crops and other undesirable happenings.</p>
+            <img src="../Images/Help/disasters.png" style="height: 30vh">
          </div>
          <div id="help-weeds">
             <h1>Weeds</h1>
@@ -121,22 +129,6 @@
             <p>Your personal economic adviser, and giver of <span onclick="hlpScrl('tasks')">Tasks</span>.</p>
             <img src="../Images/Tasks/granny.png" style="height: 50vh">
          </div>
-         <div id="help-plant-times">
-            <h1>Plant Times</h1>
-            A nice table that shows the growing times for all the plants.
-            <br><br><br>
-            <table>
-               <tr><th>Vegetable</th><th>Growing Time</th></tr>
-               <tr><td>Peas</td><td>10 Seconds</td></tr>
-               <tr class="tm-tb tm-tb-co"><td>Corn</td><td>30 Seconds</td></tr>
-               <tr class="tm-tb tm-tb-st"><td>Strawberries</td><td>1.5 Minutes</td></tr>
-               <tr class="tm-tb tm-tb-eg"><td>Eggplant</td><td>5 Minutes</td></tr>
-               <tr class="tm-tb tm-tb-pu"><td>Pumpkin</td><td>15 Minutes</td></tr>
-               <tr class="tm-tb tm-tb-ca"><td>Cabbage</td><td>45 Minutes</td></tr>
-               <tr class="tm-tb tm-tb-da"><td>Dandelion</td><td>2 Hours</td></tr>
-               <tr class="tm-tb tm-tb-rh"><td>Rhubarb</td><td>6 Hours</td></tr>
-           </table>
-         </div>
          <div id="help-shortcuts">
             <h1>Shortcuts</h1>
             <p style="font-size: 4vh; font-family: 'Nunito'">
@@ -154,29 +146,17 @@
          </div>
          <div id="help-about-copyright">
                <h1>About & Copyright</h1>
-               This game is &copy copyrighted by Editor Rust. If you want to help, email me at <a href="mailto:editorrust@gmail.com">editorrust@gmail.com</a>, or send a suggestion. <br>
-               Strawberry, Eggplant, Plot, Pea and other images are courtesy of <a href="https://www.youtube.com/channel/UCW4Ba6Mu-nRZII6kg2eEGzA">Urdons</a>. <br>
+               This game is copyrighted by Editor Rust. If you want to help, email me at <a href="mailto:editorrust@gmail.com">editorrust@gmail.com</a>, or send a suggestion.
+               <br><br>
+               <b>Attribution</b> <br>
+               Strawberry, Eggplant, Plot, and Pea images are courtesy of <a href="https://www.youtube.com/channel/UCW4Ba6Mu-nRZII6kg2eEGzA">Urdons</a>. <br>
                <span>Barrel and help icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></span><br>
                <span>Settings icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></span><br>
                <span>Command bar market icon made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></span><br>
                <span>Plant clock icon made by <a href="https://www.flaticon.com/authors/bqlqn" title="bqlqn">bqlqn</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></span><br>
                <span>Shopping cart from <a href="https://www.flaticon.com/free-icons/shopping-cart" title="shopping cart icons">Shopping cart icons created by Vectors Market - Flaticon</a></span>
                <br><br>
-               <p>Docs last updated with v0.1.2</p>
-               <!-- <table>
-                  <tr>
-                     <th>Version Number</th>
-                     <th>Version Name</th>
-                     <th>Release Date</th>
-                     <th>Possible Features</th>
-                  </tr>
-                  <tr>
-                     <td>0.1.2 (Current)</td>
-                     <td>The Backlog Update</td>
-                     <td>November 1 2021</td>
-                     <td>Catching up on all the stuff I've been avoiding</td>
-                  </tr>
-              </table> -->
+               <p>Docs last updated with v0.1.4</p>
               <br><br>
               <a href="https://editorrust.github.io">About Editor Rust</a> <br>
               <a href="https://editorrust.github.io/gold-rush/">Gold Rush</a> <br>

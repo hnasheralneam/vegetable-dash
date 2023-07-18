@@ -159,89 +159,8 @@
       <div class="shadow marketShadow">
          <div class="market">
             <h2 class="market-disclaimer">Bushels are sold in batches of 5</h2>
-            <div class="marketVegetables">
-               <div class="market-item">
-                  <div class="market-item-content">
-                     <img class="market-veg-img" src="Images/Vegetables/peas.png">
-                     <span class="peas-market-item"></span>
-                  </div>
-                  <div class="buy-sell">
-                     <span class="peas-buy market-item-buy" onmouseover="info(this)" data-info="" onclick="buyProduce('peas')">Buy</span>
-                     <span class="peas-sell market-item-sell" onmouseover="info(this)" data-info="" onclick="sellProduce('peas')">Sell</span>
-                  </div>
-               </div>
-               <div class="market-item">
-                  <div class="market-item-content">
-                     <img class="market-veg-img" src="Images/Vegetables/corn.png">
-                     <span class="corn-market-item"></span>
-                  </div>
-                  <div class="buy-sell">
-                     <span class="corn-buy market-item-buy" onmouseover="info(this)" data-info="" onclick="buyProduce('corn')">Buy</span>
-                     <span class="corn-sell market-item-sell" onmouseover="info(this)" data-info="" onclick="sellProduce('corn')">Sell</span>
-                  </div>
-               </div>
-               <div class="market-item">
-                  <div class="market-item-content">
-                     <img class="market-veg-img" src="Images/Vegetables/strawberries.png">
-                     <span class="strawberries-market-item"></span>
-                  </div>
-                  <div class="buy-sell">
-                     <span class="strawberries-buy market-item-buy" onmouseover="info(this)" data-info="" onclick="buyProduce('strawberries')">Buy</span>
-                     <span class="strawberries-sell market-item-sell" onmouseover="info(this)" data-info="" onclick="sellProduce('strawberries')">Sell</span>
-                  </div>
-               </div>
-               <div class="market-item">
-                  <div class="market-item-content">
-                     <img class="market-veg-img" src="Images/Vegetables/eggplants.png">
-                     <span class="eggplants-market-item"></span>
-                  </div>
-                  <div class="buy-sell">
-                     <span class="eggplants-buy market-item-buy" onmouseover="info(this)" data-info="" onclick="buyProduce('eggplants')">Buy</span>
-                     <span class="eggplants-sell market-item-sell" onmouseover="info(this)" data-info="" onclick="sellProduce('eggplants')">Sell</span>
-                  </div>
-               </div>
-               <div class="market-item">
-                  <div class="market-item-content">
-                     <img class="market-veg-img" src="Images/Vegetables/pumpkin.svg">
-                     <span class="pumpkins-market-item"></span>
-                  </div>
-                  <div class="buy-sell">
-                     <span class="pumpkins-buy market-item-buy" onmouseover="info(this)" data-info="" onclick="buyProduce('pumpkins')">Buy</span>
-                     <span class="pumpkins-sell market-item-sell" onmouseover="info(this)" data-info="" onclick="sellProduce('pumpkins')">Sell</span>
-                  </div>
-               </div>
-               <div class="market-item">
-                  <div class="market-item-content">
-                     <img class="market-veg-img" src="Images/Vegetables/cabbage.svg">
-                     <span class="cabbage-market-item"></span>
-                  </div>
-                  <div class="buy-sell">
-                     <span class="cabbage-buy market-item-buy" onmouseover="info(this)" data-info="" onclick="buyProduce('cabbage')">Buy</span>
-                     <span class="cabbage-sell market-item-sell" onmouseover="info(this)" data-info="" onclick="sellProduce('cabbage')">Sell</span>
-                  </div>
-               </div>
-               <div class="market-item">
-                  <div class="market-item-content">
-                     <img class="market-veg-img" src="Images/Vegetables/dandelion.png">
-                     <span class="dandelion-market-item"></span>
-                  </div>
-                  <div class="buy-sell">
-                     <span class="dandelion-buy market-item-buy" onmouseover="info(this)" data-info="" onclick="buyProduce('dandelion')">Buy</span>
-                     <span class="dandelion-sell market-item-sell" onmouseover="info(this)" data-info="" onclick="sellProduce('dandelion')">Sell</span>
-                  </div>
-               </div>
-               <div class="market-item">
-                  <div class="market-item-content">
-                     <img class="market-veg-img" src="Images/Vegetables/rhubarb.png">
-                     <span class="rhubarb-market-item"></span>
-                  </div>
-                  <div class="buy-sell">
-                     <span class="rhubarb-buy market-item-buy" onmouseover="info(this)" data-info="" onclick="buyProduce('rhubarb')">Buy</span>
-                     <span class="rhubarb-sell market-item-sell" onmouseover="info(this)" data-info="" onclick="sellProduce('rhubarb')">Sell</span>
-                  </div>
-               </div>
-            </div>
-            <div class="market-item">
+            <div class="marketVegetables"></div>
+            <div class="market-item market-exchange-stall">
                <div class="market-item-content market-exchange">
                   <div class="market-exchange-content">
                      <h1 style="font-size: 4vh; position: absolute; top: 1vh; left: 0; right: 0;">Exchange Market</h1>
@@ -264,12 +183,12 @@
                   <span class="market-item-sell" onclick="generateExchange();">Decline</span>
                </div>
             </div>
-            <div class="market-item market-lasters">
+            <div class="market-item market-lasters market-bm-stall">
                <div class="market-item-content blackMarketHome" onclick="showObj('.blackMarketShadow'); gameData.panels.blackMarket = true;">
                   <span style="font-size: 10vh; font-weight: 800; font-family: 'Nunito'">Black Market</span>
                </div>
             </div>
-            <div class="market-item market-lasters">
+            <div class="market-item market-lasters market-resets-stall">
                <div class="market-item-content reset-market-item">
                   <h1>Market Resets</h1>
                   <p>Reset all market buy and sell values. (<span class="market-resets"></span>)</p>
@@ -309,6 +228,8 @@
             <br><br>
             <div class="version-info">
                <h4>Version 0.1.4</h4>
+               <p>patch 8 - Balanced vegetables, updated help, fixes</p>
+               <p>patch 7 - Plant loading bars, UX improvements</p>
                <p>patch 6 - Import/export, Fixes</p>
                <p>patch 5 - Huge performance improvements, bug fixes</p>
                <p>patch 4 - UI improvements, UX fixes</p>
@@ -316,7 +237,7 @@
                <p>patch 2 - Fixed first load and restart</p>
                <p>patch 1 - Bug fixes, backend improvements</p>
                <br>
-               <p>last updated -> July 13 2023</p>
+               <p>last updated -> July 18 2023</p>
             </div>
          </div>
       </div>
@@ -601,7 +522,7 @@
       <div class="welcome">
          <div class="welcome-content">
             <h1>Welcome to Vegetable Dash!</h1>
-            <p class="wlcm-choice">Take a short tour, or figure it out on your own: The choice is your, and keep in mind you can check the Help Center (top left corner) at any time.</p>
+            <p class="wlcm-choice">Take a short tour, or figure it out on your own: The choice is yours. Keep in mind you can check the Help Center (top left corner) at any time.</p>
             <button class="welcome-btn-one" onclick="goIntro();">Take  <br> a quick <br>  tour</button>
             <button class="welcome-btn-two" onclick="hideObj('.welcome');">Start <br> straight <br> away</button>
             <div>
