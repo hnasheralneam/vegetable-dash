@@ -3,8 +3,7 @@ A few states for vegetables
 1. "Ready" - your plant is ready
 2. (timestamp) - the moment your plant will be ready
 3. "Empty" - your plot is empty
-4. "Locked" - your plot is locked
-5. "withered" - your plants have been killed by frost
+4. "withered" - your plants have been killed by frost
 */
 
 let initGameData = {
@@ -31,9 +30,9 @@ let initGameData = {
    rhubarb: 0,
 
    // Market Data
-   marketResets: 0,
+   marketResets: 2,
    fertilizers: 0,
-   doughnuts: 0,
+   doughnuts: 1,
    weedPieces: 0,
    weedsLeft: 0,
 
@@ -120,36 +119,28 @@ let initGameData = {
    },
 
    // Tasks
-   taskBox1: "unoccupied",
-   taskBox2: "unoccupied",
-   taskBox3: "unoccupied",
-   taskBox4: "unoccupied",
-   jebsPeaSalad: "active",
-   jebsPeaSaladNum: 0,
-   useMarketResets: "unreached",
-   useMarketResetsNum: 0,
-   tryFertilizer: "unreached",
-   tryFertilizerNum: 0,
-   jebsGrilledCorn: "unreached",
-   jebsGrilledCornNum: 0,
-   josephinesDandelionSalad: "unreached",
-   josephinesDandelionSaladNum: 0,
-   // Black Market
-   seeBlackMarket: "unreached",
-   seeBlackMarketNum: 0,
-   tryPoliceDoughnuts: "unreached",
-   tryPoliceDoughnutsNum: 0,
-   // Unlock Plots: Grandpa Jenkins
-   unlockThe_cornPlot:  "active",
-   unlockThe_cornPlotNum: 0,
-   // Bake Sale: Grandma Josephine
-   bakeSale: "awaiting",
-   bakeSale_peaSnacks: "unreached",
-   bakeSale_peaSnacksNum: 0,
-   bakeSale_cornBread: "unreached",
-   bakeSale_cornBreadNum: 0,
-   bakeSale_strawberryJam: "unreached",
-   bakeSale_strawberryJamNum: 0,
-   bakeSale_pumpkinPie: "unreached",
-   bakeSale_pumpkinPieNum: 0,
+   tasktab1: "open",
+   tasktab2: "open",
+   tasktab3: "open",
+   tasktab4: "open",
+
+   tasks: {
+      // jeb1: { status: "active", hasData: "earn coins", data: [[0, 3000]] },
+
+      jeb1: { status: "active", hasData: false },
+      jeb2: { status: "unreached", hasData: false },
+
+      gram1: { status: "unreached", hasData: false },
+      gram2: { status: "unreached", hasData: false },
+      gram3: { status: "unreached", hasData: false },
+      gram4: { status: "unreached", hasData: false },
+      gram5: { status: "unreached", hasData: false },
+      gram6: { status: "unreached", hasData: false },
+
+      gramp1: { status: "active", hasData: false },
+      gramp2: { status: "unreached", hasData: false },
+
+      shade1: { status: "unreached", hasData: false },
+      shade2: { status: "unreached", hasData: false }
+   },
 }

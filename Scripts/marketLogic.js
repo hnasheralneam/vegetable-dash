@@ -44,7 +44,7 @@ function resetMarketValues() {
       gameData.vegCost = JSON.parse(JSON.stringify(initGameData.vegCost));
       notify("Market prices have been reset!");
       updateMarketSalePrices();
-      checkTasks("useMarketResets");
+      checkTasks("gram1");
    }
 }
 
@@ -163,7 +163,7 @@ function accept() {
          gameData.doughnuts += gameData.black.quantity;
          updateDoughnuts();
       }
-      checkTasks("seeBlackMarket");
+      checkTasks("shade1");
    }
    else { fadeTextAppear(`Not enough coins - you need ${toWord(gameData.black.cost - gameData.coins)} more`, "#de0000"); }
 }
@@ -181,7 +181,7 @@ function feedPolice() {
       gameData.black.catchChance = .02;
       updatePoliceChance();
       fadeTextAppear(`-1 Doughnut`, false, "#de0000");
-      checkTasks("tryPoliceDoughnuts");
+      checkTasks("shade2");
    }
    else { fadeTextAppear(`Not enough doughnuts -  you have none`, "#de0000"); }
 }

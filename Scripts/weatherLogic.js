@@ -32,7 +32,6 @@ function weatherEffects() {
    if (gameData.weather === "snowy" && gameData.hasBeenPunished === false) {
       let unluckyVeg = gameData.plantSeeds[Math.floor(Math.random() * gameData.plantSeeds.length)];
       let amountLost = Math.floor(gameData[unluckyVeg] / 3);
-      console.log(amountLost);
       if (amountLost > 0) {
          gameData[unluckyVeg] -= amountLost;
          updateVeg(unluckyVeg);

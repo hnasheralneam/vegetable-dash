@@ -1,5 +1,5 @@
 /* Copyright July 13th 2023 by Editor Rust */
-/* Version 0.1.4 */
+/* Version 0.1.5 */
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Main
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -38,11 +38,9 @@ let rightClickMenu = document.querySelector("#menu").style;
 
 var dynamHov = document.querySelector(".dynamic-hover");
 
-
 let hover;
 let mouseX;
 let mouseY;
-
 
 // Active cursor varibles
 let mouseDown = 0;
@@ -53,9 +51,6 @@ let plntMouseWasDown = false;
 let tendCursor = "not active";
 let fertilizerCursor = "not active";
 
-// Tasks
-tD = rawTaskData;
-for (i = 1; i <= 4; i++) { hideObj(`.task-info-button-${i}`); }
 // Background Image
 let bgImgArr = [["lake-night", "lake-day"], ["mountian-night", "mountian-day"]];
 let bgImg = bgImgArr[Math.floor(Math.random() * bgImgArr.length)];
@@ -211,6 +206,7 @@ function initShop() {
             gameData.coins -= gameInfo[plant + "Seeds"];
             updateCoins();
             gameData.plantSeeds.push(plant);
+            if (plant == "corn") checkTasks("gramp2");
             save();
             location.reload();
          }
@@ -256,13 +252,11 @@ function initLoops() {
       updateBgImgTheme();
       incidents();
 
-      // Do not know if they are needed
-      checkForTasks();
-      giveTasks();
-      showTasks();
+      assignTasks();
+      displayTasks();
+      readyTaskCheck();
    }, 1000);
    let hundremMSLoop = setInterval(() => {
-      // Can refactor
       // Cursors
       if (tendCursor === "active" && mouseDown === 1) { plntMouseWasDown = true; }
       if (tendCursor !== "active") { plntMouseWasDown = false; }
@@ -308,21 +302,6 @@ function incidents() {
       if (myRand <= .80) { addWeed(); }
       gameData.weedSeason = Date.now() + 1800000;
    }
-}
-
-function checkForTasks() {
-   if (chechIf()) { document.querySelector(".aTaskIsReady").style.opacity = "1"; }
-   else { document.querySelector(".aTaskIsReady").style.opacity = "0"; }
-   function chechIf() {
-      let array = [];
-      for (i = 0; i < tD.listOfTasks.length; i++) {
-         if (gameData[tD.listOfTasks[i]] === "ready") { array[i] = true; }
-         else { array[i] = false; }
-      }
-      if (isTrue(array)) { return true; }
-      else { return false; }
-   }
-   function isTrue(array) { let result = false; for (let i = 0; i < array.length; i++) { if (array[i] === true) { return true; } } }
 }
 
 
@@ -585,7 +564,7 @@ function fertilize(i) {
       }
 
       gameData.plots[i].bushels *= 2;
-      checkTasks("tryFertilizer");
+      checkTasks("gramp1");
    }
 }
 

@@ -92,6 +92,7 @@ function tendTo(pos, veg) {
    document.querySelector(`.almanac${pos}`).disabled = true;
    // Harvest
    if (gameData.plots[pos].harvestReady()) {
+      document.title = "Vegetable Dash";
       document.querySelector(`.almanac${pos}`).disabled = false;
       gameData.plots[pos].status = "Empty";
       // Chances
@@ -175,7 +176,10 @@ function plantGrowthLoop(plotIndex) {
          let checkTimeOne = gameData.plots[plotIndex].status - gameInfo[`${plant}Time`][0];
          let checkTimeTwo = gameData.plots[plotIndex].status - gameInfo[`${plant}Time`][1];
          // Check if it's ready 
-         if (Date.now() >= gameData.plots[plotIndex].status) { gameData.plots[plotIndex].status = "Ready"; }
+         if (Date.now() >= gameData.plots[plotIndex].status) {
+            gameData.plots[plotIndex].status = "Ready";
+            document.title = "(!) Vegetable Dash";
+         }
          // Otherwise, display the images
          else if (Date.now() >= checkTimeOne) { plotImg.backgroundImage = `url(Images/Plots/${urls[1]})`; }
          else if (Date.now() >= checkTimeTwo) { plotImg.backgroundImage = `url(Images/Plots/${urls[0]})`; }
