@@ -52,7 +52,7 @@ function intro() {
                      introData.meetGran = true;
                   } else {
                      if (introData.market === false) {
-                        introText.textContent = "This is the market, were you can gain coins by selling produce. Coins are useful for many things, like buying new plots or seeds, which you can find in the store..";
+                        introText.textContent = "This is the market, where you can gain coins by selling produce. Coins are useful for many things, like buying new plots or seeds, which you can find in the store.";
                         showObj(".marketShadow"); gameData.panels.market = true;
                         introData.market = true;
                      }
