@@ -5,7 +5,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
-const axios = require("axios")
+const axios = require("axios");
+require("dotenv").config();
 const { v4: uuidv4 } = require("uuid");
 
 const app = express();
@@ -27,8 +28,7 @@ mongoose.set("useFindAndModify", false);
 
 // Mongoose things
 mongoose.Promise = global.Promise;
-// Acutally connect to the database with the connection link. You'll need to create a user on the database so you'll get access
-mongoose.connect("mongodb+srv://Squirrel:nCCJ0sQuQQ5qhGsn@test-user-data.daqv1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect(`mongodb+srv://vegetabledash:${process.env.MONGODB_PASSWORD}@cluster0.e1en0n4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`, { useUnifiedTopology: true, useNewUrlParser: true });
 
 // nodemailer things
 // What this does is setup the mailer, so we can email people when they sign up. Eventually we'll use this to send change password emails

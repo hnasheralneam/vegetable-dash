@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/editorrust/vegetable-dash.git"
+    "url": "git+https://github.com/hnasheralneam/vegetable-dash.git"
   },
   "keywords": [
     "farming",
@@ -18,29 +18,29 @@
   "author": "Hamza Nasher-Alneam",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/editorrust/vegetable-dash/issues"
+    "url": "https://github.com/hnasheralneam/vegetable-dash/issues"
   },
-  "homepage": "https://github.com/editorrust/vegetable-dash#readme",
+  "homepage": "https://github.com/hnasheralneam/vegetable-dash#readme",
   "dependencies": {
     "axios": "^0.24.0",
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.1",
-    "ejs": "^3.1.6",
-    "express": "^4.17.3",
-    "express-session": "^1.17.2",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.18.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.13.14",
-    "nodemailer": "^6.7.2",
+    "mongoose": "^5.13.22",
+    "nodemailer": "^6.9.10",
     "passport": "^0.6.0",
     "passport-google-oauth2": "^0.2.0",
     "peer": "^0.6.1",
-    "socket.io": "^4.4.0",
+    "socket.io": "^4.7.4",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.22"
   },
   "engines": {
     "node": ">=18.x"

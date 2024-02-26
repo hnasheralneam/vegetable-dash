@@ -15,7 +15,7 @@ Static Functions
 // These functions are run when the game loads, making it easier to find bugs
 
 // Sent to new site
-if (location.hostname === "editorrust.github.io") {
+if (location.hostname === "hnasheralneam.github.io") {
    window.location.href = `https://vegetable-dash.cyclic.app`;
 }
 
