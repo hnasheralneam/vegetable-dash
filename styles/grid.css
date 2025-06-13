@@ -1,0 +1,115 @@
+:root {
+   --moving-full-color: #eeeeee40;
+}
+
+.grid-grandparent {
+   position: relative;
+   margin: 3vh auto;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.inventory-parent * {
+   -webkit-user-select: none;
+   user-select: none;
+   text-align: center;
+   color: var(--text-color);
+}
+
+.inventory-item {
+   display: inline-block;
+   background-color: var(--background-blurbox-color);
+   color: var(--text-color);
+   width: 20vh;
+   padding: 3vh 0;
+   margin: .5rem;
+   border-radius: .5rem;
+   text-align: center;
+}
+
+.inventory-item img {
+   height: 6.5rem;
+}
+
+.grid {
+   /* transform: scale(.7); */
+   display: inline-grid;
+   backdrop-filter: blur(.8rem);
+}
+
+.grid-box {
+   position: relative;
+   display: inline-block;
+   width: 5vh;
+   height: 5vh;
+   background-color: #eeeeee40;
+   border: solid 1px #adadadee;
+   border-radius: calc(var(--border-radius) / 6);
+}
+
+.full {
+   background-color: var(--moving-full-color);
+}
+
+.preview-full {
+   background-color: #ff0000;
+}
+
+.preview-empty {
+   background-color: #44ff00;
+}
+
+.grid-controls {
+   position: absolute;
+   bottom: 0;
+   right: 0;
+   margin: 5px;
+}
+
+.grid-controls button {
+   height: 35px;
+   width: 35px;
+   font-size: 1.2rem;
+   background: #ddd;
+   border: none;
+}
+
+.grid ::-moz-selection {
+   background: transparent;
+}
+
+.grid ::selection {
+   background: transparent;
+}
+
+.inventory-grandparent {
+   position: fixed;
+   top: 0;
+   left: -28rem;
+   height: 100vh;
+   width: 28rem;
+   background-color: var(--background-blurbox-color);
+   backdrop-filter: blur(var(--blur-amount));
+   border-radius: 0 var(--border-radius) var(--border-radius) 0;
+   z-index: .9;
+   transition: .5s;
+   z-index: 1;
+}
+
+.inventoryShadow {
+   display: none;
+   z-index: .9;
+   position: fixed;
+   top: 0;
+   left: 0;
+   height: 100%;
+   width: 100%;
+}
+
+.inventoryContent {
+   overflow: scroll;
+   display: grid;
+   position: relative;
+   font-family: "Nunito";
+}

@@ -1,0 +1,738 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Copyright June 4th 2025 by Hamza Nasher-Alneam
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+* {
+   margin: 0;
+   padding: 0;
+   -webkit-user-select: none;
+   user-select: none;
+}
+body {
+   background-size: cover;
+   overflow: hidden;
+}
+
+::selection { display: none;}
+::-webkit-scrollbar { display: none; }
+
+
+.farmtools {
+   position: absolute;
+   padding: 1vh;
+   right: .8rem;
+   bottom: .8rem;
+   background-color: var(--background-blurbox-color);
+   backdrop-filter: blur(var(--blur-amount));
+   border-radius: var(--border-radius);
+   box-shadow: 0 0 .5em #22222244;
+   z-index: 1;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Central Command
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.cntrl-cmnd {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 13vh;
+   height: 100%;
+   background-color: var(--background-blurbox-color);
+   backdrop-filter: blur(var(--blur-amount));
+}
+
+.cntrl-cmnd img {
+   display: block;
+   height: 8vh;
+   padding: 1.5vh;
+   margin: 1vh;
+   transition: .2s;
+}
+
+#settings-icon {
+   position: absolute;
+   bottom: 0;
+   transform: rotate(90deg);
+}
+
+#settings-icon:hover {
+   transform: rotate(0deg) scale(1.05);
+}
+
+.cntrl-cmnd img:hover, .slider:hover {
+   transform: scale(1.05);
+}
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Buttons
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+button {
+   padding: 4vh;
+   margin: 1vh;
+   font-family: sans-serif;
+   cursor: inherit;
+   transition: .2s;
+}
+button:focus { outline: none; }
+button:active { transform: scale(0.99); }
+summary:focus { outline: none; }
+
+.depth-button {
+   outline: none;
+   margin: 2vh;
+   padding: 8vh;
+   border: none;
+   border-radius: var(--border-radius);
+   color: #fff;
+   font-size: 5vh;
+   transition: .2s;
+}
+.depth-button:active {
+   outline: none;
+   transform: translateY(.75vh);
+}
+
+.red { background-color: #f74040; box-shadow: 0 .75vh #d61818; }
+.orange { background-color: #F9A748; box-shadow: 0 .75vh #DA7D12; }
+.yellow { background-color: #F8F948; box-shadow: 0 .75vh #EAEB12; }
+.green { background-color: #3FE863; box-shadow: 0 .75vh #03B428; }
+.blue { background-color: #63E1FF; box-shadow: 0 .75vh #16CCF8; }
+.purple { background-color: #6B3FE8; box-shadow: 0 .75vh #4B20C8; }
+
+.red:active { box-shadow: 0 0 #d61818; }
+.orange:active { box-shadow: 0 0 #DA7D12; }
+.yellow:active { box-shadow: 0 0 #EAEB12; }
+.green:active { box-shadow: 0 0 #03B428; }
+.blue:active { box-shadow: 0 0 #16CCF8; }
+.purple:active { box-shadow: 0 0 #4B20C8; }
+
+.depth-button:disabled {
+   background-color: #aaa;
+   box-shadow: none;
+   transform: translateY(.25vh);
+}
+.depth-button:disabled:active {
+   background-color: #aaa;
+   box-shadow: none;
+   transform: translateY(.25vh);
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Dynamic hover
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.dynamicHover {
+   z-index: 100;
+   padding: .6vh 1vw;
+   font-family: "Nunito";
+   border-radius: 2vh;
+   font-size: 1.5rem;
+   transition: opacity .1s;
+   opacity: 0;
+   background-color: var(--background-blurbox-color);
+   backdrop-filter: blur(var(--blur-amount));
+   box-shadow: 0 0 .4rem #00000080;
+   color: var(--text-color);
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Main values bar
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.main-values {
+   position: fixed;
+   top: 0;
+   width: 100%;
+   z-index: 1100;
+   transition: .2s;
+   text-align: center;
+   pointer-events: none;
+}
+
+.main-values-inner {
+   margin-top: -1vh;
+   padding: .75rem 2rem;
+   background-color: var(--background-blurbox-color);
+   border-radius: 0 0 var(--border-radius) var(--border-radius);
+   display: inline-block;
+   text-align: center;
+   font-size: 1.5rem;
+   font-family: "Nunito";
+   color: var(--text-color);
+   pointer-events: auto;
+   backdrop-filter: blur(var(--blur-amount));
+   transition: .2s;
+}
+
+.main-values-inner:hover {
+   margin-top: 1vh;
+   border-radius: var(--border-radius);
+   box-shadow: 0 0 .4rem #00000080;
+}
+
+.main-values-inner img {
+   display: inline;
+   margin: 0 0 -1.5vh .5vh;
+   height: 2.8rem;
+   transform: scale(.8);
+}
+
+.main-values-inner p {
+   display: inline;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Farmland and Plots
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.plot {
+   background-image: url("../images/Plots/plot.png");
+   background-size: cover;
+   border-radius: calc(var(--border-radius) / 2);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: relative;
+   transition: .2s;
+}
+.open-plot { display: none; }
+#openPlot5 { display: block; }
+
+/* Buttons */
+.btn {
+   font-size: 2.2vh;
+   transition: .2s;
+   border-radius: 50%;
+   font-family: "Roboto Condensed";
+   padding: .2vh;
+   color: #fff;
+   font-weight: 600;
+   letter-spacing: .06ch;
+   opacity: 1;
+   height: 16vh;
+   width: 16vh;
+   border: none;
+   background-color: var(--background-blurbox-color);
+   backdrop-filter: blur(.8vh);
+   box-shadow: 0 0 .5em #22222244;
+}
+.btn:hover {
+   transform: translateY(-.6vh) scale(1.05);
+   box-shadow: 0 0 .5em #22222244,
+               0 .5vh .5em #22222244;
+}
+
+.veg-icon {
+   height: 8vh;
+   position: absolute;
+   top: .5vh;
+   left: .5vh;
+   transition: .1s;
+}
+
+.veg-icon:hover {
+   filter: drop-shadow(0 0 .2vh #36280088);
+   transform: scale(1.1);
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Close modal buttons
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.close {
+   position: absolute;
+   top: 0;
+   right: 0;
+   margin: .3em;
+   border: solid red .3rem;
+   height: 3.5rem;
+   width: 3.5rem;
+   padding: 0;
+   border-radius: 50%;
+   color: red;
+   background-color: transparent;
+   font-size: 5vh;
+   font-family: "Nuntio", sans-serif;
+   box-sizing: border-box;
+   transition: .2s;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.close:hover {
+   background-color: red;
+   border-color: red;
+   color: #fff;
+   transform: scale(1.1);
+}
+.close:active {
+   background-color: red;
+   color: #fff;
+   transform: scale(1);
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Defualt modal (only used for settings)
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.shadow {
+   opacity: 0;
+   pointer-events: none;
+   position: fixed;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   z-index: 1;
+   transition: .3s;
+}
+
+.modalContent {
+   height: 100%;
+   padding: 8vh 0;
+   text-align: center;
+   font-size: 8vh;
+   font-family: "Nunito";
+   transition: .3s;
+   position: relative;
+   box-sizing: border-box;
+   overflow: scroll;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Context Menu
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+#menu {
+   width: 16rem;
+   position: fixed;
+   z-index: 10000;
+   display: none;
+   background-color: var(--background-blurbox-color);
+   backdrop-filter: blur(var(--blur-amount));
+   color: var(--text-color);
+   border-radius: var(--border-radius);
+   font-size: 1.6rem;
+}
+
+#menu li {
+   list-style-type: none;
+   margin: .3vh;
+   padding: .6rem 1rem;
+   font-family: Nunito;
+   border-radius: var(--border-radius);
+   transition: .2s;
+}
+
+#menu li:hover {
+   padding-left: 2.2rem;
+   background-color: var(--background-blurbox-color);
+}
+
+#menu hr {
+   border: 0.15vh solid var(--theme-color);
+   border-bottom: 0;
+}
+
+#menu a {
+   text-decoration: none;
+   color: #54abd3;
+}
+
+#menu li:hover a {
+   cursor: pointer;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Quick information menu
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.qIM {
+   position: fixed;
+   z-index: 90;
+   display: none;
+   font-family: "Nunito";
+   font-size: 3vh;
+   background-color: var(--background-blurbox-color);
+   backdrop-filter: blur(var(--blur-amount));
+   color: var(--text-color);
+   border-radius: var(--border-radius);
+   padding: 1.5rem 2rem;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Intro
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.quest-arrow {
+   display: none;
+}
+
+.welcome {
+   height: 0;
+   pointer-events: none;
+   opacity: 0;
+}
+
+.intro-container {
+   height: 0;
+   overflow: hidden;
+}
+
+.big-title {
+   text-align: center;
+   text-transform: uppercase;
+   font-size: 8vh;
+   margin-bottom: 3vh;
+   color: #8bf9c2;
+   text-shadow: .5vh .5vh #44a89b;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Toolbar
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.toolbar {
+   position: absolute;
+   top: 0;
+   right: 0;
+   margin: .6rem;
+   background-color: var(--background-blurbox-color);
+   backdrop-filter: blur(var(--blur-amount));
+   border-radius: var(--border-radius);
+   box-shadow: 0 0 .5em #22222244;
+   padding: 1vh 3vh;
+   transition: .2s;
+   font-family: "Nunito";
+}
+.produce-tooltip {
+   position: relative;
+   width: auto;
+   margin: auto;
+   text-align: center;
+}
+.produce-image {
+   height: 4vh;
+   margin: 0 .5vh -.8vh .5vh;
+}
+.toolbar-img {
+   height: 10vh;
+   margin: 1.2vh 0;
+}
+.produce-tooltip .tooltip-text {
+   position: absolute;
+   opacity: 0;
+   pointer-events: none;
+   width: 25rem;
+   background-color: var(--theme-color);
+   border-radius: var(--border-radius);
+   padding: .5vh 0;
+   font-size: 3vh;
+   color: var(--text-color);
+   top: -1vh;
+   right: 8rem;
+   z-index: 1;
+   transition: .3s;
+   transition-delay: .2s;
+}
+.produce-tooltip .tooltip-text-produce {
+   min-width: 300px;
+   max-width: 500px;
+   height: auto;
+   padding: 1.5rem 2rem;
+}
+.produce-tooltip:hover .tooltip-text {
+   opacity: 1;
+   pointer-events: auto;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Pick a plant
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.almanacBtn {
+   position: absolute;
+   bottom: .3vh;
+   left: .3vh;
+   background-color: transparent;
+   outline: none;
+   border: none;
+   padding: 0;
+   transition: .2s;
+}
+
+.almanac {
+   height: 6.5vh;
+}
+
+.almanac:hover {
+   filter: drop-shadow(0 0 .2vh #362800);
+   transform: scale(1.1);
+}
+
+.shop-window {
+   position: absolute;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   height: 0;
+   width: 8vh;
+   text-align: center;
+   background-color: var(--background-blurbox-color);
+   backdrop-filter: blur(var(--blur-amount));
+   border-radius: calc(var(--border-radius) / 2);
+   list-style-type: none;
+   overflow-y: scroll;
+   transition: all .7s ease;
+   z-index: 4;
+}
+.shop-window li {
+   margin: 1.2vh;
+}
+.store-icon {
+   height: 5vh;
+   transition: .2s;
+}
+.store-icon:hover {
+   transform: scale(1.2);
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Weather
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.weather-short {
+   position: fixed;
+   height: 15vh;
+   width: 15vh;
+   margin: .6rem;
+   right: 0;
+   top: 9.5rem;
+   background-color: rgb(59, 74, 167, .9);
+   border: solid .5vh rgb(42, 50, 102, .9);
+   border-radius: var(--border-radius);
+   overflow: hidden;
+   display: grid;
+   grid-template-areas:
+   "a b"
+   "d d"
+   "c c";
+   transition: .6s;
+   transition-delay: .3s;
+   backdrop-filter: blur(var(--blur-amount));
+}
+.weather-short:hover {
+   height: 50vh;
+   width: 35vh;
+}
+.weather-short .weather-img {
+   grid-area: a;
+   height: 15vh;
+   width: 15vh;
+   transition: all .1s, margin .8s;
+   transition-delay: .3s;
+}
+.weather-short:hover .weather-img { margin: 1vh 2vh; }
+.weather-next, .weather-last { height: 8vh; width: 8vh; margin: 2vh auto; }
+.weather-name {
+   grid-area: b;
+   font-size: 4.5vh;
+   font-family: "Nunito";
+   font-weight: 700;
+   color: #f5f5f5;
+   text-align: center;
+   padding-top: 3vh;
+}
+.weather-description {
+   grid-area: c;
+   font-size: 4vh;
+   font-family: "Nunito";
+   color: #f5f5f5;
+   text-align: center;
+}
+.weather-time {
+   grid-area: d;
+   font-size: 3.5vh;
+   font-family: "Nunito";
+   color: #f5f5f5;
+   text-align: center;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Time left
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.time-left img {
+   height: 4vh;
+   margin: .5vh;
+   position: sticky;
+   opacity: .7;
+}
+.plot:hover .time-left img {
+   height: 0;
+   width: 0;
+}
+.time-left {
+   position: absolute;
+   right: .5vh;
+   bottom: .5vh;
+   padding: .1vh;
+   border-radius: var(--border-radius);
+   height: 5vh;
+   width: 5vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: var(--background-blurbox-color);
+   color: var(--text-color);
+   font-family: "Nunito";
+   font-size: 0;
+   overflow: scroll;
+   transition: .2s;
+   transition: width .3s;
+   transform: scale(.9);
+   backdrop-filter: blur(var(--blur-amount));
+}
+.plot:hover .time-left {
+   width: 7.5rem;
+   font-size: 1.3rem;
+   transform: scale(1);
+   z-index: 4;
+   box-shadow: 0 0 .4rem #00000080;
+}
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Other
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.darkFadeText { color: #505050; }
+
+.vegAmount { display: none; }
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Weeds
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.weed {
+   position: absolute;
+   height: 6vh;
+   width: 6vh;
+   z-index: 1;
+   transform: scale(0);
+   transition: transform .5s;
+}
+.weed:hover { animation: weed-found 1s; }
+@keyframes weed-found {
+   0% { transform: rotate(0); }
+   25% { transform: rotate(15deg); }
+   50% { transform: rotate(-15deg); }
+   75% { transform: rotate(15deg); }
+   100% { transform: rotate(0); }
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Settings
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.settings {
+   padding: 0 4rem;
+   padding-top: 6rem;
+   text-align: left;
+   background-color: var(--background-blurbox-color);
+   backdrop-filter: blur(var(--blur-amount));
+   color: var(--text-color);
+   font-size: 1.8rem;
+   font-family: sans-serif;
+}
+
+.settings h1 {
+   text-align: center;
+   font-size: 4rem;
+   font-weight: 700;
+   color: var(--text-color);
+}
+
+.settings-content {
+   max-width: 900px;
+   margin: 0 auto;
+   padding: 2rem 0;
+}
+
+.setting-button {
+   border-radius: var(--border-radius);
+   padding: 1.5vh 3vh;
+   margin: .5vh auto;
+   border: none;
+   font-size: 3vh;
+   display: inline;
+   font-family: "Nunito";
+   background-color: #77777760;
+   color: var(--text-color);
+}
+
+.setting-button:active {
+   transform: scale(0.95);
+}
+
+.import-export {
+   margin: 4rem 0;
+   display: grid;
+   grid-template-columns: 50% 50%;
+   gap: 1rem;
+   font-size: 1rem;
+}
+
+.import-export img {
+   width: 6rem;
+}
+
+.import-export-element {
+   padding: 1rem;
+   display: grid;
+   grid-template-columns: auto auto;
+   gap: 2rem;
+   background-color: #88888840;
+   border-radius: var(--border-radius);
+}

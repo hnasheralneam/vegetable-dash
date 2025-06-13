@@ -1,0 +1,125 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+// Help
+//
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+* {
+   font-family: "Nunito", sans-serif;
+}
+
+.help-shadow {
+   position: fixed;
+   height: 100vh;
+   width: 100vw;
+}
+.help {
+   position: fixed;
+   top: 0;
+   left: 0;
+   height: 100%;
+   width: 100%;
+   background-color: #f5f5f5;
+   display: grid;
+   grid-template-columns: 22vw 88vw;
+   overflow: hidden;
+}
+
+.help-subjects {
+   overflow: scroll;
+   scrollbar-width: none;
+}
+
+.help-subjects-item {
+   background-color: #FFDA9E;
+   font-family: sans-serif;
+   width: 18vw;
+   font-size: 1.5rem;
+   padding: 1.1rem 1.2rem;
+   margin: .4vh;
+   border-radius: .75vh;
+   color: #fff;
+   text-shadow: 0 0 .5rem #66666666;
+   transition: .3s;
+}
+.help-subjects-item:first-child { background-color: #03fca5; }
+.help-subjects-item-active { filter: hue-rotate(180deg); }
+.help-subjects-item:last-child {
+   background-color: #6ee8ff;
+   margin: 0;
+}
+.help-subjects-item:hover {
+   transform: translateX(1vw);
+   border-radius: 1.5vh 3.5vh 3.5vh 1.5vh;
+}
+.help-information {
+   padding: 2vh 15rem 0 5rem;
+   overflow: hidden;
+   scroll-behavior: smooth;
+}
+.help-information div {
+   height: 100vh;
+   width: 100%;
+   position: relative;
+   margin-bottom: 10vh;
+   overflow: auto;
+}
+.help-information h1 {
+   text-align: center;
+   font-size: 3.5rem;
+}
+.help-information p {
+   font-size: 1.8rem;
+}
+.help img {
+   display: block;
+   margin: 4rem auto 0 auto;
+}
+.help-information span {
+   color: #ccc;
+   text-decoration: underline;
+}
+.help a {
+   color: lightblue;
+   text-decoration: none;
+   position: relative;
+}
+.help .no-link:after { display: none; }
+.help a:after {
+   content: "";
+   display: block;
+   height: .2vh;
+   left: 50%;
+   position: absolute;
+   background: lightblue;
+   transition: all .2s;
+   width: 0;
+}
+.help a:hover:after {
+   width: 100%;
+   left: 0;
+}
+
+#help-about-copyright {
+   font-size: 1.5rem;
+   font-weight: 300;
+   overflow-y: scroll;
+}
+
+table {
+   border-collapse: collapse;
+   width: 100%;
+   font-size: 2.5vh;
+   table-layout: fixed;
+}
+td, th {
+   border: .2vh solid #eee;
+   border-radius: .2vh;
+   padding: .5vh;
+   width: 25%;
+   color: #666;
+}
+td { font-weight: 100; }
+th { color: #aaa; }
+tr:nth-child(even) { background-color: #eee; }
+.tm-tb { opacity: 0; }

@@ -2,36 +2,33 @@
 <html lang="en">
    <head>
       <!-- Page metadata -->
-      <meta name="description" content="Vegetable Dash, a fun farming game with bright pictures and bright futures!">
-      <link rel="shortcut icon" href="Images/General/logo.svg" type="image/x-icon">
+      <meta name="description" content="Vegetable Dash, a fun farming game with bright pictures and a brighter future!">
+      <link rel="shortcut icon" href="images/General/logo.svg" type="image/svg+xml">
       <title>Vegetable Dash</title>
       <!-- Viewport -->
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- Libraries -->
       <script src="https://hnasheralneam.github.io/digit/main.js"></script>
       <!-- Styles -->
-      <link rel="stylesheet" href="Styles/rootstyles.css">
-      <link rel="stylesheet" href="Styles/main.css">
-      <link rel="stylesheet" href="Styles/noticeboard-windows.css">
+      <link rel="stylesheet" href="styles/rootstyles.css">
+      <link rel="stylesheet" href="styles/main.css">
+      <link rel="stylesheet" href="styles/store.css">
       <!-- More styles -->
-      <link rel="stylesheet" href="Styles/market.css">
-      <link rel="stylesheet" href="Styles/tasks.css">
-      <link rel="stylesheet" href="Styles/misc.css">
+      <link rel="stylesheet" href="styles/market.css">
+      <link rel="stylesheet" href="styles/tasks.css">
+      <link rel="stylesheet" href="styles/misc.css">
+      <link rel="stylesheet" href="styles/grid.css">
       <!-- Theme color -->
       <meta name="theme-color" content="#ff605d">
       <!-- Varibles -->
-      <script src="Data/initialData.js"></script>
-      <script src="Data/gameInfo.js"></script>
-      <script src="Data/taskInfo.js"></script>
+      <script src="data/initialData.js"></script>
+      <script src="data/gameInfo.js"></script>
+      <script src="data/taskInfo.js"></script>
       <!-- Google Fonts -->
       <link rel="preconnect" href="https://fonts.gstatic.com">
-      <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
-      <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
-
       <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css2?family=Capriola&display=swap" rel="stylesheet">
    </head>
    <body ondragstart="return false;">
       <!-- Loading Screen -->
@@ -40,70 +37,69 @@
            <span id="page-loading-bar" class="loading-progress" style="width: 0%"><span class="load-display">0%</span></span>
          </div>
       </div>
+      <!-- Plots -->
+      <div class="grid-grandparent">
+         <img onclick="collectWeed(this)" class="weed" src="images/General/weed.svg">
+         <div class="grid-parent" ondragstart="return false">
+            <div class="grid"></div>
+         </div>
+      </div>
       <!-- Central Command -->
       <div class="cntrl-cmnd">
-         <a href="docs/index.html" target="_blank"><img onmouseover="info(this)" data-info="Help" src="Images/Icons/help.svg"></a>
-         <img onmouseover="info(this)" data-info="Tasks" onclick="if (sidebarOntop) closeAllPanels(); taskBar('close')" src="Images/New/tasks.png">
-         <img onmouseover="info(this)" data-info="Market" onclick="if (sidebarOntop) closeAllPanels(); showObj('.marketShadow'); gameData.panels.market = true;" src="Images/Icons/market.svg">
-         <img onmouseover="info(this)" data-info="Shop" onclick="if (sidebarOntop) closeAllPanels(); toggleWindow('shop'); gameData.panels.shop = true;" src="Images/Icons/shop.png">
-         <!-- <img onmouseover="info(this)" data-info="Hybridization Lab" onclick="toggleWindow('genelab'); gameData.panels.genelab = true;" src="Images/New/dna.png"> -->
-         <img onmouseover="info(this)" data-info="Settings" onclick="if (sidebarOntop) closeAllPanels(); showObj('.settingShadow'); gameData.panels.settings = true;" src="Images/Icons/settings.svg" id="settings-icon">
-      </div>
-      <!-- Land and Plots -->
-      <div class="land">
-         <img onclick="collectWeed(this)" class="weed" src="Images/General/weed.svg">
-         <!-- Farm tools -->
-         <div class="plant-harvest-luck">
-            <span style="display: none;"><div class="fade-text">This text is fading</div></span>
-         </div>
-         <div class="farmtools">
-            <img class="farmtool-img" id="fertilizer" onclick="fertilizeHover()" src="Images/General/fertilizer.svg" onmouseover="info(this)" data-info="Hold + Drag to harvest">
-            <img class="farmtool-img" onclick="tendDrag()" src="Images/General/sickle.svg" onmouseover="info(this)" data-info="Hold + Drag to harvest">
-         </div>
+         <a href="docs/index.html" target="_blank"><img onmouseover="info(this)" data-info="Help" src="images/Icons/help.svg"></a>
+         <img onmouseover="info(this)" data-info="Tasks" onclick="if (sidebarOntop) closeAllPanels(); taskBar('close')" src="images/New/tasks.png">
+         <img onmouseover="info(this)" data-info="Inventory" onclick="if (sidebarOntop) closeAllPanels(); inventoryBar('close')"
+            src="images/Icons/crate.png">
+         <img onmouseover="info(this)" data-info="Market" onclick="if (sidebarOntop) closeAllPanels(); showObj('.marketShadow'); gameData.panels.market = true;" src="images/Icons/market.svg">
+         <img onmouseover="info(this)" data-info="Shop" onclick="if (sidebarOntop) closeAllPanels(); toggleWindow('shop'); gameData.panels.shop = true;" src="images/Icons/shop.png">
+         <!-- <img onmouseover="info(this)" data-info="Hybridization Lab" onclick="toggleWindow('genelab'); gameData.panels.genelab = true;" src="images/New/dna.png"> -->
+         <img onmouseover="info(this)" data-info="Settings" onclick="if (sidebarOntop) closeAllPanels(); showObj('.settingShadow'); gameData.panels.settings = true;" src="images/Icons/settings.svg" id="settings-icon">
       </div>
       <!-- Top amount thing -->
       <div class="main-values">
-         <img src="Images/New/coin.png">
-         <p class="main-value main-values-coins"></p>
-         <img src="Images/New/dna.png" style="display: none">
-         <p class="main-value main-values-genes" style="display: none"></p>
+         <div class="main-values-inner">
+            <img src="images/New/coin.png">
+            <p class="main-value main-values-coins"></p>
+            <img src="images/New/dna.png" style="display: none">
+            <p class="main-value main-values-genes" style="display: none"></p>
+         </div>
       </div>
       <!-- Produce count -->
       <div class="toolbar">
          <div class="produce-tooltip produce-tooltip-barrel">
-            <img class="toolbar-img" src="Images/Icons/barrel.svg">
+            <img class="toolbar-img" src="images/Icons/barrel.svg">
             <span class="tooltip-text tooltip-text-produce">
                <div class="vegAmount peasDisplay">
                   <span class="peas" id="peaBushels">0</span>
-                  <img class="produce-image" src="Images/Vegetables/peas.png"><br>
+                  <img class="produce-image" src="images/Vegetables/peas.png"><br>
                </div>
                <div class="vegAmount cornDisplay">
                   <span class="corn" id="cornBushels">0</span>
-                  <img class="produce-image" src="Images/Vegetables/corn.png"><br>
+                  <img class="produce-image" src="images/Vegetables/corn.png"><br>
                </div>
                <div class="vegAmount strawberriesDisplay">
                   <span class="strawberries" id="strawberryBushels">0</span>
-                  <img class="produce-image" src="Images/Vegetables/strawberries.png"><br>
+                  <img class="produce-image" src="images/Vegetables/strawberries.png"><br>
                </div>
                <div class="vegAmount eggplantsDisplay">
                   <span class="eggplants" id="eggplantBushels">0</span>
-                  <img class="produce-image" src="Images/Vegetables/eggplants.png"><br>
+                  <img class="produce-image" src="images/Vegetables/eggplants.png"><br>
                </div>
                <div class="vegAmount pumpkinsDisplay">
                   <span class="pumpkins" id="pumpkinBushels">0</span>
-                  <img class="produce-image" src="Images/Vegetables/pumpkin.svg"><br>
+                  <img class="produce-image" src="images/Vegetables/pumpkin.svg"><br>
                </div>
                <div class="vegAmount cabbageDisplay">
                   <span class="cabbage" id="cabbageBushels">0</span>
-                  <img class="produce-image" src="Images/Vegetables/cabbage.svg"><br>
+                  <img class="produce-image" src="images/Vegetables/cabbage.svg"><br>
                </div>
                <div class="vegAmount dandelionDisplay">
                   <span class="dandelion" id="dandelionBushels">0</span>
-                  <img class="produce-image" src="Images/Vegetables/dandelion.png"><br>
+                  <img class="produce-image" src="images/Vegetables/dandelion.png"><br>
                </div>
                <div class="vegAmount rhubarbDisplay">
                   <span class="rhubarb" id="rhubarbBushels">0</span>
-                  <img class="produce-image" src="Images/Vegetables/rhubarb.png"><br>
+                  <img class="produce-image" src="images/Vegetables/rhubarb.png"><br>
                </div>
             </span>
          </div>
@@ -111,10 +107,10 @@
       <!-- Tasks -->
       <div class="tasks">
          <div class="taskShadow" onclick="taskBar('open');"></div>
-         <img class="aTaskIsReady" src="Images/Animations/task-complete.gif">
+         <img class="aTaskIsReady" src="images/Animations/task-complete.gif">
          <div class="taskContent">
             <div class="task-block-parent">
-               <div class="task-block task-block-1" onmouseover="taskHover(1)" onmouseleave="taskUnHover(1)">
+               <div class="task-block task-block-1">
                   <div class="task-info">
                      <div class="task-info-a task-info-demand task-info-1"></div>
                      <img class="task-info-c task-info-img task-info-img-1">
@@ -124,7 +120,7 @@
                </div>
             </div>
             <div class="task-block-parent">
-               <div class="task-block task-block-2" onmouseover="taskHover(2)" onmouseleave="taskUnHover(2)">
+               <div class="task-block task-block-2">
                   <div class="task-info">
                      <div class="task-info-a task-info-demand task-info-2"></div>
                      <img class="task-info-c task-info-img task-info-img-2">
@@ -134,7 +130,7 @@
                </div>
             </div>
             <div class="task-block-parent">
-               <div class="task-block task-block-3" onmouseover="taskHover(3)" onmouseleave="taskUnHover(3)">
+               <div class="task-block task-block-3">
                   <div class="task-info">
                      <div class="task-info-a task-info-demand task-info-3"></div>
                      <img class="task-info-c task-info-img task-info-img-3">
@@ -144,7 +140,7 @@
                </div>
             </div>
             <div class="task-block-parent">
-               <div class="task-block task-block-4" onmouseover="taskHover(4)" onmouseleave="taskUnHover(4)">
+               <div class="task-block task-block-4">
                   <div class="task-info">
                      <div class="task-info-a task-info-demand task-info-4"></div>
                      <img class="task-info-c task-info-img task-info-img-4">
@@ -152,6 +148,18 @@
                   </div>
                   <button class="depth-button blue task-submit-depth-button task-info-button-4"></button>
                </div>
+            </div>
+         </div>
+      </div>
+      <!-- Inventory -->
+      <div class="inventory-grandparent">
+         <div class="inventoryShadow" style="pointer-events: none;"></div>
+         <div class="inventoryContent">
+            <div class="inventory-parent">
+               <button onclick="inventoryBar('open')" class="close">&#215;</button>
+               <h2><br>Inventory <br> (drag items here to remove)<br></h2>
+               <br>
+               <div class="inventory"></div>
             </div>
          </div>
       </div>
@@ -183,17 +191,21 @@
                   <span class="market-item-sell" onclick="generateExchange();">Decline</span>
                </div>
             </div>
-            <div class="market-item market-lasters market-bm-stall">
-               <div class="market-item-content blackMarketHome" onclick="showObj('.blackMarketShadow'); gameData.panels.blackMarket = true;">
-                  <span style="font-size: 10vh; font-weight: 800; font-family: 'Nunito'">Black Market</span>
+            <div style="display: grid; grid-template-columns: 50% 50%; grid-gap: 1rem;">
+               <div class="market-item market-lasters market-resets-stall">
+                  <div class="market-item-content reset-market-item">
+                     <h1>Market Resets</h1>
+                     <p>Reset all market buy and sell values. (<span class="market-resets"></span>)</p>
+                     <p class="market-reset-about-text">There is a 1% chance of collecting one after each trade, and a 5% chance after
+                        each harvest.</p>
+                     <button onclick="resetMarketValues()" class="use-market-reset-button">Use</button>
+                  </div>
                </div>
-            </div>
-            <div class="market-item market-lasters market-resets-stall">
-               <div class="market-item-content reset-market-item">
-                  <h1>Market Resets</h1>
-                  <p>Reset all market buy and sell values. (<span class="market-resets"></span>)</p>
-                  <p class="market-reset-about-text">There is a 1% chance of collecting one after each trade, and a 5% chance after each harvest.</p>
-                  <button onclick="resetMarketValues()" class="use-market-reset-button">Use</button>
+               <div class="market-item market-lasters market-bm-stall">
+                  <div class="market-item-content blackMarketHome"
+                     onclick="showObj('.blackMarketShadow'); gameData.panels.blackMarket = true;">
+                     <span style="font-size: 10vh; font-weight: 800; font-family: 'Nunito'">Black Market</span>
+                  </div>
                </div>
             </div>
             <br>
@@ -203,34 +215,55 @@
       <!-- Settings -->
       <div class="shadow settingShadow">
          <div class="modalContent settings">
-            <span onclick="hideObj('.settingShadow'); gameData.panels.settings = false;" class="close">&#215;</span>
+            <span onclick="hideObj('.settingShadow'); gameData.panels.settings = false;" style="text-align: center;" class="close">&#215;</span>
             <h1>Settings</h1>
-            <button class="setting-button" onclick="restart()">Restart</button><br>
-            <button class="setting-button theme-clr" onclick="lightTheme()">Light Theme</button>
-            <button class="setting-button theme-clr" onclick="darkTheme()">Dark Theme</button>
-            <br>
-            <button onclick="gameData.plantLoadingBars = !gameData.plantLoadingBars; this.textContent = `Plant loading bars ${gameData.plantLoadingBars ? 'on' : 'off'} - click to toggle, reload to see effect`">Toggle plant loading bars (reload to see effect)</button>
-
-
-            <div class="import-export">
-               <div onclick="exportData()">
-                  <img src="Images/General/export-save.svg" alt="Import">
-                  <h2>EXPORT SAVE</h2>
-                  <p>So you can save it or use it somewhere else</p>
-                  <textarea style="display: none;" class="exportdata"></textarea>
-               </div>
-               <div onclick="importData()">
-                  <img src="Images/General/import-save.svg" alt="Import">
-                  <h2>IMPORT SAVE</h2>
-                  <p>Bring in one of your saves, wiping your current one</p>
-               </div>
-            </div>
-            <br><br>
-            <div class="version-info">
-               <h4>Version 0.1.5</h4>
-               <p>patch 1 -> Fixed market image, typos</p>
+            <div class="settings-content">
+               <button class="setting-button" onclick="restart()">Reset save</button><br>
+               <button class="setting-button theme-clr" onclick="lightTheme()">Light Theme</button>
+               <button class="setting-button theme-clr" onclick="darkTheme()">Dark Theme</button>
                <br>
-               <p>last updated -> July 20 2023</p>
+               <button class="setting-button" id="toggleBlurButton" onclick="toggleBlur()">Toggle Blur</button>
+               <br>
+               <button class="setting-button"
+                  onclick="gameData.plantLoadingBars = !gameData.plantLoadingBars; this.textContent = `Plant loading bars ${gameData.plantLoadingBars ? 'on' : 'off'} - click to toggle, reload to see effect`">Toggle
+                  plant loading bars <br><span style="font-size: .7em;">(reload to see effect)</span></button>
+
+
+               <div class="import-export">
+                  <div class="import-export-element" onclick="exportData()">
+                     <img src="images/General/export-save.svg" alt="Export">
+                     <div>
+                        <h2>EXPORT SAVE</h2>
+                        <p>So you can save it or use it somewhere else</p>
+                        <textarea style="display: none;" class="exportdata"></textarea>
+                     </div>
+                  </div>
+                  <div class="import-export-element" onclick="importData()">
+                     <img src="images/General/import-save.svg" alt="Import">
+                     <div>
+                        <h2>IMPORT SAVE</h2>
+                        <p>Bring in one of your saves, wiping your current one</p>
+                     </div>
+                  </div>
+               </div>
+               <div>
+                  <h4>Version 0.2.0</h4>
+                  <p>- move to new grid system</p>
+                  <p>- add inventory for storing buildings</p>
+                  <p>- plots and fertilizer bag are now buildings</p>
+                  <p>- buy decorations from the store</p>
+                  <p>- message advising old players to reset</p>
+                  <p>- remove drag to harvest</p>
+                  <p>- many style improvements</p>
+                  <p>- almanac only shown when plot is empty</p>
+                  <p>- progress bars only show while plant is growing</p>
+                  <p>- plots update as soon as the page loads</p>
+                  <p>- fertilizer less effective</p>
+                  <p>Note: old exports will no longer work</p>
+                  <br>
+                  <p>last updated -> June 12 2025</p>
+               </div>
+               <br>
             </div>
          </div>
       </div>
@@ -245,11 +278,11 @@
                   <!-- <p class="BM-menu-item" style="color: #666">Selling: <br> <i>Coming Soon!</i></p> -->
                   <p class="doughnuts-in-bm"></p>
                   <div class="BM-menu-item BM-doughnuts"  onclick="feedPolice()">
-                     <img class="black-doughnut" src="Images/Market/doughnut.png">
+                     <img class="black-doughnut" src="images/Market/doughnut.png">
                      <p>Use Doughnut</p>
                   </div>
                   <div class="BM-menu-bottom">
-                     <p class="BM-menu-item" style="font-size: 3vh"><i>Tip:</i> Doughnuts reset the chance that the police will catch you. Current Chance: <span class="police-chance"></span></p>   
+                     <p class="BM-menu-item" style="font-size: 3vh"><i>Tip:</i> Doughnuts reset the chance that the police will catch you. Current Chance: <span class="police-chance"></span></p>
                   </div>
                </div>
                <div class="BM-offerbox">
@@ -272,177 +305,31 @@
             <div class="tab-bar">
                <div class="tab tab-shop tab-shop-seeds active-tab" onclick="scrollToShopSection('shop', 'seeds')">Seeds</div>
                <div class="tab tab-shop tab-shop-plots" onclick="scrollToShopSection('shop', 'plots')">Plots</div>
+               <div class="tab tab-shop tab-shop-decorations" onclick="scrollToShopSection('shop', 'decorations')">Decorations</div>
                <span class="window-close" onclick="toggleWindow('shop'); gameData.panels.shop = false;">x</span>
             </div>
             <div class="tab-pages">
                <div class="page" id="page-shop-seeds">
-                  <h1 class="big-title">Purchase New Plants</h1>
+                  <h1 class="big-title">Purchase Plant Seeds</h1>
                   <div class="buy-plots-seeds">
                      <img class="buy-seeds-image">
                      <button class="buy-seeds-button"></button>
                   </div>
                </div>
                <div class="page" id="page-shop-plots">
-                  <h1 class="big-title">Purchase New Plots</h1>
+                  <h1 class="big-title">Purchase Plots</h1>
                   <div class="buy-plots-seeds">
                      <img class="buy-plots-image">
                      <button class="buy-plots-button"></button>
                   </div>
                </div>
+               <div class="page" id="page-shop-decorations">
+                  <h1 class="big-title">Decorations</h1>
+                  <div class="decoration-items"></div>
+               </div>
             </div>
          </div>
       </div>
-      <!-- Gene lab -->
-      <!-- <link rel="stylesheet" href="Styles/genes.css">
-      <div class="tab-window-backdrop window-genelab">
-   <div class="tab-window">
-      <div class="tab-bar">
-         <div class="tab tab-genelab tab-genelab-peas active-tab" onclick="scrollToSection('genelab', 'peas')">Peas</div>
-         <div class="tab tab-genelab tab-genelab-corn" onclick="scrollToSection('genelab', 'corn')">Corn</div>
-         <span class="window-close" onclick="toggleWindow('genelab'); gameData.panels.genelab = false;">x</span>
-      </div>
-      <div class="tab-pages">
-         <div class="page" id="page-genelab-peas">
-            <h1 class="big-title">Peas</h1>
-            <ul class="tree">
-               <li>
-                  <div class="trait">
-                     <div class="trait-img-parent">
-                        <img src="">
-                     </div>
-                     <div class="trait-about">
-                        <p class="trait-name">Head</p>
-                        <p class="trait-info">holds links and title</p>   
-                     </div>
-            </div>
-                  <ul>
-                     <li>
-                        <div class="trait">
-                           <div class="trait-img-parent">
-                              <img class="trait-img" src="Images/New/dna.png">
-                           </div>
-                           <div class="trait-about">
-                              <p class="trait-name">Head</p>
-                              <p class="trait-info">holds links and title</p>
-                           </div>
-                        </div>
-                        <ul>
-                           <li>
-                              <div class="trait">
-                                 <div class="trait-img-parent">
-                                    <img src="">
-                                 </div>
-                                 <div class="trait-about">
-                                    <p class="trait-name">Head</p>
-                                    <p class="trait-info">holds links and title</p>   
-                                 </div>
-                              </div>
-                           </li>
-                        </ul>
-                     </li>
-                     <li><code>body</code>
-                        <ul>
-                           <li>
-                              <div class="trait">
-                                 <div class="trait-img-parent">
-                                    <img src="">
-                                 </div>
-                                 <div class="trait-about">
-                                    <p class="trait-name">Head</p>
-                                    <p class="trait-info">holds links and title</p>   
-                                 </div>
-                              </div>
-                              <ul>
-                                 <li>
-                                    <div class="trait">
-                                       <div class="trait-img-parent">
-                                          <img src="">
-                                       </div>
-                                       <div class="trait-about">
-                                          <p class="trait-name">Head</p>
-                                          <p class="trait-info">holds links and title</p>   
-                                       </div>
-                                    </div>
-                                 </li>
-                                 <li>
-                                    <div class="trait">
-                                       <div class="trait-img-parent">
-                                          <img src="">
-                                       </div>
-                                       <div class="trait-about">
-                                          <p class="trait-name">Head</p>
-                                          <p class="trait-info">holds links and title</p>   
-                                       </div>
-                                    </div>
-                                 </li>
-                              </ul>
-                           </li>
-                           <li><code>nav</code>
-                              <ul>
-                                 <li><code>a</code></li>
-                                 <li><code>a</code></li>
-                                 <li><code>a</code></li>
-                                 <li><code>a</code></li>
-                              </ul>
-                           </li>
-                           <li><code>main</code>
-                              <ul>
-                                       <li><code>h1</code></li>
-                                       <li><code>article</code>
-                                           <ul>
-                                               <li><code>h2</code></li>
-                                               <li><code>p</code></li>
-                                               <li><code>p</code></li>
-                                           </ul>
-                                       </li>
-                                   </ul>
-                               </li>
-                               <li><code>aside</code>
-                                   <ul>
-                                       <li><code>h2</code></li>
-                                       <li><code>p</code></li>
-                                       <li><code>p</code>
-                                           <ul>
-                                               <li><code>a</code></li>
-                                           </ul>
-                                       </li>
-                                   </ul>
-                               </li>
-                               <li><code>footer</code>
-                                   <ul>
-                                       <li><code>nav</code>
-                                           <ul>
-                                               <li><code>a</code></li>
-                                               <li><code>a</code></li>
-                                               <li><code>a</code></li>
-                                               <li><code>a</code></li>
-                                           </ul>
-                                       </li>
-                                   </ul>
-                               </li>
-                           </ul>
-                       </li>
-                   </ul>
-               </li>
-           </ul>
-         </div>
-         <div class="page" id="page-genelab-corn">
-            <h1 class="big-title">Corn</h1>
-         </div>
-      </div>
-   </div>
-      </div> -->
-      <!--
-         Here's some things to do:
-         - fix tree design
-         - only show tab if plant is unlocked
-         - lina tasks
-         - lina chat system
-         - integrate trait benifits
-         - upgrade traits (takes time)
-         - images
-      -->
-
       <!-- Weather -->
       <div class="weather-short">
          <div class="weather-img"></div>
@@ -452,91 +339,70 @@
          <div onmouseover="info(this)" data-info="Last Weather" class="weather-last"></div>
          <div onmouseover="info(this)" data-info="Next Weather" class="weather-next"></div>
       </div>
+      <div class="plant-harvest-luck">
+         <span style="display: none;">
+            <div class="fade-text">This text is fading</div>
+         </span>
+      </div>
       <!-- Context menu -->
       <div id="menu">
-         <li class="menu-links"><a href="https://hnasheralneam.github.io">About Editor Rust</a></li>
-         <li class="menu-links"><a href="https://hnasheralneam.github.io/gold-rush/">Gold Rush!</a></li>
+         <li class="menu-links"><a href="https://hnasheralneam.dev">About Hamza</a></li>
+         <li class="menu-links"><a href="https://mediumrare.hnasheralneam.dev">Medium Rare!</a></li>
          <hr>
          <li class="menu-links"><a href="https://github.com/hnasheralneam/vegetable-dash">GitHub</a></li>
          <li><a href="mailto:hnasheralneam@gmail.com">Support</a></li>
-         <li>Version 0.1.5</li>
+         <li>Version 0.2.0</li>
       </div>
       <!-- Quick info menu -->
       <div class="qIM">
          <div class="vegAmount doughnutsDisplay">
             <span class="doughnuts">0</span>
-            <img class="produce-image" src="Images/Market/doughnut.png"><br>
+            <img class="produce-image" src="images/Market/doughnut.png"><br>
          </div>
          <div class="vegAmount peasDisplay">
             <span class="peas">0</span>
-            <img class="produce-image" src="Images/Vegetables/peas.png"><br>
+            <img class="produce-image" src="images/Vegetables/peas.png"><br>
          </div>
          <div class="vegAmount cornDisplay">
             <span class="corn">0</span>
-            <img class="produce-image" src="Images/Vegetables/corn.png"><br>
+            <img class="produce-image" src="images/Vegetables/corn.png"><br>
          </div>
          <div class="vegAmount strawberriesDisplay">
             <span class="strawberries">0</span>
-            <img class="produce-image" src="Images/Vegetables/strawberries.png"><br>
+            <img class="produce-image" src="images/Vegetables/strawberries.png"><br>
          </div>
          <div class="vegAmount eggplantsDisplay">
             <span class="eggplants">0</span>
-            <img class="produce-image" src="Images/Vegetables/eggplants.png"><br>
+            <img class="produce-image" src="images/Vegetables/eggplants.png"><br>
          </div>
          <div class="vegAmount pumpkinsDisplay">
             <span class="pumpkins">0</span>
-            <img class="produce-image" src="Images/Vegetables/pumpkin.svg"><br>
+            <img class="produce-image" src="images/Vegetables/pumpkin.svg"><br>
          </div>
          <div class="vegAmount cabbageDisplay">
             <span class="cabbage">0</span>
-            <img class="produce-image" src="Images/Vegetables/cabbage.svg"><br>
+            <img class="produce-image" src="images/Vegetables/cabbage.svg"><br>
          </div>
          <div class="vegAmount dandelionDisplay">
             <span class="dandelion">0</span>
-            <img class="produce-image" src="Images/Vegetables/dandelion.png"><br>
+            <img class="produce-image" src="images/Vegetables/dandelion.png"><br>
          </div>
          <div class="vegAmount rhubarbDisplay">
             <span class="rhubarb">0</span>
-            <img class="produce-image" src="Images/Vegetables/rhubarb.png"><br>
+            <img class="produce-image" src="images/Vegetables/rhubarb.png"><br>
          </div>
       </div>
       <!-- Notifications -->
       <div class="alert-box"><div class="alert alert-cominin">Game Saved!</div></div>
-      <!-- Intro content -->
-      <div class="introDarkShadow">
-         <div class="intro-container">
-            <img class="intro-img" src="Images/Tasks/farmer.svg">
-            <img class="intro-divide" src="Images/Tasks/gold-separator.png">
-            <p class="intro-text">Hello there! I'm Farmer Jebediah, and I have a favor to ask. I just got this new piece of land, and I was hoping you could work it.</p>
-            <span onclick="intro()" class="intro-nxt-btn">&#10230;</span>
-         </div>
-      </div>
-      <!-- Intro page -->
-      <div class="welcome">
-         <div class="welcome-content">
-            <h1>Welcome to Vegetable Dash!</h1>
-            <p class="wlcm-choice">Take a short tour, or figure it out on your own: The choice is yours. Keep in mind you can check the Help Center (top left corner) at any time.</p>
-            <button class="welcome-btn-one" onclick="goIntro();">Take  <br> a quick <br>  tour</button>
-            <button class="welcome-btn-two" onclick="hideObj('.welcome');">Start <br> straight <br> away</button>
-            <div>
-               <p>Questions? Comments? Suggestions? Having trouble? Please contact <a href="mailto:hnasheralneam@gmail.com">hnasheralneam@gmail.com</a></p>
-               <p>Disclaimer: While the game may be called Vegetable Dash, some plants may not be botanical vegetables, such as peas and corn.</p>
-            </div>
-         </div>
-      </div>
    </body>
-   <script src="Scripts/helpfulFunctions.js"></script>
-
-   <script src="Scripts/main.js"></script>
-
-   <script src="Scripts/updateDisplay.js"></script>
-
-   <script src="Scripts/marketLogic.js"></script>
-   <script src="Scripts/growthLogic.js"></script>
-   <script src="Scripts/taskLogic.js"></script>
-   <script src="Scripts/introLogic.js"></script>
-   <script src="Scripts/weatherLogic.js"></script>
-
+   <script src="scripts/functions.js"></script>
+   <script src="scripts/main.js"></script>
+   <script src="scripts/display.js"></script>
+   <script src="scripts/grid.js"></script>
+   <script src="scripts/market.js"></script>
+   <script src="scripts/plot.js"></script>
+   <script src="scripts/tasks.js"></script>
+   <script src="scripts/weather.js"></script>
    <!-- Analytics -->
    <script defer src="https://umami.hnasheralneam.dev/script.js" data-website-id="cbd99b3a-4c5b-4281-bf61-f44999ec2cf7"></script>
 </html>
