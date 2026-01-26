@@ -345,23 +345,23 @@
    display: none;
    margin: 2vh;
    padding: 2vh;
-   background-color: #fff;
+   background-color: var(--theme-color);
+   color: var(--text-color);
    border-radius: var(--border-radius);
-   box-shadow: 0 0 .4vh #bbb;
 }
 
 .buy-plots-seeds img {
    display: block;
    height: 40vh;
-   background-color: #f5f5f5;
+   background-color: #66666666;
    border-radius: var(--border-radius);
 }
 
 .buy-plots-seeds button {
    margin: 2vh 0 0 0;
-   background-color: #f5f5f5;
-   color: #222;
+   background-color: #66666666;
    border: none;
+   color: var(--text-color);
    width: 100%;
    border-radius: var(--border-radius);
    box-sizing: border-box;

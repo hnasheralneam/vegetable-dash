@@ -164,8 +164,8 @@ summary:focus { outline: none; }
 }
 
 .main-values-inner {
-   margin-top: -1vh;
-   padding: .75rem 2rem;
+   margin-top: -.3rem;
+   padding: .5rem 1.5rem;
    background-color: var(--background-blurbox-color);
    border-radius: 0 0 var(--border-radius) var(--border-radius);
    display: inline-block;
@@ -179,15 +179,15 @@ summary:focus { outline: none; }
 }
 
 .main-values-inner:hover {
-   margin-top: 1vh;
+   margin-top: .3rem;
    border-radius: var(--border-radius);
    box-shadow: 0 0 .4rem #00000080;
 }
 
 .main-values-inner img {
    display: inline;
-   margin: 0 0 -1.5vh .5vh;
-   height: 2.8rem;
+   margin: 0 0 -.65rem .5rem;
+   height: 2.4rem;
    transform: scale(.8);
 }
 
@@ -376,12 +376,12 @@ summary:focus { outline: none; }
    z-index: 90;
    display: none;
    font-family: "Nunito";
-   font-size: 3vh;
+   font-size: 1.6rem;
    background-color: var(--background-blurbox-color);
    backdrop-filter: blur(var(--blur-amount));
    color: var(--text-color);
    border-radius: var(--border-radius);
-   padding: 1.5rem 2rem;
+   padding: .9rem 1.6rem;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -408,10 +408,10 @@ summary:focus { outline: none; }
 .big-title {
    text-align: center;
    text-transform: uppercase;
-   font-size: 8vh;
+   font-size: 1.6rem;
    margin-bottom: 3vh;
    color: #8bf9c2;
-   text-shadow: .5vh .5vh #44a89b;
+   text-shadow: .15rem .15rem #44a89b;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -430,7 +430,7 @@ summary:focus { outline: none; }
    border-radius: var(--border-radius);
    box-shadow: 0 0 .5em #22222244;
    padding: 1vh 3vh;
-   transition: .2s;
+   transition: .5s;
    font-family: "Nunito";
 }
 .produce-tooltip {
@@ -450,13 +450,14 @@ summary:focus { outline: none; }
 .produce-tooltip .tooltip-text {
    position: absolute;
    opacity: 0;
+   min-width: 14rem;
    pointer-events: none;
-   width: 25rem;
    background-color: var(--theme-color);
    border-radius: var(--border-radius);
-   padding: .5vh 0;
-   font-size: 3vh;
+   padding: .5rem 0;
+   font-size: 1.7rem;
    color: var(--text-color);
+   text-align: right;
    top: -1vh;
    right: 8rem;
    z-index: 1;
@@ -464,10 +465,8 @@ summary:focus { outline: none; }
    transition-delay: .2s;
 }
 .produce-tooltip .tooltip-text-produce {
-   min-width: 300px;
-   max-width: 500px;
    height: auto;
-   padding: 1.5rem 2rem;
+   padding: 1rem;
 }
 .produce-tooltip:hover .tooltip-text {
    opacity: 1;
@@ -488,11 +487,12 @@ summary:focus { outline: none; }
    outline: none;
    border: none;
    padding: 0;
+   z-index: 10;
    transition: .2s;
 }
 
 .almanac {
-   height: 6.5vh;
+   height: 3.5rem;
 }
 
 .almanac:hover {
@@ -502,19 +502,21 @@ summary:focus { outline: none; }
 
 .shop-window {
    position: absolute;
-   top: 0;
-   right: 0;
-   bottom: 0;
-   height: 0;
-   width: 8vh;
-   text-align: center;
-   background-color: var(--background-blurbox-color);
-   backdrop-filter: blur(var(--blur-amount));
-   border-radius: calc(var(--border-radius) / 2);
+   inset: 0;
+   background-image: url("../images/General/paper.png");
+   background-size: cover;
+   transition: all .35s ease;
    list-style-type: none;
-   overflow-y: scroll;
-   transition: all .7s ease;
    z-index: 4;
+   opacity: 0;
+   visibility: hidden;
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   padding: 1rem;
+}
+.shop-window.open {
+   opacity: 1;
+   visibility: visible;
 }
 .shop-window li {
    margin: 1.2vh;
@@ -549,13 +551,12 @@ summary:focus { outline: none; }
    "a b"
    "d d"
    "c c";
-   transition: .6s;
-   transition-delay: .3s;
+   transition: .5s;
    backdrop-filter: blur(var(--blur-amount));
 }
 .weather-short:hover {
    height: 50vh;
-   width: 35vh;
+   width: 40vh;
 }
 .weather-short .weather-img {
    grid-area: a;

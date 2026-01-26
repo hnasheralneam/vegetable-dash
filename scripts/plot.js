@@ -48,9 +48,9 @@ function createPlotHandler(id) {
          <img src="images/Icons/clock.svg">
       </div>
       <img src="images/Vegetables/${data.plant}.png" class="veg-icon plant-icon-${id}" src="images/Vegetables/${data.plant}.png">
-      <button class="almanacBtn almanac${id}"><img src="images/General/almanac.png" class="almanac"></button>
       <button class="btn${id} btn"></button>
-      <ul class="shop-window" id="shop${id}"></ul>
+      <div class="shop-window" id="shop${id}"></div>
+      <button class="almanacBtn almanac${id}"><img src="images/General/almanac.png" class="almanac"></button>
    `;
    let button = plotBody.querySelector(`.btn${id}`);
    button.onclick = () => { tendTo(id, data.plant); };
@@ -90,16 +90,16 @@ function isGrowing(status) {
 }
 
 function toggleAlmanac(index) {
-   if (document.getElementById(`shop${index}`).style.height === "100%") {
-      document.getElementById(`shop${index}`).style.height = "0";
+   if (document.getElementById(`shop${index}`).classList.contains("open")) {
+      document.getElementById(`shop${index}`).classList.remove("open");
    } else {
-      document.getElementById(`shop${index}`).style.height = "100%";
+      document.getElementById(`shop${index}`).classList.add("open");
    }
 }
 
 function tendTo(id, veg) {
    let data = getPlotData(id);
-   document.getElementById(`shop${id}`).style.height = "0";
+   document.getElementById(`shop${id}`).classList.remove("open");
    document.querySelector(`.almanac${id}`).disabled = true;
    document.querySelector(`.almanac${id}`).style.opacity = "0";
    // Harvest

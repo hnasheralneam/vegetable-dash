@@ -90,7 +90,7 @@ function updateVeg(veg) {
    });
    let displays = document.querySelectorAll(`.${veg}`);
    displays.forEach((val, i, arr) => {
-      document.querySelectorAll(`.${veg}`)[i].textContent = `${toWord(gameData[veg], "short")} Bushels of ${capitalize(veg)}`;
+      document.querySelectorAll(`.${veg}`)[i].textContent = `${toWord(gameData[veg], "short")} ${capitalize(veg)}`;
    });
    // Update vegetable values in market
    if (document.querySelector(`.${veg}-market-item`)) document.querySelector(`.${veg}-market-item`).textContent = `${capitalize(veg)} \r\n ${toWord(gameData[veg])}`;

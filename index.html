@@ -69,6 +69,10 @@
          <div class="produce-tooltip produce-tooltip-barrel">
             <img class="toolbar-img" src="images/Icons/barrel.svg">
             <span class="tooltip-text tooltip-text-produce">
+               <div style="text-align: center;">
+                  <span>Bushels</span>
+               </div>
+
                <div class="vegAmount peasDisplay">
                   <span class="peas" id="peaBushels">0</span>
                   <img class="produce-image" src="images/Vegetables/peas.png"><br>
@@ -300,13 +304,13 @@
          </div>
       </div>
       <!-- Shop -->
-      <div class="tab-window-backdrop window-shop">
+      <div class="shadow window-shop">
          <div class="tab-window">
             <div class="tab-bar">
                <div class="tab tab-shop tab-shop-seeds active-tab" onclick="scrollToShopSection('shop', 'seeds')">Seeds</div>
                <div class="tab tab-shop tab-shop-plots" onclick="scrollToShopSection('shop', 'plots')">Plots</div>
                <div class="tab tab-shop tab-shop-decorations" onclick="scrollToShopSection('shop', 'decorations')">Decorations</div>
-               <span class="window-close" onclick="toggleWindow('shop'); gameData.panels.shop = false;">x</span>
+               <span class="close" onclick="toggleWindow('shop'); gameData.panels.shop = false;">×</span>
             </div>
             <div class="tab-pages">
                <div class="page" id="page-shop-seeds">

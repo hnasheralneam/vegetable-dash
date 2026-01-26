@@ -557,12 +557,18 @@ function inventoryBar(whatToDo) {
       document.querySelector(".inventoryShadow").style.display = "block";
       gameData.panels.inventory = true;
       makeGridItemsInteractive(true);
+      document.querySelector(".grid-grandparent").style.justifyContent = "end";
+      hideObj(".toolbar");
+      hideObj(".weather-short");
    }
    else if (whatToDo === "open") {
       document.querySelector(".inventory-grandparent").style.left = "-28rem";
       document.querySelector(".inventoryShadow").style.display = "none";
       gameData.panels.inventory = false;
       makeGridItemsInteractive(false);
+      document.querySelector(".grid-grandparent").style.justifyContent = "center";
+      showObj(".toolbar");
+      showObj(".weather-short");
    }
 }
 

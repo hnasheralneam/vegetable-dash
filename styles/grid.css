@@ -4,7 +4,7 @@
 
 .grid-grandparent {
    position: relative;
-   margin: 3vh auto;
+   margin: 3vh 2rem;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -58,21 +58,6 @@
 
 .preview-empty {
    background-color: #44ff00;
-}
-
-.grid-controls {
-   position: absolute;
-   bottom: 0;
-   right: 0;
-   margin: 5px;
-}
-
-.grid-controls button {
-   height: 35px;
-   width: 35px;
-   font-size: 1.2rem;
-   background: #ddd;
-   border: none;
 }
 
 .grid ::-moz-selection {
