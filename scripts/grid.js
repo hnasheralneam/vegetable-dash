@@ -96,6 +96,13 @@ document.body.addEventListener("mouseup", (e) => {
          }
       }
       function storeItem() {
+         // Clean up interval if building is a plot
+         if (activeBuilding.handle === "plot" && plantGrowthLoops[activeBuilding.id]) {
+            clearInterval(plantGrowthLoops[activeBuilding.id]);
+            delete plantGrowthLoops[activeBuilding.id];
+         }
+
+         // Add to storage, remove physical element
          GridSaveManager.incrementInventoryItem(activeBuilding.handle);
          GridSaveManager.removeGridItem(activeBuilding.id);
          postMoveCleanup();

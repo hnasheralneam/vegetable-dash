@@ -38,7 +38,6 @@ function loadSave() {
 }
 
 // Declare the varibles
-let randomWeatherNum = (Math.random()).toFixed(2);
 let offerVeg = { vegetable: null, worth: null, amount: null, totalVal: null };
 let costVeg = { vegetable: null, worth: null, amount: null, totalVal: null };
 let rightClickMenu = document.querySelector("#menu").style;
@@ -346,23 +345,22 @@ function blackMarketLuck() {
 function luckyRoll() {
    let vegLost = gameData.plantSeeds[Math.floor(Math.random() * gameData.plantSeeds.length)];
    let amountLost = Math.floor(gameData[vegLost] / 3);
-   if (Math.random() < .08) {
-      gameData[vegLost] -= amountLost;
-      updateVeg(vegLost);
-      notify(`A pirate has pillaged your plots! You lost ${amountLost} of your ${vegLost}!`);
-    }
-    if (Math.random() < .02) {
+   if (Math.random() < .02) {
       gameData[vegLost] -= amountLost;
       updateVeg(vegLost);
       notify(`A hacker has hacked your account (not really)! You lost ${amountLost} of your ${vegLost}!`);
-    }
+   } else if (Math.random() < .08) {
+      gameData[vegLost] -= amountLost;
+      updateVeg(vegLost);
+      notify(`A pirate has pillaged your plots! You lost ${amountLost} of your ${vegLost}!`);
+   }
 }
 
 // Weeds
 function addWeed(check) {
    let weedBoxHeight = document.querySelector(".grid-grandparent").clientHeight;
    let weedBoxWidth = document.querySelector(".grid-grandparent").clientWidth;
-   let weed = document.querySelector(".weed").cloneNode();
+   let weed = document.querySelector(".weed").cloneNode(true);
    document.querySelector(".grid-grandparent").appendChild(weed);
    let randomtop = (Math.floor(Math.random() * weedBoxHeight) - 25);
    let randomleft = (Math.floor(Math.random() * weedBoxWidth) - 25);

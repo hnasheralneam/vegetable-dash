@@ -2,26 +2,21 @@
 // Weather
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function weatherChance(min, max) {
-   let value = {};
-   for (i = min; i < max; i += .01) {
-      if (randomWeatherNum === i.toFixed(2)) { value[i] = true; }
-      else { value[i.toFixed(2)] = false; }
-   }
-   return !Object.keys(value).every((k) => !value[k]);
+function weatherChance(rand, min, max) {
+   return min <= rand && rand < max;
 }
 
 function chooseWeather() {
-   randomWeatherNum = (Math.random()).toFixed(2);
-   if (weatherChance(0, .15) === true) { gameData.nextWeather = "sunny"; }
-   if (weatherChance(.15, .30) === true) { gameData.nextWeather = "rainy"; }
-   if (weatherChance(.30, .55) === true) { gameData.nextWeather = "partlySunny"; }
-   if (weatherChance(.55, .80) === true) { gameData.nextWeather = "partlyCloudy"; }
-   if (weatherChance(.80, .85) === true) { gameData.nextWeather = "snowy"; }
-   if (weatherChance(.85, .93) === true) { gameData.nextWeather = "cloudy"; }
-   if (weatherChance(.93, .95) === true) { gameData.nextWeather = "frost"; }
-   if (weatherChance(.95, 1.01) === true) { gameData.nextWeather = "flood"; }
-   if (gameData.weather === "snowy" || "frost" || "flood") { gameData.hasBeenPunished = false; }
+   let rand = (Math.random()).toFixed(2);
+   if (weatherChance(rand, 0, .15)) { gameData.nextWeather = "sunny"; }
+   if (weatherChance(rand, .15, .30)) { gameData.nextWeather = "rainy"; }
+   if (weatherChance(rand, .30, .55)) { gameData.nextWeather = "partlySunny"; }
+   if (weatherChance(rand, .55, .80)) { gameData.nextWeather = "partlyCloudy"; }
+   if (weatherChance(rand, .80, .85)) { gameData.nextWeather = "snowy"; }
+   if (weatherChance(rand, .85, .93)) { gameData.nextWeather = "cloudy"; }
+   if (weatherChance(rand, .93, .95)) { gameData.nextWeather = "frost"; }
+   if (weatherChance(rand, .95, 1.01)) { gameData.nextWeather = "flood"; }
+   if (["snowy", "frost", "flood"].includes(gameData.weather)) { gameData.hasBeenPunished = false; }
    weatherEffects();
    updateWeatherDisplay();
 }

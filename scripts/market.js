@@ -180,7 +180,7 @@ function feedPolice() {
       updateDoughnuts();
       gameData.black.catchChance = .02;
       updatePoliceChance();
-      fadeTextAppear(`-1 Doughnut`, false, "#de0000");
+      fadeTextAppear(`-1 Doughnut`, "#de0000");
       checkTasks("shade2");
    }
    else { fadeTextAppear(`Not enough doughnuts -  you have none`, "#de0000"); }

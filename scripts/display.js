@@ -35,11 +35,9 @@ function updateWeatherDisplay() {
 
 // Fertilizer
 function updateFertilizer() {
-   setInterval(() => {
-      if (document.querySelector("#fertilizer")) {
-         document.querySelector("#fertilizer").dataset.info = `${Math.round(gameData.fertilizers)} bags of Fertilizers <br> Click + Place to apply`;
-      }
-   }, 1000);
+   if (document.querySelector("#fertilizer")) {
+      document.querySelector("#fertilizer").dataset.info = `${Math.round(gameData.fertilizers)} bags of Fertilizers <br> Click + Place to apply`;
+   }
 }
 
 // Black Market

@@ -92,21 +92,21 @@ let shopDecorations = [
       // fetch image from building
       // fetch size from building
       description: "A beautiful fountain to make your farm more delightful.",
-      cost: "800"
+      cost: 800
    },
    {
       handle: "bush",
       description: "A simple bush, perfect for use in the construction of a shrubbery.",
-      cost: "150"
+      cost: 150
    },
    {
       handle: "tree",
       description: "A tree I found, it has leaves and wood and roots and everything.",
-      cost: "650"
+      cost: 650
    },
    {
       handle: "pumpkinplant",
       description: "A pleasant pumpkin plant, ripe with orange pumpkins, perfect for adding a dot of color to your farm.",
-      cost: "1200"
+      cost: 1200
    }
 ];

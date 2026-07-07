@@ -17,6 +17,8 @@ class Plot {
    }
 }
 
+let plantGrowthLoops = { };
+
 function getPlot(id) {
    return gridBuildings.find((item) => item.id === id);
 }
@@ -171,7 +173,10 @@ function plantGrowthLoop(id) {
    let urls = gameInfo[plant + "URLs"];
    let plotImg = document.querySelector(`#plot${id}`).style;
    let buttton = document.querySelector(`.btn${id}`);
+
+   if (plantGrowthLoops[id]) clearInterval(plantGrowthLoops[id]);
    let growthLoop = setInterval(updatePlantGrowth, 1000);
+   plantGrowthLoops[id] = growthLoop;
 
    buttton.textContent = `Harvest ${plant}!`;
    hideObj(`.btn${id}`);
@@ -241,7 +246,7 @@ function updateLoadbar(id) {
 
    let growthTime = gameInfo[`${data.plant}Time`][2];
    let finishTime = data.status;
-   percentThrough = calcPercentThroughGrowth(growthTime, finishTime);
+   let percentThrough = calcPercentThroughGrowth(growthTime, finishTime);
 
    document.querySelector(`.plant-progress-${id}`).style.opacity = "1";
    progressEl.style.width = percentThrough + "%";
